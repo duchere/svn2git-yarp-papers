@@ -102,6 +102,16 @@ long:
 	cp defs-epi.tex defs.tex
 	make bounce
 
+commit:
+	cvs commit -m "Makefile-generated commit"
+
+c: commit
+
+update:
+	cvs update
+
+u: update
+
 # only works on a sun, with distill installed
 pdf: $(MAIN).pdf
 
