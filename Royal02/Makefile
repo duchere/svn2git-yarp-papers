@@ -59,8 +59,9 @@ all: $(MAIN).dvi
 	bibtex $*
 
 %.pdf: %.ps
-	ps2pdf $< $@
-#	distill -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
+#	ps2pdf $< $@
+#	distill for a4 paper
+	distill -pagesize 21 29.7 cm -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
 
 dd: $(MAIN).dvi
 	xdvi $(MAIN).dvi
@@ -102,7 +103,7 @@ force:
 	latex $(MAIN).tex
 
 $(MAIN).ps: $(MAIN).dvi
-	dvips -f $< > $@
+	dvips -Pcmz -f $< > $@
 
 short:
 	cp defs-iros.tex defs.tex

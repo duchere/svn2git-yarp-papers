@@ -1,5 +1,3 @@
-[my comments marked with *** or !!!]
-[!!! means "pending" -- not done yet]
 
 REVIEWER 1
 ==========
@@ -16,13 +14,12 @@ However the paper is unclear on many points.
 - The term "grounding vision" is not explained in the paper, so it is
 difficult for the reader to evaluate the contributions of the paper.
 
-*** Terminology problem, "grounding" is widely used term in robotics.
 *** FIX: added text in section 3, paragraph 2 (addition in capitals here):
-***   "Figure [fig] illustrates three levels of causal complexity
+***   "Figure 3 illustrates three levels of causal complexity
 ***    we would like our robot to probe, SO 
 ***    THAT IT CAN DEVELOP ROBUST, EMPIRICALLY FOUNDED
 ***    REPRESENTATIONS OF THE WORLD AROUND IT
-***    (OFTEN REFERRED TO AS ``GROUNDED'' REPRESENTATIONS [CITATION]).
+***    (OFTEN REFERRED TO AS "GROUNDED" REPRESENTATIONS [BROOKS, 1990])."
 
 
 - The target audience is unclear.  For instance, in section 1, it is
@@ -55,17 +52,19 @@ problems in machine vision" without making them explicit.
 - The statement that vision is full of illusions (p.2) is true in a
 philosophical sense, and in some specially designed experiments.  However,
 everyday vision is very effective at correctly recognizing objects, even
-with few cues.  Hence, the "crucial" contribution of tapping an object
-(p.3) is a little bit overstated.
+with few cues.  
 
-*** Terminology problem: reviewer interprets illusion in narrow technical
+*** Reviewer interprets illusion in narrow technical
 *** sense, authors intended it in sense used by source quoted (Berkeley 1972)
 *** FIX: replaced word "illusion" with "ambiguity" in final paragraph
 *** of section 2:
 ***    "... while it is true that vision is full of AMBIGUITY, this
 ***     AMBIGUITY evaporates when the robot can reach out..."
 
-*** Context problem: "crucial" contribution of poking is not in
+Hence, the "crucial" contribution of tapping an object
+(p.3) is a little bit overstated.
+
+*** "crucial" contribution of poking is not in
 *** mature, everyday vision, but during development, when vision
 *** is immature and more in need of guidance.
 *** FIX: added text to section 3 paragraph 1:
@@ -82,19 +81,19 @@ repeated many times, one can determine the probability that the object
 rolls by a given angle.  Is the probability graph the representation of
 the object?  
 
-*** Very reasonable point of clarification
 *** FIX: added text to section 9 (was 10).  New paragraph, paragraph 4.
+
 ***    "At the end of the learning procedure the robot has built a
 ***     representation of each object in terms of:
 ***     + Pictorial information in the form of colour histograms,
-***     following [CITATION].
+***     following [Swain and Ballard, 1991].
 ***     + A measure of the average area of the object, an
 ***       index of the elongation of the object with respect to 
-***       its principal axis, and a set of Hu moments [CITATION].
+***       its principal axis, and a set of Hu moments (Hu, 1962).
 ***     + Detailed histograms of the displacement of the object 
 ***       given that a particular motor primitive was used with
 ***       respect to the initial orientation of the object.
-***     + The summary histograms shown in Figure 14
+***     + The summary histograms shown in Figure 12
 ***       which capture the overall response of each object to poking."
 
 
@@ -104,7 +103,7 @@ details are given.
 *** FIX: clarified text in section 9 (was 10), paragraph 6 (was paragraph 4)
 *** and added citation to Swain&Ballard:
 ***    "based on the same COLOUR HISTOGRAM PROCEDURE used 
-***     during training [CITATION]"
+***     during training [Swain and Ballard, 1991]"
 
 
 Maybe the whole process of building a representation
@@ -152,7 +151,8 @@ to be active when observing manipulation tasks.  Are they not the same?
 ***     manipulative gesture, and ii) when observing somebody 
 ***     else executing the same action."
 *** FIX: replaced misleading sentence (section 4, last paragraph) with:
-***    "They found a distinct class of neuron that responds
+***    "Using neurophysiological recordings from behaving monkeys,
+***     they located a distinct class of neuron that responds
 ***     specifically to actions on objects, rather than the 
 ***     mere presence of that object at the point of fixation."
 
@@ -198,7 +198,7 @@ it is unclear how "these results" support that statement.
 *** And the final sentence that "Taken together, these results provided
 *** evidence that ..." was changed to:
 ***    "Taken together, these results lead Woodward and others to 
-***     speculate that ..."
+***     hypothesize that ..."
 *** We believe that, with the corrections made to clear up the earlier
 *** confusion about mirror neurons, our summary of the conclusions of
 *** Gallese's paper is at the appropriate level of detail, given
@@ -226,8 +226,10 @@ could be corrected?
 
 *** It is easy to slip into the use of intentional language in robotics,
 *** and we welcome the reviewer's reminder of this.
-*** The specific phrase in question is where we speak of an 
+*** The specific phrase in question is where we speak of an:
+ 
 ***       "... arm ... tapping an object"
+
 *** Clearly the robot does not have the intention or goal of tapping 
 *** the object with its arm.  It doesn't have intentions, and (at this
 *** point in the paper) it doesn't know about objects.
@@ -283,27 +285,30 @@ of the paper to make more space for other clarifications called for above.
 - P.18.  The notes about predicting the future and inverting causal
 relations are very speculative, it seems, and unsupported.
 
-*** The notes lay out an entirely reasonable next step in terms of 
-*** robotic implementation, following the internal logic of the
-*** developmental process.  In terms of biological evidence, it is
-*** of course speculative, since there is very little knowledge of
-*** the developmental trajectory that leads to mirror neurons in
-*** adult primates.  
-*** Also, this text is at the end of the paper.  If one cannot 
-*** speculate at the end of a paper, when can one ever speculate?
-*** FIX: no action taken
+*** The notes are entirely reasonable in terms of the
+*** robotic implementation.  Cog learned that since action A
+*** consistently lead to object displacement B, it could achieve
+*** B by executing A -- an inversion of a causal relation.
+*** A connection between this element of the implementation with
+*** a biological analogue is necessarily speculative, 
+*** since there is very little knowledge of the developmental 
+*** trajectory that leads to mirror neurons in adult primates.  
+*** We believe the functional constraints highlighted by robotic
+*** implementation may be useful guides to further experimentation.
 
 
 Overall, the authors should make more clear what problem they try to
 solve and explain in more details how they solve it.
 
 *** We believe the changes made clarify two key points of confusion that
-*** made the paper difficult for this reviewer:
+*** made the paper problematic for this reviewer:
+
 ***  (1) We are interested in the DEVELOPMENTAL PROCESS that leads to
 ***      a mature, competent, visual system.  The mature system may
 ***      not need to interact with its environment in order to perceive
 ***      it correctly, but such interaction is (we claim and demonstrate) 
 ***      very helpful for development.
+
 ***  (2) Mirror neurons have very specific, narrowly-tuned responses
 ***      (that are now more clearly described in the paper).
 ***      We show how a simple shared activity with a human can
@@ -325,12 +330,12 @@ Regarding figure 14, the definition of the principal axis of a cube and
 ball need to be more carefully considered.  Can the principal axis of
 a ball be defined (given its symmetry)?
 
-*** Answer: no, not reliably, and Figure 14 actually reflects this
+*** Answer: no, not reliably, and Figure 14 (now 12) actually reflects this
 *** through the flatness of the graph relative to the objects with
 *** well-defined principal axes.
-*** FIX: Added text to figure 14 caption:
+*** FIX: Added text to figure 12 (was 14) caption:
 ***    "The principal axis is computed using the second Hu moment of the
-***     object's silhouette~\cite{hu62visual}.  The ``pointiness'' or
+***     object's silhouette [Hu, 1962].  The "pointiness" or
 ***     anisotropy of the silhouette is also measured from a higher order
 ***     moment; this is low when the object has no well-defined principal
 ***     axis, as is the case for the ball and cube."
@@ -341,7 +346,7 @@ In addition:
 * does the cube roll or slide?
 
 *** Answer: it slides.
-*** FIX: added text to figure 14 caption:
+*** FIX: added text to figure 12 caption:
 ***    "The car and bottle have clear directions in which they tend to
 ***     roll.  In contrast, the cube slides, and the ball rolls, 
 ***     in any direction."
@@ -351,11 +356,11 @@ In addition:
 "poke"?  What about the ball's dynamics and the surface?
 
 *** We do have data on this, omitted for space constraints.
-*** FIX: added text to figure 14 caption:
-       "These histograms represent the accumulation of many trials, and
-        average over the complicated dynamics of the objects and the robot's
-        arm to capture an overall trend that is simple enough for the robot
-        to actually exploit."
+*** FIX: added text to figure 12 caption:
+***    "These histograms represent the accumulation of many trials, and
+***     average over the complicated dynamics of the objects and the robot's
+***     arm to capture an overall trend that is simple enough for the robot
+***     to actually exploit."
 
 
 The following also require attention:
@@ -442,6 +447,7 @@ in contrast to existing work.
 ***     This is a very proactive, ``take charge'' style of 
 ***     segmentation, and it completely changes the accepted rules 
 ***     of the object segmentation ``game''."
+
 *** Nothing much else to talk about!  This is a very neglected area,
 *** few people feed back from object manipulation to vision
 
@@ -542,9 +548,16 @@ as a "mistake"?  How were these measured?
 *** FIX: added explanation
 ***    "A trial was classified as ``mistaken'' if the robot failed to poke
 ***     the object it was presented with in the direction that would 
-***     make it roll."
+***     make it roll.  The judgements of the appropriate direction, 
+***     and whether the robot succeeded in actually achieving it, 
+***     were made by one of the authors while observing the behavior 
+***     of the robot."
 
+
+OTHER CHANGES
+=============
 
 *** Removed references to old Section 9
+
 *** Added acknowledgement to feedback from reviewers
 
