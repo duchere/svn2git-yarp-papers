@@ -1,3 +1,7 @@
+giorgio: added comments marked as GIORGIO.
+Minor changes in text.
+
+
 -------------------------
 paulfitz says: I've added comments, all tagged with the word "PAUL1"
 I have put "//" in front of lines that are now redundant.
@@ -18,7 +22,6 @@ marked NOTANSWERED
 pls, have a look at them.
 
 
-
 ---------------------------------------------------------------------------------------
 Review 1:
 
@@ -36,13 +39,7 @@ Review 1:
 
     - I am inclined towards the original title "Better...".
 ##
-Better Vision Through Manipulation
-- why not? I think we can keep the old title. It's clear enough the two papers are
-	reasonably different.
-
-PAUL1 sure, fine by me.
-
-ANSWER: changed.
+ANSWER: changed to "Better vision through manipulation".
 ##
 
 
@@ -62,22 +59,11 @@ the discussion.
     - The new introduction seem a little odd (especially the very first sentence), 
 	not all robots can observes, right?
 ##
-Our robots are observers!
-- I changed with:
-	Sufficiently sophisticate robots and animals are...
-
-Paul:
-ALTHOUGH I'm happy to leave it unchanged. I prefer the original version. Feel free
-to put it back to the original.
-
-//ANSWER: the paragraph has been modified as:
-//"Sufficiently sophisticate robots and animals are..."
-//
-PAUL1 ANSWER: The word "observer" has been changed to "bystander".  The point is
+ANSWER: 
+The word "observer" has been changed to "bystander".  The point is
 simply that robots can take action, and experiment with the world.  The choice of 
 the word "observer" was unfortunate, since it implies vision, and as the reviewer
 rightly points out, not all robots have this sensory modality.
-
 ##
 
 
@@ -158,15 +144,9 @@ described in section 6 are "biologically plausible" in the traditional sense.
 	account for ambiguity/redundancy (if any), in particular, for the case 
 	3D mapping? Please discuss...
 ##
-discuss where, in the paper?
-
-Paul: I've added a paragraph. I'm not particularly happy with it. Can be improved for sure.
-
-PAUL1 seems adequate to me, I don't really know what to say here. 
-
 ANSWER:
-We added a paragraph to explain the issue of redundancy. The mapping is not 3D but only
-2D. Our goal was to reach an object sitting on the table.
+	We added a paragraph to explain the issue of redundancy. The mapping is not 
+	3D but only 2D. Our goal was to reach an object sitting on the table.
 ##
 
 
@@ -268,7 +248,7 @@ ANSWER:
 	of the neuroscience data comes? 
 ###
 ANSWER:
-	they are proposed for humans or for primates. We believed it was clear that 
+	they are proposed for humans and/or for primates. We believed it was clear that 
 	we're not at the level of detail [of modeling] to distinguish between the two.
 ###
 
@@ -279,11 +259,6 @@ ANSWER:
 	there really a need to speculate about this level of developmental phases at 
 	this point in scientific history? 
 ###
-Paul: I don't understand the point of the reviewer here. I'm trying a reply.
-
-PAUL1 I think you did a good job.  Basically we have to fill in the blanks to
-make an implementation.
-
 ANSWER:
 	We believe we had to show which model we were trying to implement. This
 	is the reason of much of the neuroscience data and the description of
@@ -328,6 +303,17 @@ ANSWER:
 	formulations. We were actually arguing in the opposite direction (and perhaps
 	we've been a bit biased in this sense): that ACTION is very fundamental
 	in case DEVELOPMENT and hence a natural setting is considered.
+
+GIORGIO
+ADDITIONAL ANSWER:
+	[with more support from the papers you mentioned]
+	The neuroscience results we described extensively point towards an alternative
+	view where perception becomes something more than just the "input of the system".
+	In part perception is thus determined by action and in this sense it needs 
+	to follow from action (or sensorimotor coordination for some authors). Of course,
+	all these consideration are very debatable - especially whether they're true in
+	humans. Additionally we believe that one of the benefits of instantiating 
+	a model in a robot is that of validating whether this could be feasible.
 ###
 
 
@@ -391,6 +377,9 @@ Paul: do you have a better reference rather than just adding this.
 PAUL1 how about just citing Horn's book?
 B. K. P. Horn. Robot Vision. MIT Press, Cambridge, MA, 1986.
 
+GIORGIO: but Horn never mentions correlation based methods, am I right?
+	- it's a minor issue though.
+
 ANSWER:
 
 	modified the description of the optic flow algorithm:
@@ -437,6 +426,10 @@ Comments:
 ###
 ANSWER:
 	NOTANSWERED			
+
+GIORGIO:
+	- if we modify the conclusions a bit (for the 4th reviewer) we can also reply to
+	this.
 ###
 
 
@@ -468,6 +461,10 @@ ANSWER:
 ###
 ANSWER:
 	NOTANSWERED
+
+GIORGIO:
+	- what do you think? Do we need to answer to this? Did we really have 
+	  any valid alternative?
 ###
 
 
@@ -480,12 +477,6 @@ ANSWER:
 	into the preceding neuroscience. The idea of probing longer chains needs some 
 	elaboration in this paragraph as well.
 ###
-Paul: 
-	should we remove this sentence?
-	- I removed the claim and changed the paragraph.
-
-PAUL1 seems the right response
-
 ANSWER:
 	it was a rather speculative comment. We preferred to remove the paragraph because
 	we cannot really support it appropriately with evidence, a part from 
@@ -500,7 +491,7 @@ ANSWER:
 	sentence changed into:
 
 	We can distinguish three main conceptual functions in the developmental 
-	process that lead to object representation (similar to the 
+	process that leads to object representation (similar to the 
 	schema of Arbib et al. \cite{arbib-1981}).
 ###
 
@@ -512,8 +503,6 @@ ANSWER:
 	Certainly some proprioceptive consequence will occur. I think what they are 
 	saying here is that some of the relevant sensory consequences will be delayed.
 ###
-	Maybe...
-
 ANSWER:
 	changed into:
 
@@ -527,14 +516,10 @@ ANSWER:
 	should be introduced earlier. It seems like a good term. Are the authors the 
 	first to use this term?
 ###
-Paul: can you reply to this one?
-
 ANSWER:
-
-PAUL1	The term seems to be used in other contexts, particularly medical imaging.
+	The term seems to be used in other contexts, particularly medical imaging.
 	It could indeed be a useful term to import to active vision.  It is now
 	introduced at the end of the first section.
-
 ###
 
 	Section 9?s use of a mimicry task seems to be trying to bite off too much for 
@@ -571,10 +556,10 @@ ANSWER:
 	would be suitable here.
 
 ###
-	I added it blindly.
-	
 ANSWER: 
-	added.
+	The reference has been added. We were relying on the intuitive meaning
+	of causation but of course it's much better to have a proper link.
+	Thanks to the reviewer.
 ###
 
 
@@ -620,8 +605,6 @@ the ventral and dorsal pathways as matters of "what" and "where."
 
 
 ###
-Paul: right. My fault. I mixed up references and description.
-
 ANSWER:
 	We made a mistake, references and description of the work of U&M vs. G&M was
 	wrong. We fixed the issue. Many thanks to the anonymous reviewer. 
