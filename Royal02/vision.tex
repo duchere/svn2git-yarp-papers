@@ -1,7 +1,7 @@
 \input{defs}
 
 \newcommand{\draftpaper}{}
-
+\newcommand{\royalpaper}{}
 
 \emergencystretch=\hsize
 \lefthyphenmin=2
@@ -10,25 +10,11 @@
 
 % detect interpreter: pdflatex or latex
 
-\newif\ifpdf
-\ifx\pdfoutput\undefined
-  \pdffalse
+\newif\ifroyal
+\ifx\royalpaper\undefined
+  \royalfalse
 \else
-  \pdftrue
-\fi
-
-\newif\iflong
-\ifx\longpaper\undefined
-  \longfalse
-\else
-  \longtrue
-\fi
-
-\newif\ifdraft
-\ifx\draftpaper\undefined
-  \draftfalse
-\else
-  \drafttrue
+  \royaltrue
 \fi
 
 \newif\ifverbose
@@ -41,7 +27,12 @@
 
 % use document class IROS with any paper size:
 
-\documentclass[]{article}
+\documentclass[]{rspublic}
+
+\usepackage{pfmod}
+\usepackage{natbib}
+
+%%\documentclass[]{article}
 
 %%\iflong
 %%  \documentclass[a4]{epirob}
@@ -49,16 +40,12 @@
 %%  \documentclass[a4paper]{IROS}
 %%\fi
 
-\ifpdf
-  \usepackage{graphicx}
-\else
-  \usepackage[dvips]{graphicx}
-\fi
+\usepackage[dvips]{graphicx}
 
 \usepackage{psfig}
 
 
-\usepackage{fullpage}
+%%\usepackage{fullpage}
 
 \begin{document} 
 
@@ -73,10 +60,9 @@
 %%\title{Active Vision is more than just Moving Cameras}
 %%\title{Towards Manipulation-Driven Vision}
 
-\iflong
-  \author{Paul Fitzpatrick
-        \and
-	  Giorgio Metta
+%%  \author{Paul Fitzpatrick
+%%        \and
+%%	  Giorgio Metta
 %%  \affiliation{\rm $^{*}$LIRA-Lab, DIST \\
 %%               University of Genova \\
  %%               Viale F. Causa, 13 \\
@@ -85,22 +71,28 @@
 %%              $^{**}$MIT AI Lab\\
 %%             200 Technology Square \\
 %%             Cambridge, MA 02139 US }
-}
-\else
-\author{Paul M. Fitzpatrick$^{*}$ and Giorgio Metta$^{*,\dagger}$}
-\affiliation{
-$^{*}$MIT AI Lab -- Massachussetts Institute of Technology -- USA\\
-$^{\dagger}$Lira Lab, DIST -- University of Genova -- Italy
-}
-\fi
+%%}
 
-\maketitle\thispagestyle{empty} % don't forget \thispagestyle{empty}, otherwise you'll get page numbering
 
-\ifdraft
-  \pagenumbering{arabic}
-  \thispagestyle{plain}
-  \pagestyle{plain}
-\fi
+\title[Grounding vision]{Grounding vision through experimental manipulation}
+
+\author[P. Fitzpatrick, G. Metta]{Paul Fitzpatrick$^1$ and Giorgio Metta$^2$}
+
+\affiliation{MIT AI Laboratory, Cambridge, MA 02139, USA$^1$\\
+LIRA-Lab, University of Genova, 16145 Genova, Italy$^2$
+}
+
+\label{firstpage}
+
+\maketitle
+
+%%\thispagestyle{empty} % don't forget \thispagestyle{empty}, otherwise you'll get page numbering
+
+%%\ifdraft
+%%  \pagenumbering{arabic}
+%%  \thispagestyle{plain}
+%%  \pagestyle{plain}
+%%\fi
 
 % write the abstract with the Abstract-environment:
 \input{section-abstract}
