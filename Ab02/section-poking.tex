@@ -106,15 +106,19 @@ the arm itself to cause confusion; the motion of the flipper is
 bounded around the endpoint whose location we know from tracking
 during the extension phase, and can be subtracted easily.  Flow not
 connected to the end-effector can be ignored as a distractor.  
-
 For simplicity, the head is kept steady throughout the poking
 operation, so that simple image differencing can be used to detect
-motion at a higher resolution than optic flow.  Because a poking
-operation currently always starts from the same location, the arm
-is localized using a simple heuristic rather than the procedure described
-in the previous section -- the first region of optic flow appearing
-in the lower part of the robot's view when the reach begins
-is assumed to be the arm.
+the presence of motion at a higher resolution than optic flow.
+Figure~\ref{fig:poking-zoom} shows an example of the kind of 
+results that are possible (see Section~\ref{sect:recognition} for 
+further examples).
+
+%Because a poking
+%operation currently always starts from the same location, the arm
+%is localized using a simple heuristic rather than the procedure described
+%in the previous section -- the first region of optic flow appearing
+%in the lower part of the robot's view when the reach begins
+%is assumed to be the arm.
 
 \ifverbose
 \begin{figure}[tbh]
