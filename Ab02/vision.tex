@@ -67,22 +67,21 @@
 % create the title header:
 
 \title{Better Vision Through Manipulation}
-\author{YARP!}
 %%\title{Active Vision is more than just Moving Cameras}
 %%\title{Towards Manipulation-Driven Vision}
 
 %%\iflong
 %%  \author{Giorgio Metta$^{*,**}$
 %%        \and
-%%         Paul Fitzpatrick$^{**}$}
+ %%         Paul Fitzpatrick$^{**}$}
 %%  \affiliation{\rm $^{*}$LIRA-Lab, DIST \\
-%%              University of Genova \\
-%%              Viale F. Causa, 13 \\
-%%              16145 Genova, Italy \\
-%%           \and
-%%              $^{**}$MIT AI Lab\\
-%%              200 Technology Square \\
-%%             Cambridge, MA 02139 US }
+ %%              University of Genova \\
+ %%               Viale F. Causa, 13 \\
+  %%              16145 Genova, Italy \\
+  %%         \and
+ %%             $^{**}$MIT AI Lab\\
+ %%            200 Technology Square \\
+ %%            Cambridge, MA 02139 US }
 %%\else
 %%\author{Paul M. Fitzpatrick$^{*}$ and Giorgio Metta$^{*,\dagger}$}
 %%\affiliation{
@@ -91,14 +90,25 @@
 %%}
 %%\fi
 
-% added title... just for fun. Not final!
-\maketitle\thispagestyle{empty} % don't forget \thispagestyle{empty}, otherwise you'll get page numbering
+%%\maketitle\thispagestyle{empty} % don't forget \thispagestyle{empty}, otherwise you'll get page numbering
 
 \ifdraft
   \pagenumbering{arabic}
   \thispagestyle{plain}
   \pagestyle{plain}
 \fi
+
+\input{section-rolling}
+
+\input{section-segmentation}
+
+\input{section-contact}
+
+\input{section-manipulator}
+
+\clearpage
+\clearpage
+\clearpage
 
 % write the abstract with the Abstract-environment:
 \input{section-abstract}
