@@ -1,6 +1,8 @@
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=\columnwidth]{poking-sequence.eps}
+
+\includegraphics[width=\columnwidth]{fig-poke-zoom.eps}
 %%\includegraphics[width=\textwidth]{poking-sequence.eps}
 %%\includegraphics[width=14cm]{poking-sequence.eps}
 \caption{ 
@@ -22,31 +24,28 @@
 
 \section{Perceiving actions on objects}
 
-We have assumed that the target of a reaching operation is chosen
-visually.  As discussed in the introduction, visual
-segmentation is not easy, so we should not expect a target selected in
-this way to be a correctly segmented.  For the example scene in
+When the arm enters into contact with an object, one of several
+outcomes are possible.  If the object is large, heavy, or otherwise
+unyielding, motion of the arm may simply be resisted without any
+visible effect.  Such objects are of little interest, except in their
+role as obstacles, since the robot will not be able to manipulate
+them.  But if the object is smaller, it is likely to move a little in
+response to the nudge of the arm.  This movement will be temporally
+correlated with the time of impact, and will be connected spatially to
+the end-effector -- constraints that are not available in passive
+scenarios~\cite{birchfield99depth}.  If the object is reasonably
+rigid, and the movement has some component in parallel to the image
+plane, the result is likely to be a flow field whose extent reflects
+the physical boundaries of the object.  This visible response to
+the robots action can be used to refine its model of the object's
+extent, which may be inaccurate.  For the example scene in
 Figure~\ref{fig:setup-sequence} (a cube sitting on a table), the small
 inner square on the cube's surface pattern might be selected as a
 target.  The robot can certainly reach towards this target, but
 grasping it would prove difficult without a correct estimate of the
-object's physical extent.  In this section, we develop a procedure
-for refining the segmentation using the same idea of correlated
-motion used earlier to detect the arm.
-
-When the arm enters into contact with an object, one of several
-outcomes are possible.  If the object is large, heavy, or otherwise
-unyielding, motion of the arm may simply be resisted without any
-visible effect.  Such objects can simply be ignored, since the robot
-will not be able to manipulate them.  But if the object is smaller, it
-is likely to move a little in response to the nudge of the arm.  This
-movement will be temporally correlated with the time of impact, and
-will be connected spatially to the end-effector -- constraints that
-are not available in passive scenarios~\cite{birchfield99depth}.  If
-the object is reasonably rigid, and the movement has some component in
-parallel to the image plane, the result is likely to be a flow field
-whose extent coincides with the physical boundaries of the object.
-
+object's physical extent.  In this section we show how the robot can
+experimentally determine an object's extent using the same idea of
+correlated motion used earlier to detect its own arm.
 
 Figure~\ref{fig:poking-sequence} shows how a ``poking'' movement can
 be used to refine a target.  During a poke operation, the arm begins
@@ -117,7 +116,7 @@ and so on.
 %
 \begin{figure}[tb]
 \begin{center}
-\includegraphics[width=\columnwidth]{segmentation-detail.eps}
+\includegraphics[width=8cm]{segmentation-detail.eps}
 %%\includegraphics[width=\columnwidth]{poking_segmentation.eps}
 \caption{ 
 \label{fig:poking-segmentation}
