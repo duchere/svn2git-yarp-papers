@@ -150,6 +150,10 @@ less extent to misinterpretation of the orientation of the object (3).
 \label{fig:actions}
 %
 Histogram of the direction of movement of object for each possible poking action.
+For each of the four plots the abscissa is the direction of motion of the object
+where the $0^\circ$ direction is parallel to the x axis, and $-90^\circ$ to the y
+axis. The ordinate is the empirical probability distribution of the direction
+of motion of the objects.
 %
 }
 \end{center}
@@ -200,7 +204,7 @@ In fact, the same processing used for analyzing an active poking
 can be used to detect a contact and segment the object from the manipulator.
 This is not different from what we used for learning. While one might argue then
 that learning can be carried out just by mere observation, it is
-worth noting that: i) this situation is not as well defined [circumscribed] 
+worth noting that: i) this situation is not as well defined  
 as the active one, and ii) there is no connection to the motor aspects 
 of the action and consequently it is difficult to link the observation to the behavior.
 There is no physical contact, thus there is plenty of room for getting confused 
@@ -221,9 +225,9 @@ factored in to help the observation of somebody else's action. Touch
 (not in Cog) and physical contact are additional bits of information 
 about the ongoing activity.
 
-In our case, if any activity is detected close to the object - measured by the 
+In our case, if any activity is detected close to the object -- measured by the 
 amount of motion in a neighborhood of the fixation point corresponding to the robot's foveal 
-camera - reaching is inhibited and the whole action observed (assuming there 
+camera -- reaching is inhibited and the whole action observed (assuming there 
 is one at all). An example of human poking is shown in figure \ref{fig:observed-action}.
 
 \begin{figure}[tbh]
@@ -266,7 +270,7 @@ The first obvious thing the robot can do is to identify the action just observed
 with respect to its motor vocabulary. It is easily done, in this case, by comparing 
 the displacement of the object with the four possible actions and by choosing the
 action whose effects are closer to the observed displacement.
-Indeed it works well and it allows - even if in this limited setting - recognizing 
+Indeed it allows -- even if in this limited setting -- recognizing 
 a complex action by interpreting its consequences on the environment.
 This is orders of magnitude simpler than trying to completely characterize the
 action in terms of the observed kinematics of the movement. Here, the complexity
@@ -459,10 +463,16 @@ Also in this case the robot could work autonomously on learning. Furthermore, th
 interaction between manipulator and object provides another element that can
 be used to learn about the manipulator itself (see figure \ref{fig:manipulator}). 
 The robot can then learn about the appearance of its own hand or, 
-indifferently, about the human hand. It is 
-remarkable that the complexity of the robot manipulator does not necessarily have to
-match that of the human manipulator. [We can envision a similar procedure to learn about 
-any object that functions as manipulator.]
+indifferently, about the human hand. It is remarkable that the complexity of 
+the robot manipulator does not necessarily have to match that of the human 
+manipulator. We can envision a similar procedure to learn about any object that 
+functions as manipulator.
+%
+%
+%
+%[We can envision a similar procedure to learn about 
+%any object that functions as manipulator.]
+%
 
 \begin{figure}[tbh]
   \centerline{\includegraphics[width=9cm]{fig-cube-segmentations}}
