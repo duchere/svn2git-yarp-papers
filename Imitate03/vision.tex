@@ -8,6 +8,13 @@
 %% Last modification: 22/11/2002
 %%
 
+\newif\ifnote
+\ifx\notepaper\undefined
+  \notefalse
+\else
+  \notetrue
+\fi
+
 \documentclass[a4paper,10pt,twocolumn]{article}
 
 \usepackage{AISB03}
@@ -15,7 +22,8 @@
 
 \begin{document}
 
-\title{Grounding imitative behavior }
+\title{Learning from shared activity as a precursor to imitation}
+%%\title{Shared activity as a precursor to imitation}
 
 %% Use \institute to create an institute use \inst to reference them.
 
@@ -37,7 +45,19 @@
 
 \input{section-introduction}
 
-\input{section-extras}
+\input{section-poking}
+
+\input{section-motion}
+
+\input{section-object-recognition}
+
+\input{section-actor-recognition}
+
+\input{section-low-level-vision}
+
+\input{section-conclusions}
+
+%%\input{section-extras}
 
 \input{section-acknowledgements}
 
