@@ -2,19 +2,20 @@
 \section{Vision, action, and development}
 
 Robots and animals are actors in their environment, not simply passive
-observers.  This gives them the potential to examine the world using
+observers.  They have the opportunity to examine the world using
 causality, by performing probing actions and learning from the
-response.  Tracing chains of causality from motor action to perception
+response.  
+Tracing chains of causality from motor action to perception
 (and back again) is important both to understand how the brain deals
 with sensorimotor coordination and to implement those same functions
 in an artificial system, such as a humanoid robot.
-
 In this paper, we propose that such causal probing can be arranged in
 a developmental sequence leading to a manipulation-driven
 representation of objects.  We present results for many important steps
 along the way, and describe how they fit in a larger scale implementation.
-Also, we discuss in what sense our artificial implementation is substantially 
+And we discuss in what sense our artificial implementation is substantially 
 in agreement with neuroscience. 
+
 
 \begin{figure}[tbh]
 \begin{center}
@@ -25,40 +26,40 @@ in agreement with neuroscience.
 The world is complicated, but contigent.
 The ultimate goal of this work is for our robot to follow chains of
 causation outwards from its own simple body into the complex world.
+Such an incremental process suggests that perception and action
+develop together, supporting each other.
 %
 }
 \end{center}
 \end{figure}
 
-We wanted to work with the simplest possible form of manipulation.
-What is this?  It must at least include contact with objects; one
-cannot do much without this.  And in fact, contact of any kind is
-sufficient to evoke certain classes of object affordances, such as
-rolling.  So we can reasonably use various styles of poking, prodding,
-tapping, swiping, ... as basic manipulative gestures.  While cruder
-than dextrous manipulation, working with poking allows us to push
-much further along developmental, experimental, corrective... UNFINISHED
-
-
-Table~\ref{tab:causation} shows three levels of causal complexity.
+We address three levels of causal complexity.
 The simplest causal chain that the actor experiences is the
 perception of its own actions.  The temporal aspect is immediate:
 visual information is tightly synchronized to motor commands.
 Once this causal connection is established, we can go further and use
-it to active explore the boundaries of objects.  In this case, there
+it to actively explore the boundaries of objects.  In this case, there
 is one more step in the causal chain, and the temporal nature of
 the response may be delayed since initiating a reaching movement doesn't
 immediately elicit consequences in the environment.  
-
-
 Finally we argue that extending this causal chain further will allow
 the actor to make a connection between her own actions and the actions 
 of another. This is reminiscent of what has been observed in the response
 of the monkey's premotor cortex. 
 
-Could relate robotic part of this to the embodied intelligence ideas
-of Brooks.
+We wished to keep the actions implemented on our robotic system as
+simple as possible, to avoid obscuring the core issue of development
+behind an elaborate dextrous system.
+%
+%% oh, and Cog's arms suck too, that was another reason :)
+%
+We found that simple poking gestures
+(prodding, tapping, swiping, batting, etc.) were rich enough 
+to evoke object affordances such as rolling and to provide
+the kind of training data needed to bootstrap perception.
 
+
+\ifverbose
 \begin{table*}[htbp]
 \begin{center}
 \begin{tabular}{|p{5.2cm}|p{4.5cm}|p{4.5cm}|}
@@ -78,7 +79,7 @@ an effect, the more difficult it is to model.
 }
 \end{center}
 \end{table*}
-
+\fi
 
 
 \ifverbose 
