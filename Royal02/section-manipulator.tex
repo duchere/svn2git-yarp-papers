@@ -1,18 +1,55 @@
 
-\section{Perceiving actors on objects}
+\begin{figure}[tbh]
+  \centerline{
+\includegraphics[width=4cm]{fig-car-hand-seg-src}
+\hspace{1cm}
+\includegraphics[width=4cm]{fig-car-hand-seg}
+}
+  \caption{
+The segmentation algorithm will work for human poking operations, 
+if the robot is fixating the object the human pokes.  The robot's 
+attention system makes this a simple condition to satisfy.
+}
+  \label{fig:hand-poke}
+\end{figure}
+
+%%Can't necessarily remove shadow.
+
+\section{Perceiving act{\bf ors} on objects}
 
 \label{sect:manipulator}
 
-How could a robot find human arms and hands in the environment without
-any prior knowledge of their appearance?  We could imagine segmenting
-any moving objects in the scene, and relying on the heuristic that
-hands are often the fastest moving objects around.
-Another approach is possible in our situation.  If the robot can
-detect when an impact event occurs, it can collect segmentations of the
-object that caused the impact.  The set of objects that habitually
-trigger the motion of other objects is not a bad operational 
-definition of a manipulator, and should include the human hand/arm,
-and the robot's own arm.  See Figure~\ref{fig:manipulator}.
+Previous sections have shown how the robot can, without any prior
+knowledge of their appearance, familiarize itself with objects in its
+environment and its own arm.  It is possible to go still further, and
+find human arms and hands in the environment, again without any prior
+knowledge of their appearance.  We could imagine segmenting any moving
+objects in the scene, and relying on the heuristic that hands are
+often the fastest moving objects around.  A more principled approach
+is to adopt an operational definition of what an arm is in terms that
+the robot can perceive, just as we defined objects earlier by their
+physical coherence.  Once it has poked around, the robot will be
+familiar with a set of objects in its environment that are the right
+scale for it to manipulate.  A reasonable definition for an arm, then,
+is something that acts upon these familiar objects.  That includes the
+robot's own arm, but may well include the arm of humans around the
+robot. The ideal situation to detect arms is when they make contact
+with a familiar object that the robot is fixating, since all the
+visual processing already developed carries over without modification
+(see Figure~\ref{fig:hand-poke}).  Of course the robot can easily
+distinguish segmentations of its own arm from that of others simply by
+whether its arm was near the target at the time!  Our experience shows
+that clean segmentations of the arm (human or robot) can be extracted
+as it approaches collision with a known object, when we don't need to
+worry about the full complexity of human movement (see
+Figure~\ref{fig:manipulator}).
+
+%%Another approach is possible in our situation.  If the robot can
+%%detect when an impact event occurs, it can collect segmentations of the
+%%object that caused the impact.  The set of objects that habitually
+%%trigger the motion of other objects is not a bad operational 
+%%definition of a manipulator, and should include the human hand/arm,
+%%and the robot's own arm.  See Figure~\ref{fig:manipulator}.
 
 \ifverbose
 
@@ -44,19 +81,9 @@ objects).  See Figure~\ref{fig:manipulator}.
   \centerline{\includegraphics[width=12cm]{fig-poke-manipulator}}
 %%  \centerline{\includegraphics[width=12cm]{manipulator-segment}}
   \caption{Early experiments on segmenting the robot arm, or a 
-human hand poking an object the robot is familiar with, by working
-backwards from a collision event.}
+human arm poking an object the robot.  The segmentation is
+performed by working
+backwards from a collision with a known object.}
   \label{fig:manipulator}
 \end{figure}
 
-\begin{figure}[tbh]
-  \centerline{
-\includegraphics[width=4cm]{fig-car-hand-seg-src}
-\hspace{1cm}
-\includegraphics[width=4cm]{fig-car-hand-seg}
-}
-  \caption{A poke by hand}
-  \label{fig:handpoke}
-\end{figure}
-
-%%Can't necessarily remove shadow.
