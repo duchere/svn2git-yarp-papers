@@ -118,8 +118,8 @@ force:
 	latex $(MAIN).tex
 
 $(MAIN).ps: $(MAIN).dvi
-#	dvips -t a4 -f $< > $@
-	dvips -t letter -f $< > $@
+	dvips -t a4 -f $< > $@
+#	dvips -t letter -f $< > $@
 
 short:
 	cp defs-iros.tex defs.tex
