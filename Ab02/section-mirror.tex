@@ -37,7 +37,7 @@ behavior:
 
 \begin{table*}[htbp]
 \begin{center}
-\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\begin{tabular}{|p{2cm}|p{3.5cm}|p{5cm}|}
 \hline
 {\it object} & {\it angle between principal axis and preferred direction of rolling} &  {\it behavior} \\ \hline\hline
 {\bf cube} & n.a. & no principal axis, does not roll\\ \hline
@@ -55,7 +55,7 @@ Behavior of a small set of objects when poked at random by the robot manipulator
 \end{table*}
 
 A further elaboration is required to group the data belonging to the same
-object as obtained from many poking acts in coherent clusters. As clustering 
+object as obtained from many poking acts into coherent clusters. As clustering 
 mechanism we employed color histograms. After each poking action, a color histogram 
 of the pixels of the segmented region is built and used as criterion 
 to judge whether the object belongs to an existing group (i.e. if it
@@ -112,35 +112,42 @@ about 500 poking events.
 
 The last step is to connect all these elements together. If a known object is
 presented to COG, the object is recognized, localized, and
-its orientation estimated. Recognition is based on the color histograms. The same
+its orientation estimated (principal axis). Recognition is based on the color histograms. The same
 procedure used to form the clusters is employed here. Localization is simply implemented 
 by histogram backprojection and a search across the image. The current orientation of the
 object is then estimated by comparing the current image with all the prototypes 
-contained in the cluster. 
+contained in the cluster. The whole procedure gives a precision on the estimation
+of the principal axis of about $10^\circ$ to $25^\circ$ depending on the object.  
 
-To really exploit the understanding of the affordance we need to connect vision to 
+To actually exploit the understanding of the affordance we need to connect vision to 
 behavior. The robot looks for the preferred rolling direction of the object
 (see figure \ref{fig:affordances}) and adds it to its current orientation. 
 The action whose effects are closer (on average) to the last sum is selected.
 
-% TEST OF PERFORMANCE?
+% TEST OF PERFORMANCE MISSING?
+We performed a simple qualitative test of the robot's behavior presenting randomly
+two of the objects (the toy car and the bottle) - note that the ball and the cube 
+do not have a well defined principal axis so there is no point in running the 
+experiment. Out of 100 trials the robot made XY mistakes. Analysis 
+of the errors reveals that they are mainly due to misinterpretation of the 
+orientation of the object or to unprecise control.
 
 \begin{figure}[tb]
 \begin{center}
-\includegraphics[width=8cm]{actions.eps}
+\includegraphics[width=12cm]{actions.eps}
 \caption{ 
 \label{fig:actions}
 %
+Histogram of the direction of movement of object for each possible poking action.
 %
 }
 \end{center}
 \end{figure}
 
 
+\section{Developing mirror neurons}
 
-\section{Developing mirror neurons?}
-
-
+\ifverbose
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=\columnwidth]{mirror-monkey.eps}
@@ -164,7 +171,7 @@ level, at the goal level or both.
 }
 \end{center}
 \end{figure}
-
+\fi
 
 An interesting question then is
 whether the system could extract useful information from seeing an
@@ -176,6 +183,13 @@ is to chain outwards from an object the robot has poked.  If someone
 else moves the object, we can reverse the logic used in poking --
 where the motion of the manipulator identified the object -- and
 identify a foreign manipulator through its effect on the object.
+
+
+
+
+
+
+\ifverbose
 Poking is an ideal testbed for future work on this, since it is much
 simpler than full-blown object manipulation and would only require a
 very simple model of the foreign manipulator to work.
@@ -200,6 +214,7 @@ motor actions.  Another important application is the prediction of
 future behavior from current actions, or even inverting the causal
 relation to find the action that most likely will get to the desired
 consequence.
+\fi
 
 \ifverbose
 
