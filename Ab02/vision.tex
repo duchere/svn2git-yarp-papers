@@ -70,6 +70,8 @@
 
 \usepackage{natbib}
 
+	 \usepackage{endfloat}
+
 \renewcommand{\cite}{\citep}
 
 
@@ -89,9 +91,18 @@
 
 \usepackage{psfig}
 
-%%\setstretch{2.0}
+\setstretch{2.0}
+
+\usepackage{pf-mod}
+
+%\let\Caption\caption
+%\renewcommand\caption[1]{%
+%    \Caption[#1]{}%
+%}
 
 \begin{document} 
+
+
 
 \onecolumn
 
@@ -141,7 +152,6 @@ Cambridge, MA, USA\\
 
 \input{section-preamble}
 
-
 \maketitle
 
 \ifdraft
@@ -173,6 +183,7 @@ Cambridge, MA, USA\\
 
 % and the bibliography:
 
+\newpage
 \input{section-references}
 
 \input{section-extras}

@@ -51,7 +51,6 @@ to the control.
 \includegraphics[width=12cm]{arm-detection-all.eps}
 %\includegraphics[width=8cm]{joint-correlation2.eps}
 \caption{ 
-\label{fig:arm-detection}
 %\label{fig:joint-correlation}
 %
 (a) An example of the correlation between optic flow and arm movement.
@@ -75,6 +74,7 @@ correlation, identifying the regions that correspond to the robot's own arm.
 %correlation, identifying the regions that correspond to the robot's own arm.
 %
 }
+\label{fig:arm-detection}
 \end{center}
 \end{figure}
 
@@ -123,7 +123,6 @@ simply on movement and motor information.
 \begin{center}
 \includegraphics[width=6cm]{arm-detection2.eps}
 \caption{ 
-\label{fig:arm-detection}
 %
 Detecting the arm/gripper through motion correlation. The robot's
 point of view and the optic flow generated are shown on the left. On
@@ -134,6 +133,7 @@ hand in the background. The small circle marks the point of maximum
 correlation, identifying the regions that correspond to the robot's own arm.
 %
 }
+\label{fig:arm-detection}
 \end{center}
 \end{figure}
 \fi
@@ -186,7 +186,6 @@ technique over a 16x16 grid out of a 128x128 pixels image.
 \begin{center}
 \includegraphics[width=\columnwidth]{mapping-reach.eps}
 \caption{ 
-\label{fig:mapping-reach}
 %
 Mapping from proprioceptive input to a visual prediction. Head and arm
 joint positions are used to estimate the position of the projection of
@@ -195,6 +194,7 @@ head are mapped to a simpler (2D) representation, and the wrist-related
 DOFs of the arm are ignored.
 %
 }
+\label{fig:mapping-reach}
 \end{center}
 \end{figure}
 \endif
@@ -241,7 +241,6 @@ of the eyes, head, and arms.
 \begin{center}
 \includegraphics[width=10cm]{predict-position.eps}
 \caption{ 
-\label{fig:predict-position}
 %
 Predicting the location of the arm in the image as the head and arm
 change position. The rectangle represents the predicted position of
@@ -250,6 +249,7 @@ The predicted position just needs to be sufficiently accurate to
 initialize a visual search for the exact position of the end-effector.
 %
 }
+\label{fig:predict-position}
 \end{center}
 \end{figure}
 
@@ -454,12 +454,12 @@ open loop to bring the flipper in contact with the target object.
 \begin{center}
 \includegraphics[width=\columnwidth]{control-flow.eps}
 \caption{ 
-\label{fig:control-flow}
 %
   The controller.  Probably have to bring back text to describe this
   if we include this figure.
 %
 }
+\label{fig:control-flow}
 \end{center}
 \end{figure}
 \fi

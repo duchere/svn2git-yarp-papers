@@ -17,3 +17,17 @@
   \@thanks
 %%  \vfil\null
 }
+
+
+
+\renewcommand{\@makecaption}[2]{%
+  \vskip\abovecaptionskip
+  \hbox to \hsize{\hfil #1\hfil}%
+  \vskip\belowcaptionskip}
+
+\renewenvironment{figure}[1][]{%
+      \@float{figure}%
+    \centering
+  }{%
+    \end@float
+  }
