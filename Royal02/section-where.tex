@@ -10,7 +10,7 @@ exceedingly precise.  This time-correlation can be used as a
 ``signature'' to identify parts of the scene that are being influenced
 by the robot's motion, even in the presence of other distracting
 motion sources.  In this section, we show how this tight correlation
-can be used to localize the arm in the image without any prior
+can be used to local\ize{} the arm in the image without any prior
 information about visual appearance.  
 %%In the next section we will show
 %%that once the arm has been localized we can go further, and identify
@@ -56,7 +56,7 @@ exploring different combinations of direction of gaze vs.  arm
 position \cite{Marjanovic-96-SAB,metta99developmental}.  So locating
 the end-effector visually is key both to closed-loop control, and to
 training up a feed-forward path.  We shall demonstrate that this
-localization can be performed without knowledge of the arm's appearance,
+local\iz{}ation can be performed without knowledge of the arm's appearance,
 and without assuming that the arm is the only moving object in the
 scene.
 
@@ -80,8 +80,8 @@ stringent because what matters for the closed loop controller is that
 the sign remains negative with respect to the visual error. For our
 purpose this relationship can be learned by the same exploration
 procedure mentioned above for the open loop controller.  For both
-controllers the problem translates into localizing the arm's end-point
-in the image plane. We shall demonstrate that visual localization can
+controllers the problem translates into local\iz{}ing the arm's end-point
+in the image plane. We shall demonstrate that visual local\iz{}ation can
 be performed without relying on a particular \ahhcolor{} or pattern but
 simply on movement and motor information.
 \fi
@@ -105,7 +105,7 @@ correlation, identifying the regions that correspond to the robot's own arm.
 \end{figure}
 
 
-\subsubsection*{Localizing the arm visually}
+\subsubsection*{Local\iz{}ing the arm visually}
 
 The robot is not a passive observer of its arm, but rather the
 initiator of its movement.  This can be used to distinguish the arm
@@ -135,10 +135,10 @@ unrelated motion in the environment goes down.
 %%processing.
 
 \ifverbose
-Localizing the robot arm is not the same as searching into the visual
+Local\iz{}ing the robot arm is not the same as searching into the visual
 space for a generic object we do not have any expectancy on its
 whereabouts. The robot can exploit the fact it looks for its own body
-part to self-generate useful cues to help the localization. The
+part to self-generate useful cues to help the local\iz{}ation. The
 fundamental idea is to cross-correlate the presence of motion in the
 image with the actual arm motion as sensed through proprioception (or
 efference copy). When the two quantities have a positive correlation
@@ -173,7 +173,7 @@ runs on a 500ms time window while the robot generates a relatively
 high-frequency movement. The resulting correlation array (each pixel
 is correlated with all joints) is post-processed by a thresholding
 procedure and subsequently by a region-growing algorithm. Regions are
-identified and labeled. The arm position is identified as the center
+identified and labeled. The arm position is identified as the \ahhcenter{}
 of mass of the region containing the maximum of the correlation
 function.
 \fi
@@ -187,14 +187,14 @@ the same period of time.  Figure~\ref{fig:arm-detection} shows
 examples of detection of the arm and rejection of a distractor.
 
 
-\subsubsection*{Localizing the arm using proprioception}
+\subsubsection*{Local\iz{}ing the arm using proprioception}
 
-The localization method for the arm described so far relies on a
+The local\iz{}ation method for the arm described so far relies on a
 relatively long ``signature'' movement that would slow down reaching.
 This can be overcome by training up a function to estimate the
 location of the arm in the image plane from proprioceptive information
 (joint angles) during an exploratory phase, and using that to 
-constrain arm localization during actual operation.
+constrain arm local\iz{}ation during actual operation.
 %%As a function approximator we simply fill a look-up table,
 %%reducing the 11-dimensional input space of joint angles based on 
 %%the much lower number of degrees of freedom used in controlling them
@@ -212,7 +212,7 @@ bottom of the image varies.
 \ifverbose
 We can imagine building a function from examples to predict the
 position of the arm/end-point in the image plane. Examples are
-collected when the arm is localized and have the form of joint
+collected when the arm is local\iz{}ed and have the form of joint
 space-image coordinates [equation here?]. In principle a very big
 lookup table can be used. The problem is that the input space is
 13-dimensional (7 degrees of freedom describing the head configuration
@@ -286,7 +286,7 @@ gaze direction into a set of coefficient. The coefficients are the
 weights of the linear combination of postural primitives.
 
 The arm locator algorithms control in different ways both the
-generation of appropriate movements for the self-localization and the
+generation of appropriate movements for the self-local\iz{}ation and the
 switching between different control regimes (not indicated in figure).
 
 There are two caveats: first, an additional and more precise visual
