@@ -1,0 +1,90 @@
+%% AISB03.tex
+%%
+%% Example of use of the AISB03 style.
+%%
+%% Created by Fred Labrosse.
+%% Comments and bugs to ffl@aber.ac.uk
+%%
+%% Last modification: 22/11/2002
+%%
+
+\newif\ifnote
+\ifx\notepaper\undefined
+  \notefalse
+\else
+  \notetrue
+\fi
+
+%%\documentclass[a4paper,10pt,twocolumn]{article}
+\documentclass[letter]{epirob}
+
+%%\usepackage{AISB03}
+\usepackage{graphicx}
+
+\newcommand{\citep}{\cite}
+
+\newcommand{\dgrs}{$^{\circ}$}
+
+\newcommand{\percent}{\%}
+
+\begin{document}
+
+%%\title{Bootstrapping vision through shared activity}
+%%\title{Learning from shared activity as a precursor to imitation}
+
+%%\title{A Developmental Approach to Embodied Vision}
+
+\title{The Whole World in Your Hand:\\
+Active and Interactive Segmentation}
+
+%% Three approaches to active segmentation
+
+%%\title{From action to objects to actions on objects}
+
+%%\title{From action to objects to actions on objects}
+
+%%\title{Learning from shared activity}
+
+%% Use \institute to create an institute use \inst to reference them.
+
+\author{Artur Arsenio$^{*}$ \and Paul Fitzpatrick$^{*}$ \and Charles Kemp$^{*}$ \and Giorgio Metta$^{**}$}
+
+\affiliation{$^{*}$MIT AI Lab \\
+    Cambridge, Massachusetts, USA 
+  \and
+  $^{**}$Lira Lab, DIST, Uiversity of Genova \\
+    Genova, Italy}
+
+%% \title, \author and \abstract MUST be specified before \maketitle.
+
+\maketitle
+
+\input{section-abstract}
+
+\input{section-introduction}
+
+\input{section-motivation}
+
+\input{section-segmentation}
+
+
+%%\input{section-poking}
+
+%%\input{section-motion}
+
+%%\input{section-object-recognition}
+
+%%\input{section-actor-recognition}
+
+\input{section-beyond-segmentation}
+
+\input{section-conclusions}
+
+%%\input{section-extras}
+
+\input{section-acknowledgements}
+
+\input{section-references}
+
+\end{document}
+

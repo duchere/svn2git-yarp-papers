@@ -1,0 +1,360 @@
+
+
+\section{Learning to recognize objects}
+
+With any of the active segmentation behaviors introduced here, the
+system can familiarize itself with the appearance of nearby objects.
+This section is concerned with learning to locate and recognize those
+objects whenever they are present, even when the special cues used for
+active segmentation are not available.
+%
+The method described here has been applied to the poking method.
+
+\subsection{Approaches to object recognition}
+
+Physical objects vary greatly in shape and composition.  This variety
+is reflected in their visual appearance.  Unfortunately, it is not a
+straightforward matter to recover object properties from appearance,
+since there are many other factors at work -- illumination, relative
+pose, distance, occlusions, and so on.  The central challenge of
+object recognition is to be sensitive to the identity of objects while
+maintaining invariance in the face of other incidental properties.
+%
+There are at least two broad approaches to recognition, geometry-based
+and appearance-based.
+
+\subsubsection*{Geometry-based recognition}
+
+Image formation is a geometric process, so one way to approach 
+recognition is to model invariant geometric relationships that
+hold for a particular class of object.  These relationships
+can be between points, lines, surfaces or volumes.
+%
+They may be known for many possible views of the object, or just one.
+When a new scene is presented, geometric relationships in it
+are measured and matched against the model.
+%
+There are many details in what to measure and how to do the matching
+(there is a good review in \cite{selinger01analysis}).
+%
+The main difficulty is the combinatorics of the search involved.
+There are a lot of free parameters to search over when we try to
+match an unsegmented scene to an object model -- in particular,
+which elements in the scene correspond to the object, and 
+what the transformation is between those elements and the object.
+%
+%One way to reduce this search is to use hashing.
+For high-speed performance, geometric hashing is a useful technique
+(for a review see \cite{wolfson97geometric}).  In this method,
+geometric invariants (or quasi-invariants) are computed from points in
+model (training) images, then stored in hash tables.  Recognition then
+simply involves accessing and counting the contents of hash buckets.
+%
+One possibility for the geometric invariants is to take a set of
+points selected by an interest operator, and use each pair of points
+in turn to normalize the remainder by scale and rotation.  The
+position of the normalized points can be stored in a 2D hash table, as
+shown in Figure~\ref{fig:geometric-hashing}.  Invariants in 3D are
+more difficult to achieve, but various solutions have been proposed.
+
+\subsubsection*{Appearance-based recognition}
+
+While the world is geometric in nature, geometric features are  not
+particularly easy to extract reliable from images.  In
+appearance-based recognition, the focus is shifted from the 
+intrinsic nature of an object to properties that can be measured
+in images of that object, including geometric properties but
+also surface properties such as color or texture.
+%
+For example, \cite{swain91color} proposed using the set of colors
+present in segmented views of an object as their representation.
+Regions of an image that contain the same color mix (as determined
+by histogram intersection) could contain the object.
+%
+Histogram back-projection can be used to quickly filter out regions
+unlikely to contain the object, by assigning each pixel a weight based
+on the frequency of its color in the histogram.  Some form of
+region-growing method then accumulates this evidence to find plausibly
+colored regions.  This method is very fast, and for objects with
+distinctive colors it can be useful as a prefilter to more
+computationally expensive processing.
+%
+%Histogram back-projection uses a very simple pixel-level feature
+%(color) to locate objects.
+Color is also intrinsically somewhat robust to scale and rotation,
+but is sensitive to changes in the spectral profile of illumination.
+%, which means that at detection time it is not
+%necessary to search across these degrees of freedom (at least in the
+%simplest implementation).
+
+Many appearance-based methods are window-based.  A classifier is built
+that operates on a rectangular region of interest within an image.
+That window is moved across the entire image, at multiple scales, and
+sometimes multiple orientations.  Responses of the classifier across
+locations and scales are combined using various heuristics.  Variation
+in orientation (rotation in depth) is typically dealt with by training
+up multiple recognizers for various poses.  These poses can be sampled
+quite sparsely, but still each pose requires iteration of the search
+procedure.  Ther are ways to speed all this up, for example using a
+cascade of classifiers that reject clearly non-target windows early,
+devoting full analysis only to plausible targets.
+%
+The actual classifier itself can be based on eigenspace methods
+or many other possibilities.
+
+Probabilistic methods like Schiele.  Version with Roy.
+
+
+\subsection{Hashing with rich features}
+
+The approach used here is like geometric hashing, but uses
+richer features that include non-geometric information.
+%
+Geometric hashing works because pairs of points are much more
+informative than single points.  An ordered pair of points defines a
+relative scale, translation, and orientation (in 2D).  Further points
+may be needed for more general transformations, such as affine
+or projective, or to move to 3D \cite[]{wolfson97geometric}.
+%
+But, even staying with the 2D case, using just two points is somewhat
+problematic.  First of all, they are not at all distinctive -- any two
+points in an image could match any two points in the model.  Hashing
+doesn't require distinctiveness, but it would be a useful prefilter.
+Secondly, there is no redundancy; any noise in the points will be
+directly reflected in the transformation they imply.
+
+One possibility would be to use triplets of points, or more.  Then we
+have distinctiveness and some redundancy.  But we also have an
+explosion in the number of possible combinations.  Pairs of points are
+just about manageable, and even then it is better if they are drawn
+from a constrained subset of the image.  For example, the work of
+\cite{roy02learning} uses histograms of the distance and angles
+between pairs of points on the boundary of an object for recognition.
+
+In this work, pairs of edges (or more generally, any region with
+well-defined and coherent orientation) are used instead of pairs of
+points (Figure~\ref{fig:rich-hashing}).
+%
+Pairs of edges are more distinctive than pairs of points,
+since they have relative orientation and size.  And if used carefully
+during matching, they contain redundant information about the
+transformation between image and model.  A disadvantage is that edges
+are subject to occlusion, and edges/regions found automatically
+many be incomplete or broken into segments.  But in all but the most
+trivial objects, there are many pairs of edges, so this approach is
+at least not doomed from the start.
+
+The orientation filter developed earlier is applied to images, and a
+simple region growing algorithm divides the image into sets of
+contiguous pixels with coherent orientation.  For realtime operation,
+adaptive thresholding on the minimum size of such regions is applied,
+so that the number of regions is bounded, independent of scene
+complexity.  In ``model'' (training) views, every pair of regions
+belonging to the object is considered exhaustively, and entered into a
+hash table, indexed by relative angle, relative position, and the
+color at sample points between the regions (if inside the object
+boundary).  
+
+%Such features are very selective, yet quite robust to
+%noise.
+
+A useful extension of geometric hashing is coherency, where
+each match implies a particular transformation, and only ``coherent''
+matches are aggregated (for example, see \cite{lamiroy96rapid}).
+%
+This could be applied in the present instance.  For speed, an
+abbreviated version is used here, where we filter by the centroid
+location each match implies for the object (this is information we
+would like to have anyway).  There is no coherence checking by scale
+and orientation at the matching stage.  
+%There are some advantages to
+%this; principally that for objects with symmetries, we
+%don't need to keep track of multiple possible transformations.
+%
+This procedure means that we perform object localization
+simultaneously with matching.
+
+Oriented regions are relatively sparse.  Experiments showed that on a
+fast machine (800MHz) and at low resolution ($128\times 128$) it is
+possible to use triplets of regions as features at close to real-time.
+These can be very distinctive, and very redundant, and non-trivial
+objects have very very many possible triplets.  But the frame-rate
+was just too slow (approximately 1 Hz) to be worth using here.
+
+At the other extreme, another possibility would be just to use single
+edges.  But they are not very distinctive, and sampling colors at an
+edge (generally a high-variance area) is problematic.
+
+
+\section{Searching for a synthetic object in a synthetic scene}
+
+
+\begin{figure}[tb]
+\centerline{\includegraphics[width=\columnwidth]{fig-resegment-test5}}
+\caption[Another example]{ 
+%
+%
+A simple example of object localization: finding the circle in a
+Mondrian.  
+%
+}
+%%\label{fig:resegment-example2}
+\end{figure}
+
+
+As a simple example of how this all works,
+consider the test case shown in Figure~\ref{fig:regment-mondrian}.
+The system is presented with a model view of the
+circle, and the test image.  For simplicity, the model view in 
+this case is a centered view of the object by itself, so no
+segmentation is required.  The processing on the model and
+test image is the same -- first the orientation filter is applied, and
+then regions of coherent orientation are detected.
+For the circle, these regions will be small fragments around its
+perimeter.  For the straight edges in the test image, these will
+be long.  So finding the circle reduces to locating a region
+where there are edge fragments at diverse angles to each other,
+and with the distance between them generally large with respect
+to their own size.  Even without using color, this is quite sufficient
+for a good localization in this case.  The perimeter
+of the circle can be estimated by looking at the edges that
+contribute to the peak in match strength.
+The algorithm works equally well on an image of many circles
+with one square.
+
+
+\subsection{Searching for real objects in synthetic scenes}
+
+\begin{figure}[tb]
+\centerline{\includegraphics[width=\columnwidth]{fig-resegment-test6}}
+\caption[Searching for real objects in synthetic scenes]{ 
+%
+%
+Looking for the best match to a cube found through poking in a
+synthetic image of various approximations and distractors.
+The superimposed red lines on the rightmost image
+indicate the detected position of the object and the
+edges implicated. 
+The image on its immediate left shows the strength of
+evidence for the object across the entire image, which lets us rank
+the distractors in order of attractiveness. 
+%
+}
+\label{fig:resegment-cube-yellow}
+\end{figure}
+
+
+In Figure~\ref{fig:resegment-cube-yellow}, we take a 
+single instance of an object found through poking,
+and search for it in a synthetic image containing an
+abstract version of it along with various distractors.
+The algorithm picks out the best match, and lets us
+rand the distractors in order of salience.  It is clear that a yellow
+square with anything in it is a good match, and having the internal
+purple square adds another boost.  The closest distractor is a yellow 
+square with a purple square inside it, rotated by 45\dgrs{}.
+
+
+
+
+\begin{figure}[tb]
+\centerline{\includegraphics[width=\columnwidth]{fig-resegment-example2}}
+\caption[Another example]{ 
+%
+The cube being recognized, localized, and segmented in real images.
+The image in the first column is one the system was trained on.
+The image in the remain columns are test images.
+Note the scale invariance demonstrated in the final image.
+%
+}
+\label{fig:resegment-cube-real}
+\end{figure}
+
+
+
+\subsection{Recognizing real objects in real images}
+
+Figure \ref{fig:resegment-cube-real}
+shows examples of the cube being resegmented in real images.
+%
+%
+
+Testing on a set of 400 images of four objects (about 100 each) being
+poked by the robot, with half the images used for training, and half
+for testing, gives a recognition error rate of about 2{\percent}, with
+a median localization error of 4.2 pixels in a $128\times 128$ image
+(as determined by comparing with the center of the segmented region
+given from poking).  
+%
+By segmenting the image by grouping the regions
+implicated in locating object, and filling in, a median of
+83.5{\percent} of the object is recovered, and 14.5{\percent} of the
+background is mistakenly included (again, determined by comparison
+with the results of poking).
+%
+
+
+
+
+
+\section{Multiple objects simultaneously}
+
+See Figure \ref{fig:resegment-multiple}.
+Don't actually do this normally, deal with foveation
+and egomap (described later).
+
+
+\begin{figure}[tb]
+\centerline{\includegraphics[width=\columnwidth]{fig-resegment-example}}
+\caption[Hands-free segmentation]{ 
+%
+%Hands-free segmentation.
+%The objects are on a very different table to the one 
+%used during training.  
+%Blue line indicates estimated
+%boundary; white dot shows estimated location of object.
+resegment multiple
+%
+}
+\label{fig:resegment-multiple}
+\end{figure}
+
+
+
+
+\subsection{Online training}
+
+Finally, Figure \ref{fig:resegment-online} shows recognition
+and training occurring online.
+
+
+
+\begin{figure}[tbh]
+\centerline{\includegraphics[width=\columnwidth]{fig-online-recog2}}
+\caption[Another example]{ 
+%
+This figure shows stills from a short interaction with Cog.
+The area of the first frame highlighted with a square shows the state
+of the robot -- the left box gives the view from the robot's camera,
+the right shows an image it associates with the current view.
+If the object confuses another object with what it has already seen,
+such as the ball in the first frame, this is easily to fix
+by poking.  IMPROVE THIS DESCRIPTION
+%
+}
+\label{fig:resegment-online}
+\end{figure}
+
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=\columnwidth]{fig-flipper-detect}
+\caption{ 
+\label{fig:flipper-detect}
+%
+This doesn't really need to be in the paper.
+%
+}
+\end{center}
+\end{figure}
+

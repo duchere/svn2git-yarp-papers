@@ -1,0 +1,47 @@
+
+\abstract{
+%
+This paper presents three approaches to object segmentation, a 
+fundamental problem in computer vision.  Each approach is aided by the
+presence of a hand or arm in the proximity of the object to be
+segmented.  The first approach is suitable for a robotic system, where
+the robot can use its arm to evoke object motion.
+%
+The second method operates on a wearable system, viewing the world
+from a human's perspective, with instrumentation to help detect
+and segment objects that are held in the wearer's hand.
+%
+The third method operates when observing a human teacher, locating
+periodic motion (finger/arm wagging or tapping) and using it as a seed
+for segmentation.  
+%
+We show that object segmentation is a key resource for development.
+We demonstrate that, once high-quality object segmentation is
+available, it is possible to train up both high-level visual modules
+(object recognition and localization) and to enhance low-level vision
+(orientation detection).
+
+\ifnote
+(OLD) Imitative behavior requires a mapping between the action of another
+and one's own action.  This is a challenging perceptual problem.  We
+show how a robot can expand its perceptual abilities far beyond an
+initial set of primitives by acquiring high-quality visual experience
+within the context of a simple object manipulation activity.
+%
+The robot pokes objects and watches a human companion poke the same
+objects, and uses motion cues to segment the object, its own arm, and
+the human's hand.  
+%
+From the data collected, the robot learns about object motion and
+recognition, about the appearance of the human hand, and 
+can train up a low-level orientation filter not present in its
+primitive set of filters.
+%
+The representation of objects and motion used is analogous to
+canonical and mirror neurons, and so is fundamentally well suited
+to imitation.
+\fi
+%
+%
+%
+}

@@ -1,0 +1,62 @@
+\section{Extras}
+
+An interesting question then is
+whether the system could extract useful information from seeing an
+object manipulated by someone else.  In the case of poking, the robot
+needs to be able to estimate the moment of contact and to track the arm
+sufficiently well to distinguish it from the object being poked.  We
+are interested in how the robot might learn to do this.  One approach
+is to chain outwards from an object the robot has poked.  If someone
+else moves the object, we can reverse the logic used in poking --
+where the motion of the manipulator identified the object -- and
+identify a foreign manipulator through its effect on the object.
+The next experiment was designed to explore this aspect.
+
+
+The first obvious thing the robot can do is to identify the action
+just observed with respect to its motor vocabulary. It is easily done,
+in this case, by comparing the displacement of the object with the
+four possible actions and by choosing the action whose effects are
+closer to the observed displacement.  Indeed it allows -- even if in
+this limited setting -- recognizing a complex action by interpreting
+its consequences on the environment.  This is orders of magnitude
+simpler than trying to completely characterize the action in terms of
+the observed kinematics of the movement. Here, the complexity of the
+data we need to obtain from the observations is somehow proportional
+to the complexity of the goal rather than that of the structure/skills
+of the foreign manipulator. In our case, because the action, the goal,
+and the object are relatively simple, the only information required is
+about the displacement of the object.
+
+Therefore, the next question is whether we can use this
+``understanding'' of observed actions to implement mimicry
+behavior. It would be easy now to try to replicate the action just
+observed if the same object were presented again. However, there is
+still a bit of ambiguity in that we can choose to mimic either the
+observed displacement of the object or the way the object was poked
+with respect to its rolling affordance.
+ 
+We chose to implement the latter. It is clear that poking along a
+particular observed direction requires trivial modifications. In
+practice, after an action is observed the angle between the affordance
+(see table \ref{tab:affordances}) and the actual displacement is
+measured and stored. If it happens to see the same object again, the
+robot chooses the action that has the greatest probability of poking
+the object along the previously stored angle.  Figures
+\ref{fig:observed-action} and \ref{fig:mimicked-action} show examples
+of such mimicry.
+
+
+This response is exactly what we would expect from a ``mirror-type''
+representation.  The observed action is interpreted on the basis of
+the robot own motor code. The same data structure is also
+used/activated when performing an action in response to the sight of a
+known object. The causal link between the two events that could be
+separated by several seconds is the object, the goal, and the object's
+affordances. There is considerable precedent in the literature for a
+strong connection between viewing object manipulation performed by
+either oneself or another \cite{wohlsclager02human}.  There is also a
+growing evidence that imitation is goal-directed
+\cite{bekkering-wohlschlager-2000} and that the object of the action
+is explicitly coded (e.g. during reaching) \cite{woodward-1998}.
+
