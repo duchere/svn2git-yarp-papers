@@ -78,10 +78,68 @@ Ordinates are the estimated probability.
 %
 %
 
+\ifrevised
+At the end of the learning procedure the robot has built a
+representation of each object in terms of:
+
+{
+\begin{itemize} \pflist
+  \item Pictorial information in the form of \ahhcolor{} histograms,
+        following \cite{swain91color}.
+  \item A measure of the average area of the object, an
+        index of the elongation of the object with respect to its principal
+        axis, and a set of Hu moments \cite{hu62visual}.
+  \item Detailed histograms of the displacement of the object given that a 
+	particular motor primitive was used with respect to the initial 
+	orientation of the object.
+  \item The summary histograms shown in Figure~\ref{fig:affordances}
+        which capture the overall response of each object to poking.
+\end{itemize}
+}
+
+The learning procedure is designed to be robust, with data gathered
+opportunistically during the unconstrained interaction of a human with
+the robot.  For example, while the robot was being trained, a teenager
+visiting the laboratory happened to wander by the robot, and became
+curious as to what it was doing.  He put his baseball cap on Cog's
+table, and it promptly got poked, was correctly segmented, and became
+part of the robot's training data (it was clustered by \ahhcolor{} with
+the similarly-\ahhcolor{}ed ball).
+
+%An object is placed roughly in front of the
+%robot with a random orientation, if the robot's attentional system
+%described in section 6 picks the object as something potentially
+%interesting it then activates the reaching and poking procedure.
+%Initially the robot chooses at random a poking action out of its small
+%repertoire. If the object is touched, tapped or poked, and the object is
+%segmented from the background then a new piece of information is added
+%to the system. 
+
+%The color information (histogram) is initially used to cluster the large
+%amount of data acquired by the robot. For each cluster (representing an
+%object) a cumulative color histogram, average size, probability of
+%movement with respect to the principal axis, elongation index, and
+%displacement with respect to the principal axis is computed. This
+%information is all what the robot knows about objects.  
+
+%%// after "colour segmentation algorithm used during learning".
+%%Information about the expected size of the object is employed here
+%%during the localization procedure. If the object is recognized, a pose
+%%estimation (orientation) is attempted. 
+
+\fi
+
 After the training stage, if one of the known objects is presented to Cog, the 
 object is recogn\ize{}d, local\ize{}d and its orientation estimated (principal 
-axis). Recognition and local\iz{}ation are based on the same \ahhcolor{} 
-segmentation algorithm used during learning. Cog then uses its 
+axis). 
+\ifrevised
+Recognition and local\iz{}ation are based on the same
+\ahhcolor{} histogram procedure used during training \cite{swain91color}.
+\else
+Recognition and local\iz{}ation are based on the same \ahhcolor{} 
+segmentation algorithm used during learning. 
+\fi
+Cog then uses its 
 understanding of the affordance of the object (Figure~\ref{fig:affordances}) 
 and of the geometry of poking to make the object roll. The whole local\iz{}ation 
 procedure has an error between $10^{\circ}$ and $25^{\circ}$ which proved 

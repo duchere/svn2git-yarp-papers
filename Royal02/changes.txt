@@ -1,3 +1,6 @@
+[my comments marked with *** or !!!]
+[!!! means "pending" -- not done yet]
+
 REVIEWER 1
 ==========
 
@@ -14,7 +17,13 @@ However the paper is unclear on many points.
 difficult for the reader to evaluate the contributions of the paper.
 
 *** Terminology problem, "grounding" is widely used term in robotics.
-!!! FIX: patched first paragraph of section 3 ("Grounding vision in action")
+*** FIX: added text in section 3, paragraph 2 (addition in capitals here):
+***   "Figure [fig] illustrates three levels of causal complexity
+***    we would like our robot to probe, SO 
+***    THAT IT CAN DEVELOP ROBUST, EMPIRICALLY FOUNDED
+***    REPRESENTATIONS OF THE WORLD AROUND IT
+***    (OFTEN REFERRED TO AS ``GROUNDED'' REPRESENTATIONS [CITATION]).
+
 
 - The target audience is unclear.  For instance, in section 1, it is
 noted that the complexity of vision cannot be grasped intuitively.
@@ -26,14 +35,20 @@ in the paper heavily relies on knowledge of previous work by Ballard
 in the domain.  
 
 *** Authors did not intend "grasp at an intuitive level" to mean 
-*** specialist-trained judgements
-!!! FIX: patched section 1 ("Motivation") to reflect this
-!!! FIX: added discussion of Ballard's work (WHERE?)
+*** specialist-trained judgements -- section 1+2 are present primarily
+*** for the benefit of non-specialists.
+*** FIX: added text in section 1:
+***   "the motivation for this work can be difficult FOR THOSE OUTSIDE
+***    THE FIELD OF VISION RESEARCH to grasp at an intuitive level.
+***    FOR THIS REASON, we begin out paper by seeking to clarify..."
 
 Similarly, in p.6, the authors refer to "long-standing
 problems in machine vision" without making them explicit.
 
-!!! FIX: added explicit example
+** FIX: added text in section 5, paragraph 3:
+***   "... allow us to tackle long-standing problems in machine vision
+***    SUCH AS FIGURE/GROUND SEPARATION AND OBJECT RECOGNITION
+***    in an innovative way."
 
 - The statement that vision is full of illusions (p.2) is true in a
 philosophical sense, and in some specially designed experiments.  However,
@@ -42,9 +57,19 @@ with few cues.  Hence, the "crucial" contribution of tapping an object
 (p.3) is a little bit overstated.
 
 *** Terminology problem: reviewer interprets illusion in narrow technical
-*** sense
-!!! FIX: replaced with more accurate word "ambiguity"
-!!! FIX: crucial???
+*** sense, authors intended it in sense used by source quoted (Berkeley 1972)
+*** FIX: replaced word "illusion" with "ambiguity" in final paragraph
+*** of section 2:
+***    "... while it is true that vision is full of AMBIGUITY, this
+***     AMBIGUITY evaporates when the robot can reach out..."
+
+*** Context problem: "crucial" contribution of poking is not in
+*** mature, everyday vision, but during development, when vision
+*** is immature and more in need of guidance.
+*** FIX: added text to section 3 paragraph 1:
+***    "the ability to perform 'controlled experiments' DURING THE
+***     PROCESS OF DEVELOPMENT, ... is crucial to getting to grips
+***     with an otherwise complex and uncertain world."
 
 - The paper suggests that tapping will lead to a "manipulation-driven
 representation of objects" (p.3).  However, what their results show is
@@ -54,27 +79,78 @@ repeated many times, one can determine the probability that the object
 rolls by a given angle.  Is the probability graph the representation of
 the object?  
 
-*** Reasonable point of clarification
-!!! FIX: added text WHERE???
+*** Very reasonable point of clarification
+*** FIX: added text to section 10.  New paragraph, paragraph 4.
+***    "At the end of the learning procedure the robot has built a
+***     representation of each object in terms of:
+***     + Pictorial information in the form of colour histograms,
+***     following [CITATION].
+***     + A measure of the average area of the object, an
+***       index of the elongation of the object with respect to 
+***       its principal axis, and a set of Hu moments [CITATION].
+***     + Detailed histograms of the displacement of the object 
+***       given that a particular motor primitive was used with
+***       respect to the initial orientation of the object.
+***     + The summary histograms shown in Figure 14
+***       which capture the overall response of each object to poking."
+
 
 There is a mention of a colour segmentation method, but no
 details are given.  
 
-!!! FIX: gave some details
+*** FIX: clarified text in section 10, paragraph 6 (was paragraph 4)
+*** and added citation to Swain&Ballard:
+***    "based on the same COLOUR HISTOGRAM PROCEDURE used 
+***     during training [CITATION]"
+
 
 Maybe the whole process of building a representation
-should be made more explicit.  What information is stored?  How is
+should be made more explicit.  What information is stored? 
+
+*** FIX: detailed in new paragraph section 10, paragraph 4, as given above.
+
+How is
 the learning procedure organized? (For example, does the object need
 to be put back in the same place after each tapping?)  Both pieces of
 information would help understand what "manipulation-driven representation
 of objects" is.  These would also make more clear how much this approach
 is suitable for truly autonomous robots.
 
-!!! FIX: added text WHERE???
+*** Object doesn't need to be in same place or orientation.
+*** We believe the paper addresses the details of the learning
+*** procedure, but perhaps the overall picture gets buried under 
+*** those details.
+*** FIX: added explanatory anecdote, in section 10, (new) paragraph 5:
+***    "The learning procedure is designed to be robust, 
+        with data gathered opportunistically during the unconstrained 
+        interaction of a human with the robot.  For example, while the 
+        robot was being trained, a teenager visiting the laboratory 
+        happened to wander by the robot, and became curious as to what 
+        it was doing.  He put his baseball cap on Cog's table, and it 
+        promptly got poked, was correctly segmented, and became
+        part of the robot's training data (it was clustered by colour with
+        the similarly-coloured ball)."
 
 - The work on mirror neurons is quite obscure.  On p.5, it is said that
 affordance neurons and mirror neurons are found in area F5.  Both seem
 to be active when observing manipulation tasks.  Are they not the same?
+
+*** No they are not the same.  The first class of neuron is activated
+*** by simply fixating an object, the second is not.
+*** Confusion caused by sentence in section 4 introducing mirror neurons:
+***    "They found another class of grasping neurons that also respond 
+***     during observation of somebody else's action."
+*** This sentence is misleading, although the one after it is clear:
+***    "A typical cell of this class (called mirror neuron) indeed 
+***     responds in two situations: i) when executing a 
+***     manipulative gesture, and ii) when observing somebody 
+***     else executing the same action."
+*** FIX: replaced misleading sentence (section 4, last paragraph) with:
+***    "They found a distinct class of neuron that responds
+        specifically to actions on objects, rather than the 
+        mere presence of that object at the point of fixation."
+
+
 Similarly to Ballard's paper that is key in the argumentation of the
 paper, Gallese's paper is key to the argumentation about mirror neurons.
 The authors should give more details on the experiments described in these
@@ -254,7 +330,8 @@ The sixth sentence from the top on p.14 is incomplete ("simply by checking
 whether its arm ...").
 
 !!! FIX: smoothed text
-!!! FIX: smoothed text
+*** The sixth sentence from the top on p.14 had ambiguous parse
+!!! FIX: reworded it
 
 The discussion of results on p.15 should be expanded.  What is counted
 as a "mistake"?  How were these measured?

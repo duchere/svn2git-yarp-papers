@@ -1,8 +1,18 @@
 \input{defs}
 \input{spelling}
 
-\newcommand{\draftpaper}{}
+\newcommand{\dgrs}{$^{\circ}$}
+\newcommand{\pflist}
+  {	\renewcommand{\labelitemi}{$\triangleright$}
+	\setlength{\itemsep}{0mm}
+	\setlength{\parsep}{0mm}
+	\setlength{\partopsep}{0mm}
+	\setlength{\topsep}{0mm}
+	\setlength{\parskip}{0mm}    }
+
+%%\newcommand{\draftpaper}{}
 \newcommand{\royalpaper}{}
+\newcommand{\revisedpaper}{}
 
 \emergencystretch=\hsize
 \lefthyphenmin=2
@@ -23,6 +33,14 @@
   \verbosefalse
 \else
   \verbosetrue
+\fi
+
+
+\newif\ifrevised
+\ifx\revisedpaper\undefined
+  \revisedfalse
+\else
+  \revisedtrue
 \fi
 
 
