@@ -9,46 +9,12 @@
 
 \section{The elusive object}
 
-
 Sensory information is intrinsically ambiguous, and very distant from
-the world of well-defined objects in which humans believe they live.  
+the world of well-defined objects in which humans believe they live.
 What criterion should be applied to distinguish one object from
-another?  How can perception support such a phenomenon as figure-ground
-segmentation?  
-Consider the example in Figure~\ref{fig:number-cross}.  It is
-immediately clear that the drawing on the left is a cross, perhaps
-because we already have a criterion, which allows segmenting on the
-basis of the intensity difference. It is slightly less clear that the
-zeros and ones on the middle panel are still a cross. What can we say
-about the array on the right? If we are not told, and we do not have
-the criterion to perform the figure-ground segmentation, we might
-think this is just a random collection of numbers. But if we are told
-that the criterion is ``prime numbers vs. non-prime'' then a cross can
-still be identified.
-
-While we have to be inventive to come up with a segmentation problem
-that tests a human, we don't have to go far at all to find something
-that baffles our robots.  Figure~\ref{fig:setup-sequence} shows a
-robot's-eye view of a cube sitting on a table.  Simple enough, but
-many rules of thumb used in segmentation fail in this particular case.
-And even an experienced human observer, diagnosing the cube as a
-separate object based on its shadow and subtle differences in the
-surface texture of the cube and table, could in fact be mistaken --
-perhaps some malicious researcher is up to mischief.  The only way to
-find out for sure is to take action, and start poking and prodding.
-As early as 1734, Berkeley observed that:
-%
-\begin{quote}
-...objects can only be known by
-touch. Vision is subject to illusions, which arise from the
-distance-size problem... \cite{berkeley72new}
-\end{quote}
-%
-In this paper, we provide support for a more nuanced proposition: that
-in the presence of manipulation, vision becomes more powerful, and many of
-its illusions fade away.
-
-
+another?  How can perception support such a phenomenon as
+figure-ground segmentation?  Consider the example in
+Figure~\ref{fig:number-cross}.
 %
 \begin{figure}[tbh]
 \begin{center}
@@ -64,6 +30,43 @@ with experience.
 \end{center}
 \end{figure}
 %
+It is immediately clear that the drawing on the left is a cross,
+perhaps because we already have a criterion, which allows segmenting
+on the basis of the intensity difference. It is slightly less clear
+that the zeros and ones on the middle panel are still a cross. What
+can we say about the array on the right?  If we are not told, and we
+do not have the criterion to perform the figure-ground segmentation,
+we might think this is just a random collection of numbers. But if we
+are told that the criterion is ``prime numbers vs. non-prime'' then a
+cross can still be identified.
+
+While we have to be inventive to come up with a segmentation problem
+that tests a human, we don't have to go far at all to find something
+that baffles our robots.  Figure~\ref{fig:setup-sequence} shows a
+robot's-eye view of a cube sitting on a table. At first glance this
+seems simple enough, but many rules of thumb used in machine vision
+for automatic object segmentation fail in this particular case.  And
+even an experienced human observer, diagnosing the cube as a separate
+object based perhaps on its shadow and subtle differences in the
+surface texture of the cube and table, could in fact be mistaken --
+perhaps some malicious researcher is up to mischief.  The only way to
+find out for sure is to take action, and start poking and prodding.
+As early as 1734, Berkeley observed that:
+%
+\begin{quote}
+...objects can only be known by
+touch. Vision is subject to illusions, which arise from the
+distance-size problem... \cite{berkeley72new}
+\end{quote}
+%
+In this paper, we provide support for a more nuanced proposition: that
+while it is true that vision is full of illusions, these illusions
+evaporate when the robot can reach out and come into contact with
+objects -- even if it has no sense of touch!  While certainly touch is
+an important sense, we show that simply involving objects in a causal
+chain events initiated by the robot itself is enough to wipe away much
+of the ambiguity that will plague a passive observer.
+
 %
 \begin{figure}[tbh]
 \begin{center}
@@ -80,6 +83,71 @@ separated, and the cube has a potentially confusing surface pattern.
 }
 \end{center}
 \end{figure}
+
+
+\section{Grounding vision in causal chains}
+
+Much of computer vision is passive in nature, with the emphasis on
+watching the world but not participating in it.  There are advantages
+to moving beyond this to exploit dynamic regularities of the
+environment \cite{ballard91animate}.
+%%,breazeal00social}.  
+A robot has the
+potential to examine its world using causality, by performing probing
+actions and learning from the response.  Tracing chains of causality
+from motor action to perception (and back again) is important both to
+understand how the brain deals with sensorimotor coordination and to
+implement those same functions in an artificial system, such as a
+humanoid robot.  And, as a practical matter, the ability to perform
+``controlled experiments'', such as tapping an object lightly, is
+crucial to getting to grips with an otherwise complex and uncertain
+world.
+
+Figure~\ref{fig:tracing-causes} illustrates three levels of causal complexity
+we would like the robot to probe.
+The simplest causal chain that the robot experiences is the
+perception of its own actions.  The temporal aspect is immediate:
+visual information is tightly synchronized to motor commands.
+We use this strong correlation to identify parts of the robot
+body -- specifically, the end-point of the arm. 
+
+Once this causal connection is established, we can go further and use
+it to actively explore the boundaries of objects.  In this case, there
+is one more step in the causal chain, and the temporal nature of
+the response may be delayed since initiating a reaching movement doesn't
+immediately elicit consequences in the environment.  
+
+
+In this paper, we propose that such causal probing can be arranged in
+a developmental sequence leading to a manipulation-driven
+representation of objects.  We present results for two important
+steps along the way, and describe how we plan to proceed.
+We argue that following this causal chain outwards will allow
+us to approach the representational power of ``mirror
+neurons'' \cite{fadiga00visuomotor}, where a connection is made
+between our own actions and the actions of another.
+As a point of reference, we now briefly review what is known about
+the relationship of object and action representation in the human
+brain.
+
+%
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=\columnwidth]{tracing_causes.eps}
+\caption{ 
+\label{fig:tracing-causes}
+%
+On the left, the robot establishes a causal connection between
+commanded motion and its own manipulator (A), and then probes its
+manipulator's effect on an object (B).  The object then serves as a
+literal ``point of contact'' (C) to link robot manipulation with human
+manipulation (on the right, D), as is required for a mirror-neuron-like
+representation.
+%
+}
+\end{center}
+\end{figure}
+%
 
 \section{Objects and actions}
 
@@ -203,69 +271,6 @@ information is integrated into the representation by maintaining the
 RF anchored to the correspondent body part (the forearm in this
 example) irrespective of the relative position of the head and arm.
 
-\section{Objects and robots}
-
-
-Much of computer vision is passive in nature, with the emphasis on
-watching the world but not participating in it.  There are advantages
-to moving beyond this to exploit dynamic regularities of the
-environment \cite{ballard91animate}.
-%%,breazeal00social}.  
-A robot has the
-potential to examine its world using causality, by performing probing
-actions and learning from the response.  Tracing chains of causality
-from motor action to perception (and back again) is important both to
-understand how the brain deals with sensorimotor coordination and to
-implement those same functions in an artificial system, such as a
-humanoid robot.  And, as a practical matter, the ability to perform
-``controlled experiments'', such as tapping an object lightly, is
-crucial to getting to grips with an otherwise complex and uncertain
-world.
-
-Figure~\ref{fig:tracing-causes} illustrates three levels of causal complexity
-we would like the robot to probe.
-The simplest causal chain that the robot experiences is the
-perception of its own actions.  The temporal aspect is immediate:
-visual information is tightly synchronized to motor commands.
-We use this strong correlation to identify parts of the robot
-body -- specifically, the end-point of the arm. 
-
-Once this causal connection is established, we can go further and use
-it to actively explore the boundaries of objects.  In this case, there
-is one more step in the causal chain, and the temporal nature of
-the response may be delayed since initiating a reaching movement doesn't
-immediately elicit consequences in the environment.  
-
-
-In this paper, we propose that such causal probing can be arranged in
-a developmental sequence leading to a manipulation-driven
-representation of objects.  We present results for two important
-steps along the way, and describe how we plan to proceed.
-We argue that following this causal chain outwards will allow
-us to approach the representational power of ``mirror
-neurons'' \cite{fadiga00visuomotor}, where a connection is made
-between our own actions and the actions of another.
-
-
-%
-\begin{figure}[tbh]
-\begin{center}
-\includegraphics[width=\columnwidth]{tracing_causes.eps}
-\caption{ 
-\label{fig:tracing-causes}
-%
-On the left, the robot establishes a causal connection between
-commanded motion and its own manipulator (A), and then probes its
-manipulator's effect on an object (B).  The object then serves as a
-literal ``point of contact'' (C) to link robot manipulation with human
-manipulation (on the right, D), as is required for a mirror-neuron-like
-representation.
-%
-}
-\end{center}
-\end{figure}
-%
-
 \ifverbose
 
 \section{Robots and vision}
@@ -307,5 +312,6 @@ extent of objects without any prior knowledge of the appearance of the
 objects (or indeed of the arm itself).
 
 \fi
+
 
 \input{section-active}
