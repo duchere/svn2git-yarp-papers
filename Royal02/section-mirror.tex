@@ -47,10 +47,81 @@ is to chain outwards from an object the robot has poked.  If someone
 else moves the object, we can reverse the logic used in poking --
 where the motion of the manipulator identified the object -- and
 identify a foreign manipulator through its effect on the object.
+
+%%%CHANGE%%%
+We designed two experiments that use poking to probe 
+the structure of the objects and control behavior on the basis of
+their affordances. Further, although poking gives us a simple 
+procedure for segmenting objects, the procedure would be 
+nevertheless inconvenient in many situations if we had to poke an 
+object every time we needed to grasp it. A better solution is that 
+of learning from experience about the behavior, visual appearance and 
+physical properties of objects.
+
+In the first experiment the robot poked a small set of objects 
+(an orange juice bottle, a toy car, a cube, and a colored ball) using 
+one of four possible actions (the motor repertoire). Actions are 
+indicated for convenience as pull in, side tap, push away, and back 
+slap. The toy car and the bottle have a definite principal axis that 
+can be easily extracted from the segmented image. They also tend to 
+roll along a definite direction with respect to their principal axis. 
+These visual and physical properties of the objects can be acquired 
+automatically by the robot simply by poking the same object many times 
+(about 100 in our experiment). The results are shown in figure 
+\ref{fig:affordances}. We plotted there the estimated probability 
+of observing each of the objects rolling along a particular direction 
+with respect to its principal axis. Different trials were clustered 
+using color information. In fact, in this case, color allows 
+distinguishing one object from another. The next step is that of 
+acquiring an understanding of poking. This is easily obtained from 
+the same training set. Instead of considering each object separately 
+here, we simply measured the average direction of movement given a 
+certain action. In practice, the robot automatically learns that 
+poking from the left causes the object to slide/roll to the right. 
+A similar consideration applies to the other actions.
+
+%
+%
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=\columnwidth]{affordances.eps}
+\caption{ 
+\label{fig:affordances}
+%
+%
+Probability of observing a roll along a particular direction for the set of
+four objects used in Cog's experiments. Abscissae represent the difference
+between the principal axis of the object and the observed direction of movement.
+Ordinates are the estimated probability.
+}
+\end{center}
+\end{figure}
+%
+%
+
+After the training stage, if one of the known objects is presented to Cog, the 
+object is recognized, localized and its orientation estimated (principal 
+axis). Recognition and localization are based on the same color 
+segmentation algorithm used during learning. Cog then uses its 
+understanding of the affordance of the object (figure \ref{fig:affordances}) 
+and of the geometry of poking to make the object roll. The whole localization 
+procedure has an error between $10^{\circ}$ and $25^{\circ}$ which proved 
+to be enough for our experiment. We performed a simple qualitative test of 
+the overall performance of the robot. Out of 100 trials the robot made 15 
+mistakes. Twelve of them were due to imprecise control: e.g. the end point 
+touched the object earlier than expected moving the car outside the field of 
+view. The remainders (3) were genuine mistakes due to misinterpretation of 
+the object position/orientation.
+
+
+
+
+
+
+\ifverbose
 Poking is an ideal testbed for future work on this, since it is much
 simpler than full-blown object manipulation and would only require a
 very simple model of the foreign manipulator to work.
-
 There is considerable precedent in the biological literature for a
 strong connection between viewing object manipulation performed by
 either oneself or another \cite{wohlsclager02human}. Also
@@ -61,6 +132,7 @@ seeing an object makes for 5, 6, and 9 month old infants. They
 provided evidence that the object and the goal-directness of the
 action represent an important component in the understanding of the
 intentions of others.
+\fi
 
 At the neural level, we already mentioned the presence of neurons in
 F5 that have a very specific response when an object is either fixated
