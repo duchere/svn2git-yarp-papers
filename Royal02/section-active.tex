@@ -1,11 +1,23 @@
 \section{Active Vision}
 
 A vision system is said to be {\em active} if it is embedded within a
-platform that can act to the benefit of the overall perceptual
-performance.  For example, by fast image stabilization.
+physical platform that can act to improve perceptual performance.  For
+example, a robot's cameras might servo a rapidly moving target to
+stabilize the image and keep the target in view.  In fact, active
+vision is often equated with moving cameras, although in this paper we
+use it in a broader sense of any controllable resource recruited to
+serve vision (including, in our case, arm motion).
 
-Pending citations: \cite{tarr94computational},
-\cite{tsikos91segmentation},
-\cite{bajcsy88active}
-\cite{aloimonos87active}
-\cite{ballard91animate}
+Historically, a number of logically distinct ideas are often
+associated with active vision.  The first is that vision should be
+approached within the the context of an overall task or
+purpose~\cite{aloimonos87active}.  If an observer can engage in
+controlled motion, it can integrate data from frame to frame to solve
+problems that are ill-posed statically.  Well-chosen motion can
+simplify the computation required for widely studied vision problems,
+such as stereo matching~\cite{bajcsy88active,ballard91animate}.  These
+interwoven ideas about active vision are teased apart
+in~\cite{tarr94computational}.
+
+
+Pending citations: \cite{tsikos91segmentation}.
