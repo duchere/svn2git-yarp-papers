@@ -284,10 +284,28 @@ Ultimately this mechanism is the body itself that through action
 (under some suitable developmental rule) generates informative
 percepts.
 
-If our hypothesis is correct then 
+We can distinguish three main conceptual functions (similar to the 
+schema of Arbib et al. \cite{arbib-1981}): reaching, grasping (manipulation), and
+object recognition. These functions correspond, as mentioned in the 
+previous sections, to three levels of causal understanding (see \ref{tab:causation}).
+They form also a nice progression of abilities which emerge out
+of very few initial assumptions. All that is required is the 
+interaction betweeen the actor and the environment, and the abovementioned
+developmental rules: i.e. specifying what information is retained during the
+interaction, what sort of senory processing, what are the motor
+primitives, etc. 
+
+The neuroscience results outlined in the previous section can be streamlined
+into a developmental sequence roughly following a dorsal to ventral
+gradient. Unfortunately this is a question which was not investigated in detail
+by neuroscientists, and there is very little empirical support for this claim
+(beside the work of Kovacs et al. \cite{kovacs00human}).
+
+What is certainly true is that the three modules/functions can be 
+clearly identified. If our hypothesis is correct then 
 the first developmental step has to be that of transporting the hand 
 close to the object. In humans, this function is accomplished mostly by the
-circuit VIP-F4-F1. Reaching requires at least the detection of
+circuit VIP/LIP/7b-F4-F1. Reaching requires at least the detection of
 the object and the transformation of its position into appropriate 
 motor commands. Parietal neurons seem to be coding for the spatial
 position of the object in non-retinotopic coordinates by taking
@@ -295,11 +313,19 @@ into account the position of the eyes with respect to the head.
 According to \cite{pouget-ducom-torri-bavelier-2002} and 
 to \cite{flanders-daghestani-berthoz-1999} the 
 gaze direction (the eye motor plant) seems to be the privileged
-reference system used to code reaching. In a robotic
+reference system used to code reaching. 
+Relating to the description of causality, the link between an executed
+motor action and its visual consequences can be easily formed by 
+a subsystems that can detect causality in a short time frame (the immediate
+aspect).
+
+\ifverbose
+In a robotic
 implementation, the signals required
 for calibrating/learning reaching can be acquired 
 through a random exploration of the 
 workspace~\cite{metta99developmental, Marjanovic-96-SAB}.
+\fi
 
 Once reaching is reliable enough, we can start to move our attention 
 outwards onto objects. Area AIP and F5 are involved in the
@@ -307,12 +333,19 @@ control of grasping and manipulation. F5 talks to the
 primary motor cortex for the fine control of movement. 
 The AIP-F5 system responds to the ``affordances'' of the observed 
 object with respect to the
-current abilities (for a robotic implementation,
-these may be simply poking and prodding initially). 
+current abilities.
+% (for a robotic implementation,
+%these may be simply poking and prodding initially). 
 Arbib and coworkers \cite{fagg-arbib-1998} proposed 
 the FARS model as a possible description of the computation in AIP/F5. 
 They did not however consider how affordances can be 
 actually learned during the interaction with the environment. 
+Learning and understanding affordances requires a slightly longer 
+time frame since the initiation of an action (motor command) does not
+immediately elicit a sensory consequence. In this example, the initiation
+of reaching requires a mechanism to detect when an object is actually 
+tocuhed, manipulated, and whether the collision/touch is causal to the
+initiation of the movement.
 
 The next step along this hypothetical developmental route is to 
 acquire the F5 mirror representation. We might think of canonical neurons as
@@ -321,6 +354,11 @@ an association table of grasp/manipulation (action) types with object
 second-level associative map which links together the observation of 
 a manipulative action performed by somebody else with the neural 
 representation of one's own action.
+Mirror neurons bring us to an even higher level of causal 
+understanding. In this case the action execution has to be associated
+to a similar action executed by somebody else. The two events
+do not need to be temporally close to each other. Arbitrary time delays
+might occur.
 
 The conditions for when this is feasible are a consequence of active
 manipulation. During a manipulative act there are a number of
@@ -342,15 +380,20 @@ The same considerations apply to the recognition of the
 manipulator (either self or foreign). In fact, STs specialized
 to this task. Information about object identity is
 also sent to the parietal cortex and contributes to 
-the formation of the affordances.
-
+the formation of the affordances. For the actual recognition we 
+can resort to a fuzzier definition
+of causality where mulitple instances of manipulation on a 
+certain object need to be grouped together. That is, all the 
+information (visual in this case) pertaining to a certain object
+has to be grouped (and stored somewhere/somehow) to build a model of some sort
+of the object.
 
 \begin{table*}[htbp]
 \begin{center}
 \begin{tabular}{|p{3.5cm}|p{2.5cm}|p{4.5cm}|}
 \hline
 {\it nature of causation} & {\it main path} &  {\it function and/or behavior} \\ \hline\hline
-{\bf direct causal chain} & VC-VIP-F4-F1 & reaching\\ \hline
+{\bf direct causal chain} & VC-VIP/LIP/7b-F4-F1 & reaching\\ \hline
 {\bf one level of indirection} & VC-AIP-F5-F1 & poking, prodding, grasping\\ \hline
 {\bf complex causation involving multiple causal chains} & VC-AIP-F5-F1+STs+IT & mirror neurons, mimicry\\ \hline
 {\bf complex causation involving multiple instances of manipulative acts} & STs+TE-TEO & object recognition\\ \hline
@@ -358,11 +401,15 @@ the formation of the affordances.
 \caption{
 \label{tab:circuits}
 %
-Degrees of causal indirection vs. function in the brain.
+Degrees of causal indirection, localization and function in the brain.
 %
 }
 \end{center}
 \end{table*}
+
+For the robotic implementation we followed the same developmental
+pathway and exploited the same sort of causal links between actions and 
+sensory feedback.
 
 
 \ifverbose
