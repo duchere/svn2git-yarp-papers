@@ -1,0 +1,117 @@
+%% AISB03 style file
+%%
+%% LaTeX style for the AISB'03 convention.
+%%
+%% Created by Fred Labrosse.
+%% Comments and bugs to ffl@aber.ac.uk
+%%
+%% Last modification: 22/11/2002
+%%
+
+\usepackage{times}
+\usepackage[round]{natbib}
+
+\pagestyle{empty}
+\bibliographystyle{plainnat}
+
+\setlength{\oddsidemargin}{-.54 true cm}
+\setlength{\evensidemargin}{-.54 true cm}
+\setlength{\topmargin}{-.54 true cm}
+\setlength{\headheight}{0 true cm}
+\setlength{\textwidth}{17.1 true cm}
+\setlength{\textheight}{24.2 true cm}
+\setlength{\columnsep}{1 true cm}
+
+%%
+%% Institution.
+%%
+
+\def\institute#1{%
+  \stepcounter{@inst}%
+  \small
+  \begin{tabular}[t]{c}
+    \llap{$^{\@AISBfnsymbol\the@inst}$\ignorespaces}%
+    #1
+  \end{tabular}}
+
+
+\def\@AISBfnsymbol#1{\ensuremath{\ifcase#1\or\star\or\dagger\or
+   \ddagger\or
+   \mathchar "278\or \mathchar "27B\or \|\or **\or \dagger\dagger
+   \or \ddagger\ddagger \else\@ctrerr\fi}}
+
+\newcounter{@inst}
+\setcounter{@inst}{0}
+\def\inst#1{\unskip$^{\@AISBfnsymbol#1}$}
+\def\fnmsep{\unskip$^,$}
+\def\email#1{{\tt#1}}
+
+\def\abstract#1{\gdef\@abstract{#1}}
+
+\def\@abstract#1{%
+    \begin{center}
+      \normalsize{\bf Abstract}
+      \vspace{\baselineskip}\par
+      \begin{minipage}{0.9\linewidth}
+        #1
+      \end{minipage}
+    \end{center}
+    \vspace{\baselineskip}%
+}
+
+%%
+%% maketitle
+%%
+
+\renewcommand\maketitle{\par
+  \begingroup
+    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+    \long\def\@makefntext##1{\parindent 1em\noindent
+      \hb@xt@1.8em{%
+        \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+    \ifnum \col@number=\@ne
+      \@maketitle
+    \else
+      \twocolumn[\@maketitle]%
+    \fi
+    \thispagestyle{empty}\@thanks
+  \endgroup
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 0.5em%
+  \begin{center}%
+    \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \par
+    \vskip 1.5em%
+    {\normalsize\bf Abstract}
+    \vspace{\baselineskip}\par
+    \begin{minipage}{0.9\linewidth}
+      \@abstract
+    \end{minipage}
+    \vskip 1.5em%
+  \end{center}%
+}
+
+%% End of file AISB03.sty
