@@ -13,7 +13,8 @@ However the paper is unclear on many points.
 - The term "grounding vision" is not explained in the paper, so it is
 difficult for the reader to evaluate the contributions of the paper.
 
-*** pending
+*** Terminology problem, "grounding" is widely used term in robotics.
+!!! FIX: patched first paragraph of section 3 ("Grounding vision in action")
 
 - The target audience is unclear.  For instance, in section 1, it is
 noted that the complexity of vision cannot be grasped intuitively.
@@ -22,13 +23,17 @@ painfully clear.  So, this note must be directed to readers naïve in
 computer vision.  However, the justification of the work described
 in the paper heavily relies on knowledge of previous work by Ballard
 (1991) that is not described at all, thus assuming a reader specialized
-in the domain.  Similarly, in p.6, the authors refer to "long-standing
+in the domain.  
+
+*** Authors did not intend "grasp at an intuitive level" to mean 
+*** specialist-trained judgements
+!!! FIX: patched section 1 ("Motivation") to reflect this
+!!! FIX: added discussion of Ballard's work (WHERE?)
+
+Similarly, in p.6, the authors refer to "long-standing
 problems in machine vision" without making them explicit.
 
-*** reviewer seems to equate intuition with judgement of a specialist!
-*** but rephrase anyway
-*** give example of long-standing problem
-*** flesh out ballard MOD:BALLARD
+!!! FIX: added explicit example
 
 - The statement that vision is full of illusions (p.2) is true in a
 philosophical sense, and in some specially designed experiments.  However,
@@ -36,7 +41,10 @@ everyday vision is very effective at correctly recognizing objects, even
 with few cues.  Hence, the "crucial" contribution of tapping an object
 (p.3) is a little bit overstated.
 
-*** pending
+*** Terminology problem: reviewer interprets illusion in narrow technical
+*** sense
+!!! FIX: replaced with more accurate word "ambiguity"
+!!! FIX: crucial???
 
 - The paper suggests that tapping will lead to a "manipulation-driven
 representation of objects" (p.3).  However, what their results show is
@@ -44,8 +52,17 @@ that when you move an object, it can be separated from the background,
 smartly filled in and its principal axes determined.  Then, if this is
 repeated many times, one can determine the probability that the object
 rolls by a given angle.  Is the probability graph the representation of
-the object?  There is a mention of a colour segmentation method, but no
-details are given.  Maybe the whole process of building a representation
+the object?  
+
+*** Reasonable point of clarification
+!!! FIX: added text WHERE???
+
+There is a mention of a colour segmentation method, but no
+details are given.  
+
+!!! FIX: gave some details
+
+Maybe the whole process of building a representation
 should be made more explicit.  What information is stored?  How is
 the learning procedure organized? (For example, does the object need
 to be put back in the same place after each tapping?)  Both pieces of
@@ -53,7 +70,7 @@ information would help understand what "manipulation-driven representation
 of objects" is.  These would also make more clear how much this approach
 is suitable for truly autonomous robots.
 
-*** pending MOD:REPRESENTATION
+!!! FIX: added text WHERE???
 
 - The work on mirror neurons is quite obscure.  On p.5, it is said that
 affordance neurons and mirror neurons are found in area F5.  Both seem
@@ -66,11 +83,12 @@ of the actions represent an important component in the understanding of
 the intentions of others" needs more careful elaboration.  At present,
 it is unclear how "these results" support that statement.
 
-*** pending MOD:MIRROR
+*** pending
 
 - P.6.  What is the meaning of "bootstrap perception"?
 
-*** pending
+*** Terminology problem: "bootstrap" is widely used term in computer science
+!!! FIX: replaced phrase
 
 - Figure 8 (p.10).  Is the arm "tapping the object" or "following a
 pre-programmed trajectory that brings it in contact with the object"?
@@ -80,7 +98,8 @@ intentions nor the notion of what an object is.  (On p.11, the target
 seems actually defined by the authors, not the robot).  Maybe the caption
 could be corrected?
 
-*** pending MOD:SEMANTICS
+*** Use of intentional stance
+!!! FIX: replaced text with something more technical
 
 - More about mirror neurons.  In the paper (p.16), the robot tries to
 determine the movement of an operator by observing how the object moves.
@@ -88,17 +107,20 @@ Is the object required in animal experiments?  If not, the relation of
 this work with mirror neurons is very tenuous.  This could be left out
 of the paper to make more space for other clarifications called for above.
 
-*** pending MOD:OPERATOR
+*** Objects are absolutely required in animal experiments
 
 - P.18.  The notes about predicting the future and inverting causal
 relations are very speculative, it seems, and unsupported.
 
-*** pff
+*** Speculative in terms of biological evidence, but an
+*** entirely reasonable next step in terms of robotic implementation.
 
 Overall, the authors should make more clear what problem they try to
 solve and explain in more details how they solve it.
 
-*** above mods should do that
+*** We believe the changes made will do that; certainly they address
+*** the specific concerns of this reviewer.
+
 
 
 REVIEWER 2
@@ -113,30 +135,36 @@ Regarding figure 14, the definition of the principal axis of a cube and
 ball need to be more carefully considered.  Can the principal axis of
 a ball be defined (given its symmetry)?
 
-*** exactly!
+*** Answer: no, not reliably, and figure 14 actually reflects this
+*** through the flatness of the graph relative to the objects with
+*** well-defined principal axes.
+!!! FIX: Mention this in figure caption.
 
 In addition:
 
 * does the cube roll or slide?
 
-*** It slides
+*** Answer: it slides.
+!!! FIX: Mention this in figure caption.
 
 * is the direction of the ball only dependant on the direction of the
 "poke"?  What about the ball's dynamics and the surface?
 
-*** pending
+*** We do have data on this, omitted for space constraints.
+!!! FIX: [no action taken]
 
 The following also require attention:
 
 * The reference to Berkeley needs to be clarified.
 
-*** pending
+!!! FIX: [no specific action taken; mirror neuron text expanded for
+!!! FIX:  first reviewer]
 
 * Some of the images are rather small, particularly 6 and 7 where it is
 difficult to see the fine detail.
 
-*** a consequence of pdf conversion -- drops resolution
-*** pending MOD:RESOLUTION
+*** PDF conversion problem -- image resolution was dropped significantly
+!!! FIX: smarter conversion
 
 I would like to see this paper published due to is high accessibility and
 scope.
@@ -181,8 +209,7 @@ results are fine, and the overall point is interesting, but I feel it
 should be argued more strongly what the contribution of this paper is,
 in contrast to existing work.
 
-*** pending contrasts, say with lift-and-segment
-*** pending MOD:CONTRAST
+!!! FIX: added some contrasts.
 
 (2) The attempt to move towards a "passive" understanding of objects and
 their affordances (mirror neuron, section 10) by learning the effects of
@@ -196,278 +223,41 @@ Is this approach suitable for anything but the smallest set of actions
 and objects?  If it isn't, that wouldn't necessarily be to the detriment
 of the paper but we would like to know.
 
-*** pending MOD:SCALING
+!!! FIX: added some text on this to conclusions
 
 Also, the authors should discuss how much the method discussed in section
 10 is dependent on the correct object identification. What happens if
 the bottle is confused with the car?
 
-*** pending MOD:MISIDENTIFICATION
+*** Answer: robot will naturally do the wrong thing
+!!! FIX: added some text on this
 
 Smaller points 
 
 Figures 6 and 7 are hard to read. 
 
-*** pending MOD:RESOLUTION
+!!! FIX: pdf conversion, mentioned earlier
 
 The flipper is found by a heuristic (p.10).  How much does this heuristic
 influence the generality of the method?
 
-*** pending
+!!! FIX: updated text
 
 The significance of section 9 is unclear.  Neither the objectives nor
 the results presented there seem particularly relevant to the paper,
 and the paper might benefit from the omission of that section.
 
-*** pending MOD:OPERATOR
+!!! FIX: Dropped section?
 
 The term "signature explosion of movement" (p.12) should be explained.
 The sixth sentence from the top on p.14 is incomplete ("simply by checking
 whether its arm ...").
 
-*** pending
+!!! FIX: smoothed text
+!!! FIX: smoothed text
 
 The discussion of results on p.15 should be expanded.  What is counted
 as a "mistake"?  How were these measured?
 
-*** pending MOD:MISTAKE
+!!! FIX: added explanation
 
-
-
-============================================================================
-
-MOD:BALLARD
-
-Ballard among others posit that behavioral assumptions might be taken
-into account to simplify the extraction of visual cues such as shape
-from shading, kinetic depth, optic flow, etc[***]. Conversely general
-purpouse vision is too uncostrained to be feasible. Another behavioral
-simplification induced by the Ballard's animate vision paradigm is the
-sequentialization of visual tasks. Observing that the human visual
-system is space-variant (i.e. photoreceptors are not evenly distributed
-in the retina), requires that visual data can be only gathered by
-placing the high-resolution fovea at interesting conspicuous places in
-the visual field. One example also brought forward by Ballard (cite) is
-the early experimental recording of eye movements of Yarbus [**]. The
-path of movement of the eyes clearly showed that the eye movements are
-function of what is asked to the subject (e.g. tell the age of the
-people in the scene), meaning that it is not usual to store huge amount
-of visual data into some internal representations. Also Brooks (cite)
-basically restates one of the main tenets of Gibson's indirect
-perception [*] when advocates that behavior can do without an internal
-(or with a minimal) representation. Both Gibson and later Brooks
-proposed that the information is mostly contained in the environment
-rather than internally in the agent.
-
-[*] J.J. Gibson, The Ecological Approach to Visual Perception,
-Houghton-Mifflin, Boston, 1979
-[**] A.L. Yarbus, Eye Movements and Vision, Plenum Press, 1967
-[***] I have citations from a paper by Ballard and Brown for each single
-problem.
-I was reading from:
-[D.H. Ballard and C.M. Brown, Principles of Animate Vision, in Active
-Perception Ed. Y. Aloimonos Lawarence Erlbaum Associates, Publishers -
-Hillsdale NJ, Hove, and London - 1993]
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
-
-
-
-============================================================================
