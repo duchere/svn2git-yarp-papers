@@ -33,8 +33,8 @@ Affordances are not only a property of the mechanics of the object, but
 rather a combination of visual appearance, of the object's physical 
 constituent, and of the ability of the actor. We selected a measure of
 the principal axis of the object (easily obtained from the segmentation)
-as a visual component of the affordance. Table \ref{tab:affordances} shows the expected
-behavior:
+as a visual component of the affordance. Table \ref{tab:affordances} 
+shows the expected behavior.
 
 \begin{table*}[htbp]
 \begin{center}
@@ -107,7 +107,8 @@ This information can be derived from the same training set we collected for lear
 about rolling. Figure \ref{fig:actions} shows the histograms of the direction 
 of movement of the object for
 each possible action. For example, the back slap moves the object mostly upward
-(about $-100^\circ$ on average) and away from the robot. A similar consideration applies
+(about $-100^\circ$ on average, $0^\circ$ being the direction parallel to the image
+$x$ axis) and away from the robot. A similar consideration applies
 to the other poking gestures. Figure \ref{fig:actions} was obtained from the data of
 about 500 poking events.
 
@@ -118,7 +119,7 @@ procedure used to form the clusters is employed here. Localization is simply imp
 by histogram backprojection and a search across the image. The current orientation of the
 object is then estimated by comparing the current image with all the prototypes 
 contained in the cluster. The whole procedure has an error on the estimation
-of the principal axis in the range $10^\circ$ to $25^\circ$ depending on the object.  
+of the principal axis in the range of $10^\circ$ to $25^\circ$ depending on the object.  
 
 To actually exploit the understanding of the affordance we need to connect vision to 
 behavior. The robot looks for the preferred rolling direction of the object
@@ -189,7 +190,7 @@ The next experiment was designed to explore this aspect.
 
 In fact, the same processing used for analyzing an active poking 
 can be used to detect a contact and segment the object from the manipulator.
-This is not different from what used for learning. While one might argue then
+This is not different from what we used for learning. While one might argue then
 that learning can be carried out just by mere observation, it is
 worth noting that: i) this situation is not as well defined [circumscribed] 
 as the active one, and ii) there is no connection to the motor aspects 
