@@ -23,7 +23,7 @@ before it can be grasped.
 It would be much better if the robot could learn about
 objects and, in particular, how to identify a previously encountered object. 
 A further difficulty, at least for a robot with a simple 
-manipulator (e.g. as Cog's flipper), is that ``affordances'' are scarce: 
+manipulator (such as Cog's flipper), is that ``affordances'' are scarce: 
 most of the time the object will simply move from one position
 to another if we are willing to discount when it falls from the table.
 
@@ -33,7 +33,7 @@ if it is not poked precisely. We selected a small set of objects to
 experiment with: a cube, a toy car, an orange juice bottle, and a ball.
 Affordances are not only a property of the mechanics of the object, but 
 rather a combination of visual appearance, of the object's physical 
-constituent, and of the ability of the actor. We selected a measure of
+composition, and of the ability of the actor. We selected a measure of
 the principal axis of the object (easily obtained from the segmentation)
 as a visual component of the affordance. Table \ref{tab:affordances} 
 shows the expected behavior.
@@ -57,23 +57,26 @@ Behavior of a small set of objects when poked at random by the robot manipulator
 \end{center}
 \end{table*}
 
-A further elaboration is required to group the data belonging to the same
-object as obtained from many poking acts into coherent clusters. As clustering 
-mechanism we employed color histograms. After each poking action, a color histogram 
-of the pixels of the segmented region is built and used as criterion 
-to judge whether the object belongs to an existing group (e.g. if it
+We need to group the data belonging to the same
+object obtained across many poking acts into coherent clusters. We adopted simple color histogram similiarity as our clustering criterion.
+After each poking action, a color histogram 
+of the pixels in the segmented region is built and used 
+to judge whether the object belongs to an existing group (for example, if it
 is mostly yellow, it is likely to be the toy car). This works well
-for a small set of objects but sophisticated methods are 
-required for a more general case with a large set of objects. 
+for a small set of objects but more sophisticated methods would be
+required for a more general case with a large set of objects~\cite{schiele00recognition}.
 The data structure that simulates the AIP-F5 affordance computation maintains all 
 the instances of poking grouped by object, all the prototypes of the segmented object,
 the direction of movement, and the action applied by the robot in each trial.
 
-An alternative to the vision-based clustering procedure is to try to come 
-to grips with the behavior of the objects after a single encounter, and use 
-the behavior itself as clustering criterion. This is more difficult because 
-of noise: e.g. there is still a non-zero probability that the object would 
-not roll at all.
+An alternative to the vision-based clustering procedure would be to 
+try to classify the behavior of an object after a {\em single} encounter, and use 
+the behavior itself as a clustering criterion. 
+So how an object rolls could be used as a feature to recognize that object.
+Adopting this strategy would have made our results much more sensitive
+to the performance of the motor and vision system, since we cannot
+average over the noise they generate.  Nevertheless, this would be a 
+perfectly reasonable strategy for a next-generation system to adopt.
 
 Figure \ref{fig:affordances} shows the results of the segmentation, clustering
 and estimation of the affordance of the same set of four objects. The training set
@@ -100,8 +103,11 @@ movement. Ordinates the estimated probability.
 \end{center}
 \end{figure}
 
-Yet this description of the affordances does not have any usable quantity to 
-take action once an object is observed. For this purpose a description of 
+This description of the affordances shows clear differences between the
+objects.
+But it is not yet an {\em effective} description since
+it does not by itself tell the robot how to take
+action once an object is observed. For this purpose a description of 
 the geometry of poking is required: i.e. the description of the properties of 
 objects (figure \ref{fig:affordances}) has to be connected to a description
 of the behavior of the object. 
