@@ -14,14 +14,15 @@ for segmenting objects.  There are many possible elaborations of this
 method, all of which lead to a vision system that is tuned to 
 acquiring data about an object by seeing it manipulated by the robot.  
 
-Segmentation alone is still unconvenient in many situations if not 
+This kind of active segmentation will nevertheless be inconvenient in many situations if not 
 coupled with a mechanism to learn from experience. For example, it 
-would be terribly unefficient to poke the object first and then try 
-to grasp it. It would be much better if the robot could learn about
-objects and [if it] had a way to identify a previously encountered object. 
+would be terribly inefficient to always have to poke an object first
+before it can be grasped.
+It would be much better if the robot could learn about
+objects and, in particular, how to identify a previously encountered object. 
 A further difficulty, at least for a robot with a simple 
 manipulator (e.g. as COG's flipper), is that ``affordances'' are scarce: 
-most of the time the object simply move from one position
+most of the time the object will simply move from one position
 to another if we are willing to discount when it falls from the table.
 
 However, for objects that roll there is a cue the robot can exploit
@@ -32,7 +33,7 @@ Affordances are not only a property of the mechanics of the object, but
 rather a combination of visual appearance, of the object's physical 
 constituent, and of the ability of the actor. We selected a measure of
 the principal axis of the object (easily obtained from the segmentation)
-as visual component of the affordance. Table \ref{tab:affordances} shows the expected
+as a visual component of the affordance. Table \ref{tab:affordances} shows the expected
 behavior:
 
 \begin{table*}[htbp]
