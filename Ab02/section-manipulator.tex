@@ -1,3 +1,4 @@
+\ifverbose
 
 \subsection*{Learning about manipulators}
 
@@ -11,6 +12,8 @@ object that caused the impact.  The set of objects that habitually
 trigger the motion of other objects is not a bad operational 
 definition of a manipulator, and should include the human hand/arm,
 and the robot's own arm.  See Figure~\ref{fig:manipulator}.
+
+\fi
 
 \ifverbose
 
@@ -46,6 +49,9 @@ backwards from a collision event.}
   \label{fig:manipulator}
 \end{figure}
 
+
+\ifverbose
+
 \begin{figure}[tbh]
   \centerline{
 \includegraphics[width=5cm]{fig-car-hand-seg-src}
@@ -55,5 +61,7 @@ backwards from a collision event.}
   \caption{A poke by hand}
   \label{fig:handpoke}
 \end{figure}
+
+\fi
 
 %%Can't necessarily remove shadow.
