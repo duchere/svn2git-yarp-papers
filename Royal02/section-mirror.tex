@@ -28,16 +28,16 @@ identify a foreign manipulator through its effect on the object.
 %%%CHANGE%%%
 We designed two experiments that use poking and the visual
 segmentation described in the previous sections to probe 
-the structure of objects and control behavior on the basis of
+the structure of objects and control \ahhbehavior{} on the basis of
 their affordances. Further, although poking gives us a simple 
 procedure for segmenting objects, the procedure would be 
 nevertheless inconvenient in many situations if we had to poke an 
 object every time we needed to grasp it. A better solution is that 
-of learning from experience about the behavior, visual appearance and 
+of learning from experience about the \ahhbehavior{}, visual appearance and 
 physical properties of objects.
 
 In the first experiment the robot poked a small set of objects 
-(an orange juice bottle, a toy car, a cube, and a colored ball) using 
+(an orange juice bottle, a toy car, a cube, and a \ahhcolor{}ed ball) using 
 one of four possible actions (the motor repertoire). Actions are 
 indicated for convenience as pull in, side tap, push away, and back 
 slap (see for example figure \ref{fig:poking-segmentation}). 
@@ -50,7 +50,7 @@ automatically by the robot simply by poking the same object many times
 \ref{fig:affordances}. We plotted there the estimated probability 
 of observing each of the objects rolling along a particular direction 
 with respect to its principal axis. Different trials were clustered 
-using color information. In fact, in this case, color allows 
+using \ahhcolor{} information. In fact, in this case, \ahhcolor{} allows 
 distinguishing one object from another. The next step is that of 
 acquiring an understanding of poking. This is easily obtained from 
 the same training set. Instead of considering each object separately 
@@ -80,7 +80,7 @@ Ordinates are the estimated probability.
 
 After the training stage, if one of the known objects is presented to Cog, the 
 object is recognized, localized and its orientation estimated (principal 
-axis). Recognition and localization are based on the same color 
+axis). Recognition and localization are based on the same \ahhcolor{} 
 segmentation algorithm used during learning. Cog then uses its 
 understanding of the affordance of the object (figure \ref{fig:affordances}) 
 and of the geometry of poking to make the object roll. The whole localization 
@@ -95,8 +95,8 @@ the object position/orientation.
 This experiment represents an analogue of the response of F5/AIP as 
 explained in Arbib's model \cite{fagg-arbib-1998} in that a specific 
 structure of the robot detects the affordance of the object and links 
-it to the generation of behavior. This is also the first stage of 
-the development of more complex behaviors which relies on the understanding 
+it to the generation of \ahhbehavior{}. This is also the first stage of 
+the development of more complex \ahhbehavior{}s which relies on the understanding 
 of objects as physical entities with specific properties.
 
 With the knowledge about objects collected in the previous experiment
@@ -113,7 +113,7 @@ Here the complexity of the data we need to obtain is somewhat proportional
 to the complexity of the goal rather than that of the structure/skill of 
 the foreign manipulator.
 
-The robot can also mimic the observed behavior if it happens to see the 
+The robot can also mimic the observed \ahhbehavior{} if it happens to see the 
 same object again. This requires another bit of information. The angle 
 between the affordance of the object (preferred direction of motion) and the 
 observed displacement is measured. During mimicry the object is localized as 
@@ -121,7 +121,7 @@ in the previous experiment and the action which is more likely to
 produce the same observed angle (relative to the object) is generated. 
 If, for example, the car was poked at right angle with respect to its principal 
 axis Cog would mimic the action by poking the car at right angle. In spite 
-of the fact that the car preferred behavior is to move along its principal 
+of the fact that the car preferred \ahhbehavior{} is to move along its principal 
 axis. Examples of observation of poking and generation of mimicry actions are 
 shown in figure \ref{fig:observed-action} and \ref{fig:mimicked-action}.
 
@@ -242,11 +242,11 @@ somebody else with the neural representation of one's own action.
 \fi
 
 Figure~\ref{fig:mirror-monkey} shows this causal chain in action.
-There are a series of interesting behaviors that can be realized based
+There are a series of interesting \ahhbehavior{}s that can be realized based
 on mirror neurons. Mimicry is an obvious application, since it
 requires just this type of mapping between other and self in terms of
 motor actions.  Another important application is the prediction of
-future behavior from current actions, or even inverting the causal
+future \ahhbehavior{} from current actions, or even inverting the causal
 relation to find the action that most likely will get to the desired
 consequence.
 
@@ -254,14 +254,14 @@ consequence.
 
 for example, by observing the part of an action the robot or the
 bioagent can come out with suitable expectations of the consequences
-of that action. On the other hand, the inverse behavior can also be
+of that action. On the other hand, the inverse \ahhbehavior{} can also be
 foreseen. The latter account to inverting the causal relation and
 getting the action that most likely will get to the desired
 consequence.
 
 It might be argued that we need a two stages procedure to learn a
 mirror representation, where we first learn ``something'' and only
-subsequently we ``understand'' other people's behavior. The actual
+subsequently we ``understand'' other people's \ahhbehavior{}. The actual
 developmental course might not be such artificially staged. A slight
 advantage must be given though to the initial step of self-learning,
 the undestanding comes later.
