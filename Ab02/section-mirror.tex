@@ -225,12 +225,30 @@ is one at all). An example of human poking is shown in figure \ref{fig:observed-
 \caption{ 
 \label{fig:observed-action}
 %
-OUTDATED An example of observed sequence with tracking superimposed. Frames around the
-moment of contact are shown. The object, after segmentation, is tracked for 12 
-frames using a combination of template matching and optic flow. The big circles
-represent the position of the toy car in successive frames. The two small circles
-(outline and solid) displayed on the frame of contact ($3^{rd}$ from the left) are 
-the position at the time of contact and at the $12^{th}$ frame respectively.
+Basic mimicry.  The first step in mimicking an action is to actually
+be able to observe it.  The first sequence shows a human demonstration
+of a poking operation.  Frames around the moment of contact are shown.
+The object, after segmentation, is tracked for 12 frames using a
+combination of template matching and optic flow.  The big circles
+represent the tracked position of the bottle in successive frames.
+The arrow displayed on the frame of contact ($3^{rd}$ from the left)
+projects from the position at the time of contact and at the $12^{th}$
+frame respectively.
+%
+In the second sequence, the bottle is presented to the robot in the
+same orientation it had in the demonstrated action and the robot
+repeats the observed action, a ``side tap''.  In the third sequence,
+the car is presented at a different angle.  The appropriate action to
+exploit the affordance and make the bottle roll is now a ``back
+slap''.
+%
+%An example of observed sequence with tracking superimposed. 
+%Frames around the
+%moment of contact are shown. The object, after segmentation, is tracked for 12 
+%frames using a combination of template matching and optic flow. The big circles
+%represent the position of the toy car in successive frames. The two small circles
+%(outline and solid) displayed on the frame of contact ($3^{rd}$ from the left) are 
+%the position at the time of contact and at the $12^{th}$ frame respectively.
 %
 }
 \end{center}
@@ -262,8 +280,9 @@ action is observed the angle between the affordance (see table \ref{tab:affordan
 the actual displacement is measured and stored. If it happens to see the same 
 object again, the robot chooses the action that has the greatest 
 probability of poking the object along the previously stored angle. 
-Figure \ref{fig:mimicked-action} shows two examples of mimicry as a consequence of the
-action shown in figure \ref{fig:observed-action}.
+Figures \ref{fig:observed-action} and \ref{fig:mimicked-action} show examples of such mimicry.
+%Figure \ref{fig:mimicked-action} shows two examples of mimicry as a consequence of the
+%action shown in figure \ref{fig:observed-action}.
 
 \begin{figure}[tbh]
 \begin{center}
@@ -272,13 +291,19 @@ action shown in figure \ref{fig:observed-action}.
 \caption{ 
 \label{fig:mimicked-action}
 %
-OUTDATED Two examples of mimicry following the observation in figure \ref{fig:observed-action} 
-where a human manipulator pokes the toy car exploiting the affordance (the car rolls). 
-In example 1 (top row), the toy car has the same orientation it had in the
-demonstrated action and the robot repeats the observed action. In example 2 (bottom), 
-the car is $90^\circ$ with respect to example 1. The appropriate action to exploit
-the affordance and make the car roll is thus a back slap.
-) 
+An extended mimicry example using the toy car.
+The sequences on the left show the robot mimicking a human exploiting
+the car's rolling affordance.  The sequences on the right show
+what happens when the human hits the car in a contrary fashion, going
+against its preferred direction of motion.  The robot mimics this 
+``unnatural'' action, suppressing its usual behavior of trying to
+evoke rolling.
+%OUTDATED Two examples of mimicry following the observation in figure \ref{fig:observed-action} 
+%where a human manipulator pokes the toy car exploiting the affordance (the car rolls). 
+%In example 1 (top row), the toy car has the same orientation it had in the
+%demonstrated action and the robot repeats the observed action. In example 2 (bottom), 
+%the car is $90^\circ$ with respect to example 1. The appropriate action to exploit
+%the affordance and make the car roll is thus a back slap. 
 %
 }
 \end{center}
@@ -422,6 +447,24 @@ indifferently, about the human hand. It is
 remarkable that the complexity of the robot manipulator does not necessarily have to
 match that of the human manipulator. [We can envision a similar procedure to learn about 
 any object that functions as manipulator.]
+
+\begin{figure}[tbh]
+  \centerline{\includegraphics[width=9cm]{fig-cube-segmentations}}
+%%  \centerline{\includegraphics[width=9cm]{experiment-montage}}
+  \caption{
+%
+Poking also gives the robot the opportunity
+to collect many views of a single object, and so we can hope to deal
+with recognizing objects like this toy cube
+that has a different appearance from every side (the segmentations
+shown here were collected automatically).
+%
+}
+  \label{fig:sample-results}
+\end{figure}
+
+
+
 
 \input{section-manipulator}
 

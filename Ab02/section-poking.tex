@@ -48,6 +48,27 @@ the object is reasonably rigid, and the movement has some component in
 parallel to the image plane, the result is likely to be a flow field
 whose extent coincides with the physical boundaries of the object.
 
+
+
+\begin{figure}[tbh]
+  \centerline{\includegraphics[width=\textwidth]{fig-double-yellow}}
+  \label{fig:poking-zoom}
+  \caption{
+%
+An example of the power of active segmentation.  The images
+marked ``scene'' show two presentations of a yellow toy car
+sitting on a yellow table.  The robot extends its arm across
+the table.  In the upper sequence it strikes from below, in the
+lower sequence it strikes from the side (``action'' images).
+Once the arm comes in contact with the car, it begins to move,
+and it can be segmented from the stationary background (``object'').
+On the left of the figure, a zoomed view of the car/table
+boundary is shown -- the difference between the two is very subtle.
+%
+} 
+\end{figure}
+
+
 \ifverbose
 %
 \begin{figure}[tb]
@@ -129,9 +150,8 @@ as for large interconnected messes, floppy formless ones, liquids,
 and so on.
 
 
-\input{section-segmentation}
-
 \ifverbose
+\input{section-segmentation}
 \input{section-contact}
 \fi
 
