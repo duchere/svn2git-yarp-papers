@@ -69,12 +69,38 @@ connected to the end-effector can be ignored as a distractor.
 
 The sequence shown in Figure~\ref{fig:poking-sequence} is about the
 simplest case possible for segmenting the motion of the object, since most of the arm is stationary
-when contact occurs.  In \ahhpractice{}, we would rather have less
+when contact occurs.  
+In \ahhpractice{}, we would rather have less
 constraints on the motion of the arm, so we can approach the object
 from any convenient direction.  We found that it was possible 
 to attain this flexibility without losing the simplicity of object
 segmentation that poking brings, by exploiting the unique
-visual opportunity afforded by the moment of impact.
+visual opportunity afforded by the moment of impact,
+as described in the next section.
+%
+\ifrevised
+%
+Another important question is, where does the target for poking come
+from?  This is in fact very straightforward.  As described in
+Section~\ref{sect:robot}, Cog has an attentional system that allows it
+to locate and track salient visual stimuli.  This is based entirely on
+low-level features such as color, motion, and binocular disparity that
+are well defined on small patches of the image, as opposed to features
+such as shape, size, and pose which only make sense on well-segmented
+objects.  If Cog's attention system locates a patch of the image
+that seems reachable (based on disparity and overall robot pose)
+it will reach toward it and attempt to poke it so that
+it can determine the physical extent of the object to which
+that patch belongs.  A human can easily encourage this behavior
+by bringing an object close to the robot, moving
+it until the robot fixates it,
+and then leaving it down on the table.  The robot will track the object
+down to the table
+(without the need or the ability to actually segment it),
+ observe that it can be reached, and poke it.
+%
+\fi
+%
 
 
 \ifverbose

@@ -42,13 +42,15 @@ in the domain.
 ***    THE FIELD OF VISION RESEARCH to grasp at an intuitive level.
 ***    FOR THIS REASON, we begin out paper by seeking to clarify..."
 
+
 Similarly, in p.6, the authors refer to "long-standing
 problems in machine vision" without making them explicit.
 
-** FIX: added text in section 5, paragraph 3:
+*** FIX: added text in section 5, paragraph 3:
 ***   "... allow us to tackle long-standing problems in machine vision
 ***    SUCH AS FIGURE/GROUND SEPARATION AND OBJECT RECOGNITION
 ***    in an innovative way."
+
 
 - The statement that vision is full of illusions (p.2) is true in a
 philosophical sense, and in some specially designed experiments.  However,
@@ -70,6 +72,7 @@ with few cues.  Hence, the "crucial" contribution of tapping an object
 ***    "the ability to perform 'controlled experiments' DURING THE
 ***     PROCESS OF DEVELOPMENT, ... is crucial to getting to grips
 ***     with an otherwise complex and uncertain world."
+
 
 - The paper suggests that tapping will lead to a "manipulation-driven
 representation of objects" (p.3).  However, what their results show is
@@ -109,6 +112,7 @@ should be made more explicit.  What information is stored?
 
 *** FIX: detailed in new paragraph section 10, paragraph 4, as given above.
 
+
 How is
 the learning procedure organized? (For example, does the object need
 to be put back in the same place after each tapping?)  Both pieces of
@@ -122,14 +126,15 @@ is suitable for truly autonomous robots.
 *** those details.
 *** FIX: added explanatory anecdote, in section 10, (new) paragraph 5:
 ***    "The learning procedure is designed to be robust, 
-        with data gathered opportunistically during the unconstrained 
-        interaction of a human with the robot.  For example, while the 
-        robot was being trained, a teenager visiting the laboratory 
-        happened to wander by the robot, and became curious as to what 
-        it was doing.  He put his baseball cap on Cog's table, and it 
-        promptly got poked, was correctly segmented, and became
-        part of the robot's training data (it was clustered by colour with
-        the similarly-coloured ball)."
+***     with data gathered opportunistically during the unconstrained 
+***     interaction of a human with the robot.  For example, while the 
+***     robot was being trained, a teenager visiting the laboratory 
+***     happened to wander by the robot, and became curious as to what 
+***     it was doing.  He put his baseball cap on Cog's table, and it 
+***     promptly got poked, was correctly segmented, and became
+***     part of the robot's training data (it was clustered by colour with
+***     the similarly-coloured ball)."
+
 
 - The work on mirror neurons is quite obscure.  On p.5, it is said that
 affordance neurons and mirror neurons are found in area F5.  Both seem
@@ -147,8 +152,8 @@ to be active when observing manipulation tasks.  Are they not the same?
 ***     else executing the same action."
 *** FIX: replaced misleading sentence (section 4, last paragraph) with:
 ***    "They found a distinct class of neuron that responds
-        specifically to actions on objects, rather than the 
-        mere presence of that object at the point of fixation."
+***     specifically to actions on objects, rather than the 
+***     mere presence of that object at the point of fixation."
 
 
 Similarly to Ballard's paper that is key in the argumentation of the
@@ -159,12 +164,56 @@ of the actions represent an important component in the understanding of
 the intentions of others" needs more careful elaboration.  At present,
 it is unclear how "these results" support that statement.
 
-*** pending
+*** The conclusion we stated was one drawn by other researchers, rather
+*** than a novel claim we were trying to defend ourselves.  Nevertheless,
+*** it is true that the reference to "these results" could use more
+*** support.
+*** FIX: added details of experiments in section 4, last paragraph:
+*** To the sentence "In (Wohlschlager and Bekkering, 2002) the role of objects
+*** during an initative task was tested" we added:
+***    "In this experiment two situations were compared: imitating another
+***     person's gesture in the presence of a target object, or without such a
+***     target.  Reaction times showed that subjects were significantly faster
+***     when imitating an action that is directed towards a target (such as an
+***     object sitting on a table)."
+*** To the sentence "In a series of experiments she [Woodward, 1998] 
+*** elucidated the contribution that seeing an object makes for 5, 6, 
+*** and 9 month old infants." we added:
+***    "Woodward tested various group of infants using the preferential
+***     looking paradigm. First, during a habituation phase, the infants
+***     observed an adult reaching for one of two toys.  The positions of the
+***     toys were then exchanged, and the infant saw the adult grasping the
+***     new toy in the same position, hence closely replicating the same
+***     trajectory used during the habituation phase.  Experiments showed that
+***     the infants looked more frequently at the new grasped toy in spite of
+***     the trajectory they were habituated to, which implies that they
+***     encoded the object identity into their interpretation of the observed
+***     action. Additional experiments showed that the same effect is not
+***     present if the action is performed using a mockup of the hand rather
+***     than a real human hand. Developmentally, the results showed that by 6
+***     months infants start encoding elements of the understanding of
+***     goal-directed actions, rather than kinematic aspects of the observed
+***     action."
+*** And the final sentence that "Taken together, these results provided
+*** evidence that ..." was changed to:
+***    "Taken together, these results lead Woodward and others to 
+***     speculate that ..."
+*** We believe that, with the corrections made to clear up the earlier
+*** confusion about mirror neurons, our summary of the conclusions of
+*** Gallese's paper is at the appropriate level of detail, given
+*** that we consider the many other citations to also be important in
+*** clarifying the nature and development of the representation of action.
+
 
 - P.6.  What is the meaning of "bootstrap perception"?
 
 *** Terminology problem: "bootstrap" is widely used term in computer science
-!!! FIX: replaced phrase
+*** FIX: replaced phrase in section 5, last paragraph -- was:
+***    "... provide the kind of training data needed to bootstrap perception."
+*** and is now:
+***    "... provide the kind of training data ON OBJECT APPEARANCE AND
+***     BEHAVIOUR NEEDED TO DEVELOP A ROBUST PERCEPTUAL SYSTEM."
+
 
 - Figure 8 (p.10).  Is the arm "tapping the object" or "following a
 pre-programmed trajectory that brings it in contact with the object"?
@@ -174,8 +223,45 @@ intentions nor the notion of what an object is.  (On p.11, the target
 seems actually defined by the authors, not the robot).  Maybe the caption
 could be corrected?
 
-*** Use of intentional stance
-!!! FIX: replaced text with something more technical
+*** It is easy to slip into the use of intentional language in robotics,
+*** and we welcome the reviewer's reminder of this.
+*** The specific phrase in question is where we speak of an 
+***       "... arm ... tapping an object"
+*** Clearly the robot does not have the intention or goal of tapping 
+*** the object with its arm.  It doesn't have intentions, and (at this
+*** point in the paper) it doesn't know about objects.
+*** Nevertheless, we believe that the statement is accurate, in the
+*** same sense that one can speak of a "branch tapping a window"
+*** without implying that the tree knows about or intends to tap 
+*** the window.  Since this figure is intended as a simple introduction
+*** to the basic idea of poking, we would prefer not to complicate
+*** the language used in the caption.
+
+
+(On p.11, the target seems actually defined by the authors, not the robot).
+
+*** This is not the case, and we suspect this confusion contributes to
+*** the previous objection raised.  We were not sufficiently clear
+*** in the paper about where the target for poking comes from.
+*** FIX: added text to section 8, last paragraph of "making an impact":
+***    "Another important question is, where does the target for poking come
+***     from?  This is in fact very straightforward.  As described in
+***     Section 6, Cog has an attentional system that allows it
+***     to locate and track salient visual stimuli.  This is based 
+***     entirely on low-level features such as color, motion, and 
+***     binocular disparity that are well defined on small patches 
+***     of the image, as opposed to features such as shape, size, and 
+***     pose which only make sense on well-segmented objects.  If Cog's 
+***     attention system locates a patch of the image that seems reachable 
+***     (based on disparity and overall robot pose) it will reach toward it 
+***     and attempt to poke it so that it can determine the physical extent 
+***     of the object to which that patch belongs.  A human can easily 
+***     encourage this behavior by bringing an object close to the robot, 
+***     moving it until the robot fixates it,
+***     and then leaving it down on the table.  The robot will track 
+***     the object down to the table (without the need or the ability 
+***     to actually segment it), observe that it can be reached, and poke it."
+
 
 - More about mirror neurons.  In the paper (p.16), the robot tries to
 determine the movement of an operator by observing how the object moves.
@@ -183,20 +269,45 @@ Is the object required in animal experiments?  If not, the relation of
 this work with mirror neurons is very tenuous.  This could be left out
 of the paper to make more space for other clarifications called for above.
 
-*** Objects are absolutely required in animal experiments
+*** The objects is absolutely required in animal experiments.
+*** this seems to be part of the same confusion about mirror neurons
+*** as in an earlier problem.
+*** FIX: added more text to section 4, final paragraph:
+***    "Mirror neurons are striking in their specificity of response.
+***     A neuron that responds to a particular grasp type applied to an
+***     object will not respond if the manual grasp is replaced with
+***     a tool, such as a pliers."
+
 
 - P.18.  The notes about predicting the future and inverting causal
 relations are very speculative, it seems, and unsupported.
 
-*** Speculative in terms of biological evidence, but an
-*** entirely reasonable next step in terms of robotic implementation.
+*** The notes lay out an entirely reasonable next step in terms of 
+*** robotic implementation, following the internal logic of the
+*** developmental process.  In terms of biological evidence, it is
+*** of course speculative, since there is very little knowledge of
+*** the developmental trajectory that leads to mirror neurons in
+*** adult primates.  
+*** Also, this text is at the end of the paper.  If one cannot 
+*** speculate at the end of a paper, when can one ever speculate?
+*** FIX: no action taken
+
 
 Overall, the authors should make more clear what problem they try to
 solve and explain in more details how they solve it.
 
-*** We believe the changes made will do that; certainly they address
-*** the specific concerns of this reviewer.
-
+*** We believe the changes made clarify two key points of confusion that
+*** made the paper difficult for this reviewer:
+***  (1) We are interested in the DEVELOPMENTAL PROCESS that leads to
+***      a mature, competent, visual system.  The mature system may
+***      not need to interact with its environment in order to perceive
+***      it correctly, but such interaction is (we claim and demonstrate) 
+***      very helpful for development.
+***  (2) Mirror neurons have very specific, narrowly-tuned responses
+***      (that are now more clearly described in the paper).
+***      We show how a simple shared activity with a human can
+***      provide the kind of data needed to train up just such a 
+***      representation.
 
 
 REVIEWER 2
