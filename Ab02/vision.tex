@@ -70,17 +70,16 @@
 
 \usepackage{natbib}
 
-	 \usepackage{endfloat}
+\usepackage[nolists,tablesfirst]{endfloat}
+
 
 \renewcommand{\cite}{\citep}
-
 
 
 %%\documentclass[a4paper]{article}
 
 %%\documentstyle{doublespace}
 
-\usepackage{setspace}
 
 
 \ifpdf
@@ -91,7 +90,11 @@
 
 \usepackage{psfig}
 
-\setstretch{2.0}
+%%\setlength{\baselinestretch}{1.62}
+
+%5\usepackage{setspace}
+%%\setstretch{2.0}
+\usepackage{doublespace}
 
 \usepackage{pf-mod}
 
@@ -187,6 +190,17 @@ Cambridge, MA, USA\\
 \input{section-references}
 
 \input{section-extras}
+
+\newpage
+
+\listoftables
+
+\newpage
+
+\listoffigures
+
+
+
 
 %% \input{section-rolling}
 
