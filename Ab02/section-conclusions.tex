@@ -23,6 +23,38 @@ last resort for a confusing object might be to simply hit it firmly,
 in the hopes of moving it some distance and potentially overcoming
 local, accidental visual ambiguity.  Obviously this strategy cannot
 always be used!  But there is plenty of room to be creative here.
+%
+%
+\ifrev
+%
+There are also limitations in our current implementation that could
+usefully be addressed.
+%
+The robot itself is not mobile, so its workspace is limited.  
+%
+There are also many constraints on the arm that make fine 
+motor control impossible -- it cannot maintain all reachable 
+poses indefinitely, and there is significant noise and some 
+hysteresis in its analog sensors.
+%
+The robot will only attempt to reach towards a target that is 
+actually accessible to its arm -- not too close, not too far, 
+as determined using visual disparity.  In practice, this 
+means that the ideal workspace is a table in front of the 
+robot, and the motor control of the robot has been 
+specifically tuned to work well in that situation.
+%
+A simple attention system and tracking mechanism are used to 
+bring the robot's attention to a target.  This phase can fail 
+if the robot gets distracted by some more salient (but 
+unreachable) part of the scene.
+%
+Objects that move together are not individually segmented.
+%
+And segmentation does not always succeed, due to shadows,
+or strong nearby edges.
+%
+\fi
 
 The robotic experiments support the view that reaching, grasping, and recognition
 can be learned by following a particular ontogenetic pathway without the
