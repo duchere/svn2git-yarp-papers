@@ -28,7 +28,8 @@ to the control.
 
 \begin{figure}[tb]
 \begin{center}
-\includegraphics[width=\columnwidth]{joint-correlation2.eps}
+%\includegraphics[width=\columnwidth]{joint-correlation2.eps}
+\includegraphics[width=8cm]{joint-correlation2.eps}
 \caption{ 
 \label{fig:joint-correlation}
 %
@@ -145,7 +146,7 @@ view, the optic flow can be used. We employed a block matching
 technique over a 16x16 grid out of a 128x128 pixels image.
 \fi
 
-
+\ifverbose
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=\columnwidth]{mapping-reach.eps}
@@ -161,7 +162,8 @@ DOFs of the arm are ignored.
 }
 \end{center}
 \end{figure}
-
+\endif
+\fi
 
 \ifverbose
 These two ideas were exploited contextually. The cross-correlation
@@ -191,12 +193,77 @@ This can be overcome by training up a function to estimate the
 location of the arm in the image plane from proprioceptive information
 (joint angles) during an exploratory phase, and using that to 
 constrain arm localization during actual operation.
-As a function approximator we simply fill a look-up table,
+
+As a function approximator we simply fill a look-up table, implemented
+as a list of nodes allocated dynamically. This implementation
+was chosen to reduce memory consumption; the input space is six
+dimensional and even a coarse discretization of this space would require
+memory in the order of several Mbytes. Rather than using all the joint angles
+the current direction of gaze is first coded in terms of only two angles
+representing the global pan ($\theta$) and tilt ($\phi$) of one of the cameras.
+This is easily computed from the kinematics of the head and the joint angles.
+The end-point position is coded considering only the first four joints 
+($q_1\ldots q_4$). The position of joint $q_5$ and $q_6$ is not employed because 
+the wrist does not significantly contribute to the end-point position.
+The output of the approximator is the position of the end-point (the forearm) on
+the image plane. Figure~\ref{fig:predict-position} shows the resulting behavior
+after about twenty minutes of real-time learning. 
+
+%[need to tell why the arm localization is not tied to reaching nor object segmentation]
+
+\subsubsection*{Reaching for the object}
+
+Reaching is implemented as a direct mapping between the direction of gaze 
+$(\theta,\phi)$ and the command required to reach the fixation point. This 
+procedure is consistent because we are interested in reaching a 
+point on a plane in front of the robot (a table). The resulting map is thus
+$\textrm{2D} \to \textrm{2D}$. The same argument could be extended to the 3D
+case by augmenting the encoding of gaze with, for example, the vergence angle. 
+The arm motor commands are represented in terms of joint positions,
+and the mapping is linear:
+
+\begin{equation} \label{eq:reachmap}
+\left( \begin{array}{c}
+\hat{q}_1\\
+\vdots\\
+\hat{q}_6
+\end{array}
+\right) = 
+\left( \begin{array}{cc}
+a_{11} & a_{12} \\
+\vdots & \vdots \\
+a_{61} & a_{62} \\
+\end{array}
+\right) 
+\cdot 
+\left( \begin{array}{c}
+\theta \\
+\phi
+\end{array}
+\right)
+\end{equation}
+
+\noindent where $\hat{q}$ are the desired joint positions. The coefficient
+$a_{nm}$ are estimated following a brief calibration procedure from a small 
+number of training pairs of the form ($\mathbf{\hat{q}}, (\theta, \phi)$).
+The linear approximation is justified in our case because of the relatively small 
+region of the workspace where the reaching is expected to operate. The 
+complete robot workspace is much bigger because the torso can also move to keep
+the operational point of the linear approximation within reasonable limits.
+
+At a lower level a low-stiffness position control and a simple trajectory generator
+interpolate the motion of the arm from the current position to the commanded one.
+Gravity compensation for the shoulder joint has been implemented to further 
+improve accuracy.
+
+\ifverbose
 reducing the 11-dimensional input space of joint angles based on 
 the much lower number of degrees of freedom used in controlling them
 (see Figure~\ref{fig:mapping-reach}).
 Figure~\ref{fig:predict-position} shows the resulting behavior
 after about twenty minutes of real-time learning. 
+\fi
+
 %
 \ifverbose
 Note as both the
@@ -311,7 +378,7 @@ open loop to bring the flipper in contact with the target object.
 
 \begin{figure}[tbh]
 \begin{center}
-\includegraphics[width=\columnwidth]{predict-position.eps}
+\includegraphics[width=7cm]{predict-position.eps}
 \caption{ 
 \label{fig:predict-position}
 %
