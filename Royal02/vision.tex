@@ -2,6 +2,12 @@
 
 \newcommand{\draftpaper}{}
 
+
+\emergencystretch=\hsize
+\lefthyphenmin=2
+\righthyphenmin=2
+\tolerance=9999
+
 % detect interpreter: pdflatex or latex
 
 \newif\ifpdf
@@ -35,11 +41,13 @@
 
 % use document class IROS with any paper size:
 
-\iflong
-  \documentclass[a4]{epirob}
-\else
-  \documentclass[a4paper]{IROS}
-\fi
+\documentclass[]{article}
+
+%%\iflong
+%%  \documentclass[a4]{epirob}
+%%\else
+%%  \documentclass[a4paper]{IROS}
+%%\fi
 
 \ifpdf
   \usepackage{graphicx}
@@ -50,9 +58,11 @@
 \usepackage{psfig}
 
 
+\usepackage{fullpage}
+
 \begin{document} 
 
-
+\onecolumn
 
 
 
@@ -64,17 +74,18 @@
 %%\title{Towards Manipulation-Driven Vision}
 
 \iflong
-  \author{Giorgio Metta$^{*,**}$
+  \author{Paul Fitzpatrick
         \and
-          Paul Fitzpatrick$^{**}$}
-  \affiliation{\rm $^{*}$LIRA-Lab, DIST \\
-               University of Genova \\
-                Viale F. Causa, 13 \\
-                16145 Genova, Italy \\
-           \and
-              $^{**}$MIT AI Lab\\
-             200 Technology Square \\
-             Cambridge, MA 02139 US }
+	  Giorgio Metta
+%%  \affiliation{\rm $^{*}$LIRA-Lab, DIST \\
+%%               University of Genova \\
+ %%               Viale F. Causa, 13 \\
+ %%               16145 Genova, Italy \\
+%%           \and
+%%              $^{**}$MIT AI Lab\\
+%%             200 Technology Square \\
+%%             Cambridge, MA 02139 US }
+}
 \else
 \author{Paul M. Fitzpatrick$^{*}$ and Giorgio Metta$^{*,\dagger}$}
 \affiliation{

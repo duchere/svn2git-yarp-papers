@@ -62,7 +62,8 @@ all: $(MAIN).dvi
 	distill -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
 
 d: $(MAIN).dvi
-	xdvi $(MAIN).dvi
+	xdvi -noghostscript $(MAIN).dvi
+#	xdvi $(MAIN).dvi
 
 gv: $(MAIN).ps
 	gv $(MAIN).ps

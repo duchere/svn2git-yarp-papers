@@ -62,7 +62,8 @@ all: $(MAIN).dvi
 	distill -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
 
 d: $(MAIN).dvi
-	xdvi $(MAIN).dvi
+	xdvi -noghostscript $(MAIN).dvi
+#	xdvi $(MAIN).dvi
 
 gv: $(MAIN).ps
 	gv $(MAIN).ps
@@ -101,6 +102,16 @@ short:
 long:
 	cp defs-epi.tex defs.tex
 	make bounce
+
+commit:
+	cvs commit -m "Makefile-generated commit"
+
+c: commit
+
+update:
+	cvs update
+
+u: update
 
 # only works on a sun, with distill installed
 pdf: $(MAIN).pdf
