@@ -216,7 +216,7 @@ collected when the arm is local\iz{}ed and have the form of joint
 space-image coordinates [equation here?]. In principle a very big
 lookup table can be used. The problem is that the input space is
 13-dimensional (7 degrees of freedom describing the head configuration
-and 6 describing the arm position), and nearest neighbor lookup tables
+and 6 describing the arm position), and nearest \neighbor{} lookup tables
 are known to work poorly in highly dimensional spaces. Beside,
 collecting enough samples to span the space densely enough might
 require a very long time. We can observe though that only the first
@@ -281,7 +281,7 @@ parallel to the postural primitives block. Oscillations are created by
 specifying directly the speed of the arm joints.
 
 Further up in the control chain there is the open loop controller.
-This is implemented as a nearest neighbor lookup table mapping the
+This is implemented as a nearest \neighbor{} lookup table mapping the
 gaze direction into a set of coefficient. The coefficients are the
 weights of the linear combination of postural primitives.
 
@@ -292,7 +292,7 @@ switching between different control regimes (not indicated in figure).
 There are two caveats: first, an additional and more precise visual
 bit of information is probably needed, and second, the closed loop
 controller has not been implemented yet. The former issue can probably
-be solved by looking for a gray blob close to the predicted arm
+be solved by looking for a GRAY/GREY blob close to the predicted arm
 position. Once the position of the end-point is accurately estimated,
 a reliable closed loop controller can be learned and employed after the
 open loop to bring the flipper in contact with the target object.
@@ -324,7 +324,7 @@ Predicting the location of the arm in the image as the head and arm
 change position. The rectangle represents the predicted position of
 the arm using the map learned during a twenty-minute training run.
 The predicted position just needs to be sufficiently accurate to
-initialize a visual search for the exact position of the end-effector.
+initial\ize{} a visual search for the exact position of the end-effector.
 %
 }
 \end{center}

@@ -55,7 +55,7 @@ distinguishing one object from another. The next step is that of
 acquiring an understanding of poking. This is easily obtained from 
 the same training set. Instead of considering each object separately 
 here, we simply measured the average direction of movement given a 
-certain action. In practice, the robot automatically learns that 
+certain action. In \ahhpractice{}, the robot automatically learns that 
 poking from the left causes the object to slide/roll to the right. 
 A similar consideration applies to the other actions.
 
@@ -83,7 +83,7 @@ object is recogn\ize{}d, local\ize{}d and its orientation estimated (principal
 axis). Recognition and local\iz{}ation are based on the same \ahhcolor{} 
 segmentation algorithm used during learning. Cog then uses its 
 understanding of the affordance of the object (figure \ref{fig:affordances}) 
-and of the geometry of poking to make the object roll. The whole localization 
+and of the geometry of poking to make the object roll. The whole local\iz{}ation 
 procedure has an error between $10^{\circ}$ and $25^{\circ}$ which proved 
 to be enough for our experiment. We performed a simple qualitative test of 
 the overall performance of the robot. Out of 100 trials the robot made 15 
@@ -115,13 +115,13 @@ the foreign manipulator.
 
 The robot can also mimic the observed \ahhbehavior{} if it happens to see the 
 same object again. This requires another bit of information. The angle 
-between the affordance of the object (preferred direction of motion) and the 
+between the affordance of the object (\ahhpreferred{} direction of motion) and the 
 observed displacement is measured. During mimicry the object is local\ize{}d as 
 in the previous experiment and the action which is more likely to 
 produce the same observed angle (relative to the object) is generated. 
 If, for example, the car was poked at right angle with respect to its principal 
 axis Cog would mimic the action by poking the car at right angle. In spite 
-of the fact that the car preferred \ahhbehavior{} is to move along its principal 
+of the fact that the car \ahhpreferred{} \ahhbehavior{} is to move along its principal 
 axis. Examples of observation of poking and generation of mimicry actions are 
 shown in figure \ref{fig:observed-action} and \ref{fig:mimicked-action}.
 
@@ -219,7 +219,7 @@ There are various opportunities to reinforce this link either at the object
 level, at the goal level or both. 
 %%Developmentally we can explain
 %%mirror neurons only if we take into account another class of neurons
-%%(called canonical) which in practice describes the lower branch of the
+%%(called canonical) which in \ahhpractice{} describes the lower branch of the
 %%graph.
 %
 }
@@ -286,7 +286,7 @@ canonical neurons.
 How does this relate to causation?  The two situations in some sense
 share the same goal, and more practically share the same object.  The
 whole procedure assumes a basic discrimination of size and shape of
-objects (not necessarily categorization in traditional sense), and the
+objects (not necessarily categor\iz{}ation in traditional sense), and the
 exploitation of the visual information to the understanding of the
 grasp type. In some cases though the goal might be unambiguous, e.g. a
 needle is very unlikely grasped with a full palm grasp, as well as a
