@@ -183,7 +183,7 @@ still be identified.
 
 While we have to be inventive to come up with a segmentation problem
 that tests a human, we don't have to go far at all to find something
-that baffles our robots.  Figure~\ref{fig:setup-sequence} shows a
+that baffles our robots.  Figure~\ref{fig:number-cross} (right) shows a
 robot's-eye view of a cube sitting on a table.  Simple enough, but
 many rules of thumb used in segmentation fail in this particular case.
 And even an experienced human observer, diagnosing the cube as a
@@ -207,34 +207,41 @@ its illusions fade away.
 %
 \begin{figure}[tb]
 \begin{center}
-\includegraphics[width=6.5cm]{number-cross.eps}
+\includegraphics[width=8.0cm]{number-cross.eps}
+\hspace{2cm}
+\includegraphics[width=4cm]{setup-sequence.eps}
 \caption{ 
 \label{fig:number-cross}
 %
-Three examples of crosses, following~\cite{manzotti01coscienza}.  The
-human ability to segment objects is not general-purpose, and improves
-with experience.
+On the left are three examples of crosses,
+following~\cite{manzotti01coscienza}.  The human ability to segment
+objects is not general-purpose, and improves with experience.
+On the right is an image of a cube on a table, illustrating the
+ambiguities that plague machine vision. 
+The edges of the table and cube happen to be
+aligned (dashed line), the colors of the cube and table are not well
+separated, and the cube has a potentially confusing surface pattern.
+
 %
 }
 \end{center}
 \end{figure}
 %
 %
+
+\ifverbose
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=4cm]{setup-sequence.eps}
-%\includegraphics[width=\columnwidth]{setup-sequence.eps}
-%\psfig{file=setup-sequence.eps,width=4cm}
 \caption{ 
 \label{fig:setup-sequence}
-%
 A cube on a table. The edges of the table and cube happen to be
 aligned (dashed line), the colors of the cube and table are not well
 separated, and the cube has a potentially confusing surface pattern.
-%
 }
 \end{center}
 \end{figure}
+\fi
 
 %
 %
