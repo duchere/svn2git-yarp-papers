@@ -71,6 +71,7 @@ in the previous section -- the first region of optic flow appearing
 in the lower part of the robot's view when the reach begins
 is assumed to be the arm.
 
+\ifverbose
 \begin{figure}[tbh]
 \begin{center}
 \includegraphics[width=\columnwidth]{cube-and-cylinder.eps}
@@ -83,6 +84,7 @@ is assumed to be the arm.
 }
 \end{center}
 \end{figure}
+\fi
 
 The poking operation gives clear results for a rigid object that is
 free to move.  What happens for non-rigid objects and objects that are
@@ -105,7 +107,10 @@ and so on.
 
 \input{section-segmentation}
 
+\ifverbose
 \input{section-contact}
+\fi
+
 
 \input{section-manipulator}
 

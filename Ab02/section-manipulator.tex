@@ -10,7 +10,9 @@ detect when an impact event occurs, it can collect segmentations of the
 object that caused the impact.  The set of objects that habitually
 trigger the motion of other objects is not a bad operational 
 definition of a manipulator, and should include the human hand/arm,
-and the robot's own arm.
+and the robot's own arm.  See Figure~\ref{fig:manipulator}.
+
+\ifverbose
 
 Unconstrained motion in a scene is difficult to parse.  But since the
 robot has become familiar with a set of objects through poking, it can
@@ -33,6 +35,8 @@ The frames leading up to the impact are great for detecting the
 appearance of the manipulator itself.  And give a strong cue that the
 moving object is in fact a manipulator (something used to impact
 objects).  See Figure~\ref{fig:manipulator}.
+
+\fi
 
 \begin{figure}[tbh]
   \centerline{\includegraphics[width=\textwidth]{manipulator-segment}}
