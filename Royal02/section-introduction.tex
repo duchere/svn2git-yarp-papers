@@ -12,7 +12,7 @@
 Sensory information is intrinsically ambiguous, and very distant from
 the world of well-defined objects in which humans believe they live.
 What criterion should be applied to distinguish one object from
-another?  How can perception support such a phenomenon as
+another?  How can perception support such a remarkable phenomenon as
 figure-ground segmentation?  Consider the example in
 Figure~\ref{fig:number-cross}.
 %
@@ -30,18 +30,21 @@ with experience.
 \end{center}
 \end{figure}
 %
-It is immediately clear that the drawing on the left is a cross,
-perhaps because we already have a criterion, which allows segmenting
-on the basis of the intensity difference. It is slightly less clear
+It is immediately clear that the drawing on the left is a cross.
+The intensity difference between the black cross and the 
+white background is
+a powerful cue for segmentation.
+It is slightly less clear
 that the zeros and ones on the middle panel are still a cross. What
-can we say about the array on the right?  If we are not told, and we
-do not have the criterion to perform the figure-ground segmentation,
-we might think this is just a random collection of numbers. But if we
-are told that the criterion is ``prime numbers vs. non-prime'' then a
+can we say about the array on the right?  If we are not told otherwise
+we might think this is just a random collection of numbers, since there
+is no obvious
+criterion to perform the figure-ground segmentation. But if we
+are told that the criterion is in fact ``prime numbers vs. non-prime'' then a
 cross can still be identified.
 
 While we have to be inventive to come up with a segmentation problem
-that tests a human, we don't have to go far at all to find something
+that tests a human, we don't have to try hard at all to find something
 that baffles our robots.  Figure~\ref{fig:setup-sequence} shows a
 robot's-eye view of a cube sitting on a table. At first glance this
 seems simple enough, but many rules of thumb used in machine vision
@@ -49,7 +52,7 @@ for automatic object segmentation fail in this particular case.  And
 even an experienced human observer, diagnosing the cube as a separate
 object based perhaps on its shadow and subtle differences in the
 surface texture of the cube and table, could in fact be mistaken --
-perhaps some malicious researcher is up to mischief.  The only way to
+perhaps some malicious researcher has glued the cube tight to the table.  The only way to
 find out for sure is to take action, and start poking and prodding.
 As early as 1734, Berkeley observed that:
 %
@@ -104,13 +107,13 @@ crucial to getting to grips with an otherwise complex and uncertain
 world.
 
 Figure~\ref{fig:tracing-causes} illustrates three levels of causal complexity
-we would like the robot to probe.
-The simplest causal chain that the robot experiences is the
+we would like a robot to probe.
+The simplest causal chain that the robot can experience is the
 perception of its own actions.  The temporal aspect is immediate:
 visual information is tightly synchron\ize{}d to motor commands.
 We use this strong correlation to identify parts of the robot
 body -- specifically, the end-point of the arm. 
-
+%
 Once this causal connection is established, we can go further and use
 it to actively explore the boundaries of objects.  In this case, there
 is one more step in the causal chain, and the temporal nature of
