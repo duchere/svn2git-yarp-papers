@@ -19,7 +19,7 @@ acquiring data about an object by seeing it manipulated by the robot.
 This kind of active segmentation will nevertheless be inconvenient in many situations if not 
 coupled with a mechanism to learn from experience. For example, it 
 would be terribly inefficient to always have to poke an object first
-before it can be grasped.
+before it could be grasped.
 It would be much better if the robot could learn about
 objects and, in particular, how to identify a previously encountered object. 
 A further difficulty, at least for a robot with a simple 
@@ -210,7 +210,7 @@ as the active one, and ii) there is no connection to the motor aspects
 of the action and consequently it is difficult to link the observation to the behavior.
 There is no physical contact, thus there is plenty of room for getting confused 
 by false positives. The temporal aspect, so well constrained during active manipulation, is 
-more vague here - the robot, for example, does not know when the foreign manipulator starts
+more vague here -- the robot, for example, does not know when the foreign manipulator starts
 or stops the action. If missing a contact event or getting a false or mistaken 
 segmentation is not much of a problem in ``observation mode'', it is much more
 troublesome is we corrupt the training data with unreliable/noisy observations.
