@@ -22,13 +22,56 @@ or pushing
 But while it has long
 been known that motor strategies can aid
 vision~\cite{ballard91animate}, work on active vision has focused
-almost exclusively on moving cameras.  There is much to be gained by
+almost exclusively on moving cameras.  
+%
+\ifrevised
+%
+There is much to be gained by bringing a manipulator into the
+equation.  For example, \cite{tsikos91segmentation} demonstrated how
+complex arrangements of blocks could be automatically separated physically
+using a robot-mounted suction tool.  This is a very proactive,
+``take charge'' style of segmentation, and it completely changes
+the accepted rules of the object segmentation ``game''.
+%
+\else
+%
+There is much to be gained by
 bringing a manipulator into the equation~\cite{tsikos91segmentation}.
+%
+\fi
+%
+%
 The implications may be far reaching.  For example,
 we have shown that, without any prior knowledge of the human form, 
 the robot can identify episodes when a human is manipulating objects
 that are familiar to the robot purely by the operational similarity 
 of the human arm and its own manipulator in this situation.
+
+\ifrevised
+%
+This work is an integrated ``proof of concept'', and almost every
+individual component within it could be improved considerably.  For
+example, there are much more sophisticated techniques for object
+recognition and local\ize{}ation than ours, e.g.
+\cite{schiele00recognition}.  
+%
+The key technical contribution of this paper is not the recognition
+method used, but the fact that the robot can autonomously
+collect all the training data it needs using poking.  Once that is
+possible, any recognition method could be trained up, and 
+we expect that our system can be extended to work with
+large numbers of objects.
+%
+Another rather under-developed component in our work is
+the robot's motor control and action repertoire.  
+It is not as clear how well our system will scale as new
+actions are added, but we have at least demonstrated that recognizing
+the actions of others doesn't necessarily require a full blown
+kinematics and 3D local\iz{}ation/interpretation of the motion of the
+human body.
+%, as often seems assumed in mimicry work.
+%
+\fi
 
 We have related our work to some very interesting results from
 neurobiology that have implications for sensorimotor integration, such

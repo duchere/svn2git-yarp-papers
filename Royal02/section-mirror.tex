@@ -72,6 +72,25 @@ Probability of observing a roll along a particular direction for the set of
 four objects used in Cog's experiments. Abscissae represent the difference
 between the principal axis of the object and the observed direction of movement.
 Ordinates are the estimated probability.
+\ifrevised
+The principal axis is computed using the second Hu moment of the
+object's silhouette~\cite{hu62visual}.  The ``pointiness'' or
+anisotropy of the silhouette is also measured from a higher order
+moment; this is low when the object has no well-defined principal
+axis, as is the case for the cube and the ball.
+\fi
+\ifrevised
+The car and bottle have clear directions in which they tend to
+roll.  In contrast, the cube slides, and the ball rolls, in any direction.
+\fi
+\ifrevised
+These histograms represent the accumulation of many trials, and
+average over the complicated dynamics of the objects and the robot's
+arm to capture an overall trend that is simple enough for the robot
+to actually exploit.
+% in a form that is useful for actually
+%deciding how to poke the object during imitation.
+\fi
 }
 \end{center}
 \end{figure}
@@ -141,14 +160,33 @@ segmentation algorithm used during learning.
 \fi
 Cog then uses its 
 understanding of the affordance of the object (Figure~\ref{fig:affordances}) 
-and of the geometry of poking to make the object roll. The whole local\iz{}ation 
+and of the geometry of poking to make the object roll. 
+The whole local\iz{}ation 
 procedure has an error between $10^{\circ}$ and $25^{\circ}$ which proved 
 to be acceptable for our experiment. We performed a simple qualitative test of 
 the overall performance of the robot. Out of 100 trials the robot made 15 
-mistakes. Twelve of them were due to imprecise control: e.g. the end point 
-touched the object earlier than expected moving the car outside the field of 
+mistakes. 
+\ifrevised
+A trial was classified as ``mistaken'' if the robot failed to poke
+the object it was presented with in the direction that would 
+make it roll.
+\fi
+Twelve of them were due to imprecise control: e.g. the end point 
+touched the object earlier than expected moving the object
+outside the field of 
 view. The remainders (3) were genuine mistakes due to misinterpretation of 
 the object position/orientation.
+%
+\ifrevised
+%
+Another potential mistake that could occur is if the robot
+misidentifies an object~-- and, for example, believes it sees a bottle
+when it in fact sees a car.  Then the robot will poke the object the
+wrong way even if it correctly determines the object's position and
+orientation.
+%
+\fi
+
 
 This experiment represents an analogue of the response of F5/AIP as 
 explained in Arbib's model \cite{fagg-arbib-1998} in that a specific 

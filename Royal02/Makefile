@@ -59,7 +59,8 @@ all: $(MAIN).dvi
 	bibtex $*
 
 %.pdf: %.ps
-	distill -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
+	ps2pdf $< $@
+#	distill -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
 
 dd: $(MAIN).dvi
 	xdvi $(MAIN).dvi

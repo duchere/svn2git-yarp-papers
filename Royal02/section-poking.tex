@@ -52,8 +52,14 @@ correlated motion used earlier to detect its own arm.
 
 Figure~\ref{fig:poking-sequence} shows how a ``poking'' movement can
 be used to refine a target.  During this operation, the arm begins
-by extending outwards from the resting position.  The end-effector (or
-``flipper'') is local\ize{}d as the arm sweeps rapidly outwards, using
+by extending outwards from the resting position.  
+\ifrevised
+For this simple motivating example, the
+\else
+The 
+\fi
+end-effector (or
+``flipper'') is local\ize{}d as the arm sweeps rapidly outwards using
 the heuristic that it lies at the highest point of the region of optic
 flow swept out by the arm in the image (the head orientation and
 reaching trajectory are controlled so that this is true).  The arm is

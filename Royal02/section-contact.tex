@@ -18,8 +18,14 @@
 How can we detect when the arm collides with an object?  One natural
 possibility would be to use proprioceptive or tactile information from
 the arm itself.  Another possibility is to detect the collision
-visually.  This is the method we use since, as
-Section~\ref{sect:manipulator} will discuss, it allows collision
+visually.  This is the method we use 
+\ifrevised
+since
+\else
+since, as
+Section~\ref{sect:manipulator} will discuss, 
+\fi
+it allows collision
 detection to be applied to human arm motion, a situation where the robot
 does not have access to any privileged information about the motion.  When the robot 
 is attempting to poke a target, it keeps the target fixated,
@@ -61,7 +67,13 @@ Figure~\ref{fig:poke-zoom} shows the sequence of processing steps
 taken as the arm approaches and comes into contact with a target.  As
 the arm approaches, its motion is tracked very coarsely in real-time,
 and areas it passes through are marked as ``clear'' of the object.  An impact event
-is detected through a signature explosion of movement connected with
+is detected through a 
+\ifverbose
+very characteristic sudden appearance of optic flow 
+\else
+signature explosion of movement 
+\fi
+connected with
 the arm, but spread across a much wider distance than the arm could
 possibly have moved in the time available.  Once this impact is detected, we
 start to process at high resolution (and drop briefly out of real-time

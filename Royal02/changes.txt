@@ -40,7 +40,7 @@ in the domain.
 *** FIX: added text in section 1:
 ***   "the motivation for this work can be difficult FOR THOSE OUTSIDE
 ***    THE FIELD OF VISION RESEARCH to grasp at an intuitive level.
-***    FOR THIS REASON, we begin out paper by seeking to clarify..."
+***    FOR THIS REASON, we begin our paper by seeking to clarify..."
 
 
 Similarly, in p.6, the authors refer to "long-standing
@@ -83,7 +83,7 @@ rolls by a given angle.  Is the probability graph the representation of
 the object?  
 
 *** Very reasonable point of clarification
-*** FIX: added text to section 10.  New paragraph, paragraph 4.
+*** FIX: added text to section 9 (was 10).  New paragraph, paragraph 4.
 ***    "At the end of the learning procedure the robot has built a
 ***     representation of each object in terms of:
 ***     + Pictorial information in the form of colour histograms,
@@ -101,7 +101,7 @@ the object?
 There is a mention of a colour segmentation method, but no
 details are given.  
 
-*** FIX: clarified text in section 10, paragraph 6 (was paragraph 4)
+*** FIX: clarified text in section 9 (was 10), paragraph 6 (was paragraph 4)
 *** and added citation to Swain&Ballard:
 ***    "based on the same COLOUR HISTOGRAM PROCEDURE used 
 ***     during training [CITATION]"
@@ -110,7 +110,8 @@ details are given.
 Maybe the whole process of building a representation
 should be made more explicit.  What information is stored? 
 
-*** FIX: detailed in new paragraph section 10, paragraph 4, as given above.
+*** FIX: detailed in new paragraph section 9 (was 10), paragraph 4, 
+*** as given above.
 
 
 How is
@@ -124,7 +125,7 @@ is suitable for truly autonomous robots.
 *** We believe the paper addresses the details of the learning
 *** procedure, but perhaps the overall picture gets buried under 
 *** those details.
-*** FIX: added explanatory anecdote, in section 10, (new) paragraph 5:
+*** FIX: added explanatory anecdote, in section 9 (was 10), (new) paragraph 5:
 ***    "The learning procedure is designed to be robust, 
 ***     with data gathered opportunistically during the unconstrained 
 ***     interaction of a human with the robot.  For example, while the 
@@ -310,6 +311,8 @@ solve and explain in more details how they solve it.
 ***      representation.
 
 
+
+
 REVIEWER 2
 ==========
 
@@ -322,39 +325,68 @@ Regarding figure 14, the definition of the principal axis of a cube and
 ball need to be more carefully considered.  Can the principal axis of
 a ball be defined (given its symmetry)?
 
-*** Answer: no, not reliably, and figure 14 actually reflects this
+*** Answer: no, not reliably, and Figure 14 actually reflects this
 *** through the flatness of the graph relative to the objects with
 *** well-defined principal axes.
-!!! FIX: Mention this in figure caption.
+*** FIX: Added text to figure 14 caption:
+***    "The principal axis is computed using the second Hu moment of the
+***     object's silhouette~\cite{hu62visual}.  The ``pointiness'' or
+***     anisotropy of the silhouette is also measured from a higher order
+***     moment; this is low when the object has no well-defined principal
+***     axis, as is the case for the ball and cube."
+
 
 In addition:
 
 * does the cube roll or slide?
 
 *** Answer: it slides.
-!!! FIX: Mention this in figure caption.
+*** FIX: added text to figure 14 caption:
+***    "The car and bottle have clear directions in which they tend to
+***     roll.  In contrast, the cube slides, and the ball rolls, 
+***     in any direction."
+
 
 * is the direction of the ball only dependant on the direction of the
 "poke"?  What about the ball's dynamics and the surface?
 
 *** We do have data on this, omitted for space constraints.
-!!! FIX: [no action taken]
+*** FIX: added text to figure 14 caption:
+       "These histograms represent the accumulation of many trials, and
+        average over the complicated dynamics of the objects and the robot's
+        arm to capture an overall trend that is simple enough for the robot
+        to actually exploit."
+
 
 The following also require attention:
 
 * The reference to Berkeley needs to be clarified.
 
-!!! FIX: [no specific action taken; mirror neuron text expanded for
-!!! FIX:  first reviewer]
+*** This citation is difficult, since the work is a classic dating from 
+*** the 18th century, and has many publication dates and versions.
+*** No two papers seem to cite it in the same way.
+*** We give the first date of publication (1734) and then a complete 
+*** citation to a particular copy of the book by a particular printer.
+*** FIX: added some more detail to the citation (full name of printer,
+*** more clearly tagged mention of original publication date)
+
+*** The discussion of the quote from Berkeley was also changed
+*** somewhat for the first reviewer.
+
 
 * Some of the images are rather small, particularly 6 and 7 where it is
 difficult to see the fine detail.
 
-*** PDF conversion problem -- image resolution was dropped significantly
-!!! FIX: smarter conversion
+*** FIX: increased size of images
+*** [but images are actual output of vision system, so are
+***  necessarily low resolution to allow real-time performance]
 
 I would like to see this paper published due to is high accessibility and
 scope.
+
+*** Thank you!
+
+
 
 
 REVIEWER 3
@@ -396,7 +428,23 @@ results are fine, and the overall point is interesting, but I feel it
 should be argued more strongly what the contribution of this paper is,
 in contrast to existing work.
 
-!!! FIX: added some contrasts.
+*** Ballard's work was key to popularizing active/animate vision,
+*** but (like almost all such work) focuses on the advantages of
+*** moving cameras, and so isn't specifically relevant to our paper.
+*** The closest work the authors have found is that cited in the
+*** Conclusions, in paragraph 2.
+*** FIX: added clarification on the work of Tsikos and Bajcsy in
+*** Conclusions:
+***    "There is much to be gained by bringing a manipulator into the
+***     equation.  For example, [Tsikos and Bajcsy 1991] demonstrated
+***     how complex arrangements of blocks could be automatically 
+***     separated physically using a robot-mounted suction tool.  
+***     This is a very proactive, ``take charge'' style of 
+***     segmentation, and it completely changes the accepted rules 
+***     of the object segmentation ``game''."
+*** Nothing much else to talk about!  This is a very neglected area,
+*** few people feed back from object manipulation to vision
+
 
 (2) The attempt to move towards a "passive" understanding of objects and
 their affordances (mirror neuron, section 10) by learning the effects of
@@ -410,42 +458,93 @@ Is this approach suitable for anything but the smallest set of actions
 and objects?  If it isn't, that wouldn't necessarily be to the detriment
 of the paper but we would like to know.
 
-!!! FIX: added some text on this to conclusions
+*** FIX: added some text on this in the Conclusions:
+***    "This work is an integrated ``proof of concept'', and almost every
+***    individual component within it could be improved considerably.  For
+***    example, there are much more sophisticated techniques for object
+***    recognition and localisation than ours, e.g. [CITATION].
+***    The key technical contribution of this paper is not the recognition
+***    method used, but the fact that the robot can autonomously
+***    collect all the training data it needs using poking.  Once that is
+***    possible, any recognition method could be trained up, and 
+***    we expect that our system can be extended to work with
+***    large numbers of objects.
+***    Another rather under-developed component in our work is
+***    the robot's motor control and action repertoire.  
+***    It is not as clear how well our system will scale as new
+***    actions are added, but we have at least demonstrated that recognizing
+***    the actions of others doesn't necessarily require a full blown
+***    kinematics and 3D localisation/interpretation of the motion of the
+***    human body."
+
 
 Also, the authors should discuss how much the method discussed in section
 10 is dependent on the correct object identification. What happens if
 the bottle is confused with the car?
 
-*** Answer: robot will naturally do the wrong thing
-!!! FIX: added some text on this
+*** Answer: the robot will do the wrong thing
+*** FIX: added some text on this
+***    "Another potential mistake that could occur is if the robot
+***     misidentifies an object - and, for example, believes it sees a bottle
+***     when it in fact sees a car.  Then the robot will poke the object the
+***     wrong way even if it correctly determines the object's position and
+***     orientation."
+
 
 Smaller points 
 
+
 Figures 6 and 7 are hard to read. 
 
-!!! FIX: pdf conversion, mentioned earlier
+*** Fixed for reviewer 2
+
 
 The flipper is found by a heuristic (p.10).  How much does this heuristic
 influence the generality of the method?
 
-!!! FIX: updated text
+*** The discussion for poking starts with a simple motivating example, 
+*** shown in Figure 8, which uses a simple heuristic to track the
+*** flipper.  The main poking work does NOT use that heuristic,
+*** but rather relies on detailed analysis of the moment of contact.
+*** FIX: added caveat to sentence that describes the heuristic:
+***    "For this simple motivating example, ...."
+*** Discussion of more flexible processing is in immediately
+*** following paragraph, which was updated in response to 
+*** reviewer 1's comments.
+
 
 The significance of section 9 is unclear.  Neither the objectives nor
 the results presented there seem particularly relevant to the paper,
 and the paper might benefit from the omission of that section.
 
-!!! FIX: Dropped section?
+*** There is a connection, but on balance, we accept this reviewer's
+*** judgement.
+*** FIX: removed section 9.
+
 
 The term "signature explosion of movement" (p.12) should be explained.
+
+*** FIX: replaced phrase with:
+***    "very characteristic sudden appearance of optic flow"
+
+
 The sixth sentence from the top on p.14 is incomplete ("simply by checking
 whether its arm ...").
 
-!!! FIX: smoothed text
-*** The sixth sentence from the top on p.14 had ambiguous parse
-!!! FIX: reworded it
+*** The sentence was complete, but poorly written.
+*** The section it belongs to (section 9) was removed, so this is
+*** not a problem anymore.
+
 
 The discussion of results on p.15 should be expanded.  What is counted
 as a "mistake"?  How were these measured?
 
-!!! FIX: added explanation
+*** FIX: added explanation
+***    "A trial was classified as ``mistaken'' if the robot failed to poke
+***     the object it was presented with in the direction that would 
+***     make it roll."
+
+
+*** Removed references to old Section 9
+*** Added acknowledgement to feedback from reviewers
 
