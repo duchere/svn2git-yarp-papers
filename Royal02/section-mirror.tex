@@ -1,30 +1,6 @@
 
 \section{Developing mirror neurons}
 
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=10cm]{mirror-monkey.eps}
-\caption{ 
-\label{fig:mirror-monkey}
-%
-Mirror neurons and causality: from the observer's point
-of view (A), understanding B's action means mapping it onto the
-observer's own
-motor repertoire. If the causal chain leading to the goal is already
-in place (lower branch of the graph) then the acquisition of a
-mirror neuron for this particular action/object is a matter of
-building and linking the upper part of the chain to the lower one.
-There are various opportunities to reinforce this link either at the object
-level, at the goal level or both. 
-%%Developmentally we can explain
-%%mirror neurons only if we take into account another class of neurons
-%%(called canonical) which in practice describes the lower branch of the
-%%graph.
-%
-}
-\end{center}
-\end{figure}
-
 \ifverbose
 The latest instantiation of the ``general principle'' we would like to
 dwell upon is related to mirror neurons. It turns out that the causal
@@ -49,7 +25,8 @@ where the motion of the manipulator identified the object -- and
 identify a foreign manipulator through its effect on the object.
 
 %%%CHANGE%%%
-We designed two experiments that use poking to probe 
+We designed two experiments that use poking and the visual
+segmentation described in the previous sections to probe 
 the structure of the objects and control behavior on the basis of
 their affordances. Further, although poking gives us a simple 
 procedure for segmenting objects, the procedure would be 
@@ -113,6 +90,74 @@ touched the object earlier than expected moving the car outside the field of
 view. The remainders (3) were genuine mistakes due to misinterpretation of 
 the object position/orientation.
 
+This experiment represents an analogue to the response of F5/AIP as 
+explained in Arbib's model \cite{fagg-arbib-1998} in that a specific 
+structure of the robot detects the affordance of the object and links 
+it to the generation of behavior. This is also the first stage of 
+the development of more complex behaviors which relies on the understanding 
+of objects as physical entities with specific properties.
+
+With the knowledge about objects collected in the previous experiment
+we can then set up a second experiment. In fact, the same visual processing 
+used for analyzing an active poking has been used to detect a contact and 
+segment the object from the manipulator. 
+The first obvious thing the robot can do then is to identify the action 
+just observed with respect to its motor vocabulary. It is easily done by 
+comparing the displacement of the object with the four possible actions and 
+by choosing the action whose effects are closer to the observed displacement. 
+This procedure is orders of magnitude simpler than trying to completely 
+characterize the action in terms of the observed kinematics of the movement. 
+Here the complexity of the data we need to obtain is somewhat proportional 
+to the complexity of the goal rather than that of the structure/skill of 
+the foreign manipulator.
+
+The robot can also mimic the observed behavior if it happens to see the 
+same object again. This requires another bit of information. The angle 
+between the affordance of the object (preferred direction of motion) and the 
+observed displacement is measured. During mimicry the object is localized as 
+in the previous experiment and the action which is more likely to 
+produce the same observed angle (relative to the object) is generated. 
+If, for example, the car was poked at right angle with respect to its principal 
+axis Cog would mimic the action by poking the car at right angle. In spite 
+of the fact that the car preferred behavior is to move along its principal 
+axis. Examples of observation of poking and generation of mimicry actions are 
+shown in figure \ref{fig:observed-action} and \ref{fig:mimicked-action}.
+
+%
+%
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=\columnwidth]{observed-action.eps}
+\caption{ 
+\label{fig:observed-action}
+%
+%
+An example of observed sequence. Frames around the instant of impact are shown.
+Initial and final position after 12 frames is indicated.
+}
+\end{center}
+\end{figure}
+%
+%
+
+%
+%
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=\columnwidth]{mimicked-action.eps}
+\caption{ 
+\label{fig:mimicked-action}
+%
+%
+Two examples of mimicry following the observation of figure \ref{fig:observed-action}. 
+Cog mimics the goal of the action (poking along the principal axis) rather than
+the trajectory followed by the toy car.
+}
+\end{center}
+\end{figure}
+%
+%
+
 
 
 
@@ -134,26 +179,50 @@ action represent an important component in the understanding of the
 intentions of others.
 \fi
 
+\ifverbose
 At the neural level, we already mentioned the presence of neurons in
 F5 that have a very specific response when an object is either fixated
 or manipulated (canonical neurons). Grossly simplifying, we might
 think of canonical neurons as an association table of
 grasp/manipulation (action) types with object (vision) types.
+\fi
 
-F5 also contains mirror neurons. These neurons, as we described
-before, respond when either watching somebody else performing a
-manipulative action or when actually manipulating an object. They can
-be thought of as a second-level association map which links together
-the observation of a manipulative action performed by somebody else
-with the neural representation of one's own action.
-
-The question of whether a mirror-like representation can be
+Mirror neurons, as we described before, respond when either watching 
+somebody else performing a manipulative action or when actually 
+manipulating an object. They can be thought of as a second-level 
+association map which links together the observation of a manipulative 
+action performed by somebody else with the neural representation of one's 
+own action. The question of whether a mirror-like representation can be
 autonomously developed by the robot (or a human for that matter) can
 then be answered. The association map can be constructed by
 identifying when the goal and the object are the same irrespective of
 who is the actor. Actions that lead to the same consequences are thus
 part of the same equivalence class.  This is exactly what mirror neurons
 represent.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=10cm]{mirror-monkey.eps}
+\caption{ 
+\label{fig:mirror-monkey}
+%
+Mirror neurons and causality: from the observer's point
+of view (A), understanding B's action means mapping it onto the
+observer's own
+motor repertoire. If the causal chain leading to the goal is already
+in place (lower branch of the graph) then the acquisition of a
+mirror neuron for this particular action/object is a matter of
+building and linking the upper part of the chain to the lower one.
+There are various opportunities to reinforce this link either at the object
+level, at the goal level or both. 
+%%Developmentally we can explain
+%%mirror neurons only if we take into account another class of neurons
+%%(called canonical) which in practice describes the lower branch of the
+%%graph.
+%
+}
+\end{center}
+\end{figure}
 
 
 \ifverbose
