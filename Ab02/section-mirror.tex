@@ -113,8 +113,8 @@ objects (Figure \ref{fig:affordances}) has to be connected to a description
 of the behavior of the object (FIXIT this sentence is not clear). 
 This information can be derived from the same training set we collected for learning
 about rolling. Figure \ref{fig:actions} shows the histograms of the direction 
-of movement of the object for
-each possible action. For example, the back slap moves the object mostly upward
+of movement averaged over all objects for
+each possible action. For example, the back slap moves an object mostly upward
 (about $-100^\circ$ on average, $0^\circ$ being the direction parallel to the image
 $x$ axis) and away from the robot. A similar consideration applies
 to the other poking gestures. Figure \ref{fig:actions} was obtained from the data of
@@ -122,9 +122,9 @@ about 500 poking events.
 
 The last step is to connect all these elements together. If a known object is
 presented to Cog, the object is recognized, localized, and
-its orientation estimated (principal axis). Recognition is based on the color histograms. The same
+its orientation estimated (by finding its principal axis). Recognition is based on the color histograms. The same
 procedure used to form the clusters is employed here. Localization is simply implemented 
-by histogram backprojection and a search across the image. The current orientation of the
+by histogram back-projection and a search across the image. The current orientation of the
 object is then estimated by comparing the current image with all the prototypes 
 contained in the cluster. The whole procedure has an error on the estimation
 of the principal axis in the range of $10^\circ$ to $25^\circ$ depending on the object.  
