@@ -17,6 +17,32 @@ And we discuss in what sense our artificial implementation is substantially
 in agreement with neuroscience. 
 
 
+%
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=8.0cm]{number-cross.eps}
+\hspace{2cm}
+\includegraphics[width=4cm]{setup-sequence.eps}
+\caption{ 
+\label{fig:number-cross}
+%
+On the left are three examples of crosses,
+following~\cite{manzotti01coscienza}.  The human ability to segment
+objects is not general-purpose, and improves with experience.
+On the right is an image of a cube on a table, illustrating the
+ambiguities that plague machine vision. 
+The edges of the table and cube happen to be
+aligned (dashed line), the colors of the cube and table are not well
+separated, and the cube has a potentially confusing surface pattern.
+%
+}
+\end{center}
+\end{figure}
+%
+%
+
+
+\ifverbose
 \begin{figure}[tbh]
 \begin{center}
 \includegraphics[width=12cm]{mirror-cog.eps}
@@ -32,6 +58,8 @@ develop together, supporting each other.
 }
 \end{center}
 \end{figure}
+\fi
+
 
 %We address three levels of causal complexity.
 Table \ref{tab:causation} shows three levels of causal complexity
@@ -88,6 +116,55 @@ an effect, the more difficult it is to model.
 \end{center}
 \end{table*}
 %\fi
+
+\section{The elusive object}
+Following \cite{manzotti01coscienza}, we can ask whether macroscopic 
+objects exist in their own right, or rather they owe their existence
+to the interaction with an observer. Being a physical assemblage is
+not an intrinsic or primary property, but rather it is something that
+derives from the observer. E.g. would a chair, still be a chair if we 
+had a completely different embodiment? Further, even if a part of a
+physical world could be separated out from the background,
+its function still depends on the body and skills of the user -- for 
+example, a floppy disk is not of much use to a computer illiterate,
+and perhaps can be just regarded as an obstacle depending on the 
+circumstances.
+
+Consider the example in figure \ref{fig:number-cross}. It is
+clear that the cross on the left is a cross and does not seem to owe 
+its existence to you (observer). Yet, the one in the middle for
+many of us is still a cross. Clearly, it would still be the case 
+even if we had not developed the concept of number or these particular
+graphic symbols to identify numbers. What can we say about the array 
+on the right? On a first examination it looks like a random collection
+of numbers. But if we are told that the criterion is ``prime numbers 
+vs. non-prime'' then a cross can still be identified (assuming 
+we can read and understand numbers of course).
+
+%
+% Can we have the yellow car on the yellow table instead?
+%
+On the very right of figure \ref{fig:number-cross} we show a 
+cube sitting on the table. While humans are very good in analyzing
+scenes like this one, there are many features that can fool
+a computer vision system. The edges of the cube and table 
+happen to be aligned, the color is poorly separated, and the surface
+pattern of the cube does not really tell much about the object
+itself. Is the internal dark square a different object lying on 
+top of the cube? Another possibility is that the cube is extrimely
+heavy or even part of the table and thus it is not manipulable or
+movable. Does it make sense then to speak about a different object?
+We propose that a possible way to find out for sure is to take 
+actions and test ourselves. As early as 1734, Berkeley observed that:
+%
+\begin{quote}
+...objects can only be known by
+touch. Vision is subject to illusions, which arise from the
+distance-size problem... \cite{berkeley72new}
+\end{quote}
+%
+Actually, vision is subject to many illusions but these can 
+be ususally avoided if we are allowed to take actions.
 
 
 \ifverbose 
