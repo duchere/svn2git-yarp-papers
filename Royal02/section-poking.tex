@@ -30,7 +30,7 @@ outcomes are possible.  If the object is large, heavy, or otherwise
 unyielding, motion of the arm may simply be resisted without any
 visible effect.  Such objects are of little interest, except in their
 role as obstacles, since the robot will not be able to manipulate
-them.  But if the object is smaller, it is likely to move a little in
+them.  But if the object is smaller, it is likely to move somewhat in
 response to the nudge of the arm.  This movement will be temporally
 correlated with the time of impact, and will be connected spatially to
 the end-effector -- constraints that are not available in passive
@@ -38,7 +38,7 @@ scenarios~\cite{birchfield99depth}.  If the object is reasonably
 rigid, and the movement has some component in parallel to the image
 plane, the result is likely to be a flow field whose extent reflects
 the physical boundaries of the object.  This visible response to
-the robots action can be used to refine its model of the object's
+the robot's action can be used to refine its model of the object's
 extent, which may be inaccurate.  For the example scene in
 Figure~\ref{fig:setup-sequence} (a cube sitting on a table), the small
 inner square on the cube's surface pattern might be selected as a
@@ -51,7 +51,7 @@ correlated motion used earlier to detect its own arm.
 \subsubsection*{Making an impact}
 
 Figure~\ref{fig:poking-sequence} shows how a ``poking'' movement can
-be used to refine a target.  During a poke operation, the arm begins
+be used to refine a target.  During this operation, the arm begins
 by extending outwards from the resting position.  The end-effector (or
 ``flipper'') is localized as the arm sweeps rapidly outwards, using
 the heuristic that it lies at the highest point of the region of optic
@@ -68,7 +68,7 @@ connected to the end-effector can be ignored as a distractor.
 
 
 The sequence shown in Figure~\ref{fig:poking-sequence} is about the
-simplest case for segmentation, since most of the arm is stationary
+simplest case possible for segmenting the motion of the object, since most of the arm is stationary
 when contact occurs.  In practice, we would rather have less
 constraints on the motion of the arm, so we can approach the object
 from any convenient direction.  We found that it was possible 
@@ -122,9 +122,9 @@ boundary and that may well be task-dependent.  Poking allows us to
 determine the boundary around a mass that moves together when
 disturbed, which is exactly what we need to know for manipulation.  As
 an operational definition of object, this has the attractive property
-of breaking down into ambiguity in the right circumstances -- such as
+of breaking down into ambiguity in the right circumstances~-- such as
 for large interconnected messes, floppy formless ones, liquids, and so
-on.  On a practical note, poking also gives the robot the opportunity
+on.  Poking also gives the robot the opportunity
 to collect many views of a single object, and so we can hope to deal
 with recognizing objects like the cube shown in
 Figure~\ref{fig:sample-results}, which look different from every side.
