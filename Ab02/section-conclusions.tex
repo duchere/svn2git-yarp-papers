@@ -25,17 +25,41 @@ local, accidental visual ambiguity.  Obviously this strategy cannot
 always be used!  But there is plenty of room to be creative here.
 
 The robotic experiments support the view that reaching, grasping, and recognition
-can be learnt following a particular ontogenic pathway without the
+can be learned by following a particular ontogenic pathway without the
 intervention of an external teacher.
-This pathway is consistent with and inspired by what is 
-known for biological systems (primates/mammals).
-There is relatively little evidence to work with, but it is at least clear that the 
-sequence of events leading to object manipulation/recognition cannot take
-an arbitrary form unless we assume that some/many of its components are innate.
+This pathway is consistent with and inspired by what is
+known of this process in biological systems (primates/mammals),
+although this evidence is rather sparse.
+%
+We have endeavored to build from as few innate components as possible, to
+elucidate the visual and motor challenges faced by a learning robot rather
+than simply solving them by fiat.
+%
+%There is relatively little evidence to work with, but it is at least clear that the 
+%sequence of events leading to object manipulation/recognition cannot take
+%an arbitrary form unless we assume that some/many of its components are innate.
 Although newborns show amazing abilities \cite{spelke-2000} such as early imitation 
 \cite{meltzoff-moore-1977}, face detection, etc, there is also evidence 
 that the maturation of the brain is far from complete at birth and
 complex perceptual abilities require a long time to emerge \cite{kovacs00human}.
+%
+We have given a simple existence proof that object segmentation,
+recognition and localization can develop without any prior knowledge
+of visual appearance.  We have also shown that, without any prior
+knowledge of the human form, the robot can identify episodes when a
+human is manipulating objects that are familiar to the robot purely by
+the operational similarity of the human arm and its own manipulator in
+this situation.  We believe such demonstrations are important both in
+their own right, and in their elucidation of a concrete series of
+steps that lead to a desired behavior.  This may serve a useful
+reference point from which to investigate the biological solution to
+the same problem -- although it can't provide the answers, it can at
+least suggests useful questions.
+
+%
+%This is important, since segmentation and recognition as usually expressed 
+%suffer from a chicken-and-egg problem, where views of an object must be
+%segmented before its appearance can be learned...
 
 %We cannot claim that this is the only possible view but it is certainly one worth
 %investigating. Rephrasing Berkeley we can say:
