@@ -21,7 +21,7 @@ before it can be grasped.
 It would be much better if the robot could learn about
 objects and, in particular, how to identify a previously encountered object. 
 A further difficulty, at least for a robot with a simple 
-manipulator (e.g. as COG's flipper), is that ``affordances'' are scarce: 
+manipulator (e.g. as Cog's flipper), is that ``affordances'' are scarce: 
 most of the time the object will simply move from one position
 to another if we are willing to discount when it falls from the table.
 
@@ -113,7 +113,7 @@ to the other poking gestures. Figure \ref{fig:actions} was obtained from the dat
 about 500 poking events.
 
 The last step is to connect all these elements together. If a known object is
-presented to COG, the object is recognized, localized, and
+presented to Cog, the object is recognized, localized, and
 its orientation estimated (principal axis). Recognition is based on the color histograms. The same
 procedure used to form the clusters is employed here. Localization is simply implemented 
 by histogram backprojection and a search across the image. The current orientation of the
@@ -210,7 +210,7 @@ causes a particular consequence cannot be autonomously learnt by the robot.
 Conversely, in the case the robot has already learned about objects, 
 as e.g. we have shown in the previous section, this information can be
 factored in to help the observation of somebody else's action. Touch 
-(not in COG) and physical contact are additional bits of information 
+(not in Cog) and physical contact are additional bits of information 
 about the ongoing activity.
 
 In our case, if any activity is detected close to the object - measured by the 
@@ -252,7 +252,7 @@ Therefore, the next question is whether we can use this ``understanding'' of
 observed actions to implement mimicry behavior. It 
 would be easy now to try to replicate the action just observed if the same
 object were presented again. However, there is still a bit of ambiguity in that
-we can choose to mimick either the observed displacement of the object or 
+we can choose to mimic either the observed displacement of the object or 
 the way the object was poked with respect to its rolling affordance.
  
 We chose to implement the latter. It is clear that poking along a particular 
@@ -261,7 +261,7 @@ action is observed the angle between the affordance (see table \ref{tab:affordan
 the actual displacement is measured and stored. If it happens to see the same 
 object again, the robot chooses the action that has the greatest 
 probability of poking the object along the previously stored angle. 
-Figure \ref{fig:mimicked-action} shows to examples of mimicry as a consequence of the
+Figure \ref{fig:mimicked-action} shows two examples of mimicry as a consequence of the
 action shown in figure \ref{fig:observed-action}.
 
 \begin{figure}[tbh]
@@ -396,7 +396,7 @@ Although poking is a very crude and primitive form of manipulation we have
 shown that it can help to bootstrap more complex behaviors without relying on 
 an external teacher. With only minimal assumptions (using motion as segmentation
 cue) we were able to build a system that exploits its environment to 
-learn novel behaviors. If COG had a dexterous hand, it could further
+learn novel behaviors. If Cog had a dexterous hand, it could further
 exploit temporal constraints (e.g. an object remains the same unless it is dropped)
 to collect tightly/temporally correlated data. This form of ``object constancy'' could be 
 exploited for instance to learn about an object with confusing visual features such
@@ -405,7 +405,7 @@ as many different colors, different geometric patterns, and so forth
 used also to group objects on the basis of their behavior rather than purely
 by visual appearance: e.g. the class of ``bottle'' or of ``toy cars''.
 This, in some future implementation, can help the robot to attain a goal by using
-a suitable tool (among many) rather than the exactly same tool it used
+a suitable tool (among many) rather than exactly the same tool it used
 when initially learnt the task.
 
 A possible and obvious extension is to use the object segmentation provided 
