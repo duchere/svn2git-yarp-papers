@@ -6,7 +6,7 @@ MAIN = vision
 OUTPUT = out
 
 #MAIN = $(patsubst %.tex, %, $(wildcard *.tex))
-SUBMAIN = $(wildcard *.tex)
+SUBMAIN = $(wildcard *.tex) $(wildcard *.sty)
 JPEGS = $(wildcard *.jpg)
 GIFS = $(wildcard *.gif)
 EPSSRCS = $(wildcard *.epssrc)

@@ -39,6 +39,7 @@
 \fi
 
 
+
 % use document class IROS with any paper size:
 
 %%\iflong
@@ -57,6 +58,7 @@
 %	\addtolength{\topmargin}{-.875in}
 %	\addtolength{\textheight}{1.75in}
 
+\usepackage{pf-mod}
 
 \usepackage{natbib}
 
@@ -126,6 +128,9 @@ Cambridge, MA, USA\\
 
 %%\maketitle\thispagestyle{empty} % don't forget \thispagestyle{empty}, otherwise you'll get page numbering
 
+\input{section-preamble}
+
+
 \maketitle
 
 \ifdraft
@@ -138,6 +143,7 @@ Cambridge, MA, USA\\
 \input{section-abstract}
 
 % ...and start writing!
+
 \input{section-introduction}
 
 \input{section-robot}
