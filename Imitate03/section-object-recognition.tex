@@ -3,9 +3,9 @@
 
 The affordance learning in the last section depended on a mechanism
 for differentiating objects based on their color histogram.
-The data collected over hundreds of pokes contained a significant...
-
-By clustering segmented views of objects based on color histograms,
+%The data collected over hundreds of pokes contained a significant...
+%
+By clustering segmented views of objects in this way,
 the robot collected about 100 views of each object.  
 If the quality of the clusters generated is sufficiently good, it
 should be possible to extract reliable consensus prototypes for each 
@@ -16,17 +16,12 @@ quickly be derived.  This could be sharpened by better alignment
 procedures, or just used to pick out the best single match
 to the mean view for each object.
 %
-Of course, this paper is not proposing
-that simple color histograms
-are how recognition should be done~--
-there are better ways 
-(for example, see~\cite{schiele00recognition}),
-rather it is giving evidence that 
-active segmentation can generate data of 
-sufficient quality to train up a recognizer.
-
-
-Figure~\ref{fig:auto-proto}.
+Of course, this paper is not proposing that simple color histograms
+are how recognition should be done~-- there are better ways (for
+example, see~\cite{schiele00recognition}), rather it is giving
+evidence that shared activity can generate data of sufficient quality
+to train up detailed, accurate models of objects in the robot's 
+environment.
 
 %
 \begin{figure}[tb]

@@ -19,26 +19,26 @@ given that when the number of pixels involved is low, it is practical
 to sample the space of all possible appearances of these pixels 
 quite densely.
 
-This paper is an exploration of how edges in ``natural'' images appear
-when viewed through an extremely small window (4 by 4 pixels).  This
-window size is chosen to be large enough to be interesting, but small
-enough for the complete range of possible appearances to be easily
-visualized.  Even at this scale, manual data collection and labelling
-would be extremely tedious, so a robotic system~\cite{brooks99cog} was employed to
-automatically compile a database of the appearance of 
-oriented features (Section~\ref{sect:experiment}).
+The data collected during poking allows us to explore how edges truly
+look in ``natural'' images, by simply building up a catalog of edge
+fragments seen around the boundaries of objects.  Of course, such a
+catalog is only practical at small scales.  We worked with $4\times 4$
+pixel windows, a size is chosen to be large enough to be interesting,
+but small enough for the complete range of possible appearances to be
+easily visualized.  Even at this scale, manual data collection and
+labelling would be extremely tedious, so it is definitely advantageous
+to have a robotic system to automatically compile and label a database
+of the appearance of oriented features.
+%
 %, as shown in Figure~\ref{fig:separate-simple}.  
 %Details of this procedure are given in
 %Section~\ref{sect:experiment}.
 These features were extracted by sampling image patches
 along object boundaries, which were in turn determined 
 using active segmentation~\cite{fitzpatrick03first}.
-The resulting ``catalog'' of edge appearances proved remarkably
+The resulting catalog of edge appearances proved remarkably
 diverse, although the most frequent appearances were indeed
-the ``ideal'' straight, noise-free edge (Section~\ref{sect:visualization}).
-Finally, it is a simple matter to take this catalog
-of appearances and use it
-as a memory-based image processing filter (Section~\ref{sect:application}).
+the ``ideal'' straight, noise-free edge.
 
 %Figures~\ref{fig:lines-all} and ~\ref{fig:seen-selected}.
 Figure~\ref{fig:seen-selected}.

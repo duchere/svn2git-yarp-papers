@@ -22,25 +22,26 @@ operate when a foreign manipulator (such as the human hand) pokes the
 fixated object.  Of course the robot can easily distinguish
 segmentations of its own arm from that of others simply by checking
 whether it was commanding its arm to move towards the target at the
-time.  The manipulator can be segmented by hypothesizing that it moves
-towards the object at a constant velocity in the period immediately
-preceding the moment of contact.  Estimating the velocity from the
-gross apparent motion allows the segmentation problem to be expressed
-in the form introduced in Section~\ref{sect:min-cut}, where the
-foreground is now taken to be regions moving at the desired velocity,
-and the background is everything else.
+time.  The manipulator can be segmented in a manner similar to 
+that discussed in Section~\ref{sect:poking}.
+%by hypothesizing that it moves
+%towards the object at a constant velocity in the period immediately
+%preceding the moment of contact.  
+%Estimating the velocity from the
+%gross apparent motion allows the segmentation problem to be expressed
+%in the form introduced in Section~\ref{sect:min-cut}, 
+%where the
+%foreground is now taken to be regions moving at the desired velocity,
+%and the background is everything else.
 Figure~\ref{fig:auto-proto-flipper}
-shows preliminary results for this procedure.  The results are based on
+shows results for this procedure.  The results are based on
 relatively little data, yet are already
 sufficient to pick out good prototype views for the robot and human
 manipulator.
 A procedure like this could be used to autonomously
 train a recognizer for the human hand, which could then
 be included in further operational definitions, expanding
-the robot's domain of grounded knowledge ever outwards -- but
-this is very much future work.
-
-Figure~\ref{fig:auto-proto-flipper}.
+the robot's domain of grounded knowledge ever outwards.
 
 \begin{figure}[tb]
 \begin{center}
