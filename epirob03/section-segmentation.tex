@@ -1,19 +1,108 @@
 
-\clearpage \newpage
+%%\clearpage \newpage
 
 \input{section-poking}
 
-\clearpage \newpage
+%%\clearpage \newpage
 
 
 
 \section{Charlie's segmentation}
 
+Wearable computing systems have the potential to measure a great deal
+of the sensory input and physical output of a person as he or she
+experiences everyday activities. Much can be learned through passive
+observation of these measurements. However, if we can also find ways
+for the wearable system to control the behavior of the person wearing
+the system, many learning tasks can be made easier.
+
+We are designing a wearable creature that exploits a cooperative human
+for its own learning purposes. Essentially, the human wearing the
+system becomes the host for a parasitic creature that wishes to learn
+about the world by watching and sometimes controlling the more
+experienced host as he or she goes through common human activities in
+the day. By using the same sensory input as the host and co-opting the
+output behaviors of the host, the wearable creature serves as a top
+layer of control in a subsumption architecture In essence, by
+controlling the human in an effort to learn the wearable creature
+changes the human into a humanoid robot.
+
+As an initial exploration into this class of wearable applications, we
+are creating a wearable system that attempts to learn common-sense
+about everyday actions as they relate to objects and changes to the
+environment. As shown in the figure at the top of the page, the system
+currently consists of a glasses-mounted camera from which the creature
+watches the world and 3 Intersense devices, each of which provides an
+absolute orientation, with which the creature measures the kinematic
+configuration of the host's dominant arm. The creature will also serve
+as a high level controller that attempts to co-opt the host's
+behaviors by requesting actions through headphones. For example, the
+creature might request that its host repeat an action by uttering,
+``do that again!'', which with a cooperative host should help the
+creature segment the activity into meaningful parts. Likewise the
+creature might ask to see an object of interest better, thereby
+influencing the person to inspect the object more closely. More
+generally, by requesting actions the wearable creature can test
+hypotheses it has made about actions and their effect in the world.
+
+We hope to develop a viable system for the acquisition of commonsense
+related to everyday human activities. A successful creature would be
+able to learn and control a set of common behaviors performed by a
+cooperative human and would be able to relate common action patterns
+to the visual appearance of objects and to observed changes in the
+world.
+
+\begin{figure}[bt]
+\includegraphics[width=\columnwidth]{cckemp02_2}
+\caption
+{
+cckemp 1
+}
+\label{fig:cckemp1}
+\end{figure}
 
 
-\clearpage \newpage
+%%\clearpage \newpage
 
 \section{Artur's segmentation}
+
+Through direct embodied actuation
+
+  Teacher waves objects to the robot
+
+Human arm/hand/finger waving for segmentation
+
+Robust: to humans, other objects moving in the background --
+ignored if they are non-periodic
+
+Powerful technique for segmenting stationary objects e.g. Objects
+painted in a book
+
+Heavy, stationary objects: table, sofa
+
+Using relative size of the arm, can get relative size of objects
+
+Through indirect embodied actuation
+
+ Teacher waves arm/hand/finger to create a pop-out effect
+       finger trajectory groups segmented regions together
+
+Method:
+
+1)  Detect Motion > Th
+
+     Detect Skin tones for arm/hand/finger  > Th
+
+2) Initialize grid of points in moving region
+
+3) Track these points over the window interval (32 and 64 frames)
+
+     - using optical flow
+
+4) Compute WFFTs for the temporal signal of each point
+
+5) Select signals with a single peak of energy over all frequencies 
+
 
 \begin{figure}[bt]
 \includegraphics[width=\columnwidth]{fig-artur1}
@@ -24,7 +113,7 @@ artur 1
 \label{fig:artur1}
 \end{figure}
 
-\newpage
+%%\newpage
 
 \begin{figure}[bt]
 \includegraphics[width=\columnwidth]{fig-artur2}
@@ -36,4 +125,4 @@ artur 2
 \end{figure}
 
 
-\clearpage \newpage
+%%\clearpage \newpage

@@ -55,7 +55,7 @@ all: $(MAIN).dvi
 
 %.eps: %.pssrc
 	grep -q "Title: Microsoft PowerPoint" $< && ps2eps $< || ps2eps -f -C  -n -c $<
-	( sed "s/statusdict/%%%statusdict/g" | sed "s/^(%%\[[^ ]/%%(%%\[/" | grep -v "1 dict dup" | grep -v "ImagingBBox null" | sed "s/: N 111 /: %%N 111 /" ) < $<.eps > $@
+	( sed "s/statusdict/%%%statusdict/g" | sed "s/^(%%\[[^ ]/%%(%%\[/" | grep -v "1 dict dup" | grep -v "ImagingBBox null" | sed "s/: N 111 /: %%N 111 /"  | sed "s/: N 803 /: %%N 803 /" ) < $<.eps > $@
 	rm -f $^.eps
 
 #%.eps: %.pssrc
