@@ -4,20 +4,35 @@
 \else
 \begin{Abstract}
 \fi
- 
+
 Vision and manipulation are inextricably intertwined in the primate
 brain.  Tantalizing results from neuroscience are illuminating the
-mixed motor and sensory representations used by the brain in reaching,
-grasping, and object recognition.  We now know a great deal about what
-happens in the brain during these activities, but not necessarily why.
-Is the integration we see functionally important, or just a reflection
-of the brain's disdain for sharp modularity?  We wish to instantiate
-these results in robotic form to probe their technical advantagesm and
-to find any lacunae that exist in the models.
+mixed motor and sensory representations used by the brain during
+reaching, grasping, and object recognition.  We now know a great deal
+about {\it what} happens in the brain during these activities, but not
+necessarily {\it why}.  Is the integration we see functionally
+important, or just a reflection of evolution's disdain for sharp
+modularity?  We wish to instantiate these results in robotic form to
+probe their technical advantages and to find any lacunae that exist in
+the models.  We believe it would be missing the point to investigate
+this on a platform where dextrous manipulation and sophisticated
+machine vision are already implemented in their mature form, and 
+instead follow a developmental approach from simpler primitives.
 
-We believe it would be missing the point to investigate this on a
-platform where dextrous manipulation and sophisticated machine vision
-are already implemented in their mature form.  If there are any
+We begin with a precursor to manipulation, simple poking and prodding,
+and show how it facilitates object segmentation, a long-standing
+problem in machine vision.  The robot can familiarize itself with the
+objects in its environment by acting upon them.  It can then recognize
+other actors (such as humans) in the environment through their effect 
+on the objects it has learned about.
+
+
+\ifverbose
+This is already enough for the robot to
+familiarize itself with a set of objects and the actions it can apply
+to them.
+
+If there are any
 technical advantages to the integration we see, we are unlikely to
 find them this way.  Instead we begin with a simple precursor to
 manipulation, namely poking and prodding, and already realize
@@ -27,6 +42,7 @@ out of neuroscience.
 
 We show how operational concepts can actually lead to well grounded
 objects.
+\fi
 
 
 \ifverbose
