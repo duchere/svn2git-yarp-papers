@@ -61,6 +61,9 @@ all: $(MAIN).dvi
 %.pdf: %.ps
 	distill -compatlevel 2.1 -colordownsample off -graydownsample off -monodownsample off $^
 
+dd: $(MAIN).dvi
+	xdvi $(MAIN).dvi
+
 d: $(MAIN).dvi
 	xdvi -noghostscript $(MAIN).dvi
 #	xdvi $(MAIN).dvi
