@@ -6,7 +6,7 @@ environment and struck them~\citep{fitzpatrick02towards}.
 Since the robot had a limited reach,
 this activity required the cooperation of a human
 companion to bring the robot interesting objects to poke.
-The behavior could also be preempted by the companion.  When the robot
+The behavior could also be preempted by the companion; when the robot
 fixated an object and was about to reach for it, the companion
 could choose to poke the object instead, in which case the robot
 would refrain from acting.
@@ -60,7 +60,8 @@ will generally contain fragments of the arm and environmental motion
 that escaped masking.  Motion present before contact is used to
 identify background (non-object) regions.  
 An optimal object region is computed from the foreground and
-background information using graph cuts~\citep{fitzpatrick03first}.
+background information using graph cuts~\citep{boykov01experimental,
+fitzpatrick03first}.
 %
 %This prevents the region
 %assigned to the object motion from growing to include these fragments.
