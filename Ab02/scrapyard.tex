@@ -1,3 +1,32 @@
+
+In robotics, vision is often used to guide manipulation.
+
+But manipulation can also guide vision
+
+Important for…
+
+ Correction 	recovering when perception is misleading
+
+ Experimentation	progressing when perception is ambiguous
+
+ Development	bootstrapping when perception is dumb
+
+
+What is the simplest possible manipulative gesture?
+
+Contact with object is necessary; can’t do much without it
+
+Contact with object is sufficient for certain classes of affordances
+to come into play (e.g. rolling)
+
+So can use various styles of poking/prodding/tapping/swiping as basic
+manipulative gestures
+
+(if willing to omit the manus from manipulation…)
+
+
+
+
 \ifverbose
 In the context of sensorimotor coordination causality can be operationally
 defined as a functional link between some variables, being these motor,
@@ -766,3 +795,57 @@ this information prior to manipulation.
 
 
 
+
+\ifverbose
+This is already enough for the robot to
+familiarize itself with a set of objects and the actions it can apply
+to them.
+
+If there are any
+technical advantages to the integration we see, we are unlikely to
+find them this way.  Instead we begin with a simple precursor to
+manipulation, namely poking and prodding, and already realize
+significant advantages in visual processing, and make enough progress
+to develop a system that is functionally analogous to models coming
+out of neuroscience.
+
+We show how operational concepts can actually lead to well grounded
+objects.
+\fi
+
+
+\ifverbose
+For the purposes of manipulation, we would like to know what parts of
+the environment are physically coherent ensembles -- that is, which
+parts will move together, and which are more or less independent.  It
+takes a great deal of experience before this judgement can be made
+from purely visual information.  This paper develops active strategies
+for acquiring that experience through experimental manipulation, using
+tight correlations between arm motion and optic flow to detect both
+the arm itself and the boundaries of objects with which it comes into
+contact.  We argue that following causal chains of events out from
+the robot's body into the environment allows for a very natural
+developmental progression of visual competence, and relate this idea 
+to results in neuroscience.
+\fi
+
+\ifverbose
+For the purpose of understanding development we would like to present
+causality as a possible principle to frame a number of neural science
+results coherently. We will show how this can lead also to an
+implementation in an artificial system following the epigenetic
+approach. To this purpose we will show different levels of causal
+linkages, or instances of the general principle, which allow tasks of
+increasing complexity to be implemented.  Action and the physical
+interaction of the robot with the environment play a fundamental role.
+In an ecological perspective, the role of this physical interaction
+for developing categorization and object undestanding is emphasized.
+\fi
+
+%%{\bf \em
+%%\iflong
+%%(long version)
+%%\else
+%%(short version)
+%%\fi
+%%}
