@@ -8,7 +8,7 @@ This section is concerned with learning to locate and recognize those
 objects whenever they are present, even when the special cues used for
 active segmentation are not available.
 %
-The method described here has been applied to the poking method.
+Based on segmentations from the poking method.
 
 \subsection{Approaches to object recognition}
 
@@ -105,6 +105,18 @@ or many other possibilities.
 Probabilistic methods like Schiele.  Version with Roy.
 
 
+
+\begin{figure}[tb]
+\centerline{\includegraphics[width=\columnwidth]{fig-resegment-match}}
+\caption[Hashing with rich features]{ 
+%
+%
+Rich features for hashing.
+%
+}
+\label{fig:rich-hashing}
+\end{figure}
+
 \subsection{Hashing with rich features}
 
 The approach used here is like geometric hashing, but uses
@@ -186,7 +198,7 @@ edges.  But they are not very distinctive, and sampling colors at an
 edge (generally a high-variance area) is problematic.
 
 
-\section{Searching for a synthetic object in a synthetic scene}
+\subsection{Searching for a synthetic object in a synthetic scene}
 
 
 \begin{figure}[tb]
@@ -297,7 +309,7 @@ with the results of poking).
 
 
 
-\section{Multiple objects simultaneously}
+\subsection{Multiple objects simultaneously}
 
 See Figure \ref{fig:resegment-multiple}.
 Don't actually do this normally, deal with foveation
