@@ -57,7 +57,12 @@
 %%  \documentclass[a4paper]{IROS}
 %%\fi
 
+	 \usepackage{fancyhdr}
 	 \usepackage{fullpage}
+
+\lhead[\fancyplain{}{}]       {\fancyplain{}{}}
+\rhead[\fancyplain{}{\thepage}]       {\fancyplain{}{\thepage}}
+\renewcommand{\headrulewidth}{0pt}
 %
 %	\addtolength{\oddsidemargin}{-.875in}
 %	\addtolength{\evensidemargin}{-.875in}
@@ -162,6 +167,8 @@ Cambridge, MA, USA\\
   \thispagestyle{plain}
   \pagestyle{plain}
 \fi
+
+\pagestyle{fancy}
 
 % write the abstract with the Abstract-environment:
 \input{section-abstract}
