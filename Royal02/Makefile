@@ -73,6 +73,11 @@ gv: $(MAIN).ps
 
 p: $(MAIN).ps
 
+$(MAIN).half.ps: $(MAIN).ps
+	mpage -2 < $< > $@
+
+p2: $(MAIN).half.ps
+
 b: $(MAIN).bbl
 
 fb:
