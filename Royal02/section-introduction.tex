@@ -1,184 +1,9 @@
 
 
-\section{Introduction}
 
-\label{sect:introduction}
+%%\section{Introduction}
 
-Much of computer vision is passive in nature, with the emphasis on
-watching the world but not participating in it.  There are advantages
-to moving beyond this to exploit dynamic regularities of the
-environment \cite{ballard91animate}.
-%%,breazeal00social}.  
-A robot has the
-potential to examine its world using causality, by performing probing
-actions and learning from the response.  Tracing chains of causality
-from motor action to perception (and back again) is important both to
-understand how the brain deals with sensorimotor coordination and to
-implement those same functions in an artificial system, such as a
-humanoid robot.  And, as a practical matter, the ability to perform
-``controlled experiments'', such as tapping an object lightly, is
-crucial to getting to grips with an otherwise complex and uncertain
-world.
-
-\ifverbose
-In the context of sensorimotor coordination causality can be operationally
-defined as a functional link between some variables, being these motor,
-sensorial, or both.  At higher levels of abstaction other quantities might
-need to be considered, not necessarily, purely sensorial or motor but
-rather combinations of various sort. Causality accounts to discovering
-similarity and recurrence in this sensorimotor data, possibly delayed of
-unknown amounts.
-\fi
-
-
-Figure~\ref{fig:tracing-causes} illustrates three levels of causal complexity
-we would like the robot to probe.
-The simplest causal chain that the robot experiences is the
-perception of its own actions.  The temporal aspect is immediate:
-visual information is tightly synchronized to motor commands.
-We use this strong correlation to identify parts of the robot
-body -- specifically, the end-point of the arm. 
-
-Once this causal connection is established, we can go further and use
-it to actively explore the boundaries of objects.  In this case, there
-is one more step in the causal chain, and the temporal nature of
-the response may be delayed since initiating a reaching movement doesn't
-immediately elicit consequences in the environment.  
-
-\ifverbose
-relation and a
-more subtle perception of space has also to be taken into account, e.g
-localization of the effector, and the spatial relation with the
-manipulated object.  The temporal aspect in this case assumes a
-delayed form: triggering a reaching movement doesn't immediately
-elicit consequences in the environment.
-
-We
-show how an active exploration strategy might explain how newborns
-develop, during ontogenesis, figure-ground segregation capabilities.
-The temporal aspect in this case assumes a delayed form: triggering a
-reaching movement doesn't automatically elicit consequences in the
-environment. Towards reaching completion a more immediate form can
-take place due to correlation between the haptic and visual responses.
-\fi
-
-
-In this paper, we propose that such causal probing can be arranged in
-a developmental sequence leading to a manipulation-driven
-representation of objects.  We present results for two important
-steps along the way, and describe how we plan to proceed.
-We argue that following this causal chain outwards will allow
-us to approach the representational power of ``mirror
-neurons'' \cite{fadiga00visuomotor}, where a connection is made
-between our own actions and the actions of another.
-
-\ifverbose
-The third case is a more conceptual one and it represents our more long
-term goal in terms of robotic implementation. It is interesting though
-because it can be explained by the same principle of causality. This
-is the case of ``mirror neurons'' \cite{fadiga00visuomotor}. The
-details of this third example are presented later.  Development takes
-an even more delayed form involving probably a form of long-term
-memory. Our everyday personal experience on the manipulation of objects is
-reused to interpret the same class of manipulative acts when performed
-by somebody else.  Clearly the two situations, when acting and when watching,
- are not necessarily simultaneous.
-\fi
-
-\ifverbose
-This solves a problem,
-difficult if addressed visually, by taking advantage of the fact the
-system is embodied.  There are examples of similar behaviors in
-newborns [I still have to find the refs in this case]. The level of
-causality exploited here is a direct one. 
-\fi
-
-\ifverbose
-  Of
-course, processing delays must be accounted for -- in the brain,
-delays are known to depend on the modality (e.g. vision is slower than
-for example vestibular signals) and consequently multisensory or
-sensorimotor integration has to compensate for them.
-\fi
-
-
-
-\ifverbose
-There is a bulk of neuroscience data on all this aspect of human
-sensorimotor cognition. For the purpose of this paper, we first would
-like to show that there is indeed a problem if the agent is not
-properly situated[? does it make any sense ?]. A nice example is the
-definition of ``object''.  We will devote a
-section to illustrate this point which turns out to be central in a
-series of tasks including the three cases analyzed before. Many of our everyday's
-acts are definitely object-oriented.
-
-Developmentally we can explain what is an ``object'' by exploiting
-the fact that the agent is embodied.
-By looking at the three examples, we can notice a trend in complexity, 
-and consequently we can hypothesize, that the time required to reach proficiency 
-in each task is proportional to this complexity. Table~\ref{tab:causation} shows this idea.
-\fi
-
-\ifverbose
-\begin{table*}[htbp]
-\begin{center}
-\begin{tabular}{|p{4.8cm}|p{4.8cm}|p{4.8cm}|}
-\hline
-{\it type} & {\it nature of causation} &  {\it time profile} \\ \hline\hline
-{\bf sensorimotor coordination} & direct causal chain & strict synchrony \\ \hline
-{\bf object probing} & one level of indirection & fast onset upon contact, potential for delayed effects\\ \hline
-{\bf mirror representation} &  complex causation involving multiple causal chains & arbitrarily delayed onset and effects\\ \hline
-\end{tabular}
-\caption{
-\label{tab:causation}
-%
-Degrees of causal indirection. There is a natural
-trend from simpler to more complicated tasks.  The more time-delayed
-an effect, the more difficult it is to model.
-%
-}
-\end{center}
-\end{table*}
-\fi
-
-%
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=\columnwidth]{tracing_causes.eps}
-\caption{ 
-\label{fig:tracing-causes}
-%
-On the left, the robot establishes a causal connection between
-commanded motion and its own manipulator (A), and then probes its
-manipulator's effect on an object (B).  The object then serves as a
-literal ``point of contact'' (C) to link robot manipulation with human
-manipulation (on the right, D), as is required for a mirror-neuron-like
-representation.
-%
-}
-\end{center}
-\end{figure}
-%
-
-
-
-\ifverbose
-The more strict
-temporal aspect on the other hand require perfect timing (within the
-bandwidth of the process considered of course), but the cause-effect
-linkage is a direct one.
-For the purposes of manipulation, we would like to know what parts of
-the environment are physically coherent ensembles -- that is, which
-parts will move together, and which are more or less independent.  It
-takes a great deal of experience before this judgement can be made
-from purely visual information.  This paper develops active strategies
-for acquiring that experience through experimental manipulation, using
-tight correlations between arm motion and optic flow to detect both
-the arm itself and the boundaries of objects with which it comes into
-contact.
-\fi
-
+%%\label{sect:introduction}
 
 
 
@@ -225,7 +50,7 @@ its illusions fade away.
 
 
 %
-\begin{figure}[tb]
+\begin{figure}[tbh]
 \begin{center}
 \includegraphics[width=6.5cm]{number-cross.eps}
 \caption{ 
@@ -240,7 +65,7 @@ with experience.
 \end{figure}
 %
 %
-\begin{figure}[tb]
+\begin{figure}[tbh]
 \begin{center}
 \includegraphics[width=4cm]{setup-sequence.eps}
 %\includegraphics[width=\columnwidth]{setup-sequence.eps}
@@ -256,7 +81,7 @@ separated, and the cube has a potentially confusing surface pattern.
 \end{center}
 \end{figure}
 
-\subsubsection*{Objects and actions}
+\section{Objects and actions}
 
 The example of the cross composed of prime numbers is a novel (albeit
 unlikely) type of segmentation in our experience as adult humans. We
@@ -378,8 +203,72 @@ information is integrated into the representation by maintaining the
 RF anchored to the correspondent body part (the forearm in this
 example) irrespective of the relative position of the head and arm.
 
+\section{Objects and robots}
 
-\subsubsection*{A working hypothesis}
+
+Much of computer vision is passive in nature, with the emphasis on
+watching the world but not participating in it.  There are advantages
+to moving beyond this to exploit dynamic regularities of the
+environment \cite{ballard91animate}.
+%%,breazeal00social}.  
+A robot has the
+potential to examine its world using causality, by performing probing
+actions and learning from the response.  Tracing chains of causality
+from motor action to perception (and back again) is important both to
+understand how the brain deals with sensorimotor coordination and to
+implement those same functions in an artificial system, such as a
+humanoid robot.  And, as a practical matter, the ability to perform
+``controlled experiments'', such as tapping an object lightly, is
+crucial to getting to grips with an otherwise complex and uncertain
+world.
+
+Figure~\ref{fig:tracing-causes} illustrates three levels of causal complexity
+we would like the robot to probe.
+The simplest causal chain that the robot experiences is the
+perception of its own actions.  The temporal aspect is immediate:
+visual information is tightly synchronized to motor commands.
+We use this strong correlation to identify parts of the robot
+body -- specifically, the end-point of the arm. 
+
+Once this causal connection is established, we can go further and use
+it to actively explore the boundaries of objects.  In this case, there
+is one more step in the causal chain, and the temporal nature of
+the response may be delayed since initiating a reaching movement doesn't
+immediately elicit consequences in the environment.  
+
+
+In this paper, we propose that such causal probing can be arranged in
+a developmental sequence leading to a manipulation-driven
+representation of objects.  We present results for two important
+steps along the way, and describe how we plan to proceed.
+We argue that following this causal chain outwards will allow
+us to approach the representational power of ``mirror
+neurons'' \cite{fadiga00visuomotor}, where a connection is made
+between our own actions and the actions of another.
+
+
+%
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=\columnwidth]{tracing_causes.eps}
+\caption{ 
+\label{fig:tracing-causes}
+%
+On the left, the robot establishes a causal connection between
+commanded motion and its own manipulator (A), and then probes its
+manipulator's effect on an object (B).  The object then serves as a
+literal ``point of contact'' (C) to link robot manipulation with human
+manipulation (on the right, D), as is required for a mirror-neuron-like
+representation.
+%
+}
+\end{center}
+\end{figure}
+%
+
+\ifverbose
+
+\section{Robots and vision}
 
 In the light of these results, we see at least two reasons why
 intelligence needs to be embodied. First, if robots are to tell us
@@ -417,51 +306,6 @@ reaching actions to visually probe the connectivity and physical
 extent of objects without any prior knowledge of the appearance of the
 objects (or indeed of the arm itself).
 
-
-\ifverbose
-
-[1] \cite{maturana98tree}
-[2] \cite{milner95visual}
-[3] \cite{jeannerod97cognitive}
-[4] \cite{konczak}
-[5] \cite{fadiga00visuomotor}
-[6] \cite{gibson77theory}
-[7] \cite{rizzolatti98language}
-
-
-[1]
-Maturana, R.H. and F.J. Varela, 
-The tree of knowledge, the biological roots of human understanding. 
-Revised Edition ed. 1998, Boston & London: Shambhala Publications, Inc. 269.
-
-[2]
-Milner, D.A. and M.A. Goodale, 
-The Visual Brain in Action. Oxford Psychology. Vol. 27. 1995, 
-Oxford: Oxford University Press.
-
-[3]
-Jeannerod, M., 
-The Cognitive Neuroscience of Action. Fundamentals of Cognitive Neuroscience, 
-ed. M.J. Farah and M.H. Johnson. 1997, Cambrige, MA and Oxford UK: 
-Blackwell Publishers Inc. 236.
-
-[4]
-Konczak, J.,
-///
-
-[5]
-Fadiga, L., et al., Visuomotor neurons: ambiguity of the discharge of 
-'motor' perception? Internation Journal of Psychophysiology, 2000. 35(2-3): p. 165-177.
-
-[6]
-Gibson, J.J., 
-The theory of affordances, in Perceiving, acting and knowing: toward an 
-ecological psychology, R. Shaw and J. Bransford, Editors. 1977, 
-Lawrence Erlbaum: Hillsdale. p. 67-82.
-
-[7]
-Rizzolatti, G. and M.A. Arbib, 
-Language within our grasp. Trends in Neurosciences, 1998. 21(5): p. 188-194
-
-
 \fi
+
+\input{section-active}
