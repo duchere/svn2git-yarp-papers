@@ -32,14 +32,14 @@ the structure of objects and control \ahhbehavior{} on the basis of
 their affordances. Further, although poking gives us a simple 
 procedure for segmenting objects, the procedure would be 
 nevertheless inconvenient in many situations if we had to poke an 
-object every time we needed to grasp it. A better solution is that 
-of learning from experience about the \ahhbehavior{}, visual appearance and 
+object every time we needed to grasp it. A better solution is to
+learn from experience about the \ahhbehavior{}, visual appearance and 
 physical properties of objects.
 
 In the first experiment the robot poked a small set of objects 
 (an orange juice bottle, a toy car, a cube, and a \ahhcolor{}ed ball) using 
 one of four possible actions (the motor repertoire). Actions are 
-indicated for convenience as pull in, side tap, push away, and back 
+labelled for convenience as pull in, side tap, push away, and back 
 slap (see for example Figure~\ref{fig:poking-segmentation}). 
 The toy car and the bottle have a definite principal axis that 
 can be easily extracted from the segmented image. They also tend to 
@@ -50,9 +50,9 @@ automatically by the robot simply by poking the same object many times
 Figure~\ref{fig:affordances}. We plotted there the estimated probability 
 of observing each of the objects rolling along a particular direction 
 with respect to its principal axis. Different trials were clustered 
-using \ahhcolor{} information. In fact, in this case, \ahhcolor{} allows 
-distinguishing one object from another. The next step is that of 
-acquiring an understanding of poking. This is easily obtained from 
+using \ahhcolor{} information. In fact, in this case, \ahhcolor{} is sufficient
+to distinguish the objects from each other. The next step is to
+acquire an understanding of poking. This is easily obtained from 
 the same training set. Instead of considering each object separately 
 here, we simply measured the average direction of movement given a 
 certain action. In \ahhpractice{}, the robot automatically learns that 
@@ -85,7 +85,7 @@ segmentation algorithm used during learning. Cog then uses its
 understanding of the affordance of the object (Figure~\ref{fig:affordances}) 
 and of the geometry of poking to make the object roll. The whole local\iz{}ation 
 procedure has an error between $10^{\circ}$ and $25^{\circ}$ which proved 
-to be enough for our experiment. We performed a simple qualitative test of 
+to be acceptable for our experiment. We performed a simple qualitative test of 
 the overall performance of the robot. Out of 100 trials the robot made 15 
 mistakes. Twelve of them were due to imprecise control: e.g. the end point 
 touched the object earlier than expected moving the car outside the field of 
@@ -96,15 +96,15 @@ This experiment represents an analogue of the response of F5/AIP as
 explained in Arbib's model \cite{fagg-arbib-1998} in that a specific 
 structure of the robot detects the affordance of the object and links 
 it to the generation of \ahhbehavior{}. This is also the first stage of 
-the development of more complex \ahhbehavior{}s which relies on the understanding 
+the development of more complex \ahhbehavior{}s which rely on the understanding 
 of objects as physical entities with specific properties.
 
 With the knowledge about objects collected in the previous experiment
-we can then set up a second experiment. In fact, the same visual processing 
-used for \ahhanalyzing{} an active poking has been used to detect a contact and 
-segment the object from the manipulator. 
-The first obvious thing the robot can do then is to identify the action 
-just observed with respect to its motor vocabulary. It is easily done by 
+we can then set up a second experiment where the robot observes a human performing an action. In fact, the same visual processing 
+used for \ahhanalyzing{} a robot-generated action can be used in this situation also, to detect contact and 
+segment the object from the human arm. 
+The first obvious step the robot can take is to identify the action 
+observed with respect to its own motor vocabulary. This is easily done by 
 comparing the displacement of the object with the four possible actions and 
 by choosing the action whose effects are closer to the observed displacement. 
 This procedure is orders of magnitude simpler than trying to completely 
@@ -114,14 +114,14 @@ to the complexity of the goal rather than that of the structure/skill of
 the foreign manipulator.
 
 The robot can also mimic the observed \ahhbehavior{} if it happens to see the 
-same object again. This requires another bit of information. The angle 
+same object again. This requires another piece of information. The angle 
 between the affordance of the object (\ahhpreferred{} direction of motion) and the 
 observed displacement is measured. During mimicry the object is local\ize{}d as 
 in the previous experiment and the action which is more likely to 
 produce the same observed angle (relative to the object) is generated. 
 If, for example, the car was poked at right angle with respect to its principal 
-axis Cog would mimic the action by poking the car at right angle. In spite 
-of the fact that the car \ahhpreferred{} \ahhbehavior{} is to move along its principal 
+axis Cog would mimic the action by poking the car at right angle, despite 
+the fact that the car's \ahhpreferred{} \ahhbehavior{} is to move along its principal 
 axis. Examples of observation of poking and generation of mimicry actions are 
 shown in Figures~\ref{fig:observed-action} and \ref{fig:mimicked-action}.
 
