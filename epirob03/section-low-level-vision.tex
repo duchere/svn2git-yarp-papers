@@ -1,9 +1,38 @@
 
+
+
+\begin{figure}[bt]
+\centerline{
+\includegraphics[width=8cm]{edge-samples-contrast}
+}
+\caption[The appearance of edges]{
+%
+The empirical appearance of edges.  Each $4\times 4$ grid represents
+the possible appearance of an edge, quantized to just two luminance
+levels.  The dark line centered in the grid is the average orientation
+that patch was observed to have in the training data.
+The upper set of patches are the most frequent ones that occur in
+training data consisting of about 500 object segmentations.
+The lower set of patches are a selection of patterns chosen to
+illustrated the diversity of possible patterns that can occur.
+The oriented features represented
+include edges, thin lines, thick lines, zig-zags, corners
+etc.  It is difficult to imagine a set of conventional
+filters that could respond correctly to the full range of 
+features seen here~-- all of which appeared multiple
+times in object boundaries in real images.
+%
+}
+\label{fig:seen-selected}
+%%\label{fig:seen-selected-more}
+\end{figure}
+
+
+\ifnote
 \begin{figure}[bt]
 \includegraphics[width=\columnwidth]{seen-selected}
 \caption
 {
-\label{fig:seen-selected}
 %
 Edges have diverse appearances.  This figure shows 
 the orientations assigned to a test suite
@@ -18,10 +47,54 @@ features seen here~-- all of which appeared multiple
 times in object boundaries in real images.
 %
 }
+\label{fig:seen-selected}
 \end{figure}
-
+\fi
 
 \section{Building on segmentation}
+
+
+As a specific example of development, the segmented views provided by
+poking of objects and actors by poking can be collected and clustered
+as shown in Figure~\ref{fig:clean-vision}.  Such views are precisely
+what is needed to train up an object detection and recognition system,
+and follow those objects and actors into other, non-poking contexts.
+
+\begin{figure}[tb]
+  \centerline{\includegraphics[width=10cm]{fig-poking-discovery}}
+%%  \centerline{\includegraphics[width=\columnwidth]{fig-clean-vision}}
+  \caption[How poking gets used]{
+\label{fig:clean-vision}
+%
+The top row shows sample views of a toy car that the robot sees during
+poking.  Many such views are collected and segmented as described
+in~\protect\cite[]{fitzpatrick03first}.  The views are aligned to give an
+average prototype for the car (and the robot arm and human hand that
+acts upon it).  To give a sense of the quality of the data, the bottom
+row shows the segmented views that are the best match with these
+prototypes.  The car, the robot arm, and the hand belong to
+fundamentally different categories.  The arm and hand cause movement
+(are actors), the car suffers movement (is an object), and the arm
+is under the robot's control (is part of the self).
+%
+}
+\end{figure}
+
+As well as giving information about the appearance of objects, the
+segmented views of objects can be pooled to train up detectors for
+more basic visual features~-- for example, edge orientation.  Once an
+object boundary is known, the appearance of the edge between the
+object and the background can be sampled along it, and labelled with
+the orientation of the boundary in their neighborhood.
+Figure~\ref{fig:seen-selected} shows an orientation filter trained up
+from such data that can work at much finer scales than normally
+possible when the filter is derived from an ideal edge model such as
+that of \cite[]{chen00orientation}.  The ``catalog'' of edge appearances
+found shows that the most frequent edge appearances is an ``ideal''
+straight, noise-free edge, as might be expected (top of
+Figure~\ref{fig:seen-selected})~-- but a remarkable diversity of other
+forms also occur which are far less obvious (bottom of
+Figure~\ref{fig:seen-selected}).
 
 Can build on segmentation to learn about cool and useful stuff.
 

@@ -15,6 +15,14 @@
   \notetrue
 \fi
 
+\newcommand{\pflist}
+  {	\renewcommand{\labelitemi}{$\triangleright$}
+	\setlength{\itemsep}{0mm}
+	\setlength{\parsep}{0mm}
+	\setlength{\partopsep}{0mm}
+	\setlength{\topsep}{0mm}
+	\setlength{\parskip}{0mm}    }
+
 %%\documentclass[a4paper,10pt,twocolumn]{article}
 \documentclass[letter]{epirob}
 
@@ -63,7 +71,7 @@ Active and Interactive Segmentation}
 
 \input{section-introduction}
 
-\input{section-motivation}
+%%\input{section-motivation}
 
 \input{section-segmentation}
 

@@ -53,8 +53,9 @@ simply involves accessing and counting the contents of hash buckets.
 One possibility for the geometric invariants is to take a set of
 points selected by an interest operator, and use each pair of points
 in turn to normalize the remainder by scale and rotation.  The
-position of the normalized points can be stored in a 2D hash table, as
-shown in Figure~\ref{fig:geometric-hashing}.  Invariants in 3D are
+position of the normalized points can be stored in a 2D hash table.
+%%, asshown in Figure~\ref{fig:geometric-hashing}.  
+Invariants in 3D are
 more difficult to achieve, but various solutions have been proposed.
 
 \subsubsection*{Appearance-based recognition}
@@ -210,12 +211,12 @@ A simple example of object localization: finding the circle in a
 Mondrian.  
 %
 }
-%%\label{fig:resegment-example2}
+\label{fig:resegment-mondrian}
 \end{figure}
 
 
 As a simple example of how this all works,
-consider the test case shown in Figure~\ref{fig:regment-mondrian}.
+consider the test case shown in Figure~\ref{fig:resegment-mondrian}.
 The system is presented with a model view of the
 circle, and the test image.  For simplicity, the model view in 
 this case is a centered view of the object by itself, so no

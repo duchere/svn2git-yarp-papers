@@ -13,13 +13,50 @@ Hands in particular are very revealing, since they interact directly
 and flexibly with objects.  In this paper, we demonstrate several
 methods for simplifying visual processing by being attentive
 to hands, either of humans or robots.
+%
+Our first argument is that in a wide range of situations, there are
+many cues that can be used to make object segmentation an easy task.
+Object segmentation or figure/ground separation is a long-standing
+problem in computer vision, due to the fundamental ambiguities
+involved in interpreting the 2D projection of a 3D world.  No matter
+how good a passive system is at segmentation, there will be times when
+only an active approach will work, since visual appearance can be
+arbitrarily deceptive.
+
+Our second argument is that object segmentation is truly a key ability
+worth getting excited about.  We support this by demonstrating that
+when segmentation is available, several other important vision
+problems can be dealt with successfully -- object recognition,
+object localization, edge detection, etc.
+
+Here are the three situations we look at:
+
+%%\begin{itemize} \pflist
+
+%%\item %
+      {\em (i)} 
+      Active segmentation for a robot viewing its own actions.
+      A robot arm
+      probes an area, seeking to trigger object motion and then
+      identify the boundaries of an object through its motion.
+
+%%\item %
+      {\em (ii)} 
+      Active segmentation for a wearable system viewing its wearer's
+      actions.  The system monitors human action, issues requests, and
+      uses active sensing to detect grasped objects held up to view.
+
+%%\item %
+      {\em (iii)} 
+      Protocol-based segmentation for a robot viewing a human's actions.
+      Segmentation is achieved by detecting and interpreting 
+      natural human showing behavior such as finger tapping, arm
+      waving, or object shaking.
 
 
-Segmentation is an enabler of lots of stuff.
+%%\end{itemize}
 
-There are two platforms.
 
-Protocol-based.
 
 
 \ifnote
