@@ -1,6 +1,8 @@
 
 \section{Experimenting with object affordances}
 
+\label{sect:experiment}
+
 \ifverbose
 The latest instantiation of the ``general principle'' we would like to
 dwell upon is related to mirror neurons. It turns out that the causal
@@ -413,7 +415,15 @@ amenable to visual exploration such as mass, roughness, softness, etc.
 \caption{ 
 \label{fig:objects-clusters}
 %
-Object clusters.
+Once objects have been segmented from the background, they are much
+easier to distinguish from each other since the irrelevant similarity
+of their shared environment is eliminated.  To build object models,
+the robot clusters all the segmented views it receives based on
+similarity of their color histogram.  This figure shows samples from
+four of the clusters found, corresponding to the four objects used in
+Section~\ref{sect:experiment}.  Note the baseball cap classified with
+the ball, lower right -- a young child wandered by the robot while we
+were collecting data and got it to poke his cap.
 %
 }
 \end{center}
