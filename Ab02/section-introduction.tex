@@ -1,20 +1,269 @@
 
 \section{Vision, action, and development}
 
+\ifrev
+Sufficiently sophisticate robots and animals are actors in their environment, not simply passive
+\else
 Robots and animals are actors in their environment, not simply passive
+\fi
 observers.  They have the opportunity to examine the world using
 causality, by performing probing actions and learning from the
 response.  
 Tracing chains of causality from motor action to perception
 (and back again) is important both to understand how the brain deals
 with sensorimotor coordination and to implement those same functions
-in an artificial system, such as a humanoid robot.
+in an artificial system, such as a humanoid robot \cite{sperber-premack-premack-1995}.
 In this paper, we propose that such causal probing can be arranged in
 a developmental sequence leading to a manipulation-driven
 representation of objects.  We present results for many important steps
 along the way, and describe how they fit in a larger scale implementation.
 And we discuss in what sense our artificial implementation is substantially 
 in agreement with neuroscience. 
+
+\ifverbose
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=12cm]{mirror-cog.eps}
+\caption{ 
+\label{fig:mirror-cog}
+%
+The world is complicated, but contingent.
+The ultimate goal of this work is for our robot to follow chains of
+causation outwards from its own simple body into the complex world.
+Such an incremental process suggests that perception and action
+develop together, supporting each other.
+%
+}
+\end{center}
+\end{figure}
+\fi
+
+
+%We address three levels of causal complexity.
+\ifrev
+Table \ref{tab:circuits} shows four levels of causal complexity
+\else
+Table \ref{tab:causation} shows four levels of causal complexity
+\fi
+that we address in the paper.
+The simplest causal chain that an actor~-- whether robotic or biological~-- may experience is the
+perception of its own actions.  The temporal aspect is immediate:
+visual information is tightly synchronized to motor commands.
+Once this causal connection is established, we can go further and use
+it to actively explore the boundaries of objects.  In this case, there
+is one more step in the causal chain, and the temporal nature of
+the response may be delayed since initiating a reaching movement doesn't
+immediately elicit consequences in the environment.  
+Finally we argue that extending this causal chain further will allow
+the actor to make a connection between its own actions and the actions 
+of another. This is reminiscent of what has been observed in the response
+\ifrev
+of the primate's premotor cortex. 
+\else
+of the monkey's premotor cortex. 
+\fi
+
+\ifrev
+Taken together these observations from neuroscience suggest a critical role
+for motor action in perception. Certainly vision and action are
+intertwined at a very basic level.  While an
+experienced adult can interpret visual scenes perfectly well without
+acting upon them, linking action and perception seems crucial to the
+developmental process that leads to that competence.  We can construct
+a working hypothesis: that action is required for object recognition in
+cases where an agent has to develop categorization autonomously. 
+Of course in standard supervised learning action is not required since
+the trainer does the job of pre-segmenting the data by hand.  In an
+ecological context, some other mechanism has to be provided.
+Ultimately this mechanism is the body itself that through action
+(under some suitable developmental rule) generates informative
+percepts.
+
+We can distinguish three main conceptual functions in the developmental 
+process that lead to object representation (similar to the 
+schema of Arbib et al. \cite{arbib-1981}): reaching, grasping (manipulation), and
+object recognition. These functions correspond to the levels of causal 
+understanding introduced in Table~\ref{tab:circuits}.
+They also form an elegant progression of abilities which emerge out
+of very few initial assumptions. All that is required is the 
+interaction between the actor and the environment, and a set of appropriate
+developmental rules specifying what information is retained during the
+interaction, the nature of the sensory processing, the range of motor
+primitives, etc. 
+If we consider the actual localization of functions in the brain
+we can observe a developmental sequence roughly following a dorsal to ventral
+gradient. Unfortunately this is a question which has not yet been investigated in detail
+by neuroscientists, and there is very little empirical support for this claim
+(beside the work of Kovacs et al. \cite{kovacs00human}).
+
+%
+%
+%The neuroscience results can be streamlined
+%into a developmental sequence roughly following a dorsal to ventral
+%gradient. Unfortunately this is a question which has not yet been investigated in detail
+%by neuroscientists, and there is very little empirical support for this claim
+%(beside the work of Kovacs et al. \cite{kovacs00human}).
+
+What is certainly true is that the three modules/functions can be 
+clearly identified. If our hypothesis is correct then 
+the first developmental step has to be that of transporting the hand 
+close to the object (that we numbered level 1 in our concise description 
+of table \ref{tab:circuits}). 
+In humans, this function is accomplished mostly by the
+circuit VIP/7b-F4-F1 (see also figure \ref{fig:brain-schema}). 
+Reaching requires at least the detection of
+the object and hand, and the transformation of their positions into appropriate 
+motor commands. Parietal neurons seem to be coding for the spatial
+position of the object in non-retinotopic coordinates by taking
+into account the position of the eyes with respect to the head. 
+According to \cite{pouget-ducom-torri-bavelier-2002} and 
+to \cite{flanders-daghestani-berthoz-1999} the 
+gaze direction (the eye motor plant) seems to be the privileged
+reference system used to code reaching. 
+Relating to the description of causality, the link between an executed
+motor action and its visual consequences can be easily formed by 
+a subsystem that can detect causality in a short time frame (the immediate
+aspect).
+
+
+Once reaching is reliable enough, we can start to move our attention 
+outwards onto objects (identified as level 2 in table \ref{tab:circuits}). 
+Area AIP (parietal lobe) and F5 (frontal cortex) are involved in the
+control of grasping and manipulation. F5 talks to the 
+primary motor cortex for the fine control of movement. 
+The AIP-F5 system responds to the ``affordances'' of the observed 
+object with respect to the current abilities.
+% (for a robotic implementation,
+%these may be simply poking and prodding initially). 
+Arbib and coworkers \cite{fagg-arbib-1998} proposed 
+the FARS model as a possible description of the computation in AIP/F5. 
+They did not however consider how affordances can be 
+actually learned during interaction with the environment. 
+Learning and understanding affordances requires a slightly longer 
+time frame since the initiation of an action (motor command) does not
+immediately elicit all relevant sensory consequences. In this example, the initiation
+of reaching requires a mechanism to detect when an object is actually 
+touched, manipulated, and whether the collision/touch is causal to the
+initiation of the movement.
+
+The next step along this hypothetical developmental route is to 
+acquire the F5 mirror representation. We might think of canonical neurons as
+an association table of grasp/manipulation (action) types with object
+(vision) types.  Mirror neurons can then be thought of as a 
+second-level associative map which links together the observation of 
+a manipulative action performed by somebody else with the neural 
+representation of one's own action.
+Mirror neurons bring us to an even higher level of causal 
+understanding (level 3). In this case the action execution has to be associated
+with a similar action executed by somebody else. The two events
+do not need to be temporally close to each other. Arbitrary time delays
+might occur.
+
+The conditions for when this is feasible are a consequence of active
+manipulation. During a manipulative act there are a number of
+additional constraints that can be factored in to simplify
+perception/computation.  For example, detection of useful events is
+simplified by information from touch, by timing information 
+about when
+reaching started, and from a knowledge of the location of the object.% in
+%the first place.
+
+The last subsystem to develop is object recognition (level 4). Object 
+recognition can build on manipulation in finding the boundaries
+of objects and segmenting them from the background. More importantly,
+once the same object is manipulated many times the brain can
+start learning about the criteria to identify the object if 
+it happens to see it again. These functions are
+carried out by the infero-temporal cortex (IT).
+The same considerations apply to the recognition of the 
+manipulator (either one's own, or another's). In fact, the STs region is specialized
+for this task. Information about object identity is
+also sent to the parietal cortex and contributes to 
+the formation of the affordances. 
+%%
+%For the actual recognition we 
+%can resort to a fuzzier definition
+%of causality where multiple instances of manipulation on a 
+%certain object need to be grouped together. That is, all the 
+%information (visual in this case) pertaining to a certain object
+%has to be grouped (and stored somewhere/somehow) to build a model of some sort
+%of the object.
+However object recognition is performed, at a minimum all information (visual in this case) pertaining to a certain object
+needs to be grouped during development so that a model of the object can be constructed.
+
+\begin{table*}[htbp]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{3.5cm}|p{2.5cm}|p{3cm}|p{3.5cm}|}
+\hline
+ & {\it nature of causation} & {\it main path} &  {\it function and/or behavior} & {\it time profile} \\ \hline\hline
+{1} & {\bf direct causal chain} & VC-VIP/7b-F4-F1 & reaching & strict synchrony \\ \hline
+{2} & {\bf one level of indirection} & VC-AIP-F5-F1 & poking, prodding, grasping & fast onset upon contact, potential for delayed effects \\ \hline
+{3} & {\bf complex causation involving multiple causal chains} & VC-AIP-F5-F1+STs+IT & mirror neurons, mimicry & arbitrarily delayed onset and effects \\ \hline
+{4} & {\bf complex causation involving multiple instances of manipulative acts} & STs+TE-TEO+F5-AIP(?) & object recognition & arbitrariry delayed onset and effects \\ \hline
+\end{tabular}
+\caption{
+\label{tab:circuits}
+%
+Degrees of causal indirection, localization and function in the brain.
+There is a natural trend from simpler to more complicated tasks.  The more time-delayed
+an effect, the more difficult it is to model.
+%
+}
+\end{center}
+\end{table*}
+
+For the robotic implementation we endeavor to follow the same developmental
+pathway and exploit the same sort of causal links between actions and 
+sensory feedback. Also, we wish to instantiate these results in robotic form to
+probe their technical advantages and to find any lacunae in
+existing models.
+
+\fi
+
+%
+% Sounds a bit of an excuse :)
+%
+% It is, but it is a good one! ;)
+%
+We wished to keep the actions implemented on our robotic system as
+simple as possible, to avoid obscuring the core issue of development
+behind an elaborately engineered dextrous system.
+%
+%
+% I wish I had an elaborate dextrous system.
+%
+%% oh, and Cog's arms suck too, that was another reason :)
+%
+We found that simple poking gestures
+(prodding, tapping, swiping, batting, etc.) were rich enough 
+to evoke object affordances such as rolling and to provide
+the kind of training data needed to bootstrap perception.
+
+\ifrev
+\else
+%\ifverbose
+\begin{table*}[htbp]
+\begin{center}
+\begin{tabular}{|p{5.2cm}|p{4.5cm}|p{4.5cm}|}
+\hline
+{\it type of activity} & {\it nature of causation} &  {\it time profile} \\ \hline\hline
+{\bf sensorimotor coordination} & direct causal chain & strict synchrony \\ \hline
+{\bf object probing} & one level of indirection & fast onset upon contact, potential for delayed effects\\ \hline
+{\bf constructing mirror representation} &  complex causation involving multiple causal chains & arbitrarily delayed onset and effects\\ \hline
+\end{tabular}
+\caption{
+\label{tab:causation}
+%
+Degrees of causal indirection. There is a natural
+trend from simpler to more complicated tasks.  The more time-delayed
+an effect, the more difficult it is to model.
+%
+}
+\end{center}
+\end{table*}
+%\fi
+\fi
+
 
 
 %
@@ -41,83 +290,6 @@ separated, and the cube has a potentially confusing surface pattern.
 %
 %
 
-
-\ifverbose
-\begin{figure}[tbh]
-\begin{center}
-\includegraphics[width=12cm]{mirror-cog.eps}
-\caption{ 
-\label{fig:mirror-cog}
-%
-The world is complicated, but contingent.
-The ultimate goal of this work is for our robot to follow chains of
-causation outwards from its own simple body into the complex world.
-Such an incremental process suggests that perception and action
-develop together, supporting each other.
-%
-}
-\end{center}
-\end{figure}
-\fi
-
-
-%We address three levels of causal complexity.
-Table \ref{tab:causation} shows three levels of causal complexity
-that we address in the paper.
-The simplest causal chain that an actor~-- whether robotic or biological~-- may experience is the
-perception of its own actions.  The temporal aspect is immediate:
-visual information is tightly synchronized to motor commands.
-Once this causal connection is established, we can go further and use
-it to actively explore the boundaries of objects.  In this case, there
-is one more step in the causal chain, and the temporal nature of
-the response may be delayed since initiating a reaching movement doesn't
-immediately elicit consequences in the environment.  
-Finally we argue that extending this causal chain further will allow
-the actor to make a connection between its own actions and the actions 
-of another. This is reminiscent of what has been observed in the response
-of the monkey's premotor cortex. 
-
-%
-% Sounds a bit of an excuse :)
-%
-% It is, but it is a good one! ;)
-%
-We wished to keep the actions implemented on our robotic system as
-simple as possible, to avoid obscuring the core issue of development
-behind an elaborately engineered dextrous system.
-%
-%
-% I wish I had an elaborate dextrous system.
-%
-%% oh, and Cog's arms suck too, that was another reason :)
-%
-We found that simple poking gestures
-(prodding, tapping, swiping, batting, etc.) were rich enough 
-to evoke object affordances such as rolling and to provide
-the kind of training data needed to bootstrap perception.
-
-
-%\ifverbose
-\begin{table*}[htbp]
-\begin{center}
-\begin{tabular}{|p{5.2cm}|p{4.5cm}|p{4.5cm}|}
-\hline
-{\it type of activity} & {\it nature of causation} &  {\it time profile} \\ \hline\hline
-{\bf sensorimotor coordination} & direct causal chain & strict synchrony \\ \hline
-{\bf object probing} & one level of indirection & fast onset upon contact, potential for delayed effects\\ \hline
-{\bf constructing mirror representation} &  complex causation involving multiple causal chains & arbitrarily delayed onset and effects\\ \hline
-\end{tabular}
-\caption{
-\label{tab:causation}
-%
-Degrees of causal indirection. There is a natural
-trend from simpler to more complicated tasks.  The more time-delayed
-an effect, the more difficult it is to model.
-%
-}
-\end{center}
-\end{table*}
-%\fi
 
 \section{Object or illusion?}
 
@@ -275,8 +447,9 @@ separated, and the cube has a potentially confusing surface pattern.
 
 
 
+\ifrev
 
-
+\else
 
 \section{A working hypothesis}
 
@@ -303,7 +476,7 @@ percepts.
 We can distinguish three main conceptual functions (similar to the 
 schema of Arbib et al. \cite{arbib-1981}): reaching, grasping (manipulation), and
 object recognition. These functions correspond to the three levels of causal understanding introduced in Table~\ref{tab:causation}.
-They also form also an elegant progression of abilities which emerge out
+They also form an elegant progression of abilities which emerge out
 of very few initial assumptions. All that is required is the 
 interaction between the actor and the environment, and a set of appropriate
 developmental rules specifying what information is retained during the
@@ -423,3 +596,4 @@ For the robotic implementation we endeavor to follow the same developmental
 pathway and exploit the same sort of causal links between actions and 
 sensory feedback.
 
+\fi

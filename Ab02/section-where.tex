@@ -1,5 +1,6 @@
 
 \section{Perceiving direct effects of action}
+\label{sec:directeffect}
 
 Motion of the arm may generate optic flow directly through the
 changing projection of the arm itself, or indirectly through an object
@@ -14,6 +15,17 @@ can be used to localize the arm in the image without any prior
 information about visual appearance.  In the next section we will show
 that once the arm has been localized we can go further, and identify
 the boundaries of objects with which the arm comes into contact.
+
+\ifrev
+A similar procedure was described by Piaget as ``circular reaction'' \cite{piaget63}.
+In Piaget's observations the circular reaction is the mechanism by which the loop 
+between vision and action is closed. In the child, this seemingly random activity 
+mediates the discovery of contingent activation of visual, motor, and somatosensory areas.
+Other researchers \cite{bullock-grossberg-guenther-1993} applied a similar model 
+in learning visuomotor transformations. The ``motor babbling'' activity was 
+used to self-train the sensori-motor transformations required for reaching. 
+We instantiate here a similar mechanism to learn to localize the robot effector. 
+\fi
 
 \subsubsection*{Reaching out}
 
@@ -138,7 +150,8 @@ generate is complex.  Since the robot is in control of the arm, it can
 choose to move it in a way that bypasses this complexity.  In
 particular, if the arm rapidly reverses direction, the optic flow at
 that instant will change in sign, giving a tight, clean temporal
-correlation.  Since our optic flow processing is coarse (a $16\times
+correlation.  Since our optic flow processing is coarse (computed by 
+a generic correlation-based approach over a $16\times
 16$ grid over a $128\times 128$ image at 15 Hz), we simply repeat this
 reversal a number of times to get a strong correlation signal during
 training.  With each reversal the probability of correlating with
@@ -208,6 +221,14 @@ location of the arm in the image plane from proprioceptive information
 (joint angles) during an exploratory phase, and using that to 
 constrain arm localization during actual operation.
 
+\ifrev
+The response of such a filter is not too distant from that of the 
+monkey's parietal and frontal cortices. In particular we already described, 
+in section \ref{sec:humans}, neurons that respond to the sight of a 
+body part (e.g. the hand) irrespective of the relative position 
+of the eyes, head, and arms.
+\fi
+
 \begin{figure}[tbh]
 \begin{center}
 \includegraphics[width=10cm]{predict-position.eps}
@@ -245,13 +266,32 @@ after about twenty minutes of real-time learning.
 \subsubsection*{Reaching for the object}
 
 Reaching is implemented as a direct mapping between the direction of gaze 
-$(\theta,\phi)$ and the command required to reach the fixation point. This 
-procedure is consistent because we are interested in reaching a 
+$(\theta,\phi)$ and the command required to reach the fixation point. 
+\ifrev
+Inspiration is drawn from the experiments of \cite{flanders-daghestani-berthoz-1999} 
+and \cite{pouget-ducom-torri-bavelier-2002} that have shown that both
+humans and monkeys employ gazing as a reference for reaching.
+\fi
+\ifrev
+This procedure is consistent because we are interested in reaching a 
+point on a plane in front of the robot (a table): i.e. each point on the
+table is identified by one and only one gaze value. The resulting map is thus
+\else
+This procedure is consistent because we are interested in reaching a 
 point on a plane in front of the robot (a table). The resulting map is thus
+\fi
+\ifrev
+$\textrm{2D} \to \textrm{6D}$ (the arm has 6 degrees of freedom). 
+The same argument could be extended to the 3D
+case by augmenting the encoding of gaze with, for example, the vergence angle. 
+The arm motor commands are represented in terms of joint positions,
+and the mapping is linear:
+\else
 $\textrm{2D} \to \textrm{2D}$. The same argument could be extended to the 3D
 case by augmenting the encoding of gaze with, for example, the vergence angle. 
 The arm motor commands are represented in terms of joint positions,
 and the mapping is linear:
+\fi
 
 \begin{equation} \label{eq:reachmap}
 \left( \begin{array}{c}
@@ -274,13 +314,22 @@ a_{61} & a_{62} \\
 \right)
 \end{equation}
 
-\noindent where $\hat{q}$ are the desired joint positions. The coefficient
+\noindent where $\hat{q}$ are the desired joint positions. The coefficients
 $a_{nm}$ are estimated following a brief calibration procedure from a small 
 number of training pairs of the form ($\mathbf{\hat{q}}, (\theta, \phi)$).
 The linear approximation is justified in our case because of the relatively small 
 region of the workspace where the reaching is expected to operate. The 
 complete robot workspace is much bigger because the torso can also move to keep
 the operational point of the linear approximation within reasonable limits.
+
+\ifrev
+Redundancy is not an issue since the joint angles vector $\hat{q}$ spans only 
+a $\textrm{2D}$ subspace of the full $\textrm{6D}$ space. This subspace is
+determined by the $a_{nm}$ and it is uniquely indexed by the input vector 
+$(\theta, \phi)$. Hence the mapping allows the robot to reach a point on a
+particular plane in space consistently. We verified this to be true empirically 
+for a large number of configurations.
+\fi
 
 At a lower level a low-stiffness position control and a simple trajectory generator
 interpolate the motion of the arm from the current position to the commanded one.

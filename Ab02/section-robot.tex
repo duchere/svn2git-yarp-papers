@@ -2,7 +2,11 @@
 \section{The experimental platform}
 
 This work is implemented on the robot Cog, an upper torso humanoid
+\ifrev
+\cite{brooks99cog, group-IEEE-2000}.  The robot has previously been applied to tasks
+\else
 \cite{brooks99cog}.  The robot has previously been applied to tasks
+\fi
 such as visually-guided pointing \cite{Marjanovic-96-SAB}, and
 rhythmic operations such as turning a crank or driving a slinky
 \cite{williamson98neural}.  Cog has two arms, each of which has six
@@ -61,4 +65,31 @@ the shoulder, elbow, and wrist/flipper.
 }
 \end{center}
 \end{figure}
+\fi
+
+\ifrev
+The following sections \ref{sec:directeffect} through \ref{sect:recognition} 
+explore the four levels of causation which are at the core of 
+our working hypothesis. The rationale of the experiments is to show
+that one possible route to object recognition goes through the
+``understanding'' of longer chains of cause-effects relationships.
+In particular section \ref{sec:directeffect} describes the simplest causal
+chain where motion of the robot causes immediate visual effects. Simple
+cross-correlation over time of motor and visual signals allows localizing
+the robot's end-point. Reaching is seen as an extension of the same
+mechanism. 
+Subsequently, we show in section \ref{sec:poking} how the robot 
+explores its peripersonal space and get to explore physical objects.
+Exploiting causality in this case leads to object segmentation 
+(figure/ground separation). In this case there is a potentially
+delayed effect because initiating the reaching action does not
+automatically lead to poking.
+The experiments described in section \ref{sect:experiment} and 
+\ref {sec:mirror} build on top of the segmentation to learn object 
+``affordances''. Exploring further a complex causal chain where
+the actions of others are considered moves us naturally to 
+a ``mirror neuron'' like response.
+Eventually object recognition is presented in section \ref{sect:recognition}
+as a combination of affordances and the acquisition of data 
+through multiple instances of the same manipulative act.
 \fi

@@ -162,6 +162,7 @@ of motion of the objects.
 
 
 \section{Developing mirror neurons}
+\label{sec:mirror}
 
 \ifverbose
 \begin{figure}[tb]
@@ -448,7 +449,13 @@ an external teacher. With only minimal assumptions (using motion as segmentation
 cue) we were able to build a system that exploits its environment to 
 learn novel behaviors. If Cog had a dextrous hand, it could further
 exploit temporal constraints (e.g. an object remains the same unless it is dropped)
-to collect tightly/temporally correlated data. This form of ``object constancy'' could be 
+to collect tightly/temporally correlated data. 
+\ifrev
+There are already examples in robotics of the acquisition of
+object categorization based on this kind of temporally correlated information 
+\cite{scheier-lambrinos-1996}.
+\fi
+This form of ``object constancy'' could be 
 exploited for instance to learn about an object with confusing visual features such
 as many different colors, different geometric patterns, and so forth  
 (see the example of the cube in figure \ref{fig:sample-results}). A finer form of manipulation can be

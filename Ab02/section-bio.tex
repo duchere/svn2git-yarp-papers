@@ -1,5 +1,6 @@
 
 \section{Objects and action in humans}
+\label{sec:humans}
 
 %%\subsubsection*{Objects and actions}
 
@@ -35,13 +36,28 @@ machine learning algorithm.
 %Key to understanding how such capabilities could develop is the
 A useful concept to understand how such capabilities could develop is the
 well-known theory of Ungerleider and Mishkin~\cite{ungerleider82two}
+\ifrev
+who first formulated the hypothesis that the brain's visual pathways 
+split into two main streams: the dorsal and the ventral. The dorsal is 
+the so-called ``where'' pathway, concerned with the analysis of the
+spatial aspects of motor control. The ventral is related with
+the ``what'', i.e. the identity of objects.
+
+Goodale and Milner~\cite{milner95visual} refined the theory by proposing
+that objects are represented differently during action than they are 
+for a purely perceptual task. The dorsal deals with the information required 
+for action, while the ventral is important for more cognitive tasks such 
+as maintaining an object's identity and constancy.  
+\else
 who first formulated the hypothesis that objects are represented
 differently during action than they are for a purely perceptual task.
 Briefly, they argue that the brain's visual pathways split into two
 main streams: the dorsal and the ventral~\cite{milner95visual}. The
 dorsal deals with the information required for action, while the
 ventral is important for more cognitive tasks such as maintaining an
-object's identity and constancy.  Although the dorsal/ventral
+object's identity and constancy.  
+\fi
+Although the dorsal/ventral
 segregation is emphasized by many commentators, it is significant that
 there is a great deal of cross talk between the streams.  Observation
 of agnosic patients~\cite{jeannerod97cognitive} shows a much more
@@ -67,10 +83,12 @@ oriented actions (adapted from~\cite{fagg-arbib-1998}). As described in the
 text, three main functions can be identified: object recognition, reaching,
 and grasping. These form three parallel yet connected streams of 
 processing. The circuit connecting the visual cortex to the inferior parietal 
-lobule (VIP/LIP), F4 and F1 is thought to compute the visuomotor
-transformations required to control reaching. AIP and F5 are responsible for
-grasping. Temporal areas (TE, TEO) and STs are correlated to the
-semantic of object recognition.
+lobule VIP, F4 and F1 is thought to compute the visuomotor
+transformations required to control reaching. Some evidence also suggests
+a possible role in the organization of reaching played by the posterior
+parietal cortex PO and dorsal premotor area F2, reciprocally connected.
+AIP and F5 are responsible for grasping. Temporal areas (TE, TEO) and STs 
+are correlated to the semantic of object recognition.
 %
 % If we need to ask permission, I guess that's for the final version anyway
 }
@@ -82,7 +100,7 @@ semantic of object recognition.
 Grossly simplifying, the brain circuitry responsible 
 for object oriented actions is thought to consist of at least four 
 interacting regions (Figure~\ref{fig:brain-schema}), namely the primary motor cortex (F1), the premotor cortex (F4, F5), the 
-inferior parietal lobule (AIP, LIP), and the temporal cortex 
+inferior parietal lobule (AIP, VIP), and the temporal cortex 
 (TE, TEO)~(see \cite{rizzolatti-fogassi-gallese-1997,fadiga00visuomotor,jeannerod97cognitive} 
 for a review). 
 While this is a useful subdivision, it is worth bearing in mind 
@@ -93,7 +111,7 @@ objects in agnosic patients testifies to the \emph{abundance of anatomical conne
 between different regions \cite{jeannerod-arbib-rizzolatti-sakata-1995}.
 
 Another way of looking at the same connectivity is in terms of the main 
-function of each area. For example F4, LIP, VIP, and 7b are involved in the control of 
+function of each area. For example F4, VIP, and 7b are involved in the control of 
 reaching, F5 and AIP contain the majority of grasp related neurons, 
 while TE and TEO are thought to subserve object recognition. These regions together form a network 
 of parallel and yet interacting processes. In fact, at the behavioral level, it has 
@@ -124,7 +142,7 @@ is integrated into the representation by maintaining the receptive
 field anchored to the correspondent body part (the forearm in this
 example) irrespective of the relative position of the head and arm.
 
-Also, Graziano et al.~\cite{graziano-cooke-taylor-2000} described neurons that maintain a 
+Also, Graziano et al.~\cite{graziano-hu-gross-1997a} described neurons that maintain a 
 memory of the position of objects for the purpose of reaching. They found neurons 
 that change their firing rate after an object is illuminated briefly
 within reaching distance. The neurons return 
@@ -225,6 +243,15 @@ processing of the visual information and then communicate with
 F5~\cite{gallese-fadiga-fogassi-rizzolatti-1996} most likely via the parietal
 cortex.
 
+\ifrev
+A possible developmental explanation of the acquisition of
+these functions can be framed in terms of tracing/interpreting chains 
+of causally related events. The ability to probe longer chains 
+triggers the emergence of new functionality and/or a new set of behaviors. 
+The next sections delves deeper into this proposal for the ontogenesis of 
+object oriented action and provides experimental results of many steps
+towards this goal.
+\else
 A possible developmental explanation of the acquisition of
 these functions can be framed in terms of tracing/interpreting chains 
 of causally related events. Although it is still speculative, this analysis 
@@ -235,6 +262,7 @@ and/or a new set of behaviors.
 The next section delves deeper into
 this proposal for the ontogenesis of object oriented action and
 provides a hypothesis amenable to implementation.
+\fi
 
 \ifverbose
 Also, looking at the three examples, we can notice 

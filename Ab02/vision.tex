@@ -1,7 +1,7 @@
 \input{defs}
 
 \newcommand{\draftpaper}{}
-
+\newcommand{\revision}{}
 
 \emergencystretch=\hsize
 \lefthyphenmin=2
@@ -38,7 +38,15 @@
   \verbosetrue
 \fi
 
-
+%
+% REVCHANGE
+%
+\newif\ifrev
+\ifx\revision\undefined
+  \revfalse
+\else
+  \revtrue
+\fi
 
 % use document class IROS with any paper size:
 
@@ -89,8 +97,11 @@
 
 
 % create the title header:
-
+\ifrev
+\title{Better Vision Through Manipulation}
+\else
 \title{Early Integration of Vision and Manipulation}
+\fi
 
 \author{
 Giorgio Metta\\
