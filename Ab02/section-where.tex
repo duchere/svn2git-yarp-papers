@@ -208,6 +208,23 @@ location of the arm in the image plane from proprioceptive information
 (joint angles) during an exploratory phase, and using that to 
 constrain arm localization during actual operation.
 
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=10cm]{predict-position.eps}
+\caption{ 
+\label{fig:predict-position}
+%
+Predicting the location of the arm in the image as the head and arm
+change position. The rectangle represents the predicted position of
+the arm using the map learned during a twenty-minute training run.
+The predicted position just needs to be sufficiently accurate to
+initialize a visual search for the exact position of the end-effector.
+%
+}
+\end{center}
+\end{figure}
+
+
 As a function approximator we simply fill a look-up table, implemented
 as a list of nodes allocated dynamically. This implementation
 was chosen to reduce memory consumption; the input space is six
@@ -389,20 +406,4 @@ open loop to bring the flipper in contact with the target object.
 \end{center}
 \end{figure}
 \fi
-
-\begin{figure}[tbh]
-\begin{center}
-\includegraphics[width=10cm]{predict-position.eps}
-\caption{ 
-\label{fig:predict-position}
-%
-Predicting the location of the arm in the image as the head and arm
-change position. The rectangle represents the predicted position of
-the arm using the map learned during a twenty-minute training run.
-The predicted position just needs to be sufficiently accurate to
-initialize a visual search for the exact position of the end-effector.
-%
-}
-\end{center}
-\end{figure}
 

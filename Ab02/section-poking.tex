@@ -46,6 +46,26 @@ the object is reasonably rigid, and the movement has some component in
 parallel to the image plane, the result is likely to be a flow field
 whose extent coincides with the physical boundaries of the object.
 
+%
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=12cm]{segmentation-detail.eps}
+\caption{ 
+\label{fig:poking-segmentation}
+%
+Cog batting a cube around.  The top two rows show the flipper poking
+the object repeatedly from the side, turning it slightly.  The third
+row shows Cog batting an object away.  The images in the first column
+are frames prior to a collision.  The second column shows the actual
+impact.  The third column shows the motion signal at the point of
+contact.  The bright regions in the images in the final column show
+the segmentations produced for the object. 
+%
+}
+\end{center}
+\end{figure}
+%
+
 Figure~\ref{fig:poking-sequence} shows how a ``poking'' movement can
 be used to refine a target.  During a poke operation, the arm begins
 by extending outwards from the resting position.  The end-effector (or
@@ -111,6 +131,4 @@ and so on.
 \input{section-contact}
 \fi
 
-
-\input{section-manipulator}
 
