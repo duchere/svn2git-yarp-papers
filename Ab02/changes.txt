@@ -664,6 +664,11 @@ the major restrictions, about the environment and the task(s).
 ###
 ANSWER:
 PAUL2	A summary of the restrictions of the work has been added in the conclusions.
+
+
+GIORGIO2:
+	Can we add something on the fact that AFFORDANCES are limited visually
+	to measuring the principal axis of the object?
 ###
 
 
@@ -760,8 +765,30 @@ the originally given task.  Then, there is a cost issue.
 
 ###
 	
+GIORGIO2:
 ANSWER:
-	NOTANSWERED
+	Indeed, in our approach information and training data are not for free.
+	There's a cost associated to collecting information. The same, we believe,
+	it is true for any system which is not based on receiving explicit training
+	(as in the supervised learning case). One nice (and similar) example where 
+	this dichotomy of acquiring new data vs. accomplishing a task is presented
+	is "reinforcement learning" (e.g. see Sutton & Barto, RL: an introduction).
+	In the reinforcement learning approach there's always a tradeoff between
+	exploration of the state space and "exploitation" of what has been learnt
+	up to that moment in solving a task.
+	In our approach, poking is only needed when interacting with an object 
+	for the first time. And it can be used to learn autonomously about objects
+	and their visual appearance. Afterwards, poking can be effectively inhibited 
+	(as a behavior) and object can be manipulated without relying in this
+	relatively costly operation.
+
+	We mention this aspect at the beginning of section 8 (now 7):
+
+	"This kind of active segmentation will nevertheless be inconvenient in 
+	many situations if not coupled with a mechanism to learn from experience"
+
+	that is there's a cost issue but this is a price to be paid only
+	during development.
 ###
 
 
@@ -780,6 +807,20 @@ uncontrolled settings.  The paper could raise this future research issue.
 ###
 Easy for the conclusions?
 
+GIORGIO2:
 ANSWER:
-	NOTANSWERED
+	It is the robot that decides when to poke an object. The rationale is as
+	follow: the attentional system can certainly DETECT (but NOT segment) objects 
+	on the basis of a pure bottom-up saliency mechanism. A reaching movement can 
+	then be initiated. If the object is touched and a "good" motion signature
+	is available the segmentation algorithm might produce a segmentation.
+
+	To initiate this procedure the robot doesn't need any "programmer" input
+	beside that of moving objects close enough to the robot.
+
+	Although limitations (see also the conclusions) are definitely present 
+	the environment is relatively uncontrolled. If the object is missed (poking 
+	fails) or the signature is poor then the data is discarded. Statistically, 
+	if the robot "plays" with an object long enough then a simple object model 
+	(section 8 - now 7) is constructed.
 ###
