@@ -2,8 +2,8 @@
 
 \section{Introduction}
 
-A robot is an actor in its environment and not simply a passive
-observer.  This gives it the potential to examine the world using
+Robots and animals are actors in their environment and not simply passive
+observers.  This gives them the potential to examine the world using
 causality, by performing probing actions and learning from the
 response.  Tracing chains of causality from motor action to perception
 (and back again) is important both to understand how the brain deals
@@ -22,15 +22,24 @@ unknown amounts.
 
 In this paper, we propose that such causal probing can be arranged in
 a developmental sequence leading to a manipulation-driven
-representation of objects.  We present results for two important
+representation of objects.  We present results for many important steps
+along the way, and describe how they fit in a larger scale implementation.
+Also, we discuss in what sense the artificial implementation is substantially 
+in agreement with neuroscience. 
+
+\ifverbose
+two important
 steps along the way, and describe how we plan to proceed.
+\fi
 
 Table~\ref{tab:causation} shows three levels of causal complexity.
-The simplest causal chain that the robot experiences is the
+The simplest causal chain that the actor experiences is the
 perception of its own actions.  The temporal aspect is immediate:
 visual information is tightly synchronized to motor commands.
+\ifverbose
 We use this strong correlation to identify parts of the robot
 body -- specifically, the end-point of the arm. 
+\fi
 
 Once this causal connection is established, we can go further and use
 it to active explore the boundaries of objects.  In this case, there
@@ -46,7 +55,6 @@ manipulated object.  The temporal aspect in this case assumes a
 delayed form: triggering a reaching movement doesn't immediately
 elicit consequences in the environment.
 
-
 We
 show how an active exploration strategy might explain how newborns
 develop, during ontogenesis, figure-ground segregation capabilities.
@@ -56,10 +64,17 @@ environment. Towards reaching completion a more immediate form can
 take place due to correlation between the haptic and visual responses.
 \fi
 
+
 Finally we argue that extending this causal chain further will allow
+the actor to make a connection between her own actions and the actions 
+of another. This is reminiscent of what has been observed in the responses
+of the monkey's premotor cortex. 
+
+\ifverbose
 us to approach the representational power of ``mirror
 neurons''~\cite{fadiga00visuomotor}, where a connection is made
 between our own actions and the actions of another.
+\fi
 
 \ifverbose
 The third case is a more conceptual one and it represents our more long
@@ -111,7 +126,7 @@ in each task is proportional to this complexity. Table~\ref{tab:causation} shows
 
 \begin{table*}[htbp]
 \begin{center}
-\begin{tabular}{|p{4.8cm}|p{4.8cm}|p{4.8cm}|}
+\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
 \hline
 {\it type} & {\it nature of causation} &  {\it time profile} \\ \hline\hline
 {\bf sensorimotor coordination} & direct causal chain & strict synchrony \\ \hline
@@ -186,7 +201,7 @@ distance-size problem... \cite{berkeley72new}
 \end{quote}
 %
 In this paper, we provide support for a more nuanced proposition: that
-in the presence of touch, vision becomes more powerful, and many of
+in the presence of [touch] physical contact, vision becomes more powerful, and many of
 its illusions fade away.
 
 
@@ -227,28 +242,124 @@ separated, and the cube has a potentially confusing surface pattern.
 %
 \input{section-bio}
 
+
+
 \subsubsection*{A working hypothesis}
 
-
-Taken together this results from neuroscience suggest a very basic role
-for motor action. 
 %%In particular, for the problem of getting an operational 
 %%definition of object, it seems that action is a necessary component.
 %%Taken together, these results from neuroscience suggest that relating
 %%motor action to visual perception is fruitful.  
-Certainly vision and action are
+
+Taken together these results from neuroscience suggest a very basic role
+for motor action. Certainly vision and action are
 intertwined at a very basic level.  While an
 experienced adult can interpret visual scenes perfectly well without
 acting upon them, linking action and perception seems crucial to the
 developmental process that leads to that competence.  We can construct
 a working hypothesis: that action is required to object recognition in
-cases where an agent has to develop categorization autonomously.  Of
-course in standard supervised learning action is not required since
+cases where an agent has to develop categorization autonomously. 
+Of course in standard supervised learning action is not required since
 the trainer does the job of pre-segmenting the data by hand.  In an
 ecological context, some other mechanism has to be provided.
 Ultimately this mechanism is the body itself that through action
 (under some suitable developmental rule) generates informative
 percepts.
+
+If our hypothesis is correct then 
+the first developmental step has to be that of transporting the hand 
+close to the object. This function is accomplished mostly by the
+circuit VIP-F4-F1. Reaching requires at least the detection of
+the object and the transformation of its position into appropriate 
+motor commands. Parietal neurons seem to be coding for the spatial
+position of the object in non-retinotopic coordinates by taking
+into account the position of the eyes with respect to the head. 
+According to \cite{pouget-ducom-torri-bavelier-2002} and 
+to \cite{flanders-daghestani-berthoz-1999} the 
+gaze direction (the eye motor plant) seems to be the priviledged
+reference system used to code reaching. The signals required
+for calibrating/learning reaching can be perhaps acquired 
+completely by a random exploration of the 
+workspace~\cite{metta99developmental, Marjanovic-96-SAB}.
+
+Once reaching is realiable enough, the attention can 
+be concentrated onto objects. Area AIP and F5 are involved in the
+control of grasping and manipulation. F5 talks to the 
+primary motor cortex for the fine control of movement. 
+The AIP-F5 system responds to the ``affordances'' of the observed 
+object with respect to the
+current abilities (maybe poking and prodding initially). 
+Arbib and coworkers \cite{fagg-arbib-1998} proposed 
+the FARS model as a possible description of the computation in AIP/F5. 
+They did not consider however how affordances can be 
+actually learned during the interaction with the environment. 
+
+The next step along this hypothetical developmental route is to 
+acquire the F5 mirror representation. We might think of canonical neurons as
+an association table of grasp/manipulation (action) types with object
+(vision) types.  Mirror neurons can then be thought of as a 
+second-level association map which links together the observation of 
+a manipulative action performed by somebody else with the neural 
+representation of one's own action.
+
+The conditions why this is feasible are a consequence of active 
+manipulation. During a manipulative act there are a number of additional 
+costraints that can be factored in to simplify perception/computation. 
+For example, detection of useful events is simpler at least because of 
+touch, because it is known when the reaching started, and because the 
+location of the object is known in the first place. 
+
+The last subsystem to develop is object recognition. Object 
+recognition relies on manipulation to help in finding the boundaries
+of objects and segment from the background. More importantly,
+once the same object is manipulated many times the brain can
+start learning about the criteria to identify the object if 
+it happens to see it again. This functions are
+carried out by the infero-temporal cortex (IT).
+The same considerations apply to the recognition of the 
+manipulator (either self or foreign). In fact, STs specialized
+to this task. Information about object identity is
+also sent to the parietal cortex and contributes to 
+the formation of the affordances.
+
+
+\begin{table*}[htbp]
+\begin{center}
+\begin{tabular}{|p{3.5cm}|p{2.5cm}|p{4.5cm}|}
+\hline
+{\it nature of causation} & {\it main path} &  {\it function and/or behavior} \\ \hline\hline
+{\bf direct causal chain} & VC-VIP-F4-F1 & reaching\\ \hline
+{\bf one level of indirection} & VC-AIP-F5-F1 & poking, prodding, grasping\\ \hline
+{\bf complex causation involving multiple causal chains} & VC-AIP-F5-F1+STs+IT & mirror neurons, mimicry\\ \hline
+{\bf complex causation involving multiple instances of manipulative acts} & STs+TE-TEO & object recognition\\ \hline
+\end{tabular}
+\caption{
+\label{tab:circuits}
+%
+Degrees of causal indirection vs. function in the brain.
+%
+}
+\end{center}
+\end{table*}
+
+
+\ifverbose
+It is not by chance that reaching has 
+a sharp improvement around three months of age in sync with the
+development of stereopsis \cite{}. A necessary step of these 
+transformation is that of combining eye/head position signals to 
+the visual position of the target. 
+\fi
+
+\ifverbose
+Speaking of abilities in this on/off terms is 
+perhaps too much of a clear cut and it is not a true description
+of the observed infant's behavior (see for example \cite{Streri}). 
+However, it helps to understand the developmental progression towards 
+object manipulation. 
+\fi
+ 
+
 
 \ifverbose
 NEW In this paper, we explore this link between the robot body, action,
@@ -261,6 +372,7 @@ attentional system (what to look), and reaching (how to get the robot
 effectors at manipulative distances).
 \fi
 
+\ifverbose
 Neurons in area F4 are thought to provide a body map useful for
 generating arm, head, and trunk movements. Our robot learns
 autonomously a crude version of this body map by fusing vision and
@@ -269,6 +381,7 @@ representations seen in F5, we then develop a mechanism for using
 reaching actions to visually probe the connectivity and physical
 extent of objects without any prior knowledge of the appearance of the
 objects (or indeed of the arm itself).
+\fi
 
 \ifverbose
 The last case, that is the ``mirror neurons'' has not been implemented
