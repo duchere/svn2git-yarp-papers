@@ -1,0 +1,670 @@
+From pasa@dist.unige.it Tue Feb 11 13:38:00 2003
+Date: Tue, 11 Feb 2003 19:01:03 +0100
+From: Giorgio Metta <pasa@dist.unige.it>
+To: 'Paul Fitzpatrick' <paulfitz@ai.mit.edu>
+Subject: RE: PTRS/WGW02/06
+
+    [ The following text is in the "iso-8859-1" character set. ]
+    [ Your display is set for the "US-ASCII" character set.  ]
+    [ Some characters may be displayed incorrectly. ]
+
+Possible additions, comments, etc.
+I added everything here (see below), if you'd rather prefer that I do
+the changes directly on the latex files, just let mw know. Also I
+imagine we have to prepare a letter with the answers to all issues the
+reviewers raised (addressed to Bob). So, just let me know how do you
+plan to proceed.
+Cheers,
+
+
+> 
+> > REVIEWER 1
+> > ==========
+> >
+> > Title: Grounding vision through experimental manipulation
+> >
+> > Authors: Paul Fitzpatrick and Giorgio Metta
+> >
+> > This paper presents a defence of the idea that manipulating
+> objects by
+> > an autonomous robot helps vision.
+> >
+> > However the paper is unclear on many points.
+> >
+> > - The term "grounding vision" is not explained in the
+> paper, so it is
+> > difficult for the reader to evaluate the contributions of the paper.
+> 
+> True; I think it is possible that we never mention the word
+> "grounding" outside of the title.  Easy to fix.
+> 
+Perhaps we should add something on section 3 "grounding vision in
+action".
+---
+I don't see why this is an issue, but perhaps we should address the
+reviewer's comment.
+It's true we only mentioned "grounding" in the heading of section 3.
+
+
+> > - The target audience is unclear.  For instance, in section
+> 1, it is
+> > noted that the complexity of vision cannot be grasped
+> intuitively. For
+> > those who work in artificial vision, the complexity of vision is
+> > painfully clear.  So, this note must be directed to readers 
+> naïve in
+> > computer vision.
+> 
+> Strange interpretation of the word "intuitive".  Easy to fix.
+Agree. 
+This criticism is to section 1 "motivation". I think it's a complete
+misunderstanding. We said that the motivation can be difficult to
+understand if we rely on our intuition to judge as easy the problem of
+perception.
+---
+Can we replace fix that sentence with (last but one sentence of section
+1):
+If we rely on our daily experience as human observers the motivation for
+this work can be difficult to grasp since we give for granted that we
+visually perceive a stable, consistent, and deterministic world. Indeed
+the brain solves for us computationally complicated problems but more
+strikingly it learns during ontogenesis how to do it. We begin our paper
+by seeking to clarify the difficulties a robot...
+
+
+> > However, the justification of the work described
+> > in the paper heavily relies on knowledge of previous work by Ballard
+> > (1991) that is not described at all, thus assuming a reader
+> > specialized in the domain.  Similarly, in p.6, the authors refer to 
+> > "long-standing problems in machine vision" without making them 
+> > explicit.
+> 
+> This is not a problem if we correct the misapprehension that
+> we are talking to naive readers.  Wouldn't be bad to 
+> summarize this stuff briefly though!
+We should probably briefly summarize some of Ballard's work (add where?
+I imagine on section 3?):
+
+Ballard among others posit that behavioral assumptions might be taken
+into account to simplify the extraction of visual cues such as shape
+from shading, kinetic depth, optic flow, etc[***]. Conversely general
+purpouse vision is too uncostrained to be feasible. Another behavioral
+simplification induced by the Ballard's animate vision paradigm is the
+sequentialization of visual tasks. Observing that the human visual
+system is space-variant (i.e. photoreceptors are not evenly distributed
+in the retina), requires that visual data can be only gathered by
+placing the high-resolution fovea at interesting conspicuous places in
+the visual field. One example also brought forward by Ballard (cite) is
+the early experimental recording of eye movements of Yarbus [**]. The
+path of movement of the eyes clearly showed that the eye movements are
+function of what is asked to the subject (e.g. tell the age of the
+people in the scene), meaning that it is not usual to store huge amount
+of visual data into some internal representations. Also Brooks (cite)
+basically restates one of the main tenets of Gibson's indirect
+perception [*] when advocates that behavior can do without an internal
+(or with a minimal) representation. Both Gibson and later Brooks
+proposed that the information is mostly contained in the environment
+rather than internally in the agent.
+
+[*] J.J. Gibson, The Ecological Approach to Visual Perception,
+Houghton-Mifflin, Boston, 1979
+[**] A.L. Yarbus, Eye Movements and Vision, Plenum Press, 1967
+[***] I have citations from a paper by Ballard and Brown for each single
+problem.
+I was reading from:
+[D.H. Ballard and C.M. Brown, Principles of Animate Vision, in Active
+Perception Ed. Y. Aloimonos Lawarence Erlbaum Associates, Publishers -
+Hillsdale NJ, Hove, and London - 1993]
+
+Page 6 also,
+Shouldn't we mention the figure-ground segmentation as a "long-standing"
+problem of computer vision?
+
+> > - The statement that vision is full of illusions (p.2) is true in a 
+> > philosophical sense, and in some specially designed experiments.  
+> > However, everyday vision is very effective at correctly recognizing 
+> > objects, even with few cues.  Hence, the "crucial" contribution of 
+> > tapping an object
+> > (p.3) is a little bit overstated.
+> 
+> The reviewer interprets illusions in a very technical sense 
+> -- perhaps "ambiguity" would be a better word.  Also, 
+> objection would be muted if we were more careful to point out 
+> we are talking in a developmental context, where "everyday 
+> vision" is a distant target.
+> 
+I think we can replace "illusions" with "ambiguities". Although in the
+Berkeley citation above the world illusion is use in a less technical
+sense since it mentions the distance-size problem which can be certainly
+used to generate illusions but it is also an example of the
+computational problems the brain need to solve. I think the reviewer
+here is relying on his own recognition abilities as adult humans (the
+recognition with few cues).
+---
+We can add a sentence in section 3 (after "getting to grips with an
+otherwise complex and uncertain world"):
+This is even more crucial in a developmental context where it's not
+immediately clear which cues are to be used for learning to categorize
+objects, events, situations. One possible solution is to rely on a
+generic mechanism to bootstrap more specialized detectors: e.g. we can
+rely on motion segmentation to train more sophisticate object appearance
+models. This is the process we favored rather than precoding a set of
+image based cues by hand.
+
+
+> > - The paper suggests that tapping will lead to a 
+> "manipulation-driven 
+> > representation of objects" (p.3).  However, what their 
+> results show is 
+> > that when you move an object, it can be separated from the 
+> background, 
+> > smartly filled in and its principal axes determined.  Then, 
+> if this is 
+> > repeated many times, one can determine the probability that 
+> the object 
+> > rolls by a given angle.  Is the probability graph the 
+> representation 
+> > of the object?  There is a mention of a colour segmentation method, 
+> > but no details are given.
+> 
+> [a quick citation of Swain&Ballard (I think) would not go 
+> amiss for the color histogram stuff; not sure where the 
+> reviewer saw color
+> *segmentation* though]
+> 
+We mentioned the color clustering in section 10.
+We can definitely add the citation and define which sort of information
+we store as the object representation: color, action, axes, probability
+distribution. Of course, it would have been nice if we had a better
+localization/recognition method, but I think the principles are all
+there.
+See below.
+
+
+> > Maybe the whole process of building a representation
+> > should be made more explicit.  What information is stored?  
+> How is the 
+> > learning procedure organized? (For example, does the object 
+> need to be 
+> > put back in the same place after each tapping?)  Both pieces of 
+> > information would help understand what "manipulation-driven 
+> > representation of objects" is.  These would also make more 
+> clear how 
+> > much this approach is suitable for truly autonomous robots.
+> 
+> This is a potentially difficult objection; I think we did the 
+> best we could here, and it will be hard to be clearer without 
+> a lot more detail. Let me mark this TRICKY-BIT #1 -- REPRESENTATION.
+> 
+It requires a few more sentences and we need to be more explicit. I'm a
+bit surprise of the "truly autonomous robots...", truly? I wonder what
+the guy is actually doing :) we should send him a video, eh eh!
+
+I think we should make the thing more explicit on section 10:
+Add on page 16 after "a similar consideration also applies to the other
+actions."
+
+At the end of the learning procedure the robot has built a
+representation of each object in terms of:
+ -pictorial information represented by color histograms as in (Swain and
+Ballard);
+ -a measure of the average 2D size of the object;
+ -the probability plot shown in figure 14 which represents the specific
+behavior of the object;
+ -an index of the elongation of the object with respect to its principal
+axis, computed from the first [I don't remember the name] 2D moments;
+ -the result of the displacement of the object given that a particular
+motor primitive was used with respect to the initial orientation of the
+object.
+
+Data is gathered during the unconstrained interaction of a human
+experimenter with the robot. An object is placed roughly in front of the
+robot with a random orientation, if the robot's attentional system
+described in section 6 picks the object as something potentially
+interesting it then activates the reaching and poking procedure.
+Initially the robot chooses at random a poking action out of its small
+repertoire. If the object is touched, tapped or poked, and the object is
+segmented from the background then a new piece of information is added
+to the system. 
+
+The color information (histogram) is initially used to cluster the large
+amount of data acquired by the robot. For each cluster (representing an
+object) a cumulative color histogram, average size, probability of
+movement with respect to the principal axis, elongation index, and
+displacement with respect to the principal axis is computed. This
+information is all what the robot knows about objects.  
+
+// after "colour segmentation algorithm used during learning".
+Information about the expected size of the object is employed here
+during the localization procedure. If the object is recognized, a pose
+estimation (orientation) is attempted. 
+
+
+> > - The work on mirror neurons is quite obscure.  On p.5, it is said 
+> > that affordance neurons and mirror neurons are found in 
+> area F5.  Both 
+> > seem to be active when observing manipulation tasks.  Are 
+> they not the 
+> > same?
+> 
+> Easy :)
+>
+They're not the same as described in section 4.
+Canonical and mirror both respond to action execution but their visual
+response is quite different:
+- canonical, respond to the sight of an object, just by fixating it.
+- mirror, respond to the sight of an action applied onto an OBJECT.
+Pretending the action is not enough.
+
+Do you think we should add a sentence on section 4 to summarize/clarify
+the point?
+
+I think the misleading sentence is:
+"They found another class of grasping neurons that also respond during
+observation of somebody else's action". The "also respond" can be
+interpreted with respect to the "canonical neurons".
+ 
+
+> > Similarly to Ballard's paper that is key in the 
+> argumentation of the 
+> > paper, Gallese's paper is key to the argumentation about mirror 
+> > neurons. The authors should give more details on the experiments 
+> > described in these papers.  In particular, the conclusion 
+> that "object 
+> > and goal-directedness of the actions represent an important 
+> component 
+> > in the understanding of the intentions of others" needs 
+> more careful 
+> > elaboration.  At present, it is unclear how "these results" support 
+> > that statement.
+> 
+> Not sure if I agree with this.  Still, a few more sentences 
+> could be produced.  Easy.
+>
+- two aspects (I'm talking about section 4):
+1) we didn't describe much the experiments by Bekkering and Woodward
+that really show that the object is an important part of the
+representation, shall we?
+2) Gallese's paper is a neurophisiological one (e.g. recording from
+behaving monkeys) whose results I think are summarized well in section
+4. I wonder whether we should describe those papers in more details:
+there are a lot of details, I don't think we can go that deep. It would
+make the paper awful to read :)
+
+1)
+After "In (bekkering) the role of objects during an imitative task was
+tested". 
+In this experiments two situations were compared: imitating another
+person's gesture with or without the presence of a target object.
+Reaction times were measured. Indeed they showed that we are
+signifacantly faster if we are required to imitate an action that is
+directed towards a target (e.g. an object sitting on the table).
+
+After "object makes for 5, 6, and 9 month old infants.".
+Woodward tested various group of infants usign the preferential looking
+paradigm. After a habituation phase where the infants observed a person
+reaching for a particular toy out of a set of two possible toys, their
+positions were exchanged. The test goes by grasping the "new" toy in the
+old position hence exactly replicating the same trajectory as in the
+habituation phase. Experiments showed that the infants looked more
+frequently to the new grasped toy in spite of the trajectory they were
+abituated to meaning that they encoded the object identity into the
+interpretation of the observed action. Additional experiments showed
+that the same effect is not present if the action is pretended using a
+mockup of the hand rather than a real human hand. Developmentally, they
+showed that by 6 months infants start encoding elements of the
+understanding of goal-directed actions, rather than kinematic aspects of
+the observed action.
+
+[besides, Woodward explicitly says that these are important elements in
+the understanding of the intentions of others]
+
+2) let me know if you think we should also add more on the gallese's
+paper 1996. 
+
+ 
+> > - P.6.  What is the meaning of "bootstrap perception"?
+> 
+> Replace phrase with something clearer.  Easy.
+>
+Agree.
+Perhaps adding a sentence, similar to what I said before:
+"We used a single well-defined method to collect a large training set
+that can be then used to learn about the behavior of object, their
+appearance (see other issue on the description of what is the object's
+model), and which action produces certain effects."
+It is appropriate (but complete out of the scope/context) also what
+you've done lately with the edge stuff.
+
+
+> > - Figure 8 (p.10).  Is the arm "tapping the object" or "following a 
+> > pre-programmed trajectory that brings it in contact with 
+> the object"? 
+> > The first description communicates the notion of an intentional 
+> > movement directed towards an object.  As I understand it , 
+> the robot 
+> > has neither intentions nor the notion of what an object is. 
+>  (On p.11, 
+> > the target seems actually defined by the authors, not the robot).  
+> > Maybe the caption could be corrected?
+> 
+> There is room for clarification here -- we need to be clearer 
+> where the target comes from.  Figure 8 is weak ground because 
+> it is that early sequence I did where the arm just makes a 
+> sweep without being connected to the attention system.  
+> Perhaps I should replace it with a newer sequence.  Anyway, 
+> there is no real problem here.
+> 
+I don't understand what does the reviewer mean here. I think it's really
+strange to ask whether the robot has intentions. The second point (p11,
+figure 9), what do you think it's wrong with the caption?
+I think we should just make clear in the text that the target is
+selected by the attentional system and it is implicitly classified as
+"object" only after:
+- the robot has seen it (and poked) many times, so that a model of it
+has been acquired (color segmentation/histograms and localization).
+- the robot pokes it and segments it correctly.
+No real problem, perhaps a bit of clarification. 
+
+
+> > - More about mirror neurons.  In the paper (p.16), the 
+> robot tries to 
+> > determine the movement of an operator by observing how the object 
+> > moves. Is the object required in animal experiments?  If not, the 
+> > relation of this work with mirror neurons is very tenuous.  
+> This could 
+> > be left out of the paper to make more space for other 
+> clarifications 
+> > called for above.
+> 
+> Hmm.  What do you think about this?  I think we are talking 
+> about DEVELOPMENT here, for which of course there is no 
+> mirror neuron stuff.  We are proposing a developmental path 
+> that could led to the observed kind of representation.  
+> Clarification worthwhile.
+> 
+The object is definitely required in animal experiments.
+In section 4:
+We should probably add something like (after "when observing somebody
+else executing the same action."):
+Either pretending the action or mimicking it by using a tool (e.g.
+pliers) do not produce any response in the mirror neuron which might
+rather respond to a particular grasp type. Mirror neurons are striking
+also because of their narrowly tuned responses (specificity). 
+
+[then adding those sentences on the work of bekkering and woodward
+should clarify the issue, there again we stressed the importance of the
+object and goal-directness of the action!]
+
+And you're right, we were talking about development but understanding
+other people's actions is exactly the mirror response... so I don't
+really know whether adding the stuff above wouldn't be enough.
+
+
+> > - P.18.  The notes about predicting the future and inverting causal 
+> > relations are very speculative, it seems, and unsupported.
+> 
+> Pfff :).  I'd be happy to ignore this point.
+>
+Me too.
+ 
+> > Overall, the authors should make more clear what problem 
+> they try to 
+> > solve and explain in more details how they solve it.
+> 
+> :-)
+> 
+Still for clarification, if you think appropriate drop section 9. I
+think it's nice but it might help in clarifying things.
+
+
+> 
+> >
+> > REVIEWER 2
+> > ==========
+> >
+> > This paper provides a detailed discussion as to how 
+> causality can be 
+> > probed at different levels by a robot.  It provides a 
+> linkage between 
+> > the authors' work and neurobiology.  The paper is well written and 
+> > provides a good review of the subject matter.  The discussion on 
+> > examining the results of poking and observing the motion 
+> are of some 
+> > interest. Regarding figure 14, the definition of the 
+> principal axis of 
+> > a cube and ball need to be more carefully considered.  Can the 
+> > principal axis of a ball be defined (given its symmetry)?
+> 
+> easy
+> 
+Just say how we defined the principal axis. I think I also added
+something above we could describe the moments there.
+
+
+> 
+> > In addition:
+> >
+> > * does the cube roll or slide?
+> 
+> easy
+> 
+I agree.
+
+
+> > * is the direction of the ball only dependant on the 
+> direction of the 
+> > "poke"?  What about the ball's dynamics and the surface?
+> 
+> easy
+> 
+In fact we didn't plot it but we actually get a distribution which
+includes all these complicated things :)
+
+
+> > The following also require attention:
+> >
+> > * The reference to Berkeley needs to be clarified.
+> >
+It's a citation!!!! I think we're going to add something for reviewer 1
+there (see above).
+
+
+> > * Some of the images are rather small, particularly 6 and 7 
+> where it 
+> > is difficult to see the fine detail.
+> 
+> easy
+> 
+Figure 6 and 7 are blurred unfortunately. I imagine that they're going
+to be ok in the final print out, don'y you think so?
+
+
+> > I would like to see this paper published due to is high 
+> accessibility 
+> > and scope.
+> 
+> I agree ;)
+> 
+Maybe published twice, it's a pity there's no competition for the cover
+:) ah ah :)
+
+
+> 
+> > REVIEWER 3
+> > ==========
+> >
+> > Fitzpatrick and Metta: Grounding vision through experimental 
+> > manipulation
+> >
+> > Having read the paper, I would have liked to see more discussion on 
+> > two points:
+> >
+> > (1) The idea that by actively manipulating an object and 
+> observing the 
+> > results -- taking into account proprioceptive information 
+> -- one can 
+> > separate object and background seems so obvious that one 
+> wonders why 
+> > it hasn't been done before.  In fact, the authors refer to 
+> Ballard's 
+> > work of eleven years ago, but do not enter a deeper 
+> discussion.  The 
+> > experimental results are fine, and the overall point is 
+> interesting, 
+> > but I feel it should be argued more strongly what the 
+> contribution of 
+> > this paper is, in contrast to existing work.
+> 
+> Okay we need to talk about Ballard a bit.
+> 
+It was done before, I have a reference but I guess I shouldn't mention
+it :) it was part of Giulio's class term project I did in 1991/92. I
+discovered there's actually a book chapter with (among many other
+things) a segmentation based on motion and poking/tapping. As a
+curiosity, do you want me to send it to you (in paper format
+unfortunately)?
+
+[Sandini, Gandolfo, Grosso, Tistarelli - Vision During Action, in Active
+Perception ed. Y. Aloimonos, Lawrence Erlbaum Ass. Publishers 1993
+Hillsdale NJ, Hove and London]
+
+Besides,
+I haven't seen any other work similar to that, do you?
+
+Shall we extend a bit the discussion or rather the motivation (sect 1)?
+
+
+> > (2) The attempt to move towards a "passive" understanding 
+> of objects 
+> > and their affordances (mirror neuron, section 10) by learning the 
+> > effects of the four possible actions, and the responses of four 
+> > different objects to these actions) first, and then analysing the 
+> > results of human-performed actions, is interesting, and the results 
+> > look promising.  However, it seems that the approach is crucially 
+> > dependent on the fact that there is only a small number of possible 
+> > actions, and probably also on the fact that there is a 
+> small number of 
+> > objects.  How will this scale? Is this approach suitable 
+> for anything 
+> > but the smallest set of actions and objects?  If it isn't, that 
+> > wouldn't necessarily be to the detriment of the paper but we would 
+> > like to know.
+> 
+> Yes, good question, don't think we can say much about this.
+> 
+We can say something in the conclusions (e.g. future directions).
+
+SPECULATIONS:
+the number of possible actions is a function of how well the robot can
+perceive them as visually different during the imitation stage. I don't
+see this as a problem, it looks to me mostly as a problem of resolution
+and precision of the controller. This it's true was our fault, and the
+limitation was mostly in the lousy controller (at least in our
+experiments). 
+
+There's an additional problem with poking, the consequences of the
+action are only controllable to a certain extent, irregularities, small
+errors, friction, and other poorly characterized aspects of the
+interaction can lead to uncontrollable movements of the object that can
+then be wrongly attributed to a different "cause". Within this limits I
+think we can definitely extend the range of possible actions. Even in
+the presence of ambiguities I think the robot can still perform
+reasonably well (again within its own limits).
+
+If we start talking about extending the range of actions to very
+different things such as grasping  then no much to say... who knows :)
+
+Small number of objects: this depends only on the
+localization/recognition system we used. Ballard mentioned a much higher
+number of objects recognized because of color in his histogram (75 if I
+recall correctly). Although I don't know the literature there are much
+better methods for recognition/classification.
+
+I believe that we should make clear that the focus is on learning
+autonomously here and we showed a possible route. I guess we could
+perhaps do much better with state of the art motor control and
+classifiers. At least, recognizing the actions of others in this way
+doesn't require a full blown kinematics and 3D
+localization/interpretation of the motion of the "human manipulator".
+We're showing that this might not be required.
+
+Pushing the thing to the limits... in the next paper :)
+
+
+> > Also, the authors should discuss how much the method discussed in 
+> > section 10 is dependent on the correct object identification. What 
+> > happens if the bottle is confused with the car?
+> 
+> reasonable, easy.
+> 
+Of course if the object is not indentified correctly, the whole thing
+fails miserably :)
+
+
+> > Figures 6 and 7 are hard to read.
+> 
+> easy
+>
+See REVIEWER 2.
+
+ 
+> > The flipper is found by a heuristic (p.10).  How much does this 
+> > heuristic influence the generality of the method?
+> 
+> looks like that figure is confusing, better update it (and the text)
+> 
+Yes.
+
+
+> > The significance of section 9 is unclear.  Neither the 
+> objectives nor 
+> > the results presented there seem particularly relevant to 
+> the paper, 
+> > and the paper might benefit from the omission of that section.
+> 
+> Okay maybe we can just omit that then -- it is fine by me.
+>
+Yes, up to you.
+
+ 
+> > The term "signature explosion of movement" (p.12) should be 
+> explained. 
+> > The sixth sentence from the top on p.14 is incomplete ("simply by 
+> > checking whether its arm ...").
+> 
+> okay easy.
+> 
+I agree.
+
+
+> > The discussion of results on p.15 should be expanded.  What 
+> is counted 
+> > as a "mistake"?  How were these measured?
+> 
+> easy enough...
+> 
+Mistakes where judged (measured) visually by Giorgio (sitting for a
+whole day in front of the robot :)) when the robot poked the object not
+in accordance with the principal affordance as defined in figure 14.
+
+
+> 
+> 
+> hmm not so bad overall!
+> 
+Overall, I guess, there's room for improvement. I realized we didn't
+stress a few important point... anyway, not bad :)
+
+Cheers,
+Pls, let me know if you'd like me to do soemthing more...
+
+
+Giorgio Metta <pasa@dist.unige.it>        Researcher
+ 
+LIRA-Lab, DIST                            University of Genova 
+Viale Causa, 13                           16145 Genova, Italy
+Ph: +39 010 353-2791                      Fax: +39 010 353-2948
+
+URL: http://pasa.lira.dist.unige.it
+ 
