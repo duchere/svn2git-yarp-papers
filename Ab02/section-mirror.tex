@@ -228,7 +228,7 @@ moment of contact are shown. The object, after segmentation, is tracked for 12
 frames using a combination of template matching and optic flow. The big circles
 represent the position of the toy car in successive frames. The two small circles
 (outline and solid) displayed on the frame of contact ($3^{rd}$ from the left) are 
-the position at the time of contact and at the $12^{th}$ respectively.
+the position at the time of contact and at the $12^{th}$ frame respectively.
 %
 }
 \end{center}
@@ -389,4 +389,33 @@ causation outwards from its own simple body into the complex world.
 \end{center}
 \end{figure}
 
+\section{Towards object recognition}
+Although poking is a very crude and primitive form of manipulation we have
+shown that it can help to bootstrap more complex behaviors without relying on 
+an external teacher. With only minimal assumptions (using motion as segmentation
+cue) we were able to build a system that exploits its environment to 
+learn novel behaviors. If COG had a dexterous hand, it could further
+exploit temporal constraints (e.g. an object remains the same unless it is dropped)
+to collect tightly/temporally correlated data. This form of ``object constancy'' could be 
+exploited for instance to learn about an object with confusing visual features such
+as many different colors, different geometric patterns, and so forth  
+(see the example of the cube in figure \ref{fig:sample-results}). A finer form of manipulation can be
+used also to group objects on the basis of their behavior rather than purely
+by visual appearance: e.g. the class of ``bottle'' or of ``toy cars''.
+This, in some future implementation, can help the robot to attain a goal by using
+a suitable tool (among many) rather than the exactly same tool it used
+when initially learnt the task.
+
+A possible and obvious extension is to use the object segmentation provided 
+by poking (and manipulation in general) to build models of the appearance of objects 
+beyond the color histogram we used in our experiments (think again about the
+colored cube shown in figure \ref{fig:sample-results}).
+Also in this case the robot could work autonomously on learning. Furthermore, the
+interaction between manipulator and object provides another element that can
+be used to learn about the manipulator itself (see figure \ref{fig:manipulator}). 
+The robot can then learn about the appearance of its own hand or, 
+indifferently, about the human hand. It is 
+remarkable that the complexity of the robot manipulator does not necessarily have to
+match that of the human manipulator. [We can envision a similar procedure to learn about 
+any object that functions as manipulator.]
 
