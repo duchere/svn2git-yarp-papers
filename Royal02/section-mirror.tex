@@ -40,14 +40,14 @@ In the first experiment the robot poked a small set of objects
 (an orange juice bottle, a toy car, a cube, and a \ahhcolor{}ed ball) using 
 one of four possible actions (the motor repertoire). Actions are 
 indicated for convenience as pull in, side tap, push away, and back 
-slap (see for example figure \ref{fig:poking-segmentation}). 
+slap (see for example Figure~\ref{fig:poking-segmentation}). 
 The toy car and the bottle have a definite principal axis that 
 can be easily extracted from the segmented image. They also tend to 
 roll along a definite direction with respect to their principal axis. 
 These visual and physical properties of the objects can be acquired 
 automatically by the robot simply by poking the same object many times 
-(about 100 in our experiment). The results are shown in figure 
-\ref{fig:affordances}. We plotted there the estimated probability 
+(about 100 in our experiment). The results are shown in 
+Figure~\ref{fig:affordances}. We plotted there the estimated probability 
 of observing each of the objects rolling along a particular direction 
 with respect to its principal axis. Different trials were clustered 
 using \ahhcolor{} information. In fact, in this case, \ahhcolor{} allows 
@@ -82,7 +82,7 @@ After the training stage, if one of the known objects is presented to Cog, the
 object is recogn\ize{}d, local\ize{}d and its orientation estimated (principal 
 axis). Recognition and local\iz{}ation are based on the same \ahhcolor{} 
 segmentation algorithm used during learning. Cog then uses its 
-understanding of the affordance of the object (figure \ref{fig:affordances}) 
+understanding of the affordance of the object (Figure~\ref{fig:affordances}) 
 and of the geometry of poking to make the object roll. The whole local\iz{}ation 
 procedure has an error between $10^{\circ}$ and $25^{\circ}$ which proved 
 to be enough for our experiment. We performed a simple qualitative test of 
@@ -123,7 +123,7 @@ If, for example, the car was poked at right angle with respect to its principal
 axis Cog would mimic the action by poking the car at right angle. In spite 
 of the fact that the car \ahhpreferred{} \ahhbehavior{} is to move along its principal 
 axis. Examples of observation of poking and generation of mimicry actions are 
-shown in figure \ref{fig:observed-action} and \ref{fig:mimicked-action}.
+shown in Figures~\ref{fig:observed-action} and \ref{fig:mimicked-action}.
 
 %
 %
@@ -151,7 +151,7 @@ Initial and final position after 12 frames is indicated.
 \label{fig:mimicked-action}
 %
 %
-Two examples of mimicry following the observation of figure \ref{fig:observed-action}. 
+Two examples of mimicry following the observation of Figure~\ref{fig:observed-action}. 
 Cog mimics the goal of the action (poking along the principal axis) rather than
 the trajectory followed by the toy car.
 }
