@@ -31,15 +31,28 @@ to the control.
 \includegraphics[width=\columnwidth]{arm-detection-all.eps}
 %\includegraphics[width=8cm]{joint-correlation2.eps}
 \caption{ 
-\label{fig:joint-correlation}
+\label{fig:arm-detection}
+%\label{fig:joint-correlation}
 %
-An example of the correlation between optic flow and arm movement.
+(a) An example of the correlation between optic flow and arm movement.
 The traces show the movement of the wrist joint (upper plot)
 and optic flow sampled on the arm (middle plot) and away from it (lower
-plot).  As the arm generates a repetitive movement, the oscillation
-is clearly visible in the middle plot and absent in the lower.
-Before and after the movement the head is free to saccade, generating the
-other spikes seen in the optic flow.
+plot). (b) The robot's point of view and the optic flow generated are 
+shown on the left. On the right are the results of correlation.  
+Large circles represent the results of applying a region growing 
+procedure to the optic flow. The small circle marks the point of maximum 
+correlation, identifying the regions that correspond to the robot's own arm.
+%As the arm generates a repetitive movement, the oscillation
+%is clearly visible in the middle plot and absent in the lower.
+%Before and after the movement the head is free to saccade, generating the
+%other spikes seen in the optic flow.
+%Detecting the arm/gripper through motion correlation. The robot's
+%point of view and the optic flow generated are shown on the left. On
+%the right are the results of correlation.  Large circles represent the
+%results of applying a region growing procedure to the optic flow.
+%Here the flow corresponds to the robot's arm and the experimenter's
+%hand in the background. The small circle marks the point of maximum 
+%correlation, identifying the regions that correspond to the robot's own arm.
 %
 }
 \end{center}
@@ -177,7 +190,7 @@ of mass of the region containing the maximum of the correlation
 function\iflong (see Figure~\ref{fig:arm-detection})\fi.
 \fi
 
-Figure~\ref{fig:joint-correlation} shows an example of this procedure
+Figure~\ref{fig:arm-detection} shows an example of this procedure
 in operation, comparing the velocity of the arm's wrist with the optic
 flow at two positions in the image plane.  A trace taken from a
 position away from the arm shows no correlation, while conversely the

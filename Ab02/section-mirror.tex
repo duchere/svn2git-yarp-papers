@@ -1,5 +1,5 @@
 
-\section{Experimenting object affordances}
+\section{Experimenting with object affordances}
 
 \ifverbose
 The latest instantiation of the ``general principle'' we would like to
@@ -14,7 +14,7 @@ for segmenting objects.  There are many possible elaborations of this
 method, all of which lead to a vision system that is tuned to 
 acquiring data about an object by seeing it manipulated by the robot.  
 
-Segmentation alone is still unconvenient in many situation if not 
+Segmentation alone is still unconvenient in many situations if not 
 coupled with a mechanism to learn from experience. For example, it 
 would be terribly unefficient to poke the object first and then try 
 to grasp it. It would be much better if the robot could learn about
@@ -58,13 +58,13 @@ A further elaboration is required to group the data belonging to the same
 object as obtained from many poking acts into coherent clusters. As clustering 
 mechanism we employed color histograms. After each poking action, a color histogram 
 of the pixels of the segmented region is built and used as criterion 
-to judge whether the object belongs to an existing group (i.e. if it
+to judge whether the object belongs to an existing group (e.g. if it
 is mostly yellow, it is likely to be the toy car). This works well
-for a limited set of objects but sophisticated methods are 
-required for a more general case with many objects. 
+for a small set of objects but sophisticated methods are 
+required for a more general case with a large set of objects. 
 The data structure that simulates the AIP-F5 affordance computation maintains all 
-the instances of poking grouped by object, all the prototypes of the object segmented,
-the direction of movement, and the action the robot applied in each particular case.
+the instances of poking grouped by object, all the prototypes of the segmented object,
+the direction of movement, and the action applied by the robot in each trial.
 
 An alternative to the vision-based clustering procedure is to try to come 
 to grips with the behavior of the objects after a single encounter, and use 
@@ -79,8 +79,8 @@ consists of four possible directions of poking. We labeled them for convenience
 as: pull in, side tap, push away, and back slap, depending on the effect they
 have on the object from the point of view of the robot. Actions were generated
 at random during this training stage. During a poking action, the object is
-tracked after the time of contact for 12 frames and the overall displacement is
-estimated. 
+tracked for 12 frames after the time of contact and the overall displacement is
+computed. 
 
 \begin{figure}[tbh]
 \begin{center}
@@ -106,7 +106,7 @@ This information can be derived from the same training set we collected for lear
 about rolling. Figure \ref{fig:actions} shows the histograms of the direction 
 of movement of the object for
 each possible action. For example, the back slap moves the object mostly upward
-(about $-100^\circ$) and away from the robot. A similar consideration applies
+(about $-100^\circ$ on average) and away from the robot. A similar consideration applies
 to the other poking gestures. Figure \ref{fig:actions} was obtained from the data of
 about 500 poking events.
 
@@ -116,13 +116,14 @@ its orientation estimated (principal axis). Recognition is based on the color hi
 procedure used to form the clusters is employed here. Localization is simply implemented 
 by histogram backprojection and a search across the image. The current orientation of the
 object is then estimated by comparing the current image with all the prototypes 
-contained in the cluster. The whole procedure gives a precision on the estimation
-of the principal axis of about $10^\circ$ to $25^\circ$ depending on the object.  
+contained in the cluster. The whole procedure has an error on the estimation
+of the principal axis in the range $10^\circ$ to $25^\circ$ depending on the object.  
 
 To actually exploit the understanding of the affordance we need to connect vision to 
 behavior. The robot looks for the preferred rolling direction of the object
 (see figure \ref{fig:affordances}) and adds it to its current orientation. 
-The action whose effects are closer (on average) to the last sum is selected.
+The action whose effects are closer (on average) to the combination of the orientation
+and affordance is selected.
 
 % TEST OF PERFORMANCE MISSING?
 We performed a simple qualitative test of the robot's behavior presenting randomly
@@ -183,10 +184,112 @@ is to chain outwards from an object the robot has poked.  If someone
 else moves the object, we can reverse the logic used in poking --
 where the motion of the manipulator identified the object -- and
 identify a foreign manipulator through its effect on the object.
+The next experiment was designed to explore this aspect.
 
+In fact, the same processing used for analyzing an active poking 
+can be used to detect a contact and segment the object from the manipulator.
+This is not different from what used for learning. While one might argue then
+that learning can be carried out just by mere observation, it is
+worth noting that: i) this situation is not as well defined [circumscribed] 
+as the active one, and ii) there is no connection to the motor aspects 
+of the action and consequently it is difficult to link the observation to the behavior.
+There is no physical contact, thus there is plenty of room for getting confused 
+by false positives. The temporal aspect, so well constrained during active manipulation, is 
+more vague here - the robot, for example, does not know when the foreign manipulator starts
+or stops the action. If missing a contact event or getting a false or mistaken 
+segmentation is not much of a problem in ``observation mode'', it is much more
+troublesome is we corrupt the training data with unreliable/noisy observations.
+Further, we should not assume the human ``teacher'' is truly collaborative. 
+There is no guarantee that actions suited to the robot perceptual system and/or 
+goal are performed at all.
+More seriously, the link to behavior is completely missing. Even if visual 
+information about objects can be collected as before, tracing back which action
+causes a particular consequence cannot be autonomously learnt by the robot.
+Conversely, in the case the robot has already learned about objects, 
+as e.g. we have shown in the previous section, this information can be
+factored in to help the observation of somebody else's action. Touch 
+(not in COG) and physical contact are additional bits of information 
+about the ongoing activity.
 
+In our case, if any activity is detected close to the object - measured by the 
+amount of motion in a neighborhood of the fixation point corresponding to the robot's foveal 
+camera - reaching is inhibited and the whole action observed (assuming there 
+is one at all). An example of human poking is shown in figure \ref{fig:observed-action}.
 
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=\columnwidth]{observed-action.eps}
+\caption{ 
+\label{fig:observed-action}
+%
+An example of observed sequence with tracking superimposed. Frames around the
+moment of contact are shown. The object, after segmentation, is tracked for 12 
+frames using a combination of template matching and optic flow. The big circles
+represent the position of the toy car in successive frames. The two small circles
+(outline and solid) displayed on the frame of contact ($3^{rd}$ from the left) are 
+the position at the time of contact and at the $12^{th}$ respectively.
+%
+}
+\end{center}
+\end{figure}
 
+The first obvious thing the robot can do is to identify the action just observed 
+with respect to its motor vocabulary. It is easily done, in this case, by comparing 
+the displacement of the object with the four possible actions and by choosing the
+action whose effects are closer to the observed displacement.
+Indeed it works well and it allows - even if in this limited setting - recognizing 
+a complex action by interpreting its consequences on the environment.
+This is orders of magnitude simpler than trying to completely characterize the
+action in terms of the observed kinematics of the movement. Here, the complexity
+of the data we need to obtain from the observations is somehow proportional to the complexity
+of the goal rather than that of the structure/skills of the foreign manipulator. In our case, because 
+the action, the goal, and the object are relatively simple, the only information 
+required is about the displacement of the object. 
+
+Therefore, the next question is whether we can use this ``understanding'' of 
+observed actions to implement mimicry behavior. It 
+would be easy now to try to replicate the action just observed if the same
+object were presented again. However, there is still a bit of ambiguity in that
+we can choose to mimick either the observed displacement of the object or 
+the way the object was poked with respect to its rolling affordance.
+ 
+We chose to implement the latter. It is clear that poking along a particular 
+observed direction requires trivial modifications. In practice, after an 
+action is observed the angle between the affordance (see table \ref{tab:affordances}) and
+the actual displacement is measured and stored. If it happens to see the same 
+object again, the robot chooses the action that has the greatest 
+probability of poking the object along the previously stored angle. 
+Figure \ref{fig:mimicked-action} shows to examples of mimicry as a consequence of the
+action shown in figure \ref{fig:observed-action}.
+
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=\columnwidth]{mimicked-action.eps}
+\caption{ 
+\label{fig:mimicked-action}
+%
+Two examples of mimicry following the observation in figure \ref{fig:observed-action} 
+where a human manipulator pokes the toy car exploiting the affordance (the car rolls). 
+In example 1 (top row), the toy car has the same orientation it had in the
+demonstrated action and the robot repeats the observed action. In example 2 (bottom), 
+the car is $90^\circ$ with respect to example 1. The appropriate action to exploit
+the affordance and make the car roll is thus a back slap.
+) 
+%
+}
+\end{center}
+\end{figure}
+
+This response is exactly what we would expect from a ``mirror-type'' representation.
+The observed action is interpreted on the basis of the robot own motor code. The same
+data structure is also used/activated when performing an action in response to the
+sight of a known object. The causal link between the two events that could be separated
+by several seconds is the object, the goal, and the object's affordances. There is 
+considerable precedent in the literature for a strong connection between viewing 
+object manipulation performed by either oneself or another \cite{wohlsclager02human}.
+There is also a growing evidence that imitation is goal-directed 
+\cite{bekkering-wohlschlager-2000} and that the object of the action is explicitly 
+coded (e.g. during reaching) \cite{woodward-1998}.
 
 
 \ifverbose
