@@ -1,0 +1,102 @@
+
+YARP is written by and for researchers in robotics, particularly
+humanoid robotics, who find themselves with a complicated pile of
+hardware to control with an equally complicated pile of software. At
+the time of writing (2005), running decent visual, auditory, and
+tactile perception while performing elaborate motor control in
+real-time requires a lot of computation. The easiest and most scalable
+way to do this right now is to have a cluster of computers. Every year
+what one machine can do grows, but so do our demands. YARP is a set of
+tools we have found useful for meeting our computational needs for
+controlling various humanoid robots.
+
+\subsection*{Stopping the pain}
+
+YARP is designed with robotics research groups in mind.  Here are the
+assumptions we make, distilled from our own repeated experience.
+We express the assumptions in terms of {\em pain} -- situations
+we would like to avoid.
+
+\begin{itemize}
+
+\item {\bf It hurts to be cramped.}
+%
+Designing a robot control system as a set of processes running on
+  a set of computers is a good way to work, especially if the robot
+  is not mobile.  It minimizes time spent wrestling with code
+  optimization, rewriting other people's code, etc., and maximizes
+  time spent actually doing research.
+  The heart of YARP is a communications mechanism to make writing
+  and running such processes as easy as possible.
+
+
+\item {\bf It hurts to stop.}
+%
+The longer a process can stay running, the better.  Restarting
+  processes often has a cost.  For example, it may talk to some
+  custom hardware which requires a physical reset.  There may
+  be other dependent processes that need to be restarted in turn.
+
+  YARP does its part to minimize dependencies between processes.
+  Communication channels between processes can come and go.
+  A process that is killed or dies unexpectedly does not
+  require processes to which it connects to be restarted
+
+
+\item {\bf You're not special.}
+%
+Humility is important.  There is a lot going on.
+  YARP does not attempt to take over control of the processes,
+  but rather leaves process control completely in the hands of
+  the OS.
+
+
+\end{itemize}
+
+
++ Multiple people, shared resources, maximally independent projects.
+
++ We make it a rule that a process should never need to be restarted
+  because of anything YARP does
+
++ Processes come and go.
+
++ Make streaming communication easy.
+
++ Name to ...
+
+
+
+
+YARP client code is easy.
+
+The package duration paradigm.
+
+Giving control over buffer policy, but avoiding making user
+think about it.
+
+Gotchas:
++ pointers in structures
++ OnRead doesn't often get called.
++ sometimes expect both that all messages will get through, and
+  that messages will get dropped for timeliness.
+
+YARP
+
+The principles of YARP:
+
++ Politeness.
+
++ Openness.
+
++ Playing well with others.
+
+Motivations.
+
+What type of robots we're dealing with.
+
+History.
+
+
+\subsection{Bozo the clown}
+
