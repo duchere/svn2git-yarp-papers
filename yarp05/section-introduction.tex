@@ -19,14 +19,28 @@ YARP is designed with robotics research groups in mind.
 It is targetted primarily at supporting software development.
 %
 %
-Here are the
-assumptions we make, distilled from our own repeated experience.
-We express the assumptions in terms of {\em pain} -- situations
-we would like to avoid.
+Here are the assumptions we make, distilled from our own repeated
+experience.  
+%
+%We express the assumptions in terms of {\em pain} --
+%situations we would like to avoid.
 
 \begin{itemize}
 
-\item {\bf It hurts to be cramped.}
+\item {\bf Humility is key.}
+%
+Over time, sofware for a sophisticated robot needs to 
+aggregate code written by many different people in many
+different contexts.  No doubt that code will have
+dependencies on various communication, image processing,
+and other libraries.
+%
+YARP needs to play well with these other libraries.
+It should not try to ``take control'' of processes,
+hardware management, or any kind of service.
+
+
+\item {\bf Computing power should be scalable.}
 %
 Designing a robot control system as a set of processes running on
   a set of computers is a good way to work, especially if the robot
@@ -37,7 +51,7 @@ Designing a robot control system as a set of processes running on
   and running such processes as easy as possible.
 
 
-\item {\bf It hurts to stop.}
+\item {\bf Never stop.}
 %
 The longer a process can stay running, the better.  Restarting
   processes often has a cost.  For example, it may talk to some
@@ -49,13 +63,6 @@ The longer a process can stay running, the better.  Restarting
   A process that is killed or dies unexpectedly does not
   require processes to which it connects to be restarted
 
-
-\item {\bf You're not special.}
-%
-Humility is important.  There is a lot going on.
-  YARP does not attempt to take over control of the processes,
-  but rather leaves process control completely in the hands of
-  the OS.
 
 
 \end{itemize}
