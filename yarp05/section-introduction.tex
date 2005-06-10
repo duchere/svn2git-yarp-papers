@@ -13,7 +13,13 @@ controlling various humanoid robots.
 
 \subsection*{Stopping the pain}
 
-YARP is designed with robotics research groups in mind.  Here are the
+YARP is designed with robotics research groups in mind.  
+%
+%
+It is targetted primarily at supporting software development.
+%
+%
+Here are the
 assumptions we make, distilled from our own repeated experience.
 We express the assumptions in terms of {\em pain} -- situations
 we would like to avoid.
@@ -55,49 +61,19 @@ Humility is important.  There is a lot going on.
 \end{itemize}
 
 
-+ Multiple people, shared resources, maximally independent projects.
+\subsection*{Zone of proximal development}
 
-+ We make it a rule that a process should never need to be restarted
-  because of anything YARP does
+(this section is very vague)
 
-+ Processes come and go.
+For infants, the zone of proximal development is the
+difference between what they can accomplish on their
+own compared to what they can accompish with an
+adult's support [CITE].
 
-+ Make streaming communication easy.
+By loose analogy, we label a robot control system's ``zone of proximal
+development'' to be the set of modules being actively added or worked
+on by the programmer, against a background of pre-existing, operating
+modules.  
 
-+ Name to ...
-
-
-
-
-YARP client code is easy.
-
-The package duration paradigm.
-
-Giving control over buffer policy, but avoiding making user
-think about it.
-
-Gotchas:
-+ pointers in structures
-+ OnRead doesn't often get called.
-+ sometimes expect both that all messages will get through, and
-  that messages will get dropped for timeliness.
-
-YARP
-
-The principles of YARP:
-
-+ Politeness.
-
-+ Openness.
-
-+ Playing well with others.
-
-Motivations.
-
-What type of robots we're dealing with.
-
-History.
-
-
-\subsection{Bozo the clown}
-
+YARP helps insulate existing modules from changes in this zone,
+and leaves them in a good form for when the zone moves on.
