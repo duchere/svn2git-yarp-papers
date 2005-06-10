@@ -1,0 +1,32 @@
+
+\section{History}
+
+YARP was born on the humanoid robot Kismet.  Kismet was controlled by
+a set of Motorola 68332 processors, an Apple Mac, and a loose network
+of PCs running QNX, Linux, and Microsoft Windows.  Communication was a
+hodge-podge of dual-port RAM, QNX message passing, CORBA, and raw
+sockets.  At one point, three incompatible communication protocols
+layered over QNX message passing were in use simultaneously.  This
+variety was a consequence of organic growth, as developers added new
+modules to the robot.  YARP began as a one of the communication
+protocols built on QNX message passing.  A key, defining, feature of
+YARP was that it is designed to be {\em broad-minded}: it was
+implemented in the form of a library which placed minimal constraints
+on user code; communication resources did not need to be allocated at
+any particular time or place in a program; reading messages could be
+blocking, polling, or callback based, etc. This meant it could be
+easily added without disturbing existing code, and communication could
+be moved across to the new protocol piece by piece (if that were
+necessary at all).  An image processing library grew out
+of a corresponding hodge-podge of vision code which was
+similarly broad-minded, and easy to insinuate into the system.
+
+Having many incompatible communication protocols and image 
+processing libraries sounds undesirable, and in the 
+steady state, it is.  But in a development environment
+it is nice to have the option not to choose when to
+rewrite, rather than being forced into it.
+
+
+
+
