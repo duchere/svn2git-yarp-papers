@@ -22,7 +22,7 @@ react consequently by activating or removing a specific connection.
 The communication abstraction is called a ``port''. The port is an active object managing
 multiple connections for a given data type either as input or output. Each connection has
 a state that can be manipulated by certain commands, which manage the connection or obtain
-state information about it. Although a port can behave both as input and output, the 
+state information from it. Although a port can behave both as input and output, the 
 user interface, for convenience, enforces only one direction. An input port can receive 
 from multiple connections at different data rates ``speaking'' different protocols
 (e.g. TCP, UDP, multicast). An output port can send data to many destinations reading at
@@ -68,6 +68,14 @@ types are dealt by extending the code by specializing the port C++ template for 
 new complex data type and providing the serialization and un-serialization functions. 
 This extension is relatively stereotyped and easily realized from client code: that is, 
 the library as such does not need to be rebuilt.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=8.5cm]{port.eps}
+	\caption{The port internal structure}
+	\label{fig:port}
+\end{figure}
+
 
 Ports were designed with the two-fold goal of reducing the interactions at large between 
 the various components of the robot controller and, simultaneously, to allow efficient 
