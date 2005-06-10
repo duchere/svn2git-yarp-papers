@@ -1,0 +1,103 @@
+YARP communication
+
+The basic YARP module is an IPC infrastructure that supports communication across a network 
+exploiting different protocols. YARP allows interconnecting many modules seamlessly without 
+subscribing to any specific programming style, language interface, or demanding
+specifications as for instance in CORBA [] or DCOM []. That is, YARP is a plain library 
+linked to user-level code and as such migration to YARP can be easily carried out 
+a posteriori. Systems such as CORBA, although far more powerful than YARP, require 
+adhering to well-defined interface specificiations (nothing bad as such) and consequently 
+their link between the general algorithmic code and the communication layer is much 
+stricter. 
+
+We have taken a more lightweight approach: any C++ code can use YARP directly just by 
+instantiating communication classes. Other programming languages can access YARP as well, 
+provided they have means of linking and calling C++ code. We have successfully used YARP 
+from within Matlab or L [ref].
+
+Communication channels in YARP can be connected either programmatically or at run-time.
+Each communication object, described next, can receive commands from other processes and 
+react consequently by activating or removing a specific connection.
+
+The communication abstraction is called a ``port''. The port is an active object managing
+multiple connections for a given data type either as input or output. Each connection has
+a state that can be manipulated by certain commands, which manage the connection or obtain
+state information about it. Although a port can behave both as input and output, the 
+user interface, for convenience, enforces only one direction. An input port can receive 
+from multiple connections at different data rates ``speaking'' different protocols
+(e.g. TCP, UDP, multicast). An output port can send data to many destinations reading at
+different rates on different protocols. Service channels are also temporarily created to
+perform the handshaking between ports; in this case the protocol of choice is TCP for
+reliability.
+
+Communication is fully asynchronous and as such messages are not guaranteed to be 
+delivered unless special provisions are made. The most natural semantic for YARP ports is
+thus that of dealing with recurrent messages, updated and sent often enough, where loosing 
+one message does not compromises the integrity of the system. This is tailored at
+sensorial data that are generated periodically: e.g. images and sound. YARP is definitely
+not an event based system since a single message is not guaranteed to get through. A
+typical application is, for example, the acquisition of images, and delivery to many 
+machines performing the processing in parallel. Slower processes might simply not
+use all the available images in the stream of data and rather skip some of them.
+
+More recently, at the cost of bidirectional synchronization, a method for guaranteeing
+the delivery of messages has been added but this is not the most straightforward and
+natural use of ports.
+
+Reading from ports can be blocking, non-blocking (polling), and on a callback. Writing is
+normally non-blocking, although it can be made to block depending on the requirements
+of the channel. In short, once data is available, a reference to a data buffer (of the 
+same type of the data being received) is returned to the user code. This remains valid
+for the user to manipulate it as long as no other calls to the read function are made.
+On a write, on the other hand, the buffer is passed to the trasmission code which deals
+with the details of the communication, while user code can continue execution.
+
+Ports are located on the network by symbolic names which are managed by a name server
+(the YARP name server). The name server maps symbolic names (strings) into the triplet 
+composed of the IP address, port number, and interface name. A description of the network 
+topology is stored statically in the name server tables (a cluster might have multiple 
+and physically separated networks) and used to reply to registration or connection 
+requests by the clients. The first operation each port must perform is the registration 
+of its name into the name server. This allows then communicating to the port. Registration 
+is typically followed by the connection to a peer of the same data type. When the user is 
+done with the port, it can be stopped, unregistered, and eventually destroyed.
+
+Ports can deal with any data type. For simple data types (i.e. not containing pointers) 
+the port class is already equipped with the appropriate communication code. Complex data
+types are dealt by extending the code by specializing the port C++ template for the 
+new complex data type and providing the serialization and un-serialization functions. 
+This extension is relatively stereotyped and easily realized from client code: that is, 
+the library as such does not need to be rebuilt.
+
+Ports were designed with the two-fold goal of reducing the interactions at large between 
+the various components of the robot controller and, simultaneously, to allow efficient 
+communication between interacting parts of the system. The bottleneck in this approach
+would eventually be the available bandwidth on the network. Instead, as long as bandwidth
+is available, the addition of new components should minimally interfere with existing 
+processes. This is important, since often the actual performance of a robotic controller
+depends on the timing of various signals. While this is not strictly guaranteed by the 
+YARP infrastructure, the problem is in practice alleviated computationally by allowing 
+the inclusion of more processors to the network, and from the communication point of view
+by isolating sub-components.
+
+YARP does not contain any means of automatically allocating processes to a cluster of
+processors as in some approaches like GRID []. Our apporach is that of leaving this
+task to the user to act sensibly and allocate the processes. The rationale is that: i)
+special interface hardware is necessarily to be controlled by the appropriate piece of 
+software, and ii) in an etherogeneous network of processors, faster processors might 
+need to be allocated differently from slower processors. The final behavior is that of 
+a sort of ``soft real-time'' parallel computation cluster without the more demanding
+requirements of a real-time operating system.
+
+In complex systems, with dozens of processes and hundreds of connections, it might become
+unpractical to shut down and restart the whole system every time a module is even slightly 
+changed. YARP allowing the run-time connection of channels takes a reasonable approach
+here by permitting the disconnection of only those parts of the system that need to be, 
+for instance, rebuilt.
+
+Finally, it is important to note that ports are implemented as C++ templates and 
+specialized to the type of the data to be transmitted or received. This creates a very 
+clean and consistent client interface.
+
+
+
