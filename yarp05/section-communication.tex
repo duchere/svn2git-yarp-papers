@@ -1,12 +1,14 @@
 \section{Communication}
 
-The basic YARP module is an IPC infrastructure that supports communication across a network 
-exploiting different protocols. YARP allows interconnecting many modules seamlessly without 
-subscribing to any specific programming style, language interface, or demanding
-specifications as for instance in CORBA [] or DCOM []. That is, YARP is a plain library 
-linked to user-level code and as such migration to YARP can be easily carried out 
-a posteriori. Systems such as CORBA, although far more powerful than YARP, require 
-adhering to well-defined interface specificiations (nothing bad as such) and consequently 
+The basic YARP module is an IPC infrastructure that supports communication across a
+network exploiting different protocols. YARP allows interconnecting many modules
+seamlessly without subscribing to any specific programming style, language interface, 
+or demanding specifications as for instance in CORBA [ref] or DCOM [ref]. That is, YARP 
+is a plain library linked to user-level code and as such migration to YARP can be easily
+carried out a posteriori. 
+
+Systems such as the already mentioned CORBA, although far more powerful than YARP, require 
+adhering to well-defined interface specificiations (nothing bad as such) but consequently 
 their link between the general algorithmic code and the communication layer is much 
 stricter. 
 
@@ -20,7 +22,7 @@ Each communication object, described next, can receive commands from other proce
 react consequently by activating or removing a specific connection.
 
 The communication abstraction is called a ``port''. The port is an active object managing
-multiple connections for a given data type either as input or output. Each connection has
+multiple connections for a given data type either as input or output (see figure \ref{fig:port}). Each connection has
 a state that can be manipulated by certain commands, which manage the connection or obtain
 state information from it. Although a port can behave both as input and output, the 
 user interface, for convenience, enforces only one direction. An input port can receive 
@@ -28,7 +30,17 @@ from multiple connections at different data rates ``speaking'' different protoco
 (e.g. TCP, UDP, multicast). An output port can send data to many destinations reading at
 different rates on different protocols. Service channels are also temporarily created to
 perform the handshaking between ports; in this case the protocol of choice is TCP for
-reliability.
+reliability. The use of several different protocol allows to exploit at best their 
+characteristics:
+\begin{itemize}
+	\item TCP: reliable, it can be used to guarantee the reception of a message;
+	\item UDP: faster than TCP, used for point to point connections;
+	\item multicast: used for creating one to many connections, efficient for distributing
+	the same information to many targets;
+	\item shared memory: employed for local connections (transparently invoked by the port
+	code);
+	\item QNet: a fast and synchronous protocol used under the QNX real-time OS.
+\end{itemize}
 
 Communication is fully asynchronous and as such messages are not guaranteed to be 
 delivered unless special provisions are made. The most natural semantic for YARP ports is
@@ -38,29 +50,31 @@ sensorial data that are generated periodically: e.g. images and sound. YARP is d
 not an event based system since a single message is not guaranteed to get through. A
 typical application is, for example, the acquisition of images, and delivery to many 
 machines performing the processing in parallel. Slower processes might simply not
-use all the available images in the stream of data and rather skip some of them.
+use all the available frames in the stream of data and rather skip some of them.
 
 More recently, at the cost of bidirectional synchronization, a method for guaranteeing
 the delivery of messages has been added but this is not the most straightforward and
 natural use of ports.
 
-Reading from ports can be blocking, non-blocking (polling), and on a callback. Writing is
-normally non-blocking, although it can be made to block depending on the requirements
-of the channel. In short, once data is available, a reference to a data buffer (of the 
-same type of the data being received) is returned to the user code. This remains valid
-for the user to manipulate it as long as no other calls to the read function are made.
+Reading from ports can be blocking, non-blocking (polling), or can happen on a callback.
+Writing is normally non-blocking, although it can be made to block depending on the requirements of the channel. In short, once data is available, a reference to a data
+buffer (of the same type of the data being received) is returned to the user code. This
+remains valid for the user to manipulate it as long as no other calls to the read function
+are made. 
 On a write, on the other hand, the buffer is passed to the trasmission code which deals
 with the details of the communication, while user code can continue execution.
 
 Ports are located on the network by symbolic names which are managed by a name server
 (the YARP name server). The name server maps symbolic names (strings) into the triplet 
-composed of the IP address, port number, and interface name. A description of the network 
-topology is stored statically in the name server tables (a cluster might have multiple 
-and physically separated networks) and used to reply to registration or connection 
-requests by the clients. The first operation each port must perform is the registration 
-of its name into the name server. This allows then communicating to the port. Registration 
-is typically followed by the connection to a peer of the same data type. When the user is 
-done with the port, it can be stopped, unregistered, and eventually destroyed.
+composed of the IP address, port number, and interface name. This information is all 
+what is required to enstablish a socket communication between two endpoints. 
+A description of the network topology is stored statically in the name server tables (a
+cluster might have multiple and physically separated networks) and used to reply to
+registration or connection requests by the clients. The first operation each port must
+perform is the registration of its name into the name server. This allows then
+communicating to the port. Registration is typically followed by the connection to a peer
+of the same data type. When the user is done with the port, it can be stopped,
+unregistered, and eventually destroyed.
 
 Ports can deal with any data type. For simple data types (i.e. not containing pointers) 
 the port class is already equipped with the appropriate communication code. Complex data
@@ -72,7 +86,8 @@ the library as such does not need to be rebuilt.
 \begin{figure}
 	\centering
 		\includegraphics[width=8.5cm]{port.eps}
-	\caption{The port internal structure}
+	\caption{The port internal structure: in practice either input or output connections
+	are used for a given instance of a port object.}
 	\label{fig:port}
 \end{figure}
 
