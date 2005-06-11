@@ -52,6 +52,14 @@ typical application is, for example, the acquisition of images, and delivery to 
 machines performing the processing in parallel. Slower processes might simply not
 use all the available frames in the stream of data and rather skip some of them.
 
+\begin{figure}
+	\centering
+		\includegraphics[width=8.5cm]{port.eps}
+	\caption{The port internal structure: in practice either input or output connections
+	are used for a given instance of a port object.}
+	\label{fig:port}
+\end{figure}
+
 More recently, at the cost of bidirectional synchronization, a method for guaranteeing
 the delivery of messages has been added but this is not the most straightforward and
 natural use of ports.
@@ -83,15 +91,6 @@ new complex data type and providing the serialization and un-serialization funct
 This extension is relatively stereotyped and easily realized from client code: that is, 
 the library as such does not need to be rebuilt.
 
-\begin{figure}
-	\centering
-		\includegraphics[width=8.5cm]{port.eps}
-	\caption{The port internal structure: in practice either input or output connections
-	are used for a given instance of a port object.}
-	\label{fig:port}
-\end{figure}
-
-
 Ports were designed with the two-fold goal of reducing the interactions at large between 
 the various components of the robot controller and, simultaneously, to allow efficient 
 communication between interacting parts of the system. The bottleneck in this approach
@@ -122,5 +121,86 @@ Finally, it is important to note that ports are implemented as C++ templates and
 specialized to the type of the data to be transmitted or received. This creates a very 
 clean and consistent client interface.
 
+\subsection{YARP interface}
+It is perhaps instructive to show a few of the constructs that populate the YARP approach
+to communication code. As we mentioned before, the main communication instrument is the 
+port. In practice, when coding, ports are always instantiated of a given type as for 
+example:
 
+\begin{verbatim}
+    YARPInputPortOf<int> in_port
+        (YARPInputPort::DEFAULT_BUFFERS);
 
+    in_port.Register ("/my_in_port");
+    
+\end{verbatim}
+
+\noindent which creates a port apt to receive an integer with the default buffering
+provided by the communication layer. The next statement 
+instructs the port to register with the name server with the name ``/my\_in\_port''. An 
+hypothetical sender should conversely create a port as in the following example:
+
+\begin{verbatim}
+    YARPOutputPortOf<int> out_port
+        (YARPOutputPort::MANY_OUTPUTS, 
+         YARP_TCP);
+
+    out_port.Register ("/my_out_port");
+
+\end{verbatim}
+
+\noindent which is clearly an output port employing the TCP protocol. The protocol type
+is determined by the output port since the input port can receive in any of the available
+protocols. Also in this case, the port has to register with the name server by calling 
+{\em Register()}. As described earlier, the port is a template with the argument of the
+template being the type of the data being sent.
+
+The next step is to make the input port wait for data and conversely the output port send
+data. The blocking wait is obtained by the following piece of code:
+
+\begin{verbatim}
+    if (in_port.Read()) {
+        int datum = in_port.Content();
+        cout << datum << endl;
+		}
+
+\end{verbatim}
+
+\noindent that shows how to read from the port with a blocking {\em Read()} and acquire
+the received data through {\em Content()}. The content of the port remains valid until a
+subsequent call to {\em Read()} while failing to read does not guarantee the integrity
+of the content which should not be accessed. On the sender side we will have something 
+like:
+
+\begin{verbatim}
+    out_port.Content() = 42;
+    out_port.Write ();
+
+\end{verbatim}
+
+\noindent which fills the content by accessing the buffer through {\em Content()} and 
+sends it by calling {\em Write()}. If we now connect the two processes (the one receiving
+and the other sending) by, for example, using the YARP utility {\em yarp-connect}:
+
+\begin{verbatim}
+$-  yarp-connect /my_out_port /my_in_port    
+\end{verbatim}
+
+\noindent we obtain the connection of the two ports and the exchange of data. As explained,
+the communication code is fairly independent from the remaining code and easily separated
+by any other code the user might have developed already, even other communications 
+mechanisms. When done with the communication the user can detach the ports using the same
+utility (note the exclamative mark before the receiver name):
+
+\begin{verbatim}
+$-  yarp-connect /my_out_port !/my_in_port 
+\end{verbatim}
+
+The ports are not destroyed by detaching them and in fact can be connected and disconnected
+ad lib. When done with the ports instead the user code can call {\em Unregister()} to 
+remove the ports from the name server, and finally destroy them by invocation of the C++
+destructor (perhaps implicitly when exiting the port scope).
+
+This short example shows all the main features of the port classes including the strong
+typization of the communication channels, the independence of the connected processes, and
+the use of an external utility to command ports.
