@@ -1,2 +1,11 @@
 \section{Visual System}
 Of course the robot needs to see. Here we explain how it does.
+
+In order to achieve a good detection of the object orientation, we had to develop a fast and robust stereo algorithm, which was able to work in real world conditions.
+The algorithm is mainly based on the work by Van Meerbergen et al.,  where, given a scanline, all the possible matches between pixels are investigated by exploring a graph (using the dynamic programming) built by assigning a cost to each position pair and to each occlusion. The algorithm works very well and it is fast enough, especially when handling small images. But few problems arose: typically our environment consists in one or more objects of interest which are very close, compared to the interocular distance, to the robot. The consequence is that a surface can be very different in shape between the two images of the stereo pair. So we had to slightly modify the original algorithm. In order to solve the former problem, we decided to relax one constraint: a pixel is now allowed to belong to two (or even more) matches in the same match sequence. The result is that a short sequence of pixel in one image can match a long one in the other image of the pair. 
+Since the complexity, for each graph (i.e. each scanline) of dynamic programming is $O(m)$ (where $m$ is the total number of arcs in the graph and it is proportional to the length of the scanlines), we consider only the portion of the image around the object of interest, segmenting the object itself by using the information coming from the saliency algorithm. This reduces both m and the number of  lines to be processed.
+We added another additional step: once computed the disparity map $D_{l-r}$ (displacement of the pixels in the left image compared to the ones in the right one), we use its information to detect the object position on the right image, according to the formula: 
+\begin{equation}D_{l-r}(x)=D_{r-l}(x-D_{l-r}(x))\end{equation}
+
+This result will be used to segment the object on the right image. The images are then swapped and the disparity is computed again. This new result will be used to validate and correct the previous one. 
+
