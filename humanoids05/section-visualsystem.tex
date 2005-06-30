@@ -20,3 +20,10 @@ We added another additional step: once computed the disparity map $D_{l-r}$ (dis
 \begin{equation}D_{l-r}(x)=D_{r-l}(x-D_{l-r}(x))\end{equation}
 
 This result will be used to segment the object on the right image. The images are then swapped and the disparity is computed again. This new result will be used to validate and correct the previous one.
+
+\begin{figure}
+\centering
+\includegraphics[width=3in]{disparity}
+\caption{The Disparity Algorithm  Left: The Stereo Pair, Right: The Final Disparity Map, masked. The mask image comes from the attention algorithm.}
+\label{disparity}
+\end{figure}
