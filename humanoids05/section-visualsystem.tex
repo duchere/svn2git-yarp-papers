@@ -25,3 +25,12 @@ This result will be used to segment the object on the right image. The images ar
 \caption{The Disparity Algorithm  Left: The Stereo Pair, Right: The Final Disparity Map, masked. The mask image comes from the attention algorithm.}
 \label{fig-disparity}
 \end{figure}
+
+Given a pixel pair $(m,n)$, where $m$ is the $m^{th}$ point on the left scanline and $n$ is the $n^{th}$ point on the right one, each other allowed pair is investigated. The allowance is determined by the monotonicity constraint (a left to right sequence cannot match a right to left sequence on the other image of the pair) and by the constraint that a match sequence cannot contain gaps (the node following $(m,n)$ must contain either $m+1$ or $n+1$).  
+Each arc has a cost, which is the sum of the error of the pair (i.e. the difference between the gray values of the two pixels) and a linear error coming from disparity jumps.
+\begin{figure}
+	\centering
+		\includegraphics[width=0.70\textwidth]{graph.eps}
+	\caption{A section of the graph: the columns have constant disparity $(m-n)$. The upper three nodes show that the uniqueness contraint is not used (a point on one scanline can match more than one point on the other one)}
+	\label{fig-graph}
+\end{figure}
