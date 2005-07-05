@@ -1,23 +1,56 @@
 \section{Visual System}
-To have a wide field of view and a small image size we use log-polar images \cite{sandini80retinalike}. They mimic the photoreceptors distribution in the retina and the topological transform from the retina to the visual cortex. In these images we have only a small center area with a high resolution (fovea) while in the periphery the resolution decrease exponentially moving away from the center. Like in humans, there is the need to move the sensor to take high resolution snapshots of important points in the scene, according to a given task or simple to quickly gather information about the scene. That is there is the need to have a system to select information points and to deeply analyze them.
+\label{sect:vision}
 
-To precisely manipulate an object the robot must be able to segment a scene in objects, in particular to segment an object from its background. It is not enough to poorly localize the object, we need a segmentation of the object to derive its spatial position. This is tightly coupled with the problem of defining what an object is, that is to define what are the properties of ``objecthood''.
+The robot visual system employs log-polar images as in \cite{sandini80retinalike}. The log-polar transformation, applied in this case to the traditional rectangular images coming from the cameras, mimics the distribution of the photoreceptors in the retina and the topological mapping from the retina to the primary visual cortex. Log-polar images have a small central area with maximum resolution (fovea) and a continuously decreasing number of pixels moving toward the periphery. As in humans and primates there is the need to move the sensor to take high resolution snapshots of important points, in order to acquire information from the environment, the robot has to move the cameras and place the fovea at interesting locations in the visual scene possibly according to the task at hand. In other words there is the need to have a module that selects information for further visual processing.
 
-What we propose is not to define what an object is, but to use the definition of ``proto-objects''. They are a step above the mere features, possessing some but not all the characteristics of an object; clusters of points on the image ``naturally'' grouped together. The idea of proto-objects has its roots in psychological literature [cite], but also in the neurobiological one. In fact it has been proposed that the synchronization of visual cortical neurons can be the carrier of the perceptual grouping phenomenon \cite{eckhorn88coherent,gray89oscillatory}. We propose the use of the watershed transform (rainfalling variant) \cite{smet00rainfalling} on the edge map of a feature extraction stage to simulate the results of the synchronization. In this way the image is segmented in region of constant color or with a constant gradient of color (blobs). A segmentation of this type as been demonstrated to happen in humans before the attention is deployed to the scene \cite{driver00segmentation}.
+In addition, another important requirement for a visual system apt to guide manipulation is that of segmenting objects from a possibly cluttered background. That is, we need both the localization of the object and its segmentation. The problem of segmentation is directly related to the problem of defining what is an object, that is to define what are the properties that identify an object from the background.
 
-Our idea is that the identity of an object can not be known without any manipulation. So using actions, the robot can go beyond the concepts of proto-objects, learning a model of an object. In particular an object is seen as a collection of proto-objects and their spatial relations. In practice manipulating an object the system can acquire different views of it, and, using the probabilities of occurrence, calculate the probability the collection of blobs fixed at a given moment is the object it is searching for. Then, using these same probabilities, a figure-ground segmentation can be attempted. More details about this model can be found in \cite{orabona05object}.
+Our definition of ``objecthood'' is created in two steps:
+\begin{itemize}
+\item the selection of a rich enough set of visual features that combined appropriately can characterize any object of a certain set;
+\item the selection of a criterion for grouping features that segment and identify the objects uniquely.
+\end{itemize}
+\noindent which means in practice that we selected certain features and a method for deciding when a specific feature belongs to an object. The features we chose for our implementation are {\em colored blobs} while the criterion is a consequence of the action of the robot onto objects. In fact, by grasping an object the robot has the possibility of observing it at will from many points of view and likely with different backgrounds. It is consequently easy to imagine a procedure that selects the constant features across consecutive views of the same object.
 
-The segmentation is then used as a mask to the stereo algorithm. In this way we can save time not calculating the depth map on all the image, and, defining a region of interest around the object, you can calculate the local orientation in the space and use this information to guide different behaviors from the robot.
+By selecting blobs as features we do not propose to define what is an object directly, but rather to consider sort of ``proto-objects''. They are a step above the mere features (e.g. edges), possessing some but not all the characteristics of an object; ``proto-object'' in this view are clusters of points on the image ``naturally'' grouped together. The idea of proto-objects has its roots in psychological [cite] and neurobiological literature. In fact it has been proposed that the synchronization of visual cortical neurons can be the carrier of the perceptual grouping phenomenon \cite{eckhorn88coherent,gray89oscillatory}.
 
-In order to achieve a good detection of the object orientation, we had to develop a fast and robust stereo algorithm, which was able to work in real world conditions.
+In our implementation, we decided that the grouping acted on color and intensity information and thus the grouping of elementary feature leads to the extraction of colored blobs as we mentioned earlier. In practice, we employed the watershed transform (rainfalling variant) \cite{smet00rainfalling}, on the edge map resulting from a preliminary feature extraction stage, to simulate the results of the process of grouping. As a consequence the image is segmented in regions of constant color or of a constant gradient of color. A segmentation of this type has been demonstrated to happen in humans before the attention is deployed to the scene \cite{driver00segmentation}.
 
-The algorithm is mainly based on the work by Van Meerbergen et al. \cite{merrbergen02stereo}, where, given a scanline, all the possible matches between pixels are investigated by exploring a graph (using the dynamic programming) built by assigning a cost to each position pair and to each occlusion. The algorithm works very well and it is fast enough, especially when handling small images. But few problems arose: typically our environment consists in one or more objects of interest which are very close, compared to the interocular distance, to the robot. The consequence is that a surface can be very different in shape between the two images of the stereo pair. So we had to slightly modify the original algorithm. In order to solve the former problem, we decided to relax one constraint: a pixel is now allowed to belong to two (or even more) matches in the same match sequence. The result is that a short sequence of pixel in one image can match a long one in the other image of the pair. 
+Further, our idea is that the identity of an object cannot be known without any active manipulation, unless some other prior knowledge is inserted into the system. One possible route for learning anything about an object autonomously is by means of action. The robot can go beyond the concept of proto-objects, learning a model of any object that is manipulated. In particular, objects are seen here as a collection of proto-objects and their spatial relations. Our solution goes by allowing the robot to manipulate objects and acquire different views of them, and, using the probabilities of occurrence, calculate the probability the collection of blobs being currently fixated is one of the objects the robot is searching for. Then, using these same probabilities, the figure-ground segmentation can be attempted. The complete description of the model and segmentation procedure can be found in \cite{orabona05object}.
 
-Since the complexity, for each graph (i.e. each scanline) of dynamic programming is $O(m)$ (where $m$ is the total number of arcs in the graph and it is proportional to the length of the scanlines), we consider only the portion of the image around the object of interest, segmenting the object itself by using the information coming from the saliency algorithm. This reduces both m and the number of  lines to be processed.
-We added another additional step: once computed the disparity map $D_{l-r}$ (displacement of the pixels in the left image compared to the ones in the right one), we use its information to detect the object position on the right image, according to the formula: 
+Further, the segmentation mask is used together with a binocular disparity estimation algorithm which can be used to extract three-dimensional information about the object. The mask defines a region of interest around the object, where a depth map is estimated, and eventually the orientation in space of the object can be extracted and used to guide the behavior of the robot.
+
+In order to achieve a good detection of the object orientation, we developed a fast and robust binocular disparity estimation algorithm, which can work in real-world conditions.
+The algorithm is based on the work by Van Meerbergen et al. \cite{merrbergen02stereo}, where, given a scanline, all the possible matches between pixels are analyzed by exploring a graph (using dynamic programming) built by assigning a cost to each position pair and each occlusion. The algorithm works at nearly frame rate especially when running on a small portion of the image (a pair of images). 
+
+With respect to the original formulation of the algorithm we relaxed the hypothesis of similar extension (over the scanline) of the pixel patterns: something that makes sense when the cameras are quasi-parallel, but on the other hand fails dramatically when the cameras are converging and the objects are very close compared to the interocular distance.
+The consequences in this last conditions are that a surface can be very different in shape between the two images of the stereo pair. As a result of our changes a short sequence of pixels in one image can match a long one in the other image, which is, as we said, reasonable in the case of our robot.
+
+Each node of the graph represents a pixel pair, one on the left scanline $(L_x)$ and one on the right one $(R_y)$, starting from the nodes containing either $(L_0)$ or $(R_0)$ or both (the first pixels of the scanline) and ending with the nodes containing ${L_N}$, ${R_N}$ or both, where N is the length in pixels of the scanline. Each node is connected with all the following nodes according to these rules:
+
+\begin{enumerate}
+	\item \textit{Disparity Range:} $\delta_{min}\leq x-y \leq \delta_{max}$
+	\item \textit{Ordening:} Given another pair $(L_{x'},R_{y'})$, if $x'\geq x$ then $y'\geq y$, assuming that there cannot be duplicate nodes
+	\item \textit{Continuity:} the nodes following $(L_x,R_y)$ are all the nodes containing $(L_{x+1})$ or $(R_{y+1})$ that respect the previous two constraints
+\end{enumerate}
+
+Each arc has an associated cost:
+	\[c=\left|lum(L_x)-lum(R_y)\right|+k\beta+\alpha
+\]
+
+\noindent where $lum$ represents the luminance of a pixel, $\beta$ is a cost (linear) associated to disparity jumps (if a node has disparity $\delta_i$ and the following one has disparity $\delta_j$, then $k=|\delta_i-\delta_j|$) and $\alpha$ takes into account the differences along the vertical dimension (to penalize large discontinuities in the final disparity map). Once the graph is built, the minimum cost to traverse it from beginning to end is found using dynamic programming. The disparity map is then constructed by considering the pairing of pixels along the minimum cost path. An example of the contruction of the graph when considering two successive levels is shown in figure \ref{fig-graph}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=2in]{graph.eps}
+	\caption{A section of the graph: the columns have constant disparity $(m-n)$.}
+	\label{fig-graph}
+\end{figure}
+
+Since the complexity of dynamic programming, for each graph (i.e. each scanline), is $O(m)$ -- where $m$ is the total number of arcs in the graph and it is proportional to the length of the scanlines -- we considered only the portion of the image around the object of interest, segmenting the object itself by using the information coming from the saliency algorithm. This reduces both {\em m} and the total number of lines to be processed. To increase the robustness, once computed the disparity map $D_{l-r}$ (displacement of the pixels in the left image compared to the ones in the right one), we used it to detect the object position on the right image, according to the formula: 
 \begin{equation}D_{l-r}(x)=D_{r-l}(x-D_{l-r}(x))\end{equation}
 
-This result will be used to segment the object on the right image. The images are then swapped and the disparity is computed again. This new result will be used to validate and correct the previous one.
+This result is then used to segment the object on the right image. The images are swapped (left with right) and the disparity is computed again. This new estimate is finally used to validate and correct the previous one.
 
 \begin{figure}
 \centering
@@ -26,11 +59,3 @@ This result will be used to segment the object on the right image. The images ar
 \label{fig-disparity}
 \end{figure}
 
-Given a pixel pair $(m,n)$, where $m$ is the $m^{th}$ point on the left scanline and $n$ is the $n^{th}$ point on the right one, each other allowed pair is investigated. The allowance is determined by the monotonicity constraint (a left to right sequence cannot match a right to left sequence on the other image of the pair) and by the constraint that a match sequence cannot contain gaps (the node following $(m,n)$ must contain either $m+1$ or $n+1$).  
-Each arc has a cost, which is the sum of the error of the pair (i.e. the difference between the gray values of the two pixels) and a linear error coming from disparity jumps.
-\begin{figure}
-	\centering
-		\includegraphics[width=0.70\textwidth]{graph.eps}
-	\caption{A section of the graph: the columns have constant disparity $(m-n)$. The upper three nodes show that the uniqueness constraint is not used (a point on one scanline can match more than one point on the other one)}
-	\label{fig-graph}
-\end{figure}
