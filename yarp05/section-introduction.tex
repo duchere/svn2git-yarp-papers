@@ -85,3 +85,20 @@ modules.
 
 YARP helps insulate existing modules from changes in this zone,
 and leaves them in a good form for when the zone moves on.
+
+
+\subsection*{Design patterns}
+
+Communication in YARP follows the {\em Observer} pattern [CITE].  The state
+of special {\tt Port} objects can be delivered to any number of
+observers, in any number of processes distributed across any number of
+machines.  The data source is isolated from management of the list
+of observers.  Equally importantly, each observer is insulated as
+much as possible from the effects of other observers.  For example,
+if one observer reads a data source slowly and infrequently, this
+does not doom other observers to slow operation.
+
+The fundamental image class in YARP can easily become a {\em Proxy}
+to image data stored externally or in an alternate representation.
+
+
