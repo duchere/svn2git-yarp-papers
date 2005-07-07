@@ -166,10 +166,18 @@ data. The blocking wait is obtained by the following piece of code:
 
 \end{verbatim}
 
-\noindent that shows how to read from the port with a blocking {\em Read()} and acquire
-the received data through {\em Content()}. The content of the port remains valid until a
-subsequent call to {\em Read()} while failing to read does not guarantee the integrity
-of the content which should not be accessed. On the sender side we will have something 
+\noindent 
+This shows how to read from the port with a blocking {\em Read()} and
+acquire the received data through {\em Content()}. If the call to {\em
+Read()} succeeds, then the object returned by any subsequent call to
+{\em Content()} will be the received data, and is guaranteed not to
+change or be overwritten until the next call to {\em Read()}.
+If new data is sent to the port in the meantime, the appropriate
+action will be taken based on the port buffering policy.  For example,
+the data may be stored in an alternate buffer and then queued up to 
+become the {\em Content()} after the next call to {\em Read()}.
+
+On the sender side we will have something 
 like:
 
 \begin{verbatim}
@@ -178,8 +186,12 @@ like:
 
 \end{verbatim}
 
-\noindent which fills the content by accessing the buffer through {\em Content()} and 
-sends it by calling {\em Write()}. If we now connect the two processes (the one receiving
+\noindent which fills the content (a simple integer in this case) by
+accessing the buffer through {\em Content()} and sends it by calling
+{\em Write()}.
+%
+%
+If we now connect the two processes (the one receiving
 and the other sending) by, for example, using the YARP utility {\em yarp-connect}:
 
 \begin{verbatim}
@@ -200,6 +212,17 @@ The ports are not destroyed by detaching them and in fact can be connected and d
 ad lib. When done with the ports instead the user code can call {\em Unregister()} to 
 remove the ports from the name server, and finally destroy them by invocation of the C++
 destructor (perhaps implicitly when exiting the port scope).
+
+The {\em Write} method abstracts over a great deal of complexity.
+An output port may be connected to many input ports, all of which
+may read data at different rates.  By default, when {\em Write}
+is called, a reference to the buffer is passed to
+every free output connection (to block and wait for all sends to finish before trying the next one, {\em FinisheSend} can be called).  The buffer will be retained
+until it is no longer needed by any output connection, and then
+given back to the port to be recycled.  After each call to
+{\em Write} the output of {\em Content} may change, with
+a pool of buffers growing to a worst case of one for each
+output connection, plus one extra for the client.
 
 This short example shows all the main features of the port classes including the strong
 typization of the communication channels, the independence of the connected processes, and
