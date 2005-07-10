@@ -1,5 +1,35 @@
 \section{Introduction}
 
+
+
+\begin{figure*}
+%\begin{tabular}{llp{2.2in}}
+\begin{tabular}{llp{8in}}
+send & recv & comments \\
+wait & buf & \\
+no & 1 & Messages dropped by sender. Observers are decoupled.\\
+no & 2 & Messages dropped by sender or receiver.  Observers are decoupled. \\
+no & 3 & Messages dropped by sender or receiver. Observers are decoupled. \\
+post & 1 & No messages lost. Observers are coupled. \\
+post & 2 & Messages dropped by receiver.  Observers are coupled.\\
+post & 3 & Messages dropped by receiver.  Observers are coupled.\\
+pre & 1 & No messages lost. Observers are coupled. \\
+pre & 2 & Messages dropped by receiver. Observers are coupled.\\
+pre & 3 & Messages dropped by receiver. Observers are coupled.
+\end{tabular}
+
+\end{figure*}
+
+
+\includegraphics[width=\columnwidth]{fig-throughput-nowait}
+
+\includegraphics[width=\columnwidth]{fig-throughput-prewait}
+
+\includegraphics[width=\columnwidth]{fig-throughput-postwait}
+
+Adaptive scheduling?  Could be difficult to reason about.
+
+
 YARP is written by and for researchers in robotics, particularly
 humanoid robotics, who find themselves with a complicated pile of
 hardware to control with an equally complicated pile of software. 
@@ -98,7 +128,61 @@ much as possible from the effects of other observers.  For example,
 if one observer reads a data source slowly and infrequently, this
 does not doom other observers to slow operation.
 
+(Maybe give an example from Cog? -- number of processes started up,
+number of connections made...)
+
 The fundamental image class in YARP can easily become a {\em Proxy}
 to image data stored externally or in an alternate representation.
 
+Our goal is that observers can be added to an observable without
+having an impact on existing observers.  This has some important 
+consequences:
 
+\begin{itemize}
+
+\item A ``slow'' observer, which takes time to process each update it
+received from the observable, should not force a ``fast'' observer of
+the same observable to slow down.  This implies either buffering
+of messages for bursty channels, or simply dropping messages for
+observers that can't keep up.  The second approach is the default
+behavior in YARP.
+
+\end{itemize}
+
+
+On the sender side:
+
+\begin{itemize}
+
+\item Default behavior: every time an update is performed on an
+observable, its state is made available to send to every
+observer not currently still reading a previous state.
+
+\item The programmer can optionally choose to wait until all observers
+have finished reading and are in a ready state.
+
+\end{itemize}
+
+On the receiver side:
+
+\begin{itemize}
+
+\item Default (triple-buffer) behavior: an observer becomes free for
+another update immediately after having received one, before any
+processing is done at all.  If updates arrive faster than processing
+occurs, then updates will be lost from time to time (where ``lost''
+means ``never processed''), but the most recent update received will
+always be read and available immediately when processing is completed.
+
+\item Optional (double-buffer) behavior: same as above, but if an
+update is currently arriving, then when processing completes no new
+content will be available until the update arrives.  This is good if
+it is better to minimize latency of non-dropped updates than to
+maximize throughput.
+
+\item Optional (single-buffer) behavior: the arrival of updates
+is delayed until processing completes.  No updates will ever be 
+thrown away on the receiver side.
+
+
+\end{itemize}

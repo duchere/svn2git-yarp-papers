@@ -1,0 +1,1048 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Creator: OpenOffice.org 1.1.3
+%%For: paulfitz
+%%CreationDate: Sun Jul 10 19:23:34 2005
+%%Title: fig-throughput
+%%LanguageLevel: 2
+%%DocumentData: Clean7Bit
+%%Pages: (atend)
+%%PageOrder: Ascend
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset PSPrint-Prolog 1.0 0
+/ISO1252Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quotesingle
+/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash
+/zero /one /two /three /four /five /six /seven
+/eight /nine /colon /semicolon /less /equal /greater /question
+/at /A /B /C /D /E /F /G
+/H /I /J /K /L /M /N /O
+/P /Q /R /S /T /U /V /W
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore
+/grave /a /b /c /d /e /f /g
+/h /i /j /k /l /m /n /o
+/p /q /r /s /t /u /v /w
+/x /y /z /braceleft /bar /braceright /asciitilde /unused
+/Euro /unused /quotesinglbase /florin /quotedblbase /ellipsis /dagger /daggerdbl
+/circumflex /perthousand /Scaron /guilsinglleft /OE /unused /Zcaron /unused
+/unused /quoteleft /quoteright /quotedblleft /quotedblright /bullet /endash /emdash
+/tilde /trademark /scaron /guilsinglright /oe /unused /zcaron /Ydieresis
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /periodcentered
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] def
+
+/psp_definefont { exch dup findfont dup length dict begin { 1 index /FID ne
+{ def } { pop pop } ifelse } forall /Encoding 3 -1 roll def
+currentdict end exch pop definefont pop } def
+
+/pathdict dup 8 dict def load begin
+/rcmd { { currentfile 1 string readstring pop 0 get dup 32 gt { exit }
+{ pop } ifelse } loop dup 126 eq { pop exit } if 65 sub dup 16#3 and 1
+add exch dup 16#C and -2 bitshift 16#3 and 1 add exch 16#10 and 16#10
+eq 3 1 roll exch } def
+/rhex { dup 1 sub exch currentfile exch string readhexstring pop dup 0
+get dup 16#80 and 16#80 eq dup 3 1 roll { 16#7f and } if 2 index 0 3
+-1 roll put 3 1 roll 0 0 1 5 -1 roll { 2 index exch get add 256 mul }
+for 256 div exch pop exch { neg } if } def
+/xcmd { rcmd exch rhex exch rhex exch 5 -1 roll add exch 4 -1 roll add
+1 index 1 index 5 -1 roll { moveto } { lineto } ifelse } def end
+/readpath { 0 0 pathdict begin { xcmd } loop end pop pop } def
+
+systemdict /languagelevel known not {
+/xshow { exch dup length 0 1 3 -1 roll 1 sub { dup 3 index exch get
+exch 2 index exch get 1 string dup 0 4 -1 roll put currentpoint 3 -1
+roll show moveto 0 rmoveto } for pop pop } def
+/rectangle { 4 -2 roll moveto 1 index 0 rlineto 0 exch rlineto neg 0
+rlineto closepath } def
+/rectfill { rectangle fill } def
+/rectstroke { rectangle stroke } def } if
+/bshow { currentlinewidth 3 1 roll currentpoint 3 index show moveto
+setlinewidth false charpath stroke setlinewidth } def
+/bxshow { currentlinewidth 4 1 roll setlinewidth exch dup length 1 sub
+0 1 3 -1 roll { 1 string 2 index 2 index get 1 index exch 0 exch put dup
+currentpoint 3 -1 roll show moveto currentpoint 3 -1 roll false charpath
+stroke moveto 2 index exch get 0 rmoveto } for pop pop setlinewidth } def
+
+/psp_lzwfilter { currentfile /ASCII85Decode filter /LZWDecode filter } def
+/psp_ascii85filter { currentfile /ASCII85Decode filter } def
+/psp_lzwstring { psp_lzwfilter 1024 string readstring } def
+/psp_ascii85string { psp_ascii85filter 1024 string readstring } def
+/psp_imagedict {
+/psp_bitspercomponent { 3 eq { 1 }{ 8 } ifelse } def
+/psp_decodearray { [ [0 1 0 1 0 1] [0 255] [0 1] [0 255] ] exch get }
+def 7 dict dup
+/ImageType 1 put dup
+/Width 7 -1 roll put dup
+/Height 5 index put dup
+/BitsPerComponent 4 index psp_bitspercomponent put dup
+/Decode 5 -1 roll psp_decodearray put dup
+/ImageMatrix [1 0 0 1 0 0] dup 5 8 -1 roll put put dup
+/DataSource 4 -1 roll 1 eq { psp_lzwfilter } { psp_ascii85filter } ifelse put
+} def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%
+(Times-Roman-iso1252) cvn (Times-Roman) cvn ISO1252Encoding psp_definefont
+%%DocumentNeededResources: font Times-Roman
+/#copies 1 def
+<< /NumCopies null /Policies << /NumCopies 1 >> >> setpagedevice
+%%EndSetup
+%%Page: 1 1
+%%PageBoundingBox: 18 18 594 774
+%%BeginPageSetup
+%
+[{
+%%BeginFeature: *PageSize Letter
+<</PageSize [612 792] /ImagingBBox null>> setpagedevice
+%%EndFeature
+} stopped cleartomark
+%%EndPageSetup
+gsave
+[0.24 0 0 -0.24 18 774] concat
+gsave
+readpath
+V00C00AEBE00E100A004BE80E100A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+1 setlinewidth
+readpath
+V01300B36AF000A00CBE00E100A004BAF100~
+stroke
+237 2847 moveto
+(Times-Roman-iso1252) cvn findfont 42 -42 matrix scale makefont setfont
+<4672616D652031>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V01A10AEBE00E100A004BE80E100A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02110B36AF000A00CBE00E100A004BAF100~
+stroke
+462 2847 moveto
+<4672616D652032>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V01A10B36E00964B~
+stroke
+readpath
+V01A10B37A0405~
+stroke
+readpath
+V01A90B40A0404~
+stroke
+readpath
+V01B10B49A0404~
+stroke
+readpath
+V01B90B52A0404~
+stroke
+readpath
+V01C20B5BA0404~
+stroke
+readpath
+V01CA0B64A0404~
+stroke
+readpath
+V01D20B6CA0405~
+stroke
+readpath
+V01DA0B75A0203~
+stroke
+readpath
+V02820AEBE00E100A004BE80E100A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02F20B36AF000A00CBE00E100A004BAF100~
+stroke
+687 2847 moveto
+<4672616D652033>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V03630AEBE00E100A004BE80E100A00CB~
+0.85098 0.85098 0.85098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V03D30B36AF000A00CBE00E100A004BAF100~
+stroke
+912 2847 moveto
+<4672616D652034>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V04440AEBE00E100A004BE80E100A00CB~
+0.8 0.8 0.8 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V04B40B36AF000A00CBE00E100A004BAF100~
+stroke
+1137 2847 moveto
+<4672616D652035>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V05250AEBE00E100A004BE80E100A00CB~
+0.75294 0.75294 0.75294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V05950B36AF000A00CBE00E100A004BAF100~
+stroke
+1362 2847 moveto
+<4672616D652036>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V02820B36E00964B~
+stroke
+readpath
+V03630B36E00964B~
+stroke
+readpath
+V04440B36E00964B~
+stroke
+readpath
+V05250B36E00964B~
+stroke
+readpath
+V06060B36E00964B~
+stroke
+readpath
+V06060AEBE00E100A004BE80E100A00CB~
+0.70196 0.70196 0.70196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V06760B36AF000A00CBE00E100A004BAF100~
+stroke
+1587 2847 moveto
+<4672616D652037>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V06E70AEBE00E100A004BE80E100A00CB~
+0.65098 0.65098 0.65098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V07570B36AF000A00CBE00E100A004BAF100~
+stroke
+1812 2847 moveto
+<4672616D652038>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V06E70B36E00964B~
+stroke
+readpath
+V02820B36A0405~
+stroke
+readpath
+V028A0B3FA0405~
+stroke
+readpath
+V02920B48A0405~
+stroke
+readpath
+V029A0B51A0404~
+stroke
+readpath
+V02A30B5AA0404~
+stroke
+readpath
+V02AB0B63A0404~
+stroke
+readpath
+V02B30B6CA0404~
+stroke
+readpath
+V02BB0B75A0203~
+stroke
+readpath
+V03630B36A0405~
+stroke
+readpath
+V036B0B3FA0405~
+stroke
+readpath
+V03730B48A0405~
+stroke
+readpath
+V037B0B51A0404~
+stroke
+readpath
+V03840B5AA0404~
+stroke
+readpath
+V038C0B63A0404~
+stroke
+readpath
+V03940B6CA0404~
+stroke
+readpath
+V039C0B75A0203~
+stroke
+readpath
+V04440B36A0405~
+stroke
+readpath
+V044C0B3FA0405~
+stroke
+readpath
+V04540B48A0405~
+stroke
+readpath
+V045C0B51A0404~
+stroke
+readpath
+V04650B5AA0404~
+stroke
+readpath
+V046D0B63A0404~
+stroke
+readpath
+V04750B6CA0404~
+stroke
+readpath
+V047D0B75A0203~
+stroke
+readpath
+V05250B36A0405~
+stroke
+readpath
+V052D0B3FA0405~
+stroke
+readpath
+V05350B48A0405~
+stroke
+readpath
+V053D0B51A0404~
+stroke
+readpath
+V05460B5AA0404~
+stroke
+readpath
+V054E0B63A0404~
+stroke
+readpath
+V05560B6CA0404~
+stroke
+readpath
+V055E0B75A0203~
+stroke
+readpath
+V06060B36A0405~
+stroke
+readpath
+V060E0B3FA0405~
+stroke
+readpath
+V06160B48A0405~
+stroke
+readpath
+V061E0B51A0404~
+stroke
+readpath
+V06270B5AA0404~
+stroke
+readpath
+V062F0B63A0404~
+stroke
+readpath
+V06370B6CA0404~
+stroke
+readpath
+V063F0B75A0203~
+stroke
+readpath
+V06E70B36A0405~
+stroke
+readpath
+V06EF0B3FA0405~
+stroke
+readpath
+V06F70B48A0405~
+stroke
+readpath
+V06FF0B51A0404~
+stroke
+readpath
+V07080B5AA0404~
+stroke
+readpath
+V07100B63A0404~
+stroke
+readpath
+V07180B6CA0404~
+stroke
+readpath
+V07200B75A0203~
+stroke
+readpath
+V02370B81E012C00A004BE812C00A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02CD0BCCE809600A00CBE012C00A004BE809600~
+stroke
+650 2997 moveto
+<4672616D652031>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V03630B81E012C00A004BE812C00A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V03F90BCCE809600A00CBE012C00A004BE809600~
+stroke
+949 2997 moveto
+<4672616D652032>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V048F0B81E012C00A004BE812C00A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V05250BCCE809600A00CBE012C00A004BE809600~
+stroke
+1250 2997 moveto
+<4672616D652033>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V05BB0B81E012C00A004BE812C00A00CB~
+0.8 0.8 0.8 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V06510BCCE809600A00CBE012C00A004BE809600~
+stroke
+1550 2997 moveto
+<4672616D652035>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V06E70B81E012C00A004BE812C00A00CB~
+0.75294 0.75294 0.75294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V077D0BCCE809600A00CBE012C00A004BE809600~
+stroke
+1849 2997 moveto
+<4672616D652036>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V00C00813E00E100A004BE80E100A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V0130085EAF000A00CBE00E100A004BAF100~
+stroke
+237 2119 moveto
+<4672616D652031>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V01A10813E00E100A004BE80E100A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V0211085EAF000A00CBE00E100A004BAF100~
+stroke
+462 2119 moveto
+<4672616D652032>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V01A1085EE00964B~
+stroke
+readpath
+V01A1085FA0404~
+stroke
+readpath
+V01A90868A0404~
+stroke
+readpath
+V01B10870A0405~
+stroke
+readpath
+V01B90879A0405~
+stroke
+readpath
+V01C10882A0405~
+stroke
+readpath
+V01C9088BA0505~
+stroke
+readpath
+V01D20894A0405~
+stroke
+readpath
+V01DA089DA0203~
+stroke
+readpath
+V03AE085EE00964B~
+stroke
+readpath
+V03AE085EA0404~
+stroke
+readpath
+V03B60867A0404~
+stroke
+readpath
+V03BE0870A0404~
+stroke
+readpath
+V03C60879A0404~
+stroke
+readpath
+V03CE0882A0404~
+stroke
+readpath
+V03D6088AA0505~
+stroke
+readpath
+V03DF0893A0405~
+stroke
+readpath
+V03E7089CA0203~
+stroke
+readpath
+V023708A9E012C00A004BE812C00A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02CD08F4E809600A00CBE012C00A004BE809600~
+stroke
+650 2269 moveto
+<4672616D652031>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V044408A9E012C00A004BE812C00A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V04DA08F4E809600A00CBE012C00A004BE809600~
+stroke
+1174 2269 moveto
+<4672616D652032>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V065108A9E012C00A004BE812C00A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V06E708F4E809600A00CBE012C00A004BE809600~
+stroke
+1700 2269 moveto
+<4672616D652033>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V06060A20E012C00A004BE812C00A00CB~
+0.8 0.8 0.8 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V069C0A6BE809600A00CBE012C00A004BE809600~
+stroke
+1625 2644 moveto
+<4672616D652035>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V077D0A20E012C00A004BE812C00A00CB~
+0.75294 0.75294 0.75294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V08130A6BE809600A00CBE012C00A004BE809600~
+stroke
+1999 2644 moveto
+<4672616D652036>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V03AE0813E00E100A004BE80E100A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V041E085EAF000A00CBE00E100A004BAF100~
+stroke
+987 2119 moveto
+<4672616D652033>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V05BB085EE00964B~
+stroke
+readpath
+V05BB085EA0404~
+stroke
+readpath
+V05C30867A0404~
+stroke
+readpath
+V05CB0870A0404~
+stroke
+readpath
+V05D30879A0404~
+stroke
+readpath
+V05DB0882A0404~
+stroke
+readpath
+V05E3088AA0505~
+stroke
+readpath
+V05EC0893A0405~
+stroke
+readpath
+V05F4089CA0203~
+stroke
+readpath
+V05BB0813E00E100A004BE80E100A00CB~
+0.85098 0.85098 0.85098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V062B085EAF000A00CBE00E100A004BAF100~
+stroke
+1512 2119 moveto
+<4672616D652034>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V07C8085EE00964B~
+stroke
+readpath
+V07C8085EA0404~
+stroke
+readpath
+V07D00867A0404~
+stroke
+readpath
+V07D80870A0404~
+stroke
+readpath
+V07E00879A0404~
+stroke
+readpath
+V07E80882A0404~
+stroke
+readpath
+V07F0088AA0505~
+stroke
+readpath
+V07F90893A0405~
+stroke
+readpath
+V0801089CA0203~
+stroke
+readpath
+V07C80813E00E100A004BE80E100A00CB~
+0.8 0.8 0.8 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V0838085EAF000A00CBE00E100A004BAF100~
+stroke
+2037 2119 moveto
+<4672616D652035>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V00C0098AE00E100A004BE80E100A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V013009D5AF000A00CBE00E100A004BAF100~
+stroke
+237 2494 moveto
+<4672616D652031>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V01A1098AE00E100A004BE80E100A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V021109D5AF000A00CBE00E100A004BAF100~
+stroke
+462 2494 moveto
+<4672616D652032>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V01A109D5E00964B~
+stroke
+readpath
+V01A109D6A0404~
+stroke
+readpath
+V01A909DFA0404~
+stroke
+readpath
+V01B109E7A0405~
+stroke
+readpath
+V01B909F0A0405~
+stroke
+readpath
+V01C209F9A0405~
+stroke
+readpath
+V01CA0A02A0405~
+stroke
+readpath
+V01D20A0BA0405~
+stroke
+readpath
+V01DA0A14A0203~
+stroke
+readpath
+V036309D5E00964B~
+stroke
+readpath
+V036309D5A0404~
+stroke
+readpath
+V036B09DEA0404~
+stroke
+readpath
+V037309E7A0404~
+stroke
+readpath
+V037B09F0A0404~
+stroke
+readpath
+V038409F9A0404~
+stroke
+readpath
+V038C0A01A0405~
+stroke
+readpath
+V03940A0AA0405~
+stroke
+readpath
+V039C0A13A0203~
+stroke
+readpath
+V02370A20E012C00A004BE812C00A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02CD0A6BE809600A00CBE012C00A004BE809600~
+stroke
+650 2644 moveto
+<4672616D652031>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V03630A20E012C00A004BE812C00A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V03F90A6BE809600A00CBE012C00A004BE809600~
+stroke
+949 2644 moveto
+<4672616D652032>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V04DA0A20E012C00A004BE812C00A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V05700A6BE809600A00CBE012C00A004BE809600~
+stroke
+1324 2644 moveto
+<4672616D652034>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V0282098AE00E100A004BE80E100A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02F209D5AF000A00CBE00E100A004BAF100~
+stroke
+687 2494 moveto
+<4672616D652033>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V044409D5E00964B~
+stroke
+readpath
+V044409D5A0404~
+stroke
+readpath
+V044C09DEA0404~
+stroke
+readpath
+V045409E7A0404~
+stroke
+readpath
+V045C09F0A0404~
+stroke
+readpath
+V046509F9A0404~
+stroke
+readpath
+V046D0A01A0405~
+stroke
+readpath
+V04750A0AA0405~
+stroke
+readpath
+V047D0A13A0203~
+stroke
+readpath
+V0363098AE00E100A004BE80E100A00CB~
+0.85098 0.85098 0.85098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V03D309D5AF000A00CBE00E100A004BAF100~
+stroke
+912 2494 moveto
+<4672616D652034>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V052509D5E00964B~
+stroke
+readpath
+V052509D5A0404~
+stroke
+readpath
+V052D09DEA0404~
+stroke
+readpath
+V053509E7A0404~
+stroke
+readpath
+V053D09F0A0404~
+stroke
+readpath
+V054609F9A0404~
+stroke
+readpath
+V054E0A01A0405~
+stroke
+readpath
+V05560A0AA0405~
+stroke
+readpath
+V055E0A13A0203~
+stroke
+readpath
+V0444098AE00E100A004BE80E100A00CB~
+0.8 0.8 0.8 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V04B409D5AF000A00CBE00E100A004BAF100~
+stroke
+1137 2494 moveto
+<4672616D652035>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V028209D5E00964B~
+stroke
+readpath
+V028209D6A0404~
+stroke
+readpath
+V028A09DFA0404~
+stroke
+readpath
+V029209E7A0405~
+stroke
+readpath
+V029A09F0A0405~
+stroke
+readpath
+V02A309F9A0405~
+stroke
+readpath
+V02AB0A02A0405~
+stroke
+readpath
+V02B30A0BA0405~
+stroke
+readpath
+V02BB0A14A0203~
+stroke
+readpath
+V0525098AE00E100A004BE80E100A00CB~
+0.75294 0.75294 0.75294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V059509D5AF000A00CBE00E100A004BAF100~
+stroke
+1362 2494 moveto
+<4672616D652036>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V0606098AE00E100A004BE80E100A00CB~
+0.70196 0.70196 0.70196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V067609D5AF000A00CBE00E100A004BAF100~
+stroke
+1587 2494 moveto
+<4672616D652037>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V06E7098AE00E100A004BE80E100A00CB~
+0.65098 0.65098 0.65098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V075709D5AF000A00CBE00E100A004BAF100~
+stroke
+1812 2494 moveto
+<4672616D652038>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V060609D5E00964B~
+stroke
+readpath
+V060609D5A0404~
+stroke
+readpath
+V060E09DEA0404~
+stroke
+readpath
+V061609E7A0404~
+stroke
+readpath
+V061E09F0A0404~
+stroke
+readpath
+V062709F9A0404~
+stroke
+readpath
+V062F0A01A0405~
+stroke
+readpath
+V06370A0AA0405~
+stroke
+readpath
+V063F0A13A0203~
+stroke
+readpath
+V06E709D5E00964B~
+stroke
+readpath
+V06E709D5A0404~
+stroke
+readpath
+V06EF09DEA0404~
+stroke
+readpath
+V06F709E7A0404~
+stroke
+readpath
+V06FF09F0A0404~
+stroke
+readpath
+V070809F9A0404~
+stroke
+readpath
+V07100A01A0405~
+stroke
+readpath
+V07180A0AA0405~
+stroke
+readpath
+V07200A13A0203~
+stroke
+readpath
+V07C809D5E00964B~
+stroke
+readpath
+V07C809D5A0404~
+stroke
+readpath
+V07D009DEA0404~
+stroke
+readpath
+V07D809E7A0404~
+stroke
+readpath
+V07E009F0A0404~
+stroke
+readpath
+V07E909F9A0404~
+stroke
+readpath
+V07F10A01A0405~
+stroke
+readpath
+V07F90A0AA0405~
+stroke
+readpath
+V08010A13A0203~
+stroke
+grestore grestore
+showpage
+%%PageTrailer
+
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%Pages: 1
+%%EOF

@@ -1,0 +1,343 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Creator: OpenOffice.org 1.1.3
+%%For: paulfitz
+%%CreationDate: Sun Jul 10 19:22:36 2005
+%%Title: fig-throughput
+%%LanguageLevel: 2
+%%DocumentData: Clean7Bit
+%%Pages: (atend)
+%%PageOrder: Ascend
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset PSPrint-Prolog 1.0 0
+/ISO1252Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quotesingle
+/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash
+/zero /one /two /three /four /five /six /seven
+/eight /nine /colon /semicolon /less /equal /greater /question
+/at /A /B /C /D /E /F /G
+/H /I /J /K /L /M /N /O
+/P /Q /R /S /T /U /V /W
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore
+/grave /a /b /c /d /e /f /g
+/h /i /j /k /l /m /n /o
+/p /q /r /s /t /u /v /w
+/x /y /z /braceleft /bar /braceright /asciitilde /unused
+/Euro /unused /quotesinglbase /florin /quotedblbase /ellipsis /dagger /daggerdbl
+/circumflex /perthousand /Scaron /guilsinglleft /OE /unused /Zcaron /unused
+/unused /quoteleft /quoteright /quotedblleft /quotedblright /bullet /endash /emdash
+/tilde /trademark /scaron /guilsinglright /oe /unused /zcaron /Ydieresis
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /periodcentered
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] def
+
+/psp_definefont { exch dup findfont dup length dict begin { 1 index /FID ne
+{ def } { pop pop } ifelse } forall /Encoding 3 -1 roll def
+currentdict end exch pop definefont pop } def
+
+/pathdict dup 8 dict def load begin
+/rcmd { { currentfile 1 string readstring pop 0 get dup 32 gt { exit }
+{ pop } ifelse } loop dup 126 eq { pop exit } if 65 sub dup 16#3 and 1
+add exch dup 16#C and -2 bitshift 16#3 and 1 add exch 16#10 and 16#10
+eq 3 1 roll exch } def
+/rhex { dup 1 sub exch currentfile exch string readhexstring pop dup 0
+get dup 16#80 and 16#80 eq dup 3 1 roll { 16#7f and } if 2 index 0 3
+-1 roll put 3 1 roll 0 0 1 5 -1 roll { 2 index exch get add 256 mul }
+for 256 div exch pop exch { neg } if } def
+/xcmd { rcmd exch rhex exch rhex exch 5 -1 roll add exch 4 -1 roll add
+1 index 1 index 5 -1 roll { moveto } { lineto } ifelse } def end
+/readpath { 0 0 pathdict begin { xcmd } loop end pop pop } def
+
+systemdict /languagelevel known not {
+/xshow { exch dup length 0 1 3 -1 roll 1 sub { dup 3 index exch get
+exch 2 index exch get 1 string dup 0 4 -1 roll put currentpoint 3 -1
+roll show moveto 0 rmoveto } for pop pop } def
+/rectangle { 4 -2 roll moveto 1 index 0 rlineto 0 exch rlineto neg 0
+rlineto closepath } def
+/rectfill { rectangle fill } def
+/rectstroke { rectangle stroke } def } if
+/bshow { currentlinewidth 3 1 roll currentpoint 3 index show moveto
+setlinewidth false charpath stroke setlinewidth } def
+/bxshow { currentlinewidth 4 1 roll setlinewidth exch dup length 1 sub
+0 1 3 -1 roll { 1 string 2 index 2 index get 1 index exch 0 exch put dup
+currentpoint 3 -1 roll show moveto currentpoint 3 -1 roll false charpath
+stroke moveto 2 index exch get 0 rmoveto } for pop pop setlinewidth } def
+
+/psp_lzwfilter { currentfile /ASCII85Decode filter /LZWDecode filter } def
+/psp_ascii85filter { currentfile /ASCII85Decode filter } def
+/psp_lzwstring { psp_lzwfilter 1024 string readstring } def
+/psp_ascii85string { psp_ascii85filter 1024 string readstring } def
+/psp_imagedict {
+/psp_bitspercomponent { 3 eq { 1 }{ 8 } ifelse } def
+/psp_decodearray { [ [0 1 0 1 0 1] [0 255] [0 1] [0 255] ] exch get }
+def 7 dict dup
+/ImageType 1 put dup
+/Width 7 -1 roll put dup
+/Height 5 index put dup
+/BitsPerComponent 4 index psp_bitspercomponent put dup
+/Decode 5 -1 roll psp_decodearray put dup
+/ImageMatrix [1 0 0 1 0 0] dup 5 8 -1 roll put put dup
+/DataSource 4 -1 roll 1 eq { psp_lzwfilter } { psp_ascii85filter } ifelse put
+} def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%
+(Times-Roman-iso1252) cvn (Times-Roman) cvn ISO1252Encoding psp_definefont
+%%DocumentNeededResources: font Times-Roman
+/#copies 1 def
+<< /NumCopies null /Policies << /NumCopies 1 >> >> setpagedevice
+%%EndSetup
+%%Page: 1 1
+%%PageBoundingBox: 18 18 594 774
+%%BeginPageSetup
+%
+[{
+%%BeginFeature: *PageSize Letter
+<</PageSize [612 792] /ImagingBBox null>> setpagedevice
+%%EndFeature
+} stopped cleartomark
+%%EndPageSetup
+gsave
+[0.24 0 0 -0.24 18 774] concat
+gsave
+readpath
+V00C00598E00E100A004BE80E100A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+1 setlinewidth
+readpath
+V013005E3AF000A00CBE00E100A004BAF100~
+stroke
+237 1483 moveto
+(Times-Roman-iso1252) cvn findfont 42 -42 matrix scale makefont setfont
+<4672616D652031>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V02820598E00E100A004BE80E100A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02F205E3AF000A00CBE00E100A004BAF100~
+stroke
+687 1483 moveto
+<4672616D652032>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V04440598E00E100A004BE80E100A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V04B405E3AF000A00CBE00E100A004BAF100~
+stroke
+1137 1483 moveto
+<4672616D652033>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V06060598E00E100A004BE80E100A00CB~
+0.85098 0.85098 0.85098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V067605E3AF000A00CBE00E100A004BAF100~
+stroke
+1587 1483 moveto
+<4672616D652034>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V07C80598E00E100A004BE80E100A00CB~
+0.8 0.8 0.8 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V083805E3AF000A00CBE00E100A004BAF100~
+stroke
+2037 1483 moveto
+<4672616D652035>
+[23 14 18 32 18 9 0]
+xshow
+readpath
+V0237062EE012C00A004BE812C00A00CB~
+1 1 1 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V02CD0679E809600A00CBE012C00A004BE809600~
+stroke
+650 1633 moveto
+<4672616D652031>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V01A105E3E00964B~
+stroke
+readpath
+V03F9062EE012C00A004BE812C00A00CB~
+0.95294 0.95294 0.95294 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V048F0679E809600A00CBE012C00A004BE809600~
+stroke
+1099 1633 moveto
+<4672616D652032>
+[23 14 18 31 19 9 0]
+xshow
+readpath
+V05BB062EE012C00A004BE812C00A00CB~
+0.90196 0.90196 0.90196 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V06510679E809600A00CBE012C00A004BE809600~
+stroke
+1550 1633 moveto
+<4672616D652033>
+[23 13 19 31 18 10 0]
+xshow
+readpath
+V01A105E3A0405~
+stroke
+readpath
+V01A905ECA0405~
+stroke
+readpath
+V01B105F5A0405~
+stroke
+readpath
+V01B905FEA0404~
+stroke
+readpath
+V01C20607A0404~
+stroke
+readpath
+V01CA0610A0404~
+stroke
+readpath
+V01D20619A0404~
+stroke
+readpath
+V01DA0622A0202~
+stroke
+readpath
+V036305E3E00964B~
+stroke
+readpath
+V036305E3A0405~
+stroke
+readpath
+V036B05ECA0405~
+stroke
+readpath
+V037305F5A0405~
+stroke
+readpath
+V037B05FEA0404~
+stroke
+readpath
+V03840607A0404~
+stroke
+readpath
+V038C0610A0404~
+stroke
+readpath
+V03940619A0404~
+stroke
+readpath
+V039C0622A0202~
+stroke
+readpath
+V052505E3E00964B~
+stroke
+readpath
+V052505E3A0405~
+stroke
+readpath
+V052D05ECA0405~
+stroke
+readpath
+V053505F5A0405~
+stroke
+readpath
+V053D05FEA0404~
+stroke
+readpath
+V05460607A0404~
+stroke
+readpath
+V054E0610A0404~
+stroke
+readpath
+V05560619A0404~
+stroke
+readpath
+V055E0622A0202~
+stroke
+readpath
+V06E705E3E00964B~
+stroke
+readpath
+V06E705E3A0405~
+stroke
+readpath
+V06EF05ECA0405~
+stroke
+readpath
+V06F705F5A0405~
+stroke
+readpath
+V06FF05FEA0404~
+stroke
+readpath
+V07080607A0404~
+stroke
+readpath
+V07100610A0404~
+stroke
+readpath
+V07180619A0404~
+stroke
+readpath
+V07200622A0202~
+stroke
+readpath
+V077D062EE012C00A004BE812C00A00CB~
+0.85098 0.85098 0.85098 setrgbcolor
+eofill
+0 0 0 setrgbcolor
+readpath
+V08130679E809600A00CBE012C00A004BE809600~
+stroke
+1999 1633 moveto
+<4672616D652034>
+[23 14 18 31 19 9 0]
+xshow
+grestore grestore
+showpage
+%%PageTrailer
+
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%Pages: 1
+%%EOF
