@@ -8,6 +8,15 @@ motor control.  We do not assume those machines run the same operating
 system, since the availability of device drivers and
 can force such choices.
 
+Communication in YARP follows the {\em Observer} pattern~\cite{gamma95design}.  The state
+of special {\tt Port} objects can be delivered to any number of
+observers, in any number of processes distributed across any number of
+machines.  The data source is isolated from management of the list
+of observers.  Equally importantly, each observer is insulated as
+much as possible from the effects of other observers.  For example,
+if one observer reads a data source slowly and infrequently, this
+does not doom other observers to slow operation.
+
 The basic YARP module is an IPC infrastructure that supports communication across a
 network exploiting different protocols. YARP allows interconnecting many modules
 seamlessly without subscribing to any specific programming style, language interface, 
@@ -225,7 +234,7 @@ The {\em Write} method abstracts over a great deal of complexity.
 An output port may be connected to many input ports, all of which
 may read data at different rates.  By default, when {\em Write}
 is called, a reference to the buffer is passed to
-every free output connection (to block and wait for all sends to finish before trying the next one, {\em FinisheSend} can be called).  The buffer will be retained
+every free output connection (to block and wait for all sends to finish before trying the next one, {\em FinishSend} can be called).  The buffer will be retained
 until it is no longer needed by any output connection, and then
 given back to the port to be recycled.  After each call to
 {\em Write} the output of {\em Content} may change, with
@@ -237,101 +246,150 @@ typization of the communication channels, the independence of the connected proc
 the use of an external utility to command ports.
 
 
-\section{Decoupling}
+
+\begin{figure}[t]
+\includegraphics[width=\columnwidth]{fig-throughput-nowait}
+\caption{
+The top row represents an observable configured for \textit{no-wait};
+dashed and solid lines show (exaggerated) start and end times of 
+sending an update to three observers, configured as
+ \textit{single-buffer},
+ \textit{double-buffer},
+and \textit{triple-buffer}
+respectively.  For the scenario shown, the processing time of the
+client is greater than that of the server.
+}
+\label{fig:throughput-nowait}
+\end{figure}
 
 
-Communication in YARP follows the {\em Observer} pattern [CITE].  The state
-of special {\tt Port} objects can be delivered to any number of
-observers, in any number of processes distributed across any number of
-machines.  The data source is isolated from management of the list
-of observers.  Equally importantly, each observer is insulated as
-much as possible from the effects of other observers.  For example,
-if one observer reads a data source slowly and infrequently, this
-does not doom other observers to slow operation.
+\begin{figure}[t]
+\includegraphics[width=\columnwidth]{fig-throughput-postwait} \\
+\ \\
+\includegraphics[width=\columnwidth]{fig-throughput-prewait} 
+\caption{ 
+%
+Effect of client behavior on a server.  Four client/server
+pairs are shown. In the first, the server is in \textit{wait-after}
+mode and the client is in \textit{single-buffer} mode.  In other
+words, neither side is willing to drop updates and every update
+will get through.
+The second pair is similar, except the server is in \textit{wait-before}
+mode.  In this case that leads to poor latency, since the communication
+delay is long.  For a more realistic ratio of communication delay to
+processing time, this choice is in fact preferable.  When the client
+is in \textit{double-buffer} or \textit{triple-buffer} mode, then
+client processing has no effect on the server, as shown in the lower
+pairs.
+%
+}
+\label{fig:throughput-wait}
+\end{figure}
 
-(Maybe give an example from Cog? -- number of processes started up,
-number of connections made...)
-
-The fundamental image class in YARP can easily become a {\em Proxy}
-to image data stored externally or in an alternate representation.
+\section{Decoupling timing}
 
 Our goal is that observers can be added to an observable without
-having an impact on existing observers.  This has some important 
-consequences:
-
-\begin{itemize}
-
-\item A ``slow'' observer, which takes time to process each update it
+having an impact on existing observers.  
+%
+A ``slow'' observer, which takes time to process each update it
 received from the observable, should not force a ``fast'' observer of
 the same observable to slow down.  This implies either buffering
 of messages for bursty channels, or simply dropping messages for
 observers that can't keep up.  The second approach is the default
 behavior in YARP.
 
+Let us assume we have a ``server'' process which contains an
+observable (an output {\tt Port}), and a ``client'' process
+which contains a corresponding observer (an input {\tt Port}).
+The server process can update the observable in one of three ways:
+
+\begin{itemize} \pflist
+
+\item The default mechanism is \textbf{\textit{no-wait}}.  When the
+server process calls the observable's update method ({\it Write}),
+then the current state of the observable is made available to be sent
+to every free observer, and the server can continue without delay.
+Free observers are ones not currently in the process of reading a
+previous state of the observable.
+
+\item An alternate mechanism is \textbf{\textit{wait-after}}.  After the same 
+steps as {\it no-wait} are taken, the server can choose
+to wait for all communication to cease before continuing (by 
+calling {\it FinishSend}).  This guarantees that all observers will
+be notified and free to receive the next update.
+
+\item The final mechanism is \textbf{\textit{wait-before}}.  The server can choose
+to wait for all communication to cease before updating (by calling a
+blocking version of {\it Write}).  This guarantees that all observers
+will be free, and the update will be sent to all of them.  The
+difference between this and {\it wait-after} is that, if the processing
+time of the server (the time between updates) is greater than the time 
+taken to send the update to all observers, then the server will never
+actually need to wait.
+
 \end{itemize}
 
+\noindent
+%
+To insulate the server from the details of implementing all this, the
+state associated with an observable is made logically distinct from
+the observable itself, and once an update is requested (by a call to
+{\em Write}) the state becomes the property of the communication
+system, while the server is given a replacement object to work with.
+%
+The communication system manages a pool of such state objects which
+grows to whatever size is necessary based on the speed of the various
+observers.
+%
 
-On the sender side:
+On the client side, there are some choices in how the
+observer behaves:
 
-\begin{itemize}
+\begin{itemize} \pflist
 
-\item Default behavior: every time an update is performed on an
-observable, its state is made available to send to every
-observer not currently still reading a previous state.
-
-\item The programmer can optionally choose to wait until all observers
-have finished reading and are in a ready state.
-
-\end{itemize}
-
-On the receiver side:
-
-\begin{itemize}
-
-\item Default (triple-buffer) behavior: an observer becomes free for
+\item \textbf{\textit{triple-buffer}} behavior: an observer becomes free for
 another update immediately after having received one, before any
-processing is done at all.  If updates arrive faster than processing
-occurs, then updates will be lost from time to time (where ``lost''
-means ``never processed''), but the most recent update received will
-always be read and available immediately when processing is completed.
+processing is done by the client.  If updates arrive faster than
+processing occurs, then updates will be lost from time to time (where
+``lost'' means ``never processed''), but the most recent update
+received will always be available to the client immediately when processing
+is completed.
 
-\item Optional (double-buffer) behavior: same as above, but if an
-update is currently arriving, then when processing completes no new
-content will be available until the update arrives.  This is good if
-it is better to minimize latency of non-dropped updates than to
-maximize throughput.
+\item \textbf{\textit{double-buffer}} behavior: same as above, but if
+an update is currently arriving, then no new content will be available
+to the client until the update arrives.  This is good if it is better
+to minimize latency of non-dropped updates than to maximize
+throughput.
 
-\item Optional (single-buffer) behavior: the arrival of updates
-is delayed until processing completes.  No updates will ever be 
-thrown away on the receiver side.
+\item \textbf{\textit{single-buffer}} behavior: the arrival of updates
+is delayed until the client completes processing.  No updates will ever be 
+lost on the client side.
 
 
 \end{itemize}
 
-\begin{figure*}
-%\begin{tabular}{llp{2.2in}}
-\begin{tabular}{llp{8in}}
-send & recv & comments \\
-wait & buf & \\
-no & 1 & Messages dropped by sender. Observers are decoupled.\\
-no & 2 & Messages dropped by sender or receiver.  Observers are decoupled. \\
-no & 3 & Messages dropped by sender or receiver. Observers are decoupled. \\
-post & 1 & No messages lost. Observers are coupled. \\
-post & 2 & Messages dropped by receiver.  Observers are coupled.\\
-post & 3 & Messages dropped by receiver.  Observers are coupled.\\
-pre & 1 & No messages lost. Observers are coupled. \\
-pre & 2 & Messages dropped by receiver. Observers are coupled.\\
-pre & 3 & Messages dropped by receiver. Observers are coupled.
-\end{tabular}
+\noindent The default behavior for YARP is \textit{no-wait} for
+the observable (server side) and \textit{triple-buffer} for 
+the observer (client side).  This
+choice minimizes the time spent waiting for communication to occur by
+the server and the client, and permits updates to be lost (either by
+never sending them, or discarding them on the client side) if the
+client is not keeping up.  This is generally a good choice for
+real-time performance.
 
-\end{figure*}
+The default of \textit{no-wait} on the server side is particularly
+important, since it minimizes coupling between observers of the same
+observable.  If it is important that updates are never lost, then
+inevitably there will be coupling, since a slow client can then force
+the server to slow down the rate at which it serves all clients.
+See Figure~\ref{fig:throughput-nowait}.
 
+The default of \textit{triple-buffer} on the client side insulates the
+server from the client's behavior by default.  Even if the server is
+configured to wait, default clients will only delay the server
+with the time taken to communicate with them, and not the time
+they take to process the update.  Clients which absolutely
+need a guarantee of zero update loss can choose \textit{single-buffer}
+behavior.  See Figure~\ref{fig:throughput-wait}.
 
-\includegraphics[width=\columnwidth]{fig-throughput-nowait}
-
-\includegraphics[width=\columnwidth]{fig-throughput-prewait}
-
-\includegraphics[width=\columnwidth]{fig-throughput-postwait}
-
-Adaptive scheduling?  Could be difficult to reason about.
 
