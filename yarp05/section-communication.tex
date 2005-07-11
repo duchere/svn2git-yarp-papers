@@ -1,6 +1,13 @@
 \section{Communication}
 \label{sec:communication}
 
+We assume that there is a pool of PCs available to control the robot.
+This is currently necessary for any robot doing signicant computation;
+for example object recognition {\em and} face detection {\em and}
+motor control.  We do not assume those machines run the same operating
+system, since the availability of device drivers and
+can force such choices.
+
 The basic YARP module is an IPC infrastructure that supports communication across a
 network exploiting different protocols. YARP allows interconnecting many modules
 seamlessly without subscribing to any specific programming style, language interface, 
@@ -45,8 +52,8 @@ characteristics:
 
 Communication is fully asynchronous and as such messages are not guaranteed to be 
 delivered unless special provisions are made. The most natural semantic for YARP ports is
-thus that of dealing with recurrent messages, updated and sent often enough, where loosing 
-one message does not compromises the integrity of the system. This is tailored at
+thus that of dealing with recurrent messages, updated and sent often enough, where losing 
+one message does not compromise the integrity of the system. This is tailored at
 sensorial data that are generated periodically: e.g. images and sound. YARP is definitely
 not an event based system since a single message is not guaranteed to get through. A
 typical application is, for example, the acquisition of images, and delivery to many 
@@ -122,7 +129,7 @@ Finally, it is important to note that ports are implemented as C++ templates and
 specialized to the type of the data to be transmitted or received. This creates a very 
 clean and consistent client interface.
 
-\subsection{YARP interface}
+\section{YARP communication interface}
 It is perhaps instructive to show a few of the constructs that populate the YARP approach
 to communication code. As we mentioned before, the main communication instrument is the 
 port. In practice, when coding, ports are always instantiated of a given type as for 
@@ -228,3 +235,103 @@ output connection, plus one extra for the client.
 This short example shows all the main features of the port classes including the strong
 typization of the communication channels, the independence of the connected processes, and
 the use of an external utility to command ports.
+
+
+\section{Decoupling}
+
+
+Communication in YARP follows the {\em Observer} pattern [CITE].  The state
+of special {\tt Port} objects can be delivered to any number of
+observers, in any number of processes distributed across any number of
+machines.  The data source is isolated from management of the list
+of observers.  Equally importantly, each observer is insulated as
+much as possible from the effects of other observers.  For example,
+if one observer reads a data source slowly and infrequently, this
+does not doom other observers to slow operation.
+
+(Maybe give an example from Cog? -- number of processes started up,
+number of connections made...)
+
+The fundamental image class in YARP can easily become a {\em Proxy}
+to image data stored externally or in an alternate representation.
+
+Our goal is that observers can be added to an observable without
+having an impact on existing observers.  This has some important 
+consequences:
+
+\begin{itemize}
+
+\item A ``slow'' observer, which takes time to process each update it
+received from the observable, should not force a ``fast'' observer of
+the same observable to slow down.  This implies either buffering
+of messages for bursty channels, or simply dropping messages for
+observers that can't keep up.  The second approach is the default
+behavior in YARP.
+
+\end{itemize}
+
+
+On the sender side:
+
+\begin{itemize}
+
+\item Default behavior: every time an update is performed on an
+observable, its state is made available to send to every
+observer not currently still reading a previous state.
+
+\item The programmer can optionally choose to wait until all observers
+have finished reading and are in a ready state.
+
+\end{itemize}
+
+On the receiver side:
+
+\begin{itemize}
+
+\item Default (triple-buffer) behavior: an observer becomes free for
+another update immediately after having received one, before any
+processing is done at all.  If updates arrive faster than processing
+occurs, then updates will be lost from time to time (where ``lost''
+means ``never processed''), but the most recent update received will
+always be read and available immediately when processing is completed.
+
+\item Optional (double-buffer) behavior: same as above, but if an
+update is currently arriving, then when processing completes no new
+content will be available until the update arrives.  This is good if
+it is better to minimize latency of non-dropped updates than to
+maximize throughput.
+
+\item Optional (single-buffer) behavior: the arrival of updates
+is delayed until processing completes.  No updates will ever be 
+thrown away on the receiver side.
+
+
+\end{itemize}
+
+\begin{figure*}
+%\begin{tabular}{llp{2.2in}}
+\begin{tabular}{llp{8in}}
+send & recv & comments \\
+wait & buf & \\
+no & 1 & Messages dropped by sender. Observers are decoupled.\\
+no & 2 & Messages dropped by sender or receiver.  Observers are decoupled. \\
+no & 3 & Messages dropped by sender or receiver. Observers are decoupled. \\
+post & 1 & No messages lost. Observers are coupled. \\
+post & 2 & Messages dropped by receiver.  Observers are coupled.\\
+post & 3 & Messages dropped by receiver.  Observers are coupled.\\
+pre & 1 & No messages lost. Observers are coupled. \\
+pre & 2 & Messages dropped by receiver. Observers are coupled.\\
+pre & 3 & Messages dropped by receiver. Observers are coupled.
+\end{tabular}
+
+\end{figure*}
+
+
+\includegraphics[width=\columnwidth]{fig-throughput-nowait}
+
+\includegraphics[width=\columnwidth]{fig-throughput-prewait}
+
+\includegraphics[width=\columnwidth]{fig-throughput-postwait}
+
+Adaptive scheduling?  Could be difficult to reason about.
+

@@ -1,2 +1,75 @@
 
-Use YARP!
+\subsection*{Stopping the pain}
+
+YARP is designed with robotics research groups in mind.  
+%
+%
+It is targetted primarily at supporting software development.
+%
+%
+Here are the assumptions we make, distilled from our own repeated
+experience.  
+%
+%We express the assumptions in terms of {\em pain} --
+%situations we would like to avoid.
+
+\begin{itemize}
+
+\item {\bf Humility is key.}
+%
+Over time, sofware for a sophisticated robot needs to 
+aggregate code written by many different people in many
+different contexts.  No doubt that code will have
+dependencies on various communication, image processing,
+and other libraries.
+%
+YARP needs to play well with these other libraries.
+It should not try to ``take control'' of processes,
+hardware management, or any kind of service.
+
+
+\item {\bf Computing power should be scalable.}
+%
+Designing a robot control system as a set of processes running on
+  a set of computers is a good way to work, especially if the robot
+  is not mobile.  It minimizes time spent wrestling with code
+  optimization, rewriting other people's code, etc., and maximizes
+  time spent actually doing research.
+  The heart of YARP is a communications mechanism to make writing
+  and running such processes as easy as possible.
+
+
+\item {\bf Never stop.}
+%
+The longer a process can stay running, the better.  Restarting
+  processes often has a cost.  For example, it may talk to some
+  custom hardware which requires a physical reset.  There may
+  be other dependent processes that need to be restarted in turn.
+
+  YARP does its part to minimize dependencies between processes.
+  Communication channels between processes can come and go.
+  A process that is killed or dies unexpectedly does not
+  require processes to which it connects to be restarted
+
+
+
+\end{itemize}
+
+
+\subsection*{Zone of proximal development}
+
+(this section is very vague)
+
+For infants, the zone of proximal development is the
+difference between what they can accomplish on their
+own compared to what they can accompish with an
+adult's support [CITE].
+
+By loose analogy, we label a robot control system's ``zone of proximal
+development'' to be the set of modules being actively added or worked
+on by the programmer, against a background of pre-existing, operating
+modules.  
+
+YARP helps insulate existing modules from changes in this zone,
+and leaves them in a good form for when the zone moves on.
+
