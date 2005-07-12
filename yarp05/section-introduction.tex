@@ -1,29 +1,23 @@
 \section{Introduction}
 
-YARP is written by and for researchers in robotics, particularly
-humanoid robotics, who find themselves with a complicated pile of
-hardware to control with an equally complicated pile of software. 
+YARP is written by and for researchers in humanoid robotics, who find
+themselves with a complicated pile of hardware to control with an
+equally complicated pile of software.
 %
 At the time of writing, running decent visual, auditory, and tactile
 perception while performing elaborate motor control in real-time
-requires a lot of computation. The easiest and most scalable way to do
-this at the moment is to have a cluster of computers. Every year what
-one machine can do grows, but so do our demands~-- especially for
-research groups which by definition operate at the limits of current
-technology. YARP is a set of tools we have found useful for meeting
-our computational needs for controlling various humanoid robots.
-
-Although YARP offers support for communication, image processing,
-interfacing to hardware etc., it is written with an {\em open world}
-mindset.  We do not assume it will be the only library used, and
-endeavor to be as friendly to other libraries as possible.
-
-
-YARP is designed with robotics research groups in mind. 
+requires a lot of processor cycles. The only practical way to get
+those cycles at the moment is to have a cluster of computers. Every
+year what one machine can do grows, but so also do our demands~--
+humanoid robots stretch the limits of current technology, and are
+likely to do so for the foreseeable future.
 %
-It is targetted primarily at supporting long-term software development.
+
+YARP is a platform for long-term software development for applications
+that are real-time, computation-intensive, and involve interfacing 
+with diverse and changing hardware.
 %
-Here are some general lessons learned:
+Here are some general lessons we have learned, and apply to YARP:
 
 \begin{itemize} \pflist
 
@@ -38,34 +32,53 @@ and other libraries.
 Any component that tries to place itself ``in control'' and has strong
 constraints on what dependencies are permissible will not be tolerated
 for long.  It certainly cannot co-exist with another component
-with the same assumption of ``dominance''.  In robotics, it is useful to
-reserve the ...
+with the same assumption of ``dominance''.  It is userful to reserve
+that role for the occasional poorly-designed hardware device that
+assumes it is the center of the universe.
+
 
 
 \item {\bf One processor is never enough.}
 %
-Designing a robot control system as a set of processes running on
-  a set of computers is a good way to work, especially if the robot
-  is not mobile.  It minimizes time spent wrestling with code
-  optimization, rewriting other people's code, etc., and maximizes
-  time spent actually doing research.
-  The heart of YARP is a communications mechanism to make writing
-  and running such processes as easy as possible.
+Designing a robot control system as a set of processes running on a
+set of computers is a good way to work, especially in a basic research
+environment where if mobility is required, tethers or wireless
+communication are practical.  It minimizes time spent wrestling with
+code optimization, rewriting other people's code, etc., and maximizes
+time spent actually doing research.  The heart of YARP is a
+communications mechanism to make writing and running such processes as
+easy as possible.
 
 
 \item {\bf Stopping hurts.}
 %
-The longer a process can stay running, the better.  Restarting
-  processes often has a cost.  For example, it may talk to some
-  custom hardware which requires a physical reset.  There may
-  be other dependent processes that need to be restarted in turn.
-
-  YARP does its part to minimize dependencies between processes.
-  Communication channels between processes can come and go.
-  A process that is killed or dies unexpectedly does not
-  require processes to which it connects to be restarted
-
+It is a commonplace that human cycles are much, much more expensve
+than machine cycles.  In robotics, it turns out that the human
+cost of stopping and restarting a process can be very high.
+For example, that process may interface with some
+custom hardware which requires a physical reset.  
+That reset many need to be carefully ordered with respect to when the
+process is stopped and started.
+%
+There may be other dependent processes that need to be restarted in
+turn, and other dependent hardware.
+%
+These ordering constraints are time-consuming to satisfy.
+%
+YARP does its part to minimize dependencies between processes, so only
+true physically required dependencies remain.  Communication channels
+between processes can come and go.  A process that is killed or dies
+unexpectedly does not require processes to which it connects to be
+restarted.
 
 
 \end{itemize}
+
+
+
+\noindent
+Although YARP offers support for communication, image processing,
+interfacing to hardware etc., it is written with an {\em open world}
+mindset.  We do not assume it will be the only library used, and
+endeavor to be as friendly to other libraries as possible.
 
