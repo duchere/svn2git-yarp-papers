@@ -82,3 +82,29 @@ interfacing to hardware etc., it is written with an {\em open world}
 mindset.  We do not assume it will be the only library used, and
 endeavor to be as friendly to other libraries as possible.
 
+YARP includes a few modules to facilitate software development on
+humanoid robots. They consist in the following libraries:
+
+\begin{itemize}
+\item{OS lib}
+\item{mathematical lib}
+\item{image processing lib}
+\item{device drivers lib}
+\end{itemize}
+
+The OS library contains the communication facilities described in
+section \ref{sec:communication} and classes implementing
+synchronization routines (like mutexes and semaphores) and
+threads. The OS library is built on top of ACE (Adaptive Communication
+Environment, http://www.cs.wustl.edu/~schmidt/ACE.html or cite the
+book), which is an open source library providing a framework for
+concurrent programming across a very wide range of operating
+systems. YARP inherits this portability and has indeed been used and
+tested on Windows, Linux and QNX 6.
+
+The mathematical library provides classes and functions to handle
+vectors and matrices, together with a few algebraic routines like
+single value decomposition, QR and LU factorization.
+
+More details about the image processing library and the device driver
+library can be found in the next sections.
