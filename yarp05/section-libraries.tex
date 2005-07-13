@@ -27,24 +27,39 @@ tracking, optic flow, and much more.
 
 Our basic image class (YARPImage) has an internal structure that is
 compatible with the IPL library.  This allows any user to take full
-advantage of the IPL and/or OpenCV libraries.
+advantage of the IPL and/or OpenCV libraries; if these libraries
+are not used, then a core set of functions are available through
+YARP.  Furthermore, the image class can act as a {\em proxy} to image
+data stored in a foreign format.  This is useful to prevent unnecessary
+copies when using other image processing libraries, or interfacing
+with image sources (e.g. framegrabbers) and sinks (e.g. a graphic
+display).
 
-Unfortunately the IPL library does not provide support for object
-oriented programming. We decided to write a library which implements a
-set of classes to store and manipulate the pixels of an image. The set
-of classes is in the form of a C++ template that can be instantiated
-for each pixel type (for example at the moment RGB, grayscale and
-floating point are implemented). The YARPImageOf template defines an
-interface for all the image classes in the library; as in other parts
-of the library we decided to use templates for efficiency reasons. The
-internal structure of the image is identical to the one used by the
-IPL library. 
 
-Finally, the image class provides support to
-transmit the internal data between two YARP ports as described in
-section \ref{sec:communication}.
+%% Unfortunately the IPL library does not provide support for object
+%% oriented programming. We decided to write a library which implements a
+%% set of classes to store and manipulate the pixels of an image. The set
+%% of classes is in the form of a C++ template that can be instantiated
+%% for each pixel type (for example at the moment RGB, grayscale and
+%% floating point are implemented). The YARPImageOf template defines an
+%% interface for all the image classes in the library; as in other parts
+%% of the library we decided to use templates for efficiency reasons. The
+%% internal structure of the image is identical to the one used by the
+%% IPL library. 
 
-\subsection{Device Drivers Library}
+
+YARP also provides support for transmitting images between two YARP
+ports.
+
+
+\begin{figure}[t]
+\centerline{\includegraphics[width=\columnwidth]{fig-devices}}
+\caption{
+devices
+}
+\end{figure}
+
+\section{Device drivers}
 
 A frequent problem encountered during development in robotics is that
 it is very hard to reuse code on different platforms. In some cases
