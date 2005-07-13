@@ -55,7 +55,14 @@ ports.
 \begin{figure}[t]
 \centerline{\includegraphics[width=\columnwidth]{fig-devices}}
 \caption{
-devices
+Changes in hardware make code reuse challenging.
+YARP makes a distinction between {\em proximate} devices,
+such as control boards and framegrabbers which are used to
+talk to {\em distal} devices such as arms or sensors.  The 
+same proximate device may be used to interface with different
+distal devices (A).   Conversely, a given distal device may be
+interfaced with using a choice of proximate devices (B).
+Taking to disentangle these two devices aids code reuse.
 }
 \end{figure}
 
