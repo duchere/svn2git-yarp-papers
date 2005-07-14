@@ -86,19 +86,20 @@ high level software modules are
 concerned with the low level details of the underlying hardware
 platform.
 
-The low level software should capture the essential functioning of the
-particular class of device and hide the details of the
-implementation. For example the device driver for a control board
-should provide methods for moving a joint by specifying the desired
-position, velocity and acceleration. Other common functionalities are
-methods to read position, speed and torque (if available). In practice
-the main differences between cards lay on the steps required for the
-initialization of the device. This approach has been successful with
-general purpose hardware like frame grabbers and control boards but
-might fail to scale to custom devices like dedicated DSP for motion
-control. In these cases it is harder (if not impossible) to identify a
-common interface and it is best to provide a separate set of functions
-to handle the specific functionalities of each device.
+%% The low level software should capture the essential functioning of the
+%% particular class of device and hide the details of the
+%% implementation. For example the device driver for a control board
+%% should provide methods for moving a joint by specifying the desired
+%% position, velocity and acceleration. Other common functionalities are
+%% methods to read position, speed and torque (if available). In practice
+%% the main differences between cards can lie on the steps required for the
+%% initialization of the device. 
+%% This approach has been successful with
+%% general purpose hardware like frame grabbers and control boards but
+%% might fail to scale to custom devices like dedicated DSP for motion
+%% control. In these cases it is harder (if not impossible) to identify a
+%% common interface and it is best to provide a separate set of functions
+%% to handle the specific functionalities of each device.
 
 Another problem occurs when two identical boards are used
 on setups that are mechanically different. Experience shows that in
@@ -111,29 +112,35 @@ might differ in the two cases. These dissimilarities cannot be handled
 by different configuration files as they imply the execution of
 different routines.
 
-The ensemble of these routines are grouped in the adapter. This class
-is in general responsible of implementing methods to correctly
-initialize and quit the device, but it can implement other
-functionalities as well. The adapter is hence the place where all the
-peculiarities of each piece of hardware (and of the device used to
-interface to it) are handled. As such it collects all and the only
+The ensemble of these routines are grouped in an {\em adapter}. This class
+is in general responsible for implementing methods to correctly
+initialize and shut down the device, but it can implement other
+functionalities as well~-- it is the place where all the
+peculiarities of each particular piece of {\em distal} hardware 
+(arms, sensors, etc.)
+%
+%(and of the device used to interface to it) 
+%
+are mapped onto the {\em proximal} device (control boards, framegrabbers, etc) used
+to interface with it.  As such it collects all and the only
 routines specific to each hardware device.
 
-Finally, device driver and adapter are aggregated together by a single
+Finally, the driver for the proximal device and
+the adapter for the distal device are aggregated together by a single
 class. The interface between higher level software modules and the
 hardware occurs through this class and is thus independent of the
 device driver or the actual hardware underneath. Code changes required
 to use different boards or mechanical devices are localized to the
 device driver and the adapter respectively.
 
-We defined a virtual device driver interface into YARP and
-encapsulated the control parts of the robot into a standardized
-template class hierarchy. The structure of the YARP virtual device
-driver resembles the structure of UNIX device drivers. It has three
-main methods: Open, Close and Ioctl. Open and Close execute code to
-initialize and quit the device, whereas the IOCtl is the core of the
-interface and consists in a set of messages. Each message defines an
-index in a table of functions. The advantage of using this structure
-as opposed to a virtual class is that it is not mandatory to implement
-all methods if some are not supported by the hardware.
+%% We defined a virtual device driver interface into YARP and
+%% encapsulated the control parts of the robot into a standardized
+%% template class hierarchy. The structure of the YARP virtual device
+%% driver resembles the structure of UNIX device drivers. It has three
+%% main methods: Open, Close and Ioctl. Open and Close execute code to
+%% initialize and quit the device, whereas the IOCtl is the core of the
+%% interface and consists in a set of messages. Each message defines an
+%% index in a table of functions. The advantage of using this structure
+%% as opposed to a virtual class is that it is not mandatory to implement
+%% all methods if some are not supported by the hardware.
 
