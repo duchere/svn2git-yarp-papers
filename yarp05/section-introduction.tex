@@ -20,24 +20,6 @@ with diverse and changing hardware.
 Here are some general lessons we have learned, and apply to YARP:
 
 \begin{itemize} \pflist
-
-\item {\bf Humility helps.}
-%
-Over time, sofware for a sophisticated robot needs to 
-aggregate code written by many different people in many
-different contexts.  Doubtless that code will have
-dependencies on various communication, image processing,
-and other libraries.
-%
-Any component that tries to place itself ``in control'' and has strong
-constraints on what dependencies are permissible will not be tolerated
-for long.  It certainly cannot co-exist with another component
-with the same assumption of ``dominance''.  It is userful to reserve
-that role for the occasional poorly-designed hardware device that
-assumes it is the center of the universe.
-
-
-
 \item {\bf One processor is never enough.}
 %
 Designing a robot control system as a set of processes running on a
@@ -49,6 +31,8 @@ time spent actually doing research.  The heart of YARP is a
 communications mechanism to make writing and running such processes as
 easy as possible.
 
+\item {\bf Modularity.}
+Code is better maintainaed and reused if it is organized in small processes each one performing a simple task. This approach is convenient during development because it allows to stop and restart small pieaces of the system at the time. In some cases processes are bound to specific machines (usually when they require particular hardware device), but most of the times they can run on any of the available machines. With YARP it is easy to write processes that are location independent and that can run on different machines without changes in the code. This allows to move the processes across the cluster at runtime to redistribute the computational load on the CPUs or to recover from a hardware failure.
 
 \item {\bf Stopping hurts.}
 %
@@ -65,11 +49,38 @@ turn, and other dependent hardware.
 %
 These ordering constraints are time-consuming to satisfy.
 %
-YARP does its part to minimize dependencies between processes, so only
-true physically required dependencies remain.  Communication channels
-between processes can come and go.  A process that is killed or dies
+YARP does its part to minimize dependencies between processes,
+% so only true physically required dependencies remain.  
+communication channels
+between processes can come and go. A process that is killed or dies
 unexpectedly does not require processes to which it connects to be
-restarted.
+restarted. This also simplify cooperation between people, as
+it minimizes the interfearences between different parts of the system.
+
+\item {\bf Humility helps.}
+%
+Over time, sofware for a sophisticated robot needs to 
+aggregate code written by many different people in many
+different contexts.  Doubtless that code will have
+dependencies on various communication, image processing,
+and other libraries. Very often the operating system on which
+software is developed pose similar constraints. This is especially
+true with code that relies heavily on the services offered by the 
+operating system (such as communication, scheduling, synchronization primitives, 
+and device driver interface).
+%
+Any component that tries to place itself ``in control'' and has strong
+constraints on what dependencies are permissible will not be tolerated
+for long.  It certainly cannot co-exist with another component
+with the same assumption of ``dominance''.  
+%It is userful to reserve
+%that role for the occasional poorly-designed hardware device that
+%assumes it is the center of the universe.
+
+
+
+
+
 
 
 \end{itemize}
