@@ -1,21 +1,22 @@
 \section{Communication}
 \label{sec:communication}
 
-We assume that there is a pool of PCs available to control the robot.
-This is currently necessary for any robot doing signicant computation;
-for example object recognition {\em and} face detection {\em and}
-motor control.  We do not assume those machines run the same operating
-system, since the availability of device drivers and
+Communication is an important topic in YARP, since
+we assume the robot is controlled by a pool of networked PCs.  This is currently
+necessary for any robot doing signicant perceptual processing; for
+example object recognition {\em and} face detection {\em and}
+responsive motor control.  We do not assume those machines run the
+same operating system, since the availability of device drivers and
 can force such choices.
 
 Communication in YARP follows the {\em Observer} pattern~\cite{gamma95design}.  The state
-of special {\tt Port} objects can be delivered to any number of
+of special {\it Port} objects can be delivered to any number of
 observers, in any number of processes distributed across any number of
-machines.  The data source is isolated from management of the list
-of observers.  Equally importantly, each observer is insulated as
-much as possible from the effects of other observers.  For example,
+machines.  YARP manages these connections in a way that insulates
+the observed from the observer and, just as importantly, insulates
+observers from each other.  For example,
 if one observer reads a data source slowly and infrequently, this
-does not doom other observers to slow operation.
+does not force other observers to slow down.
 
 The basic YARP module is an IPC infrastructure that supports communication across a
 network exploiting different protocols. YARP allows interconnecting many modules
@@ -32,7 +33,7 @@ stricter.
 We have taken a more lightweight approach: any C++ code can use YARP directly just by 
 instantiating communication classes. Other programming languages can access YARP as well, 
 provided they have means of linking and calling C++ code. We have successfully used YARP 
-from within Matlab or L [ref].
+from within Matlab or L~\cite{brooks90behavior}.
 
 Communication channels in YARP can be connected either programmatically or at run-time.
 Each communication object, described next, can receive commands from other processes and 
