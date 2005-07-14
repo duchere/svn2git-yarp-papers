@@ -3,6 +3,10 @@
 YARP is written by and for researchers in humanoid robotics, who find
 themselves with a complicated pile of hardware to control with an
 equally complicated pile of software.
+
+%YARP includes modules to facilitate software development on
+%humanoid robots, including abstractions for the operating system,
+%image processing, physical devices, mathematical operations, etc.
 %
 At the time of writing, running decent visual, auditory, and tactile
 perception while performing elaborate motor control in real-time
@@ -17,26 +21,54 @@ YARP is a platform for long-term software development for applications
 that are real-time, computation-intensive, and involve interfacing 
 with diverse and changing hardware.
 %
-Here are some general lessons we have learned, and apply to YARP:
+Here are some general lessons we have learned, and apply to YARP.
 
-\begin{itemize} \pflist
-\item {\bf One processor is never enough.}
-%
+%\begin{itemize} \pflist
+%\item {\bf One processor is never enough.}
+\emph {One processor is never enough.}
 Designing a robot control system as a set of processes running on a
-set of computers is a good way to work, especially in a basic research
-environment where if mobility is required, tethers or wireless
-communication are practical.  It minimizes time spent wrestling with
-code optimization, rewriting other people's code, etc., and maximizes
+set of computers is a good way to work. It minimizes time spent wrestling with
+code optimization, rewriting other people's code, and maximizes
 time spent actually doing research.  The heart of YARP is a
 communications mechanism to make writing and running such processes as
-easy as possible.
+easy as possible. Even where mobility is required this is not a limiting
+factor if teathers or wireless communication are practical.
 
-\item {\bf Modularity.}
-Code is better maintainaed and reused if it is organized in small processes each one performing a simple task. This approach is convenient during development because it allows to stop and restart small pieaces of the system at the time. In some cases processes are bound to specific machines (usually when they require particular hardware device), but most of the times they can run on any of the available machines. With YARP it is easy to write processes that are location independent and that can run on different machines without changes in the code. This allows to move the processes across the cluster at runtime to redistribute the computational load on the CPUs or to recover from a hardware failure.
+%\item {\bf Modularity.} 
+\emph {Modularity.}
+Code is better maintainaed and reused if it is organized in small processes 
+each one performing a simple task. In a cluster of computers some processes 
+are bound to specific machines (usually when they require particular hardware 
+device), but most of the times they can run on any of the available computers. 
+With YARP it is easy to write processes that are location independent and 
+that can run on different machines without code changes. This allows to move 
+processes across the cluster at runtime to redistribute the computational 
+load on the CPUs or to recover from a hardware failure. 
+YARP does not contain any means of automatically allocating processes as in 
+some approaches like GRID \cite{grid}. Our apporach is that of leaving this
+task to the user to act sensibly and allocate the processes. The rationale is that: i)
+special interface hardware is necessarily to be controlled by the appropriate piece of 
+software, and ii) in an etherogeneous network of processors, faster processors might 
+need to be allocated differently from slower processors. The final behavior is that of 
+a sort of ``soft real-time'' parallel computation cluster without the more demanding
+requirements of a real-time operating system.
 
-\item {\bf Stopping hurts.}
-%
-It is a commonplace that human cycles are much, much more expensve
+\emph {Minimal interfearence}. 
+%Ports were designed with the two-fold goal of reducing the interactions at large between 
+%the various components of the robot controller and, simultaneously, to allow efficient 
+%communication between interacting parts of the system. The bottleneck in this approach
+%would eventually be the available bandwidth on the network. 
+As long as enough resources are available, the addition of new components 
+should minimally interfere with existing processes. This is important, since often 
+the actual performance of a robotic controller depends on the timing of various signals. 
+While this is not strictly guaranteed by the YARP infrastructure, the problem is in 
+practice alleviated computationally by allowing the inclusion of more processors to 
+the network, and from the communication point of view by the buffer policy.
+%isolating sub-components.
+
+%\item {\bf Stopping hurts.}
+\emph {Stopping hurts.}
+It is a commonplace that human cycles are much, much more expensive
 than machine cycles.  In robotics, it turns out that the human
 cost of stopping and restarting a process can be very high.
 For example, that process may interface with some
@@ -45,20 +77,29 @@ That reset many need to be carefully ordered with respect to when the
 process is stopped and started.
 %
 There may be other dependent processes that need to be restarted in
-turn, and other dependent hardware.
+turn, and other dependent hardware. 
+%
+%
 %
 These ordering constraints are time-consuming to satisfy.
 %
 YARP does its part to minimize dependencies between processes,
 % so only true physically required dependencies remain.  
-communication channels
-between processes can come and go. A process that is killed or dies
+communication channels between processes can come and go. 
+A process that is killed or dies
 unexpectedly does not require processes to which it connects to be
 restarted. This also simplify cooperation between people, as
-it minimizes the interfearences between different parts of the system.
-
-\item {\bf Humility helps.}
+it minimizes the need to synchronize development on different  
+parts of the system.
 %
+%In complex systems, with dozens of processes and hundreds of connections, it might become
+%unpractical to shut down and restart the whole system every time a module is even slightly 
+%changed. YARP allowing the run-time connection of channels permits the disconnection of 
+%only those parts of the system that need to be, for instance, rebuilt. 
+%
+%\item {\bf Humility helps.}
+
+\emph {Humility helps.}
 Over time, sofware for a sophisticated robot needs to 
 aggregate code written by many different people in many
 different contexts.  Doubtless that code will have
@@ -72,40 +113,99 @@ and device driver interface).
 Any component that tries to place itself ``in control'' and has strong
 constraints on what dependencies are permissible will not be tolerated
 for long.  It certainly cannot co-exist with another component
-with the same assumption of ``dominance''.  
-%It is userful to reserve
-%that role for the occasional poorly-designed hardware device that
-%assumes it is the center of the universe.
-
-
-
-
-
-
-
-\end{itemize}
-
-
-
-\noindent
+with the same assumption of ``dominance''. 
 Although YARP offers support for communication, image processing,
 interfacing to hardware etc., it is written with an {\em open world}
 mindset.  We do not assume it will be the only library used, and
 endeavor to be as friendly to other libraries as possible.
+%
+YARP allows interconnecting many modules seamlessly without subscribing
+to any specific programming style, language interface, 
+or demanding specifications as for instance in CORBA~\cite{vinoski97corba}
+or DCOM~\cite{dcom}. Such systems, although far more powerful than YARP,
+require a much tighter link between the general algorithmic code and the 
+communication layer.
+We have taken a more lightweight approach: YARP is a plain library linked
+to uses-level code that can be used directly just by instantiating appropriate classes.
+%
+% and communication does not require any diversion
+% of pre-existing threads. That is, YARP is a plain library linked to user-level
+% code and as such migration to YARP can be easily carried out a posteriori. 
+%
+% Systems such as CORBA~\cite{vinoski97corba}, although far more powerful than YARP, require 
+%
+% adhering to well-defined interface specificiations (nothing bad as such) but consequently 
+%
+% a much tighter link between the general algorithmic code and the communication layer.
+%
+% is much 
+% stricter. 
+%
+%
+%
+Finally, other programming languages can access YARP as well, provided they
+have means of linking and calling C++ code. We have successfully used
+YARP from within Matlab or L~\cite{brooks90behavior}.
 
-YARP includes modules to facilitate software development on
-humanoid robots, including abstractions for the operating system,
-image processing, physical devices, mathematical operations, etc.
+%It is userful to reserve
+%that role for the occasional poorly-designed hardware device that
+%assumes it is the center of the universe.
+
+%\end{itemize}
+{\small
+\begin{tabular}{|l|c|c|c|}
+\hline
+Setup&Laboratory&size&OS\\
+\hline
+Babybot&LIRA-Lab&13&Win/QNX6\\
+Eurobot&LIRA-Lab&11&Win/QNX6\\
+RobotCub&LIRA-Lab&3&Win\\
+Obrero&MIT-CSAIL&4&Linux\\
+Mertz&MIT-CSAIL&4&Linux\\
+Domo&MIT-CSAIL&6&Linux\\
+\hline
+\end{tabular}
+}
+
+\noindent
 %
 %The OS library contains the communication facilities described in
 %section \ref{sec:communication} and classes implementing
 %synchronization routines (like mutexes and semaphores) and
 %threads. 
 %
-YARP uses ACE~\cite{ACEBook}, an open source library providing a framework for
+\emph{Exploit diversity.} Different operating systems offer different
+features. Sometimes it is easier to write code to perform a given task
+on a platform as opposed to another. This can happen for example if 
+device driver for a given board are provided only on a specific platform or
+if an algorithm is available open source on another. We decided to reduce the
+dependencies with the operating system. For this we
+use ACE~\cite{ACEBook}, an open source library providing a framework for
 concurrent programming across a very wide range of operating
-systems. YARP inherits this portability and has indeed been used and
+systems. YARP inherits the portability of ACE and has indeed been used and
 tested on Windows, Linux and QNX 6.
+
+
+YARP's core communication model was the survivor from an early humanoid robot
+controlled by a set of Motorola 68332 processors, an Apple Mac, and a loose network
+of PCs running QNX, Linux, and Microsoft Windows.  Communication was a
+hodge-podge of dual-port RAM, QNX message passing, CORBA, and raw
+sockets.  At one point, three incompatible communication protocols
+layered over QNX message passing were in use simultaneously.  This
+variety was a consequence of organic growth, as developers added new
+modules to the robot.  YARP began as one of the communication
+protocols built on QNX message passing.  A key, defining, feature of
+YARP was that it was {\em broad-minded}: it was
+implemented in the form of a library which placed minimal constraints
+on user code; communication resources did not need to be allocated at
+any particular time or place in a program; reading messages could be
+blocking, polling, or callback based, etc. This meant it could be
+easily added without disturbing existing code, and communication could
+be moved across to the new protocol piece by piece.
+
+%The basic YARP module is an IPC infrastructure that supports communication across a
+%network exploiting different protocols. 
+%
 
 %The mathematical library provides classes and functions to handle
 %vectors and matrices, together with a few algebraic routines like

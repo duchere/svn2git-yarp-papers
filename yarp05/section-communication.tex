@@ -1,13 +1,14 @@
 \section{Communication}
 \label{sec:communication}
 
-Communication is an important topic in YARP, since
-we assume the robot is controlled by a pool of networked PCs.  This is currently
-necessary for any robot doing signicant perceptual processing; for
-example object recognition {\em and} face detection {\em and}
-responsive motor control.  We do not assume those machines run the
-same operating system, since the availability of device drivers and
-can force such choices.
+As stated in the introduction communication is an important topic in YARP, since
+we assume the robot is controlled by a pool of networked PCs.%  This is currently
+%necessary for any robot doing signicant perceptual processing; for
+%example object recognition {\em and} face detection {\em and}
+%responsive motor control.  
+%We do not assume those machines run the
+%same operating system, since the availability of device drivers and
+%can force such choices.
 
 Communication in YARP follows the {\em Observer} pattern~\cite{gamma95design}.  The state
 of special {\it Port} objects can be delivered to any number of
@@ -18,67 +19,24 @@ observers from each other.  For example,
 if one observer reads a data source slowly and infrequently, this
 does not force other observers to slow down.
 
-YARP's core communication model was the survivor from an early humanoid robot
-controlled by
-a set of Motorola 68332 processors, an Apple Mac, and a loose network
-of PCs running QNX, Linux, and Microsoft Windows.  Communication was a
-hodge-podge of dual-port RAM, QNX message passing, CORBA, and raw
-sockets.  At one point, three incompatible communication protocols
-layered over QNX message passing were in use simultaneously.  This
-variety was a consequence of organic growth, as developers added new
-modules to the robot.  YARP began as one of the communication
-protocols built on QNX message passing.  A key, defining, feature of
-YARP was that it was {\em broad-minded}: it was
-implemented in the form of a library which placed minimal constraints
-on user code; communication resources did not need to be allocated at
-any particular time or place in a program; reading messages could be
-blocking, polling, or callback based, etc. This meant it could be
-easily added without disturbing existing code, and communication could
-be moved across to the new protocol piece by piece.
-
-%The basic YARP module is an IPC infrastructure that supports communication across a
-%network exploiting different protocols. 
-%
-Today,
-YARP allows interconnecting many modules
-seamlessly without subscribing to any specific programming style, language interface, 
-or demanding specifications as for instance in CORBA~\cite{vinoski97corba} or DCOM [ref]. That is, YARP 
-is a plain library linked to user-level code and as such migration to YARP can be easily
-carried out a posteriori. 
-
-
-Systems such as CORBA~\cite{vinoski97corba}, although far more powerful than YARP, require 
-%
-%adhering to well-defined interface specificiations (nothing bad as such) but consequently 
-%
-a much tighter link between the general algorithmic code and the communication layer.
-%
-% is much 
-% stricter. 
-%
-We have taken a more lightweight approach: any C++ code can use YARP directly just by 
-instantiating appropriate classes, and communication does not require any diversion
-of pre-existing threads.
-%
-
-Other programming languages can of course access YARP as well, provided they
-have means of linking and calling C++ code. We have successfully used
-YARP from within Matlab or L~\cite{brooks90behavior}.
-
 Communication channels in YARP can be connected either programmatically or at run-time.
 Each communication object, described next, can receive commands from other processes and 
 react consequently by activating or removing a specific connection.
 
-The communication abstraction is called a {\em Port}. A port is an active object managing
-multiple connections for a given unit of data either as input or output (see figure \ref{fig:port}). Each connection has
-a state that can be manipulated by external commands, which manage the connection or obtain
-state information from it. Although a single port can behave both as input and output, the 
-user interface, for ease of comprehension, enforces only one direction. An input port can receive 
-from multiple connections at different data rates ``speaking'' different protocols
-(e.g. TCP, UDP, multicast). An output port can send data to many destinations reading at
-different rates on different protocols. Service channels are also temporarily created to
-perform the handshaking between ports; in this case the protocol of choice is TCP for
-reliability. The use of several different protocols allows us to exploit their best
+The communication abstraction is called a {\em Port}. A port is an active object 
+managing multiple connections for a given unit of data either as input or output
+(see figure \ref{fig:port}). Each connection has a state that can be manipulated
+by external commands, which manage the connection or obtain state information from it. 
+Ports can behave either as input or output.
+%Although a single port can behave both as input and output, the 
+%user interface, for ease of comprehension, enforces only one direction. 
+An input port can receive from multiple connections at different data rates 
+``speaking'' different protocols (e.g. TCP, UDP, multicast). An output port can 
+send data to many destinations reading at different rates on different protocols.
+Service channels are also temporarily created to perform the handshaking 
+between ports; in this case the protocol of choice is TCP for reliability. 
+The use of several different protocol allows us to exploit their best
+
 characteristics:
 \begin{itemize} \pflist
 	\item TCP: reliable, it can be used to guarantee the reception of a message;
@@ -99,8 +57,7 @@ up with the present than to process every bit received.
 %YARP is definitely
 %not an event based system since a single message is not guaranteed to get through. 
 %
-A
-typical application is, for example, the acquisition of images, and delivery to many 
+A typical application is, for example, the acquisition of images, and delivery to many 
 machines performing the processing in parallel. Slower processes might simply not
 use all the available frames in the stream of data and rather skip some of them.
 
@@ -117,15 +74,16 @@ use all the available frames in the stream of data and rather skip some of them.
 %natural use of ports.
 
 Message delivery can be guaranteed, but at a cost or introducting a subtle coupling
-between processes, as discussed later in this paper [xref].
+between processes, as discussed later in this paper [xref]. More details on the interface
+of the ports are reported in the next section.
 
-Reading from ports can be blocking, non-blocking (polling), or can happen on a callback.
-Writing is normally non-blocking, although it can be made to block depending on the requirements of the channel. In short, once data is available, a reference to a data
-buffer (of the same type of the data being received) is returned to the user code. This
-remains valid for the user to manipulate it as long as no other calls to the read function
-are made. 
-On a write, on the other hand, the buffer is passed to the trasmission code which deals
-with the details of the communication, while user code can continue execution.
+%Reading from ports can be blocking, non-blocking (polling), or can happen on a callback.
+%Writing is normally non-blocking, although it can be made to block depending on the requirements of the channel. In short, once data is available, a reference to a data
+%buffer (of the same type of the data being received) is returned to the user code. This
+%remains valid for the user to manipulate it as long as no other calls to the read function
+%are made. 
+%On a write, on the other hand, the buffer is passed to the trasmission code which deals
+%with the details of the communication, while user code can continue execution.
 
 Ports are located on the network by symbolic names which are managed by a name server.
 %
@@ -144,37 +102,11 @@ unregistered, and eventually destroyed.
 
 Ports can deal with any data type. For simple data types (i.e. not containing pointers) 
 the port class is already equipped with the appropriate communication code. Complex data
-types are dealt by extending the code by specializing the port C++ template for the 
+types are dealt by specializing the port C++ template for the 
 new complex data type and providing the serialization and deserialization functions. 
 This extension is relatively stereotyped and easily realized from client code: that is, 
 the library as such does not need to be rebuilt.
 Support for marshalling is not built into the library.
-
-Ports were designed with the two-fold goal of reducing the interactions at large between 
-the various components of the robot controller and, simultaneously, to allow efficient 
-communication between interacting parts of the system. The bottleneck in this approach
-would eventually be the available bandwidth on the network. Instead, as long as bandwidth
-is available, the addition of new components should minimally interfere with existing 
-processes. This is important, since often the actual performance of a robotic controller
-depends on the timing of various signals. While this is not strictly guaranteed by the 
-YARP infrastructure, the problem is in practice alleviated computationally by allowing 
-the inclusion of more processors to the network, and from the communication point of view
-by isolating sub-components.
-
-YARP does not contain any means of automatically allocating processes to a cluster of
-processors as in some approaches like GRID []. Our apporach is that of leaving this
-task to the user to act sensibly and allocate the processes. The rationale is that: i)
-special interface hardware is necessarily to be controlled by the appropriate piece of 
-software, and ii) in an etherogeneous network of processors, faster processors might 
-need to be allocated differently from slower processors. The final behavior is that of 
-a sort of ``soft real-time'' parallel computation cluster without the more demanding
-requirements of a real-time operating system.
-
-In complex systems, with dozens of processes and hundreds of connections, it might become
-unpractical to shut down and restart the whole system every time a module is even slightly 
-changed. YARP allowing the run-time connection of channels takes a reasonable approach
-here by permitting the disconnection of only those parts of the system that need to be, 
-for instance, rebuilt.
 
 Finally, it is important to note that ports are implemented as C++ templates and 
 specialized to the type of the data to be transmitted or received. This creates a very 
@@ -227,7 +159,7 @@ Read()} succeeds, then the object returned by any subsequent call to
 {\em Content()} will be the received data, and is guaranteed not to
 change or be overwritten until the next call to {\em Read()}.
 If new data is sent to the port in the meantime, the appropriate
-action will be taken based on the port buffering policy.  For example,
+action will be taken based on the port buffering policy (xref to section).  For example,
 the data may be stored in an alternate buffer and then queued up to 
 become the {\em Content()} after the next call to {\em Read()}.
 
@@ -272,10 +204,10 @@ may read data at different rates.  By default, when {\em Write}
 is called, a reference to the buffer is passed to
 every free output connection (to block and wait for all sends to finish before trying the next one, {\em FinishSend} can be called).  The buffer will be retained
 until it is no longer needed by any output connection, and then
-given back to the port to be recycled.  After each call to
-{\em Write} the output of {\em Content} may change, with
-a pool of buffers growing to a worst case of one for each
-output connection, plus one extra for the client.
+given back to the port to be recycled.  %After each call to
+%{\em Write} the output of {\em Content} may change, with
+%a pool of buffers growing to a worst case of one for each
+%output connection, plus one extra for the client.
 
 This short example shows all the main features of the port classes including the strong
 typization of the communication channels, the independence of the connected processes, and
