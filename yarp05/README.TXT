@@ -5,6 +5,13 @@ International Journal on Advanced Robotics Systems Special Issue on
 
 http://www.ars-journal.com/ars/Special_Issue.htm
 
+They want a PDF and DOC.
+
+Can make a rough HTML version with:
+  latex2html -split 0
+Can then make a rough DOC by opening result with open office, then exporting
+to DOC format.
+
 ***
 
 From: euron-dist-bounces@mail-ext1.ais.fraunhofer.de
