@@ -1,31 +1,33 @@
 \section{Image processing}
 
 Support for visual processing is a mandatory requirement for a
-software library designed to be used in humanoid robotics. Real time
-systems are critical for vision, as computer vision algorithms require
-the elaboration of a large quantity of data.
-
-Efficiency is very important in image processing, so we choose
+software library designed to be used in humanoid robotics. 
+%
+%Real time
+%systems are critical for vision, as computer vision algorithms require
+%the elaboration of a large quantity of data.
+%
+Efficiency is very important in real-time image processing, so we choose
 an approach which interfaces particularly well with popular
 optimized libraries, but which is still capable of good
 performance in their absence.
 
 To help developers write efficient visual processing routines, Intel
-released the Image Processing Library (IPL). This library in optimized
+released the Image Processing Library (IPL). This library is optimized
 to provide high performance on machines which employ Intel processors,
 especially if equipped with MMX\texttrademark technology. The IPL
 library is a set of C functions which implement basic operations on
 images, from simple algebraic operations on pixels to color
 conversions and convolutions. The library consists of different
-modules optimized for different CPU. For better performance at
+modules optimized for different CPUs. For better performance at
 run-time the library automatically detects the CPU type and loads the
-module that is more suitable. Another advantage of using the IPL is
+module that is most suitable. Another advantage of using the IPL is
 that it is at the core of the OpenCV library~\cite{bradski04open}
 which provides 
 sophisticated routines for image processing such as filtering, face
 tracking, optic flow, and much more.
 
-Our basic image class (YARPImage) has an internal structure that is
+Our basic image class has an internal structure that is
 compatible with the IPL library.  This allows any user to take full
 advantage of the IPL and/or OpenCV libraries; if these libraries
 are not used, then a core set of functions are available through
@@ -34,8 +36,8 @@ data stored in a foreign format.  This is useful to prevent unnecessary
 copies when using other image processing libraries, or interfacing
 with image sources (e.g. framegrabbers) and sinks (e.g. a graphic
 display).
-
-
+%
+%
 %% Unfortunately the IPL library does not provide support for object
 %% oriented programming. We decided to write a library which implements a
 %% set of classes to store and manipulate the pixels of an image. The set
@@ -46,10 +48,9 @@ display).
 %% of the library we decided to use templates for efficiency reasons. The
 %% internal structure of the image is identical to the one used by the
 %% IPL library. 
-
-
-YARP also provides support for transmitting images between two YARP
-ports.
+%
+%
+YARP also provides support for transmitting images across the network.
 
 
 \begin{figure}[t]
