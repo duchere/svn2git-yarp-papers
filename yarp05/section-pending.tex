@@ -69,3 +69,205 @@ to image data stored externally or in an alternate representation.
 IPC by Christopher Fedor and Reid Simmons, used in Carmen.
 Check this: \cite{roy03IROS}
 
+
+
+\section{Device Driver Example: YARPGenericFrameGrabber}
+
+As an exemple we report here the structure of the generic frame grabber. The first layer is the YARPDeviceDriver which defines the methods open(), close() and IOCtl(). It also stores the function table that implements the interface of the drivere (m\_cmds); this table is allocated and initialized in the YARPDeviceDriver constructor. This table is correcly filled by the DERIVED class (see below).
+
+{\small \begin{verbatim}
+template <class DERIVED>
+class YARPDeviceDriver
+{
+public:
+	YARPDeviceDriver(int n_cmds);
+	virtual ~YARPDeviceDriver();
+protected:
+	typedef int (DERIVED::*cmd_function_t)(void *);
+	// function table
+	cmd_function_t *m_cmds;
+
+public:
+	virtual int open(void *p) = 0;
+	virtual int close() = 0;
+
+	int IOCtl(int cmd, void *data)
+	{
+	  int ret = ((DERIVED *)
+	            this->*m_cmds[cmd])(data);
+	  return ret;
+	}
+};
+\end{verbatim} }
+
+In addition we defined the following messages:
+
+{\small \begin{verbatim}
+enum FrameGrabberCmd
+{
+  FCMDWaitNewFrame,
+  FCMDAcquireBuffer,
+  FCMDReleaseBuffer,
+  FCMDGetSizeX,
+  FCMDGetSizeY,
+  FCMDSetContrast,
+  ...
+};
+\end{verbatim} }
+
+The first message waits for a new frame to be acquired. FCMDAcquireBuffer reserves the most recent frame and returns a pointer to it; the frame is released by the application by calling FCMDReleaseBuffer. The other messages are simple commands to set/get general parameters.
+
+The YARPGenericGrabberAdapter is a virtual class which defines the interface for the adapter. In this case it is quite simple and consists only in the initialize() and uninitialize() methods. 
+
+The last layer is a template class YARPGenericGrabber whose parameter is the adapter of a specific board. Part of the implementation of the YARPGenericGrabber is reported here:
+
+{\small \begin{verbatim}
+template <class ADAPTER>
+class YARPGenericGrabber
+{
+protected:
+	ADAPTER _adapter;
+public:
+	YARPGenericGrabber ();
+	~YARPGenericGrabber ();
+
+	int initialize (...)
+	{
+	  return  _adapter.initialize(...);
+	}
+
+	int uninitialize ()
+	{
+	  return _adapter.uninitialize();
+	}
+
+	int acquireBuffer (unsigned char **buffer)
+	{
+	  return _adapter.IOCtl(FCDMAcquireBuffer, 
+	                        buffer);
+	}
+
+	int releaseBuffer (void)
+	{
+	  return _adapter.IOCtl(FCMDReleaseBuffer);
+	}
+
+	int setContrast(unsigned int contrast)
+	{
+	  return _adapter.IOCtl(FCMDSetContrast, 
+	                        &contrast);
+	}
+
+	... //other methods
+}
+\end{verbatim} }
+
+To instantiate and use the YARPGenericGrabber in our code we need to define the classes implementing the device driver and the adapter for the particular board we intend to use (respectively MyDeviceDriver and MyGrabberAdapter). MyDeviceDriver derives from YARPDeviceDriver. It implements open() and close() methods. The frame grabber interface is implemented in the form of a set of functions whose pointers are stored in m\_cmds. MyDeviceDriver does not need to implement all messages but only the subset of the ones that are meaningful for the board actually in use. This is perfectly safe because by default each entry of the table is initialized to point to an empty (but valid) function.
+
+{\small \begin{verbatim}
+class MyDeviceDriver : 
+	public YARPDeviceDriver<MyDeviceDriver>
+{
+  MyDeviceDriver()
+  {
+    // fils function table
+    m_cmds[FCMDAcquireBuffer] =
+                     &MyDeviceDriver::acquireBuffer;
+    m_cmds[FCMDReleaseBuffer] =
+                     &MyDeviceDriver::releaseBuffer;
+    m_cmds[FCMDFaitFrame] = 
+                     &MyDeviceDriver::waitOnFrame;
+    ...
+  }
+
+  // open and initialize the device
+  int open(void *d);
+
+  // close the device
+  int close(void);
+
+protected:
+  // messages:
+  int waitOnFrame(void *cmd);
+  int acquireBuffer(void *buffer);
+  int releaseBuffer(void *cmd);
+  ...
+}
+\end{verbatim}}
+
+ The MyGrabberAdapter implements only and all the methods defined in the YARPGenericGrabberAdapter. It also derives from MyGenericDeviceDriver to allow accessing the device driver from the higher level layer. A possible implementation is reported here:
+
+{\small \begin{verbatim}
+class MyGrabberAdapter: 
+	public MyDeviceDriver,
+	public YARPGenericGrabberAdapter
+{
+  int initialize(...)
+  {
+    MyDeviceDriver::open();
+    MyDeviceDriver::IOCtl(FCMSetContrast, ...);
+    ... // other initializations
+    return YARP_OK;
+  }
+
+  int unitialize()
+  {
+    MyDeviceDriver::close();
+    ...
+  }
+}
+\end{verbatim}}
+
+Having implemented the adapter and the device driver for our frame grabber, it is now sufficient to instantiate and use the YARPGenericGrabber as follows:
+
+{\small
+\begin{verbatim}
+
+typedef YARPGenericGrabber<MyGrabberAdapter> 
+                          YARPGrabber;
+
+int main()
+{
+  YARPGrabber _grabber;
+  // initialize device
+  _grabber.initialize(..);
+  
+  bool done = false;
+
+  while(!done)
+  {
+    // wait until a new frame is ready
+    _grabber.waitOnNewFrame();
+    // lock most recent frame and
+    // get a pointer to it
+    _grabber.acquireBuffer(&buffer);
+    // ...
+    // ...
+    // release frame
+    _grabber.releaseBuffer();
+  }
+
+  // close the device
+  _grabber.uninitialize();
+}
+\end{verbatim}
+}
+
+
+\section{Zone of proximal development}
+
+(this section is very vague)
+
+For infants, the zone of proximal development is the
+difference between what they can accomplish on their
+own compared to what they can accompish with an
+adult's support [CITE].
+
+By loose analogy, we label a robot control system's ``zone of proximal
+development'' to be the set of modules being actively added or worked
+on by the programmer, against a background of pre-existing, operating
+modules.  
+
+YARP helps insulate existing modules from changes in this zone,
+and leaves them in a good form for when the zone moves on.
+
