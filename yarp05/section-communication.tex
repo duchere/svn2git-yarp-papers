@@ -185,29 +185,25 @@ It is perhaps instructive to show a few of the constructs that populate the YARP
 to communication code. As we mentioned before, the main communication instrument is the 
 port. In practice, when coding, ports are always instantiated of a given type as for 
 example:
-
+%
 \begin{verbatim}
     YARPInputPortOf<int> in_port
         (YARPInputPort::DEFAULT_BUFFERS);
-
     in_port.Register ("/my_in_port");
-    
 \end{verbatim}
-
+%
 \noindent which creates a port apt to receive an integer with the default buffering
 provided by the communication layer. The next statement 
 instructs the port to register with the name server with the name ``/my\_in\_port''. An 
 hypothetical sender should conversely create a port as in the following example:
-
+%
 \begin{verbatim}
     YARPOutputPortOf<int> out_port
         (YARPOutputPort::MANY_OUTPUTS, 
          YARP_TCP);
-
     out_port.Register ("/my_out_port");
-
 \end{verbatim}
-
+%
 \noindent which is clearly an output port employing the TCP protocol. The protocol type
 is determined by the output port since the input port can receive in any of the available
 protocols. Also in this case, the port has to register with the name server by calling 
@@ -216,15 +212,14 @@ template being the type of the data being sent.
 
 The next step is to make the input port wait for data and conversely the output port send
 data. The blocking wait is obtained by the following piece of code:
-
+%
 \begin{verbatim}
     if (in_port.Read()) {
         int datum = in_port.Content();
         cout << datum << endl;
-		}
-
+    }
 \end{verbatim}
-
+%
 \noindent 
 This shows how to read from the port with a blocking {\em Read()} and
 acquire the received data through {\em Content()}. If the call to {\em
@@ -238,13 +233,12 @@ become the {\em Content()} after the next call to {\em Read()}.
 
 On the sender side we will have something 
 like:
-
+%
 \begin{verbatim}
     out_port.Content() = 42;
     out_port.Write ();
-
 \end{verbatim}
-
+%
 \noindent which fills the content (a simple integer in this case) by
 accessing the buffer through {\em Content()} and sends it by calling
 {\em Write()}.
@@ -305,28 +299,28 @@ client is greater than that of the server.
 \end{figure}
 
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{fig-throughput-postwait} \\
-\ \\
-\includegraphics[width=\columnwidth]{fig-throughput-prewait} 
-\caption{ 
-%
-Effect of client behavior on a server.  Four client/server
-pairs are shown. In the first, the server is in \textit{wait-after}
-mode and the client is in \textit{single-buffer} mode.  In other
-words, neither side is willing to drop updates and every update
-will get through.
-The second pair is similar, except the server is in \textit{wait-before}
-mode.  In this case that leads to poor latency, since the communication
-delay is long.  For a more realistic ratio of communication delay to
-processing time, this choice is in fact preferable.  When the client
-is in \textit{double-buffer} or \textit{triple-buffer} mode, then
-client processing has no effect on the server, as shown in the lower
-pairs.
-%
-}
-\label{fig:throughput-wait}
-\end{figure}
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{fig-throughput-postwait} \\
+%% \ \\
+%% \includegraphics[width=\columnwidth]{fig-throughput-prewait} 
+%% \caption{ 
+%% %
+%% Effect of client behavior on a server.  Four client/server
+%% pairs are shown. In the first, the server is in \textit{wait-after}
+%% mode and the client is in \textit{single-buffer} mode.  In other
+%% words, neither side is willing to drop updates and every update
+%% will get through.
+%% The second pair is similar, except the server is in \textit{wait-before}
+%% mode.  In this case that leads to poor latency, since the communication
+%% delay is long.  For a more realistic ratio of communication delay to
+%% processing time, this choice is in fact preferable.  When the client
+%% is in \textit{double-buffer} or \textit{triple-buffer} mode, then
+%% client processing has no effect on the server, as shown in the lower
+%% pairs.
+%% %
+%% }
+%% \label{fig:throughput-wait}
+%% \end{figure}
 
 \section{Decoupling timing}
 
@@ -432,6 +426,8 @@ configured to wait, default clients will only delay the server
 with the time taken to communicate with them, and not the time
 they take to process the update.  Clients which absolutely
 need a guarantee of zero update loss can choose \textit{single-buffer}
-behavior.  See Figure~\ref{fig:throughput-wait}.
+behavior.
+%
+%  See Figure~\ref{fig:throughput-wait}.
 
 
