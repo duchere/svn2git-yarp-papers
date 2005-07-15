@@ -100,8 +100,8 @@ minus 2pt \dbltextfloatsep 20pt plus 2pt minus 4pt
 \renewcommand\dblfloatpagefraction{.5}
 
 % pour remplacer les [ par des ( dans les \cite de la biblio
-\renewcommand{\@cite}[2]{({#1\if@tempswa , #2\fi})}
-\renewcommand{\@biblabel}[1]{}
+%%%PF\renewcommand{\@cite}[2]{({#1\if@tempswa , #2\fi})}
+%%%PF\renewcommand{\@biblabel}[1]{}
 %\renewcommand{\@bibitem}[1]{#1}
 
 \def\ps@headings{%
