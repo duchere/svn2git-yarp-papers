@@ -279,10 +279,10 @@ minus 2pt \dbltextfloatsep 20pt plus 2pt minus 4pt
 \renewcommand\theenumii{\@alph\c@enumii}
 \renewcommand\theenumiii{\@roman\c@enumiii}
 \renewcommand\theenumiv{\@Alph\c@enumiv}
-\newcommand\labelenumi{\theenumi.}
-\newcommand\labelenumii{(\theenumii)}
-\newcommand\labelenumiii{\theenumiii.}
-\newcommand\labelenumiv{\theenumiv.}
+\newcommand\labelenumi{\theenumi}
+\newcommand\labelenumii{\theenumii}
+\newcommand\labelenumiii{\theenumiii}
+\newcommand\labelenumiv{\theenumiv}
 \renewcommand\p@enumii{\theenumi}
 \renewcommand\p@enumiii{\theenumi(\theenumii)}
 \renewcommand\p@enumiv{\p@enumiii\theenumiii}
@@ -642,12 +642,12 @@ plus 1pt minus 1pt
 \renewcommand\huge{\@setsize\huge{25pt}\xxpt\@xxpt}
 \renewcommand\Huge{\@setsize\Huge{30pt}\xxvpt\@xxvpt}
 
-\renewcommand\labelenumi{\theenumi.}
+\renewcommand\labelenumi{\theenumi}
 \renewcommand\theenumi{\arabic{enumi}}
-\renewcommand\labelenumii{(\theenumii)}
+\renewcommand\labelenumii{\theenumii}
 \renewcommand\theenumii{\alph{enumii}}
 \renewcommand\p@enumii{\theenumi}
-\renewcommand\labelenumiii{\theenumiii.}
+\renewcommand\labelenumiii{\theenumiii}
 \renewcommand\theenumiii{\roman{enumiii}}
 \renewcommand\p@enumiii{\theenumi(\theenumii)}
 \renewcommand\labelenumiv{\theenumiv.}

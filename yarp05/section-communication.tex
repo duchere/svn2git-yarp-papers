@@ -46,6 +46,8 @@ characteristics:
 	\item QNet: a fast and synchronous protocol used under the QNX real-time OS.
 \end{itemize}
 
+\noindent
+%
 Ports can be connected either programmatically or at run-time.
 %
 %Each communication object, described next, can receive commands from other processes and 
@@ -65,6 +67,11 @@ up with the present than to process every bit received.
 A typical application is, for example, the acquisition of images, and delivery to many 
 machines performing the processing in parallel. Slower processes might simply not
 use all the available frames in the stream of data and rather skip some of them.
+%
+Details of the port API are reported in the next section (Section~\ref{sect:code}).
+Message delivery can be guaranteed, but at a cost or introducting a subtle coupling
+between processes, as discussed later in this paper (see Section~\ref{sect:timing}). 
+
 
 \begin{figure}
 	\centering
@@ -77,10 +84,6 @@ use all the available frames in the stream of data and rather skip some of them.
 %More recently, at the cost of bidirectional synchronization, a method for guaranteeing
 %the delivery of messages has been added but this is not the most straightforward and
 %natural use of ports.
-
-Message delivery can be guaranteed, but at a cost or introducting a subtle coupling
-between processes, as discussed later in this paper [xref]. More details on the interface
-of the ports are reported in the next section.
 
 %Reading from ports can be blocking, non-blocking (polling), or can happen on a callback.
 %Writing is normally non-blocking, although it can be made to block depending on the requirements of the channel. In short, once data is available, a reference to a data
@@ -96,12 +99,16 @@ Ports are located on the network by symbolic names which are managed by a name s
 %
 The name server maps symbolic names (strings) into the triplet 
 composed of the IP address, port number, and interface name. This information is all 
-what is required to enstablish a socket communication between two endpoints. 
+that is required to establish socket communication between two endpoints. 
 A description of the network topology is stored statically in the name server tables (a
-cluster might have multiple and physically separated networks) and used to reply to
+cluster might have multiple separate networks) and used to reply to
 registration or connection requests by the clients. The first operation each port must
-perform is the registration of its name with the name server. This allows then
-communicating to the port. Registration is typically followed by the connection to a peer
+perform is the registration of its name with the name server. 
+%
+%This allows then
+%communicating to the port. 
+%
+Registration is typically followed by connection to a peer
 of the same data type. When the user is done with the port, it can be stopped,
 unregistered, and eventually destroyed.
 
@@ -109,15 +116,24 @@ Ports can deal with any data type. For simple data types (i.e. not containing po
 the port class is already equipped with the appropriate communication code. Complex data
 types are dealt by specializing the port C++ template for the 
 new complex data type and providing the serialization and deserialization functions. 
-This extension is relatively stereotyped and easily realized from client code: that is, 
-the library as such does not need to be rebuilt.
+Serialization is done by providing lists of memory blocks, to minimize copies (crucial
+for bulky types such as images).
+%
+%This extension is relatively stereotyped and easily realized from client code: that is, 
+%the library as such does not need to be rebuilt.
+%
 Support for marshalling is not built into the library.
-
-Finally, it is important to note that ports are implemented as C++ templates and 
+%
+%Finally, it is important to note that
+%
+Ports are implemented as C++ templates and 
 specialized to the type of the data to be transmitted or received. This creates a very 
 clean and consistent client interface.
 
-\section{YARP communication interface}
+\section{Port API}
+
+\label{sect:code}
+
 It is perhaps instructive to show a few of the constructs that populate the YARP approach
 to communication code. As we mentioned before, the main communication instrument is the 
 port. In practice, when coding, ports are always instantiated of a given type as for 
