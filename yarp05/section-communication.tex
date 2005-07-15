@@ -69,7 +69,7 @@ machines performing the processing in parallel. Slower processes might simply no
 use all the available frames in the stream of data and rather skip some of them.
 %
 Details of the port API are reported in the next section (Section~\ref{sect:code}).
-Message delivery can be guaranteed, but at a cost or introducting a subtle coupling
+Message delivery can be guaranteed, but at a cost or introducing a subtle coupling
 between processes, as discussed later in this paper (see Section~\ref{sect:timing}). 
 
 
@@ -254,9 +254,9 @@ incrementally to existing code.
 \begin{figure}[t]
 \includegraphics[width=\columnwidth]{fig-throughput-nowait}
 \caption{
-The top row represents an observable configured for \textit{no-wait};
+The top row represents an output port configured for \textit{no-wait};
 dashed and solid lines show (exaggerated) start and end times of 
-sending an update to three observers, configured as
+sending an update to three observers (input ports), configured as
  \textit{single-buffer},
  \textit{double-buffer},
 and \textit{triple-buffer}
@@ -300,7 +300,7 @@ observers.
 %
 A ``slow'' observer, which takes time to process each update it
 received from the observable, does not force a ``fast'' observer of
-the same observable to slow down.  To acheive this requires either buffering
+the same observable to slow down.  To achieve this requires either buffering
 of messages for bursty sources, or simply dropping messages for
 observers that can't keep up.  The second approach is the default
 behavior in YARP, since it is important to minimize latency.

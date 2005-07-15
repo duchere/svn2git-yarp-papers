@@ -71,14 +71,21 @@ Taking care to disentangle these two devices aids code reuse.
 \section{Device drivers}
 
 A frequent problem encountered during development in robotics is that
-it is very hard to reuse code on different platforms. In some
-cases this cannot be avoided, especially when the platforms are
-mechanically different. In other cases, however the platforms are
-mechanically similar, and just have differences in their 
-electronics~-- different frame grabbers, different
+it is very hard to reuse code on different platforms. 
+%
+%In some
+%cases this cannot be avoided, especially when the platforms are
+%mechanically different. In other cases, however the platforms are
+%mechanically similar, and just have differences in their 
+%electronics~-- 
+%
+For example, two mechanically similar platforms may have different
+electronics~--
+%
+different frame grabbers, different
 control boards, etc (see Figure~\ref{fig:devices}). 
 In these situations it is not possible to reuse code
-written for a platform on the other unchanged. 
+written for one platform on the other unchanged. 
 However something can be done to
 reduce the differences and localize them to specific components
 by minimizing the degree to which
