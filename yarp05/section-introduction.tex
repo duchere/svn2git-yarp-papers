@@ -1,3 +1,4 @@
+
 \section{Introduction}
 
 YARP is written by and for researchers in humanoid robotics, who find
@@ -30,6 +31,32 @@ successfully used on several platforms in our research Laboratories.
 The diversity of contexts on which it has been applied
 show that our efforts have been somehow successful [reference table?].
 
+
+\begin{table}
+\centerline{\small
+\begin{tabular}{|l|c|c|c|}
+\hline
+Robot&Laboratory&size&OS\\
+\hline
+Babybot&LIRA-Lab&13&Win/QNX6\\
+Eurobot&LIRA-Lab&11&Win/QNX6\\
+RobotCub&LIRA-Lab&3&Win\\
+Obrero&MIT-CSAIL&4&Linux/OSX\\
+Mertz&MIT-CSAIL&4&Linux\\
+Domo&MIT-CSAIL&6&Linux\\
+COG&MIT-AILab&30&QNX4/Linux\\
+Kismet&MIT-AILab&12&Linux/Win/QNX4\\
+\hline
+\end{tabular}
+}
+\caption {
+Robots using YARP.
+}
+\end{table}
+
+
+\section{Motivation}
+
 Let us now introduce the main features of YARP by describing the general lessons
 we have learned and applied to YARP.
 %
@@ -38,7 +65,8 @@ we have learned and applied to YARP.
 %
 %\begin{itemize} \pflist
 %\item {\bf One processor is never enough.}
-\emph {One processor is never enough.}
+
+\textit{\textbf{One processor is never enough.}}
 Designing a robot control system as a set of processes running on a
 set of computers is a good way to work. It minimizes time spent wrestling with
 code optimization, rewriting other people's code, and maximizes
@@ -48,7 +76,7 @@ easy as possible. Even where mobility is required this is not a limiting
 factor if teathers or wireless communication are practical.
 
 %\item {\bf Modularity.} 
-\emph {Modularity.}
+\textit{\textbf{Modularity.}}
 Code is better maintainaed and reused if it is organized in small processes 
 each one performing a simple task. In a cluster of computers some processes 
 are bound to specific machines (usually when they require particular hardware 
@@ -66,7 +94,7 @@ need to be allocated differently from slower processors. The final behavior is t
 a sort of ``soft real-time'' parallel computation cluster without the more demanding
 requirements of a real-time operating system.
 
-\emph {Minimal interfearence}. 
+\textit{\textbf{Minimal interference.}}
 %Ports were designed with the two-fold goal of reducing the interactions at large between 
 %the various components of the robot controller and, simultaneously, to allow efficient 
 %communication between interacting parts of the system. The bottleneck in this approach
@@ -80,7 +108,7 @@ the network, and from the communication point of view by the buffer policy.
 %isolating sub-components.
 
 %\item {\bf Stopping hurts.}
-\emph {Stopping hurts.}
+\textit{\textbf{Stopping hurts.}}
 It is a commonplace that human cycles are much, much more expensive
 than machine cycles.  In robotics, it turns out that the human
 cost of stopping and restarting a process can be very high.
@@ -112,7 +140,7 @@ parts of the system.
 %
 %\item {\bf Humility helps.}
 
-\emph {Humility helps.}
+\textit{\textbf{Humility helps.}}
 Over time, sofware for a sophisticated robot needs to 
 aggregate code written by many different people in many
 different contexts.  Doubtless that code will have
@@ -165,20 +193,6 @@ YARP from within Matlab or L~\cite{brooks90behavior}.
 %assumes it is the center of the universe.
 
 %\end{itemize}
-{\small
-\begin{tabular}{|l|c|c|c|}
-\hline
-Setup&Laboratory&size&OS\\
-\hline
-Babybot&LIRA-Lab&13&Win/QNX6\\
-Eurobot&LIRA-Lab&11&Win/QNX6\\
-RobotCub&LIRA-Lab&3&Win\\
-Obrero&MIT-CSAIL&4&Linux\\
-Mertz&MIT-CSAIL&4&Linux\\
-Domo&MIT-CSAIL&6&Linux\\
-\hline
-\end{tabular}
-}
 
 \noindent
 %
@@ -187,7 +201,9 @@ Domo&MIT-CSAIL&6&Linux\\
 %synchronization routines (like mutexes and semaphores) and
 %threads. 
 %
-\emph{Exploit diversity.} Different operating systems offer different
+\textit{\textbf{Exploit diversity.}}
+%
+Different operating systems offer different
 features. Sometimes it is easier to write code to perform a given task
 on a platform as opposed to another. This can happen for example if 
 device drivers for a given board are provided only on a specific platform or
