@@ -15,14 +15,27 @@ those cycles at the moment is to have a cluster of computers. Every
 year what one machine can do grows, but so also do our demands~--
 humanoid robots stretch the limits of current technology, and are
 likely to do so for the foreseeable future.
-%
+Moreover, software is in general tight to the hardware on which it runs.
+This limits modularity and code reuse which, in turn, complicates software 
+development and mantainability. In the last few years we have been developing
+a software platform to ease these tasks and improve the software quality on 
+our robotic platforms. 
+We want to reduce the effort devoted to programming to increase the 
+time spent doing research. At the same time, we would like to have 
+stable robotic platforms to work with.
+Today YARP is a platform for long-term software 
+development for applications that are real-time, computation-intensive, 
+and involve interfacing with diverse and changing hardware. It is is 
+successfully used on several platforms in our research Laboratories. 
+The diversity of contexts on which it has been applied
+show that our efforts have been somehow successful [reference table?].
 
-YARP is a platform for long-term software development for applications
-that are real-time, computation-intensive, and involve interfacing 
-with diverse and changing hardware.
+Let us now introduce the main features of YARP by describing the general lessons
+we have learned and applied to YARP.
 %
-Here are some general lessons we have learned, and apply to YARP.
-
+%
+%Here are some general lessons we have learned, and apply to YARP.
+%
 %\begin{itemize} \pflist
 %\item {\bf One processor is never enough.}
 \emph {One processor is never enough.}
@@ -177,13 +190,14 @@ Domo&MIT-CSAIL&6&Linux\\
 \emph{Exploit diversity.} Different operating systems offer different
 features. Sometimes it is easier to write code to perform a given task
 on a platform as opposed to another. This can happen for example if 
-device driver for a given board are provided only on a specific platform or
+device drivers for a given board are provided only on a specific platform or
 if an algorithm is available open source on another. We decided to reduce the
 dependencies with the operating system. For this we
 use ACE~\cite{ACEBook}, an open source library providing a framework for
 concurrent programming across a very wide range of operating
 systems. YARP inherits the portability of ACE and has indeed been used and
 tested on Windows, Linux and QNX 6.
+
 
 
 YARP's core communication model was the survivor from an early humanoid robot

@@ -1,15 +1,15 @@
 \section{Communication}
 \label{sec:communication}
 
-As stated in the introduction communication is an important topic in YARP, since
-we assume the robot is controlled by a pool of networked PCs.%  This is currently
+%As stated in the introduction communication is an important topic in YARP, since
+%we assume the robot is controlled by a pool of networked PCs.%  This is currently
 %necessary for any robot doing signicant perceptual processing; for
 %example object recognition {\em and} face detection {\em and}
 %responsive motor control.  
 %We do not assume those machines run the
 %same operating system, since the availability of device drivers and
 %can force such choices.
-
+%
 Communication in YARP follows the {\em Observer} pattern~\cite{gamma95design}.  The state
 of special {\it Port} objects can be delivered to any number of
 observers, in any number of processes distributed across any number of
