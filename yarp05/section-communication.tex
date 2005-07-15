@@ -134,37 +134,42 @@ clean and consistent client interface.
 
 \label{sect:code}
 
-It is perhaps instructive to show a few of the constructs that populate the YARP approach
-to communication code. As we mentioned before, the main communication instrument is the 
-port. In practice, when coding, ports are always instantiated of a given type as for 
-example:
+For concreteness, we will show an example of the idiom used in YARP
+for communication.  As mentioned in the previous section, the Port class is the
+key abstraction used. 
+Ports are typically instantiated with a specific type.  For example, if we
+wish to receive integers, we can create an input port at any point
+in the program and in any thread, as follows:
 %
 \begin{verbatim}
-    YARPInputPortOf<int> in_port
-        (YARPInputPort::DEFAULT_BUFFERS);
+    YARPInputPortOf<int> in_port;
     in_port.Register ("/my_in_port");
 \end{verbatim}
 %
-\noindent which creates a port apt to receive an integer with the default buffering
-provided by the communication layer. The next statement 
-instructs the port to register with the name server with the name ``/my\_in\_port''. An 
-hypothetical sender should conversely create a port as in the following example:
+\noindent This creates a port for receiving integers with the default
+buffering provided by the communication layer (see
+Section~\ref{sect:timing} for a discussion of alternatives).  If we
+are in a heterogeneous network, it would be wiser to use {\tt
+YARPInputPortOf<NetInt32>}, where {\tt NetInt32} is a standard integer
+type that is the same size and byte order on all platforms.  The next
+statement instructs the port to register with the name server with the
+arbitrary name ``/my\_in\_port''. A hypothetical sender should conversely
+create a port as in the following example:
 %
 \begin{verbatim}
-    YARPOutputPortOf<int> out_port
-        (YARPOutputPort::MANY_OUTPUTS, 
-         YARP_TCP);
+    YARPOutputPortOf<int> out_port;
     out_port.Register ("/my_out_port");
 \end{verbatim}
 %
-\noindent which is clearly an output port employing the TCP protocol. The protocol type
-is determined by the output port since the input port can receive in any of the available
-protocols. Also in this case, the port has to register with the name server by calling 
-{\em Register()}. As described earlier, the port is a template with the argument of the
+\noindent This is an output port employing the default protocol (TCP, or shared memory whenever
+possible); alternatives can be easily requested.  The protocol type
+is determined by the output port since the input port can receive any of the available
+protocols. Again, the port has to register with the name server by calling 
+{\em Register}. As described earlier, the port is a template with the argument of the
 template being the type of the data being sent.
 
-The next step is to make the input port wait for data and conversely the output port send
-data. The blocking wait is obtained by the following piece of code:
+The next step is to wait for data from the input port and send data through the output port
+Waiting or polling for data can be done in several ways; here's one way:
 %
 \begin{verbatim}
     if (in_port.Read()) {
@@ -174,17 +179,17 @@ data. The blocking wait is obtained by the following piece of code:
 \end{verbatim}
 %
 \noindent 
-This shows how to read from the port with a blocking {\em Read()} and
-acquire the received data through {\em Content()}. If the call to {\em
-Read()} succeeds, then the object returned by any subsequent call to
-{\em Content()} will be the received data, and is guaranteed not to
-change or be overwritten until the next call to {\em Read()}.
+This shows how to read from the port with a blocking {\em Read} and
+acquire the received data through {\em Content}. If the call to {\em
+Read} succeeds, then the object returned by any subsequent call to
+{\em Content} will be the received data, and is guaranteed not to
+change or be overwritten until the next call to {\em Read}.
 If new data is sent to the port in the meantime, the appropriate
-action will be taken based on the port buffering policy (xref to section).  For example,
+action will be taken based on the port buffering policy (see Section~\ref{sect:timing}).  For example,
 the data may be stored in an alternate buffer and then queued up to 
-become the {\em Content()} after the next call to {\em Read()}.
-
-On the sender side we will have something 
+become the {\em Content} after the next call to {\em Read}.
+%
+On the sending side we will have something 
 like:
 %
 \begin{verbatim}
@@ -192,30 +197,35 @@ like:
     out_port.Write ();
 \end{verbatim}
 %
-\noindent which fills the content (a simple integer in this case) by
-accessing the buffer through {\em Content()} and sends it by calling
-{\em Write()}.
+\noindent This fills the content (a simple integer in this case) by
+accessing the buffer through {\em Content} and sends it by calling
+{\em Write}.  The use of {\em Content} is important to avoid unnecessary copies
+while still maintaining an abstraction barrier between the port and the user.
 %
 %
-If we now connect the two processes (the one receiving
-and the other sending) by, for example, using the YARP utility {\em yarp-connect}:
+We can now connect the two processes (one receiving,
+one sending) by, for example, using the YARP command-line utility {\em yarp-connect}:
 
 \begin{verbatim}
-$-  yarp-connect /my_out_port /my_in_port    
+yarp-connect /my_out_port /my_in_port    
 \end{verbatim}
 
-\noindent we obtain the connection of the two ports and the exchange of data. As explained,
-the communication code is fairly independent from the remaining code and easily separated
-by any other code the user might have developed already, even other communications 
-mechanisms. When done with the communication the user can detach the ports using the same
-utility (note the exclamative mark before the receiver name):
-
-\begin{verbatim}
-$-  yarp-connect /my_out_port !/my_in_port 
-\end{verbatim}
-
+\noindent 
+%As explained,
+%the communication code is fairly independent from the remaining code and easily separated
+%by any other code the user might have developed already, even other communications 
+%mechanisms. 
+%
+When done with the communication the user can detach the ports in a similar way.
+% using the same
+%utility (note the exclamation mark before the receiver name):
+%
+%\begin{verbatim}
+%yarp-connect /my_out_port !/my_in_port 
+%\end{verbatim}
+%
 The ports are not destroyed by detaching them and in fact can be connected and disconnected
-ad lib. When done with the ports instead the user code can call {\em Unregister()} to 
+freely. When done with the ports the user code can call {\em Unregister} to 
 remove the ports from the name server, and finally destroy them by invocation of the C++
 destructor (perhaps implicitly when exiting the port scope).
 
@@ -225,15 +235,20 @@ may read data at different rates.  By default, when {\em Write}
 is called, a reference to the buffer is passed to
 every free output connection (to block and wait for all sends to finish before trying the next one, {\em FinishSend} can be called).  The buffer will be retained
 until it is no longer needed by any output connection, and then
-given back to the port to be recycled.  %After each call to
+given back to the port to be recycled.  
+%After each call to
 %{\em Write} the output of {\em Content} may change, with
 %a pool of buffers growing to a worst case of one for each
 %output connection, plus one extra for the client.
 
 This short example shows all the main features of the port classes including the strong
-typization of the communication channels, the independence of the connected processes, and
+typing of the communication channels, the independence of the connected processes, and
 the use of an external utility to command ports.
-
+%
+Port creation, connection, and communication can occur in one part of a much larger
+program without, for example, having to place special initialization steps in some
+particular phase of start-up.  This makes it very easy to add YARP-style communication
+incrementally to existing code.
 
 
 \begin{figure}[t]
