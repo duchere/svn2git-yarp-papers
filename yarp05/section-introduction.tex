@@ -60,7 +60,7 @@ Kismet&MIT-AILab&12&Linux/Win/QNX4\\
 \end{tabular}
 }
 \caption {
-Robots using YARP, and the number of computers used (this 
+Robots using YARP, and the number of computers they use (this 
 count does not include processors such as DSPs,
 often used for low-level motor control).
 }
@@ -221,7 +221,7 @@ YARP from within Matlab and L~\cite{brooks90behavior}.
 %
 Different operating systems offer different
 features. Sometimes it is easier to write code to perform a given task
-on a platform as opposed to another. This can happen for example if 
+on one OS as opposed to another. This can happen for example if 
 device drivers for a given board are provided only on a specific platform or
 if an algorithm is available open source on another. We decided to reduce the
 dependencies with the operating system. For this we
@@ -233,6 +233,7 @@ tested on Windows, Linux and QNX 6.
 
 
 YARP's core communication model was the survivor from an early humanoid robot
+(called Kismet)
 controlled by a set of Motorola 68332 processors, an Apple Mac, and a loose network
 of PCs running QNX, Linux, and Microsoft Windows.  Communication was a
 hodge-podge of dual-port RAM, QNX message passing, CORBA, and raw
