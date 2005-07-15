@@ -19,13 +19,12 @@ observers from each other.  For example,
 if one observer reads a data source slowly and infrequently, this
 does not force other observers to slow down.
 
-Communication channels in YARP can be connected either programmatically or at run-time.
-Each communication object, described next, can receive commands from other processes and 
-react consequently by activating or removing a specific connection.
-
-The communication abstraction is called a {\em Port}. A port is an active object 
+%The communication abstraction is called a {\em Port}. 
+%
+In YARP,
+a port is an active object 
 managing multiple connections for a given unit of data either as input or output
-(see figure \ref{fig:port}). Each connection has a state that can be manipulated
+(see Figure~\ref{fig:port}). Each connection has a state that can be manipulated
 by external commands, which manage the connection or obtain state information from it. 
 Ports can behave either as input or output.
 %Although a single port can behave both as input and output, the 
@@ -36,8 +35,8 @@ send data to many destinations reading at different rates on different protocols
 Service channels are also temporarily created to perform the handshaking 
 between ports; in this case the protocol of choice is TCP for reliability. 
 The use of several different protocol allows us to exploit their best
-
 characteristics:
+%
 \begin{itemize} \pflist
 	\item TCP: reliable, it can be used to guarantee the reception of a message;
 	\item UDP: faster than TCP, used for point to point connections;
@@ -47,6 +46,12 @@ characteristics:
 	\item QNet: a fast and synchronous protocol used under the QNX real-time OS.
 \end{itemize}
 
+Ports can be connected either programmatically or at run-time.
+%
+%Each communication object, described next, can receive commands from other processes and 
+%react consequently by activating or removing a specific connection.
+%
+%
 Communication is fully asynchronous and as such messages are not guaranteed to be 
 delivered unless special provisions are made. The default behavior of YARP ports 
 is targetted at dealing with recurrent messages, updated and sent often, where losing 
