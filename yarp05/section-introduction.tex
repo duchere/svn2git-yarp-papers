@@ -116,10 +116,11 @@ requirements of a real-time operating system.
 %would eventually be the available bandwidth on the network. 
 As long as enough resources are available, the addition of new components 
 should minimally interfere with existing processes. This is important, since often 
-the actual performance of a robotic controller depends on the timing of various signals. 
+the actual performance of a robot controller depends on the timing of various signals. 
 While this is not strictly guaranteed by the YARP infrastructure, the problem is in 
 practice alleviated computationally by allowing the inclusion of more processors to 
-the network, and from the communication point of view by the buffer policy.
+the network, and from the communication point of view by the buffer policy
+(see Section~\ref{sect:timing}).
 %isolating sub-components.
 
 %\item {\bf Stopping hurts.}
@@ -139,12 +140,13 @@ turn, and other dependent hardware.
 %
 These ordering constraints are time-consuming to satisfy.
 %
-YARP does its part to minimize dependencies between processes,
+YARP does its part to minimize dependencies between processes.
 % so only true physically required dependencies remain.  
-communication channels between processes can come and go. 
+Communication channels between processes can come and go without
+process restarts.
 A process that is killed or dies
 unexpectedly does not require processes to which it connects to be
-restarted. This also simplify cooperation between people, as
+restarted. This also simplifies cooperation between people, as
 it minimizes the need to synchronize development on different  
 parts of the system.
 %
@@ -160,11 +162,11 @@ Over time, sofware for a sophisticated robot needs to
 aggregate code written by many different people in many
 different contexts.  Doubtless that code will have
 dependencies on various communication, image processing,
-and other libraries. Very often the operating system on which
-software is developed pose similar constraints. This is especially
+and other libraries. Even the operating system on which
+the software is developed can pose similar constraints. This is especially
 true with code that relies heavily on the services offered by the 
 operating system (such as communication, scheduling, synchronization primitives, 
-and device driver interface).
+and device driver interfaces).
 %
 Any component that tries to place itself ``in control'' and has strong
 constraints on what dependencies are permissible will not be tolerated
@@ -182,7 +184,7 @@ or DCOM~\cite{dcom}. Such systems, although far more powerful than YARP,
 require a much tighter link between the general algorithmic code and the 
 communication layer.
 We have taken a more lightweight approach: YARP is a plain library linked
-to uses-level code that can be used directly just by instantiating appropriate classes.
+to user-level code that can be used directly just by instantiating appropriate classes.
 %
 % and communication does not require any diversion
 % of pre-existing threads. That is, YARP is a plain library linked to user-level
@@ -200,8 +202,8 @@ to uses-level code that can be used directly just by instantiating appropriate c
 %
 %
 Finally, other programming languages can access YARP as well, provided they
-have means of linking and calling C++ code. We have successfully used
-YARP from within Matlab or L~\cite{brooks90behavior}.
+can link and cal C++ code. We have successfully used
+YARP from within Matlab and L~\cite{brooks90behavior}.
 
 %It is userful to reserve
 %that role for the occasional poorly-designed hardware device that
