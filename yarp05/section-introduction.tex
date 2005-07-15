@@ -70,8 +70,8 @@ often used for low-level motor control).
 
 \section{Motivation}
 
-Let us now introduce the main features of YARP by describing the general lessons
-we have learned and applied to YARP.
+Let us now introduce  YARP by describing the high-level lessons
+we have learned and applied within it.
 %
 %
 %Here are some general lessons we have learned, and apply to YARP.
@@ -86,23 +86,25 @@ code optimization, rewriting other people's code, and maximizes
 time spent actually doing research.  The heart of YARP is a
 communications mechanism to make writing and running such processes as
 easy as possible. Even where mobility is required this is not a limiting
-factor if teathers or wireless communication are practical.
+factor if tethers or wireless communication are acceptable.
 
 %\item {\bf Modularity.} 
 \textit{\textbf{Modularity.}}
-Code is better maintainaed and reused if it is organized in small processes 
+Code is better maintained and reused if it is organized in small processes,
 each one performing a simple task. In a cluster of computers some processes 
-are bound to specific machines (usually when they require particular hardware 
-device), but most of the times they can run on any of the available computers. 
+are bound to specific machines (usually when they require a particular hardware 
+device), but most of the time they can run on any of the available computers. 
 With YARP it is easy to write processes that are location independent and 
-that can run on different machines without code changes. This allows to move 
+that can run on different machines without code changes. This allows us to move 
 processes across the cluster at runtime to redistribute the computational 
 load on the CPUs or to recover from a hardware failure. 
 YARP does not contain any means of automatically allocating processes as in 
-some approaches like GRID \cite{grid}. Our apporach is that of leaving this
-task to the user to act sensibly and allocate the processes. The rationale is that: i)
-special interface hardware is necessarily to be controlled by the appropriate piece of 
-software, and ii) in an etherogeneous network of processors, faster processors might 
+some approaches like GRID \cite{grid}. We deliberately assign this
+task to the developer.  The rationale is that: i)
+the link between hardware and corresponding control software is subject
+to constraints understood by the developer but cumbersome to
+encode, particularly in a continually-changing research environment, and
+ ii) in an heterogeneous network of processors, faster processors might 
 need to be allocated differently from slower processors. The final behavior is that of 
 a sort of ``soft real-time'' parallel computation cluster without the more demanding
 requirements of a real-time operating system.
