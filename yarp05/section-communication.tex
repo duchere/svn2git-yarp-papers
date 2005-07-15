@@ -294,19 +294,20 @@ client is greater than that of the server.
 
 \label{sect:timing}
 
-Our goal is that observers can be added to an observable without
-having an impact on existing observers.  
+A very useful feature of YARP is that ``observers'' (input ports) can be connected to an
+``observable'' (output port) with minimal impact on existing
+observers.
 %
 A ``slow'' observer, which takes time to process each update it
-received from the observable, should not force a ``fast'' observer of
-the same observable to slow down.  This implies either buffering
-of messages for bursty channels, or simply dropping messages for
+received from the observable, does not force a ``fast'' observer of
+the same observable to slow down.  To acheive this requires either buffering
+of messages for bursty sources, or simply dropping messages for
 observers that can't keep up.  The second approach is the default
-behavior in YARP.
+behavior in YARP, since it is important to minimize latency.
 
 Let us assume we have a ``server'' process which contains an
-observable (an output {\tt Port}), and a ``client'' process
-which contains a corresponding observer (an input {\tt Port}).
+observable (an output port), and a ``client'' process
+which contains a corresponding observer (an input port).
 The server process can update the observable in one of three ways:
 
 \begin{itemize} \pflist
@@ -341,13 +342,14 @@ To insulate the server from the details of implementing all this, the
 state associated with an observable is made logically distinct from
 the observable itself, and once an update is requested (by a call to
 {\em Write}) the state becomes the property of the communication
-system, while the server is given a replacement object to work with.
+system, while the server is given a replacement object to prepare for
+the next update.
 %
 The communication system manages a pool of such state objects which
 grows to whatever size is necessary based on the speed of the various
 observers.
 %
-
+%
 On the client side, there are some choices in how the
 observer behaves:
 
@@ -381,14 +383,13 @@ choice minimizes the time spent waiting for communication to occur by
 the server and the client, and permits updates to be lost (either by
 never sending them, or discarding them on the client side) if the
 client is not keeping up.  This is generally a good choice for
-real-time performance.
+real-time performance  (See Figure~\ref{fig:throughput-nowait}).
 
 The default of \textit{no-wait} on the server side is particularly
 important, since it minimizes coupling between observers of the same
 observable.  If it is important that updates are never lost, then
 inevitably there will be coupling, since a slow client can then force
 the server to slow down the rate at which it serves all clients.
-See Figure~\ref{fig:throughput-nowait}.
 
 The default of \textit{triple-buffer} on the client side insulates the
 server from the client's behavior by default.  Even if the server is
