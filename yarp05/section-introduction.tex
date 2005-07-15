@@ -4,33 +4,43 @@
 YARP is written by and for researchers in humanoid robotics, who find
 themselves with a complicated pile of hardware to control with an
 equally complicated pile of software.
-
+%
 %YARP includes modules to facilitate software development on
 %humanoid robots, including abstractions for the operating system,
 %image processing, physical devices, mathematical operations, etc.
 %
-At the time of writing, running decent visual, auditory, and tactile
+Achieving visual, auditory, and tactile
 perception while performing elaborate motor control in real-time
 requires a lot of processor cycles. The only practical way to get
 those cycles at the moment is to have a cluster of computers. Every
-year what one machine can do grows, but so also do our demands~--
+year the capabilities of an individual machine grows, but so also do our demands~--
 humanoid robots stretch the limits of current technology, and are
 likely to do so for the foreseeable future.
-Moreover, software is in general tight to the hardware on which it runs.
+Moreover, software easily becomes entangled with the hardware on which it runs and the
+devices that it controls.
 This limits modularity and code reuse which, in turn, complicates software 
 development and mantainability. In the last few years we have been developing
 a software platform to ease these tasks and improve the software quality on 
-our robotic platforms. 
-We want to reduce the effort devoted to programming to increase the 
-time spent doing research. At the same time, we would like to have 
-stable robotic platforms to work with.
+our robot platforms. 
+We want to reduce the effort devoted to infrastructure-level programming to increase the 
+time spent doing research-level programming. At the same time, we would like to have 
+stable robot platforms to work with.
 Today YARP is a platform for long-term software 
 development for applications that are real-time, computation-intensive, 
-and involve interfacing with diverse and changing hardware. It is is 
-successfully used on several platforms in our research Laboratories. 
-The diversity of contexts on which it has been applied
-show that our efforts have been somehow successful [reference table?].
+and involve interfacing with diverse and changing hardware. It is
+successfully used on several platforms in our research laboratories
+(see Table~\ref{tab:robots}).
+%
+%The diversity of contexts on which it has been applied
+%show that our efforts have been somehow successful [reference table?].
 
+We begin the paper by summarizing the lessons we have learned over
+the years while working on various robots, some of which are 
+software engineering commonplaces and some of which are more
+specific to long-term robotic research.  The bulk of the paper 
+discusses the communication model supported by YARP.  We then
+briefly mention other components of the library, in particular
+image processing and device drivers.
 
 \begin{table}
 \centerline{\small
@@ -52,6 +62,7 @@ Kismet&MIT-AILab&12&Linux/Win/QNX4\\
 \caption {
 Robots using YARP.
 }
+\label{tab:robots}
 \end{table}
 
 
