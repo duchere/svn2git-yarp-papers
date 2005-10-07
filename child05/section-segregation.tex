@@ -1,0 +1,58 @@
+
+
+The world around us is made of objects, some of which can more or less
+move independently.  As adults, we can judge which parts of the world
+are likely to move as a group.  This is computationally a difficult
+judgement to make, since regions grouped by easily-defined visual
+features do not reliably correspond to physical groups.  Robots and
+infants could attempt to learn to make such judgements based on
+experience.  There is evidence of this in infants, and initial
+attempts with robots.
+
+
+Needham's experiments. 
+\cite{needham01object,needham97object}
+Looking time suggests that experience with objects moving separately
+or together can affect future perception in the right way.
+(also, the ``sticky hands'' work).
+
+
+Johnson et al re segregation in the presence of partial occlusion.
+
+For young infants, common motion is an important cue for 
+perception of object unity.  Others: alignment, good form,
+depth cues.  Spatial separation.
+
+Infants also use information about specific objects or
+classes of objects to guide their judgement.  
+
+Can use information from just one experience.
+
+Reorganize based on: judgements based on fairly general
+principles, versus judgements based on specific object
+knowledge.
+
+In robotics, work related to object segregation is quite
+primitive.  It is strongly influenced by the field
+of computer vision, where ``object segmentation'' is a classic,
+much studied problem.  See FOO for a fuller review than we give
+here.  Representative work in computer vision,
+see eg Berkeley (Malik and co).
+
+How is the problem formalized in vision?  We want a function
+which maps a matrix of pixels to a matrix of labels, where
+any pair of locations should have the same label if and
+only if their pixels are from the same object.
+This is not well-defined in general; for example, in some
+circumstances a person and everything they wear should be
+considered a single object, in other cases they to clothes
+should be separated; every object is composed of smaller
+objects, etc.
+
+What is omitted from this formalization?
+
+What other problems are addressed in computer vision that
+are relevant?
+
+
+
