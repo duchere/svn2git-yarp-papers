@@ -7,6 +7,8 @@ Should provide the clearest possible definition of terms,
 as a reference.  Human and robot uses of terms could deviate
 from this definition if the deviation is also clearly described.
 
+Object segregation, intermodal integration, object permanence.
+
 Define a cell as the smallest sensing unit, for whichever sensors are
 under consideration (e.g. pixels for images).  Assume there are a
 fixed number of cells $c_1...c_{N}$.
@@ -23,6 +25,20 @@ made in complicated cases.  Might be better to give examples,
 and underspecify.
 
 Specification for object segregation:
+
+$I(t) = [c_1.val(t) ... c_N.val(t)]$
+
+Goal of segregation:
+  Find a set $S_i$ = e.g. ${ c_2,c_4,c_5,c_6,... }$ that lists cells that
+  belong together at a particular time.
+  Find a set of such sets - Z.
+
+Goal of intermodal integration:
+  Bring together such sets across modal boundaries.
+
+Goal of object permanence:
+  Bring together such sets across time and disappearances.
+
 
 ***********
 
