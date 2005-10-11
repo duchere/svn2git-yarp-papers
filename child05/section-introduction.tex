@@ -36,6 +36,7 @@ Topics:
 
 \end{itemize}
 
+
 \subsection{Importance of motion?}
 
 We are talking about the {\em development} of perception from an
@@ -66,4 +67,25 @@ others or caused by others is useful.  Motion caused by the robot
 itself is particularly useful; this could be true of infants but is
 moot given the limited motor control available initially.
 
+\subsection{Preamble}
 
+What is perception for?  One classic answer from robotics is that the
+goal of perception is to recover, as faithfully as possible, the state
+of the world.  That is, some model is made of the world, with some
+number of free parameters, and the goal of perception is to find
+values for those parameters to bring the model into as close an
+alignment as possible with the world.
+
+This view is my no means unquestioned; to achieve a particular
+task, the most useful model to estimate may vary.  It may be
+trivial, or the robot's behavior may be easier to produce or
+describe in alternate ways that don't use the language of
+model estimation.
+
+In this paper, we will assume that the robot is engaged
+in manipulation tasks (as opposed to, for example, navigation).
+
+{\bf Behavioral view}: strategies that make it likely for the robot
+to be looking somewhere useful (hand/eye coordination).
+{\bf Model view}: ability to demonstrate flexible knowledge of presence of 
+objects and some of their properties.
