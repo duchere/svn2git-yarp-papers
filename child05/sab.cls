@@ -10,7 +10,7 @@
 \newif\if@restonecol
 \newif\if@titlepage
 \@titlepagefalse
-\@twocolumntrue
+\@twocolumnfalse
 \@twosidetrue
 
 \DeclareOption{a4}
