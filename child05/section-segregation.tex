@@ -1,5 +1,14 @@
 
 
+Gestalt principles.
+
+Time course.
+
+Role of experience.
+
+Role of behavior.
+
+
 The world around us is made of objects, some of which can more or less
 move independently. As adults, we can judge which parts of the world
 are likely to move as a group. This is computationally a difficult
@@ -10,8 +19,33 @@ experience. There is evidence of this in infants, and initial attempts
 with robots.
 
 
-The kinds of experiences infants and robots might learn from include a
-wide range of The kinds of experiences a na\"{i}ve observer might find
+Issues:
+
+\begin{itemize}
+
+\item Measures segregation abilities at given ages.
+
+\item Experiences that show separate movement of particular object.
+
+\item Successful exploitation of such experiences.
+
+\item Degree of generalization to other objects and situations.
+
+\item Role of behavior.
+
+\end{itemize}
+
+Computational:
+
+\begin{itemize}
+
+\item object complexity
+
+\item scene/presentation complexity
+
+\end{itemize}
+
+The kinds of experiences a na\"{i}ve observer might find
 useful in this regard are many and have not been well characterized.
 However, it is clear that human infants do learn generic principles
 for making educated guesses about which surfaces belong together as
@@ -24,13 +58,15 @@ Similar results have been obtained by researchers using partly
 occluded objects (Johnson--+ display??)
 
 
-
 Initial studies indicated that infants used some collection of
 features to parse the displays (Needham, 1998; Needham, \& Baillargeon,
 1997, 1998); subsequent studies suggested that object shape is the key
 feature that young infants use to identify boundaries between adjacent
 objects (Needham, 1999).
 
+{
+\bf What exactly is object shape?
+}
 
 
 These principles may lead to many incorrect parsings, but they will
@@ -42,7 +78,6 @@ relatively few exposures to key events (Baillargeon, 1999).  This
 possibility was investigated within the context of object segregation
 by asking how infants' parsing of a display would be altered
 by a brief prior exposure to one of the objects in the test display.
-
 
 
 In this paradigm, a test display was used that was ambiguous to
@@ -76,6 +111,10 @@ whether they have seen an object before, they must attend to the
 object's features rather than its spatial orientation
 (Needham, 2001).
 
+{
+\bf suggests conservative generalization, but see later.
+}
+
 These results also support two additional conclusions.  First,
 infants' object representations include detailed information
 about the object's features.  Because infants'
@@ -83,13 +122,18 @@ application of their prior experience to the parsing of the test
 display was so dependent on something close to an exact match between
 the features, one much conclude that a highly detailed representation
 is formed on the initial exposure and maintained during the
-inter-trial-interval.  Because these features are remebered and used
+inter-trial-interval.  Because these features are remembered and used
 in the absence of the initial item and in the presence of a different
 item, this is strong evidence for infants' representational
 abilities.  Secondly, 4.5-month-old infants are conservative
-generalizers'they do not extend information from one object to
+generalizers -- they do not extend information from one object to
 another very readily.  But would they extend information from a {\bf group}
 of objects to a new object that is a member of that group?
+
+{
+\bf We are heavily into dealing with object identity here,
+as evaluated via a segregation test.
+}
 
 This question was investigated by Needham, Dueker, \& Lockhead (2005)
 in a study using the same test display and a similar procedure as in
@@ -145,6 +189,10 @@ older (get citation).  This finding suggests that experience might
 serve to initially narrow and then extend the range of stimuli over
 which young children will generalize.
 
+{
+\bf Time course of visual generalization.
+}
+
 \subsection{Role of behavior in the development of these skills}
 
 Infants do not come prepared to segregate objects into units that
@@ -172,6 +220,8 @@ information from both sides of it, are the ones who perceive the
 object parts as connected.  So, eye movements are an important factor
 in this picture)
 
+{\bf eye movements}
+
 Although adjacent objects present a very similar kind of perceptual
 problem (are these surfaces connected or not), the critical components
 of success might be quite different.  Early work with adjacent objects
@@ -186,7 +236,8 @@ two objects as a source of information about the likely separation
 between them (Kaufman \& Needham, submitted), other work comparing
 boundary-occluded and fully visible versions of the same displays
 suggests that boundary information is not the only information infants
-use to parse the objects in a display (Needham, 1998).
+use to parse the objects in a display (Needham, 1998).  
+{\bf this paragraph seems a bit out of place}
 
 These changes in perception do not occur in a vaccuum but rather in a
 child who is also experiencing a range of other develomental changes.
@@ -250,5 +301,105 @@ What is omitted from this formalization?
 What other problems are addressed in computer vision that
 are relevant?
 
+
+\subsection{Segregration in computational vision}
+
+In computational/machine vision, the problem of segregation is
+formalized as decomposing an image into collections of pixels, where
+each collection ideally corresponds to an object.  To make this
+decomposition, image features such as color, brightness, motion,
+stereoscopic cues, and texture can be used; the basic heuristic
+is that by any pair of measurements made within an object should
+generally be more similar numerically than a pair of measurements
+made on regions belonging to different objects.  Another family
+of work concentrates on particular objects rather than the general
+case: finding faces, or cars, for example.
+
+The Torralba-led contextual approach.
+
+Give intro to energy formalization, form used
+for min-cut approaches in stereo, color, etc?
+
+Active segmentation.
+
+Training for segmentation and recognition.
+
+\subsection{What is the problem}
+
+What is so hard about segregation in the first place?
+
+A basic limitation of many segmentation algorithms is
+that they are designed with a shrink-wrapped mentality.
+
+
+\subsection{Progression}
+
+Early, infants may ignore object (surface?) features for grouping.
+Later, infants may assign them high weight. (footnote in
+Needham 2001).
+
+
+\begin{figure}
+
+\centerline{\includegraphics[width=0.5\columnwidth]{fig-pull}}
+
+\caption{
+Top: photos of one of Needhan's experiments; a yellow tube is 
+pulled away from a blue box with white dots.
+Bottom: segmentation of the photos.
+}
+
+\end{figure}
+
+
+\subsection{The references}
+
+Ross; Arsenio.
+
+
+Michael G. Ross, Leslie Pack Kaelbling. Learning Static Object
+Segmentation from Motion Segmentation. Twentieth National Conference
+on Artificial Intelligence. July 2005.
+
+\subsection{Possibilities}
+
+``separately moving'' is not totally clear - consider e.g. a 
+jacket, can move arms around a certain amount without body.
+
+Bottom up or top down?  Bottom up and top down?  Interaction
+with recognition?
+
+Most commonly, but not always, segmentation is implemented
+as a precursor to recognition.  Image comes in, gets
+segmented, segments are then run through recognizer.
+
+This is problematic, since segmentation without
+recognition is relatively brittle -- it is uninformed.
+For something like finding faces, it is more common
+not to segment first -- but the common trick here
+is to try all possible regions.
+
+Good features, a progression.
+
+\cite{swain91color}.
+
+\cite{schiele00recognition}.
+
+\cite{lowe04distinctive}
+
+\cite{felzenszwalb04efficient}
+
+\subsection{Importance}
+
+The importance of object segregation in robotics is 
+that it is impossible for a robot to do anything 
+useful without it.  
+
+What is available when sitting back and watching; 
+what is available when acting.  See Arsenio.
+
+
+
+\subsection{Box and tube}
 
 
