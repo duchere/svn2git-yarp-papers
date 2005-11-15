@@ -577,6 +577,32 @@ Why could it make sense?  Lighting variation, color constancy is
 really complicated -- maybe better to ignore until had a lot
 of experience?
 
+Appearance of surface is subject to a multiplicative effect
+with its environment -- shadows, interreflections.
+
+issue of 3D shape, 2D contours.
+
+invariance versus selectivity, classic tradeoff.
+
+If we start with motion, then what we have is motion silhouettes.
+We can align the silhouette with the scene, and attempt to train
+up methods for predicting the silhouette from the scene.
+For a *particular* object at a particular time, it would seem 
+best to use all the available correlated features, including 
+surface features.  
+
+Why would surface-info not be used in Needham1999 situation,
+or be overridden by shape?
+
+Suggest (1) train up generic boundary predictor, so
+shape is perceivable, and (2) when shape is available,
+segment based on it
+
+Shape information is more important for actually doing things.
+
+(could have more than silhouette from motion of course).
+
+
 Shape in these particular experiments is maybe not that hard to
 recover.
 
@@ -593,4 +619,66 @@ be quite different.  Any evidence to suggest this?
 Also, the development from grouping anything that moves
 together, to then using gaps, is novel and interesting.
 Get the cite.
+
+Interesting comparision of contour-based
+and appearance \cite{leibe03analyzing}.
+
+Forget about color and texture \cite{lecun04learning}.
+
+Serre's model for recognition \cite{serre05object}.
+
+
+Wilcox on the why \cite{wilcox99object}.  Maybe don't get
+``sufficient contrastive evidence within the context of
+occlusion events''.
+
+\begin{quote}
+
+It is conceivable that young infants are not exposed to sufficient
+contrastive evidence within the context of occlusion events. For
+example, infants may seldom observe occlusion events in which: (a) the
+objects seen to each side of an occluder either share, or do not
+share, the same surface features; and (b) a judgment about the number
+of objects present can only be made based on surface features. Without
+such evidence, it would be difficult for infants to identify surface
+features as important. Even once identified, infants may have few
+opportunities to use, and to test, this new knowledge. If surface
+features are indeed a less reliable source of information than form
+features (e.g. see below), the opportunity to experiment with this new
+knowledge might be necessary before infants would be disposed to use
+it spontaneously. (Wilcox)
+
+\end{quote}
+
+
+
+Also of interest:
+
+\begin{quote}
+
+In contrast, infants first demonstrate color constancy around 4\u20135
+months of age, and then only under limited conditions ( Dannemiller
+and Dannemiller).
+
+Finally, because form features are amodal \u2013 they can be
+experienced visually, orally, or haptically \u2013 they may be more
+salient to young infants.
+
+\end{quote}
+
+Color constancy in 4-month olds: \cite{dannemiller87test} -- some 
+limitations.
+
+Nifty: not age at which feature is detectable, but the actual
+info it carries, that affects at what age it gets used for
+individuation -- luminance test \cite{woods05infants}.
+
+Infants' formation and use of categories to segregate objects 
+\cite{needham05infants}.
+
+Feature priming -- \cite{wilcox04priming}
+--
+(have a robot crossreference).
+
+Baillargeon on physical reasoning.
 
