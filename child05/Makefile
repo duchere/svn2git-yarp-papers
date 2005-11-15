@@ -44,6 +44,7 @@ endif
 
 SUBMAIN = $(wildcard *.tex) $(wildcard *.sty)
 JPEGS = $(wildcard *.jpg)
+BMPS = $(wildcard *.bmp)
 GIFS = $(wildcard *.gif)
 PNGS = $(wildcard *.png)
 EPSSRCS = $(wildcard *.epssrc)
@@ -52,12 +53,13 @@ PSSRCIS = $(wildcard *.pssrci)
 PSSRCS = $(wildcard *.pssrc)
 EPSPREV = $(wildcard *.eps)
 EPSJPEG = $(patsubst %.jpg, %.eps, $(JPEGS))
+EPSBMP = $(patsubst %.bmp, %.eps, $(BMPS))
 EPSGIF = $(patsubst %.gif, %.eps, $(GIFS))
 EPSPNG = $(patsubst %.png, %.eps, $(PNGS))
 EPSSRC = $(patsubst %.epssrc, %.eps, $(EPSSRCS))
 PSSRC = $(patsubst %.pssrc, %.eps, $(PSSRCS))  $(patsubst %.prn, %.eps, $(PRNSRCS))
 PSSRCI = $(patsubst %.pssrci, %.eps, $(PSSRCIS))
-EPS = $(EPSPREV) $(EPSJPEG) $(EPSGIF) $(EPSPNG) $(EPSSRC) $(PSSRC) $(PSSRCI)
+EPS = $(EPSPREV) $(EPSJPEG) $(EPSGIF) $(EPSPNG) $(EPSSRC) $(PSSRC) $(PSSRCI) $(EPSBMP)
 
 all: $(MAIN).dvi
 
@@ -71,6 +73,12 @@ all: $(MAIN).dvi
 	rm -f $@.tmp $@.tmp2
 
 %.eps: %.gif
+	convert $^ eps:$@.tmp
+	sed "s/statusdict/%%%statusdict/g" < $@.tmp > $@.tmp2
+	sed "s/EndData/EndBinary/g" < $@.tmp2 > $@
+	rm -f $@.tmp $@.tmp2
+
+%.eps: %.bmp
 	convert $^ eps:$@.tmp
 	sed "s/statusdict/%%%statusdict/g" < $@.tmp > $@.tmp2
 	sed "s/EndData/EndBinary/g" < $@.tmp2 > $@
