@@ -93,6 +93,10 @@ boundary-occluded and fully visible versions of the same displays
 suggests that boundary information is not the only information infants
 use to parse the objects in a display (Needham, 1998).  
 
+Infants also use information about specific objects or
+classes of objects to guide their judgement.  
+NEEDHAM, CANTLON, \& ORMSBEE 2005 (age: 8.5 months).
+
 
 It might be that extensive amounts of experience are required to
 `train up' this system.  However, it might also be that infants learn
@@ -226,104 +230,185 @@ and object perception.
 
 
 
-\subsection{Segregration in computer science terms}
-
-Object segregation is a problem of deep interest to 
-researchers in computer vision and robotics.  Many
-algorithms exist for many variants of the problem,
-none of which can compete with human (or infant)
-performance.
-
-The problem of {\em object segmentation} is formalized as
-a labelling problem.
-
-decomposing an image
-
- into collections of pixels, where each collection
-ideally corresponds to an object.
 
 
-To make this decomposition, image
-features such as color, brightness, motion, stereoscopic cues, and
-texture can be used; the basic heuristic is that by any pair of
-measurements made within an object should generally be more similar
-numerically than a pair of measurements made on regions belonging to
-different objects.  Another family of work concentrates on particular
-objects rather than the general case: finding faces, or cars, for
-example.
+\begin{figure}[t]
 
-The Torralba-led contextual approach.
+\centerline{
+\includegraphics[width=0.3\columnwidth]{cat}
+\includegraphics[width=0.3\columnwidth]{cat-human}
+\includegraphics[width=0.3\columnwidth]{cat-machine}
+}
 
-Give intro to energy formalization, form used
-for min-cut approaches in stereo, color, etc?
+\caption{
+From [CITE].  Bottom-up segmentation is hard.
+Image (left).  Human-labelled boundaries (middle).
+Best machine segmentation of a set of algorithms (right).
+}
 
-Active segmentation.
+\label{fig:segmentation-is-hard}
 
-Training for segmentation and recognition.
-
-
-
-\subsection{SCRAPYARD}
-
-For young infants, common motion is an important cue for 
-perception of object unity.  Others: alignment, good form,
-depth cues.  Spatial separation.
-
-Infants also use information about specific objects or
-classes of objects to guide their judgement.  
-NEEDHAM, CANTLON, \& ORMSBEE 2005 (age: 8.5 months).
-
-Can use information from just one experience.
+\end{figure}
 
 
+\subsection{Segregration in computer vision}
 
-In robotics, work related to object segregation is quite
-primitive.  It is strongly influenced by the field
-of computer vision, where ``object segmentation'' is a classic,
-much studied problem.  See FOO for a fuller review than we give
-here.  Representative work in computer vision,
-see eg Berkeley (Malik and co).
+Object segregation is a problem of deep interest to researchers in
+computer vision and robotics.  Many algorithms exist for many variants
+of the problem.  
+Of course, none of them even come close to human (or
+infant) performance.  
+As Spelke wrote in 1990:
 
-How is the problem formalized in vision?  We want a function
-which maps a matrix of pixels to a matrix of labels, where
-any pair of locations should have the same label if and
-only if their pixels are from the same object.
-This is not well-defined in general; for example, in some
+\begin{quote}
+
+... the ability to organize unexpected, cluttered, and
+changing arrays into objects is mysterious: so mysterious
+that no existing mechanical vision system can accomplish this task
+in any general manner.
+\cite{spelke90principles}
+
+\end{quote}
+
+\noindent
+This is still true today.
+For example, Figure~\ref{fig:segmentation-is-hard} shows the
+output of a start-of-the-art segmentation algorithm
+\cite{martin04learning} compared with human performance.  This is a
+deliberately difficult case, but it highlights that a lot remains to
+be done.
+
+
+The segregation problem has been formalized in various ways.  Here is
+a typical formalism (which is in fact used for many problems, not just
+segregation).  There is an input image, $X$, which is a view of the
+world from a camera, represented as a matrix of ``pixels''.  Each
+pixel is a simple real number representing gray-level, or a vector
+representing color in RGB.
+%
+There is an output matrix, $Y$, where each pixel is replaced by
+a {\em label}, a simple integer.  The goal will be to have
+equal labels exactly for those pixels that belong to the same object.
+
+We construct an {\em energy function} that evaluates the output matrix
+in terms of the input, and computes a scalar.  This function is chosen
+such that choosing $Y$ to minimize it gives a good segmentation.
+The energy function can be broken into two parts:
+
+\begin{displaymath}
+%
+E(X,Y) = E_{smooth}(Y) + E_{data}(X,Y)
+%
+\end{displaymath}
+
+$E_{smooth}$ measures how far the output deviates from being smooth.
+As far as this term is concerned, the smoother the better -- there is
+a cost for neighboring pixels being assigned different labels.
+$E_{data}$ measures conflicts between the labelling and the data (for
+example, assigning equal labels to pixels with very different
+appearance.
+
+Particular forms of the energy function admit of efficient 
+approximate solutions.
+
+%In robotics, work related to object segregation is quite
+%primitive.  It is strongly influenced by the field
+%of computer vision, where ``object segmentation'' is a classic,
+%much studied problem.  
+
+The formalization described above is of course
+not well-defined in general; for example, in some
 circumstances a person and everything they wear should be
 considered a single object, in other cases they to clothes
 should be separated; every object is composed of smaller
-objects, etc.
+objects, etc.  
 
-What is omitted from this formalization?
+How does this compare to Gestalt principles?  At a high level, it
+matches -- making the best interpretation according to some
+principles, given the circumstances.
 
-What other problems are addressed in computer vision that
-are relevant?
+Good for making ``superpixels'' -- grouping similar texture.
+But shape considerations are harder to integrate.  However,
+once the number of the entities to consider has been 
+reduced, much more computation can be brought to bear.
 
-
-\subsection{What is the problem}
-
-What is so hard about segregation in the first place?
-
-A basic limitation of many segmentation algorithms is
-that they are designed with a shrink-wrapped mentality.
-
-
-\subsection{Progression}
-
-Early, infants may ignore object (surface?) features for grouping.
-Later, infants may assign them high weight. (footnote in
-Needham 2001).
+The best systems today are being trained on data, large numbers
+of examples of object boundaries.  Although in simple images
+edges seem very clear, and edge detectors have been around
+a long time, in real images the story is quite different.
+So motivate use of data.
 
 
 
-\subsection{The references}
 
-Ross; Arsenio.
+\subsection{Training data for segregation}
+
+Edge detection can be improved in a domain
+specific way \cite{konishi03statistical}.
+Boundary database \cite{martin04learning}.
+%
+%
+Vision in robots has tended to be the poor relation, borrowing
+second-hand algorithms from computer vision that don't really
+fit.
+%
+Get segmentations --
+from poking \cite{fitzpatrick03grounding},
+or through rhythic motion grouping \cite{arsenio05exploiting},
+or any number of opportunities.
+%
+Configure to predict boundaries of familiar objects
+\cite{fitzpatrick03object}.
+doesn't deal with issue of generalization; although
+does pool empirical learning of edge appearance.
+
+Ross: learning static segmentation from motion segmentation.
+\cite{ross05learning}
+Motion/video segmentation in general.
+Progress is being made, in terms of accuracy
+and efficiency e.g. \cite{cremers05motion,fowlkes04spectral};
+computationally challenging right now.
+
+Or non-graspable objects -- background -- walls, tables etc.
+Arsenio (thesis) developed a set of techniques for acquiring
+all sorts of segmentations.
 
 
-Michael G. Ross, Leslie Pack Kaelbling. Learning Static Object
-Segmentation from Motion Segmentation. Twentieth National Conference
-on Artificial Intelligence. July 2005.
+Once we start considering how to use experience to help
+improve segregation, we need to consider generalization.
+
+Using color and texture features is limiting, since they
+are relatively accidental.  Physical boundaries are functions
+of object shape.  But object shape is difficult to recover in
+natural scenes.
+
+One correlate of shape is object contour.  In a comparision between
+contour-based and appearance-based methods for object categorization
+\cite{leibe03analyzing}, shape-based cues are shown to be
+particularly useful for categorization.
+Ditto \cite{lecun04learning}.
+For specific tasks, color/texture can be useful, but for 
+generic tasks they are a distraction.
+
+Biologically inspired mechanisms are competitive:
+Serre's model for recognition \cite{serre05object}.
+
+Shape as we know it may not be used, but some strange 
+correlate.
+
+
+
+\subsection{Discussion of cue value}
+
+Discuss value of cues in terms of information content (how many bits),
+accessibility (how hard is it to actually estimate those bits
+correctly), constancy over different timescales and variations.
+
+Luminance, color, texture, motion, shape, location, seams, stereo,
+shadow.
+
+For segregation and (a little bit) for recognition.
+
 
 \subsection{Possibilities}
 
@@ -345,6 +430,8 @@ is to try all possible regions.
 
 Good features, a progression.
 
+\subsection{Citations without a home}
+
 \cite{swain91color}.
 
 \cite{schiele00recognition}.
@@ -353,33 +440,6 @@ Good features, a progression.
 
 \cite{felzenszwalb04efficient}
 
-\subsection{Importance}
-
-The importance of object segregation in robotics is 
-that it is impossible for a robot to do anything 
-useful without it.  
-
-What is available when sitting back and watching; 
-what is available when acting.  See Arsenio.
-
-
-
-\subsection{Box and tube}
-
-
-
-Gestalt principles.
-
-Time course.
-
-Role of experience.
-
-Role of behavior.
-
-Proximity, closure,similarity, good continuation, common fate.
-
-proto-surfaces /superpixels
-
 maturation v experience \cite{quinn05learning}.
 
 ecological statistics \cite{martin04learning} -- note
@@ -387,158 +447,38 @@ that object edges are subtle to recognize.
 
 In figure, using \cite{felzenszwalb04efficient}.
 
-There is a very large field of research in computer vision on the
-problem of {\it image segmentation}.  This is formalized in various
-ways.  Here is a typical formalism.  There is an input image, $X$,
-which is a view of the world from a camera, represented
-as a matrix of ``pixels'' where each pixel is a simple
-real number representing intensity or a vector representing
-RGB colors.
-
-There is an output matrix, $Y$, where for each pixel we assign
-a label.
-
-There is an energy function that evaluates the output matrix
-in terms of the input, and computes a scalar.  This function
-is chosen such that choosing $Y$ to minimize it gives a
-good segmentation.
-
-$E(X,Y) = E_{smooth}(Y) + E_{data}(X,Y)$
-
-$E_{smooth}$ measures how far the output deviates from being
-smooth.  As far as this term is concerned, the smoother the
-better -- there is a cost for neighboring pixels being 
-assigned different labels.
-
-$E_{data}$ measures conflict between the labelling and
-the data.  
-
-For stereo, the labels would correspond to disparity,
-and $E_{data}$ can check that with the given disparity
-the left and right image match well locally.
-
-
-\subsection{Alt}
-
 \cite{gibson88exploratory}
 
 \cite{spelke90principles}
 
+\cite{martin01database}
 
-\subsection{Scrap}
+The Torralba-led contextual approach.
 
 
-How do infants, and
-how should robots, perceive this world?  
+shadows and interreflections for object contact
+\cite{madison01use}.
 
-In robotics, it is well understood that if we attempt to formalize a
-model of the world as a complete, unique, disjoint set of units, we
-run into trouble. 
 
- Progress has been made by focussing on 
-partial
+Stereo review -- depth maps, making progress
+\cite{scharstein02taxonomy}
 
+theoretically, more info at corners \cite{feldman05information}
+
+connectionist model
+\cite{mareschal02learning} --
 
 \begin{quote}
 
-The ultimate argument for perception of events as external distal
-happenings in the world is appropriate, adaptive response to them
-in the face of changing context. (E. Gibson)
+For infants younger than 6 months, common motion of surfaces that lead
+behind an occluder is both necessary and sufficient to specify their
+unity. Only after 6 months do infants utilize additional sources of
+information for unity, such as surface appearance, and edge and
+surface orientation. \cite{mareschal02learning}
 
 \end{quote}
-
-
-Object segregation is a step
-
-
-The world around us is made of objects, some of which can more or less
-move independently. For robots and humans, the ability to judge which
-parts of the world are likely to move as a group is a key perceptual
-ability.
-
-
-As adults, we can judge which parts of the world
-are likely to move as a group. This is computationally a difficult
-judgement to make, since regions grouped by easily-defined visual
-features do not reliably correspond to physical groups. Robots and
-infants could attempt to learn to make such judgements based on
-experience. There is evidence of this in infants, and initial attempts
-with robots.
-
-
-
-\begin{itemize}
-
-\item what are some formalizations?
-
-\item what are the issues in child development?
-
-\item what is the role of motion in young infants?
-
-\item how can we exploit motion in robots?
-
-\end{itemize}
-
-
-
-Issues:
-
-\begin{itemize}
-
-\item Measures segregation abilities at given ages.
-
-\item Experiences that show separate movement of particular object.
-
-\item Successful exploitation of such experiences.
-
-\item Degree of generalization to other objects and situations.
-
-\item Role of behavior.
-
-\end{itemize}
-
-Computational:
-
-\begin{itemize}
-
-\item object complexity
-
-\item scene/presentation complexity
-
-\end{itemize}
-
 
 \subsection{A technical evaluation of Gestalt principles}
-
-\begin{quote}
-
-... the ability to organize unexpected, cluttered, and
-changing arrays into objects is mysterious: so mysterious
-that no existing mechanical vision system can accomplish this task
-in any general manner.
-
-\end{quote}
-
-Spelke wrote this in 1990, and it is still true.
-
-
-\begin{figure}
-
-\centerline{
-\includegraphics[width=0.3\columnwidth]{cat}
-\includegraphics[width=0.3\columnwidth]{cat-human}
-\includegraphics[width=0.3\columnwidth]{cat-machine}
-}
-
-\caption{
-From [CITE].  Bottom-up segmentation is hard.
-Image (left).  Human-labelled boundaries (middle).
-Best machine segmentation of a set of algorithms (right).
-}
-
-\end{figure}
-
-\cite{martin01database}
 
 How hard is spatiotemporal grouping?
 Hard, in the general case.
@@ -548,9 +488,6 @@ motion of head is available?
 Still tough to do in real time, but the data is there in a form
 we could process, given world enough and time.
 
-
-
-\subsection{Hypothesis}
 
 Motion first -- then shape -- then color/pattern
 
@@ -612,13 +549,6 @@ Also, the development from grouping anything that moves
 together, to then using gaps, is novel and interesting.
 Get the cite.
 
-Interesting comparision of contour-based
-and appearance \cite{leibe03analyzing}.
-
-Forget about color and texture \cite{lecun04learning}.
-
-Serre's model for recognition \cite{serre05object}.
-
 
 Wilcox on the why \cite{wilcox99object}.  Maybe don't get
 ``sufficient contrastive evidence within the context of
@@ -648,12 +578,12 @@ Also of interest:
 
 \begin{quote}
 
-In contrast, infants first demonstrate color constancy around 4\u20135
+In contrast, infants first demonstrate color constancy around 4-5
 months of age, and then only under limited conditions ( Dannemiller
 and Dannemiller).
 
-Finally, because form features are amodal \u2013 they can be
-experienced visually, orally, or haptically \u2013 they may be more
+Finally, because form features are amodal - they can be
+experienced visually, orally, or haptically - they may be more
 salient to young infants.
 
 \end{quote}
@@ -675,36 +605,6 @@ Feature priming -- \cite{wilcox04priming}
 Baillargeon on physical reasoning.
 
 
-\subsection{Tuesday}
-
-\begin{quote}
-
-In order for infants' prior experiences with objects
-to facilitate their parsing of a novel visual scene,
-infants must be able to do several things.  First, they
-must remember their prior experiences.  Second, they 
-must realize that what they learned previously could
-apply to this new situation.  Third, they must then
-use the knowledge learned from previous encounters
-to draw conclusions about the novel visual scene.
-(Dueker, Needham...)
-
-\end{quote}
-
-
-
-\subsection{Surplus - wednesday}
-
-
-Adults, beware -- there are many judgements you can make without a
-moment's thought that infants of a certain age cannot.
-
-The kinds of experiences a na\"{i}ve observer might find
-useful in this regard are many and have not been well characterized.
-
-
-
-
 \begin{figure}
 
 \centerline{\includegraphics[width=0.5\columnwidth]{fig-pull}}
@@ -724,3 +624,13 @@ expectations about what should move together and what will move
 independently; we will compare this to what is technically achievable.
 For example, Figure~\ref{fig:move-apart} shows a scenario presented to
 infants.
+
+
+
+
+\newpage
+
+\ 
+
+\newpage
+
