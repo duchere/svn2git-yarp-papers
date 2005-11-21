@@ -1,20 +1,30 @@
 
-The world around us has structure, and to the adult appears to be made
-up of more-or-less well-defined objects.  How does the world appear to
-an infant?  In this section, we address the perception of objects
-indirectly, via the perception of object boundaries.  We review
-experimental scenarios where object boundaries are not evident, and
-the judgements that infants make, which differ according to 
-age and experience.  We review related work in robotics.
-First a note on nomenclature.
+The world around us has structure, and to an adult appears to be made
+up of more-or-less well-defined objects.  How do we develop the
+sophisticated perceptual judgements needed to maintain this view?
+This is, naturally, an important question in infant development research,
+but it is also vital to robotics, since it offers guidance on how
+to construct a sophisticated perceptual system~-- what the right
+modules are, how they can be ``trained'', etc.
+
+In this section, we address the perception of objects indirectly, via
+the perception of object boundaries.  We review experimental scenarios
+where object boundaries are not evident, and the judgements that
+infants make, which differ according to age and experience.  We review
+related work in robotics.  
+
+First a brief note on nomenclature.
 %
 In psychology, the ability to assign boundaries to objects is termed
-``object segregation.''  In computer vision and robotics, the term
-``object segmentation'' is used for essentially the same notion.  It
-turns out to be a key, but very difficult task, and most
+``object segregation.''  In computer vision and robotics, essentially
+the same notion is called ``object segmentation''.  In this paper, we
+stick with the term from psychology.  In computer vision, object
+segregation turns out to be a key, but very difficult task, and most
 general-purpose work instead focuses on the (still difficult) task of
 ``image segmentation'': grouping regions of similar appearance that
-may correspond to either an object or part of an object.  
+may correspond to either an object or part of an object.
+%
+More on this later.
 %
 %The emphasis
 %in computer vision has been on segmentation of still pictures, but
@@ -34,17 +44,15 @@ It is clear that human infants learn generic principles for making
 educated guesses about which surfaces belong together as part of the
 same unit and which do not.  By 4 to 5 months of age, infants can
 parse simple displays into units based on something like static
-gestalt principles, probably some subset of these (e.g., Needham,
-1998, 2000).
+gestalt principles, probably some subset of these (e.g. \citeasnoun{needham98infants,needham00improvements}).
 
 Similar results have been obtained by researchers using partly
 occluded objects (Johnson--+ display??)
 
 Initial studies indicated that infants used some collection of
-features to parse the displays (Needham, 1998; Needham, \& Baillargeon,
-1997, 1998); subsequent studies suggested that object shape is the key
+features to parse the displays \cite{needham98infants,needham97object,needham98effects}; subsequent studies suggested that object shape is the key
 feature that young infants use to identify boundaries between adjacent
-objects (Needham, 1999).
+objects \cite{needham99role}.
 
 These principles may lead to many incorrect parsings, but they will
 also provide reasonable best guess interpretations of uniform objects
@@ -63,12 +71,12 @@ which young children will generalize.
 Infants do not come prepared to segregate objects into units that
 adults would consider meaningful.  Rather, infants learn how object
 features can be used to predict object boundaries.  More than twenty
-years ago, Kellman \& Spelke (1983) suggested that infants may be born
+years ago, \citeasnoun{kellman83perception} suggested that infants may be born
 with knowledge about solid, three-dimensional objects and that this
 knowledge could help them interpret portions of a moving object as
 connected to other portions that were moving in unison.  However, this
 assertion was put to the test by Slater and his colleagues (is this
-\cite{slater90newborn}?), a test that resulted in a new conception of
+\citeasnoun{slater90newborn}?), a test that resulted in a new conception of
 the neonate's visual world.  Rather than interpreting common motion as
 a cue to object unity, they interpreted the visible portions of a
 partly occluded object as clearly separate from each other, even when
@@ -81,7 +89,7 @@ Although adjacent objects present a very similar kind of perceptual
 problem (are these surfaces connected or not), the critical components
 of success might be quite different.  Early work with adjacent objects
 indicated that at 3 months of age, infants tend to group all touching
-surfaces into a single unit (Kestenbaum, Termine, \& Spelke, 1987).
+surfaces into a single unit \cite{kestenbaum87perception}.
 Subsequent experiments have revealed that soon after this point in
 development, infants begin to analyze the perceptual differences
 between adjacent surfaces and segregate surfaces with different
@@ -121,7 +129,7 @@ moved as a whole than when they move separately.  Alternately, if the
 prior experience was ineffective in altering infants'
 interpretation of the display, they should look about equally at the
 display, just as the infants in the initial study with no particular
-prior experience did (Needham \& Baillargeon, 1998).  Prior experiences
+prior experience did \cite{needham98effects}.  Prior experiences
 with either portion of the test display were effective in facilitating
 infants' parsing of the test display.  
 
@@ -134,13 +142,14 @@ saw a blue box with yellow squares prior to testing, and the box used
 in testing had white squares but was otherwise identical, they did not
 apply this prior experience to the parsing of the test display.
 However, infants did benefit from the prior exposure when it was not
-in the features of the object but rather in its orientation (Needham,
-2001).  A change in the orientation of the box from horizontally to
+in the features of the object but rather in its orientation 
+ \cite{needham01object}.  
+A change in the orientation of the box from horizontally to
 vertically oriented led to the facilitation in parsing seen in some
 prior experiments.  Thus, infants even as young as 4.5- to 5-months of
 age know that to probe whether they have seen an object before, they
 must attend to the object's features rather than its spatial
-orientation (Needham, 2001).
+orientation \cite{needham01object}.
 
 These results also support two additional conclusions.  First,
 infants' object representations include detailed information
@@ -160,20 +169,20 @@ of objects to a new object that is a member of that group?
 
 \subsection{Generalization of knowledge gained from experience}
 
-This question was investigated by Needham, Dueker, \& Lockhead (2005)
+This question was investigated by \citeasnoun{needham05infants}
 in a study using the same test display and a similar procedure as in
-Needham (2001).  Infants were given prior experiences with collections
+\citeasnoun{needham01object}.  Infants were given prior experiences with collections
 of objects, no one of which was an effective cue to the composition of
 the test display when seen prior to testing.  A set of three similar
 objects seen simultaneously prior to test did facilitate 4.5-month-old
 infants segregation of the test display.  But no subset of these three
-objects seen prior to testing facilitated infants' segregation
-of the test display.  Also, not just any three objects functioned in
-this way -- sets that had no variation within them or that were
-too different from the relevant test item provided no facilitation.
-Thus, experience with multiple objects that are varied but that are
-similar to the target item is important to infants' transfer
-of their experience to the target display.
+objects seen prior to testing facilitated infants' segregation of the
+test display.  Also, not just any three objects functioned in this way
+-- sets that had no variation within them or that were too different
+from the relevant test item provided no facilitation.  Thus,
+experience with multiple objects that are varied but that are similar
+to the target item is important to infants' transfer of their
+experience to the target display.
 
 
 
@@ -210,7 +219,7 @@ principles alone.
 Evidence from of one set of studies reveals that young
 infants' difficulty in collecting the relevant information
 from visual displays may limit their success in these tasks (Johnson \&
-Aslin 1995, 1996, then Johnson's eye tracking stuff showing
+Aslin 1995, \cite{johnson96perception}, then Johnson's eye tracking stuff showing
 that infants who look to the other side of the occluder, sampling
 information from both sides of it, are the ones who perceive the
 object parts as connected.  So, eye movements are an important factor
@@ -222,9 +231,9 @@ child who is also experiencing a range of other develomental changes.
 One of these changes occurs in object
 exploration -- infants' visual, oral, and manual
 investigation of objects are showing huge improvements during this
-same time period (Rochat, 1989).  Relations between infants'
+same time period \cite{rochat89object}.  Relations between infants'
 tendency to explore objects more or less actively and their accurate
-parsing of an object display has been shown (Needham, 2000), paving
+parsing of an object display has been shown \cite{needham00improvements}, paving
 the way for future studies of connections between object exploration
 and object perception.
 
@@ -626,7 +635,31 @@ For example, Figure~\ref{fig:move-apart} shows a scenario presented to
 infants.
 
 
+\subsection{Interesting facts/speculation}
 
+stacked objects sharing a boundary are harder
+to segregate than the same two objects
+side by side?  attrib to needham by xu,
+paintbrush/keyring.
+
+\cite{smith03motion}
+
+texture hint \cite{johnson96perception}?
+
+depth placement and contour ownership?
+
+\begin{quote}
+
+Spelke noted that any mechanism for segmenting the visual array
+into objects must ascertain the boundaries of adjacent objects,
+the complete shapes of partly occluded objects, and the continued
+existence of objects that are no longer visible.
+(Johnson 1996 quoting Spelke 1990 - get original)
+
+\end{quote}
+
+Relatable edges: can be connected with a smooth monotic
+curve behind occluder.
 
 \newpage
 
