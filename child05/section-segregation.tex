@@ -1,43 +1,93 @@
-
 The world around us has structure, and to an adult appears to be made
 up of more-or-less well-defined objects.  How do we develop the
 sophisticated perceptual judgements needed to maintain this view?
-This is, naturally, an important question in infant development research,
-but it is also vital to robotics, since it offers guidance on how
-to construct a sophisticated perceptual system~-- what the right
-modules are, how they can be ``trained'', etc.
+Infant research has revealed a long developmental process, during
+which infant judgements converge incrementally on those of adults.
+This may offer guidance to roboticists on how to construct a
+sophisticated perceptual system~-- what the right modules are, how
+they can be ``trained'', and how they interact.  We review aspects 
+of that developmental process here.
 
-In this section, we address the perception of objects indirectly, via
-the perception of object boundaries.  We review experimental scenarios
-where object boundaries are not evident, and the judgements that
-infants make, which differ according to age and experience.  We review
-related work in robotics.  
 
-In psychology, the ability to assign boundaries to objects is termed
-``object segregation.''  In computer vision and robotics, there
-is a  comparable notion called ``object segmentation''.
-While the definitions of these terms are loose, segmentation is
-generally a weaker idea than segregation.
 
-In this paper, we
-stick with the term from psychology.  In computer vision, object
-segregation turns out to be a key, but very difficult task, and most
-general-purpose work instead focuses on the (still difficult) task of
-``image segmentation'': grouping regions of similar appearance that
-may correspond to either an object or part of an object.
+\begin{figure}
+
+\centerline{\includegraphics[width=0.75\columnwidth]{fig-seg}}
+
+\caption{
 %
-More on this later.
+Image segmentation and object segregation are different.  On the left,
+there is a simple scenario, taken from \citeasnoun{needham01object},
+showing a rectangle attached to a yellow tube.  Two 
+plausible ways to segregate this scene are shown in the middle,
+depending on whether the tube and rectangle make up a single 
+object.
+For
+comparison, automatically acquired boundaries are shown on the right,
+produced using the algorithm in
+\citeasnoun{felzenszwalb04efficient}. 
+In image segmentation, the goal is to
+produce regions that correspond to whole objects (such as the yellow
+tube) or at least to object parts (such all the blue rectangle and all
+the small white patches on its surface, and various parts of the
+background).  Ideally, regions that extend across object boundaries
+are avoided.  Then, higher-level processes need only consider merging
+regions (of which there are a relatively small number) rather than
+splitting regions (which requires a return to pixel-level
+considerations).  
 %
-%The emphasis
-%in computer vision has been on segmentation of still pictures, but
-%there is also work on video and multi-camera input.
 %
-%There is the relationship of segmentation and recognition.
-%
-%We return to the relationship between segregation and
-%segmentation later in the section.
+}
+
+\label{fig:image-segmentation}
+
+\end{figure}
 
 
+In psychology, the human ability to divide a scene into a set of
+discrete objects is termed ``object segregation.''  
+In computer vision and robotics, there are algorithms with 
+similar goals.  In practice, automatic object segregation
+in unconstrained environments is not currently possible.
+%
+Progress has been made on a related, less ambitious problem
+called ``image segmentation''.  The goal of image segmentation
+is to divide an image of a scene into a set of discrete
+regions, where each region corresponds to an object or 
+an object part.  The distinction between this and 
+segmentation is made clear in Figure~\ref{fig:image-segmentation}.
+%
+Image segmentation will typically produce more regions than there are
+objects.  The idea is that those ``summary'' regions could then be
+merged by more informed, higher level processing (although successful
+algorithms for such higher level processing do not actually currently
+exist for unconstrained environments).  Regions designed to be
+used this way are also called ``superpixels''.
+%
+They can be produced by bottom-up processes that look for 
+similarily in color and texture.  We give an example algorithm later
+in this section.
+%
+
+For humans, visual experience is continuous, and comes from our two
+eyes.  Image segmentation can be generalized to video sequences, and
+to input from multiple view-points.  Real-time, robotic
+implementations of image segmentation are primitive compared to
+state-of-the-art off-line segmentation algorithms, and focus on simple
+cases, such as colorful or moving objects.
+%
+However, robotic work is potentially well suited to addressing the
+parts of object segregation that have been omitted from image
+segmentation: specifically, the role of {\em experience} over
+various time-scales.  Object boundaries are revealed in some
+circumstances and obscured in others; how do we propogate this
+information?  We can ask this over short time-scales, within
+a working session, or over longer time-scales and ranges
+of experiences.
+
+We look at the role of experience in infants' object 
+segregation skills, and work to factor experience into 
+image segmentation for machine vision.
 
 
 \subsection{Development of infants' object segregation skills}
@@ -253,7 +303,7 @@ and object perception.
 }
 
 \caption{
-From [CITE].  Bottom-up segmentation is hard.
+From [Martin et al].  Bottom-up segmentation is hard.
 Image (left).  Human-labelled boundaries (middle).
 Best machine segmentation of a set of algorithms (right).
 }
@@ -268,7 +318,7 @@ Best machine segmentation of a set of algorithms (right).
 Object segregation is a problem of deep interest to researchers in
 computer vision and robotics.  Many algorithms exist for many variants
 of the problem.  
-Of course, none of them even come close to human (or
+Of course, none of them even comes close to human (or
 infant) performance.  
 As Spelke wrote in 1990:
 
@@ -422,26 +472,6 @@ shadow.
 For segregation and (a little bit) for recognition.
 
 
-\subsection{Possibilities}
-
-``separately moving'' is not totally clear - consider e.g. a 
-jacket, can move arms around a certain amount without body.
-
-Bottom up or top down?  Bottom up and top down?  Interaction
-with recognition?
-
-Most commonly, but not always, segmentation is implemented
-as a precursor to recognition.  Image comes in, gets
-segmented, segments are then run through recognizer.
-
-This is problematic, since segmentation without
-recognition is relatively brittle -- it is uninformed.
-For something like finding faces, it is more common
-not to segment first -- but the common trick here
-is to try all possible regions.
-
-Good features, a progression.
-
 \subsection{Citations without a home}
 
 \cite{swain91color}.
@@ -490,100 +520,10 @@ surface orientation. \cite{mareschal02learning}
 
 \end{quote}
 
-\subsection{A technical evaluation of Gestalt principles}
-
-How hard is spatiotemporal grouping?
-Hard, in the general case.
-Of a single, fixated object, while head is not moving much?  and
-motion of head is available?
-
-Still tough to do in real time, but the data is there in a form
-we could process, given world enough and time.
-
-
-Motion first -- then shape -- then color/pattern
-
-What is there to learn about shape?  How to see it.
-
-Needham 1999 result is not consistent with the direction of comp
-vision research.  Algorithms would group two adjacent objects with
-same color-and-pattern but different shapes long before grouping two
-adjacent objects with same shape but different color-and-pattern.
-Shape is inherently non-local, which color-and-pattern 
-can at least to some extent be treated as a local feature.
-Computationally, there 
-has been little success in recovering shapes in cluttered static scenes.
-
-Why could it make sense?  Lighting variation, color constancy is
-really complicated -- maybe better to ignore until had a lot
-of experience?
-
-Appearance of surface is subject to a multiplicative effect
-with its environment -- shadows, interreflections.
-
-issue of 3D shape, 2D contours.
-
-invariance versus selectivity, classic tradeoff.
-
-If we start with motion, then what we have is motion silhouettes.
-We can align the silhouette with the scene, and attempt to train
-up methods for predicting the silhouette from the scene.
-For a *particular* object at a particular time, it would seem 
-best to use all the available correlated features, including 
-surface features.  
-
-Why would surface-info not be used in Needham1999 situation,
-or be overridden by shape?
-
-Suggest (1) train up generic boundary predictor, so
-shape is perceivable, and (2) when shape is available,
-segment based on it
-
-Shape information is more important for actually doing things.
-
-(could have more than silhouette from motion of course).
-
-
-Shape in these particular experiments is maybe not that hard to
-recover.
-
-Maybe shape info is easier to use to link motion segmentation
-events?  More trustworthy?  Cluster based on shape cues?
-
-For my thesis, with a bunch of segmentations, clusturing by
-some course shape measures gave around 88\% accuracy while
-clustering by color histogram gave around 99\% accuracy.
-But the robot was living in one corner of a lab, with 
-relatively constant lighting.  In real life, the story may
-be quite different.  Any evidence to suggest this?
-
-Also, the development from grouping anything that moves
-together, to then using gaps, is novel and interesting.
-Get the cite.
-
 
 Wilcox on the why \cite{wilcox99object}.  Maybe don't get
 ``sufficient contrastive evidence within the context of
 occlusion events''.
-
-\begin{quote}
-
-It is conceivable that young infants are not exposed to sufficient
-contrastive evidence within the context of occlusion events. For
-example, infants may seldom observe occlusion events in which: (a) the
-objects seen to each side of an occluder either share, or do not
-share, the same surface features; and (b) a judgment about the number
-of objects present can only be made based on surface features. Without
-such evidence, it would be difficult for infants to identify surface
-features as important. Even once identified, infants may have few
-opportunities to use, and to test, this new knowledge. If surface
-features are indeed a less reliable source of information than form
-features (e.g. see below), the opportunity to experiment with this new
-knowledge might be necessary before infants would be disposed to use
-it spontaneously. (Wilcox)
-
-\end{quote}
-
 
 
 Also of interest:
@@ -617,28 +557,7 @@ Feature priming -- \cite{wilcox04priming}
 Baillargeon on physical reasoning.
 
 
-\begin{figure}
 
-\centerline{\includegraphics[width=0.5\columnwidth]{fig-pull}}
-
-\caption{
-Top: photos of one of Needhan's experiments; a yellow tube is 
-pulled away from a blue box with white dots.
-Bottom: segmentation of the photos.
-}
-
-\label{fig:move-apart}
-
-\end{figure}
-
-In this section we look at experiments that evaluate infant's
-expectations about what should move together and what will move
-independently; we will compare this to what is technically achievable.
-For example, Figure~\ref{fig:move-apart} shows a scenario presented to
-infants.
-
-
-\subsection{Interesting facts/speculation}
 
 stacked objects sharing a boundary are harder
 to segregate than the same two objects
@@ -682,6 +601,9 @@ In fact habituation paradigm requires a form of short-term
 plasticity. 
 
 
+\cite{prechtl01role} influence of vision on early motor 
+development.
+
 \subsection{Active vision}
 
 \cite{bajcsy88active,aloimonos87active,ballard91animate}
@@ -693,6 +615,16 @@ Computational color constancy isn't that great
 \cite{barnard02comparison}.
 
 More motion segmentation \cite{smith04layered}...
+
+Habituation -- how does it really work \cite{sirois02models}.
+Attraction to familiar; attraction to novelty.
+How to build such a system?
+
+sensorimotor account \cite{oregan01sensorimotor};
+infant representation a challenge.  Controversy.
+
+
+
 
 \newpage
 
