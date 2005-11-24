@@ -447,27 +447,61 @@ object out in static presentations \cite{fitzpatrick03object}.
 of objects to segment their boundaries both in
 visually and acoustically.
 %
-[INSERT FIGURE]
+Arsenio (CITE THESIS) developed a set of techniques for acquiring all
+sorts of segmentations.  Some methods work for small, grasp-size
+objects, others work for large background objects like walls or
+tables.
 
 
-GENERALIZATION.
-
-doesn't deal with issue of generalization; although
-does pool empirical learning of edge appearance.
-
-Or non-graspable objects -- background -- walls, tables etc.
-Arsenio (thesis) developed a set of techniques for acquiring
-all sorts of segmentations.
 
 
-Once we start considering how to use experience to help
-improve segregation, we need to consider generalization.
 
-Using color and texture features is limiting, since they
-are relatively accidental.  Physical boundaries are functions
-of object shape.  But object shape is difficult to recover in
-natural scenes.
+\begin{figure}[t]
 
+\centerline{
+\includegraphics[width=0.75\columnwidth]{fig-robot}
+}
+
+\caption{
+%
+Object segregation based on specific object experience.  The robot
+detects object boundaries experimentally \cite{fitzpatrick03object}.
+It searches for good features of the object that contrast with other
+objects, and that are stable with respect to certain geometric
+transformations.  These features are then used to jointly detect
+and segment the object in future views.  Left: the robot.
+Middle: segmentations of an object derived opportunistically
+from experience.  Right: the robot's perspective on a scene 
+containing the object on a table.  The object is correctly segmented;
+the table is completely ignored.
+%
+}
+
+\label{fig:robot}
+
+\end{figure}
+
+
+
+These systems are limited in how information from experience can be
+generalized.  In \citeasnoun{fitzpatrick03object}, for example,
+information is either pooled across all contexts (in the case of edge
+appearance modeling) or intended to be specific to one particular
+object.  There is no notion of object category.
+%
+In this respect, Needham's results on generalizations are
+very interesting, in possibly pointing a way forward.
+
+
+\subsection{Discussion of available cues and their reliability}
+
+Using color and texture features is perhaps limiting, since they
+are relatively accidental.  Infants seem to ignore them for
+certain purposes [CITE].
+%
+Physical boundaries are functions of object shape.  But object shape
+is difficult to recover in natural scenes.
+%
 One correlate of shape is object contour.  In a comparision between
 contour-based and appearance-based methods for object categorization
 \cite{leibe03analyzing}, shape-based cues are shown to be
@@ -479,12 +513,6 @@ generic tasks they are a distraction.
 Biologically inspired mechanisms are competitive:
 Serre's model for recognition \cite{serre05object}.
 
-Shape as we know it may not be used, but some strange 
-correlate.
-
-
-
-\subsection{Discussion of cue value}
 
 Discuss value of cues in terms of information content (how many bits),
 accessibility (how hard is it to actually estimate those bits
@@ -495,8 +523,7 @@ shadow.
 
 For segregation and (a little bit) for recognition.
 
-
-\subsection{Citations without a home}
+Pending:
 
 \cite{swain91color}.
 
@@ -572,12 +599,6 @@ Infants' formation and use of categories to segregate objects
 \cite{needham05infants}.
 
 Feature priming -- \cite{wilcox04priming}
---
-(have a robot crossreference).
-
-Baillargeon on physical reasoning.
-
-
 
 
 stacked objects sharing a boundary are harder
@@ -641,11 +662,4 @@ sensorimotor account \cite{oregan01sensorimotor};
 infant representation a challenge.  Controversy.
 
 Image parsing \cite{tu05image}.
-
-
-\newpage
-
-\ 
-
-\newpage
 
