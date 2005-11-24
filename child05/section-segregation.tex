@@ -17,7 +17,8 @@ of that developmental process here.
 \caption{
 %
 Image segmentation and object segregation are different.  On the left,
-there is a simple scenario, taken from \citeasnoun{needham01object},
+there is a simple scenario, taken from \citeasnoun{needham01object}
+(not quite the right image),
 showing a rectangle attached to a yellow tube.  Two 
 plausible ways to segregate this scene are shown in the middle,
 depending on whether the tube and rectangle make up a single 
@@ -313,14 +314,15 @@ Best machine segmentation of a set of algorithms (right).
 \end{figure}
 
 
-\subsection{Segregration in computer vision}
+
+\subsection{Object segregration in computer vision}
 
 Object segregation is a problem of deep interest to researchers in
 computer vision and robotics.  Many algorithms exist for many variants
 of the problem.  
 Of course, none of them even comes close to human (or
 infant) performance.  
-As Spelke wrote in 1990:
+Spelke wrote in 1990:
 
 \begin{quote}
 
@@ -335,27 +337,29 @@ in any general manner.
 \noindent
 This is still true today.
 For example, Figure~\ref{fig:segmentation-is-hard} shows the
-output of a start-of-the-art segmentation algorithm
-\cite{martin04learning} compared with human performance.  This is a
-deliberately difficult case, but it highlights that a lot remains to
+output of a start-of-the-art algorithm for finding boundaries in images
+\cite{martin04learning} compared with human performance.  This is
+admittedly a particularly difficult case, but it is clear that 
+a remains to
 be done.
 
 
 The segregation problem has been formalized in various ways.  Here is
 a typical formalism (which is in fact used for many problems, not just
 segregation).  There is an input image, $X$, which is a view of the
-world from a camera, represented as a matrix of ``pixels''.  Each
+world from a camera, represented as a matrix of {\em pixels}.  Each
 pixel is a simple real number representing gray-level, or a vector
 representing color in RGB.
 %
 There is an output matrix, $Y$, where each pixel is replaced by
-a {\em label}, a simple integer.  The goal will be to have
-equal labels exactly for those pixels that belong to the same object.
+a {\em label}, a simple integer.  Pixels corresponding to the 
+same label are considered to belong to the same region.
 
-We construct an {\em energy function} that evaluates the output matrix
-in terms of the input, and computes a scalar.  This function is chosen
-such that choosing $Y$ to minimize it gives a good segmentation.
-The energy function can be broken into two parts:
+We can construct an {\em energy function} that evaluates the quality
+of the labelling in terms of the input.  This function is designed so
+that by minimizing it (by changing our choice of labelling, $Y$), we
+get good results.  The energy function can be broken into two
+parts:
 
 \begin{displaymath}
 %
@@ -363,7 +367,9 @@ E(X,Y) = E_{smooth}(Y) + E_{data}(X,Y)
 %
 \end{displaymath}
 
-$E_{smooth}$ measures how far the output deviates from being smooth.
+$E_{smooth}$ measures how well our labelling matches the
+expectation that neighboring pixels should generally have the
+same label (belong to the same region).
 As far as this term is concerned, the smoother the better -- there is
 a cost for neighboring pixels being assigned different labels.
 $E_{data}$ measures conflicts between the labelling and the data (for
@@ -371,65 +377,83 @@ example, assigning equal labels to pixels with very different
 appearance.
 
 Particular forms of the energy function admit of efficient 
-approximate solutions.
-
-%In robotics, work related to object segregation is quite
-%primitive.  It is strongly influenced by the field
-%of computer vision, where ``object segmentation'' is a classic,
-%much studied problem.  
-
-The formalization described above is of course
-not well-defined in general; for example, in some
-circumstances a person and everything they wear should be
-considered a single object, in other cases they to clothes
-should be separated; every object is composed of smaller
-objects, etc.  
-
-How does this compare to Gestalt principles?  At a high level, it
-matches -- making the best interpretation according to some
-principles, given the circumstances.
-
-Good for making ``superpixels'' -- grouping similar texture.
-But shape considerations are harder to integrate.  However,
-once the number of the entities to consider has been 
-reduced, much more computation can be brought to bear.
-
-The best systems today are being trained on data, large numbers
-of examples of object boundaries.  Although in simple images
-edges seem very clear, and edge detectors have been around
-a long time, in real images the story is quite different.
-So motivate use of data.
-
-
-
-
-\subsection{Training data for segregation}
-
-Edge detection can be improved in a domain
-specific way \cite{konishi03statistical}.
-Boundary database \cite{martin04learning}.
+approximate solutions, and have been the topic of much research.
 %
+The energy function is usually {\em local} -- terms are computed 
+based on comparisons between small neighborhoods of pixels.
 %
-Vision in robots has tended to be the poor relation, borrowing
-second-hand algorithms from computer vision that don't really
-fit.
+This formalization works well with grouping based on local
+cues -- similarity in brightness, color, and some forms of texture.
+It is less suited to ``shape'' cues.
+
+
+Object boundaries are much more difficult to detect reliably than might be 
+expected from introspection.
+Statistics learned from data has been shown to be useful
+\cite{konishi03statistical}.  Large databases of 
+human-labelled boundaries are being collected and
+used to train better systems
+\cite{martin04learning}.
 %
-Get segmentations --
-from poking \cite{fitzpatrick03grounding},
-or through rhythic motion grouping \cite{arsenio05exploiting},
-or any number of opportunities.
+Such databases are extremely time-consuming to produce.
 %
-Configure to predict boundaries of familiar objects
-\cite{fitzpatrick03object}.
+\citeasnoun{ross05learning} developed a system that performs
+segmentation based on static cues (color, texture, brightness)
+using statistics learned from motion segmentation.
+In principle, motion is a very powerful cue for
+segmentation; certainly that is the case for infants
+[CITE].
+%
+Progress is being made on motion segmentation, both 
+in improving its accuracy and increasing its efficiency
+ \cite{cremers05motion,fowlkes04spectral,smith03motion,smith04layered}.
+%
+Currently, accurate motion segmentation is 
+computationally challenging in unconstrained environments.
+
+
+\subsection{Object segregration in robotics}
+
+For object segregation in robotics, the biggest challenge is real-time
+operation~-- many state-of-the-art segmentation algorithms are
+unacceptably slow.  On the other hand, robots have two very
+advantageous properties.  
+%
+The first is
+{\em locality}~-- a robot exists at a certain time and place, and the
+set of objects it must work with at any moment is bounded.  
+%
+The second is
+{\em continuity}~-- a robot has a longer term relationship with
+the objects embedded in its sensors than, for example, a car 
+detector searching through images on the web.
+%
+These conditions encourage approaches to object segregation
+that are experience-driven.
+%
+The key to such approaches is to find
+opportunities in the robot's experience where the
+true boundary of an object can be reliably inferred,
+and then determine correlates of the boundary that 
+are available more generally.
+%
+For example, \citeasnoun{fitzpatrick03grounding} used
+a very specific condition (objects being hit by
+people or the robot itself) to extract good
+motion-based object boundaries; surface features
+of the object could then be used to segregate that
+object out in static presentations \cite{fitzpatrick03object}.
+\citeasnoun{arsenio05exploiting} used rhythmic motion
+of objects to segment their boundaries both in
+visually and acoustically.
+%
+[INSERT FIGURE]
+
+
+GENERALIZATION.
+
 doesn't deal with issue of generalization; although
 does pool empirical learning of edge appearance.
-
-Ross: learning static segmentation from motion segmentation.
-\cite{ross05learning}
-Motion/video segmentation in general.
-Progress is being made, in terms of accuracy
-and efficiency e.g. \cite{cremers05motion,fowlkes04spectral};
-computationally challenging right now.
 
 Or non-graspable objects -- background -- walls, tables etc.
 Arsenio (thesis) developed a set of techniques for acquiring
@@ -483,9 +507,6 @@ For segregation and (a little bit) for recognition.
 \cite{felzenszwalb04efficient}
 
 maturation v experience \cite{quinn05learning}.
-
-ecological statistics \cite{martin04learning} -- note
-that object edges are subtle to recognize.
 
 In figure, using \cite{felzenszwalb04efficient}.
 
@@ -564,7 +585,6 @@ to segregate than the same two objects
 side by side?  attrib to needham by xu,
 paintbrush/keyring.
 
-\cite{smith03motion}
 
 texture hint \cite{johnson96perception}?
 
@@ -591,7 +611,6 @@ of transparency: \cite{johnson00infants}
 
 Some quick learning shown via eye movements \cite{johnson03development}.
 
-Motion and edge \cite{smith03motion}
 
 There is a difference of concerns.  In infant research, have
 at least two instances of scenarios where infant has
@@ -614,8 +633,6 @@ extensions in SLAM.
 Computational color constancy isn't that great
 \cite{barnard02comparison}.
 
-More motion segmentation \cite{smith04layered}...
-
 Habituation -- how does it really work \cite{sirois02models}.
 Attraction to familiar; attraction to novelty.
 How to build such a system?
@@ -623,7 +640,7 @@ How to build such a system?
 sensorimotor account \cite{oregan01sensorimotor};
 infant representation a challenge.  Controversy.
 
-
+Image parsing \cite{tu05image}.
 
 
 \newpage

@@ -1,0 +1,327 @@
+
+%
+Vision in robots has tended to be the poor relation, borrowing
+second-hand algorithms from computer vision that don't really
+fit.
+%
+
+
+
+First decision: what are the boundaries and objects with which
+we are concerned?  For example, clothing may be an object in
+one case and just part of a person's body in another context.
+Often the default assumption is some kind of ``natural''
+level of object representation (CITE Jendriks).
+
+Second decision: what is the intended relationship between the groups
+formed and the true groups formed by the object boundaries?  A common
+goal is for each recovered group to be a subset (or equal) to
+true groups.  The assumption is that finding true boundaries may
+require knowledge, and to do the best that one can in a bottom-up
+manner, and to postpone final decisions.  Could go the opposite way,
+and aim for groups that are bigger than objects, but this is 
+inconsistent (all groups can't be like that) and non-modular 
+(requires thinking in units smaller than the groups when considering 
+splitting them).
+
+In this paper, we
+stick with the term from psychology.  In computer vision, object
+segregation turns out to be a key, but very difficult task, and most
+general-purpose work instead focuses on the (still difficult) task of
+``image segmentation'': grouping regions of similar appearance that
+may correspond to either an object or part of an object.
+%
+More on this later.
+%
+
+
+We address the perception of objects indirectly, via
+the perception of object boundaries.  We review experimental scenarios
+where object boundaries are not evident, and the judgements that
+infants make, which differ according to age and experience.  We review
+related work in robotics.  
+
+
+
+\begin{itemize}
+
+\item Grouping elements of a single image according to some
+criterion.  Each group may correspond to a single object, parts of
+several objects, or part of a single object.
+
+\item Grouping elements of a single image according to some
+criterion.  Each group is intended to correspond to an object or
+object part.  It is desired that groups not cross object boundaries.
+
+\item Grouping elements of a single image according to some
+criterion, where that criterion is intended to give a 
+one-to-one correspondence between visible objects and
+image groups.
+
+\item Grouping may also be done with simultaneous images from
+multiple cameras.
+
+\item Grouping may also be done with video sequences from one or 
+several cameras.
+
+\end{itemize}
+
+
+
+
+
+
+
+\section{more and more}
+
+For stereo, the labels would correspond to disparity,
+and $E_{data}$ can check that with the given disparity
+the left and right image match well locally.
+
+
+The problem of {\em object segmentation} is formalized as
+a labelling problem.
+
+decomposing an image
+
+ into collections of pixels, where each collection
+ideally corresponds to an object.
+
+
+To make this decomposition, image
+features such as color, brightness, motion, stereoscopic cues, and
+texture can be used; the basic heuristic is that by any pair of
+measurements made within an object should generally be more similar
+numerically than a pair of measurements made on regions belonging to
+different objects.  Another family of work concentrates on particular
+objects rather than the general case: finding faces, or cars, for
+example.
+
+Give intro to energy formalization, form used
+for min-cut approaches in stereo, color, etc?
+
+Active segmentation.
+
+Training for segmentation and recognition.
+
+
+\subsection{Surplus - wednesday}
+
+
+Adults, beware -- there are many judgements you can make without a
+moment's thought that infants of a certain age cannot.
+
+The kinds of experiences a na\"{i}ve observer might find
+useful in this regard are many and have not been well characterized.
+
+
+
+\subsection{Tuesday}
+
+\begin{quote}
+
+In order for infants' prior experiences with objects
+to facilitate their parsing of a novel visual scene,
+infants must be able to do several things.  First, they
+must remember their prior experiences.  Second, they 
+must realize that what they learned previously could
+apply to this new situation.  Third, they must then
+use the knowledge learned from previous encounters
+to draw conclusions about the novel visual scene.
+(Dueker, Needham...)
+
+\end{quote}
+
+
+\begin{quote}
+
+The ultimate argument for perception of events as external distal
+happenings in the world is appropriate, adaptive response to them
+in the face of changing context. (E. Gibson)
+
+\end{quote}
+
+
+Object segregation is a step
+
+
+The world around us is made of objects, some of which can more or less
+move independently. For robots and humans, the ability to judge which
+parts of the world are likely to move as a group is a key perceptual
+ability.
+
+
+As adults, we can judge which parts of the world
+are likely to move as a group. This is computationally a difficult
+judgement to make, since regions grouped by easily-defined visual
+features do not reliably correspond to physical groups. Robots and
+infants could attempt to learn to make such judgements based on
+experience. There is evidence of this in infants, and initial attempts
+with robots.
+
+
+
+\begin{itemize}
+
+\item what are some formalizations?
+
+\item what are the issues in child development?
+
+\item what is the role of motion in young infants?
+
+\item how can we exploit motion in robots?
+
+\end{itemize}
+
+
+
+Issues:
+
+\begin{itemize}
+
+\item Measures segregation abilities at given ages.
+
+\item Experiences that show separate movement of particular object.
+
+\item Successful exploitation of such experiences.
+
+\item Degree of generalization to other objects and situations.
+
+\item Role of behavior.
+
+\end{itemize}
+
+Computational:
+
+\begin{itemize}
+
+\item object complexity
+
+\item scene/presentation complexity
+
+\end{itemize}
+
+
+
+
+\subsection{Scrap}
+
+
+How do infants, and
+how should robots, perceive this world?  
+
+In robotics, it is well understood that if we attempt to formalize a
+model of the world as a complete, unique, disjoint set of units, we
+run into trouble. 
+
+ Progress has been made by focussing on 
+partial
+
+
+
+\subsection{Box and tube}
+
+
+
+Gestalt principles.
+
+Time course.
+
+Role of experience.
+
+Role of behavior.
+
+Proximity, closure,similarity, good continuation, common fate.
+
+proto-surfaces /superpixels
+
+\subsection{Importance}
+
+The importance of object segregation in robotics is 
+that it is impossible for a robot to do anything 
+useful without it.  
+
+What is available when sitting back and watching; 
+what is available when acting.  See Arsenio.
+
+
+\subsection{Progression}
+
+Early, infants may ignore object (surface?) features for grouping.
+Later, infants may assign them high weight. (footnote in
+Needham 2001).
+
+
+\subsection{SCRAPYARD}
+
+For young infants, common motion is an important cue for 
+perception of object unity.  Others: alignment, good form,
+depth cues.  Spatial separation.
+
+Can use information from just one experience.
+
+
+
+
+
+\subsection{What is the problem}
+
+What is so hard about segregation in the first place?
+
+A basic limitation of many segmentation algorithms is
+that they are designed with a shrink-wrapped mentality.
+
+
+
+
+
+Recognition without Correspondence using MultidimensionalReceptive Field Histograms
+Full text 	Full text available on the Publisher sitePublisher Site
+Source 	International Journal of Computer Vision archive
+Volume 36 ,  Issue 1  (January 2000) table of contents
+Pages: 31 - 50  
+Year of Publication: 2000
+ISSN:0920-5691 
+
+ What goes up may come down: perceptual process and knowledge 
+Cognitive Science 27 (2003) 923\u2013935
+
+***
+
+Object segregation means relating parts of a scene at a particular
+instant in a particular sense.  Intermodal integration means relating
+parts across the different senses.  Object permanence
+involves extending these relations across time.
+
+****
+
+Suppose we lived in a very simple world, composed of discrete
+objects that never break apart or merge or engage in any such 
+complication.  Then, in theory, a unigue ID could be assigned
+to every object in the world.
+
+Suppose every object has a slightly different color, texture, or
+sound, and this color/texture/sound can be perfectly sensed.
+
+Then visual segregation is trivial.  Permanence is also trivial.
+Integration is still non-trivial.
+
+====================================================================
+====================================================================
+====================================================================
+====================================================================
+====================================================================
+====================================================================
+====================================================================
+====================================================================
+
+features used to make a judgement.
+
+features used for generalizaton.
+
+interesting experiments:
+ - rod-behind-bar experiments
+ - connected-region expectations
+ - change of expectations, level of generalization
+
+
