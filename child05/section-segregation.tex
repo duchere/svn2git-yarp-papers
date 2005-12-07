@@ -1,6 +1,80 @@
+
 The world around us has structure, and to an adult appears to be made
 up of more-or-less well-defined objects.  How do we develop the
 sophisticated perceptual judgements needed to maintain this view?
+%
+Infant research has revealed a long developmental process, during
+which infant judgements converge incrementally on those of adults.
+This may offer guidance to roboticists on how to construct a
+sophisticated perceptual system~-- what the right modules are, how
+they can be ``trained'', and how they interact.  We review aspects 
+of that developmental process here.
+
+We address the perception of objects indirectly, via
+the perception of object boundaries.  We review experimental scenarios
+where object boundaries are not evident, and the judgements that
+infants make, which differ according to age and experience.  We review
+related work in robotics.  
+
+In psychology, the ability to assign boundaries to objects is 
+often termed
+``object segregation.''  In computer vision and robotics, there
+is a comparable notion often refered to as ``object segmentation''.
+In fact, the nomenclature in both fields varies (and overlaps).
+%
+Here are some distinct judgements that may be included in these
+terms:
+
+\begin{itemize}
+
+\item Grouping elements of a single image according to some
+criterion.  Each group may correspond to a single object, parts of
+several objects, or part of a single object.
+
+\item Grouping elements of a single image according to some
+criterion.  Each group is intended to correspond to an object or
+object part.  It is desired that groups not cross object boundaries.
+
+\item Grouping elements of a single image according to some
+criterion, where that criterion is intended to give a 
+one-to-one correspondence between visible objects and
+image groups.
+
+\item Grouping may also be done with simultaneous images from
+multiple cameras.
+
+\item Grouping may also be done with video sequences from one or 
+several cameras.
+
+\end{itemize}
+
+First decision: what are the boundaries and objects with which
+we are concerned?  For example, clothing may be an object in
+one case and just part of a person's body in another context.
+Often the default assumption is some kind of ``natural''
+level of object representation (CITE Jendriks).
+
+Second decision: what is the intended relationship between the groups
+formed and the true groups formed by the object boundaries?  A common
+goal is for each recovered group to be a subset (or equal) to
+true groups.  The assumption is that finding true boundaries may
+require knowledge, and to do the best that one can in a bottom-up
+manner, and to postpone final decisions.  Could go the opposite way,
+and aim for groups that are bigger than objects, but this is 
+inconsistent (all groups can't be like that) and non-modular 
+(requires thinking in units smaller than the groups when considering 
+splitting them).
+
+In this paper, we
+stick with the term from psychology.  In computer vision, object
+segregation turns out to be a key, but very difficult task, and most
+general-purpose work instead focuses on the (still difficult) task of
+``image segmentation'': grouping regions of similar appearance that
+may correspond to either an object or part of an object.
+%
+More on this later.
+%
+=======
 Infant research has revealed a long developmental process, during
 which infant judgements converge incrementally on those of adults.
 This may offer guidance to roboticists on how to construct a
@@ -43,6 +117,7 @@ considerations).
 \label{fig:image-segmentation}
 
 \end{figure}
+
 
 
 In psychology, the human ability to divide a scene into a set of
@@ -654,6 +729,42 @@ extensions in SLAM.
 Computational color constancy isn't that great
 \cite{barnard02comparison}.
 
+<<<<<<< section-segregation.tex
+More motion segmentation \cite{smith04layered}...
+
+Habituation -- how does it really work \cite{sirois02models}.
+Attraction to familiar; attraction to novelty.
+How to build such a system?
+
+sensorimotor account \cite{oregan01sensorimotor};
+infant representation a challenge.  Controversy.
+
+
+
+\begin{verbatim}
+
+Points: mature segmentation is knowledge intensive.
+Clear developmental progression in infants.
+Related to individuation.
+Experience influences segmentation, even on short time-scales.
+Tied into meaning? (action/needham,tomasello).
+Surface features relatively untrusted; implies open, changing 
+environment (untrustworthy lighting etc).
+
+Short time-scale improvements in segmentation completely
+absent in computer vision.
+
+But what about action?
+
+Current segmentation techniques are just
+the very beginning -- much more functionality required.
+
+Continous experience?  Adv. of continuity, recurrence.
+
+\end{verbatim}
+
+
+=======
 Habituation -- how does it really work \cite{sirois02models}.
 Attraction to familiar; attraction to novelty.
 How to build such a system?
@@ -664,3 +775,4 @@ infant representation a challenge.  Controversy.
 Image parsing \cite{tu05image}.
 
 Other long term learning -- surveillance \cite{stauffer00learning}.
+
