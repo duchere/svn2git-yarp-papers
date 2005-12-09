@@ -184,7 +184,8 @@ fb:
 	make $(MAIN).bbl
 
 f:
-	latex $(MAIN)
+	rm -f $(MAIN).pdf
+	rm -f $(MAIN).dvi
 
 wc:
 	cat *.tex | wc
