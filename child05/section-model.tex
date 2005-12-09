@@ -1,3 +1,77 @@
 
-Can we make some kind of common model?
+Let's call a value or bundle of values a ``unit''.  We aren't
+too concerned with the nature of those values right now.  Let's 
+just say for now that perception for our robots and infants will
+be modeled as the process of producing these units.
+
+Let's also have ``modules'' which connect to a set of units,
+reading the values of some of them (input units) and setting
+the value of others (output units).
+
+In our model, we will assign meaning to units, by saying
+what a unit should compute.  This is not part of the
+structure that the model describes.  What a unit actually
+computes can vary from what we say it should.
+
+We will often have pairs of units, where one unit can
+be interpreted as a ``confidence'' value on the other unit.
+
+We can talk of a unit being ``active'', in that case we
+assume it is a value between 0 and 1, and is above 0.5.
+
+We are concerned with at least two kinds of processes.
+
+{\bf Unit Support}  If u1 and u2 are units,
+with u2 meaning the confidence of u1,
+and m is a module that produces u1 and u2,
+we will be concerned with processes that modify
+m so that u2 becomes active more of the time,
+while u1 preserves its meaning.  Note that 
+the process itself doesn't have access to meaning.
+
+{\bf Unit Creation} We need processes that
+make units that are meaningful and useful.
+
+The easy part - training; module connected to a set of units,
+some designated input, some output, some training.  unit 
+shadowing or gating.
+
+Given a two part model (units and modules) need a way to 
+create both, unless have a static module structure.  For now,
+let's go with static module structure.
+
+
+\subsection{Examples}
+
+Orientation filter.
+
+Unit support for object boundary.
+
+Unit creation - clustering for object recognition.
+
+
+\subsection{Johnson}
+
+redraw Johnson's connectionist model.
+
+values: yes/no/indeterminate?
+
+\subsection{Robot}
+
+redraw Cog.
+
+\subsection{Scrap}
+
+Processes can recruit action.
+
+
+PAST LANGUAGE:
+  e.g. bootstrap from situation where confident about P to other situations
+  by discovering correlates -- sort of simple machine learning.
+
+  construct new units - e.g. object rec clustering.
+
+
+Also need maintenance.
+
 
