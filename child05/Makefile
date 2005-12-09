@@ -19,6 +19,8 @@ dvi:
 ps:
 	make figs f gv
 
+
+
 # generate and view pdf file
 pdf:
 	make figs f $(MAIN).pdf && xpdf $(MAIN).pdf
@@ -63,7 +65,14 @@ PSSRC = $(patsubst %.pssrc, %.eps, $(PSSRCS))  $(patsubst %.prn, %.eps, $(PRNSRC
 PSSRCI = $(patsubst %.pssrci, %.eps, $(PSSRCIS))
 EPS = $(EPSPREV) $(EPSJPEG) $(EPSGIF) $(EPSPNG) $(EPSSRC) $(PSSRC) $(PSSRCI) $(EPSBMP)
 
+
+PDFFIGS = $(patsubst %.eps, %.pdf, $(EPS))
+
 all: $(MAIN).dvi
+
+
+%.pdf: %.eps
+	epstopdf $^ --outfile=$@
 
 %.pssrc: %.prn
 	cp $< $@
@@ -123,6 +132,9 @@ endif
 %.bbl: %.bib
 #	latex $*
 	bibtex $*
+
+$(MAIN).pdf: $(PDFFIGS)
+	pdflatex $(MAIN)
 
 #$(MAIN).bbl: $(BMAIN).bib
 #	latex $(MAIN)
