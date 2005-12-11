@@ -1,3 +1,7 @@
+
+%\newcommand{\completepaper}{}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  Epigenetic Robotics 2003
@@ -16,6 +20,15 @@
 \usepackage[sort]{natbib}
 \newcommand{\citeasnoun}{\citet}
 \renewcommand{\cite}{\citep}
+
+
+\newif\ifcomplete
+\ifx\completepaper\undefined
+  \completefalse
+\else
+  \completetrue
+\fi
+
 
 \newcommand{\dgrs}{$^{\circ}$}
 \newcommand{\pflist}
@@ -75,6 +88,9 @@ Topics in the Development of Object Perception \\ in Robots and Humans
 
 \begin{document}
 
+
+\ifcomplete
+
 \maketitle
 
 
@@ -93,10 +109,13 @@ Topics in the Development of Object Perception \\ in Robots and Humans
 \input{section-segregation}
 
 
+\fi
+
 \section{Intermodal integration}
 
 \input{section-intermodal}
 
+\ifcomplete
 
 %%\section{Object permanence}
 
@@ -128,8 +147,12 @@ Topics in the Development of Object Perception \\ in Robots and Humans
 
 %  Generate ``References'' here.
 
+
 \nocite{natale05developmental}
 \nocite{arsenio05exploiting}
+\fi
+
+
 \bibliographystyle{sab}
 \bibliography{main}
 
