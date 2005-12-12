@@ -22,65 +22,37 @@ often termed
 is a comparable notion often refered to as ``object segmentation''.
 In fact, the nomenclature in both fields varies (and overlaps).
 %
-Here are some distinct judgements that may be included in these
-terms:
 
-\begin{itemize}
 
-\item Grouping elements of a single image according to some
-criterion.  Each group may correspond to a single object, parts of
-several objects, or part of a single object.
+%% Here are some distinct judgements that may be included in these
+%% terms:
 
-\item Grouping elements of a single image according to some
-criterion.  Each group is intended to correspond to an object or
-object part.  It is desired that groups not cross object boundaries.
+%% \begin{itemize}
 
-\item Grouping elements of a single image according to some
-criterion, where that criterion is intended to give a 
-one-to-one correspondence between visible objects and
-image groups.
+%% \item Grouping elements of a single image according to some
+%% criterion, where each group may correspond to a single object, parts of
+%% several objects, or part of a single object.
 
-\item Grouping may also be done with simultaneous images from
-multiple cameras.
+%% \item Grouping elements of a single image according to some
+%% criterion, where each group is intended to correspond to an object or
+%% object part.  It is desired that groups not cross object boundaries.
 
-\item Grouping may also be done with video sequences from one or 
-several cameras.
+%% \item Grouping elements of a single image according to some
+%% criterion, where that criterion is intended to give a 
+%% one-to-one correspondence between visible objects and
+%% image groups.
 
-\end{itemize}
+%% \item Grouping may also be done with simultaneous images from
+%% multiple cameras.
 
-First decision: what are the boundaries and objects with which
-we are concerned?  For example, clothing may be an object in
-one case and just part of a person's body in another context.
-Often the default assumption is some kind of ``natural''
-level of object representation (CITE Jendriks).
+%% \item Grouping may also be done with video sequences from one or 
+%% several cameras.
 
-Second decision: what is the intended relationship between the groups
-formed and the true groups formed by the object boundaries?  A common
-goal is for each recovered group to be a subset (or equal) to
-true groups.  The assumption is that finding true boundaries may
-require knowledge, and to do the best that one can in a bottom-up
-manner, and to postpone final decisions.  Could go the opposite way,
-and aim for groups that are bigger than objects, but this is 
-inconsistent (all groups can't be like that) and non-modular 
-(requires thinking in units smaller than the groups when considering 
-splitting them).
+%% \end{itemize}
 
-In this paper, we
-stick with the term from psychology.  In computer vision, object
-segregation turns out to be a key, but very difficult task, and most
-general-purpose work instead focuses on the (still difficult) task of
-``image segmentation'': grouping regions of similar appearance that
-may correspond to either an object or part of an object.
 %
-More on this later.
-%
-=======
-Infant research has revealed a long developmental process, during
-which infant judgements converge incrementally on those of adults.
-This may offer guidance to roboticists on how to construct a
-sophisticated perceptual system~-- what the right modules are, how
-they can be ``trained'', and how they interact.  We review aspects 
-of that developmental process here.
+%Often the default assumption is some kind of ``natural''
+%level of object representation (CITE Jendriks).
 
 
 
@@ -91,8 +63,7 @@ of that developmental process here.
 \caption{
 %
 Image segmentation and object segregation are different.  On the left,
-there is a simple scenario, taken from \citeasnoun{needham01object}
-(not quite the right image),
+there is a simple scenario, taken from \citeasnoun{needham01object},
 showing a rectangle attached to a yellow tube.  Two 
 plausible ways to segregate this scene are shown in the middle,
 depending on whether the tube and rectangle make up a single 
@@ -120,14 +91,27 @@ considerations).
 
 
 
-In psychology, the human ability to divide a scene into a set of
-discrete objects is termed ``object segregation.''  
-In computer vision and robotics, there are algorithms with 
-similar goals.  In practice, automatic object segregation
+%In this paper, we
+%stick with the term from psychology.  In computer vision, object
+%segregation turns out to be a key, but very difficult task, and most
+%general-purpose work instead focuses on the (still difficult) task of
+%``image segmentation'': grouping regions of similar appearance that
+%may correspond to either an object or part of an object.
+%
+%More on this later.
+%
+
+%In psychology, the human ability to divide a scene into a set of
+%discrete objects is termed ``object segregation.''  
+
+%In computer vision and robotics, there are algorithms with 
+%similar goals.  
+
+In practice, automatic object segregation
 in unconstrained environments is not currently possible.
 %
 Progress has been made on a related, less ambitious problem
-called ``image segmentation''.  The goal of image segmentation
+often called ``image segmentation''.  The goal of image segmentation
 is to divide an image of a scene into a set of discrete
 regions, where each region corresponds to an object or 
 an object part.  The distinction between this and 
@@ -141,13 +125,37 @@ exist for unconstrained environments).  Regions designed to be
 used this way are also called ``superpixels''.
 %
 They can be produced by bottom-up processes that look for 
-similarily in color and texture.  We give an example algorithm later
-in this section.
+similarily in color and texture.  
 %
+%We give an example algorithm later
+%in this section.
+%
+More generally, there is not necessarily a one-to-one
+correspondence intended
+ between the groups
+formed by an algorithm and the true groups formed by object boundaries.
+A common
+goal in image segmentation is for each recovered group to be a subset (or equal) to
+true groups.  The assumption is that finding true boundaries may
+require task-specific knowledge, and that the best that can be done is
+to group conservatively and to postpone final decisions.  
+%
+For example, clothing may be an object in
+one case and just part of a person's body in another context.
+%
+It would also be possible to
+aim for creating groups that are bigger than objects, and then
+plan to split them based on task-specific knowledge.
+But this is  non-modular 
+(it requires working in units smaller than the groups when considering 
+splitting them, so little is gained from forming the groups in
+the first place).
 
-For humans, visual experience is continuous, and comes from our two
-eyes.  Image segmentation can be generalized to video sequences, and
-to input from multiple view-points.  Real-time, robotic
+%For humans, visual experience is continuous, and comes from our two
+%eyes.  Image segmentation can be generalized to video sequences, and
+%to input from multiple view-points.  
+%
+Real-time, robotic
 implementations of image segmentation are primitive compared to
 state-of-the-art off-line segmentation algorithms, and focus on simple
 cases, such as colorful or moving objects.
@@ -172,16 +180,16 @@ It is clear that human infants learn generic principles for making
 educated guesses about which surfaces belong together as part of the
 same unit and which do not.  By 4 to 5 months of age, infants can
 parse simple displays into units based on something like static
-gestalt principles, probably some subset of these (e.g. \citeasnoun{needham98infants,needham00improvements}).
-
+gestalt principles, probably some subset of these (e.g. \citeasnoun{needham98infants,needham00improvements}). 
+%
 Similar results have been obtained by researchers using partly
-occluded objects (Johnson--+ display??)
+occluded objects (Johnson).
 
 Initial studies indicated that infants used some collection of
 features to parse the displays \cite{needham98infants,needham97object,needham98effects}; subsequent studies suggested that object shape is the key
 feature that young infants use to identify boundaries between adjacent
 objects \cite{needham99role}.
-
+%
 These principles may lead to many incorrect parsings, but they will
 also provide reasonable best guess interpretations of uniform objects
 in complex displays.  
@@ -230,8 +238,7 @@ suggests that boundary information is not the only information infants
 use to parse the objects in a display (Needham, 1998).  
 
 Infants also use information about specific objects or
-classes of objects to guide their judgement.  
-NEEDHAM, CANTLON, \& ORMSBEE 2005 (age: 8.5 months).
+classes of objects to guide their judgement (Needham, Cantlon, \& Ormsby, 2005) (age: 8.5 months).
 
 
 It might be that extensive amounts of experience are required to
@@ -522,7 +529,7 @@ object out in static presentations \cite{fitzpatrick03object}.
 of objects to segment their boundaries both in
 visually and acoustically.
 %
-Arsenio (CITE THESIS) developed a set of techniques for acquiring all
+Arsenio (2005) developed a set of techniques for acquiring all
 sorts of segmentations.  Some methods work for small, grasp-size
 objects, others work for large background objects like walls or
 tables.
@@ -575,9 +582,12 @@ robot, or computer), one can consider the information present
 in typical environments and whether that information can be
 exploited for use in determining object boundaries.
 
-Using color and texture features is perhaps limiting, since they
-are relatively accidental.  Infants seem to ignore them for
-certain purposes [CITE].
+Cues available for object segregation include luminance, color,
+texture, motion, shape, location, seams, stereo, shadow, etc.
+%
+Using color and texture features is popular, but perhaps limiting, since they
+are relatively accidental.  Young infants seem to ignore them for
+certain purposes, as we saw earlier.
 %
 Physical boundaries are functions of object shape.  But object shape
 is difficult to recover in natural scenes.
@@ -586,200 +596,60 @@ One correlate of shape is object contour.  In a comparision between
 contour-based and appearance-based methods for object categorization
 \cite{leibe03analyzing}, shape-based cues are shown to be
 particularly useful for categorization.
-Ditto \cite{lecun04learning}.
+\citeasnoun{lecun04learning} gives us the same message.
 For specific tasks, color/texture can be useful, but for 
-generic tasks they are a distraction.
-
-Biologically inspired mechanisms are competitive:
-Serre's model for recognition \cite{serre05object}.
+generic tasks they may be a distraction.
 
 
-Discuss value of cues in terms of information content (how many bits),
-accessibility (how hard is it to actually estimate those bits
-correctly), constancy over different timescales and variations.
-
-Luminance, color, texture, motion, shape, location, seams, stereo,
-shadow.
-
-For segregation and (a little bit) for recognition.
-
-Pending:
-
-\cite{swain91color}.
-
-\cite{schiele00recognition}.
-
-\cite{lowe04distinctive}
-
-\cite{felzenszwalb04efficient}
-
-maturation v experience \cite{quinn05learning}.
-
-In figure, using \cite{felzenszwalb04efficient}.
-
-\cite{gibson88exploratory}
-
-\cite{spelke90principles}
-
-\cite{martin01database}
-
-The Torralba-led contextual approach.
+Put here a complete discussion of value of cues in terms of
+information content, accessibility (how hard is it to actually
+estimate those bits correctly), constancy over different timescales
+and variations.
 
 
-shadows and interreflections for object contact
-\cite{madison01use}.
 
-
-Stereo review -- depth maps, making progress
-\cite{scharstein02taxonomy}
-
-theoretically, more info at corners \cite{feldman05information}
-
-connectionist model
-\cite{mareschal02learning} --
+%%Pending results to discuss
+\nocite{serre05object}
+\nocite{swain91color}
+\nocite{schiele00recognition}
+\nocite{lowe04distinctive}
+\nocite{felzenszwalb04efficient}
+\nocite{quinn05learning}
+\nocite{felzenszwalb04efficient}
+\nocite{gibson88exploratory}
+\nocite{spelke90principles}
+\nocite{martin01database}
+\nocite{madison01use}
+\nocite{scharstein02taxonomy}
+\nocite{feldman05information}
+\nocite{mareschal02learning}
+\nocite{wilcox99object}
+\nocite{dannemiller87test}
+\nocite{wilcox04priming}
+\nocite{johnson96perception}
+\nocite{needham05infants}
+\nocite{johnson00infants}
+\nocite{johnson03development}
 
 \begin{quote}
 
-For infants younger than 6 months, common motion of surfaces that lead
+``For infants younger than 6 months, common motion of surfaces that lead
 behind an occluder is both necessary and sufficient to specify their
 unity. Only after 6 months do infants utilize additional sources of
 information for unity, such as surface appearance, and edge and
-surface orientation. \cite{mareschal02learning}
+surface orientation.'' \cite{mareschal02learning}
 
 \end{quote}
 
 
-Wilcox on the why \cite{wilcox99object}.  Maybe don't get
-``sufficient contrastive evidence within the context of
-occlusion events''.
-
-
-Also of interest:
-
-\begin{quote}
-
-In contrast, infants first demonstrate color constancy around 4-5
-months of age, and then only under limited conditions ( Dannemiller
-and Dannemiller).
-
-Finally, because form features are amodal - they can be
-experienced visually, orally, or haptically - they may be more
-salient to young infants.
-
-\end{quote}
-
-Color constancy in 4-month olds: \cite{dannemiller87test} -- some 
-limitations.
-
-Nifty: not age at which feature is detectable, but the actual
-info it carries, that affects at what age it gets used for
-individuation -- luminance test \cite{woods05infants}.
-
-Infants' formation and use of categories to segregate objects 
-\cite{needham05infants}.
-
-Feature priming -- \cite{wilcox04priming}
-
-
-stacked objects sharing a boundary are harder
-to segregate than the same two objects
-side by side?  attrib to needham by xu,
-paintbrush/keyring.
-
-
-texture hint \cite{johnson96perception}?
-
-depth placement and contour ownership?
-
-\begin{quote}
-
-Spelke noted that any mechanism for segmenting the visual array
-into objects must ascertain the boundaries of adjacent objects,
-the complete shapes of partly occluded objects, and the continued
-existence of objects that are no longer visible.
-(Johnson 1996 quoting Spelke 1990 - get original)
-
-\end{quote}
-
-Relatable edges: can be connected with a smooth monotic
-curve behind occluder.
-
-Including and excluding ``perceptual completion.''
-
-Interesting developmental progressions, e.g. of perception
-of transparency: \cite{johnson00infants}
-
-
-Some quick learning shown via eye movements \cite{johnson03development}.
-
-
-There is a difference of concerns.  In infant research, have
-at least two instances of scenarios where infant has
-plastic perception.
-
-In fact habituation paradigm requires a form of short-term
-plasticity. 
-
-
-\cite{prechtl01role} influence of vision on early motor 
-development.
-
-\subsection{Active vision}
-
-\cite{bajcsy88active,aloimonos87active,ballard91animate}
-
-driven by uncertainty \cite{whaite97autonomous}, 
-extensions in SLAM.
-
-Computational color constancy isn't that great
-\cite{barnard02comparison}.
-
-<<<<<<< section-segregation.tex
-More motion segmentation \cite{smith04layered}...
-
-Habituation -- how does it really work \cite{sirois02models}.
-Attraction to familiar; attraction to novelty.
-How to build such a system?
-
-sensorimotor account \cite{oregan01sensorimotor};
-infant representation a challenge.  Controversy.
-
-
-
-\begin{verbatim}
-
-Points: mature segmentation is knowledge intensive.
-Clear developmental progression in infants.
-Related to individuation.
-Experience influences segmentation, even on short time-scales.
-Tied into meaning? (action/needham,tomasello).
-Surface features relatively untrusted; implies open, changing 
-environment (untrustworthy lighting etc).
-
-Short time-scale improvements in segmentation completely
-absent in computer vision.
-
-But what about action?
-
-Current segmentation techniques are just
-the very beginning -- much more functionality required.
-
-Continous experience?  Adv. of continuity, recurrence.
-
-\end{verbatim}
-
-
-=======
-Habituation -- how does it really work \cite{sirois02models}.
-Attraction to familiar; attraction to novelty.
-How to build such a system?
-
-sensorimotor account \cite{oregan01sensorimotor};
-infant representation a challenge.  Controversy.
-
-Image parsing \cite{tu05image}.
+Not age at which feature is detectable, but the actual
+information it carries, that affects at what age it gets used for
+individuation -- evidence from luminance test \cite{woods05infants}.
 
 Other long term learning -- surveillance \cite{stauffer00learning}.
+
+
+\subsection{Summary}
 
 Maybe discuss some summary points of contact here between robotics and
 infant fields -- what can each area learn from the main findings
@@ -796,10 +666,7 @@ benefit from even very simple forms of exploration that infants might
 engage in.  When faced with an ambiguous scene, using one's
 hands to collect disambiguating information is a good strategy.
 
-
 Summary of what robotics researchers could take from infant work?
-
-
 
 Would this kind of section be useful at the end of each of the major
 divisions of the paper?
