@@ -187,8 +187,6 @@ f:
 	rm -f $(MAIN).pdf
 	rm -f $(MAIN).dvi
 
-wc:
-	cat *.tex | wc
 
 join:
 	cat *.tex | egrep -v "^\%"
@@ -229,6 +227,9 @@ update:
 	cvs update
 
 u: update
+
+wc: $(MAIN).pdf
+	pstotext $(MAIN).pdf | wc
 
 # only works on a sun, with distill installed
 pdf: $(MAIN).pdf
