@@ -133,7 +133,7 @@ endif
 #	latex $*
 	bibtex $*
 
-$(MAIN).pdf: $(PDFFIGS)
+$(MAIN).pdf: $(PDFFIGS) $(MAIN).dvi
 	pdflatex $(MAIN)
 
 #$(MAIN).bbl: $(BMAIN).bib
@@ -229,7 +229,13 @@ update:
 u: update
 
 wc: $(MAIN).pdf
-	pstotext $(MAIN).pdf | wc
+	pstotext $(MAIN).pdf | wc >> count.txt
+	cat count.txt
+
+wcs:
+	for f in `cat main.tex | grep "input.section" | grep -v "%" | perl -pe "s/.*(section-[a-z]+).*/\1.tex/"`; do \
+	wc -w $$f; \
+	done
 
 # only works on a sun, with distill installed
 pdf: $(MAIN).pdf

@@ -1,6 +1,8 @@
 
 \newcommand{\completepaper}{}
 
+%%\newcommand{\verbosepaper}{}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -27,6 +29,13 @@
   \completefalse
 \else
   \completetrue
+\fi
+
+\newif\ifverbose
+\ifx\verbosepaper\undefined
+  \verbosefalse
+\else
+  \verbosetrue
 \fi
 
 
@@ -60,7 +69,8 @@
 %  Note: we slightly changed the use of author/affilication.
 
 \title{
-Steps in the Development of Object Perception \\ in Robots and Humans
+Common Challenges in Object Perception \\ 
+for Robots and Infants
 }
 
 
