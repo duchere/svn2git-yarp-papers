@@ -1,20 +1,27 @@
 
 The world around us has structure, and to an adult appears to be made
-up of more-or-less well-defined objects.  How do we develop the
-sophisticated perceptual judgements needed to maintain this view?
+up of more-or-less well-defined objects.  Experience in robotics and
+machine vision have highlighted how radically sophisticated these
+perceptual judgements are.
+%
+%
+How do we make them?  What elements are they built from?  How can
+we break them down into simpler parts?
 %
 Infant research has revealed a long developmental process, during
 which infant judgements converge incrementally on those of adults.
+%
 This may offer guidance to roboticists on how to construct a
 sophisticated perceptual system~-- what the right modules are, how
 they can be ``trained'', and how they interact.  We review aspects 
-of that developmental process here.
+of that developmental process here, concentrating on perception
+of object boundaries.
 
-We address the perception of objects indirectly, via
-the perception of object boundaries.  We review experimental scenarios
-where object boundaries are not evident, and the judgements that
-infants make, which differ according to age and experience.  We review
-related work in robotics.  
+%We address the perception of objects indirectly, via
+%the perception of object boundaries.  We review experimental scenarios
+%where object boundaries are not evident, and the judgements that
+%infants make, which differ according to age and experience.  We review
+%related work in robotics.  
 
 
 %% Here are some distinct judgements that may be included in these
@@ -100,6 +107,8 @@ considerations).
 %In computer vision and robotics, there are algorithms with 
 %similar goals.  
 
+\subsection{Point of contact: the basic challenge}
+
 In psychology, the ability to assign boundaries to objects is 
 often termed
 ``object segregation.''  In computer vision and robotics, there
@@ -175,7 +184,9 @@ segregation skills, and work to factor experience into
 image segmentation for machine vision.
 
 
-\subsection{Development of infants' object segregation skills}
+\subsection{Point of contact: development of object segregation skills}
+
+\subsubsection*{Development of object segregration skills in infants}
 
 It is clear that human infants learn generic principles for making
 educated guesses about which surfaces belong together as part of the
@@ -252,7 +263,89 @@ display.
 
 
 
-\subsection{Specific instances of experience affecting infants' segregation judgements}
+\subsubsection*{Development of object segregration skills in robotics}
+
+For object segregation in robotics, the biggest challenge is real-time
+operation~-- many state-of-the-art segmentation algorithms are
+unacceptably slow.  On the other hand, robots have two very
+advantageous properties.  
+%
+The first is
+{\em locality}~-- a robot exists at a certain time and place, and the
+set of objects it must work with at any moment is bounded.  
+%
+The second is
+{\em continuity}~-- a robot has a longer term relationship with
+the objects embedded in its sensors than, for example, a car 
+detector searching through images on the web.
+%
+These conditions encourage approaches to object segregation
+that are experience-driven.
+%
+The key to such approaches is to find
+opportunities in the robot's experience where the
+true boundary of an object can be reliably inferred,
+and then determine correlates of the boundary that 
+are available more generally.
+%
+For example, \citeasnoun{fitzpatrick03grounding} used
+a very specific condition (objects being hit by
+people or the robot itself) to extract good
+motion-based object boundaries; surface features
+of the object could then be used to segregate that
+object out in static presentations \cite{fitzpatrick03object}.
+\citeasnoun{arsenio05exploiting} used rhythmic motion
+of objects to segment their boundaries both in
+visually and acoustically.
+%
+Arsenio (2005) developed a set of techniques for acquiring all
+sorts of segmentations.  Some methods work for small, grasp-size
+objects, others work for large background objects like walls or
+tables.
+
+
+
+
+
+\begin{figure}[t]
+
+\centerline{
+\includegraphics[width=0.75\columnwidth]{fig-robot}
+}
+
+\caption{
+%
+Object segregation based on specific object experience.  The robot
+detects object boundaries experimentally \cite{fitzpatrick03object}.
+It searches for good features of the object that contrast with other
+objects, and that are stable with respect to certain geometric
+transformations.  These features are then used to jointly detect
+and segment the object in future views.  Left: the robot.
+Middle: segmentations of an object derived opportunistically
+from experience.  Right: the robot's perspective on a scene 
+containing the object on a table.  The object is correctly segmented;
+the table is completely ignored.
+%
+}
+
+\label{fig:robot}
+
+\end{figure}
+
+
+
+These systems are limited in how information from experience can be
+generalized.  In \citeasnoun{fitzpatrick03object}, for example,
+information is either pooled across all contexts (in the case of edge
+appearance modeling) or intended to be specific to one particular
+object.  There is no notion of object category.
+%
+In this respect, Needham's results on generalizations are
+very interesting, in possibly pointing a way forward.
+
+
+
+\subsection{Point of contact: specific instances of experience affecting segregation judgements}
 
 In this paradigm, a test display was used that was ambiguous to
 4.5-month-old infants who had no prior experience with the display.
@@ -260,7 +353,7 @@ Prior experience was given that would help disambiguate the display
 for infants.  This experience consisted of a brief prior exposure
 (visual only) to a portion of the test display.  If infants used this
 prior experience to help them parse the test display, they should see
-the display as two separate objects and look relaibly longer when they
+the display as two separate objects and look reliably longer when they
 moved as a whole than when they move separately.  Alternately, if the
 prior experience was ineffective in altering infants'
 interpretation of the display, they should look about equally at the
@@ -303,7 +396,8 @@ another very readily.  But would they extend information from a {\bf group}
 of objects to a new object that is a member of that group?
 
 
-\subsection{Generalization of knowledge gained from experience}
+
+\subsection{Infant lead: generalization of knowledge gained from experience}
 
 This question was investigated by \citeasnoun{needham05infants}
 in a study using the same test display and a similar procedure as in
@@ -350,7 +444,7 @@ principles alone.
 
 
 
-\subsection{Role of behavior in the development of object segregations skills}
+\subsection{Infant lead: role of behavior in the development of object segregations skills}
 
 Evidence from of one set of studies reveals that young
 infants' difficulty in collecting the relevant information
@@ -397,8 +491,7 @@ Best machine segmentation of a set of algorithms (right).
 \end{figure}
 
 
-
-\subsection{Object segregration in computer vision}
+\subsection{Robot lead: formalization of object segregration in computer vision}
 
 Object segregation is a problem of deep interest to researchers in
 computer vision and robotics.  Many algorithms exist for many variants
@@ -495,85 +588,6 @@ Currently, accurate motion segmentation is
 computationally challenging in unconstrained environments.
 
 
-\subsection{Object segregration in robotics}
-
-For object segregation in robotics, the biggest challenge is real-time
-operation~-- many state-of-the-art segmentation algorithms are
-unacceptably slow.  On the other hand, robots have two very
-advantageous properties.  
-%
-The first is
-{\em locality}~-- a robot exists at a certain time and place, and the
-set of objects it must work with at any moment is bounded.  
-%
-The second is
-{\em continuity}~-- a robot has a longer term relationship with
-the objects embedded in its sensors than, for example, a car 
-detector searching through images on the web.
-%
-These conditions encourage approaches to object segregation
-that are experience-driven.
-%
-The key to such approaches is to find
-opportunities in the robot's experience where the
-true boundary of an object can be reliably inferred,
-and then determine correlates of the boundary that 
-are available more generally.
-%
-For example, \citeasnoun{fitzpatrick03grounding} used
-a very specific condition (objects being hit by
-people or the robot itself) to extract good
-motion-based object boundaries; surface features
-of the object could then be used to segregate that
-object out in static presentations \cite{fitzpatrick03object}.
-\citeasnoun{arsenio05exploiting} used rhythmic motion
-of objects to segment their boundaries both in
-visually and acoustically.
-%
-Arsenio (2005) developed a set of techniques for acquiring all
-sorts of segmentations.  Some methods work for small, grasp-size
-objects, others work for large background objects like walls or
-tables.
-
-
-
-
-
-\begin{figure}[t]
-
-\centerline{
-\includegraphics[width=0.75\columnwidth]{fig-robot}
-}
-
-\caption{
-%
-Object segregation based on specific object experience.  The robot
-detects object boundaries experimentally \cite{fitzpatrick03object}.
-It searches for good features of the object that contrast with other
-objects, and that are stable with respect to certain geometric
-transformations.  These features are then used to jointly detect
-and segment the object in future views.  Left: the robot.
-Middle: segmentations of an object derived opportunistically
-from experience.  Right: the robot's perspective on a scene 
-containing the object on a table.  The object is correctly segmented;
-the table is completely ignored.
-%
-}
-
-\label{fig:robot}
-
-\end{figure}
-
-
-
-These systems are limited in how information from experience can be
-generalized.  In \citeasnoun{fitzpatrick03object}, for example,
-information is either pooled across all contexts (in the case of edge
-appearance modeling) or intended to be specific to one particular
-object.  There is no notion of object category.
-%
-In this respect, Needham's results on generalizations are
-very interesting, in possibly pointing a way forward.
 
 
 \ifverbose
