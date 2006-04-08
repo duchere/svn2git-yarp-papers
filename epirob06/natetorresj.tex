@@ -1,0 +1,89 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Epigenetic Robotics 2006
+%
+%  We are using SAB format.
+%  Choose  'a4' for your draft.
+%  (Note that the final proceedings will be using A4 paper.)
+
+\documentclass[a4]{epirob}
+
+%  usepackage goes here.
+
+\usepackage{graphicx}
+
+%%%%%%%%
+%
+%  title/author/affiliation go here.
+%  Note: we slightly changed the use of author/affilication.
+\title{A sensitive approach to grasping}
+
+%
+%  For one-to-one authur/affil correspondence
+
+%\author{Lorenzo Natale\\
+%   \rm  Massachusetts Institute of Technology\\
+%   \rm  Computer Science and Artificial Intelligence Laboratory\\
+%   \rm  32 Vassar St. Room 32-380\\
+%   \rm  Cambridge, MA 02139 US\\
+%   \rm  lorenzo@csail.mit.edu
+%  \and
+%        Eduardo Torres-Jara\\
+%   \rm  Massachusetts Institute of Technology\\
+%   \rm  Computer Science and Artificial Intelligence Laboratory\\
+%   \rm  32 Vassar St. Room 32-380\\
+%   \rm  Cambridge, MA 02139 US\\
+%   \rm  etorresj@csail.mit.edu}
+%
+%\affiliation{} % not used in one-to-one mode
+
+%
+%  For N-to-M author/affil correspondence
+%
+  \author{Lorenzo Natale$^{*}$$^{\dag}$\\
+          \rm  lorenzo@csail.mit.edu
+        \and
+          Eduardo Torres-Jara$^{*}$\\
+          \rm  etorresj@csail.mit.edu}
+
+
+  \affiliation{$^{*}$Massachusetts Institute Technology\\
+    \rm  Computer Science and\\
+    \rm Artificial Intelligence Laboratory\\
+    %\rm  CSAIL\\
+    \rm  32 Vassar St. Room 32-380\\
+    \rm  Cambridge, MA 02139 US\\
+
+             \and
+              $^{\dag}$\rm  University of Genoa\\
+   \rm  LIRA-Lab, DIST\\
+   \rm  Viale F. Causa 13\\
+   \rm  16145 Genoa, Italy
+   }
+
+
+%%%%%%%%
+%
+%  Local setting (if any) goes here.
+
+%  Now, let us begin.
+
+\begin{document}
+
+\maketitle
+
+\input{sec-abstract}
+\input{sec-introduction}
+\input{sec-background}
+\input{sec-robot}
+\input{sec-development}
+\input{sec-behavior}
+\input{sec-results}
+\input{sec-conclusions}
+\input{sec-ack.tex}
+
+%  Generate ``References'' here.
+\bibliographystyle{sab}
+\bibliography{natetorresj}
+
+\end{document}

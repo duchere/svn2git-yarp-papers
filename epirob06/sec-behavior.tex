@@ -1,0 +1,159 @@
+\begin{figure*}[tb]
+\centerline{
+\includegraphics[width=2.5in, angle=270 ]{./figures/GrabSeq.eps}
+} \caption{An example. Sequence of the robot grasping a porcelain
+cup. Frame 1: the cup is presented to the robot. Frame 2: the
+robot reaches for the cup. Frames 3 to 6:  the robot explores the
+space and uses tactile feedback to find the object and adjust the
+position of the hand around it. Frames 7 and 8: the robot grasps
+and lifts the cup.} \label{fig:sequence}
+\end{figure*}
+
+\section{The robot's behavior}
+\label{sec:behavior}
+
+ [include the picture of the behaviors]
+(eduardo)
+
+ The robot waits for a visual stimula. The robot reaches towards
+ the goal without 3D information. If there is not contact detected
+ by the tactile sensor, it hover until there is contact.
+ Depending on the position of the contact the following actions
+ are taken. If touched only on middle finger then the finger
+ retracts and keeps hovering to make contact with both fingers.
+ If that contact occurs the thumb is opposed to the index finger.
+ At this point the robot starts pushing waiting for contact with
+ the palm. When the palm sensors are activate the hand is closed
+ to grab the object and lift it.
+
+
+%The behavior of the robot is as follows. It sweeps its hand back
+%and forth over a table, and stops to tap any object (or, indeed,
+%any obstacle) it comes in contact with. This overall behavior is
+%the product of the combined operation of a number of
+%sub-behaviors, shown in Figure 3. Before we describe how they
+%interact, here is a summary of these component behaviors: Hand
+%preshaping. This module places the middle and index fingers
+%together and perpendicular to the palm. The thumb is held up,
+%perpendicular to the other two fingers. For preshaping, the
+%fingers are controlled based on position rather than force. .
+%Collision detection. This module uses the outputs from the force
+%and tactile sensors in each finger to determine whether a
+%collision has occurred. This is possible because the hand has very
+%low mechanical impedance and consequently the fingers slightly
+%bend upon contact with an object. This bending is detected by the
+%force sensor, often before the force exerted by the finger has
+%greatly affected the object. . Surface hovering. This behavior
+%hovers the arm and hand over a surface using a predetermined fixed
+%action pattern. The motion can be interrupted at any time. .
+%Tapping. This behavior moves the fingers back and forward for a
+%given time, in another fixed action pattern. . Arm control. This
+%module deals directly with the low level motor control of the arm.
+%The arm, for the work described in this paper, uses position
+%control for each of the joints. To produce motion, a smooth
+%trajectory is interpolated between setpoints. . Hand control. This
+%module provides a connection with the low level controller of the
+%hand. It allows control of parameters such as the gain and the
+%type of controllers, i.e. position and force control. . Arm
+%sensing. This modules reads the force and position measurements
+%from the low level controller for the arm. . Hand sensing. This
+%module reads the force, position and tactile measurements from the
+%low level controller for the hand. The interaction of these parts
+%is as follows. The hand preshaping and surface hovering modules
+%make the arm and hand sweep over the surface with the middle and
+%index finger extended forward and the thumb up. This is done by
+%sending commands to the arm control and hand control modules. When
+%the fingers of the robot come in contact with an object, the
+%collision detection module overrides the messages coming from hand
+%preshaping and surface hovering to the arm control and hand
+%control modules, commanding the arm to an immediate stop. At the
+%same time the behavior tapping sends commands to the hand control
+%module to periodically touch the object and to the arm control
+%module to keep the arm in position. The tapping lasts a few
+%seconds, after which the tapping module relinquishes the control
+%and stop sending commands. At this point the surface hovering and
+%preshaping hand modules can get their message across to the motor
+%control modules. Consequently, the arm is repositioned and the
+%sweeping behavior reactivated. These modules run on different
+%machines on the network of computers that control Obrero. The
+%interconnection between modules was done using YARP (Fitzpatrick
+%et al., 2004). During the experiment we recorded vision and sound
+%from the head along with the force feedback from both the arm and
+%hand. The visual feedback was not used in the robot's behavior; it
+%was simply recorded to aid analysis and presentation of results.
+%All other sensory information were considered candidates for
+%detecting contact. The force feedback from the hand proved the
+%simplest to work with. Peaks in the hand force feedback were
+%successfully employed to detect the impact of the fingers with the
+%object during both the exploration and tapping behaviors. Force
+%and sound were aligned as shown in Figure 4. Once the duration of
+%a tapping episode was determined, a spectrogram for the sounds
+%during that period was generated as shown in Figure 5. The overall
+%contact sound was represented directly as the relative
+%distribution of frequencies at three discrete time intervals after
+%each tap, to capture both characteristic resonances, and decay
+%rates. The distributions were pooled across all the taps in a
+%single episode, and averaged. Recognition is performed by
+%transforming these distributions into significance measures (how
+%far frequency levels differ from the mean across all tapping
+%episodes) and then using histogram comparison.
+
+
+\section{ Data collection}
+
+[Describe how we collect data and analysis data if we have more
+resutls.]
+
+%The robot's behaviors are designed to create opportunities for
+%learning, by finding and tapping objects. The modules that exploit
+%these opportunities for learning are entirely from the modules
+%that control the behavior of the robot. The occurrence of tapping
+%is detected based on sensor data, rather than commanded motion.
+%The only interaction that takes place between these modules is via
+%actions in the world (Brooks, 1990). This improves robustness. We
+%do not have to deal with explicit expectations or their possible
+%failure modes. For example, sometimes the robot fails to hit an
+%object when tapping, so it is good to pay more attention to actual
+%contact rather than commanded motions. The force measurements from
+%the fingers is summed into a single signal, then classified into
+%``rising'', ``falling'', and ``neutral'' phases. Classification
+%transitions to ``rising'' if the signal increases over 10%
+%of the previous range covered by the signal from its highest to
+%lowest point during a rising and falling period. Similarly, the
+%classification transitions to
+%``falling'' if the signal falls by over 10% of this range.
+%Since the range is constantly updated, the classification is
+%robust to slow-changing offsets, and the actual gross magnitude of
+%swings. The classifications are scanned for rythmic rising and
+%falling with a period lying between 0.2 and 2 seconds. Then the
+%force signal in these regions is compared with the sound, to
+%find if peaks in the sound line up well (within 20% of
+%a period) of either peaks or troughs in the force signal (the sign
+%depends on the orientation of the fingers during tapping). All
+%going well, a spectrogram of the sound is performed in the
+%appropriate range. Only the spectrogram around the peaks
+%(presumably from tapping) is significant. Three samples are made
+%in quick succession after each peak, to capture not just
+%characteristic resonance but decay properties. The robot's
+%learning is performed on-line, but not in real-time. Performing
+%data collection and learning in real-time on a robot can lead to
+%research time wasted optimizing code and iterating designs that
+%are otherwise adequate. But simply switching to off- line
+%performance is undesirable, since it offers too many subtle ways
+%for human input to enter the process. Hence we divided the robot's
+%on-line system into two parts, the real-time subsystem that
+%controls behavior, and the near-time subsystem that continually
+%processes the robot's experience. This follows the design of the
+%robot Cog's object recognition system (Fitzpatrick, 2003a). Figure
+%6 shows the time course of an experiment. The key property being
+%illustrated is that the processing of the robot's experience
+%happens at a relatively leisurely pace. This is workable as long
+%as the processing can keep ahead of incoming data. For our robot,
+%a complete rotating log of the robot's sensory input is made that
+%covers about 30 minutes. Technically, this is achieved using a
+%modified version of the opensource tool dvgrab for recording from
+%a camcorder, and simple text files for other (much lower
+%bandwidth) proprioceptive and summary data. The logs are
+%maintained on a separate computer from the one controlling the
+%robot's behavior. These logs are processed using the open-source
+%MATLAB-clone octave.

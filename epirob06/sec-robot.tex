@@ -1,0 +1,146 @@
+\section{The robot Obrero}
+\label{sec:platform}
+
+The humanoid robot used in this work, Obrero \cite{obrero},
+consists of a hand, arm and head, shown in
+Figure~\ref{fig:RobotObrero}. Obrero was designed to approach
+manipulation not as a task mainly guided by a vision system, but
+as one guided by the feedback from tactile and force sensing which
+we call sensitive manipulation. We use the robot's limb as a
+sensing/exploring device as opposed to a pure acting device. This
+is a convenient approach to operate in unstructured environments,
+on natural unmodeled objects. Obrero's limb is sensor-rich and
+safe, it is designed to reduce the risk of damages upon contact
+with objects. The hand consists a palm, a thumb, a middle and an
+index finger. Each one of the fingers has two links that can be
+opened and closed. The thumb and the middle finger can also
+rotate. By rotating the thumb it can be opposed to the index
+finger and by rotating the thumb and the middle, they can oppose
+to each other.
+
+The total number of degrees of freedom (DOF) in the hand are 8 and
+are controlled by 5 motors. Two motors control the rotation of the
+two fingers. The other three motors control the opening and
+closing of three fingers. The two joints in each fingers are
+coupled. However, they can decouple thanks to the SEA's in each
+joint. All the joints of the hand are controlled using an
+optimized design for a series elastic actuator \cite{actuator}.
+There are a total of 8 SEA's int the hand. Series elastic
+actuators\cite{williamson95series} reduce their mechanical
+impedance and provide force sensing.
+
+The tactile sensors used were especially designed to fit the
+requirements of manipulation. There are inspired in the human
+skin. In the skin, there are dome-like shape that form ridges.
+These ridges are deformed upon contact and innervations on their
+base detect this deformation. Inspired by these mechanism we built
+sensors with the the following features: very sensitive, prone to
+contact and deformable. The sensitivity determined by the minimum
+normal force detected is of 10g. The shape of the sensor (see
+figure\ref{}) was designed to favor contact with the environment
+from any direction, as opposed to most of the tactile sensors
+which are flat. The deformability of the sensor lets them to
+conform to the object which increase friction and helps to detect
+the contact. Moreover, the size and shape of the sensor also help
+to maintain contact with the object while the distance vary and
+avoid the non-linearly contact/non-contact.
+
+These sensors are made of silicon rubber. The method used to
+detect the deformation, in this particular implementation, is
+magnetic. However, a optical version has been also tested. An
+analysis and description of the design of these sensors can be
+found in \cite{etorresjSoft}. Groups of tactile sensors were
+placed in groups in different part of the hand. Two groups of four
+were placed on each finger (a group in each of the two falanges)
+and 16 on the palm. A detail of the palm and fingers can be
+observed in figure\ref{}. Each one of these tactile sensors uses 4
+sensors to determine the contact forces. That means that 160
+sensors are used for the tactile feedback. In the base of the
+palm, where the same kind of tactile sensor could not be mounted
+with the current hand design, a infrared sensor was mounted. In
+short, the hand has 5 motors, 8~DOF, 8 force sensors, 10 position
+sensors, 40 tactile sensors and a infrared proximity sensor.
+
+
+
+%\section{Simulating our robot with humans}
+
+%Human haptic perception is impressive, even under serious
+%constraint. In (Lederman and Klatzky, 2004) we can find a review
+%of different experiments done with humans to determine how well
+%they can identify objects using only haptic information. In the
+%experiments mentioned, the individuals wore headphones and a
+%blindfold to make sure that sound and vision did not provide extra
+%information about the objects. Haptic information was also
+%systematically interfered with to explore different aspects of
+%manual exploration. The constraints included: reduced number of
+%end effectors, compliant covering, application of rigid finger
+%splints, rigid finger sheathes, and rigid probes. These
+%constraints reduced either one or many aspects of the cutaneous
+%(spatial, temporal and thermal) and kinesthetic information
+%available to the subjects. The results showed that by reducing the
+%type of sensing available in the human hand, the subject's
+%recognition performance is reduced. The lowest
+%recognition accuracy for objects was around 40%
+%when the subjects used a probe to explore the object. This
+%recognition task took around 80 seconds. For the researchers who
+%did this work, these numbers may seem low { but for a robotics
+%researcher, they are a cause of envy, and show that human haptic
+%perception is indeed very impressive even under
+%unusually-constrained situations. To get an ``upper bound'' of
+%what we could expect from our robot, we evaluated the performance
+%of human subjects when wearing thick gloves that reduced their
+%sensitivity and dexterity to something approaching our robot. We
+%blocked their vision, since we know our robot cannot compete with
+%human visual perception, but let them hear. We sat 10 subjects in
+%front of a padded desk covered with various objects: a wooden
+%statue, a bottle, a kitchen glove, a plastic box, a paper cup, a
+%desktop phone, a tea bag and a business card. The subjects wore a
+%blindfold and a thick glove which reduced their haptic sensitivity
+%and the number of usable fingers. The glove only allowed them to
+%use their thumb, their index and middle finger. A goal of the
+%experiment was to determine how much and in what way humans can
+%manipulate unknown objects in an unknown environment with
+%capabilities reduced to something approximating our robot
+%(described in Section 3.). Our subjects were instructed to perform
+%certain tasks starting from a constant initial position, sitting
+%straight with their right arm relaxed and close to their waist.
+%The first task was to find and (if possible) identify objects on a
+%desk. This task was repeated with multiple set of objects. When
+%changing from one set of objects to another, the subjects were
+%moved away and turned around so that their back was facing the
+%desk. The next task extended the challenge further. Along with
+%locating and identifying the objects (an arbitrary name was
+%assigned when an object was not recognized), the subjects were
+%instructed to remember the object's position. Later, they were
+%instructed to move their hand to a named object starting from the
+%initial position. For the final task, a few objects and a desktop
+%phone were placed on the desk. The hand set and the phone base
+%were disconnected { the phone cord was removed, and the two parts
+%of the phone were placed in separate locations. The subjects
+%initially had no idea a phone was present. They were instructed to
+%find, identify and remember the position of the object on the
+%desk. If they identified the two parts of the phone, they were
+%instructed to grab the hand set and placed in the correct position
+%on the phone base. Here is a summary of our observations: .
+%Exploration strategies vary. Some subjects face their palm in the
+%direction of motion, others towards the desk. The speed at which
+%people swing their arm is generally slow and cautious, with
+%occasional contact with the table. . Very light objects were
+%consistently knocked over. . Subjects quickly reorient their hand
+%and arm for grasping if either their hand or their wrist makes
+%contact with an object. . Subjects exhibited a short-term but
+%powerful memory for object location. . Sounds produced by objects
+%and surfaces were used to identify them, compensating partially
+%for the reduction in tactile sensitivity (see Figure 2). This was
+%occasionally misleading: one subject unwittingly dragged a teabag
+%over the desk, and Figure 2: Subjects exploring a desk while
+%blindfolded and wearing a thick glove. Top: light objects were
+%inevitably knocked over, but the sound of their fall alerted the
+%subjects to their presence, location, and (often) identity.
+%Bottom: the sound of object placement was enough to let this
+%subject know where the cup was and suggest a good grasp to use.
+%thought from the sound that the surface was covered in paper.
+%Inspired by the last observation, in this paper we focus on
+%exploiting the information carried by sound in combination with
+%tactile and force sensing.
