@@ -10,43 +10,55 @@ sensors.} \label{fig:RobotObrero}
 
 \section{Introduction}
 
-The capability of interacting with the environment is considered
-of fundamental importance for the emergence of intelligent
-behavior. Recent work in robotics has shown how simple actions
-(like poking and prodding) can facilitate the development of
-perception \cite{Natale05},\cite{metta03early}. More controlled
-actions, such as a gentle exploration and grasping, might increase
-these benefits. Gently exploration allows the robot to deal safely
-even with delicate objects and enables grasping. Grasping provides
-direct access to physical properties of objects (like shape,
-volume and weight) that are difficult to perceive otherwise and
-allows the robot to remain in contact with the object for further
-inspection.
+Recent work in developmental robotics has emphasized the role of action
+during perception and learning (cite). Developmental pshycology on the 
+other hand, recognize that motor activity is of paramount importance 
+for the correct emergence of cognition and intelligent behavior (cite). 
+Be them artificial or natural all embodied agents have numerous ways 
+to exploit the physical interaction with the environment to their advantage. 
+In robotics actions like pushing, prodding, and tapping have been used for 
+visual and auditory perception respectively (cite). 
+More articulated explorative actions and grasping might increase these benefits, 
+as they give direct access to physical properties of objects like shape, volume
+and weight.
 
-However, these aspects have not been extensively investigated, in
-part, because of technological limitations. For instance, robotic
-limbs are not designed to come in contact with the environment
-and, in general, they are not adequately instrumented  to feel the
-surface with which they come in contact. Coming in contact with
-the environment is difficult because it has to be safe not only
-for the robot but also for the objects in the environment.
-Moreover, it is highly desirable a gentle contact to avoid
-knocking over the objects and to enable some useful actions such
-as grasping. The initial contact between the robot and the object
-is known as the \emph{impact problem} and does not only affect the
-mechanical design of the robot but also the stability of the
-control\cite{volpe90real}. Once in contact with the object, the
-tactile sensors should be capable of detect this contact
-independently of the shape of the objects. Most of the tactile
-sensor available are very sensitive but to forces in a specific
-angle of incidence This limits greatly their capability of
-detection and render them useless in tasks such as exploration.
-Additionally, they are usually not deformable which make them
-prone to damage and not helpful increasing friction for grasping.
-In this paper, we used the robot Obrero\cite{obrero} which was
-designed to overcome these limitations. This robot enables the use
-of sensitive haptic feedback to simplify manipulation and to
-improve the ability of successfully interact with unknown objects.
+%The capability of interacting with the environment is considered
+%of fundamental importance for the emergence of intelligent
+%behavior. Recent work in robotics has shown how simple actions
+%(like poking and prodding) can facilitate the development of
+%perception \cite{Natale05},\cite{metta03early}. More controlled
+%actions, such as a gentle exploration and grasping, might increase
+%these benefits. Gently exploration allows the robot to deal safely
+%even with delicate objects and enables grasping. Grasping provides
+%direct access to physical properties of objects (like shape,
+%volume and weight) that are difficult to perceive otherwise and
+%allows the robot to remain in contact with the object for further 
+% inspection.
+
+Unfortunately all these aspects have not been extensively investigated yet. The 
+reason for this is that controlling the interaction between the robot and 
+the environment is a difficult problem, especially in absence of accurate 
+models either of the robot or the environment (as it is often the case in 
+developmental robotics). As discussed in \cite{volpe90real} the 
+\empth{impact problem} affect the mechanical design of the robot as well as
+its control.
+
+The design of the robot can alleviate these problems. On the one hand, we know 
+for example that having a certain degrees of elasticity in the limbs helps to 
+``smooth''  and control the forces that originate upon contact.  
+On the other hand, we can work to enhance the perceptual abilities of the robot.
+Traditional robotic systems in fact have perceptual systems that do not seem
+adequate for grasping. Haptic feedback in particular in often quite limited or 
+completely absent. This is because, unfortunately, most of the tactile 
+sensors commercially available are inadequate for robotics tasks: they are only 
+sensitive to forces coming from a specific angle of incidence, rigid 
+and almost frictionless. 
+
+Obrero\cite{obrero} in a upper body humanoid robot, designed to overcome these
+limitations. It is equipped with series elastic actuators, 
+which provide intrinsic elasticity and force feedback at each joint. The hand 
+is equipped with tactile sensors (cite) which provide a deformable and sensitive 
+interface between the fingers and the objects.
 
 We report a series of experiments where Obrero exploits its
 sensing capabilities to grasp a number of objects individually
@@ -59,7 +71,9 @@ around it. During exploration, the robot exploits tactile feedback
 to find the actual position of the object and grasp it. The
 mechanical compliance of the robot and the control facilitate the
 exploration by allowing a smooth and safe interaction with the
-object.
+object. Results show that the haptic information acquired by
+the robot during grasping codes information about the shape of 
+the objects.
 
 The paper is organized as follows. Section~\ref{sec:background}
 briefly reviews XXX and introduces the notion of exploratory
@@ -73,172 +87,4 @@ robot a way to actively probe of objects in its environment in a
 robust way. Section~\ref{sec:results} present an evaluation of
 method for grasping. Finally, section ~\ref{sec:conclusions}.
 concludes with a discussion about the results.
-
-
-
-%[Section 4. describes an experiment we carried out with human
-%subjects with their senses interfered to try to simulate our
-%robot. The experiment helps us to understand how humans would
-%solve the kinds of problems with which our robot will be
-%confronted.]
-
-%Section 7. describes how the experience generated by the robot's
-%behavior is exploited for learning.
-
-
-
-%sensors, they are not adequate to deal with objects of
-%unconstrain shape and/or mass.
-% A major problem in
-%exploration is that the robot's limb needs to come safely in
-%contact with the objects and the surrounding environment.
-%Moreover, it is highly desirable to gently approach the object to
-%avoid knocking it  over and to enable grasping. This first contact
-%between the limb and the environment is known as the impact
-%problem. Once, we have dealt with this problem, the hand should
-%have tactile sensors capable of detect the contact between the
-%hand and the objets.
-%Even though, there are many kinds of tactile
-%sensors, they are not adequate to deal with objects of
-%unconstrain shape and/or mass.
-
-%The impact problem needs to be addressed not only because it can
-%knock over the object but because it can cause instability in the
-%controller. It is usual that a robot uses position control when
-%moving in free space and force control when in contact with a
-%surface. This transition is elastic and produces bouncing which
-%makes the limb oscillate between the conditions of no-contact and
-%contact. This non-linear behavior may cause instability.
-
-
-% This problem may cause instability because of the non-linearity
-%contact/no contact \cite{}.
-
-%Nevertheless, if these issues were addressed, new possiblites for
-%naipulation can be open. Manipulation could be more reactive and
-%adaptive and will work with unknown objects.
-
-%In this paper we present an approach to manipulation based mainly
-%in tactile and force feedback. That has low mechanical impendace
-%and compliant tactile sensors. Capable of gently deal wiht unkonw
-%objects. We use obrero
-
-%---
-
-
-%Preliminary analysis of the data collected in these experiments
-%shows that the haptic feedback originated by the interaction
-%between the objects and the robot carries information useful for
-%learning.
-
-%---
-%
-%This apparently simple action for humans and animals represents a
-%problem for traditional industrial robots. A robot, of this kind,
-%has in general a very large mechanical impedance which facilitate
-%its precise control. However, if it come in contact with an
-%object, this will be either knocked over or destroyed. (destroy
-%itself). Even if the robot has sensors to detect such contact, it
-%is not clear that the respond can be generated fast enough to deal
-%with the collision. Humans on the other hand deal with contact in
-%a daily bases even though their response time is much slower than
-%the one of a robot circuitry. Therefore, it seems that their
-%answer to the contact problem is a small mechanical impedance in
-%their limbs.
-%
-%
-%The robot Obrero is used since it deals with mechanical impedance.
-%
-%
-%In other words, the contact problem needs to be solved. Usually,
-%some engineering in the environment is done to avoid solve this
-%problem. This, regretly, limits the interaction to very preset
-%setups, losing the possibiliyt of exploring the enviromten whihch
-%is excatly what makes the pysical interactoin appealing.
-%
-%
-%The importance of interacting with the environment has been stated
-%by the embodied intelligence field and for development. There are
-%many ways to interact with environment but the physical contact is
-%he most common in biological agents. That is why animals are
-%provided by limbs. Paws, etc. All of them covered by a higly
-%inervated skin that allows them to get intimate informatino about
-%their phyisical enviroment. This interaction helps them to develop
-%the skills needed for their survival and is done in a safe way.
-%Interaction with the enviroment is key for the robtos, with outhe
-%posibility of the interactions very little can be done.  In this
-%paper we show how a robot can explore its enviromante, feel
-%objects and grasp them only by using tactile and force feedback
-%information. The interaction is safe and useful. In other words,
-%the robot can come in actual physical contact with its
-%environment. Many efforts in robotics has been done about learning
-%from the environment by interacting with it. However, the
-%interaction has been very rough. This works will present an
-%alternative to fill this grasp. ALthough this is not the ultimate
-%goal.
-
-
-
-
-
-
-
-
-%Humans use a set of exploratory procedures to examine object
-%properties through grasping and touch. Our goal is to exploit
-%similar methods with a humanoid robot to enable developmental
-%learning about manipulation. We use a compliant robot hand to find
-%objects with very rough estimation about their location, and then
-%tap grab them. This behavior lets the robot collect samples of the
-%grasping of that object.
-%
-%An important property of embodied agents is their ability to
-%interact with the environment in which they operate. This is
-%considered of fundamental importance for the emergence of
-%intelligent behavior. Recent work in robotics has shown how simple
-%actions (like poking and prodding) can facilitate perception and
-%learning1. Grasping is particularly appealing in this context
-%because provides direct access to physical properties of objects
-%(like shape, volume and weight) that are difficult to perceive
-%otherwise. Unfortunately this aspect has rarely been investigated,
-%with a few exceptions2,3. In part this is because current robots
-%have very limited perceptual capabilities. In particular, tactile
-%sensing is often inadequate or inexistent. For this reason most of
-%the research on manipulation has focused on vision and has left
-%haptic sensing overlooked. This paper pushes the idea that
-%sensitive haptic feedback dramatically simplifies manipulation and
-%improves the ability of robots to successfully interact with
-%unknown objects. In this paper we report a series of experiments
-%recently performed on Obrero. The robot exploits its sensing
-%capabilities to grasp a number of objects individually placed on a
-%table. No prior information about the objects is available to the
-%robot. Vision is used at the beginning of the task to direct the
-%attention of the robot and to give a rough estimation of the
-%position of the object. Tactile feedback allows the robot to
-%refine this initial estimation during the task. The robot reaches
-%for the object and explores with the hand the area around it.
-%During exploration the robot exploits tactile feedback to find the
-%actual position of the object and grasp it. The mechanical
-%compliance of the robot and the control facilitate the exploration
-%by allowing a smooth and safe interaction with the object. In
-%figure 2, we observe a sequence of the robot grasping one of the
-%objects. Preliminary analysis of the data collected in these
-%experiments shows that the haptic feedback originated by the
-%interaction between the objects and the robot carries information
-%useful for learning.
-
-
-
-%Grasping and touch offer intimate access to objects and their
-%properties. In previous work we have shown how object contact can
-%aid in the development of haptic and visual perception (Natale et
-%al., 2004, Metta and Fitzpatrick, 2003). The extensive use of
-%vision rather than haptic feedback in robotic object exploration
-%may be due to technological limits rather than merit. The robotic
-%hand used in this paper is designed to overcome these limitations.
-%It is equipped with compliant tactile sensors and series elastic
-%actuators which allow passive compliancy and to measure force at
-%the joints. Force feedback and intrinsic compliance are exploited
-%to successfully control the interaction between robot and
-%environment without relying on visual feedback.
 
