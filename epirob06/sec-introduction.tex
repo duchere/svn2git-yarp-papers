@@ -10,16 +10,18 @@ sensors.} \label{fig:RobotObrero}
 
 \section{Introduction}
 
-Recent work in developmental robotics has emphasized the role of action
-during perception and learning (cite). Developmental pshycology on the 
-other hand, recognize that motor activity is of paramount importance 
-for the correct emergence of cognition and intelligent behavior (cite). 
-Be them artificial or natural all embodied agents have numerous ways 
-to exploit the physical interaction with the environment to their advantage. 
-In robotics actions like pushing, prodding, and tapping have been used for 
-visual and auditory perception respectively (cite). 
-More articulated explorative actions and grasping might increase these benefits, 
-as they give direct access to physical properties of objects like shape, volume
+Recent work in developmental robotics has emphasized the role of
+action during perception and learning (cite). Developmental
+pshycology on the other hand, recognize that motor activity is of
+paramount importance for the correct emergence of cognition and
+intelligent behavior (cite). Being them either artificial or
+natural, all embodied agents have numerous ways to exploit the
+physical interaction with the environment to their advantage. In
+robotics actions like pushing, prodding, and tapping have been
+used for visual and auditory perception respectively
+(cite)\cite{etorresjara05tapping}. More articulated explorative
+actions and grasping might increase these benefits, as they give
+direct access to physical properties of objects like shape, volume
 and weight.
 
 %The capability of interacting with the environment is considered
@@ -32,32 +34,32 @@ and weight.
 %even with delicate objects and enables grasping. Grasping provides
 %direct access to physical properties of objects (like shape,
 %volume and weight) that are difficult to perceive otherwise and
-%allows the robot to remain in contact with the object for further 
+%allows the robot to remain in contact with the object for further
 % inspection.
 
-Unfortunately all these aspects have not been extensively investigated yet. The 
-reason for this is that controlling the interaction between the robot and 
-the environment is a difficult problem, especially in absence of accurate 
-models either of the robot or the environment (as it is often the case in 
-developmental robotics). As discussed in \cite{volpe90real} the 
+Unfortunately all these aspects have not been extensively investigated yet. The
+reason for this is that controlling the interaction between the robot and
+the environment is a difficult problem, especially in absence of accurate
+models either of the robot or the environment (as it is often the case in
+developmental robotics). As discussed in \cite{volpe90real} the
 \emph{impact problem} affect the mechanical design of the robot as well as
 its control.
 
-The design of the robot can alleviate these problems. On the one hand, we know 
-for example that having a certain degrees of elasticity in the limbs helps to 
-``smooth''  and control the forces that originate upon contact.  
+The design of the robot can alleviate these problems. On the one hand, we know
+for example that having a certain degrees of elasticity in the limbs helps to
+``smooth''  and control the forces that originate upon contact.
 On the other hand, we can work to enhance the perceptual abilities of the robot.
 Traditional robotic systems in fact have perceptual systems that do not seem
-adequate for grasping. Haptic feedback in particular in often quite limited or 
-completely absent. This is because, unfortunately, most of the tactile 
-sensors commercially available are inadequate for robotics tasks: they are only 
-sensitive to forces coming from a specific angle of incidence, rigid 
-and almost frictionless. 
+adequate for grasping. Haptic feedback in particular in often quite limited or
+completely absent. This is because, unfortunately, most of the tactile
+sensors commercially available are inadequate for robotics tasks: they are only
+sensitive to forces coming from a specific angle of incidence, rigid
+and almost frictionless.
 
 Obrero\cite{obrero} in a upper body humanoid robot, designed to overcome these
-limitations. It is equipped with series elastic actuators, 
-which provide intrinsic elasticity and force feedback at each joint. The hand 
-is equipped with tactile sensors (cite) which provide a deformable and sensitive 
+limitations. It is equipped with series elastic actuators,
+which provide intrinsic elasticity and force feedback at each joint. The hand
+is equipped with tactile sensors (cite) which provide a deformable and sensitive
 interface between the fingers and the objects.
 
 We report a series of experiments where Obrero exploits its
@@ -72,7 +74,7 @@ to find the actual position of the object and grasp it. The
 mechanical compliance of the robot and the control facilitate the
 exploration by allowing a smooth and safe interaction with the
 object. Results show that the haptic information acquired by
-the robot during grasping codes information about the shape of 
+the robot during grasping codes information about the shape of
 the objects.
 
 The paper is organized as follows. Section~\ref{sec:background}
@@ -87,4 +89,3 @@ robot a way to actively probe of objects in its environment in a
 robust way. Section~\ref{sec:results} present an evaluation of
 method for grasping. Finally, section ~\ref{sec:conclusions}.
 concludes with a discussion about the results.
-
