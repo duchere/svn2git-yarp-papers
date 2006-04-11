@@ -30,24 +30,48 @@ We can observe the reaching action followed by the positioning and
 grasping. [Should we include a plot of the readings of the
 sensors?]
 
+The grasping behavior ~\ref{} was evaluated by presenting different 
+objects to the robot and by counting the number of successful grasps. 
+We chose objects of different size and shape: 
+a plastic bottle, a plastic rectangular box, a porcelain cup 
+and a plastic cup ~\ref{fig:Objects}. To balance their weights 
+the objects were partially filled with small pieces of metal; in this way the 
+weigth was roughly similar across all objects (about 220 grams). 
+The robot had no prior knowledge about the objects.
 
-Using the behavior described in section~\ref{}, the robot was able
-to grab a number of different objects. The robot had no prior
-knowledge of the objects. We evaluate the performance by
-presenting to the robot many times four objects and counting the
-number of times that they were grabbed. Out of 94 trials only 8
-failed. The objects were : a white vitamins bottle, a white
-porcelain cup, a startbucks cup and a nesquick box. The physical
-properties of the objects and the results are shown in table
+Each objects was presented to the robot more than 20 times. Overall the number of
+grasping trials was 94, of which only 8 were not successful. In some of these 
+trials, the robot managed to grasp the object, but the latter slipped because
+the grip did not produce enough friction. In a few cases the tactile sensors failed 
+to detect the object and the exploration was aborted after a certain amount of 
+time.
+
+As a further validation we clustered the haptic information originated from 
+the grasping. We collected the hand feedback at the moment the robot lifts the 
+object; the idea is that given the intrinsic compliance of the hand, its 
+configuration and the force exerted by each joint depend on the shape of the
+object being grasped.
+The hand feedback was clustered by means of a Self Organizing Map. The results 
+show that the bottle, the rectangular box and the cups form clearly three clusters. 
+Unfortunately the clusters formed by the two cups are not clearly distinguishable. 
+This is probably due to the fact that the hand grasped the objects always from the
+top, and that in that part the two object are quite alike (both are circular with 
+similar diameter). The limited number of fingers (three) makes it hard to 
+distinguish between the cylindrical and conic shape of the cups.
+Togher the results we report here prove that the grasping behavior of the robot 
+is reliable. This is shown by the low number of failures and by the fact that 
+the behavior allows to extract meaningful information about the physical properties 
+of the objects that are grasped (i.e. their shape).
+
+%Using the behavior described in section~\ref{}, the robot was able
+%to grasp a number of different objects. The robot had no prior
+%knowledge of the objects. We evaluate the performance by
+%presenting to the robot many times four objects and counting the
+%number of times that they were grabbed. Out of 94 trials only 8
+%failed. The objects were : a white vitamins bottle, a white
+%porcelain cup, a startbucks cup and a nesquick box. The physical
+%properties of the objects and the results are shown in table
 \ref{tab:objects}.
-
-[No sure if we should include this part]
-
-We have also evaluated the behavior of the tactile sensor grabbing
-the same object but with different weights. The object used was
-the white bottle and the weights used are presented in the
-table~\ref{}.
-
 
 
 
