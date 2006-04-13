@@ -6,26 +6,283 @@ cup. Frame 1: the cup is presented to the robot. Frame 2: the
 robot reaches for the cup. Frames 3 to 6:  the robot explores the
 space and uses tactile feedback to find the object and adjust the
 position of the hand around it. Frames 7 and 8: the robot grasps
-and lifts the cup.} \label{fig:sequence}
+and lifts the cup.} \label{fig-sequence}
 \end{figure*}
 
-\section{The robot's behavior}
-\label{sec:behavior}
+\begin{figure*}[tb]
+  \centerline{
+    \includegraphics[width=2.5in, angle=0 ]{./figures/expl-directions.eps}
+  }\caption{Left, frames 1 and 2: hand localization and arm 
+    orientation. Right, frame 3: exploration primitives. Primitives $v_1$ 
+and $v_3$ are perpendicular and parallel to the arm orientation. $v_2$ is 
+along the null space of the arm Jacobian.}
+\label{fig-expl-directions}
+\end{figure*}
 
- [include the picture of the behaviors]
-(eduardo)
+\section{Controlling the body}
+\label{sec:controlling}
 
- The robot waits for a visual stimula. The robot reaches towards
- the goal without 3D information. If there is not contact detected
- by the tactile sensor, it hover until there is contact.
- Depending on the position of the contact the following actions
- are taken. If touched only on middle finger then the finger
- retracts and keeps hovering to make contact with both fingers.
- If that contact occurs the thumb is opposed to the index finger.
- At this point the robot starts pushing waiting for contact with
- the palm. When the palm sensors are activate the hand is closed
- to grab the object and lift it.
+In this section we describe the grasping behavior we have implemented
+on the robot. For the robot to be able to control the body in a safe
+and meaningful way a few motor and perceptual competencies are required.
+These include: the ability to control the body to reach for a target and 
+a simple attention system to spot the objects to be grasped.
 
+\subsection{Eye-hand coordination}
+Given the topic of out research on Obrero, we decided to focus on explorative 
+actions rather than precise, goal directed actions towards the target objects.
+This was also motivated by the fact that because the robot has only monocular 
+information and depth was hence quite difficult to obtain. This situation is 
+actually very common because visual depth estimation in real time is usually 
+ hard problem.
+However, we cannot hope to program a robot to perform a safe exploration 
+of the workspace if we do not endow it with some sort of coordination ability.
+We implemented an eye-hand coordination starting from the visual ability to 
+localize the hand and compute the orientation of the arm in the visual field. 
+This initial perceptual ability allows the robot to learn to control the arm 
+to reach for a target (in two dimensions) and moves it to explore the workspace
+in different directions including depth.
+
+\subsection{Hand Localization}
+A visual module detects the hand and computes the orientation of 
+the arm in the visual field. The arm is detected by looking for the 
+biggest area in the image that has high frequencies. 
+Within this area the hand is identified by searching for 
+specific features (the small white/black potentiometers at the joints 
+of the fingers). Once the arm is identified the top-most 
+and bottom-most pixels in the high frequency blob of the arm 
+are taken as its extremes the orientation computed.
+The detection was reliable enough for our purposes and was used as a 
+short cut in place of other, more general, methods (\cite{nat pasa at least}).
+
+The visual feedback of the arm can be used for closed-loop control. For 
+example it could be possible to exploit the visual feedback to constrain 
+the exploration to a visually identified region of the workspace. However 
+closed-loop control is not always suitable. This happens for example 
+in presence of occlusions or when the hand is not within the visual field. 
+
+Open-loop control is an alternative solution. A possible open-loop control 
+consits in a mapping between the fixation point of the head and the arm 
+end-point (\cite{Metta}). The advantage of this approach is that the mapping 
+can be easily learnt if the robot can fixate the hand. Another approch is to
+use the hand localization to learn a direct mapping between the arm 
+proprioception (encoder feedback) and the position of the arm in the visual 
+space (as in \cite{natale}). The direct (forward) mapping can be inverted 
+locally to control the arm to reach a visually identified target. The 
+solution we adopt here is similar; in practice in a discovery phase the robot
+tracks the hand as the arm moves to randomly explore the workspace.
+This behavior allows the robot to acquires the following samples:
+
+\begin{center}
+\begin{math}
+  \begin{array}{c}
+  \left(\begin{array}{ccccc}
+    x & y & \alpha &q_{head} &q_{arm} \end{array}\right)_0\\
+  \left(\begin{array}{ccccc}
+    x & y & \alpha &q_{head} &q_{arm} \end{array}\right)_1\\
+  ...\\
+  \left(\begin{array}{ccccc}
+    x & y & \alpha &q_{head} &q_{arm} \end{array}\right)_k\\
+\end{array}
+\end{math}
+\end{center}
+
+where $x$ and $y$ are the coordinates of the hand in the visual space,
+$\alpha$ is the orientation of the arm, $q_{head}$ and $q_{arm}$ are 
+the position of the head and arm respectively. Given $q_{head}$ it is
+possible to convert $x$ and $y$ in egocentric reference frame:
+\begin{equation}
+  \left(\begin{array}{c}
+    \theta \\
+    \phi \\
+    \end{array}\right)
+  = f_{head}^{-1}
+  \left(\begin{array}{c}
+    x \\
+    y \\
+    q_{head}
+    \end{array} \right)
+\label{eq-head-inverse}
+\end{equation}
+
+$\theta$ and $\phi$ represents the polar coordinates of the hand in the
+reference frame centered at the base of the robot. Basically 
+$f_{head}^{-1}$ includes knowledge of the inverse kinematics of the 
+head and the parameters of the camera. The opposite transformation maps 
+polar coordinates into the image plane:
+\begin{equation}
+  \left(\begin{array}{c}
+    x \\
+    y \\
+    \end{array}\right)
+  = f_{head}
+  \left(\begin{array}{c}
+    \theta \\
+    \phi \\
+    q_{head}
+    \end{array} \right)
+\label{eq-head-direct}
+\end{equation}
+
+Given these two transformations the robot can learn the following mapping:
+
+\begin{equation}
+  \left(\begin{array}{c}
+    \theta \\
+    \phi \\
+    \alpha \\ 
+    \end{array}\right)
+  = f \left(q_{arm}\right)
+\label{eq-arm-direct}
+\end{equation}
+
+which links the arm posture $q_{arm}$ to the polar coordinates of the 
+hand $\left(\theta, \phi\right)$ and the orientation of the arm $\alpha$. 
+
+This mapping allows computing the polar coordinates of the hand with 
+respect of the robot from the encoders of the arm. Equation 
+\ref{eq-head-direct} maps the polar coordinates back to the image plane 
+whenever required.
+
+\subsection{Reaching}
+\label{sec-reaching}
+Suppose we want to move the arm towards a location of the workspace 
+indentified visually. Let $\left(\begin{array}{c} x_t \\ y_t\end{array}\right)$
+be such position. Knowing $q_{head}$ from equation \ref{eq-head-inverse} 
+we can convert the target position into the body centered reference frame 
+$\left(\begin{array}{c} \theta_t  \\ \phi_t\end{array}\right)$. The 
+reaching problem can now be stated as a the minimization of the following 
+cost funtion:
+
+\begin{equation}
+  \displaystyle\min_{q_{arm}}\left(C\right)=\displaystyle\min_{q_{arm}}\left[
+  \left(
+  \begin{array}{c}
+    \theta_t \\
+    \phi_t \\
+    \end{array}\right)
+  -f \left(q_{arm}\right)
+  \right]^2
+\label{eq-reaching1}
+\end{equation}
+
+Assuming a stationary target the minimum of equation \ref{eq-reaching} 
+can be found by gradient descent. It is not by chance that the 
+gradient of $C$ is proportional to the Jacobian transposed 
+of the manipulator, that is:
+
+\begin{equation}
+  \nabla C=-2\nabla f\left(q_{arm}\right)=-2J^T\left(q_{arm}\right)
+\label{eq-gradient}
+\end{equation}
+
+$\nabla f\left(q_{arm}\right)$ can be approximated by partial 
+ differentiation of the mapping of equation \ref{eq-arm-direct}. The 
+differentiation can be numerical or analytical (the output of the 
+network can be easily differentiated because the basis functions are
+gaussians with known parameters).
+
+To summarize we have described a method to compute the arm commands
+required to reach for a visual target. The method employs the 
+forwards kinematics of the arm. The direct kinematics is learnt by the 
+robot with the method described in the previous section. The reaching 
+problem is solved interatively by using an approximation of the arm
+Jacobian. The lattern is obtained by differentiating the basis functions 
+of the neural network approximating the direct kinematics. This procedure
+is carried out online without using the real visual feedback of the hand.
+
+In the robot visual information (and hence the mapping of equation 
+\ref{eq-arm-direct}) is two-dimensional and does not carry any information
+about distance. The solution found by descending the gradient of the 
+direct kinematics takes care of minimizing the distance between the target 
+point and the hand \emph{on the image plane}, and as such, is not concerned 
+with the third dimension (the distance between the hand and the image 
+plane, along the optical axis, which will call $R$). 
+In practice however the components of the gradient along $R$ are small 
+compared to the others. The value of $R$ at the end of the reaching movement 
+would depend on the initial position of the arm; we chose that value so that
+the hand will be always above the table.
+
+\subsection{Exploration}
+Starting from the direct mapping of the hand position and arm orientation we 
+can identify a set of explorative primitives, that is a set of vectors in 
+joint space that allows the robot to explore the arm workspace. We chose three 
+vector $v_1$, $v_2$ and $v_3$, as follows:
+\begin{equation}
+  v_1=k_1J^T\left(\Delta X_1\right)
+\end{equation}
+where $\Delta X_1$ is vector in the image plane, along the direction 
+perpendicular to the arm, and $k_1$ is a proportional scale factor;
+\begin{equation}
+  v_2=k_2J^T\left(\Delta X_2\right)
+\end{equation}
+where $\Delta X_2$ is vector in the image plane, poiting away from the hand 
+along the orientation of the arm, and $k_2$ is a proportional scale factor;
+\begin{equation}
+ v_3\in \ker \left(J\right)
+\end{equation}
+$v_3$ lays in the null space of the arm Jacobian; in our case the 
+null space of the Jacobian consists of those vector that do not affect 
+either the projection of the hand onto the visual plane nor the orientation 
+of the arm. These vectors produce a movement of the hand along the optical 
+axis of the camera, or, in other word, along the $R$ dimension.
+$v_1$, $v_2$ and $v_3$ are depicted schematically on the left side of 
+Figure \ref{fig-expl-directions}.
+
+\subsection{A grasping behavior}
+In this section we describe the grasping behavior of the robot. The 
+sequence begins when the experimenter waves an object in front of the 
+robot. The head tracks the object until it remains stationary within 
+the arm's workspace. The robot reaches for the object; the arm 
+command in this case is planned visually as described in section 
+\ref{sec-reaching}. This initial reaching movement is not accurate enough 
+to guarantee a correct grasp. As explained in section \ref{sec-reaching} no 
+three dimensional information is available so the arm reaches a region 
+above the object. At this point the exploration behavior is activated; the 
+robot computes the explorative primitives $v_1$, $v_2$ and $v_3$. The 
+exploration uses three behaviors:
+
+1) \emph{hover behavior}, moves the hand back and forth along $v_1$
+2) \emph{push behavior}, moves the hand along $v_2$
+3) \emph{depth behavior},  moves the hand ''downwards'' along $v_3$; this behavior is meant to 
+move the hand along the direction of the optical axis of the camera and 
+adjust the height of the hand with respect to the object/table. To avoid crashing the hand into the table this behavior is inhibited when the infrared proximity sensor detects an obstacle (usually the table).
+
+The \emph{hover} and \emph{depth} are activated at the beginning of the exploration. The goal of this initial phase is to adjust the position of the 
+hand until the index finger touches the object. This allows adjusting 
+the position of the hand along the directions $v_1$ and $v_3$. During the 
+exploration the arm stops every time the hand detects the object, to avoid 
+pushing it away or knocking it over; if no contact is detected, on the 
+other hand, the amplitude of the exploration is extended (this 
+increases the probability to touch the object in case the initial 
+reaching error is large); the exploration terminates when the contact with 
+the object is detected by any of the tactile sensors placed on the index 
+finger.
+At this point the \emph{hover} behavior is suspended and the \emph{push} 
+behavior gets activated. The ''pushing'' movement along $v_2$ 
+tends to bring the palm in contact with the object; \emph{depth} 
+behavior takes care of maintaining the correct 
+distance with the table. When the robot detects contact on the palm, 
+the exploration stops and the \emph{grasping behavior} is 
+activated. The \emph{grasping behavior} simply closes the fingers to a 
+position specified in the motor encoders. The low impedance of the 
+joints allows the fingers to adapt to the different objects being grasped.
+
+The grasping behavior just described proved to be 
+quite reliable. Figure \ref{fig-sequence} shows an example of the robot 
+grasping a porcelain cup. Repetitive tests are described in section 
+\ref{sec-results}.
+
+% The robot waits for a visual stimula. The robot reaches towards
+%the goal without 3D information. If there is not contact detected
+%by the tactile sensor, it hover until there is contact.
+%Depending on the position of the contact the following actions
+%are taken. If touched only on middle finger then the finger
+%retracts and keeps hovering to make contact with both fingers.
+%If that contact occurs the thumb is opposed to the index finger.
+%At this point the robot starts pushing waiting for contact with
+%the palm. When the palm sensors are activate the hand is closed
+%to grab the object and lift it.
 
 %The behavior of the robot is as follows. It sweeps its hand back
 %and forth over a table, and stops to tap any object (or, indeed,
