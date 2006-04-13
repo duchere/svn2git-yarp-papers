@@ -25,8 +25,22 @@ along the null space of the arm Jacobian.}
 In this section we describe the grasping behavior we have implemented
 on the robot. For the robot to be able to control the body in a safe
 and meaningful way a few motor and perceptual competencies are required.
-These include: the ability to control the body to reach for a target and 
-a simple attention system to spot the objects to be grasped.
+These include: a simple attention system to spot the objects to be grasped 
+and the ability to control the body to reach them.
+
+\subsection{Attention System}
+Motion is a simple yet powerful cue to select points of interest in the visual
+scene; for an active camera system this is still true assuming we can estimate 
+the motion of the background and account for it. In this paper we use the 
+algorithm proposed by \cite{kemp-thesis}, which uses a 2D affine model to 
+robustly estimate the image motion resulting from the background. In short the 
+algorithm measures the motion of each pixel with a block matching procedure, and 
+perform a least square fitting of the gloabl affine model. Using the affine model
+the algorithm performs a prediction of the motion of each pixel, and marks as 
+foreground those pixels that match the prediction poorly. Under the assumption 
+that the mojority of the image motion relate to the background, these pixels 
+can be used to build a saliency map to direct the attention of the robot. 
+[should add more but this might do for now]
 
 \subsection{Eye-hand coordination}
 Given the topic of out research on Obrero, we decided to focus on explorative 
@@ -53,7 +67,7 @@ of the fingers). Once the arm is identified the top-most
 and bottom-most pixels in the high frequency blob of the arm 
 are taken as its extremes the orientation computed.
 The detection was reliable enough for our purposes and was used as a 
-short cut in place of other, more general, methods (\cite{nat pasa at least}).
+short cut in place of other, more general, methods \cite{metta03early}\cite{natale05from}.
 
 The visual feedback of the arm can be used for closed-loop control. For 
 example it could be possible to exploit the visual feedback to constrain 
@@ -63,11 +77,11 @@ in presence of occlusions or when the hand is not within the visual field.
 
 Open-loop control is an alternative solution. A possible open-loop control 
 consits in a mapping between the fixation point of the head and the arm 
-end-point (\cite{Metta}). The advantage of this approach is that the mapping 
+end-point (\cite{metta00Babybot}). The advantage of this approach is that the mapping 
 can be easily learnt if the robot can fixate the hand. Another approch is to
 use the hand localization to learn a direct mapping between the arm 
 proprioception (encoder feedback) and the position of the arm in the visual 
-space (as in \cite{natale}). The direct (forward) mapping can be inverted 
+space (as in \cite{natale05from}). The direct (forward) mapping can be inverted 
 locally to control the arm to reach a visually identified target. The 
 solution we adopt here is similar; in practice in a discovery phase the robot
 tracks the hand as the arm moves to randomly explore the workspace.
