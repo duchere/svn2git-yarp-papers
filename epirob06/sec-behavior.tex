@@ -259,22 +259,23 @@ the robot computes the explorative primitives $v_1$, $v_2$ and
 $v_3$. The exploration uses three behaviors: 
 %
 \begin{itemize}
-\item \emph{hovering behavior}, moves the hand back and forth along 
-$v_1$.
-%
-\item \emph{pushing behavior}, moves the hand
-along $v_2$.
 %
 \item \emph{depth behavior}, moves the hand ``downwards''
-along $v_3$; this behavior moves the hand along the direction of
+along $v_3$; 
+%
+\item \emph{hovering behavior}, moves the hand back and forth along 
+$v_1$;
+%
+\item \emph{pushing behavior}, moves the hand along $v_2$;
+%
+\end{itemize}
+
+The \emph{depth behavior} moves the hand along the direction of
 the optical axis of the camera and adjusts the height of the hand
 with respect to the object/table. To avoid crashing the hand into
 the table this behavior is inhibited when the infrared proximity
 sensor detects an obstacle (usually this happens close to the
 table).
-%
-\end{itemize}
-%
 The \emph{hovering behavior} and the \emph{depth behavior} are
 activated at the beginning of the exploration. The goal of this
 initial phase is to adjust the position of the hand until the
