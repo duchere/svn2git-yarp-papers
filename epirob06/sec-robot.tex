@@ -1,15 +1,6 @@
 \section{The robot Obrero}
 \label{sec:platform}
-
-
-\begin{figure}[tbp]
-\centerline{
-\includegraphics[width=1.0in, angle=270 ]{./figures/Tactiles.eps}
-} \caption{Tactile Sensors. (a) Group of four tactile sensors. The
-deformation of each of them is measured by a total of four sensors.
-(b) Tactile sensors mounted on the hand.} \label{fig:TactileSensors}
-\end{figure}
-
+%
 Obrero \cite{obrero} consists of a hand, an arm and a head
 (Figure~\ref{fig:RobotObrero}). Obrero was designed to approach
 manipulation as a task manly guided by tactile and force feedback.
@@ -28,9 +19,15 @@ Actuators \cite{williamson95series} which provide low-impedance
 and force feedback at each joint. Position feedback is provided by
 potentiometers.
 
+The software controlling Obrero runs on a cluster of computers
+interconnected through an ethernet network. The connection between
+the different modules is done using YARP \cite{yarpPaper}.
+%
+\subsection{The hand and the tactile sensors}
+%
 The hand consists of a palm, a thumb, a middle and an index
-finger. Each one of the fingers has two phalanges that can be
-opened and closed. The thumb and the middle finger can also
+finger (figure~\ref{fig:TactileSensors}). Each one of the fingers 
+has two phalanges that can be opened and closed. The thumb and the middle finger can also
 rotate. These rotations allow the thumb to oppose to either the
 index or the middle finger. The total number of degrees of freedom
 in the hand is 8. All joints in the hand are equipped with an
@@ -50,33 +47,30 @@ as a result of contact with an object). This elastic coupling
 allows the hand to automatically adapt to the object it grasps.
 Finally, position feedback is obtained through potentiometers
 mounted in all joints and encoders in the motors.
-
+%
+%
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=1.0in, angle=270 ]{./figures/Tactiles.eps}
+} \caption{Obrero's hand and detail of the tactile sensors. (a) Group of four tactile sensors. The
+deformation of each of them is measured by a total of four sensors.
+(b) Tactile sensors mounted on the hand.} \label{fig:TactileSensors}
+\end{figure}
+%
 The tactile sensors mounted on the hand were designed to satisfy the
-needs of robotic tasks. %Their design was inspired by the human
-%skin %which presents a dome-like shape with innervations at their
-%base.
-% where dome-like sh
-%deformation is detected by innervation deformation produced by the
-%contact with an object. Inspired by this mechanism, we designed
-Each unit has a dome-like sensor (see
+needs of robotic tasks. Each unit has a dome-like sensor (see
 figure~\ref{fig:TactileSensors}a) made of silicon rubber. At the
 tip of the dome we embedded a small magnet, whose position is
-measured by four hall-effect sensors placed at its base. By
-sensing the position of the magnet the hall-effect sensors measure
-the deformation of the dome. \textbf{[X I suggest to change the
-last to sentences to: At the tip of the dome we embedded a small
-magnet, whose position is measured by four hall-effect sensors
-placed at the dome's base. By sensing the position of the magnet
-the deformation of the dome is estimated. X]} The sensors are very
-sensitive and capable of detecting a minimum normal force of
-0.098N.
-
-The shape of the sensors favors contact with the environment from
-any direction, as opposed to most of the tactile sensors which are
+measured by four hall-effect sensors placed at the dome's base. By
+sensing the position of the magnet the defomation of the dome
+is estimated. The sensors are very sensitive and capable of 
+detecting a minimum normal force of 0.098N. The shape of the sensors 
+favors contact with the environment from any direction, as 
+opposed to most of the tactile sensors which are
 flat. The high deformability and the properties of the silicon
 rubber allow the sensors to conform to the objects, thus
 increasing friction and improving contact detection. In this
-particular implementation, we used the ``magnetic'' version of
+particular implementation, we used the ''magnetic'' version of
 these tactile sensors, however, an optical version has also been
 tested. The description of the design and the analysis of these
 sensors can be found in \cite{etorresjSoft}.
@@ -93,6 +87,3 @@ smaller infrared proximity sensor. To summarize, the hand has 5
 motors, 8 DOF, 8 force sensors, 10 position sensors, 160 tactile
 sensors and an infrared proximity sensor.
 
-The software controlling Obrero runs on a cluster of computers
-interconnected through an ethernet network. The connection between
-the different modules is done using YARP \cite{yarpPaper}.

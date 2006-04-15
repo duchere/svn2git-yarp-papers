@@ -1,7 +1,18 @@
+\begin{figure*}[tb]
+\centerline{
+\includegraphics[width=2.8in, angle=270 ]{./figures/GrabSeq.eps}
+} \caption{An example. Sequence of the robot grasping a porcelain
+cup. Frame 1: the cup is presented to the robot. Frame 2: the
+robot reaches for the cup. Frames 3 to 6:  the robot explores the
+space and uses tactile feedback to find the object and adjust the
+position of the hand. Frames 7 and 8: the robot grasps
+and lifts the cup.} \label{fig:sequence}
+\end{figure*}
+
 \section{Results}
 \label{sec:results}
 
-\begin{table*}[tb]
+\begin{table*}[htb]
   \caption{Objects} \label{tab:objects} \centering
   \begin{tabular}{|c|l|c|c|c|l|}
     \hline
@@ -19,7 +30,7 @@
 
 \begin{figure*}[tbp]
 \centerline{
-\includegraphics[width=6.0in]{./figures/objects-clusters.eps}
+\includegraphics[width=6.0in]{./figures/objects-clusters2.eps}
 }\caption{Left: the set of objects used in the experiments: a plastic bottle,
 a porcelain cup, a plastic cup and a rectangular plastic box. Some objects were
 partially filled to increase the weight (all objects weighed about 220-250g).
@@ -89,41 +100,3 @@ exploration until it finds the object and grasps it. This is
 further demonstrated by the clustering, which show that the
 behavior allows extracting meaningful information about the
 physical properties of the objects (i.e. their shape).
-
-%Using the behavior described in section~\ref{}, the robot was able
-%to grasp a number of different objects. The robot had no prior
-%knowledge of the objects. We evaluate the performance by
-%presenting to the robot many times four objects and counting the
-%number of times that they were grabbed. Out of 94 trials only 8
-%failed. The objects were : a white vitamins bottle, a white
-%porcelain cup, a startbucks cup and a nesquick box. The physical
-%properties of the objects and the results are shown in table
-%\ref{tab:objects}.
-
-%We evaluated our work by performing an object recognition
-%experiment. We exposed the robot one evening to a set of seven
-%objects, and then in the morning tested its ability to recognize
-%another set, which had an overlap of four objects with the
-%training set. Three of these objects were chosen (Figure 8) to
-%represent three different materials, plastic, glass and steel
-%(metal). The idea is that the sound produced by each object
-%depends on its size, shape and the material with which it is made;
-%accordingly we expected the tapping to produce three different
-%distinct sounds. A fourth object (a plastic toy) was relatively
-%silent. For each run, we placed randomly selected objects on the
-%table in front of the robot, and it was responsible for finding
-%and tapping them. Overall the robot tapped 53 times; of these
-%episodes 39 were successful, meaning that the sound produced by
-%the tapping was significantly loud; in the other 14 cases the
-%tapping did not provoke useful events either because the initial
-%impact caused the object to fall, or the object remained too close
-%to the hand. The high number of successful trials shows that given
-%the mechanical design of the hand, haptic feedback was sufficient
-%to control the interaction between the robot and the environment.
-%We evaluated the performance of our spectrum comparison method by
-%ranking the strength of matches between episodes on the second day
-%and episodes on the first day. Figure 7 shows what detection
-%accuracy is possible as the acceptable false positive rate is
-%varied. This predicts that we can on average correctly match an
-%episode with 50\% of previous episodes involving the same object
-%if we are willing to accept 5\% false matches.

@@ -7,39 +7,36 @@ camcorder as a head. Obrero's hand  has three fingers, 8 DOF, 5
 motors, 8 force sensors, 10 position sensors and 160 tactile
 sensors.} \label{fig:RobotObrero}
 \end{figure}
-
+%
 \section{Introduction}
-
+%
 Recent work in developmental robotics has emphasized the role of
 action for perception and learning
 \cite{metta03early,natale04learning,natale05from}. Developmental
-psychology on the other hand, recognize that motor activity is of
+psychology, on the other hand, recognizes that motor activity is of
 paramount importance for the correct emergence of cognition and
-intelligent behavior \cite{streri93Seeing,bushnell93motor}.
-\textbf{[X changed Being them either artificial or natural X]} All
-embodied agents, either artificial or natural, have numerous ways
+intelligent behavior \cite{gibson88explore,streri93Seeing,bushnell93motor,hofsten04motor}.
+All embodied agents, either artificial or natural, have numerous ways
 to exploit the physical interaction with the environment to their
-advantage. In robotics actions like pushing, prodding, and tapping
+advantage. 
+
+In robotics actions like pushing, prodding, and tapping
 have been used for visual and auditory perception respectively
 \cite{metta03early,etorresjara05tapping}. More articulated
 explorative actions or grasping might increase these benefits, as
 they give direct access to physical properties of objects like
 shape, volume and weight.
-
+%
 Unfortunately, all these aspects have not been extensively
 investigated yet. One of the reasons for this is that controlling
 the interaction between the robot and the environment is a
 difficult problem \cite{volpe90real}, especially in absence of
 accurate models of either the robot or the environment (as it is
 often the case in developmental robotics).
-
-%As discussed in \cite{volpe90real} the
-%\emph{impact problem} affect the mechanical design of the robot as well as
-%its control.
-
+%
 The design of the robot can ease these problems. We know for
 example that having a certain degrees of elasticity in the limbs
-helps to ``smooth''  and control the forces that originate upon
+helps to ''smooth''  and control the forces that originate upon
 contact. Another approach is to enhance the perceptual abilities
 of the robot. Traditional robotic systems in fact have perceptual
 systems that do not seem adequate for grasping. Haptic feedback in
@@ -49,8 +46,8 @@ available are inadequate for robotics tasks: they are only
 sensitive to forces coming from a specific angle of incidence,
 rigid and almost frictionless.
 
-Obrero\cite{obrero} is an upper body humanoid robot designed to
-overcome these limitations. It is equipped with series elastic
+Obrero is an upper body humanoid robot designed to
+overcome these limitations \cite{obrero}. It is equipped with series elastic
 actuators, which provide intrinsic elasticity and force feedback
 at each joint. The hand is equipped with tactile sensors
 \cite{etorresjSoft} which provide a deformable and sensitive
@@ -73,8 +70,8 @@ grasping carries information about the shape of the objects.
 
 The paper is organized as follows. Section~\ref{sec:background}
 briefly reviews the importance of haptic feedback for manipulation
-in infants and humans. Section~\ref{sec:platform} describes our
+in infants and adults. Section~\ref{sec:platform} describes our
 robotic platform. Section~\ref{sec:controlling} provides some
 implementation details and describes the grasping behavior. The
-latter is evaluated in section~\ref{sec:results}. Finally, section
-~\ref{sec:conclusions}. draws the conclusions of this work.
+latter is evaluated in section~\ref{sec:results} Finally, section
+~\ref{sec:conclusions} draws the conclusions of this work.
