@@ -49,40 +49,45 @@ clearly separated because have similar shape in the area where they were grasped
 %% the current geometry of the hand.} \label{fig:TactileComp}
 %% \end{figure}
 
-The grasping behavior section~\ref{sec:controlling} was evaluated 
-by presenting different objects to the robot and by counting the 
-number of successful grasps.
-We chose objects of different size and shape: a plastic bottle, 
-a plastic rectangular box, a porcelain cup and a plastic cup 
-(see figure~\ref{fig:Objects}. Some of the objects were partially
-filled, so that the weight was roughly uniform among all objects 
-(about 220-250 grams). The robot had no prior knowledge about the objects.
+The grasping behavior described in section~\ref{sec:controlling}
+was evaluated by presenting different objects to the robot and by
+counting the number of successful grasps. We chose objects of
+different size and shape: a plastic bottle, a plastic rectangular
+box, a porcelain cup and a plastic cup (see
+figure~\ref{fig:Objects}). Some of the objects were partially
+filled, so that the weight was roughly uniform among all objects
+(about 220-250 grams). The robot had no prior knowledge about the
+objects.
 
-Each object was presented to the robot more than 20 times and randomly placed
-on the table. Overall the number of grasping trials was 94, of which only
-6 were not successful. In some of these
-trials, the robot managed to grasp the object, but was not able to hold it
-because the grip did not produce enough friction. In a few cases the
-tactile sensors failed to detect the object and the exploration was aborted
-before the object was actually grasped.
+Each object was presented to the robot more than 20 times and
+randomly placed on the table. Overall the number of grasping
+trials was 94, of which only 7 were not successful. In some of
+these trials, the robot managed to grasp the object, but was not
+able to hold it because the grip did not produce enough friction.
+In a few cases the tactile sensors failed to detect the object and
+the exploration was aborted before the object was actually
+grasped.
 
-As a further validation we clustered the haptic information originated from
-the grasping. We collected the hand feedback at the moment the robot lifted the
-object; the idea is that given the intrinsic compliance of the hand, its
-configuration and the force exerted by each joint depend on the shape of the
-object being grasped.
-The hand feedback was clustered by means of a Self Organizing Map (SOM). The results
-show that the bottle, the rectangular box and the cups form three clusters.
-Unfortunately the clusters formed by the two cups are not clearly distinguishable.
-This is probably due to the fact that the hand grasped the objects from the
-top, and that in that part the two objects are quite alike (both are circular with
-similar diameter). In these cases the limited number of fingers (three)
-made it hard to distinguish between the cylindrical and conic shape of the cups.
-Together the results prove that the grasping behavior of
-the robot is reliable. The high number of successful trials shows that the haptic
-feedback manages to drive the robot during the exploration until it
-finds the object and grasps it. This is further demonstrated by the clustering,
-which show that the behavior allows extracting meaningful information about the
+As a further validation, we clustered the haptic information
+originated from the grasping. We collected the hand feedback at
+the moment the robot lifted the object; the idea is that given the
+intrinsic compliance of the hand, its configuration and the force
+exerted by each joint depend on the shape of the object being
+grasped. The hand feedback was clustered by means of a Self
+Organizing Map (SOM). The results show that the bottle, the
+rectangular box and the cups form three clusters. Unfortunately
+the clusters formed by the two cups are not clearly
+distinguishable. This is probably due to the fact that the hand
+grasped the objects from the top, and that in that part the two
+objects are quite alike (both are circular with similar diameter).
+In these cases the limited number of fingers (three) made it hard
+to distinguish between the cylindrical and conic shape of the
+cups. Together the results prove that the grasping behavior of the
+robot is reliable. The high number of successful trials shows that
+the haptic feedback manages to drive the robot during the
+exploration until it finds the object and grasps it. This is
+further demonstrated by the clustering, which show that the
+behavior allows extracting meaningful information about the
 physical properties of the objects (i.e. their shape).
 
 %Using the behavior described in section~\ref{}, the robot was able
