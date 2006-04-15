@@ -14,13 +14,13 @@ in the visual scene; for an active camera system this is still
 true assuming we can estimate the motion of the background and
 account for it. In this paper we use the algorithm proposed by
 \cite{kemp-thesis}, which uses a 2D affine model to robustly
-estimate the image motion resulting from the background. In short
+estimate the image motion resulting from the background. In short,
 the algorithm measures the motion of each pixel with a block
 matching procedure, and performs a least square fitting of the
-global affine model. Using the affine model the algorithm performs
-a prediction of the motion of each edge, and marks as foreground
+global affine model. Using the affine model the algorithm predicts
+the motion of each edge, and marks as foreground
 those edges that poorly match this prediction. Under the
-assumption that the majority of the image motion relate to the
+assumption that the majority of the image motion is due to the
 background, these edges can be used to build a saliency map to
 direct the attention of the robot.
 %
@@ -29,16 +29,17 @@ We decided to focus on explorative
 actions rather than precise, goal directed, actions towards the target objects.
 This was also motivated by the fact that the monocular visual system of Obrero
 makes depth estimation very difficult. This situation is actually quite common
-in robotics, as depth estimation in real time is a challenging problem even with
-stereo vision.
+in robotics, as depth estimation in real time is a challenging problem even 
+with stereo vision.
 However, we cannot hope to program the robot to perform
 a blind exploration of the entire workspace. A possible solution is to
-constran the exploration to the area of the workspace where the object is
-detected visually. Since the 3D location of the object is not available reaching
-is performed in 2D; the exploration procedure allows the robot to find the actual
-position of the object. The motor skills required for reaching and performing
-the exploration can be learned starting from the visual ability
-to localize the hand and compute the orientation of the arm.
+constrain the exploration to the area of the workspace where the object is
+detected visually. Since the 3D location of the object is not available, 
+reaching is performed in 2D; the exploration procedure allows the 
+robot to find the actual position of the object. The motor skills 
+required for reaching and exploring can be learned from the 
+visual ability to localize the hand and compute the 
+orientation of the arm.
 %
 \subsection{Hand Localization}
 A visual module detects the hand and computes the orientation of
@@ -64,7 +65,7 @@ Open-loop control is an alternative solution. A possible open-loop
 control consists of a mapping between the fixation point of the
 head and the arm end-point \cite{metta00Babybot}. The advantage of
 this approach is that the mapping can be easily learned if the
-robot is able to fixate the hand. Another approach uses the output of the 
+robot is able to look at the hand. Another approach uses the output of the 
 hand detector to learn a direct mapping between the arm
 proprioception (encoder feedback) and the position of the hand in
 the image \cite{natale05from}. The direct (forward) mapping
@@ -72,7 +73,7 @@ can be inverted locally to control the arm to reach for a visually
 identified target. The solution we adopt here is similar: in a
 discovery phase the robot tracks the hand as the arm moves to
 randomly explore the workspace. This behavior allows the robot to
-acquires samples in the form:
+acquire samples in the form:
 %
 \begin{center}
 \begin{math}
@@ -81,15 +82,15 @@ acquires samples in the form:
 \end{math}
 \end{center}
 %
-where $x$ and $y$ are the coordinates of the hand in the image,
-$\alpha$ is the orientation of the arm, $q_{head}$ and $q_{arm}$ are
+where $x$, $y$ and $\alpha$ are the coordinates of the hand and the 
+orientation of the arm in the image, $q_{head}$ and $q_{arm}$ are
 the position of the head and arm respectively. Given $q_{head}$ it is
 possible to convert $x$ and $y$ into an egocentric reference frame:
 %
 \begin{equation}
   \left[
   \begin{array}{ccc}
-    \theta & \phi
+    \theta_h & \phi_h
     \end{array}\right]^T
   = f_{head}^{-1}
   \left(\left[\begin{array}{ccc}
@@ -100,9 +101,9 @@ possible to convert $x$ and $y$ into an egocentric reference frame:
 \label{eq-head-inverse}
 \end{equation}
 %
-$\theta$ and $\phi$ represents the polar coordinates of the hand in the
-reference frame centered at the base of the head. Basically
-$f_{head}^{-1}$ includes knowledge of the inverse kinematics of the
+$\theta_h$ and $\phi_h$ represents the polar coordinates of the hand in the
+reference frame centered at the base of the head (azimuth and elevation). 
+Basically $f_{head}^{-1}$ includes knowledge of the inverse kinematics of the
 head and the parameters of the camera. The opposite transformation maps
 polar coordinates into the image plane:
 \begin{equation}
@@ -111,8 +112,8 @@ polar coordinates into the image plane:
     \end{array}\right]^T
   = f_{head}
   \left(\left[\begin{array}{ccc}
-    \theta &
-    \phi &
+    \theta_h &
+    \phi_h &
     q_{head}
     \end{array} \right]^T\right)
 \label{eq-head-direct}
@@ -123,14 +124,14 @@ learn the following mapping:
 %
 \begin{equation}
   \left[\begin{array}{ccc}
-    \theta & \phi & \alpha
+    \theta_h & \phi_h & \alpha
     \end{array}\right]^T
   = f \left(q_{arm}\right)
 \label{eq-arm-direct}
 \end{equation}
 %
 which links the arm posture $q_{arm}$ to the polar coordinates of
-the hand $\left[\theta, \phi\right]^T$ and the orientation of the
+the hand $\left[\theta_h, \phi_h\right]^T$ and the orientation of the
 arm $\alpha$. This mapping was learnt online by using the neural network
 proposed by \cite{schaal98Constructive}.
 
@@ -153,17 +154,23 @@ reference frame $\left[\begin{array}{c c} \theta_t  &
 as a the minimization of the following cost function:
 %
 \begin{equation}
-  \displaystyle\min_{q_{arm}}\left(C\right)=\displaystyle\min_{q_{arm}}\left(
+  \displaystyle\min_{q_{arm}}\left(C\right)=\displaystyle\min_{q_{arm}}
+  \left\Vert
   \left[
   \begin{array}{cc}
     \theta_t & \phi_t 
     \end{array}\right]^T
-  -f \left(q_{arm}\right)
-  \right)^2
+  -
+  \left[\begin{array}{cc}
+  \theta_h & \phi_h\end{array}
+  \right]^T
+  \right\Vert^2
 \label{eq-reaching1}
 \end{equation}
 %
-Assuming a stationary target the minimum of equation \ref{eq-reaching1}
+where $\theta_h$ and $\phi_h$ are computed from equation~\ref{eq-arm-direct}.
+
+Assuming a stationary target the minimum of equation~\ref{eq-reaching1}
 can be found by gradient descent. The gradient of $C$ is proportional
 to the Jacobian transposed of the manipulator, that is:
 %
@@ -174,7 +181,7 @@ to the Jacobian transposed of the manipulator, that is:
 %
 $\nabla f\left(q_{arm}\right)$ was approximated by partial
  differentiation of equation \ref{eq-arm-direct}. Because 
-the basis functions used by the neural netowork are guassians
+the basis functions used by the neural network are guassians
 this was easily done analytically (another approach is to perform
 numerical differentiation).
 
@@ -188,7 +195,8 @@ basis functions of the neural network approximating the direct
 kinematics. This procedure is carried out online without using the
 real visual feedback of the hand.
 
-In the robot visual information (and hence the mapping of equation~\ref{eq-arm-direct})
+In the robot visual information (and hence the mapping of 
+equation~\ref{eq-arm-direct})
 is two-dimensional and does not carry any information
 about distance. The solution found by descending the gradient of the
 direct kinematics takes care of minimizing the distance between the target
@@ -206,9 +214,10 @@ the hand above the table.
   }\caption{Left, frames 1 and 2: hand localization and arm
     orientation. Right, frame 3: exploration primitives. Primitives $v_1$
 and $v_2$ are perpendicular and parallel to the arm orientation.
-$v_3$ is along the null space of the arm Jacobian. See
-section~\ref{sec:controlling} for
- more details.}
+$v_3$ is along the null space of the arm Jacobian. These primitives
+are sketched here in the cartesian plane for simpler understanding, but 
+they are actually computed in the joint space (see 
+Section~\ref{sec:controlling} for more details.}
 \label{fig:expl-directions}
 \end{figure}
 %
@@ -242,10 +251,10 @@ The sequence begins when the experimenter waves an object in front
 of the robot. The head tracks the object until it remains
 stationary within the workspace of the arm. The robot reaches for
 the object; motion is planned visually as described in
-section~\ref{sec:reaching}. Reaching is not accurate enough to
+Section~\ref{sec:reaching}. Reaching is not accurate enough to
 guarantee a correct grasp. Since no three dimensional information
 is available the arm reaches a region above the object (see
-section~\ref{sec:reaching}). At this point the exploration starts;
+Section~\ref{sec:reaching}). At this point the exploration starts;
 the robot computes the explorative primitives $v_1$, $v_2$ and
 $v_3$. The exploration uses three behaviors: 
 %
@@ -288,6 +297,6 @@ behavior} simply closes the fingers to a specific position. The
 low impedance of the joints allows the fingers to adapt to the
 different objects being grasped.
 
-Figure \ref{fig:sequence} shows an example of the robot grasping 
+Figure \ref{fig:sequence} reports an example of the robot grasping 
 a porcelain cup. The grasping behavior proved to be quite reliable, as 
-repetitive tests shows in section \ref{sec:results}
+repetitive tests show in Section \ref{sec:results}
