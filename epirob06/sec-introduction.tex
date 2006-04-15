@@ -2,7 +2,7 @@
 \centerline{
 \includegraphics[width=2.5in, angle=270 ]{./figures/ObreroHands.eps}
 } \caption{Robot Obrero. The robot has a highly sensitive and
-force controlled hand, a single force controlled arm and a
+force controlled hand, a force controlled arm and a
 camcorder as a head. Obrero's hand  has three fingers, 8 DOF, 5
 motors, 8 force sensors, 10 position sensors and 160 tactile
 sensors.} \label{fig:RobotObrero}
@@ -11,17 +11,17 @@ sensors.} \label{fig:RobotObrero}
 \section{Introduction}
 
 Recent work in developmental robotics has emphasized the role of
-action during perception and learning \cite{metta03early}
-\cite{natale04learning} \cite{natale05from}. Developmental
+action for perception and learning 
+\cite{metta03early,natale04learning,natale05from}. Developmental
 psychology on the other hand, recognize that motor activity is of
 paramount importance for the correct emergence of cognition and
-intelligent behavior (cite). Being them either artificial or
-natural, all embodied agents have numerous ways to exploit the
-physical interaction with the environment to their advantage. In
-robotics actions like pushing, prodding, and tapping have been
-used for visual and auditory perception respectively
-\cite{metta03early} \cite{etorresjara05tapping}. More articulated explorative
-actions and grasping might increase these benefits, as they give
+intelligent behavior \cite{streri93Seeing,bushnell93motor}. 
+Being them either artificial or natural, all embodied agents have 
+numerous ways to exploit the physical interaction with the environment 
+to their advantage. In robotics actions like pushing, prodding, 
+and tapping have been used for visual and auditory perception 
+respectively \cite{metta03early,etorresjara05tapping}. More articulated 
+explorative actions or grasping might increase these benefits, as they give
 direct access to physical properties of objects like shape, volume
 and weight.
 
@@ -38,18 +38,18 @@ and weight.
 %allows the robot to remain in contact with the object for further
 % inspection.
 
-Unfortunately all these aspects have not been extensively investigated yet. The
-reason for this is that controlling the interaction between the robot and
-the environment is a difficult problem, especially in absence of accurate
+Unfortunately all these aspects have not been extensively investigated yet. One
+of the reasons for this is that controlling the interaction between the robot and
+the environment is a difficult problem \cite{volpe90real}, especially in absence of accurate
 models either of the robot or the environment (as it is often the case in
-developmental robotics). As discussed in \cite{volpe90real} the
-\emph{impact problem} affect the mechanical design of the robot as well as
-its control.
+developmental robotics). %As discussed in \cite{volpe90real} the
+%\emph{impact problem} affect the mechanical design of the robot as well as
+%its control.
 
-The design of the robot can alleviate these problems. On the one hand, we know
+The design of the robot can ease these problems. We know
 for example that having a certain degrees of elasticity in the limbs helps to
 ``smooth''  and control the forces that originate upon contact.
-On the other hand, we can work to enhance the perceptual abilities of the robot.
+Another approach is to to enhance the perceptual abilities of the robot.
 Traditional robotic systems in fact have perceptual systems that do not seem
 adequate for grasping. Haptic feedback in particular in often quite limited or
 completely absent. This is because, unfortunately, most of the tactile
@@ -57,7 +57,7 @@ sensors commercially available are inadequate for robotics tasks: they are only
 sensitive to forces coming from a specific angle of incidence, rigid
 and almost frictionless.
 
-Obrero\cite{obrero} in a upper body humanoid robot, designed to
+Obrero\cite{obrero} is an upper body humanoid robot designed to
 overcome these limitations. It is equipped with series elastic
 actuators, which provide intrinsic elasticity and force feedback
 at each joint. The hand is equipped with tactile sensors
@@ -67,8 +67,9 @@ interface between the fingers and the objects.
 We report a series of experiments where Obrero exploits its
 sensing capabilities to grasp a number of objects individually
 placed on a table. No prior information about the objects is
-available to the robot. Vision is used at the beginning of the
-task to direct the attention of the robot and to give a rough
+available to the robot. The use of visual feedback was voluntarely 
+limited. Vision is used at the beginning of the task to direct 
+the attention of the robot and to give a rough
 estimation of the position of the object. Next, the robot moves
 its limb towards the object and explores with the hand the area
 around it. During exploration, the robot exploits tactile feedback
@@ -76,18 +77,13 @@ to find the actual position of the object and grasp it. The
 mechanical compliance of the robot and the control facilitate the
 exploration by allowing a smooth and safe interaction with the
 object. Results show that the haptic information acquired by
-the robot during grasping codes information about the shape of
+the robot during grasping carries information about the shape of
 the objects.
 
 The paper is organized as follows. Section~\ref{sec:background}
-briefly reviews XXX and introduces the notion of exploratory
-procedures in humans and robots. Section~\ref{sec:platform}
-describes our robotic platform, designed to enable sensor-rich
-reaching and grasping (sensitive manipulation).In
-section~\ref{sec:approach}, we review our general developmental
-approach to robot perception. This motivates us to develop a robot
-behavior (described in Section~\ref{sec:behavior}) which gives the
-robot a way to actively probe of objects in its environment in a
-robust way. Section~\ref{sec:results} present an evaluation of
-method for grasping. Finally, section ~\ref{sec:conclusions}.
-concludes with a discussion about the results.
+briefly reviews the importance of haptic feedback 
+for manipulation in infants and humans. Section~\ref{sec:platform}
+describes our robotic platform. Section~\ref{sec:controlling} provides
+some implementation details and described the grasping behavior. The latter
+is evaluated in section~\ref{sec:results}. Finally, section ~\ref{sec:conclusions}.
+draws the conclusions of this work.

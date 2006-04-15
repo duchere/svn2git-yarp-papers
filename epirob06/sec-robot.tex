@@ -1,4 +1,3 @@
-
 \section{The robot Obrero}
 \label{sec:platform}
 
@@ -6,24 +5,25 @@
 \begin{figure}[tbp]
 \centerline{
 \includegraphics[width=1.0in, angle=270 ]{./figures/Tactiles.eps}
-} \caption{Tactile Sensors. (a) Group of four tactile sensor. A
-total of 16 sensors are read to determine the deformation of the
-four tactile sensors. (b) Tactile sensors mounted on Obrero's
-hand.} \label{fig:TactileSensors}
+} \caption{Tactile Sensors. (a) Group of four tactile sensors. The 
+deformation of each of them is measured by a total of four sensors. 
+(b) Tactile sensors mounted on the hand.} \label{fig:TactileSensors}
 \end{figure}
 
 Obrero \cite{obrero} consists of a hand, an arm and a head
 (Figure~\ref{fig:RobotObrero}). Obrero was designed to approach
 manipulation as a task manly guided by tactile and force feedback.
-We use the robot's limb as a sensing/exploring device as opposed
-to a pure acting device. This is a convenient approach to operate
-in unstructured environments, on unmodeled objects. Obrero's limb
-is sensor-rich and safe, it is designed to reduce the risk of
-damages upon contact with objects. The head consists of a
+%We use the robot's limb as a sensing/exploring device as opposed
+%to a pure acting device. This is a convenient approach to operate
+%in unstructured environments, on unmodeled objects. 
+Obrero's limbs are designed to
+%is sensor-rich and safe, it is designed 
+reduce the risk of damages upon contact with objects. 
+The head consists of a
 commercial camcorder (SONY DCR-HC20) that can move along the pan
 and tilt directions. The arm has 6 Degrees of Freedom (DOF)
 distributed in this way: three in the shoulder, one at the elbow
-and two in the wrist. The arm(\cite{AaronArm}) uses Series Elastic
+and two in the wrist. The arm \cite{AaronArm} uses Series Elastic
 Actuators \cite{williamson95series} which provide low-impedance
 and force feedback at each joint. Position feedback is provided by
 potentiometers.
@@ -32,14 +32,18 @@ The hand consists of a palm, a thumb, a middle and an index
 finger. Each one of the fingers has two links that can be opened
 and closed. The thumb and the middle finger can also rotate. These
 rotations allow the thumb to oppose to either the index or the
-middle fingers. The total number of degrees of freedom in the hand
+middle finger. The total number of degrees of freedom in the hand
 is 8. All joints in the hand are equipped with an optimized
-version of the Series Elastic Actuators \cite{actuator} which
-provide force feedback and reduce the mechanical impedance of the
-fingers. The hand is underactuated, only 5 motors drive the
-fingers. Two motors control the rotation of the thumb and middle
-finger. The remaining three motors open and close the fingers
-whose phalanges are mechanically coupled. However, due to the
+version of the Series Elastic Actuators \cite{actuator}; the fingers
+have low mechanical compliance to soften the contact with the objects
+during grasping. 
+%mechanical compliance of the fingers is very low to %which
+%provide force feedback and reduce the mechanical impedance of the
+%fingers. 
+The hand is underactuated and driven by only 5 motors: 
+three motors open and close each finger, whereas two motors 
+control the rotation of the thumb and middle finger. The
+phalanges of each finger are mechanically coupled. However, due to the
 presence of a Series Elastic Actuator in the joint, independent
 motion is achieved when the proximal phalange blocks (for example,
 as a result of contact with an object). This elastic coupling
@@ -47,16 +51,18 @@ allows the hand to automatically adapt to the object it grasps.
 Finally, position feedback is obtained through potentiometers
 mounted in all joints and encoders in the motors.
 
-The tactile sensors mounted used were designed to satisfy the
-needs of robotic tasks. Their design was inspired by the human
-skin which presents a dome-like shape with innervations at their
-base. Those innervations detect the deformation produced by the
-contact with an object. Inspired by this mechanism, we designed
-and built a dome-like sensor (see figure\ref{fig:TactileSensors}a)
-out of silicon rubber. At the tip of the dome we embedded a small
+The tactile sensors mounted on the hand were designed to satisfy the
+needs of robotic tasks. %Their design was inspired by the human
+%skin %which presents a dome-like shape with innervations at their
+%base. 
+% where dome-like sh
+%deformation is detected by innervation deformation produced by the
+%contact with an object. Inspired by this mechanism, we designed
+Each unit has a dome-like sensor (see figure~\ref{fig:TactileSensors}a)
+made of silicon rubber. At the tip of the dome we embedded a small
 magnet, whose position is measured by four hall-effect sensors
-placed at its base. In this way, the hall-effect sensors measure
-the deformation of the dome by sensing the position of the magnet.
+placed at its base. By sensing the position of the magnet
+the hall-effect sensors measure the deformation of the dome.
 The sensors are very sensitive and capable of detecting a minimum
 normal force of 0.098N.
 
@@ -67,22 +73,22 @@ rubber allow the sensors to conform to the objects, thus
 increasing friction and improving contact detection. In this
 particular implementation, we used the ``magnetic'' version of
 these tactile sensors, however, an optical version has been also
-tested. The analysis and description of the design of these
+tested. The description of the design and the analysis of these
 sensors can be found in \cite{etorresjSoft}.
 
-Groups of tactile sensors were placed in parts of the hand. Two
+Groups of tactile sensors were placed on the hand. Two
 groups of four were placed on each finger (a group in each of the
 two phalanges) and 16 on the palm. A detail of the palm and
-fingers can be observed in figure\ref{fig:TactileSensors}b . Each
-one of these tactile sensors uses 4 sensors to determine the
-contact forces. That means that the overall tactile feedback
-consists of 160 sensors. At the base of the palm, where for
+fingers can be observed in figure~\ref{fig:TactileSensors}b) . Each
+one of these tactile units uses four sensors to determine the
+contact forces. This means that overall the tactile feedback 
+consists of 160 signals. At the base of the palm, where for
 practical reasons, we were not able to mount these tactile
 sensors, we placed a smaller infrared proximity sensor. To
 summarize, the hand has 5 motors, 8 DOF, 8 force sensors, 10
 position sensors, 160 tactile sensors and an infrared proximity
 sensor.
 
-The software controlling Obrero run on a cluster of computers
+The software controlling Obrero runs on a cluster of computers
 interconnected through an ethernet network. The connection between
 the different modules is done using YARP \cite{yarpPaper}.

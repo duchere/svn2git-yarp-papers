@@ -1,20 +1,60 @@
 \section{Conclusions}
 \label{sec:conclusions}
 
-We have shown that a compliant robot hand is capable of safely
-reaching toward a object with only a rough idea of its location.
-We have demonstrated that a this reaching behavior together with a
-exploratory behavior can use the tactile sensing information to
-successfully guide the motion of the hand toward a position
-adequate for grasping and lifting. We have also shown that the
-sensors used respond to the requirements of the task. They detect
-the contact with different parts of different objects and increase
-the friction for helping the lifting. Finally, we have
-demonstrated that the whole behavior does not rely in a prior
-knowledge of the object. In short, a robot with the capability of
-real interaction with its environment, that is which can gently
-act on it and feel it, allows us to successful interact with
-unknown objects....
+We have described the design of a behavior that allows a humanoid 
+robot to grasp objects without prior knowledge about their shape 
+and location. We summarize here the lessons we learnt:
+\begin{itemize}
+
+\item Give up precision, explore instead. Sometime in robotics 
+we struggle to have robots as precise as possible in performing 
+the tasks for which we program them. We found that exploration 
+can be more effective in dealing with uncertainties.
+
+\item Be soft. Exploration must be gentle if we want to 
+avoid catastrophic effects on either the robot or the objects/environment. 
+The mechanical design of the robot proved helpful in this respect.
+
+\item Sense and exploit the environment. If inquired the world 
+can provide useful feedback; however the robot must be able 
+to ask the right questions (interact) and interpret the answers 
+(have appropriate sensors).
+
+\end{itemize}
+
+We endowed the robot with the minimum capabilities required to explore 
+the environment. These include a simple ability to detect visual
+motion, a way to control the arm to roughly reach for objects and a 
+set of explorative primitives. Haptic feedback drives the 
+exploration and allows the robot to successfully grasp objects on 
+a table. We show that the information generated in this ways
+can be potentially used to learn physical properties of objects like shape.
+
+In the context of epigenetic robotics we are interested in studying
+methods to improve the perceptual abilities of robots by exploiting the
+physical interaction with the environment. In this paper we have shown 
+how haptic feedback can significantly improve this interaction thereby
+enhancing the robot's ability to learn about the environment. 
+
+Finally it is worh saying that, to prove our point, we deliberatly 
+took a somewhat extreme approach. Of course we believe that future 
+robots will have to take advantage of the integration of all sensory 
+modalities.
+
+%We have shown that a compliant robot hand is capable of safely
+%reaching toward a object with only a rough idea of its location.
+%% We have demonstrated that a this reaching behavior together with a
+%% exploratory behavior can use the tactile sensing information to
+%% successfully guide the motion of the hand toward a position
+%% adequate for grasping and lifting. We have also shown that the
+%% sensors used respond to the requirements of the task. They detect
+%% the contact with different parts of different objects and increase
+%% the friction for helping the lifting. Finally, we have
+%% demonstrated that the whole behavior does not rely in a prior
+%% knowledge of the object. In short, a robot with the capability of
+%% real interaction with its environment, that is which can gently
+%% act on it and feel it, allows us to successful interact with
+%% unknown objects.
 
 
 
