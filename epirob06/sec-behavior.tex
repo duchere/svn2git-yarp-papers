@@ -25,21 +25,21 @@ background, these edges can be used to build a saliency map to
 direct the attention of the robot.
 %
 \subsection{Eye-hand coordination}
-Given the topic of our research, we decided to focus on explorative
+We decided to focus on explorative
 actions rather than precise, goal directed, actions towards the target objects.
 This was also motivated by the fact that the monocular visual system of Obrero
 makes depth estimation very difficult. This situation is actually quite common
 in robotics, as depth estimation in real time is a challenging problem even with
 stereo vision.
-On the other hand, however, we cannot hope to program the robot to perform
+However, we cannot hope to program the robot to perform
 a blind exploration of the entire workspace. A possible solution is to
 constran the exploration to the area of the workspace where the object is
 detected visually. Since the 3D location of the object is not available reaching
 is performed in 2D; the exploration procedure allows the robot to find the actual
 position of the object. The motor skills required for reaching and performing
-the exploration can be learnt starting from the visual abilities
+the exploration can be learned starting from the visual ability
 to localize the hand and compute the orientation of the arm.
-
+%
 \subsection{Hand Localization}
 A visual module detects the hand and computes the orientation of
 the arm in the image. The initial step of the hand detector
@@ -59,20 +59,20 @@ a short-cut in place of other, more general, methods
 The visual feedback of the hand could be used for closed-loop control.
 However closed-loop control is not always suitable. This happens for example
 in presence of occlusions or when the hand is not within the visual field.
-
+%
 Open-loop control is an alternative solution. A possible open-loop
 control consists of a mapping between the fixation point of the
 head and the arm end-point \cite{metta00Babybot}. The advantage of
-this approach is that the mapping can be easily learnt if the
-robot can fixate the hand. Another approach is to use the hand
-localization to learn a direct mapping between the arm
-proprioception (encoder feedback) and the position of the arm in
-the visual space \cite{natale05from}. The direct (forward) mapping
+this approach is that the mapping can be easily learned if the
+robot is able to fixate the hand. Another approach uses the output of the 
+hand detector to learn a direct mapping between the arm
+proprioception (encoder feedback) and the position of the hand in
+the image \cite{natale05from}. The direct (forward) mapping
 can be inverted locally to control the arm to reach for a visually
 identified target. The solution we adopt here is similar: in a
 discovery phase the robot tracks the hand as the arm moves to
 randomly explore the workspace. This behavior allows the robot to
-acquires the samples:
+acquires samples in the form:
 %
 \begin{center}
 \begin{math}
@@ -101,7 +101,7 @@ possible to convert $x$ and $y$ into an egocentric reference frame:
 \end{equation}
 %
 $\theta$ and $\phi$ represents the polar coordinates of the hand in the
-reference frame centered at the base of the robot. Basically
+reference frame centered at the base of the head. Basically
 $f_{head}^{-1}$ includes knowledge of the inverse kinematics of the
 head and the parameters of the camera. The opposite transformation maps
 polar coordinates into the image plane:
@@ -124,19 +124,20 @@ learn the following mapping:
 \begin{equation}
   \left[\begin{array}{ccc}
     \theta & \phi & \alpha
-    \end{array}\right]^T=
+    \end{array}\right]^T
   = f \left(q_{arm}\right)
 \label{eq-arm-direct}
 \end{equation}
 %
 which links the arm posture $q_{arm}$ to the polar coordinates of
 the hand $\left[\theta, \phi\right]^T$ and the orientation of the
-arm $\alpha$. To learn this mapping we used a neural network
-suitable for online learning \cite{schaal98Constructive}.
+arm $\alpha$. This mapping was learnt online by using the neural network
+proposed by \cite{schaal98Constructive}.
 
-This mapping allows computing the polar coordinates of the hand
-with respect of the robot from the encoders of the arm. Whenever
-required Equation~\ref{eq-head-direct} maps the polar coordinates
+The mapping of equation~\ref{eq-arm-direct) allows computing 
+the polar coordinates of the hand with respect of the robot 
+from the encoders of the arm. Whenever required 
+equation~\ref{eq-head-direct} maps the polar coordinates
 back onto the image plane.
 
 \subsection{Reaching}
@@ -171,16 +172,16 @@ to the Jacobian transposed of the manipulator, that is:
 \label{eq-gradient}
 \end{equation}
 %
-$\nabla f\left(q_{arm}\right)$ can be approximated by partial
- differentiation of equation \ref{eq-arm-direct}. The
-differentiation can be numerical or analytical (the output of the
-network can be easily differentiated because the basis functions
-used in the neural network are gaussians with known parameters).
+$\nabla f\left(q_{arm}\right)$ was approximated by partial
+ differentiation of equation \ref{eq-arm-direct}. Because 
+the basis functions used by the neural netowork are guassians
+this was easily done analytically (another approach is to perform
+numerical differentiation).
 
 To summarize we have described a method to compute the arm
 commands required to reach for a visual target. The method employs
 the forwards kinematics of the arm. The direct kinematics is
-learnt by the robot as described in the previous section. The
+learned by the robot as described in the previous section. The
 reaching problem is solved iteratively by using an approximation
 of the arm Jacobian. The latter is obtained by differentiating the
 basis functions of the neural network approximating the direct
@@ -192,8 +193,8 @@ is two-dimensional and does not carry any information
 about distance. The solution found by descending the gradient of the
 direct kinematics takes care of minimizing the distance between the target
 and the hand \emph{on the image plane}, and as such, is not concerned
-with the third dimension $R$ (the distance between the hand and the image
-plane, along the optical axis).
+with the third dimension $R$ (the distance between the hand and the head, 
+along the optical axis of the camera).
 In practice however the components of the gradient along $R$ are small
 compared to the others. The value of $R$ at the end of the reaching movement
 depends on the initial position of the arm; we chose this value so to keep
@@ -204,8 +205,8 @@ the hand above the table.
     \includegraphics[width=\columnwidth, angle=0 ]{./figures/expl-directions.eps}
   }\caption{Left, frames 1 and 2: hand localization and arm
     orientation. Right, frame 3: exploration primitives. Primitives $v_1$
-and $v_3$ are perpendicular and parallel to the arm orientation.
-$v_2$ is along the null space of the arm Jacobian. See
+and $v_2$ are perpendicular and parallel to the arm orientation.
+$v_3$ is along the null space of the arm Jacobian. See
 section~\ref{sec:controlling} for
  more details.}
 \label{fig:expl-directions}
@@ -215,7 +216,8 @@ section~\ref{sec:controlling} for
 Starting from the direct mapping of the hand position and arm orientation we
 can identify a set of explorative primitives, that is a set of vectors in
 joint space that allows the robot to explore the arm workspace. We chose three
-vectors $v_1$, $v_2$ and $v_3$, as follows:
+vectors $v_1$, $v_2$ and $v_3$, as follows (see also 
+Figure~\ref{fig:expl-directions}):
 
 $v_1$: moves the hand along the
 direction perpendicular to the arm. It is computed by planning a 
@@ -227,15 +229,12 @@ direction of the arm. It is computed by planning a
 reaching movement towards a point a few pixels away from the hand along the 
 arm.
 
-$v_3\in \ker \left(J\left(q_{arm}\right)\right)$
-%
-$v_3$ lays in the null space of the arm Jacobian; in our case the
-null space of the Jacobian consists of those vector that do not affect
+$v_3\in \ker \left(J\left(q_{arm}\right)\right)$: $v_3$ lays in the null 
+space of the arm Jacobian; in our case the null space of the Jacobian 
+consists of those vector that do not affect
 either the projection of the hand onto the visual plane or the orientation
 of the arm. These vectors produce a movement of the hand along the optical
 axis of the camera, or, in other word, along $R$.
-$v_1$, $v_2$ and $v_3$ are depicted schematically on the left side of
-Figure~\ref{fig:expl-directions}.
 %
 \subsection{A grasping behavior}
 In this section we describe the grasping behavior of the robot.
@@ -248,14 +247,14 @@ guarantee a correct grasp. Since no three dimensional information
 is available the arm reaches a region above the object (see
 section~\ref{sec:reaching}). At this point the exploration starts;
 the robot computes the explorative primitives $v_1$, $v_2$ and
-$v_3$. The exploration mainly uses three behaviors: 
+$v_3$. The exploration uses three behaviors: 
 %
 \begin{itemize}
 \item \emph{hovering behavior}, moves the hand back and forth along 
-$v_1$ 
+$v_1$.
 %
 \item \emph{pushing behavior}, moves the hand
-along $v_2$ 
+along $v_2$.
 %
 \item \emph{depth behavior}, moves the hand ``downwards''
 along $v_3$; this behavior moves the hand along the direction of
@@ -276,7 +275,7 @@ the exploration the arm stops when the hand detects the object, to
 avoid pushing it away or knocking it over; if no contact is
 detected, on the other hand, the amplitude of the exploration is
 extended (this increases the probability to touch the object in
-case the reaching error is large); the exploration terminates when
+case the reaching error is large). The exploration terminates when
 the contact with the object is detected by any of the tactile
 sensors placed on the index finger. At this point the \emph{hovering
 behavior} is suspended and the \emph{pushing behavior} activated. The
@@ -289,6 +288,6 @@ behavior} simply closes the fingers to a specific position. The
 low impedance of the joints allows the fingers to adapt to the
 different objects being grasped.
 
-The grasping behavior proved to be quite reliable. Figure \ref{fig:sequence}
-shows an example of the robot grasping a porcelain cup. Repetitive tests
-are described in section \ref{sec:results}
+Figure \ref{fig:sequence} shows an example of the robot grasping 
+a porcelain cup. The grasping behavior proved to be quite reliable, as 
+repetitive tests shows in section \ref{sec:results}
