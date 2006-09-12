@@ -1,87 +1,196 @@
 
+\begin{figure}[t]
+
+\centerline{
+\includegraphics[width=0.3\columnwidth]{cat}
+\includegraphics[width=0.3\columnwidth]{cat-human}
+\includegraphics[width=0.3\columnwidth]{cat-machine}
+}
+
+\caption[Object segregation is difficult for machines]{
+%
+\ifcapped
+%
+An example from \citeasnoun{martin04learning}, to highlight
+the difficulties of bottom-up segmentation.
+For the image shown on the left, humans see the definite boundaries
+shown in white in the middle image.
+The best machine segmentation of a set of algorithms gives the
+result shown on this right -- a mess.  This seems a very difficult 
+scene to segment without having some training at least for the specific 
+kinds of materials in the scene.
+%
+\fi
+%
+}
+
+\label{fig:segmentation-is-hard}
+
+\end{figure}
+
+
+
+
 The world around us has structure, and to an adult appears to be made
-up of more-or-less well-defined objects.  Experience in robotics and
-machine vision have highlighted how radically sophisticated these
-perceptual judgements are.
+up of more-or-less well-defined objects.  
+%
+Perceiving the world this way sounds trivial, but from an engineering
+perspective, it is heart-breakingly complex.  As Spelke wrote in 1990:
+
+\begin{quote}
+
+... the ability to organize unexpected, cluttered, and
+changing arrays into objects is mysterious: so mysterious
+that no existing mechanical vision system can accomplish this task
+in any general manner.
+\cite{spelke90principles}
+
+\end{quote}
+
+\noindent
+This is still true today.  This ability 
+to assign
+boundaries to objects in visually presented scenes 
+(called ``object segregation''
+in psychology or ``object segmentation'' in engineering) cannot yet be
+successfully automated for arbitrary object sets in unconstrained
+environments (see Figure~\ref{fig:segmentation-is-hard}).
+
+%%However there has been some progress.
+There has been {\em algorithmic} progress; for
+example, given local measures of similarity between each neighboring
+element of a visual scene, a globally appropriate set of boundaries
+can be inferred in efficient and well-founded ways (see for example
+\citeasnoun{felzenszwalb04efficient}).
 %
 %
-How do we make them?  What elements are they built from?  How can
-we break them down into simpler parts?
+Just as importantly, there is also a growing awareness of the
+importance of collecting and exploiting empirical {\em knowledge}
+about the statistical combinations of materials, shapes, lighting, and
+viewpoints that actually occur in our world (see for example
+\citeasnoun{martin04learning}).  Of course, such knowledge can only be
+captured and used effectively because of algorithmic advances in
+machine learning, but the knowledge itself is not specified by an
+algorithm.
+
+Empirical, non-algorithmic knowledge of this kind now plays a key role
+in machine perception tasks of all sorts.
 %
-Infant research has revealed a long developmental process, during
-which infant judgements converge incrementally on those of adults.
+For example, face detection took a step forward with
+\citeasnoun{viola04robust}; the success of this work was due both to
+algorithmic innovation and better exploitation of knowledge (features
+learned from 5000 hand-labelled face examples).
 %
-This may offer guidance to roboticists on how to construct a
-sophisticated perceptual system~-- what the right modules are, how
-they can be ``trained'', and how they interact.  We review aspects 
-of that developmental process here, concentrating on perception
-of object boundaries.
-
-%We address the perception of objects indirectly, via
-%the perception of object boundaries.  We review experimental scenarios
-%where object boundaries are not evident, and the judgements that
-%infants make, which differ according to age and experience.  We review
-%related work in robotics.  
-
-
-%% Here are some distinct judgements that may be included in these
-%% terms:
-
-%% \begin{itemize}
-
-%% \item Grouping elements of a single image according to some
-%% criterion, where each group may correspond to a single object, parts of
-%% several objects, or part of a single object.
-
-%% \item Grouping elements of a single image according to some
-%% criterion, where each group is intended to correspond to an object or
-%% object part.  It is desired that groups not cross object boundaries.
-
-%% \item Grouping elements of a single image according to some
-%% criterion, where that criterion is intended to give a 
-%% one-to-one correspondence between visible objects and
-%% image groups.
-
-%% \item Grouping may also be done with simultaneous images from
-%% multiple cameras.
-
-%% \item Grouping may also be done with video sequences from one or 
-%% several cameras.
-
-%% \end{itemize}
-
+The success of automatic speech recognition is successful largely
+because of the collection and exploitation of extensive corpuses of
+clearly labelled phoneme or phoneme-pair examples that cover well the
+domain of utterances to be recognized.
 %
-%Often the default assumption is some kind of ``natural''
-%level of object representation (CITE Jendriks).
+
+These two examples clarify ways ``knowledge'' can play a role in
+machine perception.  The bulk of the ``knowledge'' used in
+such systems takes the form
+of {\em labelled examples} -- examples of input from the sensors (a
+vector of numbers), and the corresponding desired output
+interpretation (another vector of numbers).  
+%
+More-or-less general
+purpose machine learning algorithms can then approximate the mapping
+from sensor input to desired output interpretation based on the
+examples (called the {\em training set}), and apply that approximation to novel
+situations (called the {\em test set}).  
+%
+Generally, this approximation will be very poor unless we transform
+the sensory input in a manner that highlights properties that the
+programmer believes may be relevant.  This transformation is called
+{\em preprocessing and feature selection}.
+%
+There is a great deal of
+infrastructure wrapped around the learning system
+to break the problem down into tractable parts and
+apply the results of learning back to the original
+problem.
+%
+%How good the
+%approximation is will depend on a lot of factors.  Researchers try to
+%reduce the need for manual feature selection, eliminate the need for
+%labels, reduce the number of examples needed, etc.
+%
+For this paper, we will group all this infrastructure and call it 
+the {\bf \em algorithmic skeleton}.
+%
+%
+This set of carefully interlocking algorithms is designed so that,
+when fed with appropriate training data, it fleshes out into a
+functional system.  Without the algorithmic skeleton, there would be
+no way to make sense of the training data, and without the data,
+perception would be crude and uninformed.
+
+What, then, is the right algorithmic skeleton for object
+segregation?  What set of algorithms, coupled with what kind of
+training data, would lead to best performance?  
+%
+%No-one knows.
+%
+We review suggestive
+work in infant development research and robotics.
+
+
+%Answering this is not
+%easy, and is a potential area for fruitful interaction between infant
+%development research and robotics.  We return to this point in the
+%conclusions.  But now, we dip into the authors' object segregation
+%work on infants and robots, and see how they relate.
+
+
 
 
 
 \begin{figure}
 
-\centerline{\includegraphics[width=0.75\columnwidth]{fig-seg}}
+\centerline{
+\includegraphics[width=0.75\columnwidth]{fig-seg}}
 
-\caption{
+\caption[Object segregation is not always well-defined]{
 %
-Image segmentation and object segregation are different.  On the left,
+\ifcapped
+%
+Object segregation is not necessarily well-defined.
+%
+%Image segmentation and object segregation are different.  
+%
+On the left,
 there is a simple scenario, taken from \citeasnoun{needham01object},
 showing a rectangle attached to a yellow tube.  Two 
 plausible ways to segregate this scene are shown in the middle,
 depending on whether the tube and rectangle make up a single 
 object.
+%
 For
 comparison, automatically acquired boundaries are shown on the right,
 produced using the algorithm in
 \citeasnoun{felzenszwalb04efficient}. 
-In image segmentation, the goal is to
-produce regions that correspond to whole objects (such as the yellow
+This algorithm does {\em image segmentation},
+seeking to produce regions that correspond to whole objects (such as the
+ yellow
 tube) or at least to object parts (such all the blue rectangle and all
 the small white patches on its surface, and various parts of the
 background).  Ideally, regions that extend across object boundaries
-are avoided.  Then, higher-level processes need only consider merging
-regions (of which there are a relatively small number) rather than
-splitting regions (which requires a return to pixel-level
-considerations).  
+are avoided.  Image segmentation is less ambitious than object segregation,
+and allows context information to be factored in as a higher level
+process operating on a region level rather than pixel level.
 %
+% higher-level processes need only consider merging
+%regions (of which there are a relatively small number) rather than
+%splitting regions (which requires a return to pixel-level
+%considerations).  
+%
+%
+%
+%
+%
+%
+\fi
 %
 }
 
@@ -107,151 +216,96 @@ considerations).
 %In computer vision and robotics, there are algorithms with 
 %similar goals.  
 
-\subsection{Point of contact: the basic challenge}
 
-In psychology, the ability to assign boundaries to objects is 
-often termed
-``object segregation.''  In computer vision and robotics, there
-is a comparable notion often refered to as ``object segmentation''.
-In fact, the nomenclature in both fields varies (and overlaps).
-%
-In practice, automatic object segregation by machine
-in unconstrained environments is not currently possible.
-%
-Progress has been made on a related, less ambitious problem
-often called ``image segmentation''.  The goal of image segmentation
-is to divide an image of a scene into a set of discrete
-regions, where each region corresponds to an object or 
-an object part.  The distinction between this and 
-segmentation is made clear in Figure~\ref{fig:image-segmentation}.
-%
-Image segmentation will typically produce more regions than there are
-objects.  The idea is that those ``summary'' regions could then be
-merged by more informed, higher level processing (although successful
-algorithms for such higher level processing do not actually currently
-exist for unconstrained environments).  Regions designed to be
-used this way are also called ``superpixels''.
-%
-They can be produced by bottom-up processes that look for 
-similarily in color and texture.  
-%
-%We give an example algorithm later
-%in this section.
-%
-More generally, there is not necessarily a one-to-one
-correspondence intended
- between the groups
-formed by an algorithm and the true groups formed by object boundaries.
-A common
-goal in image segmentation is for each recovered group to be a subset (or equal) to
-true groups.  The assumption is that finding true boundaries may
-require task-specific knowledge, and that the best that can be done is
-to group conservatively and to postpone final decisions.  
-%
-For example, clothing may be an object in
-one case and just part of a person's body in another context.
-%
-\ifverbose
-It would also be possible to
-aim for creating groups that are bigger than objects, and then
-plan to split them based on task-specific knowledge.
-But this is  non-modular 
-(it requires working in units smaller than the groups when considering 
-splitting them, so little is gained from forming the groups in
-the first place).
-\fi
+%\subsection{Development of segregation skills in infants}
+\subsection{Segregation skills in infants}
 
-%For humans, visual experience is continuous, and comes from our two
-%eyes.  Image segmentation can be generalized to video sequences, and
-%to input from multiple view-points.  
+\label{sect:infant-skills}
+
+%Development of object segregration skills in infants}
+
+%It is clear that human infants learn generic principles for making
+%educated guesses about which surfaces belong together as part of the
+%same unit and which do not.  
 %
-Real-time, robotic
-implementations of image segmentation are primitive compared to
-state-of-the-art off-line segmentation algorithms, and focus on simple
-cases, such as colorful or moving objects.
+By 4 to 5 months of age, infants can
+parse simple displays like the one in 
+Figure~\ref{fig:image-segmentation}
+ into units, based on something like 
+a subset of static
+Gestalt principles~--
+%, probably some subset of these
+ see for example \citeasnoun{needham98infants,needham00improvements}.
 %
-However, robotic work is potentially well suited to addressing the
-parts of object segregation that have been omitted from image
-segmentation: specifically, the role of {\em experience} over
-various time-scales.  Object boundaries are revealed in some
-circumstances and obscured in others; how do we propogate this
-information?  We can ask this over short time-scales, within
-a working session, or over longer time-scales and ranges
-of experiences.
-
-We look at the role of experience in infants' object 
-segregation skills, and work to factor experience into 
-image segmentation for machine vision.
-
-
-\subsection{Point of contact: development of object segregation skills}
-
-\subsubsection*{Development of object segregration skills in infants}
-
-It is clear that human infants learn generic principles for making
-educated guesses about which surfaces belong together as part of the
-same unit and which do not.  By 4 to 5 months of age, infants can
-parse simple displays into units based on something like static
-gestalt principles, probably some subset of these (e.g. \citeasnoun{needham98infants,needham00improvements}). 
+%with partly occluded objects (JOHNSON)). 
 %
-Similar results have been obtained by researchers using partly
-occluded objects (Johnson).
-
-Initial studies indicated that infants used some collection of
+%Similar results have been obtained by researchers using partly
+%occluded objects (Johnson).
+%
+Initial studies indicated that infants use a collection of
 features to parse the displays \cite{needham98infants,needham97object,needham98effects}; subsequent studies suggested that object shape is the key
 feature that young infants use to identify boundaries between adjacent
 objects \cite{needham99role}.
 %
-These principles may lead to many incorrect parsings, but they will
+%Ongoing work aims at elucidating the role of different features
+%at different ages.
+%
+Compared to adult judgements,
+%
+we would expect such strategies to lead to many incorrect parsings, 
+but they will
 also provide reasonable best guess interpretations of uniform objects
 in complex displays.  
 
 
-Supporting a differentiation view of the development of
-generalization, Bahrick's findings suggest that young (i.e.,
-2-month-old) infants are more likely to generalize farther from the
-specific experiences they received than infants just a few months
-older (get citation).  This finding suggests that experience might
-serve to initially narrow and then extend the range of stimuli over
-which young children will generalize.
 
-
-Infants do not come prepared to segregate objects into units that
-adults would consider meaningful.  Rather, infants learn how object
+Infants do not come prepared from birth to segregate objects into 
+units that match adult judgement.
+%
+%adults would consider meaningful.  
+%
+It appears that infants learn over time how object
 features can be used to predict object boundaries.  More than twenty
 years ago, \citeasnoun{kellman83perception} suggested that infants may be born
 with knowledge about solid, three-dimensional objects and that this
 knowledge could help them interpret portions of a moving object as
-connected to other portions that were moving in unison.  However, this
+connected to other portions that were moving in unison.  This
 assertion was put to the test by Slater and his colleagues 
 \cite{slater90newborn}, a test that resulted in a new conception of
 the neonate's visual world.  Rather than interpreting common motion as
-a cue to object unity, they interpreted the visible portions of a
+a cue to object unity, neonates appeared to interpret the visible portions of a
 partly occluded object as clearly separate from each other, even when
 undergoing common motion.  This finding was important because it
 revealed one way in which learning likely changes how infants
 interpret their visual world.
 
 
-Although adjacent objects present a very similar kind of perceptual
-problem (are these surfaces connected or not), the critical components
-of success might be quite different.  Early work with adjacent objects
-indicated that at 3 months of age, infants tend to group all touching
-surfaces into a single unit \cite{kestenbaum87perception}.
-Subsequent experiments have revealed that soon after this point in
-development, infants begin to analyze the perceptual differences
-between adjacent surfaces and segregate surfaces with different
-features (but not those with similar features) into separate units
-(Needham 2000).  Although infants can use the boundary seam between
+Although segregating adjacent objects present a very similar kind of
+perceptual problem (``are these surfaces connected or not''), the
+critical components of success might be quite different.  Early work
+with adjacent objects indicated that at 3 months of age, infants tend
+to group all touching surfaces into a single unit
+\cite{kestenbaum87perception}.  Subsequent experiments have revealed
+that soon after this point in development, infants begin to analyze
+the perceptual differences between adjacent surfaces and segregate
+surfaces with different features (but not those with similar features)
+into separate units (Needham 2000).
+%
+\ifverbose
+Although infants can use the boundary seam between
 two objects as a source of information about the likely separation
 between them (Kaufman \& Needham, submitted), other work comparing
 boundary-occluded and fully visible versions of the same displays
 suggests that boundary information is not the only information infants
 use to parse the objects in a display (Needham, 1998).  
+\fi
+%
+8.5 month old infants have been shown to also use information about specific
+objects or classes of objects to guide their judgement (Needham,
+Cantlon, \& Ormsby, 2005).
 
-Infants also use information about specific objects or
-classes of objects to guide their judgement (Needham, Cantlon, \& Ormsby, 2005) (age: 8.5 months).
 
+%%\subsection{Development of segregation skills in infants}
 
 It might be that extensive amounts of experience are required to
 `train up' this system.  However, it might also be that infants learn
@@ -262,33 +316,195 @@ altered by a brief prior exposure to one of the objects in the test
 display.
 
 
+In this paradigm, a test display was used that was ambiguous to
+4.5-month-old infants who had no prior experience with the display.
+Prior experience was then given that would help disambiguate the display
+for infants.  This experience consisted of a brief prior exposure
+(visual only) to a portion of the test display.  If infants used this
+prior experience to help them parse the test display, they should see
+the display as two separate objects and look reliably longer when they
+moved as a whole than when they move separately.  Alternately, if the
+prior experience was ineffective in altering infants'
+interpretation of the display, they should look about equally at the
+display, just as the infants in the initial study with no particular
+prior experience did \cite{needham98effects}.  Prior experiences
+with either portion of the test display were effective in facilitating
+infants' parsing of the test display.  
 
-\subsubsection*{Development of object segregration skills in robotics}
+%
+%The closest to ``key events'' are the examples presented in training
+%data, labelled by hand.
 
-For object segregation in robotics, the biggest challenge is real-time
-operation~-- many state-of-the-art segmentation algorithms are
-unacceptably slow.  On the other hand, robots have two very
-advantageous properties.  
+
+
+\subsection{Segregation skills in robots}
+
+%%\subsection{Development of object segregration skills in robots}
+
+
+This idea that {\em exposure to key events} could influence
+segregation is intuitive, and evidently operative in infants.  Yet it
+is not generally studied or used in mechanical systems for object
+segregation.  In this section, we attempt to reformulate robotics
+work by the authors in these terms.
+
+For object segregation in robotics, we will interpret ``key events''
+as moments in the robot's experience where the true boundary of an
+object can be reliably inferred.  They offer an opportunity to
+determine {\em correlates} of the boundary that can be detected
+outside of the limited context of the key events themselves.  Thus,
+with an appropriate algorithmic skeleton, information learned during
+key events can be applied more broadly.
+
+Key events in infants include seeing an object in isolation
+or seeing objects in relative motion.  In the authors' work,
+ algorithmic skeletons have been developed for exploiting
+constrained analogues of these situations.
+
 %
-The first is
-{\em locality}~-- a robot exists at a certain time and place, and the
-set of objects it must work with at any moment is bounded.  
+In \citeasnoun{natale05exploring}, a very simple key event is used to
+learn about objects~-- {\em holding an object up to the face}.
 %
-The second is
-{\em continuity}~-- a robot has a longer term relationship with
-the objects embedded in its sensors than, for example, a car 
-detector searching through images on the web.
+The robot can be
+ handed an object or happen to grasp it, 
+and will then hold it up close to its cameras.
+This gives a good view of its surface features, allowing the robot to
+do some learning and later correctly segregate the object
+out from the background  visually even when out of its
+grasp (see Figure~\ref{fig:robot}).
 %
-These conditions encourage approaches to object segregation
-that are experience-driven.
+%Doing all this requires another algorithmic skeleton of the same 
+%structure as the ``poking'' case (though of course with different 
+%algorithms to achieve each step).
 %
-The key to such approaches is to find
-opportunities in the robot's experience where the
-true boundary of an object can be reliably inferred,
-and then determine correlates of the boundary that 
-are available more generally.
+This is similar an isolated presentation of an object, as in
+Needham's experiments.  In real
+environments, true isolation is very unlikely, and actively
+moving an object so that it dominates the scene can be
+beneficial.
+
+
+
+%The key event for infants in the experiments by Needham was 
+%relative motion~-- the separate identify of two objects was
+%revealed if they moved independently.  
 %
-For example, \citeasnoun{fitzpatrick03grounding} used
+%Motion relative to 
+%a fixed background is a cue used constantly in computer vision.
+%
+
+
+In \citeasnoun{fitzpatrick03grounding}, the ``key event'' used is {\em
+hitting an object with the hand/arm}.  This is a constrained form of
+relative object motion.  In the real world, all sorts of strange
+motions happen which can be hard to parse, so it is simpler at least
+to begin with to focus on situations the robot can initiate and at
+least partially control.
+%
+%This is a much narrower kind of motion than that considered by
+%Needham and colleagues.  Ultimately, robots should be equally
+%flexible, but for now the automatic interpretation of general motion of
+%objects is of disappointing quality.
+%
+Motion caused by body impact has some technical advantages; the
+impactor (the arm) is understood and can be tracked, and since the moment 
+and place of
+impact can be detected quite precisely, unrelated motion in the scene
+can be largely filtered out.
+
+The {\em algorithmic skeleton} in \cite{fitzpatrick03grounding}
+processes views of the arm moving, detects impacts, and
+outputs boundary estimates of whatever the arm collides with based on
+motion.  These boundaries, and what they contain, are used as training
+data for another algorithm, whose purpose is to estimate boundaries
+from visual appearance when motion information is not available.
+%
+%
+See \citeasnoun{fitzpatrick03object} for technical details.
+As a basic overview, the classes of algorithms involved are these:
+
+
+%As a taste of what
+%is learned in Figure~\ref{fig:robot}, a large collection of (probabilistic)
+%rules of the following nature are learned: if there are two edges at a
+%specific angle to each other, and of specific relative scales, and
+%between them lies a surface of an approximate color, then there {\em
+%might} be a specific object at a specific relative location, angle,
+%and scale.  These rules are used in practice to scan an image, find
+%locations that many rules suggest might hold a specific object, and
+%work back to figure out which edges in the image are likely to form
+%the silhoette of that object.
+
+%The {\em algorithmic skeleton} here is: 
+
+\begin{enumerate} \pflist
+
+\item {\em Behavior system}: an algorithm that drives the robot's
+behavior, so that it is likely to hit things.  This system has a 
+broader agenda than just this specific outcome; if
+
+\item {\em Key event detection}: an algorithm that detects the key event of
+when the arm/hand hits an object.
+
+\item {\em Training data extraction}: an algorithm that, within a key event,
+extracts boundary information from object motion caused by hitting.
+
+\item {\em Machine learning}: an algorithm that discovers features
+predictive of boundaries that can be extracted in other situations
+without motion (in this case edge and color combinations).
+
+\item {\em Application of learning}: an algorithm that actually uses
+those features to predict boundaries.  This must be integrated with
+the very first algorithm, to influence the robot's behavior in useful
+ways.  In terms of observable behavior, the robot's ability to attend
+and fixate specific objects increases, since they become segregated from
+the background.
+
+\end{enumerate}
+
+\noindent
+This skeleton gets fleshed out through learning, once the
+robot actually starts hitting objects and extracting specific features
+predictive of the boundaries of specific objects.  
+%
+A set of different algorithms performing analogous roles are used
+for the \citeasnoun{natale05exploring} example.
+%
+%
+At the algorithmic level, the technical concerns in either
+case are hard to relate to
+infant development, although in some cases there are correspondences.
+But at the skeletal level, the concerns are coming closer to those of
+infant development.
+
+%The point this paper wishes to make is at the level of the {\em
+%algorithmic skeleton}, organized around exploiting {\em key events}
+%for improving or at least adapting perceptual skills, there is the
+%potential for mutual inspiration and relevance.
+%
+%Right now, there is a disconnect between the few key events used in
+%robotics and the many key events investigated in infant development.
+%If the robotics community paid more attention to infant development,
+%then more of these key events would be exploited.  The events
+%that get exploited earlier and most successfully are thereby
+%demonstrated to be truly workable.  Failure to exploit them
+%could mean lack of attention, or that 
+%they are more complex than they might appear.
+
+
+%The details of these algorithms are not inspired by, or likely to 
+%be relevant to, infant development.  But at the strategic level,
+%there is inspiration and potential relevance.  To improve
+%the robotic system, we need to identify more key events, and
+%wrestle with ....
+
+%
+%ARSENIO (2005).
+
+
+\ifverbose
+%
+In \citeasnoun{fitzpatrick03grounding}, used
 a very specific condition (objects being hit by
 people or the robot itself) to extract good
 motion-based object boundaries; surface features
@@ -302,29 +518,60 @@ Arsenio (2005) developed a set of techniques for acquiring all
 sorts of segmentations.  Some methods work for small, grasp-size
 objects, others work for large background objects like walls or
 tables.
-
-
-
+\fi
 
 
 \begin{figure}[t]
 
 \centerline{
-\includegraphics[width=0.75\columnwidth]{fig-robot}
+%%\includegraphics[width=0.75\columnwidth]{fig-robot}
+\includegraphics[width=0.75\columnwidth]{fig-robots}
 }
 
-\caption{
+\caption[Exploitation of key moments in robotics]{
 %
-Object segregation based on specific object experience.  The robot
-detects object boundaries experimentally \cite{fitzpatrick03object}.
-It searches for good features of the object that contrast with other
+\ifcapped
+%
+The upper row shows object segregation by the robot ``Babybot'' 
+based on prior experience.  
+%The holding an object up to 
+%Object segregation based on specific object experience.  
+%
+%Manipulation is another opportunity to perform object segregation. In
+The robot explores the visual appearances of an object that
+it has grasped; the information collected in this way is used later on to
+segment the object \cite{natale05exploring}. 
+%
+%The exploration in this
+%5case is facilitated by a pre-acquired body-schema that allows the
+%robot to maintain the fixation of the hand. 
+%
+Left: the robot.
+%, the
+%robotic platform used for this experiment. 
+Middle: the robot's view when holding up an object.
+Right: later segmentation of the object.
+%
+% (consider moving this figure
+%in the segregation-robotics section).
+%
+The lower row shows the robot ``Cog''
+detecting object boundaries experimentally by
+poking \cite{fitzpatrick03object}.
+%
+During object motion, if finds features of the object that contrast with other
 objects, and that are stable with respect to certain geometric
 transformations.  These features are then used to jointly detect
 and segment the object in future views.  Left: the robot.
-Middle: segmentations of an object derived opportunistically
-from experience.  Right: the robot's perspective on a scene 
-containing the object on a table.  The object is correctly segmented;
-the table is completely ignored.
+Middle: segmentations of a poked object.
+Right: later segmentation of the object on a
+similarly-colored table. 
+%%
+%%
+%%
+%
+%
+\fi
 %
 }
 
@@ -334,39 +581,36 @@ the table is completely ignored.
 
 
 
-These systems are limited in how information from experience can be
-generalized.  In \citeasnoun{fitzpatrick03object}, for example,
-information is either pooled across all contexts (in the case of edge
-appearance modeling) or intended to be specific to one particular
-object.  There is no notion of object category.
+
+
+\subsection{Specificity of knowledge gained from experience}
+
+
+%To learn from experience requires generalization.
 %
-In this respect, Needham's results on generalizations are
-very interesting, in possibly pointing a way forward.
+In the robotic learning examples in 
+the previous section \cite{fitzpatrick03object,natale05exploring},
+information learned by the robot is intended to be specific to one particular
+object.  The specificity could be varied algorithmically,
+by adding or removing parts of a feature's ``identity''.
+Too much specificity, and the feature will not be recognized
+in another context.  Too little, and it will be ``hallucinated''
+everywhere.
+%
+%
+%How could such categories be formed?
+%
 
+We return to 
+Needham's experiments, which probed the question of
+generalization in the same
+experimental scenario described in Section~\ref{sect:infant-skills}.
 
-
-\subsection{Point of contact: specific instances of experience affecting segregation judgements}
-
-In this paradigm, a test display was used that was ambiguous to
-4.5-month-old infants who had no prior experience with the display.
-Prior experience was given that would help disambiguate the display
-for infants.  This experience consisted of a brief prior exposure
-(visual only) to a portion of the test display.  If infants used this
-prior experience to help them parse the test display, they should see
-the display as two separate objects and look reliably longer when they
-moved as a whole than when they move separately.  Alternately, if the
-prior experience was ineffective in altering infants'
-interpretation of the display, they should look about equally at the
-display, just as the infants in the initial study with no particular
-prior experience did \cite{needham98effects}.  Prior experiences
-with either portion of the test display were effective in facilitating
-infants' parsing of the test display.  
-
-However, when we introduced changes between the box seen during
+When changes were introduced between the object seen during
 familiarization and that seen as part of the test display, an
 unexpected pattern emerged.  Nearly any change in the object's
 features introduced between familiarization and test prevented infants
-from benefitting from this prior experience.  So, even when infants
+from benefiting from this prior experience.  So, even when infants
 saw a blue box with yellow squares prior to testing, and the box used
 in testing had white squares but was otherwise identical, they did not
 apply this prior experience to the parsing of the test display.
@@ -396,8 +640,13 @@ another very readily.  But would they extend information from a {\bf group}
 of objects to a new object that is a member of that group?
 
 
+%There is no notion of object category.
+%
+%In this respect, Needham's results on generalizations are
+%very interesting, in possibly pointing a way forward.
 
-\subsection{Infant lead: generalization of knowledge gained from experience}
+
+\subsection{Generalization of of knowledge gained from experience}
 
 This question was investigated by \citeasnoun{needham05infants}
 in a study using the same test display and a similar procedure as in
@@ -415,7 +664,6 @@ to the target item is important to infants' transfer of their
 experience to the target display.
 
 
-
 This finding was brought into the ``real'' world by investigating
 infants' parsing of a test display consisting of a novel key
 ring (Needham et al., submitted).  According to a strict
@@ -425,7 +673,7 @@ objects -- the keys on one side of the screen and the separate
 ring on the other side.  However, to the extent that infants recognize
 the display as a member of a familiar category -- key
 rings -- they should group the keys and ring into a single unit
-that should move as a whole.  Our findings indicate that by 8.5 months
+that should move as a whole.  The findings indicate that by 8.5 months
 of age, infants parse the display into a single unit, expecting the
 keys and ring to move together.  Younger infants do not see the
 display as a single unit, and instead parse the keys and ring into
@@ -438,258 +686,26 @@ process as it occurs under natural circumstances.  Infants'
 ordinary experiences present them with multiple similar exemplars of
 key rings, and these exposures build a representation that can then be
 applied to novel (and yet similar) instances of the key ring category,
-altering the interpretation that would come from featurally-based
+altering the interpretation that would come from feature-based
 principles alone.
 
 
-
-
-\subsection{Infant lead: role of behavior in the development of object segregations skills}
-
-Evidence from of one set of studies reveals that young
-infants' difficulty in collecting the relevant information
-from visual displays may limit their success in these tasks (Johnson \&
-Aslin 1995, \cite{johnson96perception}, then Johnson's eye tracking stuff
-\cite{johnson04where} showing
-that infants who look to the other side of the occluder, sampling
-information from both sides of it, are the ones who perceive the
-object parts as connected.  So, eye movements are an important factor
-in this picture)
-
-The changes in perception described throughout this section
-do not occur in a vaccuum but rather in a
-child who is also experiencing a range of other develomental changes.
-One of these changes occurs in object
-exploration -- infants' visual, oral, and manual
-investigation of objects are showing huge improvements during this
-same time period \cite{rochat89object}.  Relations between infants'
-tendency to explore objects more or less actively and their accurate
-parsing of an object display has been shown \cite{needham00improvements}, paving
-the way for future studies of connections between object exploration
-and object perception.
-
-
-
-
-
-\begin{figure}[t]
-
-\centerline{
-\includegraphics[width=0.3\columnwidth]{cat}
-\includegraphics[width=0.3\columnwidth]{cat-human}
-\includegraphics[width=0.3\columnwidth]{cat-machine}
-}
-
-\caption{
-From [Martin et al].  Bottom-up segmentation is hard.
-Image (left).  Human-labelled boundaries (middle).
-Best machine segmentation of a set of algorithms (right).
-}
-
-\label{fig:segmentation-is-hard}
-
-\end{figure}
-
-
-\subsection{Robot lead: formalization of object segregration in computer vision}
-
-Object segregation is a problem of deep interest to researchers in
-computer vision and robotics.  Many algorithms exist for many variants
-of the problem.  
-Of course, none of them even comes close to human (or
-infant) performance.  
-Spelke wrote in 1990:
-
-\begin{quote}
-
-... the ability to organize unexpected, cluttered, and
-changing arrays into objects is mysterious: so mysterious
-that no existing mechanical vision system can accomplish this task
-in any general manner.
-\cite{spelke90principles}
-
-\end{quote}
-
-\noindent
-This is still true today.
-For example, Figure~\ref{fig:segmentation-is-hard} shows the
-output of a start-of-the-art algorithm for finding boundaries in images
-\cite{martin04learning} compared with human performance.  This is
-admittedly a particularly difficult case, but it is clear that 
-a remains to
-be done.
-
-
-The segregation problem has been formalized in various ways.  Here is
-a typical formalism (which is in fact used for many problems, not just
-segregation).  There is an input image, $X$, which is a view of the
-world from a camera, represented as a matrix of {\em pixels}.  Each
-pixel is a simple real number representing gray-level, or a vector
-representing color in RGB.
-%
-There is an output matrix, $Y$, where each pixel is replaced by
-a {\em label}, a simple integer.  Pixels corresponding to the 
-same label are considered to belong to the same region.
-
-We can construct an {\em energy function} that evaluates the quality
-of the labelling in terms of the input.  This function is designed so
-that by minimizing it (by changing our choice of labelling, $Y$), we
-get good results.  The energy function can be broken into two
-parts:
-
-\begin{displaymath}
-%
-E(X,Y) = E_{smooth}(Y) + E_{data}(X,Y)
-%
-\end{displaymath}
-
-$E_{smooth}$ measures how well our labelling matches the
-expectation that neighboring pixels should generally have the
-same label (belong to the same region).
-As far as this term is concerned, the smoother the better -- there is
-a cost for neighboring pixels being assigned different labels.
-$E_{data}$ measures conflicts between the labelling and the data (for
-example, assigning equal labels to pixels with very different
-appearance.
-
-Particular forms of the energy function admit of efficient 
-approximate solutions, and have been the topic of much research.
-%
-The energy function is usually {\em local} -- terms are computed 
-based on comparisons between small neighborhoods of pixels.
-%
-This formalization works well with grouping based on local
-cues -- similarity in brightness, color, and some forms of texture.
-It is less suited to ``shape'' cues.
-
-
-Object boundaries are much more difficult to detect reliably than might be 
-expected from introspection.
-Statistics learned from data has been shown to be useful
-\cite{konishi03statistical}.  Large databases of 
-human-labelled boundaries are being collected and
-used to train better systems
-\cite{martin04learning}.
-%
-Such databases are extremely time-consuming to produce.
-%
-\citeasnoun{ross05learning} developed a system that performs
-segmentation based on static cues (color, texture, brightness)
-using statistics learned from motion segmentation.
-In principle, motion is a very powerful cue for
-segmentation; certainly that is the case for infants
-\cite{kellman93kinematic}.
-%
-Progress is being made on motion segmentation, both 
-in improving its accuracy and increasing its efficiency
- \cite{cremers05motion,fowlkes04spectral,smith03motion,smith04layered}.
-%
-Currently, accurate motion segmentation is 
-computationally challenging in unconstrained environments.
-
-
-
-
 \ifverbose
-
-\subsection{Discussion of available cues and their reliability}
-
-Regardless of what kind of observer is being considered (infant,
-robot, or computer), one can consider the information present
-in typical environments and whether that information can be
-exploited for use in determining object boundaries.
-
-Cues available for object segregation include luminance, color,
-texture, motion, shape, location, seams, stereo, shadow, etc.
-%
-Using color and texture features is popular, but perhaps limiting, since they
-are relatively accidental.  Young infants seem to ignore them for
-certain purposes, as we saw earlier.
-%
-Physical boundaries are functions of object shape.  But object shape
-is difficult to recover in natural scenes.
-%
-One correlate of shape is object contour.  In a comparision between
-contour-based and appearance-based methods for object categorization
-\cite{leibe03analyzing}, shape-based cues are shown to be
-particularly useful for categorization.
-\citeasnoun{lecun04learning} gives us the same message.
-For specific tasks, color/texture can be useful, but for 
-generic tasks they may be a distraction.
-
+Supporting a differentiation view of the development of
+generalization, Bahrick's findings suggest that young (i.e.,
+2-month-old) infants are more likely to generalize farther from the
+specific experiences they received than infants just a few months
+older (get citation).  This finding suggests that experience might
+serve to initially narrow and then extend the range of stimuli over
+which young children will generalize.
 \fi
 
-
-\ifverbose
-Put here a complete discussion of value of cues in terms of
-information content, accessibility (how hard is it to actually
-estimate those bits correctly), constancy over different timescales
-and variations.
-\fi
-
-
-%%Pending results to discuss
-\nocite{serre05object}
-\nocite{swain91color}
-\nocite{schiele00recognition}
-\nocite{lowe04distinctive}
-\nocite{felzenszwalb04efficient}
-\nocite{quinn05learning}
-\nocite{felzenszwalb04efficient}
-\nocite{gibson88exploratory}
-\nocite{spelke90principles}
-\nocite{martin01database}
-\nocite{madison01use}
-\nocite{scharstein02taxonomy}
-\nocite{feldman05information}
-\nocite{mareschal02learning}
-\nocite{wilcox99object}
-\nocite{dannemiller87test}
-\nocite{wilcox04priming}
-\nocite{johnson96perception}
-\nocite{needham05infants}
-\nocite{johnson00infants}
-\nocite{johnson03development}
-
-\ifverbose
-\begin{quote}
-
-``For infants younger than 6 months, common motion of surfaces that lead
-behind an occluder is both necessary and sufficient to specify their
-unity. Only after 6 months do infants utilize additional sources of
-information for unity, such as surface appearance, and edge and
-surface orientation.'' \cite{mareschal02learning}
-
-\end{quote}
+These results from infant development suggest a path for
+robotics to follow.  There is currently no serious robotics
+work to point to in this area, despite its importance.
+Robotics work in this area could potentially aid infant
+psychologists since there is a strong theoretical framework
+in machine learning for issues of generalization.
 
 
-Not age at which feature is detectable, but the actual
-information it carries, that affects at what age it gets used for
-individuation -- evidence from luminance test \cite{woods05infants}.
 
-Other long term learning -- surveillance \cite{stauffer00learning}.
-
-\subsection{Summary}
-
-Maybe discuss some summary points of contact here between robotics and
-infant fields -- what can each area learn from the main findings
-of the other.  I think infant researchers should take a few
-`lessons' from robotics.  First, object segregation is
-a really hard problem that is not likely solved through entirely
-bottom-up means.  As a result it makes sense to pursue a knowledge or
-experience-based approach to object perception in infants.  Second, a
-more sophisticated way of thinking about cue validity is available in
-the robotics/computer vision field, due to comprehensive databases of
-natural images.  And third, infant researchers should consider the
-idea that, like robots, infants' perception of objects might
-benefit from even very simple forms of exploration that infants might
-engage in.  When faced with an ambiguous scene, using one's
-hands to collect disambiguating information is a good strategy.
-
-Summary of what robotics researchers could take from infant work?
-
-Would this kind of section be useful at the end of each of the major
-divisions of the paper?
-
-
-\fi

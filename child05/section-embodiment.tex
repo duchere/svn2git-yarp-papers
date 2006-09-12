@@ -1,50 +1,144 @@
 
-The study of perception in biological systems cannot neglect the role of the body in the generation of the sensory information reaching the brain.
- %Recent theories agree on the importance of the body to determine the emergence of intelligence and cognition in biological systems. 
-%From a pure computational point of view, in fact, it is impossible to ignore the interaction between the body and the environment that leads to the formation of the sensory information reaching the brain. 
-The morphology of the body affects perception in numerous ways. In primates, for example, the visual information that reaches the visual cortex has a non-uniform distribution, due to the peculiar arrangement and size of the photoreceptors in the retina. In many species the outer ears and the head filter the sound in a way that facilitate auditory localization. The intrinsic elasticity of the muscles acts as a low pass filter during the interaction between the limbs and the environment.
+The study of perception in biological systems cannot neglect the role
+of the body in the generation of the sensory information reaching the
+brain.  The morphology of the body affects perception in numerous
+ways. In primates, for example, the visual information that reaches
+the visual cortex has a non-uniform distribution, due to the peculiar
+arrangement and size of the photoreceptors in the retina. In many
+species the outer ears and the head filter the sound in a way that
+facilitate auditory localization. The intrinsic elasticity of the
+muscles acts as a low pass filter during the interaction between the
+limbs and the environment.
 
-Through the body the brain performs actions to explore the environment and collect information about its properties and rules. In their experiments with human subjects Lederman and Klazky \cite{lederman87hand} have identified a set of stereotyped hand movements ({\it exploratory procedures}) that adults use when haptically exploring objects to determine properties like weight, shape, texture and temperature. Lederman and Klatzky show that to each property can be associated a preferencial exploratory procedure which is, if not required, at least optimal for its identification. 
-
-%From a developmental point of view the interaction between the body and the environment is considered paramount for the correct perceptual and cognitive development of infants. 
-These observations support the theory that motor development and the body play an important role in perceptual development in infancy \cite{bushnell93motor}. Proper control of at least the head, the arm and the hand is required before infants can reliably and repetitively engage in interaction with objects. During the first months of life the inability of infants to perform skillful movements with the hand would prevent them from haptically exploring the environment and perceive properties of objects like weight, volume, hardness and shape. But, even more surprisingly, motor development could affect the developmental course of object visual perception (like three dimensional shape).
-%This is probably not surprising, [..] reveals information about weight and shape through senses like touch and proprioception. More articulated expolarative actions can bring about other properties (the sound generated from collisions, the way the object behaves when pushed and so on).
-Further support to this theory comes from the recent experiment by Needham and collegues \cite{Needham02apick-me-up}, where the ability of pre-reaching infants to grasp objects was artificially anticipated by means of mittens whith palms covered with velcro that stuck to some toys prepared by the experimenters. The results showed that those infants whose grasping ability had been enhanced by the glove, were more interested in objects than a reference group of the same age that developed 'normally'. This suggests that, although artificial, the boost in motor development produced by the glove anticipated the infants' interest towards objects.
-
-Exploiting actions for learning and perception requires the ability to match actions with the agents that caused it. The sense of agency \cite{jeannerod02mechanism} gives humans the sense of ownership of their actions and implies the existence of an internal representation of the body. Although some sort of self-recognition is already present at birth, at least in the form of a simple hand-eye coordination \cite{meer95thefunctional}, it is during the first months of development that infants learn to recognize their body as a separate entity acting in the world \cite{rochat00perceived}. It is believed that to develop this ability infants exploit correlations across different sensorial channels (combined double touch/correlation between proprioception and vision). %During development infants learn to recognize their body and to distinguish it from other entities in the environment (other people or objects). 
-%The experiments by Graziano and colleagues \cite{graziano00coding} support the existence of a representation of the arm in the premotor cortex of the primate brain. 
-
-In robotics we have the possibility to study the link between action and perception, and its implications on the realization of artificial systems. Robots like infants can exploit the physical interaction with the environment to enrich and control their sensorial experience. However these abilities do not come for free. Very much like an infant, the robot must first learn to identify and control its body, so that the interaction with the environment is meaningful and, at least to a certain extent, safe. Indeed, motor control is challenging especially when it involves the physical interaction between the robot and the world. 
-
-Inspired by the developmental psychology literature, roboticists have begun to investigate the problem of self-recognition in robotics \cite{yoshikawa03doestheinvariance,metta03early,natale05exploring,gold05learning}. Although different in several aspects, in all these work the robot looks for intermodal similarities and invariances to identify its body from the rest of the world.
-In the work of Yoshikawa \cite{yoshikawa03doestheinvariance} the rationale is that for any given posture the body of the robot is invariant with respect to the rest of the world. The correlation between visual information and proprioceptive feedback is learnt by a neural network which is trained to predict the position of the arms in the visual field.
-Gold and Scassellati \cite{gold05learning} solve the self-recognition problem by exploiting knowledge of the time elapsing between the actions of the robot and the associated sensorial feedback.
-In the work of Metta and Fitzpatrick \cite{metta03early} and Natale et al. \cite{natale05exploring} actions are instead used to generate visual motion with a known pattern. Similarities in the proprioceptive and visual flow are searched to visually identify the hand of the robot. Periodicity in this case enhances and simplifies the identification. The robot learns a multimodal representation of its hand that allows a robust identification in the visual field.
-
-In our experience with robots we identified three scenarios in which the body proved to be useful in solving perceptual tasks:
-
-1) direct exploration: the body in this case is the interface to extract information about the objects. For example in \cite{natale04learning} haptic information was employed to distinguish object of different shape, a task that would be much more difficult if performed visually. In \cite{torres-jara05tapping} the robot learned to recognize a few objects by using the sound they generate upon contact with the fingers.
-
-2) controlled exploration: use the body to perform actions to simplify perception. The robot can deliberatly generate redundant information by performing periodic actions in the environment.
-
-3) the body as a reference frame: during action the hand is the place where important events are most likely to accur. The ability to direct the attention of the robot towards the hand is particularly helpful during learning; in \cite{natale05exploring} we show how this ability allows the robot to learn a visual model of the objects it manages to grasp by simply inspecting the hand when touch is detected on the palm (see Figure~\ref{fig:babybot}). In similar situations the same behavior could allow the robot to direct the gaze to the hand if something unexpected touches it. Eye-hand coordination seems thus important to establish a link between different sensory channels like touch and vision.
+Through the body the brain performs actions to explore the environment
+and collect information about its properties and rules. In their
+experiments with human subjects Lederman and Klazky
+\cite{lederman87hand} have identified a set of stereotyped hand
+movements ({\it exploratory procedures}) that adults use when
+haptically exploring objects to determine properties like weight,
+shape, texture and temperature. Lederman and Klatzky show that to each
+property can be associated a preferential exploratory procedure which
+is, if not required, at least optimal for its identification.
 
 
-\begin{figure}[t]
-
-\centerline{
-\includegraphics[width=0.75\columnwidth]{fig-babybot}
-}
-
-\caption{
+These observations support the theory that motor development and the
+body play an important role in perceptual development in infancy
+\cite{bushnell93motor}. Proper control of at least the head, the arm
+and the hand is required before infants can reliably and repetitively
+engage in interaction with objects. During the first months of life
+the inability of infants to perform skillful movements with the hand
+would prevent them from haptically exploring the environment and
+perceive properties of objects like weight, volume, hardness and
+shape. But, even more surprisingly, motor development could affect the
+developmental course of object visual perception (like three
+dimensional shape).
 %
-Manipulation is another opportunity to perform object segregation. In this case the robot explores the visual appearances of an object that has grasped; the information collected in this way is used later on to segment the object \cite{natale05exploring}. The exploration in this case is facilitated by a pre-acquired body-schema that allows the robot to maintain the fixation of the hand. Left: the Babybot, the robotic platform used for this experiment. Right: the object exploration (1-3) and segmentation (4). (consider moving this figure in the segregation-robotics section). 
-%
-}
+Further support to this theory comes from the recent experiment by
+Needham and colleagues \cite{Needham02apick-me-up}, where the ability
+of pre-reaching infants to grasp objects was artificially anticipated
+by means of mittens with palms covered with velcro that stuck to some
+toys prepared by the experimenters. The results showed that those
+infants whose grasping ability had been enhanced by the glove, were
+more interested in objects than a reference group of the same age that
+developed 'normally'. This suggests that, although artificial, the
+boost in motor development produced by the glove anticipated the
+infants' interest towards objects.
 
-\label{fig:babybot}
+Exploiting actions for learning and perception requires the ability to
+match actions with the agents that caused it. The sense of agency
+\cite{jeannerod02mechanism} gives humans the sense of ownership of
+their actions and implies the existence of an internal representation
+of the body. Although some sort of self-recognition is already present
+at birth, at least in the form of a simple hand-eye coordination
+\cite{meer95thefunctional}, it is during the first months of
+development that infants learn to recognize their body as a separate
+entity acting in the world \cite{rochat00perceived}. It is believed
+that to develop this ability infants exploit correlations across
+different sensorial channels (combined double touch/correlation
+between proprioception and vision).
 
-\end{figure}
+
+
+In robotics we have the possibility to study the link between action
+and perception, and its implications on the realization of artificial
+systems. Robots, like infants, can exploit the physical interaction with
+the environment to enrich and control their sensorial
+experience. However these abilities do not come for free. Very much
+like an infant, the robot must first learn to identify and control its
+body, so that the interaction with the environment is meaningful and,
+at least to a certain extent, safe. Indeed, motor control is
+challenging especially when it involves the physical interaction
+between the robot and the world.
+
+Inspired by the developmental psychology literature, roboticists have
+begun to investigate the problem of self-recognition in robotics
+\cite{yoshikawa03doestheinvariance,metta03early,natale05exploring,gold05learning}. Although
+different in several aspects, in all these work the robot looks for
+intermodal similarities and invariances to identify its body from the
+rest of the world.  In the work of Yoshikawa
+\cite{yoshikawa03doestheinvariance} the rationale is that for any
+given posture the body of the robot is invariant with respect to the
+rest of the world. The correlation between visual information and
+proprioceptive feedback is learned by a neural network which is trained
+to predict the position of the arms in the visual field.  Gold and
+Scassellati \cite{gold05learning} solve the self-recognition problem
+by exploiting knowledge of the time elapsing between the actions of
+the robot and the associated sensorial feedback.  In the work of Metta
+and Fitzpatrick \cite{metta03early} and Natale et
+al. \cite{natale05exploring} actions are instead used to generate
+visual motion with a known pattern. Similarities in the proprioceptive
+and visual flow are searched to visually identify the hand of the
+robot. Periodicity in this case enhances and simplifies the
+identification. The robot learns a multimodal representation of its
+hand that allows a robust identification in the visual field.
+
+In our experience with robots we identified three scenarios in which
+the body proved to be useful in solving perceptual tasks:
+
+\begin{enumerate}
+
+\item {\em direct exploration}: the body in this case is the interface to
+   extract information about the objects. For example in
+   \cite{natale04learning} haptic information was employed to
+   distinguish object of different shape, a task that would be much
+   more difficult if performed visually. In
+   \cite{torres-jara05tapping} the robot learned to recognize a few
+   objects by using the sound they generate upon contact with the
+   fingers.
+
+\item {\em controlled exploration}: use the body to perform actions to simplify
+   perception. The robot can deliberately generate redundant
+   information by performing periodic actions in the environment.
+
+\item {\em the body as a reference frame}: during action the hand is the place
+   where important events are most likely to occur. The ability to
+   direct the attention of the robot towards the hand is particularly
+   helpful during learning; in \cite{natale05exploring} we show how
+   this ability allows the robot to learn a visual model of the
+   objects it manages to grasp by simply inspecting the hand when
+   touch is detected on the palm (see Figure~\ref{fig:robot}). In
+   similar situations the same behavior could allow the robot to
+   direct the gaze to the hand if something unexpected touches
+   it. Eye-hand coordination seems thus important to establish a link
+   between different sensory channels like touch and vision.
+
+\end{enumerate}
+
+%% \begin{figure}[t]
+
+%% \centerline{
+%% \includegraphics[width=0.75\columnwidth]{fig-babybot}
+%% }
+
+%% \caption{
+%% %
+%% Manipulation is another opportunity to perform object segregation. In this case the robot explores the visual appearances of an object that has grasped; the information collected in this way is used later on to segment the object \cite{natale05exploring}. The exploration in this case is facilitated by a pre-acquired body-schema that allows the robot to maintain the fixation of the hand. Left: the Babybot, the robotic platform used for this experiment. Right: the object exploration (1-3) and segmentation (4). (consider moving this figure in the segregation-robotics section). 
+%% %
+%% }
+
+%% \label{fig:babybot}
+
+%% \end{figure}
 
 %%\subsection{more}
 
@@ -54,3 +148,5 @@ Manipulation is another opportunity to perform object segregation. In this case 
 %Looking time suggests that experience with objects moving separately
 %or together can affect future perception in the right way.
 %(also, the ``sticky hands'' work).
+
+

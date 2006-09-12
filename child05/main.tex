@@ -1,5 +1,9 @@
 
+\newcommand{\submitpaper}{}
+
 \newcommand{\completepaper}{}
+
+\newcommand{\cappedpaper}{}
 
 %%\newcommand{\verbosepaper}{}
 
@@ -11,17 +15,6 @@
 %  We are using SAB format.
 %  Choose 'letter' or 'a4' for your draft.
 %  (Note that the final proceedings will be using A4 paper.)
-
-\documentclass[a4]{epirob}
-
-%  usepackage goes here.
-
-%\usepackage{fullpage}
-\usepackage{graphicx}
-
-\usepackage[sort]{natbib}
-\newcommand{\citeasnoun}{\citet}
-\renewcommand{\cite}{\citep}
 
 
 \newif\ifcomplete
@@ -37,6 +30,39 @@
 \else
   \verbosetrue
 \fi
+
+\newif\ifcapped
+\ifx\cappedpaper\undefined
+  \cappedfalse
+\else
+  \cappedtrue
+\fi
+
+\newif\ifsubmit
+\ifx\submitpaper\undefined
+  \submitfalse
+\else
+  \submittrue
+\fi
+
+\documentclass[a4]{epirob}
+
+
+\ifsubmit
+\usepackage{doublespace}
+\usepackage{endfloat}
+\fi
+
+%  usepackage goes here.
+
+%\usepackage{fullpage}
+\usepackage{graphicx}
+
+\usepackage[sort]{natbib}
+\newcommand{\citeasnoun}{\citet}
+\renewcommand{\cite}{\citep}
+
+
 
 
 \newcommand{\dgrs}{$^{\circ}$}
@@ -69,8 +95,20 @@
 %  Note: we slightly changed the use of author/affilication.
 
 \title{
-Common Challenges in Object Perception \\ 
-for Robots and Infants
+Shared Challenges in Object Perception \\ 
+%
+for Robots and Infants\footnotemark[2]\footnotetext[2]{ Due to time
+constraints, the final draft of this paper
+was not seen by all authors at the time of submission.
+%
+Since the size limit on the paper required much review material to be
+discarded and arguments to be shortened, any factual errors or
+misrepresentations introduced are the responsibility the first author,
+and should not be attributed to any other author.
+%
+%See URL for a previous draft.
+%
+}
 }
 
 
@@ -107,31 +145,61 @@ for Robots and Infants
 
 \ifcomplete
 
+\ifsubmit
+\begin{singlespace}
+\fi
+
 \maketitle
 
+\ifsubmit
+\end{singlespace}
+\fi
 
 \begin{abstract}
 \input{section-abstract}
+
+\noindent
+{\bf Keywords:} Infant development, robotics, object segregation, intermodal integration, embodiment.
+
 \end{abstract}
 
+
+\ifsubmit
+
+\begin{singlespace}
+Address correspondence to the first author, Paul Fitzpatrick, at:
+\begin{quote}
+\begin{tabular}{ll}
+email & {\tt paulfitz@liralab.it} \\
+phone & +39-010-3532946 \\
+fax & +39-010-3532144 \\
+address & LIRA-Lab, DIST, University of Genova, Viale F. Causa 13, 16145 Genova, Italy
+\end{tabular}
+\end{quote}
+\end{singlespace}
+
+\newpage
+\fi
 
 \section{Introduction}
 
 \input{section-introduction}
+
+\fi
 
 
 \section{Object segregation}
 
 \input{section-segregation}
 
+\ifcomplete
 
-\fi
 
 \section{Intermodal integration}
 
 \input{section-intermodal}
 
-\ifcomplete
+
 
 %%\section{Object permanence}
 
@@ -153,9 +221,12 @@ for Robots and Infants
 
 % tentative on some of the physiology of object recognition.
 % definitely not comprehensive.
-\section{Physiology of object recognition}
+%%\section{Physiology of object recognition}
 
-\input{section-physiology}
+
+%%DUMPED section-physiology for now, too hard to integrate.
+
+%%\input{section-physiology}
 
 
 \section{Conclusions}
