@@ -56,12 +56,11 @@ in psychology or ``object segmentation'' in engineering) cannot yet be
 successfully automated for arbitrary object sets in unconstrained
 environments (see Figure~\ref{fig:segmentation-is-hard}).
 
-%%However there has been some progress.
-There has been {\em algorithmic} progress; for
+On the engineering side, there has been some {\em algorithmic} progress; for
 example, given local measures of similarity between each neighboring
 element of a visual scene, a globally appropriate set of boundaries
 can be inferred in efficient and well-founded ways (see for example
-\citeasnoun{felzenszwalb04efficient}).
+\citeasnoun{shi00normalized,felzenszwalb04efficient}).
 %
 %
 Just as importantly, there is also a growing awareness of the
@@ -229,7 +228,7 @@ process operating on a region level rather than pixel level.
 %same unit and which do not.  
 %
 By 4 to 5 months of age, infants can
-parse simple displays like the one in 
+visually parse simple displays like the one in 
 Figure~\ref{fig:image-segmentation}
  into units, based on something like 
 a subset of static
@@ -300,6 +299,7 @@ suggests that boundary information is not the only information infants
 use to parse the objects in a display (Needham, 1998).  
 \fi
 %
+Still later,
 8.5 month old infants have been shown to also use information about specific
 objects or classes of objects to guide their judgement (Needham,
 Cantlon, \& Ormsby, 2005).
@@ -407,7 +407,7 @@ least partially control.
 %objects is of disappointing quality.
 %
 Motion caused by body impact has some technical advantages; the
-impactor (the arm) is understood and can be tracked, and since the moment 
+impactor (the arm) is modelled and can be tracked, and since the moment 
 and place of
 impact can be detected quite precisely, unrelated motion in the scene
 can be largely filtered out.
@@ -441,7 +441,7 @@ As a basic overview, the classes of algorithms involved are these:
 
 \item {\em Behavior system}: an algorithm that drives the robot's
 behavior, so that it is likely to hit things.  This system has a 
-broader agenda than just this specific outcome; if
+broader agenda than just this specific outcome:
 
 \item {\em Key event detection}: an algorithm that detects the key event of
 when the arm/hand hits an object.
@@ -471,9 +471,11 @@ A set of different algorithms performing analogous roles are used
 for the \citeasnoun{natale05exploring} example.
 %
 %
-At the algorithmic level, the technical concerns in either
+At the algorithmic level, the technical concerns 
+in either
 case are hard to relate to
 infant development, although in some cases there are correspondences.
+%
 But at the skeletal level, the concerns are coming closer to those of
 infant development.
 
@@ -559,7 +561,7 @@ The lower row shows the robot ``Cog''
 detecting object boundaries experimentally by
 poking \cite{fitzpatrick03object}.
 %
-During object motion, if finds features of the object that contrast with other
+During object motion, it finds features of the object that contrast with other
 objects, and that are stable with respect to certain geometric
 transformations.  These features are then used to jointly detect
 and segment the object in future views.  Left: the robot.
@@ -664,9 +666,16 @@ to the target item is important to infants' transfer of their
 experience to the target display.
 
 
-This finding was brought into the ``real'' world by investigating
+This finding 
+with artifical objects was tested in a more natural setting
+%
+%was brought into the ``real'' world 
+%
+by investigating
 infants' parsing of a test display consisting of a novel key
-ring (Needham et al., submitted).  According to a strict
+ring (Needham et al., submitted).  
+%
+According to a strict
 application of organizational principles using object features, the
 display should be seen as composed of (at least) two separate
 objects -- the keys on one side of the screen and the separate
