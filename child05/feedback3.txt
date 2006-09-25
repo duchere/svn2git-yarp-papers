@@ -1,0 +1,84 @@
+(1) Suitability to the special issue:  the ms is a very good fit to the goals of the special issue.
+
+(2) Suitability/accessibility to the developmental psychology community:  as I note below, my overall sense is that the submission also provides a good fit to the developmental audience.  I also include a few suggestions for where the paper can be improved in this regard.
+
+(3) Grasp of developmental concepts:  the paper does an excellent job of describing relevant work in a way that incorporates key concepts and ideas from developmental psychology.
+
+(4) Relevant bibliography:  as a relatively short paper, the literature cited is acceptable, though if the paper were lengthened I would suggest that additional references be incorporated.  In particular, recent work by Scott Johnson and colleagues on perceptual completion and eye movements seems relevant.
+
+@@@ PENDING: try and fit this work in
+
+Review:
+
+Summary:  The ms presents a concise overview of work in the field of developmental robotics that bridges infant perceptual development and machine vision.  Research by the authors is highlighted to draw attention to a number of cross-cutting themes and related theoretical approaches in the two fields. Overall, the paper is generally clear and well-written, and is not only enjoyable to read, but more importantly, a valuable step toward enabling contact between psychologists and roboticists.
+
+My critical feedback falls into two general categories.  There are a few somewhat broad suggestions, followed by a brief list of specific comments.
+
+In general terms, the authors should be applauded for linking together two (seemingly) disparate areas of research.  Because it is a challenging task, there is still some room for improvement.  First, several of the descriptions of infant studies should be expanded, and include more detail.  For example, in Section 2.1 the description of Baillargeon (1999...which is missing from the reference list...or did the authors intend to cite Needham and Baillargeon, 1998?) is cryptic and abstract, and needs to be made more concrete.  In particular, it is not clear what the stimuli look like, or exactly how the familiarization phase works.
+
+@@@ PENDING: clean up the descriptions of infant studies, fix citation
+
+Similarly, other studies that should be unpacked and more carefully described (including, where relevant, a clear statement about the relevance of the study) are:  (1) Viola and Jones (2004), (2) Needham et al. (submitted), (3) Bahrick and Lickliter (2000), and (4) Lewkowicz (2000).
+
+@@@ PENDING: Better description of Viola and Jones 2004
+@@@ PENDING: Better description of Needham et al (submitted)
+@@@ PENDING: Better description of Bahric and Lickliter (2000)
+@@@ PENDING: Better description of Lewkowicz (2000)
+
+As a strategic option, I might suggest that descriptions of the human infant studies be handled by Needham, who is most familiar with this audience and can describe the work with an "insider's" feel.  On the other hand, the description of robotics work is clear and accessible to a wide audience, and seems to be pitched at the right level.
+
+A second, general comment is that the final section on embodiment, while both relevant and interesting, also seems to stray somewhat from the organization and style of the rest of the paper.  This is likely a result of the work that is available to date, and not necessarily due to oversight by the authors.  For example, the section on "self-recognition", though admittedly about perceptual development, is really in a different "category" from object recognition and perception (though maybe that is an artificial distinction!).  In any case, I think the paper might benefit from (1) a careful rethinking of this section, with an eye towards reshaping the coverage on embodiment so that it is more in step with the earlier sections, or at a minimum (2) offer a clear statement at the beginning of the section that highlights the modest change in the scope of the discussion (and the data used to support it).
+
+@@@ PENDING: think about embodiment section
+@@@ PENDING: offer clear statement suggested here
+
+Third--and where I might suggest that the embodiment section could move toward--an implicit theme through much of the paper is the contrast between "active" and "passive" perceptual experience.  For machine learning researchers, thanks to Dana Ballard and others, this is not a debate.  Active perception is where things are at.  But for a developmental audience, this is enormously important (i.e., nativism and realism vs. constructivism), and the paper might "sell" better if it directly addressed this issue.
+
+@@@ PENDING: Address active perception directly
+
+The authors come close to being explicit, where they note in Section 2.2 that "it is simpler at least to begin with to focus on situations the robot can initiate and at least partially control."  I would strongly encourage them to flesh out (pun intended) this idea more formally, and perhaps even take a stance, theoretically speaking.  What is the relationship between perception and action?  Is action necessary, or just a good, quick way to generate lots of statistically useful data (that would arrive passively, but on a slower or less predictable schedule)?  Needham's data suggest that passive, statistical learning may be doing a lot of the "heavy lifting", but that "real life" interactive episodes are relevant too.  Either way, a section devoted to this question, and how the group as a whole (i.e., the authors) recommend attacking the question with interdisciplinary research would certainly spark some discussion.
+
+Finally, a (slightly) disappointing endnote is the comment "We have not in this paper developed such a model; that would be premature."  I disagree.  It is easy to imagine that the authors recognized the points of contact in their separate research projects, and used this paper to help promote those connections.  I would obviously encourage them to go one step further, and propose 2 or 3 general predictions (or developmental principles) that they might consider using to motivate a collaborative research program, which is what an interdisiciplinary audience *really* needs to read, appreciate, and evaluate. In other words, they might go beyond a description of work to date, and point towards a theoretical and/or methodological framework for studying developmental robotics.
+
+@@@ PENDING: propose 2 or 4 general predictions/principles
+
+Next, some specific comments:
+
+(1) Introduction
+
+- Not sure what "non-cultural, non-biological, non-historical constraints" are.    This is a somewhat tortured sentence that might either be fixed by a concrete example of the type of constraint that the authors have in mind, or by simply calling them intrinsic and physical (which by my eye are at least biological and historical, and probably cultural too).
+
+@@@ Removed non-XXX qualifiers.
+
+(2) Section 2
+
+- In the discussion on the "algorithmic skeleton", the ms implies that all this structure is hand built.  While both a practical and conventional procedure, the use of these preprocessing steps contrasts with two attractive alternatives: (1) the approach of Weng and others, who advocate against special-purpose systems and use instead general-purpose statistical mechanisms, or (2) architectures inspired by cognitive neuroscience (visual neuroscience, in particular), such as Itti and Koch's work on covert attention that borrows ideas such as receptive fields and inhibitory competition within feature maps.  For completeness, the authors might consider briefly acknowledging some of the alternative ways to approach the question of designing the algorithmic skeleton.
+
+@@@ PENDING: address this
+
+@@@ Claim: we are simply making explicit and giving a name for
+structure that exists in the work of Weng and others, and Itti+Koch.
+We are as keen on general-purpose statistical mechanisms as anyone,
+but they have to operate on data that comes from somewhere and produce
+structures that go somewhere else, ideally with some kind of
+open-ended loop and possibility for self-extension.  All that
+organization doesn't pop out of the aether unsummoned.  It is what we
+are calling the algorithmic skeleton.
+
+
+- Section 2.2:  near the list of algorithms from Fitzpatrick and Metta (2003), it should be emphasized that (1) this is a kind of unsupervised algorithm (presumably like that used by infants), and (2) like infants, it depends on autonomous (i.e., spontaneous, self-produced, etc.) behavior (the best coverage of this topic that I have found is in Lungarella, Metta, Pfeifer, & Sandini, 2003).  Again, this is another place in the paper where a plug for "active perception" could (and should!) be made.
+
+@@@ PENDING: enhance active perception discussion
+@@@ PENDING: make link to that is section 2.2
+
+- Section 2.2:  At the end of the section, the ms notes that "At the algorithmic level, the technical concerns in either case are hard to relate to infant development."   This is a somewhat cynical, albeit tentative conclusion.  I would suggest instead that the authors argue for the existence of multiple correspondences.  In other words, even if we cannot equate the underlying algorithms, we can still look for similarities at higher levels (in particular, in realtime behavior).  A good example of this is "motor babbling"; even though the actual "algorithm" used by infants is unknown, we can still study how variability in movement changes over time, and study whether or not those changes are adaptive.  Specifically, a robot model may use a different underlying algorithm, but reveal the same developmental advantages of motor babbling.
+
+@@@ PENDING: work on these comments.  The text in the paper is not very
+clear.
+
+- Section 2.4:  it wasn't entirely clear what the word "real" meant in "This finding was brought into the 'real' world by investigating..."
+
+@@@ Fixed - the distinction was real objects versus artificial I think
+
+@@@ PENDING: Get Amy to check this.
+

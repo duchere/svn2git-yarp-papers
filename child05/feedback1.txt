@@ -1,0 +1,46 @@
+I have read the paper "Shared Challenges in Object Perception for Robots and Infants" by Fitzpatrick, Needham, Natale, and Metta, and I recommend its acceptance for the special issue on epigenetic robotics. I believe it provides a good overview of how the frameworks of robotic perception and infant perception can be matched up.
+
+From a computer science perspective, the research described in the paper appears to be sound. The computer vision references are good, although I might add a reference to Shi and Malik's normalized cuts segmentation algorithm in section 2, since it is so prominent in the computer vision community. But if the authors are concerned about space, it is not crucial.
+
+@@@ Citation added.
+
+I am not familiar with related robotics research, except for Fitzpatrick's own work, so I can't judge if important references have been excluded.
+
+Here are a few minor notes on the text that may be useful to the authors and editors:
+
+1) In the introduction, it was not clear to me why telepresence and virtual reality demonstrated the relationship between neural and computer models (although I felt that the previous sentence did adequately demonstrate that relationship).
+
+@@@ There is a broad spectrum of opinion on the role of embodiment in
+intelligence.  While we don't want to get into that argument here, it
+is important to establish that converting stimuli to numbers does not
+by itself destroy anything crucial to their eventual interpretation.
+That telepresence and virtual reality work is a demonstration of this.
+PENDING: put this in the text.
+
+2) In Figure 1, the Martin edge detector is given as an example of a segmentation algorithm, but it only performs local boundary detection (the boundaries it produces are not always closed, so they don't necessarily separate image regions). Whether that distinction is important enough for this context, I don't know.
+
+@@@ The implicit assumption here was that determining likely
+boundaries was the key judgement, and that actually carving the image
+into disjoint regions
+
+
+3) In section 2, the authors state that empirical knowledge from examples "is not specified by the algorithm." I agree that this is mostly true, but as they later acknowledge, much of the success of the machine-learning approach comes from the programmer's decisions about preprocessing and feature selection. I think it would be more accurate to say that the knowledge comes from both the algorithm and the examples, in contrast to earlier, non-learning approaches in which the knowledge was solely algorithmic.
+
+@@@ PENDING
+
+4) The first item in the algorithmic skeleton list (behavior system) seems to be incomplete (it ends with an "if").
+
+@@@ Fixed
+
+5) In section 4, second paragraph, there should be a comma between "subjects" and "Lederman".
+
+@@@ Fixed
+
+6) On the next page, it appears that the first quote on "normally" has the wrong orientation.
+
+@@@ Fixed
+
+7) In Figure 3, the caption should read "During object motion, it" rather than "During object motion, if".
+
+@@@ Fixed
+
