@@ -104,11 +104,16 @@ the sensory input in a manner that highlights properties that the
 programmer believes may be relevant.  This transformation is called
 {\em preprocessing and feature selection}.
 %
-There is a great deal of
-infrastructure wrapped around the learning system
-to break the problem down into tractable parts and
-apply the results of learning back to the original
-problem.
+This transformation, and a corresponding transformation that 
+applies the results of the learning system back to the original
+problem, together make up a very important part of the full
+system.  This ``infrastructure'' is often downplayed or not
+reported.
+%
+%amount to an infrastructure designed to
+%break the problem down into tractable parts and
+%apply the results of learning back to the original
+%problem.
 %
 %How good the
 %approximation is will depend on a lot of factors.  Researchers try to
@@ -119,11 +124,17 @@ For this paper, we will group all this infrastructure and call it
 the {\bf \em algorithmic skeleton}.
 %
 %
+%This set of carefully interlocking algorithms is designed so that,
+%when fed with appropriate training data, it fleshes out into a
+%functional system.  
+%
 This set of carefully interlocking algorithms is designed so that,
-when fed with appropriate training data, it fleshes out into a
-functional system.  Without the algorithmic skeleton, there would be
-no way to make sense of the training data, and without the data,
-perception would be crude and uninformed.
+when fed with appropriate training data, it produces a
+functional system.  
+%
+Without the algorithmic skeleton, there would be
+no way to make sense of the training data, and without the
+data, perception would be crude and uninformed.
 
 What, then, is the right algorithmic skeleton for object
 segregation?  What set of algorithms, coupled with what kind of
@@ -251,7 +262,7 @@ objects \cite{needham99role}.
 %
 Compared to adult judgements,
 %
-we would expect such strategies to lead to many incorrect parsings, 
+we would expect such strategies to lead to many incorrect parsings,
 but they will
 also provide reasonable best guess interpretations of uniform objects
 in complex displays.  
@@ -440,8 +451,9 @@ As a basic overview, the classes of algorithms involved are these:
 \begin{enumerate} \pflist
 
 \item {\em Behavior system}: an algorithm that drives the robot's
-behavior, so that it is likely to hit things.  This system has a 
-broader agenda than just this specific outcome:
+behavior, so that it is likely to hit things.  This specific, rather
+idiosyncratic goal is chosen in order to enable a broader set of 
+outcomes:
 
 \item {\em Key event detection}: an algorithm that detects the key event of
 when the arm/hand hits an object.
@@ -648,7 +660,7 @@ of objects to a new object that is a member of that group?
 %very interesting, in possibly pointing a way forward.
 
 
-\subsection{Generalization of of knowledge gained from experience}
+\subsection{Generalization of knowledge gained from experience}
 
 This question was investigated by \citeasnoun{needham05infants}
 in a study using the same test display and a similar procedure as in
@@ -709,12 +721,14 @@ serve to initially narrow and then extend the range of stimuli over
 which young children will generalize.
 \fi
 
-These results from infant development suggest a path for
-robotics to follow.  There is currently no serious robotics
-work to point to in this area, despite its importance.
-Robotics work in this area could potentially aid infant
-psychologists since there is a strong theoretical framework
-in machine learning for issues of generalization.
+\ifverbose
+These results from infant development suggest a path for robotics to
+follow.  There is currently no robotics work to point to on
+generalization of object categories, despite its importance.  Robotics
+work in this area could potentially aid infant psychologists since
+there is a strong theoretical framework in machine learning for issues
+of generalization.
+\fi
 
 
 
