@@ -9,6 +9,9 @@ MAIN = main
 
 BMAIN = $(MAIN)
 
+default:
+	make force
+	make bounce
 
 # generate and view dvi file
 dvi:
@@ -195,7 +198,7 @@ miss:
 	@egrep "(Warning: ((Reference)|(Citation)))|(\.tex)" $(MAIN).log
 
 bounce:
-	make figs; force; fb ; make f ; make fb ; make f ; make fb ; make f
+	make figs force fb ; make f ; make fb ; make f ; make fb ; make f
 
 $(MAIN).dvi: $(MAIN).tex $(EPS) $(MAIN).bbl $(SUBMAIN)
 	echo -n > /tmp/view.update
