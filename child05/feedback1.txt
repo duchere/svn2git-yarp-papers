@@ -26,7 +26,9 @@ into disjoint regions
 
 3) In section 2, the authors state that empirical knowledge from examples "is not specified by the algorithm." I agree that this is mostly true, but as they later acknowledge, much of the success of the machine-learning approach comes from the programmer's decisions about preprocessing and feature selection. I think it would be more accurate to say that the knowledge comes from both the algorithm and the examples, in contrast to earlier, non-learning approaches in which the knowledge was solely algorithmic.
 
-@@@ PENDING
+@@@ added to section 2:
+"The sensory preprocessing determines the form of the ``knowledge'' and 
+gives a specific bias to the final performance of the interlocking algorithms. This is the place where the designer of machine learning systems can still insert prior knowledge about the domain in which the learning system will be likely to operate. Clearly, this is also a crucial point where informed choices can be made starting from infant studies. In this respect ``knowledge'' can be thought as coming both from the prior and from the specific interaction of the learning machine with the environment."
 
 4) The first item in the algorithmic skeleton list (behavior system) seems to be incomplete (it ends with an "if").
 
