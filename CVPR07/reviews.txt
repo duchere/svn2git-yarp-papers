@@ -1,0 +1,146 @@
+Subject:	[NIPS*2006] Your Paper #387
+From:		chairs@nips2006.confmaster.net
+Date:		Sun, 3 Sep 2006 17:09:39 +0200 (CEST)
+To:		francesco.orabona@unige.it, nips2006@microsoft.com, claudio.castellini@unige.it, giulio.sandini@unige.it
+
+Dear francesco orabona, claudio castellini, giulio sandini,
+
+We regret to inform you that your submission #387 to NIPS*2006, titled
+
+Incremental Independent Support Vector Machines,
+
+has not been accepted to the conference.
+
+There were many strong submissions to NIPS this year, and the program committee accepted only 204 of the 833 submitted papers. The decision process was extremely competitive, with each submitted paper rated by at least three independent reviewers, and with borderline or uncertain cases further evaluated by one or more area chairs and discussed at a meeting of the program committee.
+
+Constraints imposed by the length of the conference and a policy of avoiding parallel sessions restrict the number of papers that can be accepted each year. Very good papers can be found among those we were not able to accept (including a number where all reviews recommended acceptance), but they were outranked in our deliberations by the ones we did accept.
+
+The reviews for your paper are attached below. The numerical scores given by the reviewers played an important role in the decisions made by the program committee but they were not the sole determining input. 
+
+Thank you for your interest in NIPS. I hope that you will join us in Vancouver in December. A provisional schedule will be available in the next few weeks at http://research.microsoft.com/conferences/nips06/schedule.htm . I encourage you to continue to submit your work to NIPS in the future.
+
+Sincerely yours,
+
+John Platt, NIPS*2006 Program Chair
+and the NIPS*2006 Program Committee
+
+------------- Review from Reviewer 1 -------------
+Score                                         : 7
+Confidence                                    : 8
+-- Comments to the author(s):
+The paper proposes a new method to reduce the number of support vectors for 2-norm SVM. The new learning algorithm, the increment independent SVM (IISVM),  Choose a subset of the support vectors that are linearly independent in the feature space. 
+
+   
+
+The paper concerns the problem of reducing the number of support vectors for SVM, which is very important for learning with large datasets. The proposed increment independent SVM seems to be an effective way to control the number of support vectors for 2-norm SVM. Experiment results are convincing. Overall the paper is original and well written. Here are some suggestions. Firstly, the title and abstract of the paper should emphasize this work is only for 2-norm SVM, and not the common 1-norm SVM. Actually, the proposed finite Newton algorithm based on Keerthi[14] may not be working for 1-norm SVM. So, in Sections 2 and 3, it may be more proper to review 2-norm SVM, which is the only focus of the paper. Thirdly, it is worthwhile to point out that the standard 2-norm SVM (with offset b) has a large number of support vectors, as shown in  Figure 1 and 2. This is quite different from 1-norm SVM. 
+
+
+-- Summary:
+The paper suggests a new learning algorithm with a reduced number of supported vectors. The proposed method is novel and demonstrates promising performance in numerical examples.        
+---------- End of Review from Reviewer 1 ----------
+------------- Review from Reviewer 2 -------------
+Score                                         : 2
+Confidence                                    : 8
+-- Comments to the author(s):
+Main ideas: This paper considers the problem of building sparser SVMs. As in many current approaches, a basis subset is incrementally constructed. The choice of basis functions is directed by a linear independence criterion. Once a new function is chosen,  incremental retraining is done using a recently proposed  primal algorithm for sparse L2-SVMs. 
+
+
+
+While the problem is certainly well-motivated and important for making SVMs practical, the method suggested lacks novelty and has been considered before in the context of low-rank approximations for kernel methods.  In particular, it seems equivalent to Incomplete Cholesky decomposition using pivoting.
+
+ 
+
+One concern with such a method is that the basis selection is done completely unsupervised, independent from the learning task. Infact, the only reason to run the algorithm in an incremental mode is to establish when to stop based on some performance validation measure. Recent papers (e.g reference [4]) have shown that such a strategy can be sub-optimal.
+
+
+
+Some relevant references are: 
+
+
+
+Predicting low-rank decomposition for Kernel Methods, Bach and Jordan, 2005.
+
+
+
+Feature vector selection and projection using kernels, Baudat and Anouar, Neurocomputing, 2003.
+
+
+
+The experimental section is quite weak. Only two very small datasets are tried (Haberman has 3 features and Diabetes has 8, with a few hundred examples in each)  whereas the original stated motivation is to tackle large datasets. 
+
+
+
+At the very least, experimental comparisons should be made with random subset selection (along the lines of "reduced" SVM of Lee and Mangasarian). 
+
+
+
+
+-- Summary:
+Lack of novelty and weak empirical studies make this paper unsuitable for appearing in NIPS, in my opinion. 
+---------- End of Review from Reviewer 2 ----------
+------------- Review from Reviewer 3 -------------
+Score                                         : 6
+Confidence                                    : 7
+-- Comments to the author(s):
+Please address the following criteria, and bear them in mind when constructing your numerical scores:
+
+
+
+Quality, Clarity, Originality, and Significance
+
+
+
+For more information about these criteria and definitions of the quantitative score, please see http://research.microsoft.com/conferences/nips06/revInstruct.htm
+
+
+
+
+
+Incremental independent support vector machines
+
+
+
+This paper discusses a way to use only a small subset of training
+
+instances as support vectors. The proposed method helps to simplify
+
+the model and may also save the training time.
+
+
+
+The main idea is very simple: using (11) one gradually adds instances
+
+more independent of earlier ones. The proposed method is compared to
+
+libsvm and results are promising.
+
+
+
+My main concern is that the proposed method should be compared with
+
+some existing approaches. For example, the authors may try approaches
+
+in [4] and [6]. A comparison with libsvm is good, but may not be
+
+enough.
+
+
+
+In summary, I am unsure if the authors have shown significance
+
+evidences so users may want to switch from existing approaches to the
+
+proposed one.
+
+
+
+
+-- Summary:
+Please summarize your review here in 1-2 sentences.
+---------- End of Review from Reviewer 3 ----------
+
+
+////////////////////////////////////////////////////
+Powered by ConfMaster.net
+///////////////////////////////////////////////////
+

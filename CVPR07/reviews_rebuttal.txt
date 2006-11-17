@@ -1,0 +1,67 @@
+------------------------------ Reviewer 1
+
+> The paper proposes a new method to reduce the number of support vectors for 2-norm SVM. The new learning algorithm, the increment independent SVM (IISVM), Choose a subset of the support vectors that are linearly independent in the feature space.
+
+> The paper concerns the problem of reducing the number of support vectors for SVM, which is very important for learning with large datasets. The proposed increment independent SVM seems to be an effective way to control the number of support vectors for 2-norm SVM. Experiment results are convincing. Overall the paper is original and well written. Here are some suggestions. Firstly, the title and abstract of the paper should emphasize this work is only for 2-norm SVM, and not the common 1-norm SVM. Actually, the proposed finite Newton algorithm based on Keerthi[14] may not be working for 1-norm SVM. So, in Sections 2 and 3, it may be more proper to review 2-norm SVM, which is the only focus of the paper. Thirdly, it is worthwhile to point out that the standard 2-norm SVM (with offset b) has a large number of support vectors, as shown in Figure 1 and 2. This is quite different from 1-norm SVM.
+
+Thanks for your remark about the 1-norm vs. 2-norm SVM. We will take it into account for the camera ready version, in case the paper is accepted. (The method can probably be adapted to 1-norm SVM [16] – this is subject of future research.)
+
+By the way, following suggestions from other reviewers, we have carried out a test on a bigger and higher-dimensional test-set: the Adult8 test-set (22700 samples, 123 features). Results indicate that IISVM behaves analogously as Figures 1 and 2 (linear and gaussian kernel); as a matter of fact, the basis settles at a size of about 123 in the linear case, accordingly. We have also compared against an RSVM-like system inspired by Lee and Mangasarian [6]. Results indicate that our system performs consistently better, up to 10% faster.
+
+------------------------------ Reviewer 2
+
+> Main ideas: This paper considers the problem of building sparser SVMs. As in many current approaches, a basis subset is incrementally constructed. The choice of basis functions is directed by a linear independence criterion. Once a new function is chosen, incremental retraining is done using a recently proposed primal algorithm for sparse L2-SVMs.
+
+> While the problem is certainly well-motivated and important for making SVMs practical, the method suggested lacks novelty and has been considered before in the context of low-rank approximations for kernel methods. In particular, it seems equivalent to Incomplete Cholesky decomposition using pivoting.
+
+> One concern with such a method is that the basis selection is done completely unsupervised, independent from the learning task. Infact, the only reason to run the algorithm in an incremental mode is to establish when to stop based on some performance validation measure. Recent papers (e.g reference [4]) have shown that such a strategy can be sub-optimal.
+
+> Some relevant references are:
+
+> Predicting low-rank decomposition for Kernel Methods, Bach and Jordan, 2005.
+
+> Feature vector selection and projection using kernels, Baudat and Anouar, Neurocomputing, 2003.
+
+> The experimental section is quite weak. Only two very small datasets are tried (Haberman has 3 features and Diabetes has 8, with a few hundred examples in each) whereas the original stated motivation is to tackle large datasets.
+
+> At the very least, experimental comparisons should be made with random subset selection (along the lines of "reduced" SVM of Lee and Mangasarian).
+
+Thanks for your detailed review.
+
+First of all, responding to your main concern: we have further tested IISVM on the Adult8 test-set (22700 samples, 123 features). Results indicate that IISVM behaves analogously as Figures 1 and 2 (linear and gaussian kernel); the basis settles at a size of about 123 in the linear case, accordingly.
+
+We have also compared with [6] by randomly deciding whether to add a sample with probability such that the final size of the basis is the same as ours. Results indicate that our system performs consistently better, up to 10%, than RSVM. (These results will be obviously reported in the paper, if it gets through – we cannot show graphs in this environment.)
+
+With respect to these last results, please notice that, in an online setting, RSVM-like approaches keep on growing, whereas ours settles at a constant value.
+
+Incrementality is needed, e.g., in online time-series prediction. Batch processing is inefficient wrt incremental in an online setting ([14] and Ma et.al., “Accurate On-Line Support Vector Regression”, 2003). Preliminary results indicate that our system is up to one o.o.m. faster than that presented in [14]. As far as we know, low-rank approximations have never been applied on-line, except in [13] where, however, a suboptimal solution is found after each sample is considered, which is not our case.
+
+We make no use of side information - (Bach and Jordan, 2005) looks promising. We will consider the issue for future work.
+
+------------------------------ Reviewer 3
+
+> This paper discusses a way to use only a small subset of training
+instances as support vectors. The proposed method helps to simplify
+the model and may also save the training time.
+
+> The main idea is very simple: using (11) one gradually adds instances
+more independent of earlier ones. The proposed method is compared to
+libsvm and results are promising.
+
+> My main concern is that the proposed method should be compared with
+some existing approaches. For example, the authors may try approaches
+in [4] and [6]. A comparison with libsvm is good, but may not be
+enough.
+
+> In summary, I am unsure if the authors have shown significance
+evidences so users may want to switch from existing approaches to the
+proposed one.
+
+According to your and other reviewers’ suggestions we have tested IISVM on the Adult8 test-set (22700 samples, 123 features). Results indicate that IISVM behaves analogously as Figures 1 and 2 (linear and gaussian kernel); the basis settles at a size of about 123 in the linear case, accordingly.
+
+Comparison with [4] is unfeasible, since it is inherently off-line (it needs knowledge of the future samples). Comparison with [6] has been carried out by building an RSVM-like system in which the incremental addition of a sample is randomly determined. The probability of adding a sample is set such that the final size of the basis is the same as ours. We have tested this system against ours also on the new test-set, Adult8; results indicate that our system performs consistently better than RSVM, up to 10% faster.
+
+Please remind that in an online setting an RSVM-like approach keeps on growing the Gram matrix, whereas our approach settles at a constant value. This is the big plus of our system, we believe. (We are unable to show graphs here, but these new results will be reported in more detail in the final version, if the paper gets through.)
+
+Lastly, let us point out that incrementality is required when applying SVM to time-series prediction, since the flow of data might potentially be unlimited.
+
