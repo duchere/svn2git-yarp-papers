@@ -7,6 +7,14 @@
 \usepackage{amsmath}
 \usepackage[psamsfonts]{amssymb}
 \usepackage{url}
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+% ------------------------------------------------------------------------ 
+
+%\cvprfinalcopy
+\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+\ifcvprfinal\pagestyle{empty}\fi
 
 \def\RR{\mathbb{R}}
 \def\NN{\mathbb{N}}
@@ -20,53 +28,60 @@
 \def\b{\mathcal{B}}
 \def\d{\mathcal{D}}
 
-% ------------------------------------------------------------------------ 
-
-% Include other packages here, before hyperref.
-
-\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
-% \cvprfinalcopy % *** Uncomment this line for the final submission
-\def\cvprPaperID{****} % *** Enter the CVPR Paper ID here
-\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
-\ifcvprfinal\pagestyle{empty}\fi
-
 \begin{document}
 
 % ------------------------------------------------------------------------ 
 
-\title{Online place recognition in complex robot navigation \\
-using reduced-rank support vector classification}
+\title{Online Independent Support Vector Machines}
 
-\author{Francesco Orabona\\
+\author{
+Francesco Orabona, Claudio Castellini\\
 LIRA-Lab, University of Genova\\
-viale F. Causa, 13, 16145 Genova, Italy\\
-{\tt\small bremen@liralab.it}
-% For a paper whose authors are all at the same institution, 
-% omit the following lines up until the closing ``}''.
-% Additional authors and addresses can be added with ``\and'', 
-% just like the second author.
-% To save space, use either the email address or home page, not both
+Genova, Italy\\
+{\tt\small \{bremen,drwho\}@liralab.it}
 \and
-Second Author\\
-Institution2\\
-First line of institution2 address\\
-{\small\url{http://www.author.org/~second}}
+Barbara Caputo, Jie Luo\\
+IDIAP\\
+Martigny, Switzerland\\
+{\tt\small \{bcaputo,jiel\}@idiap.ch}
+\and
+Giulio Sandini\\
+Italian Institute of Technology\\
+Genova, Italy\\
+{\tt\small giulio.sandini@iit.it}
 }
 
 \maketitle
-% \thispagestyle{empty}
 
 % ------------------------------------------------------------------------ 
 
 \begin{abstract}
-  Real-time, online place recognition must be performed in most
-  complex robot navigation tasks. In this paper we analyse the
-  benefits of a novel online reduced-rank Support Vector
-  Classification method in such a framework.
 
-  In particular, we show that this method is able to retain the
-  accuracy of the non-reduced method, while allowing for a reduction
-  in the space requirement of up to XXXX%.
+  Support Vector Machines (SVMs) are a machine learning method widely
+  employed in, e.g., visual recognition, medical diagnosis and robotic
+  control. One of their most interesting characteristics is that the
+  solution achieved is sparse: a few samples (support vectors) usually
+  account for most of the complexity of the classification task. Both
+  the training and testing time crucially depend on the number of
+  support vectors, and it is then very important to keep their number
+  small, trying at the same time to retain the accuracy of the
+  solution. This is especially evident in online settings such as
+  topological mapping for a robotic platform, where a large amount of
+  unknown data is expected to be available as the robot adapts to the
+  changing environment.
+
+  In this paper we introduce a novel approach to the problem, called
+  Online Independent SVMs, in which the solution is built online using
+  only those support vectors which are linearly indepedent in the
+  feature space. We then show that OISVM achieve an excellent accuracy
+  vs. compactness trade-off in general, while retaining the full
+  accuracy of ordinary SVMs in case a finite-dimensional kernel is
+  used. This statement is supported by experiments on standard
+  benchmark databases as well as on a real-world application, namely
+  place recognition in an indoor environment, from sequences acquired
+  by robot platforms under different weather conditions and across a
+  time span of several months.
+
 \end{abstract}
 
 % ------------------------------------------------------------------------ 
