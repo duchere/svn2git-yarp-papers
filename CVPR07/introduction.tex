@@ -1,0 +1,60 @@
+In a number of research fields as diverse as, e.g., bioinformatics,
+data mining and robotics, it is crucial to be able to reconstruct an
+unknown function given a finite set of samples and the values the
+function assigns them. Given this very general problem, statistical
+learning theory \cite{v-edbed-82} can tell us how close our
+approximation is to the original function, and give us an indication
+of how well it will work. Usually, a set of samples of the unknown
+function is available, and then a machine learning algorithm is
+employed to interpolate the data.
+
+Introduced in the early 90s by Boser, Guyon and Vapnik \cite{BGV92},
+\emph{Support Vector Machines} (SVMs) are a class of such algorithms
+deeply rooted in statistical learning theory. As opposed to analogous
+algorithms such as, e.g., artificial neural networks, they have the
+main advantages that their training is guaranteed to end up in a
+global solution, that they can easily work in highly dimensional,
+non-linear feature spaces, and that the solution achieved is
+sparse. Due to these good properties, they have been now extensively
+used in, e.g., speech recognition, object classification and function
+approximation with good results \cite{Cristianini00}. As opposed to
+this, one of their main drawbacks is their alleged inability to cope
+with large datasets, since, in their na\"\i ve version, their space
+requirement is quadratic and the training time is cubic in the number
+of training samples \cite{KeerthiCDC06}.
+
+Because of this problem, there has been lately quite a lot of research
+upon the sparseness of their solution. That an SVM solution is
+\emph{sparse} means that usually just a few samples can account for
+most of the complexity of the approximated function; in fact, SVMs can
+be seen as a way of compressing data by selecting ``the most
+important'' samples (\emph{support vectors}) among those in the
+training set. Keeping the number of support vectors small without
+losing accuracy of the solution is therefore a major issue, also since
+a recent result \cite{Steinwart03} shows that the number of support
+vectors grows indefinitely as more training samples are acquired and
+used for training.
+
+Following related literature, in this paper we propose a method of
+selecting support vectors based upon \emph{linear independence in the
+feature space}: support vectors which are linearly dependent on
+already stored ones are rejected, and a smart, incremental
+minimisation algorithm is employed to find the new minimum of the cost
+function. The size of the kernel matrix --- basically the core of an
+SVM, and the major bottleneck --- is therefore kept small. Our
+experiments indicate that SVMs employing this idea, that we call
+\emph{Incremental Independent Support Vector Machines} (IISVMs), do
+not grow linearly with the training set, as it was the case in
+\cite{Steinwart03}, but reach a limit size and then stop growing in
+the case of finite-dimensional feature spaces, \emph{while keeping the
+full accuracy of standard SVMs}; and that they grow dramatically less
+in the infinite-dimensional case, at the price of a negligible loss in
+accuracy.
+
+The paper is structured as follows: in Section \ref{sec:bg} we
+introduce some mathematical background proper to SVMs and necessary to
+explain our idea; in Section \ref{sec:spars} some considerations on
+the sparseness of SVM solutions are stated. In Section \ref{sec:opt}
+then, we describe IISVM; in Section \ref{sec:exp} we show some
+experimental results, and lastly in Section \ref{sec:concl}
+conclusions are drawn and future work is outlined.

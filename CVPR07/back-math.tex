@@ -1,0 +1,86 @@
+
+
+Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and $y_i \in
+\{-1,1\}$, is a set of samples drawn from an unknown probability
+distribution. The problem is to approximate it in order to classify
+more data coming from the same source to the best extent
+possible. Assuming the data are linearly separable, according to the
+standard approach, a \emph{separating hyperplane} in $\RR^m$ is sought
+for:
+
+\begin{equation} \label{eqn:dec}
+  f(\xx) = sgn(\ww\cdot\xx + b)
+\end{equation}
+
+with $\ww \in \RR^m$ and $b \in \RR$. In this case, the hyperplane
+must respect the constraints $y_i(\ww\cdot\xx_i + b)-1\geq 0$, for all
+$i = 1,\ldots,l$ (from now on, this will be implicit whenever a
+subscript $i$ appears free in a formula). In the general, more likely
+and realistic case in which the data are not linearly separable, we
+introduce $l$ slack variables $\xi_i$ and rather require that
+$y_i(\ww\cdot\xx_i + b)-1+\xi_i\geq 0$, with $\xi_i \geq 0$. In order
+to find such a hyperplane, we wish to maximise the hyperplane's
+distance from both groups of samples (\emph{margin}). The margin is
+easily determined to be $\frac{2}{||\ww||}$, so we are left with the
+problem of minimising $||\ww||$ subject to the above constraints. The
+problem is then usually solved minimising the following expression:
+
+\begin{equation} \label{eqn:svm_primal}
+  \min_{\ww} \left( ||\ww||^2 + C \sum_{i=1}^l \xi_i \right)
+\end{equation}
+
+subject to the constraints
+
+\begin{eqnarray} \label{eqn:svm_constr}
+  y_i (\ww\cdot\xx_i + b) & \geq & 1-\xi_i \\
+                    \xi_i & \geq & 0 \nonumber
+\end{eqnarray}
+
+where $C \in \RR$ is a positive weight coefficient. Since both the
+problem and the constraints are convex, (\ref{eqn:svm_primal}) and
+(\ref{eqn:svm_constr}) can be compactly expressed in Lagrangian form
+by introducing $l$ pairs of coefficients $\alpha_i, \mu_i$ and then
+minimising the objective function
+
+\begin{eqnarray} \label{eqn:lp1}
+  L_P =
+      \frac{1}{2} ||\ww||^2
+    - \sum_{i=1}^l \alpha_i \left(y_i (\ww\cdot\xx_i+b) - 1 + \xi_i \right) \\
+    + C \sum_{i=1}^l \xi_i - \sum_{i=1}^l \mu_i \xi_i \nonumber
+\end{eqnarray}
+
+subject to the constraints that $\alpha_i,\mu_i\geq 0$. By using the
+extremum conditions for $\ww$ and $b$, that is, $\nabla_{\ww,b} L_P =
+0$, one finds that
+
+\begin{equation} \label{eqn:w1}
+  \ww = \sum_{i=1}^l \alpha_i y_i \xx_i
+\end{equation}
+
+which, substituted in Equation (\ref{eqn:dec}), gives
+
+\begin{equation} \label{eqn:lin_sol}
+  f(\xx) = sgn \left( \sum_{i=1}^l \alpha_i y_i \xx \cdot \xx_i + b \right)
+\end{equation}
+
+Notice that, in the last Equation, the $\xx$'s only appear in the form
+of inner products; in order to boost the expressive power of SVMs
+then, the $\xx_i$s are usually mapped to a highly, possibly
+infinite-dimensional space (the \emph{feature space}) via a
+non-linear mapping $\Phi(\xx)$; the core of the SVM becomes then the
+so-called \emph{kernel function} $K$ such that $K(\xx_1,\xx_2) =
+\Phi(\xx_1)\cdot\Phi(\xx_2)$. This idea is called \emph{kernel trick}
+and is standard in literature; it avoids the necessity of explicitly
+knowing $\Phi$. Equation (\ref{eqn:lin_sol}) then becomes
+
+\begin{equation} \label{eqn:sol}
+  f(\xx) = sgn \left( \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b \right)
+\end{equation}
+
+After training, that is after the minimisation of $L_P$, some of the
+$\alpha_i$s (actually most of them in many practical applications) are
+zero; those $\xx_i$s for which this does \emph{not} hold are somehow
+crucial to the solution and are called \emph{support vectors}, hence
+the name of the approach. This phenomenon is known as
+\emph{sparseness} of the solution, meaning that only a subset of the
+training data is usually really needed to build it.

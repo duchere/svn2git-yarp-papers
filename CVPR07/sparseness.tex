@@ -1,0 +1,73 @@
+The time required by an SVM to train and predict is, in turn, cubic
+and linear in the number of support vectors
+\cite{KeerthiCDC06}. Moreover, a recent result by Steinwart
+\cite{Steinwart03} indicates that the number of support vectors, $r$,
+increases linearly with the number $l$ of training samples. (Given a
+kernel function $K$, $r$ tends to $2 B_K l$, where $B_K$ is the
+smallest classification error achievable with the kernel $K$.)
+Therefore, although support vectors somehow code all the information
+required by the solution, their number grows indefinitely as the input
+space is sampled. It is then highly desirable that the number of
+support vectors is kept as small as possible, without losing accuracy.
+
+Several ideas have been proposed to cope with this problem. One
+possibility is that of heuristically choosing some support vectors,
+thus obtaining an approximate solution, as is done, e.g., in
+\cite{KeerthiCDC06,LeeM01,schoel06}. But if one is not willing to give
+up exactness, then a strong hint on how to select support vectors
+comes from the remark by Pontil and Verri \cite{PontilV98} that, if
+the kernel has finite dimension $m$, at most $m + 1$ support vectors
+are usually sufficient to fully determine the decision surface. This
+idea is based upon linear independence in the feature space. In fact,
+also in the case of infinitely-dimensional kernels, Downs et
+al. \cite{DownsGM01} have shown that one can simplify the solution by
+removing the linearly dependent support vectors, losing no
+accuracy. Unfortunately, the simplification is therein performed
+\emph{after} the training phase, so that it makes testing faster, but
+not training.
+
+In general, the possibility to obtain an alternative, possibly more
+compact representation of the SVM solution follows from the fact that
+the solution of a SVM problem is not unique if the
+kernel matrix $K$, where $K_{ij} = K(\xx_i,\xx_j)$, does not have full
+rank \cite{Burges98}, which is equivalent to some of the support vectors being
+linearly dependent on the others \emph{in the feature space}. This
+point can be confusing and needs an explanation: for instance, the
+$\alpha_i$s obtained by Downs et al. in general do not respect the
+Karush-Kuhn-Tucker (KKT) conditions --- a necessary condition for them
+to be a solution to the SVM problem; but still they are equivalent to
+the original optimal solution.
+
+It turns out that this is exactly due to $K$ being
+non-full-rank. Using the Representer Theorem
+\cite{CoxOS90,KimeldorfW70}, Equation (\ref{eqn:w1}) can be written as
+follows:
+
+\begin{equation} \label{eqn:w2}
+  \ww = \sum_{i=1}^l \beta_i \xx_i
+\end{equation}
+
+for a set of generic coefficients $\beta_i$. Substituting Equation
+(\ref{eqn:w2}) in (\ref{eqn:lp1}) and using the kernel trick, we get
+
+\begin{eqnarray} \label{eqn:svm_primal_general}
+  L'_P =   \sum_{i,j}^l \left( \frac{1}{2}\beta_i-\alpha_i y_i \right) \beta_j K_{ij} \\
+         - \sum_{i=1}^l \alpha_i (b y_i -1 +\xi_i) + \sum_{i=1}^l (C - \mu_i) \xi_i \nonumber
+\end{eqnarray}
+
+Now, enforcing the KKT conditions on \emph{this}, more general version
+of the problem, one obtains that
+
+\begin{equation} \label{eqn:kt2}
+  \frac{\partial L'_P}{\partial \beta_i} = \sum_{i=1}^l (\beta_i - \alpha_i y_i) K_{ij} = 0
+\end{equation}
+
+Clearly, in order for (\ref{eqn:kt2}) to hold, the vector whose
+components are $\beta_i-\alpha_i y_i$ must be in the null space of
+$K$. Now if $K$ has full rank, the null space only consists of the
+null vector, and therefore $\beta_i = \alpha_i y_i$ (this particular
+result already appears in \cite{KeerthiCDC06}). Otherwise, there are
+infinite solutions to the SVM problem, and the $\beta_i$s are not
+constrained at all. This agrees with Downs et al.'s method, and the
+very same result is obtained if we use the norm-2 formulation of
+Equation (\ref{eqn:svm_primal}), that is, with $\sum_{i=1}^l \xi_i^2$.

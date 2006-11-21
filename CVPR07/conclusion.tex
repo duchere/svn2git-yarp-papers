@@ -1,0 +1,23 @@
+
+A new method is presented to keep Support Vector Machines small,
+called IISVMs (Incremental Independent Support Vector
+Machines). IISVMs avoid inserting into their kernel matrix support
+vectors which are linearly dependent of previous ones in the feature
+space --- in other words, the kernel matrix is always kept at full
+rank. The primal SVM problem is then solved via an incremental
+algorithm which benefits of the small size of the kernel matrix.
+
+Experimental results show that $(i)$ in the case of finite-dimensional
+kernels, IISVMs attain the theoretical limit of linearly independent
+support vectors allowed by the feature space; $(ii)$ in the case of
+infinite-dimensional kernels, they dramatically reduce the number
+support vectors at the price of a negligible degradation in the
+accuracy. Notice that, in this latter case also, they can be used to
+obtain full precision, choosing the tolerance threshold to be equal to
+machine precision.
+
+Besides extending the approach to the problem of regression, future
+work is mainly developing in two directions: first, toward a
+theoretical characterisation of the results presented above; second,
+toward a fast implementation of IISVM in an online environment for
+object recognition, robotic kinematic models and grasping.
