@@ -1,1 +1,29 @@
-blabla
+The exploitation of SVM solution sparseness probably appears first in
+\cite{DownsGM01}: a simplification of the decision function is therein
+proposed, based upon linear independence of the support vectors in the
+feature space, performed \emph{after} the training is done. This is a
+simple consequence of the fact that, if the feature space has
+dimension $n$, at most $n+1$ independent SVs are required to build the
+solution \cite{PontilV98}. Downs et al.'s idea is useful in reducing
+the testing time, but not the training time, since every time new data
+is available training must be performed from scratch and taking into
+account all SVs found so far. Discarding from the sample set the
+linearly dependent SVs won't work, unless one is prepared to lose
+accuracy --- in fact, other methods to heuristically select a subset
+of the support vectors have been proposed,
+e.g. \cite{LeeM01,schoel06,KeerthiCDC06}.
+
+In order to keep the solution compact without losing accuracy, the key
+is to keep the size of the kernel matrix small, i.e., reducing its
+rank. Unsupervised rank reduction methods have been proposed, e.g., in
+\cite{KeerthiCDC06}, as well as supervised ones
+\cite{Baudat03,BachJordan2005}, but no application of these ideas
+appears so far, to the best of our knowledge, in online settings. This
+is particularly important since it has been shown \cite{Steinwart03}
+that the SV set grows linearly with the sample set; therefore, in an
+online setting, a SVM would grow indefinitely.
+
+The exact solution to online SVM learning was given by Cauwenberghs
+and Poggio in 2000 \cite{CauwenberghsP00}, but their idea has received
+little attention in the community so far \cite{Laskov2006}, probably
+due to the lack of a detailed analysis of its complexity.

@@ -1,16 +1,28 @@
+The time required by an SVM to train and predict is, in turn, cubic
+and linear in the number of support vectors \cite{KeerthiCDC06}. In
+general, the possibility to obtain an alternative, possibly more
+compact representation of the SVM solution follows from the fact that
+the solution of a SVM problem is not unique if the kernel matrix $K$
+does not have full rank \cite{Burges98}, which is equivalent to some
+of the support vectors being linearly dependent on the others \emph{in
+the feature space} (this is the core of Downs et al.'s
+\cite{DownsGM01} original idea).
+
 Following Keerthi et al. \cite{KeerthiCDC06} then, and inspired by the
 above considerations, we explicitly choose a subset of the support
 vectors to form a ``basis'' for the solution. In that paper, two
 heuristics are proposed to select an appropriate subset of support
-vectors; we hereby propose to incrementally select a set of support
-vectors that are linearly independent in the feature space. The
-solution found this way is the same as if using all the training
-samples as basis set, that is the classical SVM formulation. No
-approximation whatsoever is involved, unless one gives it up in order
-to obtain even less support vectors. See below, especially Section
-\ref{sec:exp}, for a discussion on this point.
+vectors; we hereby propose to incrementally add a support vector if it
+is linearly independent in the feature space with respect to the
+vectors already present in the basis. This makes our algorithm
+suitable for online learning. The solution found this way is the same
+as if using all the training samples as basis set, that is the
+classical SVM formulation; therefore, no approximation whatsoever is
+involved, unless one gives it up in order to obtain even less support
+vectors. See below, especially Section \ref{sec:exp}, for a discussion
+on this point.
 
-In the following, the notation $A_{IJ}$ and $\mathbf{v}_I$, where $A$
+In the following, the notations $A_{IJ}$ and $\mathbf{v}_I$, where $A$
 is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
 turn the sub-matrix and the sub-vector obtained from $A$ and
 $\mathbf{v}$ by taking the indexes in $I$ and $J$. We assume that a
@@ -36,15 +48,16 @@ as follows:
 The next two Subsections detail the linear independence test and the
 training method.
 
-\subsection{Linear independence}
+\subsection*{Linear independence}
 
-In general, checking linear independence in a matrix is done via some
+In general, checking whether a matrix has full rank is done via some
 decomposition, or by looking at the eigenvalues of the matrix; but
 here we want to check whether a \emph{single} vector is linearly
-independent from a set of vectors. Inspired by the definition of
-linear independence \cite{EngelMM02sparse}, we check how well the
-vector can be approximated by a linear combination of the vectors in
-the set. Let $d_j \in \RR$ with $j \in \b$; then let
+independent from a matrix which is already known to be
+full-rank. Inspired by the definition of linear independence
+\cite{EngelMM02sparse}, we check how well the vector can be
+approximated by a linear combination of the vectors in the set. Let
+$d_j \in \RR$ with $j \in \b$; then let
 
 \begin{equation} \label{eqn:ald1}
   \Delta = \min_\dd \left|\left|\sum_{j \in \b} d_j \phi(\xx_j) - \phi(\xx_{l+1}) \right|\right|^2
@@ -53,9 +66,13 @@ the set. Let $d_j \in \RR$ with $j \in \b$; then let
 If $\Delta > 0$ then $\xx_{l+1}$ is linearly independent with respect
 to the basis, and $l+1$ is added to $\b$. In practice, we check
 whether $\Delta \leq \eta$ where $\eta > 0$ is a tolerance factor, and
-we expect that larger values of $\eta$ lead to worse accuracy, but also
+expect that larger values of $\eta$ lead to worse accuracy, but also
 to smaller bases. As a matter of fact, if $\eta$ is set at machine
-precision, IISVMs retain the exact accuracy of SVMs.
+precision, IISVMs retain the exact accuracy of SVMs. Notice also that
+if the feature space, i.e., the space in which the $\Phi(\xx)$ live,
+has finite dimension $n$, then no more than $n$ linearly independent
+vectors can be found, and therefore by using this test $K$'s size can
+be at most $n \times n$.
 
 Expanding equation (\ref{eqn:ald1}) we get
 
@@ -66,7 +83,7 @@ Expanding equation (\ref{eqn:ald1}) we get
     + \phi(\xx_{l+1}) \cdot \phi(\xx_{l+1}) ) \nonumber
 \end{eqnarray}
 
-that is, applying the kernel trick,
+\noindent that is, applying the kernel trick,
 
 \begin{equation} \label{eqn:ald3}
   \Delta = \min_{\dd} \left(
@@ -76,32 +93,27 @@ that is, applying the kernel trick,
   \right)
 \end{equation}
 
-where $k_i = K(\xx_i,\xx_{l+1})$ with $i \in \b$.
-%It is
-%apparent from Equation (\ref{eqn:ald3}) that the range of $\eta$ is
-%related to the kernel used; for example for Gaussian kernels $\D \leq
-%1$ and hence good values of $\eta$ range in $\{0,1\}$.
-
-Solving (\ref{eqn:ald3}), that is, applying the extremum conditions
-with respect to $\dd$, we obtain
+\noindent where $k_i = K(\xx_i,\xx_{l+1})$ with $i \in \b$. Solving
+(\ref{eqn:ald3}), that is, applying the extremum conditions with
+respect to $\dd$, we obtain
 
 \begin{equation} \label{eqn:ald4}
   \mdd = K_{\b\b}^{-1} \mathbf{k} \\
 \end{equation}
 
-and, by replacing (\ref{eqn:ald4}) in (\ref{eqn:ald3}) once,
+\noindent and, by replacing (\ref{eqn:ald4}) in (\ref{eqn:ald3}) once,
 
 \begin{equation} \label{eqn:ald5}
   \Delta = K(\xx_{l+1},\xx_{l+1}) - \mathbf{k}^T \mdd
 \end{equation}
 
-Note that $\b$ can be safely inverted since, by incremental
+Note that $K_{\b\b}$ can be safely inverted since, by incremental
 construction, it is full-rank. An efficient way to do it, exploiting
 the incrementality of the approach, is that of updating it
-recursively:
+recursively: after the addition of a new sample, the new
+$K_{\b\b}^{-1}$ then becomes
 
 \begin{equation} \label{eqn:inv_upd}
-  K_{\b\b}^{-1} ~~~ \leftarrow ~~~
   \left[\begin{array}{cccc}
        &               &   & 0 \\
        & K_{\b\b}^{-1} &   & \vdots \\
@@ -119,13 +131,13 @@ recursively:
   \end{array}\right]
 \end{equation}
 
-where $\mdd$ and $\Delta$ are already evaluated during the test. This
+\noindent where $\mdd$ and $\Delta$ are already evaluated during the test. This
 method matches the one used in Cauwenberghs and Poggio's incremental
 algorithm \cite{CauwenberghsP00}, in turn similar to on-line recursive
 estimation of the covariance of sparsified Gaussian processes
 \cite{csat'o01sparse}.
 
-\subsection{Training the machine}
+\subsection*{Training the machine}
 
 The training method largely follows Keerthi et
 al. \cite{KeerthiDC05,KeerthiCDC06}. We consider the norm-2

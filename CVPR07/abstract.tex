@@ -1,24 +1,24 @@
-  Support Vector Machines (SVMs) are a machine learning method widely
-  employed in, e.g., visual recognition, medical diagnosis and robotic
-  control. One of their most interesting characteristics is that the
-  solution achieved is sparse: a few samples (support vectors) usually
-  account for most of the complexity of the classification task. Both
-  the training and testing time crucially depend on the number of
-  support vectors, and it is then very important to keep their number
-  small, trying at the same time to retain the accuracy of the
-  solution. This is especially evident in online settings such as
-  topological mapping for a robotic platform, where a large amount of
-  unknown data is expected to be available as the robot adapts to the
-  changing environment.
+Support Vector Machines (SVMs) are a machine learning method widely
+employed in, e.g., visual recognition, medical diagnosis and robotic
+control. One of their most interesting characteristics is that the
+solution achieved is sparse: a few samples (support vectors) usually
+account for most of the complexity of the classification task. Both
+the training and testing time crucially depend on the number of
+support vectors, and it is then very important to keep their number
+small, trying at the same time to retain the accuracy of the
+solution. This is especially evident in online settings such as
+topological mapping for a robotic platform, where a large amount of
+unknown data is expected to be available as the robot adapts to the
+changing environment.
 
-  In this paper we introduce a novel approach to the problem, called
-  Online Independent SVMs, in which the solution is built online using
-  only those support vectors which are linearly indepedent in the
-  feature space. We then show that OISVM achieve an excellent accuracy
-  vs. compactness trade-off in general, while retaining the full
-  accuracy of ordinary SVMs in case a finite-dimensional kernel is
-  used. This statement is supported by experiments on standard
-  benchmark databases as well as on a real-world application, namely
-  place recognition in an indoor environment, from sequences acquired
-  by robot platforms under different weather conditions and across a
-  time span of several months.
+In this paper we introduce a novel approach to the problem, called
+Online Independent SVMs, in which the solution is built online using
+only those support vectors which are linearly indepedent in the
+feature space. We then show that OISVMs achieve an excellent accuracy
+vs. compactness trade-off in general, while retaining the full
+accuracy of ordinary SVMs in case a finite-dimensional kernel is
+used. This statement is supported by experiments on standard benchmark
+databases as well as on a real-world application, namely place
+recognition in an indoor environment, from sequences acquired by robot
+platforms under different weather conditions and across a time span of
+several months.
