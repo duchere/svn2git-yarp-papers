@@ -16,29 +16,29 @@ source to the best extent possible. In the most general setting, a
 \cdot \Phi(\xx_2)$, the \emph{kernel function}, evaluates dot
 products between elements of $\RR^m$ in the feature space --- that is,
 through a non-linear mapping $\Phi(\xx)$. This enables SVMs to work
-with highly non-separable data, gifted with non-linear features.
-
-The coefficients $\alpha_i$ are found by minimisation of the
-associated \emph{Lagrangian primal problem} (training phase):
+with highly non-separable data, gifted with non-linear features. The
+$\alpha_i$s are Lagrangian coefficients associated to the functional
 
 \begin{equation} \label{eqn:svm_primal}
-  \min_{\ww} \left( ||\ww||^2 + C \sum_{i=1}^l \xi_i \right)
+  ||\ww||^2 + C \sum_{i=1}^l \xi_i
 \end{equation}
 
-\noindent subject to the constraints
+\noindent which must be minimised after they have been introduced,
+subject to the constraints
 
 \begin{eqnarray} \label{eqn:svm_constr}
   y_i (\ww\cdot\xx_i + b) & \geq & 1-\xi_i \\
-                    \xi_i & \geq & 0 \nonumber
+                    \xi_i & \geq & 0       \nonumber
 \end{eqnarray}
 
-\noindent where $C \in \RR$ is a positive weight coefficient. The main
-element is the so-called \emph{kernel matrix} $K$, where $K_{ij} =
-K(\xx_i,\xx_j)$. Notice that in general the size of $K$ is $l \times
-l$, but that in most practical applications, most of the $\alpha_i$
-are found to be zero after training and therefore can be neglected in
-evaluating the solution. In fact, those $\xx_i$s for which this does
-\emph{not} hold are somehow crucial to the solution and are called
-\emph{support vectors}. This phenomenon is known as \emph{sparseness}
-of the solution, meaning that only a subset of the training data is
-usually really needed to build it.
+\noindent where $\ww \in \RR^m$ defines the separating hyperplane,
+$\xi_i \in \RR$ are slack variables and $C \in \RR$ is a positive
+weight coefficient. The main element is the so-called \emph{kernel
+matrix} $K$, where $K_{ij} = K(\xx_i,\xx_j)$. Notice that in general
+the size of $K$ is $l \times l$, but that in most practical
+applications, most of the $\alpha_i$ are found to be zero after
+training and therefore can be neglected in evaluating the solution. In
+fact, those $\xx_i$s for which this does \emph{not} hold are crucial
+to the solution and are called \emph{support vectors}. This phenomenon
+is known as \emph{sparseness} of the solution, meaning that only a
+subset of the training data is usually really needed to build it.
