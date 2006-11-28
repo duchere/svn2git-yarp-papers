@@ -27,3 +27,17 @@ The exact solution to online SVM learning was given by Cauwenberghs
 and Poggio in 2000 \cite{CauwenberghsP00}, but their idea has received
 little attention in the community so far \cite{Laskov2006}, probably
 due to the lack of a detailed analysis of its complexity.
+
+Visual place recognition for robot platforms is a
+much researched topic where online learning is a critical property.
+Incremental learning approaches had been so far mostly used for constructing
+the geometrical map, or the environment representation, online.
+Brunskill et~al. \cite{emma:irca05} proposed a model using incremental PCA
+for simultaneous localization and mapping (SLAM). A similar approach was used
+in the only work we are aware of that uses an incremental method in the
+context of place recognition. In \cite{ljubjiana:icra02} incremental PCA was
+used to update low-dimensional representations of images taken by a mobile
+robot as it moved around in an environment. They also tested repetitive
+learning of their model with the same training images several times.
+While they obtained impressive results in term of reconstruction, their
+method was not tested for classification.
