@@ -1,43 +1,46 @@
-Willing to do online learning, we have to squeeze both the training
-and testing time of an SVM, and sparseness seems to be the key. The
-idea is that of online reducing the size of $K$, that is, selecting an
-appropriate subset of the support vectors (a ``basis'') to build it,
-without losing precision. The possibility to obtain a more compact
-representation of $f(\xx)$ follows from the fact that the solution to
-a SVM problem (that is, the $\alpha_i$s) is not unique if $K$ does not
-have full rank \cite{Burges98}, which is equivalent to some of the
-support vectors being linearly dependent on some others
-\emph{in the feature space} (this is the core of Downs et al.'s
+The possibility to obtain a more compact representation of $f(\xx)$ follows
+from the fact that the solution to a SVM problem (that is, the $\alpha_i$s)
+is not unique if $K$ does not have full rank \cite{Burges98}, which is
+equivalent to some of the support vectors being linearly dependent on some
+others \emph{in the feature space} (this is the core of Downs et al.'s
 \cite{DownsGM01} original idea).
 
-We hereby propose to incrementally add to the basis a support vector
-if it is linearly independent in the feature space from those already
-present in the basis itself. This keeps $K$ at full rank, and the
-solution found is \emph{the same} as in the classical SVM formulation;
-therefore, no approximation whatsoever is involved, unless one gives
-it up in order to obtain an even smaller $K$ (see Section
-\ref{sec:exp} for a deeper discussion on this point).
+To avoid to simplify the solution found after each re-training like in
+\cite{DownsGM01}, we must find a way to force the training algorithm to
+use only indipendent vectors in the feature space as support vectors.
+Hence the main idea is to decouple the concept of ``base'' vectors, used
+to build the classification function (\ref{eqn:sol}), from the sample
+points used to find out the $\aa$s. If the selected base vectors span the
+same subspace of all the training points, the solution found will be equivalent
+to a normal training using all the points, that is we will not lose any
+precision.
 
-In the following, the notations $A_{IJ}$ and $\mathbf{v}_I$, where $A$
-is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
-turn the sub-matrix and the sub-vector obtained from $A$ and
-$\mathbf{v}$ by taking the indexes in $I$ and $J$. The indexes of the
-vectors in the current basis are denoted by $\b$, and $\xx_{l+1}$
-denotes the new sample under judgement. Since the procedure is
-incremental, we also assume that the vectors indexed by $\b$ are
-linearly independent in the feature space, that is, that $K_{\b\b}$
-has full rank. The question is: should the new sample be added to the
-basis? The algorithm can then be summed up as follows:
+We hereby propose, after having received a new training sample, to
+incrementally add it to the basis if it is linearly independent
+in the feature space from those already present in the basis.
+The solution found is \emph{the same} as in the classical SVM formulation;
+therefore, no approximation whatsoever is involved, unless one gives it up
+in order to obtain even less support vectors (see Section \ref{sec:exp} for
+a deeper discussion on this point).
+
+Denoting the indexes of the vectors in the current basis, after $l$ training
+samples, by $\b$, and the new sample under judgement by $\xx_{l+1}$, the
+algorithm can then be summed up as follows:
 
 \begin{enumerate}
 
   \item check whether $\xx_{l+1}$ is linearly independent from the
-        basis in the feature space; if it is, add it to the basis;
+        basis in the feature space; if it is, add it to the basis set $\b$;
         otherwise, leave the basis unchanged.
 
   \item incrementally re-train the machine.
 
 \end{enumerate}
+
+In the following, the notations $A_{IJ}$ and $\mathbf{v}_I$, where $A$
+is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
+turn the sub-matrix and the sub-vector obtained from $A$ and
+$\mathbf{v}$ by taking the indexes in $I$ and $J$.
 
 \subsection*{Linear independence}
 
@@ -127,10 +130,12 @@ incremental algorithm \cite{CauwenberghsP00}.
 \subsection*{Training the machine}
 
 The training method largely follows Keerthi et
-al. \cite{KeerthiDC05,KeerthiCDC06}. We consider the norm-2
-formulation of (\ref{eqn:svm_primal}), e.g., $\xi_i$ is squared in the
-sum, and transform it to an unconstrained problem. Let $\d \subset
-\{1,\ldots,l\}$; then the unconstrained problem is
+al. \cite{KeerthiDC05,KeerthiCDC06} that we have adapted for online training.
+The algorithm minimizes the problem (\ref{eqn:svm_primal}) directly in the primal,
+allowing to select explicitely the basis vectors to use.
+We consider the norm-2 formulation of (\ref{eqn:svm_primal}), e.g., $\xi_i$ is
+squared in the sum, and transform it to an unconstrained problem.
+Let $\d \subset \{1,\ldots,l\}$; then the unconstrained problem is
 
 \begin{equation} \label{eqn:primal}
   \min_{\bb} \left( 
@@ -144,14 +149,15 @@ in $f(\xx)$, analogously to the $\alpha_i$s in the original
 formulation. If we set $\d = \b$, then the solution to the problem is
 unique since $K_{\b\b}$ is full rank by construction. Newton's method
 as modified by Keerthi et al. \cite{KeerthiDC05,KeerthiCDC06} can then
-be used to solve (\ref{eqn:primal}). Setting $\bb$ to a small constant
-initially, the method goes as follows:
+be used to solve (\ref{eqn:primal}) after each new sample. When the new sample
+$\xx_{l+1}$ is received the method goes as follows:
 
 \begin{enumerate}
 
    \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
-     K_{i,\b} \bb$; if $\mathcal{I}$ turns out to be identical to the
-     value found at the previous loop, stop. 
+     K_{i,\b} \bb$ and $\bb$ is the vector of optimal coefficients with $l$ training
+	 samples; if $\mathcal{I}$ turns out to be identical to the value found
+	 at the previous loop, stop. 
 
    \item otherwise, let the new $\bb$ be
      $\bb - \gamma \mathbf{P}^{-1}\mathbf{g}$, where
@@ -165,5 +171,9 @@ initially, the method goes as follows:
 
 In Step $2$ above, $\gamma$ is set to one. In order to speed up the
 algorithm, we maintain an updated Cholesky decomposition of
-$\mathbf{P}$. The space complexity of the algorithm is
-$O(|\b|^2+|\b|l)$.
+$\mathbf{P}$.
+It turns out that using the seeding for the $\bb$ coefficients the
+algorithm converges in $0-2$ iterations in average and the computational
+complexity for the re-training is $O(|\b|l)$ and the space complexity
+is $O(|\b|l)$. Hence keeping the basis set small will speed up the training
+time as well as the testing time.
