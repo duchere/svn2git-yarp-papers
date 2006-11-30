@@ -45,10 +45,9 @@ In general, checking whether a matrix has full rank is done via some
 decomposition, or by looking at the eigenvalues of the matrix; but
 here we want to check whether a \emph{single} vector is linearly
 independent from a matrix which is already known to be
-full-rank. Inspired by the definition of linear independence
-\cite{EngelMM02sparse}, we check how well the vector can be
-approximated by a linear combination of the vectors in the set. Let
-$d_j \in \RR$; then let
+full-rank. Inspired by the definition of linear independence, we check
+how well the vector can be approximated by a linear combination of the
+vectors in the set \cite{EngelMM02sparse}. Let $d_j \in \RR$; then let
 
 \begin{equation} \label{eqn:ald1}
   \Delta = \min_\dd \left|\left|\sum_{j \in \b} d_j \phi(\xx_j) - \phi(\xx_{l+1}) \right|\right|^2
@@ -61,8 +60,8 @@ expect that larger values of $\eta$ lead to worse accuracy, but also
 to smaller bases. As a matter of fact, if $\eta$ is set at machine
 precision, IISVMs retain the exact accuracy of SVMs. Notice also that
 if the feature space has finite dimension $n$, then no more than $n$
-linearly independent vectors can be found, and therefore by using this
-test $K$'s size can be at most $n \times n$.
+linearly independent vectors can be found, and the basis cannot
+contain more than $n$ vectors.
 
 Expanding equation (\ref{eqn:ald1}) we get
 

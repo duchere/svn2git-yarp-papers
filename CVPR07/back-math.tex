@@ -1,11 +1,11 @@
 Due to space limitations, this is a very quick account of SVMs --- the
-interested reader is referred to \cite{Burges98,SmolaTut2004} for a
-tutorial, and to \cite{Cristianini00} for a comprehensive introduction
-to the subject. Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$
-and $y_i \in \{-1,1\}$, is a set of samples and labels drawn from an
+interested reader is referred to \cite{Burges98} for a tutorial, and
+to \cite{Cristianini00} for a comprehensive introduction to the
+subject. Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and
+$y_i \in \{-1,1\}$, is a set of samples and labels drawn from an
 unknown probability distribution; we want to find a function $f(\xx)$
-best approximating it, such that $sign(f(\xx))$ determines the
-category of any future sample $\xx$. In the most general setting,
+such that $sign(f(\xx))$ best determines the category of any future
+sample $\xx$. In the most general setting,
 
 \begin{equation} \label{eqn:sol}
   f(\xx) = \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b
@@ -14,20 +14,19 @@ category of any future sample $\xx$. In the most general setting,
 \noindent where $b \in \RR$ and $K(\xx_1,\xx_2) = \Phi(\xx_1)
 \cdot \Phi(\xx_2)$, the \emph{kernel function}, evaluates inner
 products between samples through a non-linear mapping $\Phi$. The
-$\alpha_i$s are Lagrangian coefficients obtained by solving (the
+$\alpha_i$s are Lagrangian coefficients obtained by solving (the dual
 Lagrangian form of) the problem
 
 \begin{eqnarray} \label{eqn:svm_primal}
-  \min_{\ww,b}      & \frac{1}{2} ||\ww||^2 + C \sum_{i=1}^l \xi_i \\
-  \mbox{subject to} & y_i (\ww\cdot\xx_i + b) \geq 1-\xi_i         \nonumber \\
-                    & \xi_i \geq 0                                 \nonumber
+  \min_{\ww,b}      & \frac{1}{2} ||\ww||^2 + C \sum_{i=1}^l L(\xi_i) \\
+  \mbox{subject to} & y_i (\ww\cdot\xx_i + b) \geq 1-\xi_i            \nonumber \\
+                    & \xi_i \geq 0                                    \nonumber
 \end{eqnarray}
 
 \noindent where $\ww \in \RR^m$ defines a \emph{separating hyperplane}
 in the feature space, i.e., the space where $\Phi$ lives, whereas
 $\xi_i \in \RR$ are slack variables and $C \in \RR$ is a positive
-weight coefficient. The condition $0 \leq \alpha_i \leq C$ must
-hold.
+error penalty coefficient. $L(\cdot)$ is a loss function.
 
 Thanks to the introduction of $K(\cdot,\cdot)$ and the associated
 \emph{kernel matrix} $K$, with $K_{ij} = K(\xx_i,\xx_j)$, SVMs are
@@ -38,6 +37,4 @@ l$, and the time required by an SVM to train and predict is, in turn,
 cubic and linear in it \cite{KeerthiCDC06}; but, in practice, most of
 the $\alpha_i$ are found to be zero after training and therefore can
 be neglected in evaluating the solution (those $\xx_i$s which cannot
-be neglected are called \emph{support vectors}). This phenomenon is
-known as \emph{sparseness} of the solution, meaning that only a subset
-of the training data is usually really needed to build it.
+be neglected are called \emph{support vectors}).
