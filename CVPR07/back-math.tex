@@ -18,23 +18,21 @@ $\alpha_i$s are Lagrangian coefficients obtained by solving (the dual
 Lagrangian form of) the problem
 
 \begin{eqnarray} \label{eqn:svm_primal}
-  \min_{\ww,b}      & \frac{1}{2} ||\ww||^2 + C \sum_{i=1}^l L(\xi_i) \\
+  \min_{\ww,b}      & \frac{1}{2} ||\ww||^2 + C \sum_{i=1}^l \xi_i^p \\
   \mbox{subject to} & y_i (\ww\cdot\xx_i + b) \geq 1-\xi_i            \nonumber \\
                     & \xi_i \geq 0                                    \nonumber
 \end{eqnarray}
 
-\noindent where $\ww \in \RR^m$ defines a \emph{separating hyperplane}
+\noindent where $\ww$ defines a \emph{separating hyperplane}
 in the feature space, i.e., the space where $\Phi$ lives, whereas
-$\xi_i \in \RR$ are slack variables and $C \in \RR$ is a positive
-error penalty coefficient. $L(\cdot)$ is a loss function.
+$\xi_i \in \RR$ are slack variables, $C \in \RR^+$ is a error penalty
+coefficient and $p$ is usually $1$ or $2$.
 
 Thanks to the introduction of $K(\cdot,\cdot)$ and the associated
 \emph{kernel matrix} $K$, with $K_{ij} = K(\xx_i,\xx_j)$, SVMs are
 able to find $f(\xx)$, complex as it may be, by solving a linear
 separation problem in a highly-dimensional space. This idea is often
-called \emph{kernel trick}. In general, the size of $K$ is $l \times
-l$, and the time required by an SVM to train and predict is, in turn,
-cubic and linear in it \cite{KeerthiCDC06}; but, in practice, most of
-the $\alpha_i$ are found to be zero after training and therefore can
-be neglected in evaluating the solution (those $\xx_i$s which cannot
+called \emph{kernel trick}. In practice, most of the $\alpha_i$ are found
+to be zero after training and therefore can be neglected in evaluating the
+separating hyperplane in formula (\ref{eqn:sol}) (those $\xx_i$s which cannot
 be neglected are called \emph{support vectors}).
