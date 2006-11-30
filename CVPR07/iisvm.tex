@@ -68,7 +68,7 @@ to the basis, and $l+1$ is added to $\b$. In practice, we check
 whether $\Delta \leq \eta$ where $\eta > 0$ is a tolerance factor, and
 expect that larger values of $\eta$ lead to worse accuracy, but also
 to smaller bases. As a matter of fact, if $\eta$ is set at machine
-precision, IISVMs retain the exact accuracy of SVMs. Notice also that
+precision, OISVMs retain the exact accuracy of SVMs. Notice also that
 if the feature space has finite dimension $n$, then no more than $n$
 linearly independent vectors can be found, and therefore by using this
 test $K$'s size can be at most $n \times n$.
@@ -159,7 +159,7 @@ al. \cite{KeerthiDC05,KeerthiCDC06} can then be used to solve
 
 \begin{enumerate}
 
-   \item use the current value of $\boldsymbol{\beta}$ as as starting
+   \item use the current value of $\boldsymbol{\beta}$ as starting
      vector;
 
    \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
