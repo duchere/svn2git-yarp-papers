@@ -1,0 +1,10 @@
+In order to test the effectiveness of OISVMs with respect to standard
+SVMs, we first show some numerical results on standard benchmarks for machine learning methods. We have chosen finite- and infinite-dimensional kernels, namely polynomial kernels of degree $1$ (linear) and cubic, and
+Gaussian kernel. In the finite-dimensional case, $\eta$ is
+essentially irrelevant, and we have set it to machine precision. 
+In the case of the infinite-dimensional kernel, we have run the OISVM with
+$\eta$ at different values, expecting, as foretold, bigger values of
+$\eta$ to cause the accuracy to degrade, but also the size of the
+machine to remain smaller than with smaller values.
+For each benchmark, we display the mean number of retained support vectors
+on $5$ random $75\%/25\%$ train/test runs as well as the mean performance loss.
