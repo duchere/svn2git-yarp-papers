@@ -14,48 +14,46 @@ main drawbacks is their alleged inability to cope with large datasets,
 since their space requirement is quadratic and the training time is
 cubic in the number of training samples \cite{KeerthiCDC06}.
 
-Yet, in most real-life applications, online learning must be
-performed. Online learning is a scenario in which training data is
-provided one example at a time, as opposed to the batch mode in which
-all examples are available at once (see
-\cite{Laskov2006} and citations therein, such as
-\cite{Munro1951,lecun98efficient,Murata2002}). In the case of
+Yet, in most real-life applications, datasets \emph{are} large, for
+example when online learning must be performed. Online learning is a
+scenario in which training data is provided one example at a time, as
+opposed to the batch mode in which all examples are available at once
+(see \cite{Laskov2006} and citations therein, such as
+\cite{Munro1951,lecun98efficient,Murata2002}). In the case of, e.g.,
 non-stationary data, online algorithms will generally perform better
-if ambiguous information, e.g. different distributions varying over
-time, is present, and couldn't possibly be taken into account by the
+since ambiguous information (i.e., whose distribution varies over
+time) is present, and couldn't possibly be taken into account by the
 batch algorithm. Online algorithms allow to incorporate additional
-training data, when it is available, without re-training from
-scratch.
+training data, when it is available, without re-training from scratch.
 
-Therefore, applying SVMs in an on-line setting looks appealing but
-requires the ability to cope with large data-sets and to slash the
-training and testing times. One of the keys to the problem seems to
-lie in the the sparseness of their solution. That an SVM solution is
-\emph{sparse} means that usually just a few samples can account for
-most of the complexity of the approximated function; in fact, SVMs can
-be seen as a way of compressing data by selecting ``the most
-important'' samples (\emph{support vectors}) among those in the
-training set. Keeping the number of support vectors small without
-losing accuracy of the solution is therefore a major issue, also since
-a recent result \cite{Steinwart03} shows that the number of support
-vectors grows indefinitely as more training samples are acquired and
-used for training.
+In an online setting there is no guarantee that the flow of data will
+\emph{ever} cease; therefore, applying SVMs here looks appealing but
+we need a way to cope with large datasets and slash the training and
+testing times. One of the keys to the problem seems to lie in the the
+sparseness of their solution. That an SVM solution is \emph{sparse}
+means that usually just a few samples can account for most of its
+complexity; in fact, SVMs can be seen as a way of compressing data by
+selecting ``the most important'' samples (\emph{support vectors})
+among those in the training set. Keeping the number of support vectors
+small without losing accuracy is therefore a major challenge, also
+since a recent result \cite{Steinwart03} shows that the number of
+support vectors grows indefinitely as more training samples are
+acquired and used for training.
 
-Following related literature, in this paper we propose a method of
-selecting support vectors based upon \emph{linear independence in the
-feature space}: support vectors which are linearly dependent on
-already stored ones are rejected, and a smart, incremental
-minimisation algorithm is employed to find the new minimum of the cost
-function. The size of the kernel matrix (the core of an
-SVM and its major bottleneck) is therefore kept small. Our
-experiments indicate that SVMs employing this idea, that we call
-\emph{Online Independent Support Vector Machines} (OISVMs), do
-not grow linearly with the training set, as it was the case in
-\cite{Steinwart03}, but reach a limit size and then stop growing in
-the case of finite-dimensional feature spaces, \emph{while keeping the
-full accuracy of standard SVMs}; and that they grow dramatically less
-in the infinite-dimensional case, at the price of a negligible loss in
-accuracy.
+In this paper we propose a method of incrementally selecting support
+vectors based upon \emph{linear independence in the feature space}:
+support vectors which are linearly dependent on already stored ones
+are rejected, and a smart, incremental minimisation algorithm is
+employed to find the new minimum of the cost function. The size of the
+kernel matrix (the core of an SVM and its major bottleneck) is
+therefore kept small. Our experiments indicate that SVMs employing
+this idea, that we call \emph{Online Independent Support Vector
+Machines} (OISVMs), do not grow linearly with the training set, as it
+was the case in \cite{Steinwart03}, but reach a limit size and then
+stop growing in the case of finite-dimensional feature spaces,
+\emph{while keeping the full accuracy of standard SVMs}; and that they
+grow dramatically less in the infinite-dimensional case, at the price
+of a negligible loss in accuracy.
 
 To support this claim, we show an extensive set of experimental
 results obtained by comparing SVMs and OISVMs on standard benchmark
@@ -63,12 +61,11 @@ databases as well as on a real-world, online application coming from
 robotic vision: place recognition in an indoor environment, from
 sequences acquired by robot platforms under different weather
 conditions and across a time span of several months.
-{\bf FIXME CLAUDIO: should't we have here something about what happened 
-doing the experiments? Like 'Our results show that \ldots'}
+{\bf qualche numero qui.}
 
-The paper is structured as follows: after a review of the relevant literature,
- Section \ref{sec:bg}  gives an
-overview of background mathematics proper to SVMs; in Section
-\ref{sec:opt} OISVMs are described; in Section
-\ref{sec:exp} we show the experimental results; and lastly in Section
-\ref{sec:concl} conclusions are drawn and future work is outlined.
+The paper is structured as follows: after a review of the relevant
+literature, Section \ref{sec:bg} gives an overview of background
+mathematics proper to SVMs; in Section \ref{sec:opt} OISVMs are
+described; in Section \ref{sec:exp} we show the experimental results;
+and lastly in Section \ref{sec:concl} conclusions are drawn and future
+work is outlined.

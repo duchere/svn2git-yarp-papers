@@ -3,42 +3,41 @@ interested reader is referred to \cite{Burges98,SmolaTut2004} for a
 tutorial, and to \cite{Cristianini00} for a comprehensive introduction
 to the subject. Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$
 and $y_i \in \{-1,1\}$, is a set of samples and labels drawn from an
-unknown probability distribution. The problem is to approximate the
-distribution in order to classify more data coming from the same
-source to the best extent possible. In the most general setting, a
-\emph{separating hyperplane} in $\RR^m$ is sought for,
+unknown probability distribution; we want to find a function $f(\xx)$
+best approximating it, such that $sign(f(\xx))$ determines the
+category of any future sample $\xx$. In the most general setting,
 
 \begin{equation} \label{eqn:sol}
-  f(\xx) = sgn \left( \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b \right)
+  f(\xx) = \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b
 \end{equation}
 
-\noindent where $\alpha_i,b \in \RR$ and $K(\xx_1,\xx_2) = \Phi(\xx_1)
-\cdot \Phi(\xx_2)$, the \emph{kernel function}, evaluates dot
-products between elements of $\RR^m$ in the feature space --- that is,
-through a non-linear mapping $\Phi(\xx)$. This enables SVMs to work
-with highly non-separable data, gifted with non-linear features. The
-$\alpha_i$s are Lagrangian coefficients associated to the functional
+\noindent where $b \in \RR$ and $K(\xx_1,\xx_2) = \Phi(\xx_1)
+\cdot \Phi(\xx_2)$, the \emph{kernel function}, evaluates inner
+products between samples through a non-linear mapping $\Phi$. The
+$\alpha_i$s are Lagrangian coefficients obtained by solving (the
+Lagrangian form of) the problem
 
-\begin{equation} \label{eqn:svm_primal}
-  ||\ww||^2 + C \sum_{i=1}^l \xi_i
-\end{equation}
-
-\noindent which must be minimised after they have been introduced,
-subject to the constraints
-
-\begin{eqnarray} \label{eqn:svm_constr}
-  y_i (\ww\cdot\xx_i + b) & \geq & 1-\xi_i \\
-                    \xi_i & \geq & 0       \nonumber
+\begin{eqnarray} \label{eqn:svm_primal}
+  \min_{\ww,b}      & \frac{1}{2} ||\ww||^2 + C \sum_{i=1}^l \xi_i \\
+  \mbox{subject to} & y_i (\ww\cdot\xx_i + b) \geq 1-\xi_i         \nonumber \\
+                    & \xi_i \geq 0                                 \nonumber
 \end{eqnarray}
 
-\noindent where $\ww \in \RR^m$ defines the separating hyperplane,
+\noindent where $\ww \in \RR^m$ defines a \emph{separating hyperplane}
+in the feature space, i.e., the space where $\Phi$ lives, whereas
 $\xi_i \in \RR$ are slack variables and $C \in \RR$ is a positive
-weight coefficient. The main element is the so-called \emph{kernel
-matrix} $K$, where $K_{ij} = K(\xx_i,\xx_j)$. Notice that in general
-the size of $K$ is $l \times l$, but that in most practical
-applications, most of the $\alpha_i$ are found to be zero after
-training and therefore can be neglected in evaluating the solution. In
-fact, those $\xx_i$s for which this does \emph{not} hold are crucial
-to the solution and are called \emph{support vectors}. This phenomenon
-is known as \emph{sparseness} of the solution, meaning that only a
-subset of the training data is usually really needed to build it.
+weight coefficient. The condition $0 \leq \alpha_i \leq C$ must
+hold.
+
+Thanks to the introduction of $K(\cdot,\cdot)$ and the associated
+\emph{kernel matrix} $K$, with $K_{ij} = K(\xx_i,\xx_j)$, SVMs are
+able to find $f(\xx)$, complex as it may be, by solving a linear
+separation problem in a highly-dimensional space. This idea is often
+called \emph{kernel trick}. In general, the size of $K$ is $l \times
+l$, and the time required by an SVM to train and predict is, in turn,
+cubic and linear in it \cite{KeerthiCDC06}; but, in practice, most of
+the $\alpha_i$ are found to be zero after training and therefore can
+be neglected in evaluating the solution (those $\xx_i$s which cannot
+be neglected are called \emph{support vectors}). This phenomenon is
+known as \emph{sparseness} of the solution, meaning that only a subset
+of the training data is usually really needed to build it.

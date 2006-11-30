@@ -1,52 +1,43 @@
-The time required by an SVM to train and predict is, in turn, cubic
-and linear in the number of support vectors \cite{KeerthiCDC06}. In
-general, the possibility to obtain an alternative, possibly more
-compact representation of the SVM solution follows from the fact that
-the solution of a SVM problem is not unique if the kernel matrix $K$
-does not have full rank \cite{Burges98}, which is equivalent to some
-of the support vectors being linearly dependent on the others \emph{in
-the feature space} (this is the core of Downs et al.'s
+Willing to do online learning, we have to squeeze both the training
+and testing time of an SVM, and sparseness seems to be the key. The
+idea is that of online reducing the size of $K$, that is, selecting an
+appropriate subset of the support vectors (a ``basis'') to build it,
+without losing precision. The possibility to obtain a more compact
+representation of $f(\xx)$ follows from the fact that the solution to
+a SVM problem (that is, the $\alpha_i$s) is not unique if $K$ does not
+have full rank \cite{Burges98}, which is equivalent to some of the
+support vectors being linearly dependent on some others
+\emph{in the feature space} (this is the core of Downs et al.'s
 \cite{DownsGM01} original idea).
 
-Following Keerthi et al. \cite{KeerthiCDC06} then, and inspired by the
-above considerations, we explicitly choose a subset of the support
-vectors to form a ``basis'' for the solution. In that paper, two
-heuristics are proposed to select an appropriate subset of support
-vectors; we hereby propose to incrementally add a support vector if it
-is linearly independent in the feature space with respect to the
-vectors already present in the basis. This makes our algorithm
-suitable for online learning. The solution found this way is the same
-as if using all the training samples as basis set, that is the
-classical SVM formulation; therefore, no approximation whatsoever is
-involved, unless one gives it up in order to obtain even less support
-vectors. See below, especially Section \ref{sec:exp}, for a discussion
-on this point.
+We hereby propose to incrementally add to the basis a support vector
+if it is linearly independent in the feature space from those already
+present in the basis itself. This keeps $K$ at full rank, and the
+solution found is \emph{the same} as in the classical SVM formulation;
+therefore, no approximation whatsoever is involved, unless one gives
+it up in order to obtain an even smaller $K$ (see Section
+\ref{sec:exp} for a deeper discussion on this point).
 
 In the following, the notations $A_{IJ}$ and $\mathbf{v}_I$, where $A$
 is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
 turn the sub-matrix and the sub-vector obtained from $A$ and
-$\mathbf{v}$ by taking the indexes in $I$ and $J$. We assume that a
-set of $l$ training samples is available and that the machine has been
-trained on them. The indexes of the vectors in the current basis are
-denoted by $\b$, and $\xx_{l+1}$ denotes the new sample under
-judgement. Since the procedure is incremental, we also assume that the
-vectors indexed by $\b$ are linearly independent in the feature space,
-that is, that $K_{\b\b}$ has full rank. The question is: should the
-new sample be added to the basis? The algorithm can then be summed up
-as follows:
+$\mathbf{v}$ by taking the indexes in $I$ and $J$. The indexes of the
+vectors in the current basis are denoted by $\b$, and $\xx_{l+1}$
+denotes the new sample under judgement. Since the procedure is
+incremental, we also assume that the vectors indexed by $\b$ are
+linearly independent in the feature space, that is, that $K_{\b\b}$
+has full rank. The question is: should the new sample be added to the
+basis? The algorithm can then be summed up as follows:
 
-\begin{itemize}
+\begin{enumerate}
 
-  \item check whether $\xx_{l+1}$ is linearly independent in the
-        feature space with respect to the basis. If it is, add it to
-        the basis (otherwise, leave the basis unchanged);
+  \item check whether $\xx_{l+1}$ is linearly independent from the
+        basis in the feature space; if it is, add it to the basis;
+        otherwise, leave the basis unchanged.
 
   \item incrementally re-train the machine.
 
-\end{itemize}
-
-The next two Subsections detail the linear independence test and the
-training method.
+\end{enumerate}
 
 \subsection*{Linear independence}
 
@@ -57,7 +48,7 @@ independent from a matrix which is already known to be
 full-rank. Inspired by the definition of linear independence
 \cite{EngelMM02sparse}, we check how well the vector can be
 approximated by a linear combination of the vectors in the set. Let
-$d_j \in \RR$ with $j \in \b$; then let
+$d_j \in \RR$; then let
 
 \begin{equation} \label{eqn:ald1}
   \Delta = \min_\dd \left|\left|\sum_{j \in \b} d_j \phi(\xx_j) - \phi(\xx_{l+1}) \right|\right|^2
@@ -68,7 +59,7 @@ to the basis, and $l+1$ is added to $\b$. In practice, we check
 whether $\Delta \leq \eta$ where $\eta > 0$ is a tolerance factor, and
 expect that larger values of $\eta$ lead to worse accuracy, but also
 to smaller bases. As a matter of fact, if $\eta$ is set at machine
-precision, OISVMs retain the exact accuracy of SVMs. Notice also that
+precision, IISVMs retain the exact accuracy of SVMs. Notice also that
 if the feature space has finite dimension $n$, then no more than $n$
 linearly independent vectors can be found, and therefore by using this
 test $K$'s size can be at most $n \times n$.
@@ -130,11 +121,9 @@ $K_{\b\b}^{-1}$ then becomes
   \end{array}\right]
 \end{equation}
 
-\noindent where $\mdd$ and $\Delta$ are already evaluated during the test. This
-method matches the one used in Cauwenberghs and Poggio's incremental
-algorithm \cite{CauwenberghsP00}, in turn similar to on-line recursive
-estimation of the covariance of sparsified Gaussian processes
-\cite{csat'o01sparse}.
+\noindent where $\mdd$ and $\Delta$ are already evaluated during the
+test. This method matches the one used in Cauwenberghs and Poggio's
+incremental algorithm \cite{CauwenberghsP00}.
 
 \subsection*{Training the machine}
 
@@ -151,32 +140,31 @@ sum, and transform it to an unconstrained problem. Let $\d \subset
   \right)
 \end{equation}
 
-Then, we explicitly set $\d = \b$, assuring thus that the solution to
-the problem is unique, since $K_{\b\b}$ is full rank by
-construction. Newton's method as modified by Keerthi et
-al. \cite{KeerthiDC05,KeerthiCDC06} can then be used to solve
-(\ref{eqn:primal}). The steps are:
+\noindent where $\bb$ is the vector of the Lagrangian coefficients involved
+in $f(\xx)$, analogously to the $\alpha_i$s in the original
+formulation. If we set $\d = \b$, then the solution to the problem is
+unique since $K_{\b\b}$ is full rank by construction. Newton's method
+as modified by Keerthi et al. \cite{KeerthiDC05,KeerthiCDC06} can then
+be used to solve (\ref{eqn:primal}). Setting $\bb$ to a small constant
+initially, the method goes as follows:
 
 \begin{enumerate}
 
-   \item use the current value of $\boldsymbol{\beta}$ as starting
-     vector;
-
    \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
-     K_{i,\b} \bb$ is the output of the $i$-th training sample;
+     K_{i,\b} \bb$; if $\mathcal{I}$ turns out to be identical to the
+     value found at the previous loop, stop. 
 
-   \item update $\bb$ with a Newton step:
-     $\bb - \gamma \mathbf{P}^{-1}\mathbf{g} \rightarrow \bb$ where
+   \item otherwise, let the new $\bb$ be
+     $\bb - \gamma \mathbf{P}^{-1}\mathbf{g}$, where
      $\mathbf{P} = K_{\b\b} + C K_{\b\mathcal{I}} K_{\b\mathcal{I}}^T$ and
      $\mathbf{g} = K_{\b\b} \bb - C K_{\b\mathcal{I}}
-        \left( \mathbf{y}_{\mathcal{I}}-\mathbf{o}_{\mathcal{I}}\right)$;
+        \left( \mathbf{y}_{\mathcal{I}}-\mathbf{o}_{\mathcal{I}}\right)$.
 
-   \item if $\bb$ is the optimal solution stop; otherwise go to step
-     2.
+   \item go back to Step 1.
 
 \end{enumerate}
 
-In Step $3$ above, $\gamma$ is set to one. In order to speed up the
+In Step $2$ above, $\gamma$ is set to one. In order to speed up the
 algorithm, we maintain an updated Cholesky decomposition of
 $\mathbf{P}$. The space complexity of the algorithm is
 $O(|\b|^2+|\b|l)$.

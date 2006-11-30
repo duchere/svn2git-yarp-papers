@@ -1,12 +1,12 @@
-The exploitation of SVM solution sparseness probably appears first in
+The exploitation of sparseness in SVMs probably appears first in
 \cite{DownsGM01}: a simplification of the decision function is therein
 proposed, based upon linear independence of the support vectors in the
 feature space, performed \emph{after} the training is done. This is a
 simple consequence of the fact that, if the feature space has
 dimension $n$, at most $n+1$ independent SVs are required to build the
-solution \cite{PontilV98}. Downs et al.'s idea is useful in reducing
-the testing time, but not the training time, since every time new data
-is available training must be performed from scratch and taking into
+solution \cite{PontilV98}. The idea is useful in reducing the testing
+time, but not the training time, since every time new data is
+available training must be performed from scratch and taking into
 account all SVs found so far. Discarding from the sample set the
 linearly dependent SVs won't work, unless one is prepared to lose
 accuracy --- in fact, other methods to heuristically select a subset
@@ -28,16 +28,17 @@ and Poggio in 2000 \cite{CauwenberghsP00}, but their idea has received
 little attention in the community so far \cite{Laskov2006}, probably
 due to the lack of a detailed analysis of its complexity.
 
-Visual place recognition for robot platforms is a
-much researched topic where online learning is a critical property.
-Incremental learning approaches had been so far mostly used for constructing
-the geometrical map, or the environment representation, online.
-Brunskill et~al. \cite{emma:irca05} proposed a model using incremental PCA
-for simultaneous localization and mapping (SLAM). A similar approach was used
-in the only work we are aware of that uses an incremental method in the
-context of place recognition. In \cite{ljubjiana:icra02} incremental PCA was
-used to update low-dimensional representations of images taken by a mobile
-robot as it moved around in an environment. They also tested repetitive
-learning of their model with the same training images several times.
-While they obtained impressive results in term of reconstruction, their
-method was not tested for classification.
+Visual place recognition for robot platforms is a widely researched
+topic in which online learning is critical. Incremental learning
+approaches had been so far mostly used for constructing the
+geometrical map, or the environment representation, online.  Brunskill
+et~al. \cite{emma:irca05} proposed a model using incremental PCA for
+simultaneous localization and mapping (SLAM). A similar approach was
+used in the only work we are aware of that uses an incremental method
+in the context of place recognition. In \cite{ljubjiana:icra02}
+incremental PCA was used to update low-dimensional representations of
+images taken by a mobile robot as it moved around in an
+environment. They also tested repetitive learning of their model with
+the same training images several times. While they obtained impressive
+results in term of reconstruction, their method was not tested for
+classification.
