@@ -11,7 +11,33 @@ $\eta$ at different values, expecting, as foretold, bigger values of
 $\eta$ to cause the accuracy to degrade, but also the size of the
 machine to remain smaller than with smaller values.
 For each benchmark, we display the mean number of retained support vectors
-on $5$ random $75\%/25\%$ train/test runs as well as the mean performance loss.
+on $10$ random $75\%/25\%$ train/test runs as well as the mean performance loss.
+For the sake of comparison we have also used the more common norm-1
+SVM formulation, that is with $p=1$ in formula (\ref{eqn:svm_primal}), because
+it is known to produce sparser solutions that the norm-2 formulation.
+
+\begin{table}
+\begin{center}
+\begin{tabular}[!h]{|l|c|c|c|}
+\hline
+Database&$\Delta$ in&\% of the SVs&\% of the SVs\\
+name&test err&vs norm-2&vs norm-1\\
+\hline
+Breast&$-0.47\pm0.82$&$10.2\pm0.87$&$22.1\pm1.77$\\
+\hline
+Diabetes&$0.52\pm2.1$&$40.2\pm2.1$&$55.2\pm2.73$\\
+\hline
+German&$-0.40\pm1.15$&$6.1\pm0.23$&$9.2\pm0.35$\\
+\hline
+Heart&$0.45\pm1.01$&$10.3\pm0.56$&$15.5\pm0.94$\\
+\hline
+\end{tabular}
+\end{center}
+\label{table:t1}
+\caption{Comparison of OISVM on different standard dataset. The kernel used
+ is gaussian and the $\eta$ values are optimized to get the best trade-off on
+ each database.}
+\end{table}
 
 \subsection*{Experiments with Real-world Application}
 
@@ -43,7 +69,7 @@ database, we refer the readers to \cite{luo:idol2}.
 
 The evaluation was performed using composed receptive field histograms (CRFH)
 \cite{Linde:Lindeberg:ICPR04} as global image features and SIFT \cite{lowe99object}
-for extracting local features. In the experiments, we consider both $chi^2$ kernel
+for extracting local features. In the experiments, we consider both $\chi^2$ kernel
 for SVM (when use CRFH), and local kernels \cite{wallraven:iccv03} (SIFT).
 \textbf{Fixed me: Shall we write something about the libSVm and Francesco's code?} 
 We have run the OISVM with $\eta$ at different values, similar to previous setup.
@@ -63,8 +89,8 @@ the subsequences could be considered as recorded separately in a static environm
 varying pose. This setup allows us to examine how the algorithms perform on data with less
 variations. As a result, training on each sequence was performed in 5 steps, using one subsequence
 at a time, resulting in 15 steps in total. In total, we considered 36 different permutations
-of training and test sequences for $chi^2$ kernel and 12 permutations for local kernel; here
-we report average results. Fig. \ref{fig:chi},top, shows the recognition rates of $chi^2$ kernel experiments
+of training and test sequences for $\chi^2$ kernel and 12 permutations for local kernel; here
+we report average results. Fig. \ref{fig:chi},top, shows the recognition rates of $\chi^2$ kernel experiments
 obtained at each step using the OISVM (with three different $\eta$ value), fixed-partition and
 memory-controlled. Fig. \ref{fig:chi}, bottom, reports number of support vectors stored in the model of
 each step.
