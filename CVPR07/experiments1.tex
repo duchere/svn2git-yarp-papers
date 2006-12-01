@@ -1,0 +1,48 @@
+In this section we report the experimental evaluation of our method.
+We first test it on a set of databases commonly used in the machine 
+learning community for assessing new algorithms (section \ref{exp:ml});
+we then apply it to a realistic scenario of recognizing indoor places
+across different viewpoints and illumination conditions 
+(section \ref{exp:idol2}).
+
+\subsection{Experiments with Standard Benchmark Database}
+\label{exp:ml}
+
+In order to test the effectiveness of OISVMs with respect to standard
+SVMs, we first show some numerical results on standard benchmarks for machine 
+learning methods. We have chosen finite- and infinite-dimensional kernels, namely
+polynomial kernels of degree $1$ (linear) and cubic, and
+Gaussian kernel. In the finite-dimensional case, $\eta$ is
+essentially irrelevant, and we have set it to machine precision. 
+In the case of the infinite-dimensional kernel, we have run the OISVM with
+$\eta$ at different values, expecting, as foretold, bigger values of
+$\eta$ to cause the accuracy to degrade, but also the size of the
+machine to remain smaller than with smaller values.
+For each benchmark, we display the mean number of retained support vectors
+on $10$ random $75\%/25\%$ train/test runs as well as the mean performance loss.
+For the sake of comparison we have also used the more common norm-1
+SVM formulation, that is with $p=1$ in formula (\ref{eqn:svm_primal}), because
+it is known to produce sparser solutions that the norm-2 formulation.
+
+\begin{table}
+\begin{center}
+\begin{tabular}[!h]{|l|c|c|c|}
+\hline
+Database&$\Delta$ in&\% of the SVs&\% of the SVs\\
+name&test err&vs norm-2&vs norm-1\\
+\hline
+Breast&$-0.47\pm0.82$&$10.2\pm0.87$&$22.1\pm1.77$\\
+\hline
+Diabetes&$0.52\pm2.1$&$40.2\pm2.1$&$55.2\pm2.73$\\
+\hline
+German&$-0.40\pm1.15$&$6.1\pm0.23$&$9.2\pm0.35$\\
+\hline
+Heart&$0.45\pm1.01$&$10.3\pm0.56$&$15.5\pm0.94$\\
+\hline
+\end{tabular}
+\end{center}
+\label{table:t1}
+\caption{Comparison of OISVM on different standard dataset. The kernel used
+ is gaussian and the $\eta$ values are optimized to get the best trade-off on
+ each database.}
+\end{table}
