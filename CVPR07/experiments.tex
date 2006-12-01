@@ -1,5 +1,9 @@
+\subsection*{Experiments with Standard Benchmark Database}
+
 In order to test the effectiveness of OISVMs with respect to standard
-SVMs, we first show some numerical results on standard benchmarks for machine learning methods. We have chosen finite- and infinite-dimensional kernels, namely polynomial kernels of degree $1$ (linear) and cubic, and
+SVMs, we first show some numerical results on standard benchmarks for machine 
+learning methods. We have chosen finite- and infinite-dimensional kernels, namely
+polynomial kernels of degree $1$ (linear) and cubic, and
 Gaussian kernel. In the finite-dimensional case, $\eta$ is
 essentially irrelevant, and we have set it to machine precision. 
 In the case of the infinite-dimensional kernel, we have run the OISVM with
@@ -8,3 +12,40 @@ $\eta$ to cause the accuracy to degrade, but also the size of the
 machine to remain smaller than with smaller values.
 For each benchmark, we display the mean number of retained support vectors
 on $5$ random $75\%/25\%$ train/test runs as well as the mean performance loss.
+
+\subsection*{Experiments with Real-world Application}
+
+We performed another series of experiments, namely place recognition in an indoor
+environment \cite{pronobis:iros06, luo:icra07}, to evaluate our algorithm. 
+\textbf{Fixed me: If it is necessary to say more about the importance of doing incremental
+learning for place recognition.}
+We considered a realistic scenario
+where the algorithms had to incrementally update the model to adapt to the variations
+in an indoor environment introduced by human activities over a long time spans. These
+variations includes people appear in different rooms during working time, objects such as
+cups are moved or taken in/out of the drawers, pieces of furniture are pushed around, and
+decoration changes.   
+
+For experiments, we used a newly introduced database called IDOL2 (Image Database
+for rObot Localization 2, \cite{luo:idol2}), which contains 24 image sequences acquired
+using a perspective camera mounted on two mobile robot platforms. The acquisition was
+performed with an indoor laboratory environment consisting of five rooms of different
+functionality. The sequences were acquired under various weather and illumination conditions
+(sunny, cloudy, and night) and across a time span of six months. Thus, this data capture
+natural variability that occurs in real-world environments because of both natural changes
+in the illumination and human activity. The image sequences in the database are divide as
+follows: for each robot platform and for each type of illumination conditions, there were
+four sequences recorded. Of these four sequences, the first two were acquired six months
+before the last two. This means that, for each robot and for every illumination condition,
+there are always two sequences acquired under similar conditions, and two sequences acquired
+under very different conditions. It makes the database suitable for different kinds of evaluation
+on the adaptability of an incremental algorithm. For further details about the database, we
+refer the readers to \cite{luo:idol2}.
+
+The evaluation was performed using composed receptive field histograms (CRFH)
+\cite{Linde:Lindeberg:ICPR04} as global image features and SIFT \cite{lowe99object}
+for extracting local features. In the experiments, we consider
+both $chi^2$ kernel for SVM (when use CRFH), and local kernels \cite{wallraven:iccv03} (SIFT).
+\textbf{Fixed me: Shall we write something about the SVM library.} We have run the OISVM with
+$\eta$ at different values. 
+
