@@ -60,8 +60,8 @@ Thus, every sequence was splitted into 5 subsequences, so that each subset conta
 five images acquired by the robot every second (The image sequences were acquired at a rate of
 5fps). Since during acquisition the camera's viewpoint continuously changes \cite{luo:icra07},
 the subsequences could be considered as recorded separately in a static environment but for
-varying pose. This setup allows us to examine how the algorithms perform on data within close
-distribution. As a result, training on each sequence was used for testing, using one subsequence
+varying pose. This setup allows us to examine how the algorithms perform on data with less
+variations. As a result, training on each sequence was performed in 5 steps, using one subsequence
 at a time, resulting in 15 steps in total. In total, we considered 36 different permutations
 of training and test sequences for $chi^2$ kernel and 12 permutations for local kernel; here
 we report average results. Fig. \ref{fig:chi},top, shows the recognition rates of $chi^2$ kernel experiments
