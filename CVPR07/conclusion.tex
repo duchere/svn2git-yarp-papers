@@ -1,5 +1,5 @@
-We presented a new method to slash the training and testing time of
-Support Vector Machines in an online setting, called OISVMs (Online
+We presented a new method to reduce the number of SVs needed by a
+Support Vector Machine in an online setting, called OISVMs (Online
 Independent Support Vector Machines). OISVMs avoid adding to the
 kernel matrix support vectors which are linearly dependent of previous
 ones in the feature space --- in other words, the kernel matrix is
@@ -19,8 +19,8 @@ the case of infinite-dimensional kernels, they dramatically reduce the
 number support vectors at the price of a negligible degradation in the
 accuracy. In this latter case they can also be used to obtain full
 precision, choosing the tolerance threshold to be equal to machine
-precision.
-{\bf after the experiments are done, place some stunning numbers here.}
+precision.  {\bf after the experiments are done, place some stunning
+numbers here.}
 
 A current limitation of the algorithm is that it requires to store in
 memory all training data. This is unfeasible for applications like

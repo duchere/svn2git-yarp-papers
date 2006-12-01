@@ -5,7 +5,7 @@ algorithms deeply rooted in Statistical Learning Theory
 probability distribution, given a set of training examples. As opposed
 to analogous methods such as, e.g., artificial neural networks, they
 have the main advantages that $(a)$ training is guaranteed to end up
-in a global minimum, $(b)$ their genralisation power is theoretically
+in a global minimum, $(b)$ their generalisation power is theoretically
 well founded, $(c)$ they can easily work with highly dimensional,
 non-linear data, and $(d)$ the solution achieved is sparse. Due to
 these good properties, they have been now extensively used in, e.g.,
@@ -27,33 +27,31 @@ training data, when it is available, without re-training from scratch.
 
 In an online setting there is no guarantee that the flow of data will
 \emph{ever} cease; therefore, applying SVMs here looks appealing but
-we need a way to cope with large datasets and slash the training and
-testing times. One of the keys to the problem seems to lie in the the
-sparseness of their solution. That an SVM solution is \emph{sparse}
-means that usually just a few samples can account for its complexity;
-in fact, SVMs can be seen as a way of compressing data by selecting
-``the most important'' samples (\emph{support vectors}) among those in
-the training set. Keeping the number of support vectors small without
-losing accuracy is therefore a major challenge, also since a recent
-result \cite{Steinwart03} shows that the number of support vectors
-grows indefinitely with, namely proportionally to, the number of
-training samples.
+we need a way to cope with large datasets. One of the keys to the
+problem seems to lie in the the sparseness of their solution. That an
+SVM solution is \emph{sparse} means that usually just a few samples
+account for its complexity; in fact, SVMs can be seen as a way of
+compressing data by selecting ``the most important'' samples
+(\emph{support vectors}, SV) among those in the training set. Keeping
+the number of SVs small without losing accuracy is therefore a major
+challenge, also since a recent result \cite{Steinwart03} shows that
+their number grows indefinitely with (namely, proportionally to) the
+number of training samples.
 
-In this paper we propose a method of incrementally selecting support
-vectors based upon \emph{linear independence in the feature space}:
-support vectors which are linearly dependent on already stored ones
-are rejected, and a smart, incremental minimisation algorithm is
-employed to find the new minimum of the cost function. The size of the
-kernel matrix (the core of an SVM and its major bottleneck) is
-therefore kept small. Our experiments indicate that SVMs employing
-this idea, that we call \emph{Online Independent Support Vector
-Machines} (OISVMs), do not grow linearly with the training set, as it
-was the case in \cite{Steinwart03}, but reach a limit size and then
-stop growing \cite{engel2004}. In the case of finite-dimensional
-feature spaces they also \emph{keep the full accuracy of standard
-SVMs}; whereas in the infinite-dimensional case, at the price of a
-negligible loss in accuracy, one can tune the growing rate of the
-machine.
+In this paper we propose a method of incrementally selecting SVs based
+upon \emph{linear independence in the feature space}: SVs which are
+linearly dependent on already stored ones are rejected, and a smart,
+incremental minimisation algorithm is employed to find the new minimum
+of the cost function. The size of the kernel matrix (the core of an
+SVM and its major bottleneck) is therefore kept small. Our experiments
+indicate that SVMs employing this idea, that we call
+\emph{Online Independent Support Vector Machines} (OISVMs), do not
+grow linearly with the training set, as it was the case in
+\cite{Steinwart03}, but reach a limit size and then stop growing
+\cite{engel2004}. In the case of finite-dimensional feature spaces
+they also \emph{keep the full accuracy of standard SVMs}; whereas in
+the infinite-dimensional case, at the price of a negligible loss in
+accuracy, one can tune the growing rate of the machine.
 
 To support this claim, we show an extensive set of experimental
 results obtained by comparing SVMs and OISVMs on standard benchmark

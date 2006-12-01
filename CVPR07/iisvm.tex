@@ -1,37 +1,35 @@
-The possibility to obtain a more compact representation of $f(\xx)$ follows
-from the fact that the solution to a SVM problem (that is, the $\alpha_i$s)
-is not unique if $K$ does not have full rank \cite{Burges98}, which is
-equivalent to some of the support vectors being linearly dependent on some
-others \emph{in the feature space} (this is the core of Downs et al.'s
-\cite{DownsGM01} original idea).
+The possibility to obtain a more compact representation of $f(\xx)$
+follows from the fact that the solution to a SVM problem (that is, the
+$\alpha_i$s) is not unique if $K$ does not have full rank
+\cite{Burges98}, which is equivalent to some of the SVs being linearly
+dependent on some others \emph{in the feature space} (this is the core
+of Downs et al.'s \cite{DownsGM01} original idea).
 
-To avoid to simplify the solution found after each re-training like in
-\cite{DownsGM01}, we must find a way to force the training algorithm to
-use only indipendent vectors in the feature space as support vectors.
-Hence the main idea is to decouple the concept of ``base'' vectors, used
-to build the classification function (\ref{eqn:sol}), from the sample
-points used to find out the $\aa$s. If the selected base vectors span the
-same subspace of all the training points, the solution found will be equivalent
-to a normal training using all the points, that is we will not lose any
-precision.
+To avoid simplify the solution each time a new sample is acquired like
+in \cite{DownsGM01}, we need a way to use indipendent SVs only. Hence,
+the main idea is to decouple the concept of ``basis'' vectors, used to
+build the classification function (\ref{eqn:sol}), from the samples
+used to find out the $\aa$s. If the selected basis vectors span the
+same subspace as the whole sample set, the solution found will be
+equivalent --- that is, we will not lose any precision.
 
 We hereby propose, after having received a new training sample, to
-incrementally add it to the basis if it is linearly independent
-in the feature space from those already present in the basis.
-The solution found is \emph{the same} as in the classical SVM formulation;
-therefore, no approximation whatsoever is involved, unless one gives it up
-in order to obtain even less support vectors (see Section \ref{sec:exp} for
-a deeper discussion on this point).
+incrementally add it to the basis if it is linearly independent in the
+feature space from those already present in the basis.  The solution
+found is \emph{the same} as in the classical SVM formulation;
+therefore, no approximation whatsoever is involved, unless one gives
+it up in order to obtain even fewer support vectors (see Section
+\ref{sec:exp} for a deeper discussion on this point).
 
-Denoting the indexes of the vectors in the current basis, after $l$ training
-samples, by $\b$, and the new sample under judgement by $\xx_{l+1}$, the
-algorithm can then be summed up as follows:
+Denoting the indexes of the vectors in the current basis, after $l$
+training samples, by $\b$, and the new sample under judgement by
+$\xx_{l+1}$, the algorithm can then be summed up as follows:
 
 \begin{enumerate}
 
   \item check whether $\xx_{l+1}$ is linearly independent from the
-        basis in the feature space; if it is, add it to the basis set $\b$;
-        otherwise, leave the basis unchanged.
+        basis in the feature space; if it is, add it to $\b$;
+        otherwise, leave $\b$ unchanged.
 
   \item incrementally re-train the machine.
 
@@ -61,10 +59,10 @@ to the basis, and $l+1$ is added to $\b$. In practice, we check
 whether $\Delta \leq \eta$ where $\eta > 0$ is a tolerance factor, and
 expect that larger values of $\eta$ lead to worse accuracy, but also
 to smaller bases. As a matter of fact, if $\eta$ is set at machine
-precision, IISVMs retain the exact accuracy of SVMs. Notice also that
+precision, OISVMs retain the exact accuracy of SVMs. Notice also that
 if the feature space has finite dimension $n$, then no more than $n$
-linearly independent vectors can be found, and the basis cannot
-contain more than $n$ vectors.
+linearly independent vectors can be found, and $\b$ will never contain
+more than $n$ vectors.
 
 Expanding equation (\ref{eqn:ald1}) we get
 
@@ -130,12 +128,13 @@ incremental algorithm \cite{CauwenberghsP00}.
 \subsection*{Training the machine}
 
 The training method largely follows Keerthi et
-al. \cite{KeerthiDC05,KeerthiCDC06} that we have adapted for online training.
-The algorithm minimizes the problem (\ref{eqn:svm_primal}) directly in the primal,
-allowing to select explicitely the basis vectors to use.
-We consider the norm-2 formulation of (\ref{eqn:svm_primal}), e.g., $\xi_i$ is
-squared in the sum, and transform it to an unconstrained problem.
-Let $\d \subset \{1,\ldots,l\}$; then the unconstrained problem is
+al. \cite{KeerthiDC05,KeerthiCDC06}, that we have adapted for online
+training. The algorithm directly minimises problem
+(\ref{eqn:svm_primal}) as opposed to the standard way of minimising
+its dual Lagrangian form, allowing to select explicitely the basis
+vectors to use. We set $p=2$ in (\ref{eqn:svm_primal}) and transform
+it to an unconstrained problem.  Let $\d \subset \{1,\ldots,l\}$; then
+the unconstrained problem is
 
 \begin{equation} \label{eqn:primal}
   \min_{\bb} \left( 
@@ -149,8 +148,8 @@ in $f(\xx)$, analogously to the $\alpha_i$s in the original
 formulation. If we set $\d = \b$, then the solution to the problem is
 unique since $K_{\b\b}$ is full rank by construction. Newton's method
 as modified by Keerthi et al. \cite{KeerthiDC05,KeerthiCDC06} can then
-be used to solve (\ref{eqn:primal}) after each new sample. When the new sample
-$\xx_{l+1}$ is received the method goes as follows:
+be used to solve (\ref{eqn:primal}) after each new sample. When the
+new sample $\xx_{l+1}$ is received the method goes as follows:
 
 \begin{enumerate}
 
@@ -171,9 +170,8 @@ $\xx_{l+1}$ is received the method goes as follows:
 
 In Step $2$ above, $\gamma$ is set to one. In order to speed up the
 algorithm, we maintain an updated Cholesky decomposition of
-$\mathbf{P}$.
-It turns out that using the seeding for the $\bb$ coefficients the
-algorithm converges in $0-2$ iterations in average and the computational
-complexity for the re-training is $O(|\b|l)$ and the space complexity
-is $O(|\b|l)$. Hence keeping the basis set small will speed up the training
-time as well as the testing time.
+$\mathbf{P}$. It turns out that the algorithm converges in very few
+iterations, usually $0$ to $2$; the time complexity of the re-training
+step is $O(|\b|l)$, as well as its space complexity; hence, keeping
+$\b$ small will speed up the training time as well as the testing
+time.
