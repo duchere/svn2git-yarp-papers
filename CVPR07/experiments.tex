@@ -62,23 +62,61 @@ working time, objects such as cups moved or taken in/out of the drawers,
 pieces of
 furniture pushed around, and so forth.   
 
+\begin{figure*}[t]
+\centering \footnotesize
+\begin{tabular}{@{}c@{\hspace{0.002\linewidth}}c@{\hspace{0.002\linewidth}}c@{\hspace{0.002\linewidth}}c@{\hspace{0.002\linewidth}}c@{\hspace{0.002\linewidth}}c@{\hspace{0.002\linewidth}}c@{\hspace{0.002\linewidth}}c@{}}
+% -------------------------------------------------------------------
+\includegraphics[width=0.123\linewidth]{figs/idol/bo_cloudy.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/bo_night.png}  &
+\includegraphics[width=0.123\linewidth]{figs/idol/bo_sunny.png}  &
+\includegraphics[width=0.123\linewidth]{figs/idol/cr_cloudy.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/cr_night.png}  &
+\includegraphics[width=0.123\linewidth]{figs/idol/cr_sunny.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/people1.png}  &
+\includegraphics[width=0.123\linewidth]{figs/idol/people2.png}  \\
+
+% -------------------------------------------------------------------
+\includegraphics[width=0.123\linewidth]{figs/idol/cup1.png}   &
+\includegraphics[width=0.123\linewidth]{figs/idol/cup3.png}   &
+\includegraphics[width=0.123\linewidth]{figs/idol/chair1.png}   &
+\includegraphics[width=0.123\linewidth]{figs/idol/chair3.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/time1.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/time2.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/time3.png}  &
+\includegraphics[width=0.123\linewidth]{figs/idol/time4.png}  \\
+% -------------------------------------------------------------------
+\includegraphics[width=0.123\linewidth]{figs/idol/drive1.png}   &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive2.png}   &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive3.png}   &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive4.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive5.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive6.png} &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive7.png}  &
+\includegraphics[width=0.123\linewidth]{figs/idol/drive8.png}   \\
+% -------------------------------------------------------------------
+\end{tabular}
+\caption{Sample images illustrating the variations captured in the IDOL2 database.
+Images in the top row show the variability introduced by changes in illumination
+for two rooms (first six images) as well as people appearing in the environment.
+The middle row shows the influence of people's everyday activity (first four images)
+as well as larger variations which happened over a time span of 6 months. Finally, the
+bottom row illustrates the changes in viewpoint observed for a series of images acquired 
+one after another in 1.6 second.}
+\label{fig:idol}
+\end{figure*}
+
 For experiments, we used a newly introduced database called IDOL2 
-(Image Database
-for rObot Localization 2, \cite{luo:idol2}), which contains 24 image 
-sequences acquired
-using a perspective camera mounted on two mobile robot platforms
-\textbf{FIXME ROGER: a picture here!}. 
-The acquisition was
+(Image Database for rObot Localization 2, \cite{luo:idol2}), 
+which contains 24 image sequences acquired using a perspective
+camera mounted on two mobile robot platforms The acquisition was
 performed within an indoor laboratory environment consisting of five 
-rooms of different
-functionality. The sequences were acquired under various weather and 
-illumination conditions
-(sunny, cloudy, and night) and across a time span of six months. 
-Thus, this data capture
+rooms of different functionality. The sequences were acquired under
+various weather and illumination conditions (sunny, cloudy, and night)
+and across a time span of six months. Thus, this data capture
 natural variability that occurs in real-world environments because of both 
-natural changes
-in the illumination and human activity. The image sequences in the 
-database are divided as
+natural changes in the illumination and human activity. Fig. \ref{fig:idol} 
+shows some sample images from the database, illustrate these variations.
+The image sequences in the database are divided as
 follows: for each robot platform and for each type of illumination conditions, 
 there were
 four sequences recorded. Of these four sequences, the first two were 
@@ -146,7 +184,9 @@ Thus, every sequence was splitted into 5 subsequences, so that each subset conta
 five images acquired by the robot every second (image sequences were acquired at a rate of
 5fps). Since during acquisition the camera's viewpoint continuously changes \cite{luo:icra07},
 the subsequences could be considered as recorded separately in a static environment but for
-varying pose. This setup allows us to examine how the algorithms perform on data with less
+varying pose. In order to get a feeling of the variations of the frame images in a sequence,
+bottom row of Fig. \ref{fig:idol} shows some sample images acquired within a time span of 1.6 sec.
+This setup allows us to examine how the algorithms perform on data with less
 variations. As a result, training on each sequence was performed in 5 steps, using one subsequence
 at a time, resulting in 15 steps in total. In total, we considered 36 different permutations
 of training and test sequences for $\chi^2$ kernel and 12 permutations for local kernel; here
@@ -158,9 +198,9 @@ each step. \textbf{FIXME: here comments with numbers}
 \begin{figure}[t]
 \footnotesize
   \begin{tabular}{@{}c@{}}
-  \includegraphics[width=0.95\linewidth]{chi_cr}\\
+  \includegraphics[width=0.95\linewidth]{figs/results/chi_cr}\\
   (a)~Classification rate at each incremental step.\vspace{0.1cm}\\
-  \includegraphics[width=0.95\linewidth]{chi_sv}\\
+  \includegraphics[width=0.95\linewidth]{figs/results/chi_sv}\\
   (b)~Number of support vectors at each incremental step.\\
   \end{tabular}
 \caption{Average results obtained for experiment performed for
