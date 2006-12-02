@@ -11,7 +11,9 @@ simplification proposed in \cite{nguyen2005}. On the other hand,
 discarding from the sample set the linearly dependent SVs will result
 in an approximation; other methods to heuristically select a subset of
 the support vectors have been proposed, e.g., in
-\cite{LeeM01,schoel06,KeerthiCDC06}.
+\cite{LeeM01,schoel06,KeerthiCDC06}. Besides this, these methods
+require the knowledge of the full training set, and therefore are not
+suited for online learning.
 
 In order to keep the solution compact without losing accuracy, the key
 is to keep the size of the kernel matrix small, i.e., reducing its

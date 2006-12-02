@@ -28,15 +28,17 @@ training data, when it is available, without re-training from scratch.
 In an online setting there is no guarantee that the flow of data will
 \emph{ever} cease; therefore, applying SVMs here looks appealing but
 we need a way to cope with large datasets. One of the keys to the
-problem seems to lie in  the sparseness of their solution. That an
-SVM solution is \emph{sparse} means that usually just a few samples
+problem seems to lie in the sparseness of their solution. That an SVM
+solution is \emph{sparse} means that usually just a few samples
 account for its complexity; in fact, SVMs can be seen as a way of
 compressing data by selecting ``the most important'' samples
 (\emph{support vectors}, SV) among those in the training set. Keeping
 the number of SVs small without losing accuracy is therefore a major
-challenge, also since a recent result \cite{Steinwart03} shows that
-their number grows indefinitely with (namely, proportionally to) the
-number of training samples.
+challenge. This is even more relevant since a recent result
+\cite{Steinwart03} shows that this number grows indefinitely with
+the number of training samples, and the testing time --- a central
+issue in online learning, since one might want to test in real time
+--- crucially depends on it.
 
 In this paper we propose a method of incrementally selecting SVs based
 upon \emph{linear independence in the feature space}: SVs which are

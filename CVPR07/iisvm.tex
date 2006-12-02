@@ -40,7 +40,7 @@ is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
 turn the sub-matrix and the sub-vector obtained from $A$ and
 $\mathbf{v}$ by taking the indexes in $I$ and $J$.
 
-\subsection*{Linear independence}
+\subsection{Linear independence}
 
 In general, checking whether a matrix has full rank is done via some
 decomposition, or by looking at the eigenvalues of the matrix; but
@@ -125,7 +125,7 @@ $K_{\b\b}^{-1}$ then becomes
 test. This method matches the one used in Cauwenberghs and Poggio's
 incremental algorithm \cite{CauwenberghsP00}.
 
-\subsection*{Training the machine}
+\subsection{Training the machine}
 
 The training method largely follows Keerthi et
 al. \cite{KeerthiDC05,KeerthiCDC06}, that we have adapted for online
@@ -154,15 +154,14 @@ new sample $\xx_{l+1}$ is received the method goes as follows:
 \begin{enumerate}
 
    \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
-     K_{i,\b} \bb$ and $\bb$ is the vector of optimal coefficients with $l$ training
-	 samples; if $\mathcal{I}$ turns out to be identical to the value found
-	 at the previous loop, stop. 
+     K_{i,\b} \bb$ and $\bb$ is the vector of optimal coefficients
+     with $l$ training samples; if $\mathcal{I}$ hasn't changed, stop.
 
-   \item otherwise, let the new $\bb$ be
-     $\bb - \gamma \mathbf{P}^{-1}\mathbf{g}$, where
-     $\mathbf{P} = K_{\b\b} + C K_{\b\mathcal{I}} K_{\b\mathcal{I}}^T$ and
-     $\mathbf{g} = K_{\b\b} \bb - C K_{\b\mathcal{I}}
-        \left( \mathbf{y}_{\mathcal{I}}-\mathbf{o}_{\mathcal{I}}\right)$.
+   \item otherwise, let the new $\bb$ be $\bb - \gamma
+     \mathbf{P}^{-1}\mathbf{g}$, where $\mathbf{P} = K_{\b\b} + C
+     K_{\b\mathcal{I}} K_{\b\mathcal{I}}^T$ and $\mathbf{g} = K_{\b\b}
+     \bb - C K_{\b\mathcal{I}} \left(
+     \mathbf{y}_{\mathcal{I}}-\mathbf{o}_{\mathcal{I}}\right)$.
 
    \item go back to Step 1.
 

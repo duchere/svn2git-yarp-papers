@@ -7,11 +7,10 @@ different viewpoints and illumination conditions (section
 
 OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
 \cite{ChangL01}. For the sake of comparison, LIBSVM has been modified
-as suggested by the Authors in order to use the squared norm of the
-slack variables $\xi$ in the cost function (i.e., setting $p=2$ in
-(\ref{eqn:svm_primal})); this modified version is called LIBSVM-2 in the
-following. In the case of finite-dimensional kernels, we only show the
-performance of LIBSVM-2 against OISVMs with $\eta$ at machine
+as suggested by the Authors in order to set $p=2$ in
+(\ref{eqn:svm_primal}); this modified version is called LIBSVM-2 in
+the following. In the case of finite-dimensional kernels, we only show
+the performance of LIBSVM-2 against OISVMs with $\eta$ at machine
 precision, since the solution found by OISVM is exactly equivalent; in
 the case of the infinite-dimensional kernel, we show curves for
 various values of $\eta$.
@@ -20,9 +19,10 @@ various values of $\eta$.
 \label{exp:ml}
 
 Figure \ref{fig:ad7} and Table \ref{table:t1} show the above mentioned
-comparison on some standard benchmark databases, taken from the UCI
-repository \cite{Newman+Hettich+Blake+Merz:1998}. For each benchmark,
-data are obtained by running $10$ random $75\%/25\%$ train/test runs.
+comparison on some standard benchmark databases, available at
+\url{http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets}.  For
+each benchmark, data are obtained by running $10$ random $75\%/25\%$
+train/test runs.
 
 \begin{figure*}[!ht]
   \centering \footnotesize
@@ -30,7 +30,7 @@ data are obtained by running $10$ random $75\%/25\%$ train/test runs.
   \includegraphics[width=0.47\linewidth]{figs/results/finite_kernel.pdf} &
   \includegraphics[width=0.47\linewidth]{figs/results/adult7.pdf}
   \end{tabular}
-  \caption{Comparison of OISVM and LIBSVM on the UCI \emph{Diabetes}
+  \caption{Comparison of OISVM and LIBSVM on the \emph{Diabetes}
   (left pane) and \emph{Adult7} (right pane) benchmarks. Diabetes is
   solved using a polynomial kernel with degree $3$, while Adult7 is
   solved using a Gaussian kernel.}
@@ -42,15 +42,15 @@ data are obtained by running $10$ random $75\%/25\%$ train/test runs.
 \begin{tabular}[!h]{|l|c|c|c|}
 \hline
   Benchmark & Class. rate    & \% SVs          & \% SVs        \\
-       name & difference     & vs. LIBSVM      & vs. LIBSVM-2  \\ \hline
-     Breast & $-0.47\pm0.82$ & $10.2\pm0.87$   & $22.1\pm1.77$ \\
-   Diabetes & $0.52\pm2.1$   & $40.2\pm2.1$    & $55.2\pm2.73$ \\
-   German   & $-0.40\pm1.15$ & $6.1\pm0.23$    & $9.2\pm0.35$  \\
-   Heart    & $0.45\pm1.01$  & $10.3\pm0.56$   & $15.5\pm0.94$ \\ \hline
+       name & loss           & vs. LIBSVM      & vs. LIBSVM-2  \\ \hline
+     Breast & $0.47\pm0.82$  & $10.2\pm0.87$   & $22.1\pm1.77$ \\
+   Diabetes & $-0.52\pm2.1$  & $40.2\pm2.1$    & $55.2\pm2.73$ \\
+   German   & $0.40\pm1.15$  & $6.1\pm0.23$    & $9.2\pm0.35$  \\
+   Heart    & $-0.45\pm1.01$ & $10.3\pm0.56$   & $15.5\pm0.94$ \\ \hline
 \end{tabular}
 \end{center}
 \label{table:t1}
-\caption{Comparison of OISVM and LIBSVM on more UCI benchmarks, solved
+\caption{Comparison of OISVM and LIBSVM on more standard benchmarks, solved
  using a Gaussian kernel. For each benchmark, we report the difference
  in classification rate with respect to LIBSVM-2 and the
  percentage of the number of SVs with respect to LIBSVM and
@@ -78,8 +78,8 @@ of the SVs used by LIBSVM-2 and less than $8\%$ with respect to
 LIBSVM. The accuracy is $0.063\%\pm0.14$ worse than that of LIBSVM-2.
 
 Lastly, consider Table \ref{table:t1}, which shows the very same data
-in compact form for $4$ more of the UCI databases. OISVMs attain a
-number of SVs which is about $6\%$ to slightly more than $55\%$ of
+in compact form for $4$ more of the standard databases. OISVMs attain
+a number of SVs which is about $6\%$ to slightly more than $55\%$ of
 LIBSVM, whereas the accuracy is basically the same, being slightly
 better than LIBSVM in two cases (\emph{Diabetes}, this time solved via
 a Gaussian kernel, and \emph{Heart}).
