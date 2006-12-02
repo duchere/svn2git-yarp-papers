@@ -16,12 +16,12 @@ the support vectors have been proposed, e.g., in
 In order to keep the solution compact without losing accuracy, the key
 is to keep the size of the kernel matrix small, i.e., reducing its
 rank. Unsupervised rank reduction methods have been proposed
-\cite{Baudat03} as well as supervised ones
-\cite{BachJordan2005,KeerthiCDC06}, but no application of these ideas
-appears so far, to the best of our knowledge, in online settings. This
-is particularly important since it has been shown \cite{Steinwart03}
-that the SV set grows linearly with the sample set; therefore, in an
-online setting, the size of a SVM would grow indefinitely.
+\cite{Baudat03} as well as supervised ones \cite{BachJordan2005}, but
+no application of these ideas appears so far, to the best of our
+knowledge, in online settings. This is particularly important since it
+has been shown \cite{Steinwart03} that the SV set grows linearly with
+the sample set; therefore, in an online setting, the size of a SVM
+would grow indefinitely, and so would the testing time.
 
 The exact solution to online SVM learning was given by Cauwenberghs
 and Poggio in 2000 \cite{CauwenberghsP00}, but their idea has received

@@ -32,7 +32,15 @@ Thanks to the introduction of $K(\cdot,\cdot)$ and the associated
 \emph{kernel matrix} $K$, with $K_{ij} = K(\xx_i,\xx_j)$, SVMs are
 able to find $f(\xx)$, complex as it may be, by solving a linear
 separation problem in a highly-dimensional space. This idea is often
-called \emph{kernel trick}. In practice, most of the $\alpha_i$ are found
-to be zero after training and therefore can be neglected in evaluating the
-separating hyperplane in formula (\ref{eqn:sol}) (those $\xx_i$s which cannot
-be neglected are called \emph{support vectors}, SV).
+called \emph{kernel trick}. In practice, most of the $\alpha_i$ are
+found to be zero after training and therefore can be neglected in
+evaluating the separating hyperplane in formula (\ref{eqn:sol}) (those
+$\xx_i$s which cannot be neglected are called \emph{support vectors},
+SV).
+
+In the following, the term \emph{kernel dimension} will refer, as is
+customary, to the dimension of the feature space. The kernel dimension
+is related to the generalisation power of the machine, and it depends
+on the choice of the kernel itself. Widely used kernels include the
+\emph{polynomial} one (finite-dimensional) and the \emph{Gaussian} one
+(infinite-dimensional.
