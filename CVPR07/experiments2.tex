@@ -4,8 +4,8 @@
 We performed a second series of experiments, namely place recognition
 in an indoor environment, to evaluate our algorithm. We considered a
 realistic scenario where the algorithm had to incrementally update the
-model to adapt to the variations in an indoor environment introduced
-by human activities over a long time spans. These variations includes
+model, so to adapt to the variations in an indoor environment due
+to human activities over long time spans. These variations include
 people appearing in different rooms during working time, objects such
 as cups moved or taken in/out of the drawers, pieces of furniture
 pushed around, and so forth.   
@@ -53,24 +53,25 @@ one after another in 1.6 second.}
 \label{fig:idol}
 \end{figure*}
 
-For experiments, we used a newly introduced database called IDOL2 
+Experiments were conducted on  a newly introduced database called IDOL2 
 (Image Database for rObot Localization 2, \cite{luo:idol2}), 
 which contains 24 image sequences acquired using a perspective
-camera mounted on two mobile robot platforms The acquisition was
+camera mounted on two mobile robot platforms. The acquisition was
 performed within an indoor laboratory environment consisting of five 
 rooms of different functionality. The sequences were acquired under
 various weather and illumination conditions (sunny, cloudy, and night)
 and across a time span of six months. Thus, this data capture natural
 variability that occurs in real-world environments because of both 
 natural changes in the illumination and human activity. Fig. \ref{fig:idol} 
-shows some sample images from the database, illustrate these variations.
+shows some sample images from the database, illustrating the difficulties of
+the task.
 The image sequences in the database are divided as follows: for each robot
 platform and for each type of illumination conditions, there were
 four sequences recorded. Of these four sequences, the first two were 
 acquired six months before the last two. This means that, for each robot
 and for every illumination condition, there are always two sequences
 acquired under similar conditions, and two sequences acquired under very
-different conditions. It makes the database suitable for different kinds of
+different conditions. This makes the database suitable for different kinds of
 evaluation on the adaptability of an incremental algorithm. For further
 details about the database, we refer the readers to \cite{luo:idol2}.
 
@@ -86,7 +87,7 @@ standard fixed-partition technique \cite{syed99incremental} and the memory-contr
 incremental SVM \cite{luo:icra07}, a recently introduced version of incremental
 SVM, inspired by the work of Downs et~al. \cite{DownsGM01}. We used a similar
 experimental method as the one presented in \cite{luo:icra07}. The algorithm was
-trained incrementally on three sequences from IDOL2 acquired under similar
+trained incrementally on three sequences from IDOL2, acquired under similar
 illumination conditions with the same robot platform; the fourth sequence was
 used for testing. In order to test the various properties of interest of the
 incremental algorithms, we need a reasonable number of incremental steps.
@@ -101,7 +102,7 @@ sequence, bottom row of Fig. \ref{fig:idol} shows some sample images acquired
 within a time span of 1.6 sec. This setup allows us to examine how the algorithms
 perform on data with less variations. As a result, training on each sequence was
 performed in 5 steps, using one subsequence at a time, resulting in 15 steps in 
-total. In total, we considered 36 different permutations of training and test
+total. Overall, we considered 36 different permutations of training and test
 sequences for $chi^2$ kernel and 12 permutations for local kernel 
 \footnote{Upon acceptance of the paper, we will report results
 on 36 permutations for the local kernel as well (experiments currently running).}; 
@@ -110,9 +111,31 @@ Fig. \ref{fig:exp:idol}, left, shows the recognition rates of $chi^2$ kernel (to
 and local kernel (bottom) experiments obtained at each step using OISVM and the
 other approximate incremental algorithms. Fig. \ref{fig:exp:idol}, right, reports
 the number of support vectors stored in the model at each step of the incremental
-procedure.
+procedure, for both kernel types.
 
-\textbf{FIXME: here comments with numbers}
+We see that, performance-wise, all methods achieves statistically comparable results; this
+is true for both kernel types. Regarding the growth of the SV solution as the incremental
+steps grow, the OISVM algorithm shows a considerable advantage with respect to the fixed partition
+and the memory controlled incremental methods. In the case of the $\chi^{2}$
+kernel this advantage is truly impressive (Fig \ref{fig:exp:idol}, top right): for $\eta=0.025$ 
+and 0.05 the reduction in the number of stored SV is of \ldots \% compared to the fixed partition
+method, and of \ldots \% with respect to the memory controlled algorithm.
+\textbf{Roger fix me here with the numbers!}. Even more important, OISVM, for these two 
+values of $\eta$, has found a plateau in memory, while for the other two methods
+the trend seems to be of a growth (more or less pronounced) proportional to 
+the number of training data. Note that the choice of the parameter $\eta$ is crucial for
+achieving an optimal trade-off between compactness of the solution and optimal performance.  
+
+It is very interesting to note that, in the case of the local kernel, the memory reduction
+for OISVM is less pronounced with respect to the memory controlled method, and there isn't a clear 
+plateau in memory growth by any of the algorithms. A possible explanation
+might be that the local kernel is not a Mercer kernel, and thus the solution is never guaranteed to 
+be optimal \textbf{fixme: does anybody anything to say more/better about this?}.
+
+We can conclude that these results are in agreement with those obtained on the
+machine learning benchmark databases, and show the effectiveness of OISVM in
+controlling the growth of the SV solution for online learning scenarios.
+
 
 
 \begin{figure*}[t]
@@ -125,8 +148,8 @@ procedure.
   \includegraphics[width=0.47\linewidth]{figs/results/local_sv} \vspace{0.1cm}\\
   \multicolumn{2}{c}{(b)~Number of support vectors and classification rate obtained at each incremental step using local kernel.} \\
   \end{tabular}
-\caption{Average results obtained for experiment performed for
-         OISVM using three different $\eta$ values as well as
-         fixed-partition and memory-controlled method. }
+\caption{Average results obtained for experiment performed on the IDOL2 database, using
+         OISVM with  three different values of $\eta$, the 
+         fixed-partition and memory-controlled methods. }
 \label{fig:exp:idol}
 \end{figure*}
