@@ -75,14 +75,14 @@ evaluation on the adaptability of an incremental algorithm. For further
 details about the database, we refer the readers to \cite{luo:idol2}.
 
 The evaluation was performed using composed receptive field histograms (CRFH)
-\cite{Linde:Lindeberg:ICPR04} as global image features and SIFT
-\cite{lowe99object} for extracting local features. In the experiments, we
-consider both $\chi^2$ kernel for SVM (when use CRFH), and local kernels
-\cite{wallraven:iccv03} (SIFT). Similarly to the previous set of experiments,
-we run the OISVM using different values of $\eta$, for both kernels.
+\cite{linde:icpr04} as global image features and SIFT \cite{lowe99object} for
+extracting local features. In the experiments, we consider both $\chi^2$ kernel
+for SVM (when use CRFH), and local kernels \cite{wallraven:iccv03} (SIFT).
+Similarly to the previous set of experiments, we run the OISVM using different
+values of $\eta$, for both kernels.
 
-We benchmarked  OISVM against two approximate incremental SVM extensions:
-the standard fixed-partition technique \cite{ijcai99} and the memory-controlled
+We benchmarked  OISVM against two approximate incremental SVM extensions: the
+standard fixed-partition technique \cite{syed99incremental} and the memory-controlled
 incremental SVM \cite{luo:icra07}, a recently introduced version of incremental
 SVM, inspired by the work of Downs et~al. \cite{DownsGM01}. We used a similar
 experimental method as the one presented in \cite{luo:icra07}. The algorithm was
