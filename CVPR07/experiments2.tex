@@ -90,11 +90,14 @@ of $\eta$, for both kernels.
 We benchmarked OISVM against two approximate incremental SVM
 extensions: the standard fixed-partition technique
 \cite{syed99incremental} and the memory-controlled incremental SVM
-\cite{luo:icra07}, a recently introduced version of incremental SVM,
+\cite{pronobis:icvs06}, a recently introduced version of incremental SVM,
 inspired by the work of Downs et~al. \cite{DownsGM01}; this replicates
 the experimental setup of \cite{luo:icra07}, thus allowing for a
 straightforward comparison between exact and approximate methods on
-this task.  The algorithm was trained incrementally on three sequences
+this task
+\footnote{We gratefully thank Jie Luo who gave us the software and assistance 
+nnecessary to replicate the experiments.}.  
+The algorithm was trained incrementally on three sequences
 from IDOL2, acquired under similar illumination conditions with the
 same robot platform; the fourth sequence was used for testing. In
 order to test the various properties of interest of the incremental
