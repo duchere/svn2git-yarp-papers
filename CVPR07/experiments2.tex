@@ -77,7 +77,7 @@ details about the database, we refer the readers to \cite{luo:idol2}.
 
 The evaluation was performed using composed receptive field histograms (CRFH)
 \cite{linde:icpr04} as global image features and SIFT \cite{lowe99object} for
-extracting local features. In the experiments, we consider both $\chi^2$ kernel
+extracting local features. In the experiments, we consider both exponential $\chi^2$ kernel
 for SVM (when use CRFH), and local kernels \cite{wallraven:iccv03} (SIFT).
 Similarly to the previous set of experiments, we run the OISVM using different
 values of $\eta$, for both kernels.
@@ -85,8 +85,10 @@ values of $\eta$, for both kernels.
 We benchmarked  OISVM against two approximate incremental SVM extensions: the
 standard fixed-partition technique \cite{syed99incremental} and the memory-controlled
 incremental SVM \cite{luo:icra07}, a recently introduced version of incremental
-SVM, inspired by the work of Downs et~al. \cite{DownsGM01}. We used a similar
-experimental method as the one presented in \cite{luo:icra07}. The algorithm was
+SVM, inspired by the work of Downs et~al. \cite{DownsGM01}; this replicates
+the experimental setup of \cite{luo:icra07}, thus allowing for
+a straightforward comparison between  exact and approximate methods on this task. 
+ The algorithm was
 trained incrementally on three sequences from IDOL2, acquired under similar
 illumination conditions with the same robot platform; the fourth sequence was
 used for testing. In order to test the various properties of interest of the
@@ -103,12 +105,12 @@ within a time span of 1.6 sec. This setup allows us to examine how the algorithm
 perform on data with less variations. As a result, training on each sequence was
 performed in 5 steps, using one subsequence at a time, resulting in 15 steps in 
 total. Overall, we considered 36 different permutations of training and test
-sequences for $chi^2$ kernel and 12 permutations for local kernel 
+sequences for the exponential $\chi^2$ kernel and 12 permutations for the matching kernel 
 \footnote{Upon acceptance of the paper, we will report results
-on 36 permutations for the local kernel as well (experiments currently running).}; 
+on 36 permutations for the matching kernel as well (experiments currently running).}; 
 here we report average results with standard deviation. 
-Fig. \ref{fig:exp:idol}, left, shows the recognition rates of $chi^2$ kernel (top)
-and local kernel (bottom) experiments obtained at each step using OISVM and the
+Fig. \ref{fig:exp:idol}, left, shows the recognition rates of the exponential $\chi^2$ kernel (top)
+and matching kernel (bottom) experiments obtained at each step using OISVM and the
 other approximate incremental algorithms. Fig. \ref{fig:exp:idol}, right, reports
 the number of support vectors stored in the model at each step of the incremental
 procedure, for both kernel types.
@@ -116,7 +118,7 @@ procedure, for both kernel types.
 We see that, performance-wise, all methods achieves statistically comparable results; this
 is true for both kernel types. Regarding the growth of the SV solution as the incremental
 steps grow, the OISVM algorithm shows a considerable advantage with respect to the fixed partition
-and the memory controlled incremental methods. In the case of the $\chi^{2}$
+and the memory controlled incremental methods. In the case of the exponential $\chi^{2}$
 kernel this advantage is truly impressive (Fig \ref{fig:exp:idol}, top right): for $\eta=0.017$ 
 and 0.025 the reduction in the number of stored SV is of 34\%/21\% (final incremental step) 
 and compared to the fixed-partition method, and of 55\%/36\% (final incremental step) with
@@ -127,11 +129,11 @@ which plot might be interpreted as an asymptotic plateau) proportional to
 the number of training data. Note that the choice of the parameter $\eta$ is crucial for
 achieving an optimal trade-off between compactness of the solution and optimal performance.  
 
-It is very interesting to note that, in the case of the local kernel, the memory reduction
+It is very interesting to note that, in the case of the matching kernel, the memory reduction
 for OISVM is less pronounced with respect to the memory-controlled method, and there isn't a clear 
 plateau in memory growth by any of the algorithms. 
 This behavior might be due to several factors: to begin with,
-the matching kernel is not a Mercer kernel, 
+the matching kernel is not a Mercer kernel \cite{fleuret:bmvc04}, 
 which might affect the algorithm. Also,
 the algorithm might not 
 reach a plateau in the SVs growth because, in the induced space of
