@@ -10,15 +10,15 @@ OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
 \cite{ChangL01}. For the sake of comparison, LIBSVM has been modified
 as suggested by the Authors in order to set $p=2$ in
 (\ref{eqn:svm_primal}); this modified version is called LIBSVM-2 in
-the following. 
-The software library was also extended to various families of kernels,
-and to two approximate incremental extension of SVM, the fixed-partition incremental
-SVM \cite{syed99incremental}, and the memory-controlled incremental SVM \cite{luo:icra07}.
-In the case of finite-dimensional kernels, we only show
-the performance of LIBSVM-2 against OISVMs with $\eta$ at machine
-precision, since the solution found by OISVM is exactly equivalent; in
-the case of infinite-dimensional kernels, we show curves for
-various values of $\eta$.
+the following.  The software library was also extended to various
+families of kernels, and to two approximate incremental extensions of
+SVM, the fixed-partition incremental SVM \cite{syed99incremental}, and
+the memory-controlled incremental SVM \cite{luo:icra07}.  In the case
+of finite-dimensional kernels, we only show the performance of
+LIBSVM-2 against OISVMs with $\eta$ at machine precision, since the
+solution found by OISVM is exactly equivalent; in the case of
+infinite-dimensional kernels, we show curves for various values of
+$\eta$.
 
 \subsection{Experiments with Standard Benchmark Databases}
 \label{exp:ml}
@@ -47,7 +47,7 @@ train/test runs.
 \begin{tabular}[!h]{|l|c|c|c|}
 \hline
   Benchmark & Class. rate    & \% SVs          & \% SVs        \\
-       name & loss           & vs. LIBSVM      & vs. LIBSVM-2  \\ \hline
+       name & loss           & vs. LIBSVM-2    & vs. LIBSVM    \\ \hline
      Breast & $0.47\pm0.82$  & $10.2\pm0.87$   & $22.1\pm1.77$ \\
    Diabetes & $-0.52\pm2.1$  & $40.2\pm2.1$    & $55.2\pm2.73$ \\
    German   & $0.40\pm1.15$  & $6.1\pm0.23$    & $9.2\pm0.35$  \\
@@ -69,11 +69,11 @@ kernel used is polynomial with degree $3$ and the benchmark has $8$
 features, therefore the dimension of the feature space is
 $\binom{10}{3} = 120$ (see, e.g., \cite{Burges98}); and, as expected,
 OISVM stops acquiring new SVs when there are exactly $120$, although
-it loads a few more before reaching the limit. The accuracy (not
-displayed) is exactly the same. Again, notice that, after having
-acquired $120$ SVs, OISVM will never acquire any more ever while
-keeping the same accuracy, whereas the LIBSVMs do, as theoretically
-proved in \cite{Steinwart03}.
+it loads a few more before reaching the limit, with respect to the
+other approaches. The accuracy (not displayed) is exactly the
+same. Again, notice that, after having acquired $120$ SVs, OISVM will
+never acquire any more ever, while keeping the same accuracy, whereas
+the LIBSVMs do, as theoretically proved in \cite{Steinwart03}.
 
 Consider now Figure \ref{fig:ad7}, right pane: the kernel used is
 Gaussian and its dimension is infinite. The benchmark is relevantly
@@ -83,8 +83,8 @@ of the SVs used by LIBSVM-2 and less than $8\%$ with respect to
 LIBSVM. The accuracy is $0.063\%\pm0.14$ worse than that of LIBSVM-2.
 
 Lastly, consider Table \ref{table:t1}, which shows the very same data
-in compact form for $4$ more of the standard databases. OISVMs attain
-a number of SVs which is about $6\%$ to slightly more than $55\%$ of
+in compact form for $4$ more standard databases. OISVM attains a
+number of SVs which is about $6\%$ to slightly more than $55\%$ of
 LIBSVM, whereas the accuracy is basically the same, being slightly
 better than LIBSVM in two cases (\emph{Diabetes}, this time solved via
 a Gaussian kernel, and \emph{Heart}).

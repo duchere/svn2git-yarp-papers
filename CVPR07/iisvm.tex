@@ -9,14 +9,14 @@ To avoid simplify the solution each time a new sample is acquired like
 in \cite{DownsGM01}, we need a way to use independent SVs only. Hence,
 the main idea is to decouple the concept of ``basis'' vectors, used to
 build the classification function (\ref{eqn:sol}), from the samples
-used to find out the $\aa$s. If the selected basis vectors span the
+used to find out the $\alpha_i$s. If the selected basis vectors span the
 same subspace as the whole sample set, the solution found will be
 equivalent --- that is, we will not lose any precision.
 
 We hereby propose, after having received a new training sample, to
 incrementally add it to the basis if it is linearly independent in the
-feature space from those already present in the basis.  The solution
-found is \emph{the same} as in the classical SVM formulation;
+feature space from those already present in the basis itself. The
+solution found is \emph{the same} as in the classical SVM formulation;
 therefore, no approximation whatsoever is involved, unless one gives
 it up in order to obtain even fewer support vectors (see Section
 \ref{sec:exp} for a deeper discussion on this point).
@@ -67,10 +67,10 @@ more than $n$ vectors.
 Expanding equation (\ref{eqn:ald1}) we get
 
 \begin{eqnarray} \label{eqn:ald2}
-  \Delta = \min_{\dd} (
+  \Delta = \min_{\dd} ( ~
       \sum_{i,j \in \b} d_j d_i \phi(\xx_j) \cdot \phi(\xx_i) \\
     - 2\sum_{j \in \b} d_j \phi(\xx_j) \cdot \phi(\xx_{l+1}) \nonumber \\
-    + \phi(\xx_{l+1}) \cdot \phi(\xx_{l+1}) ) \nonumber
+    + \phi(\xx_{l+1}) \cdot \phi(\xx_{l+1}) ~ ) \nonumber
 \end{eqnarray}
 
 \noindent that is, applying the kernel trick,
@@ -122,8 +122,11 @@ $K_{\b\b}^{-1}$ then becomes
 \end{equation}
 
 \noindent where $\mdd$ and $\Delta$ are already evaluated during the
-test. This method matches the one used in Cauwenberghs and Poggio's
-incremental algorithm \cite{CauwenberghsP00}.
+test (this method matches the one used in Cauwenberghs and Poggio's
+incremental algorithm \cite{CauwenberghsP00}). Thanks to this
+incremental evaluation, the time complexity of the linear independence
+check is $O(|\b|^2)$, as one can easily see from Equation
+(\ref{eqn:ald4}).
 
 \subsection{Training the machine}
 
@@ -139,7 +142,7 @@ the unconstrained problem is
 \begin{equation} \label{eqn:primal}
   \min_{\bb} \left( 
       \frac{1}{2} \bb^T K_{\d\d} \bb
-    + \frac{1}{2} C \sum_{i=1}^l max \left(0,1-y_i K_{i,\d} \bb \right)^2
+    + \frac{1}{2} C \sum_{i=1}^l max \left(0,1-y_i K_{i\d} \bb \right)^2
   \right)
 \end{equation}
 
@@ -154,7 +157,7 @@ new sample $\xx_{l+1}$ is received the method goes as follows:
 \begin{enumerate}
 
    \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
-     K_{i,\b} \bb$ and $\bb$ is the vector of optimal coefficients
+     K_{i\b} \bb$ and $\bb$ is the vector of optimal coefficients
      with $l$ training samples; if $\mathcal{I}$ hasn't changed, stop.
 
    \item otherwise, let the new $\bb$ be $\bb - \gamma
