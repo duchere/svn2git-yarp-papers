@@ -6,7 +6,7 @@ dependent on some others \emph{in the feature space} (this is the core
 of Downs et al.'s \cite{DownsGM01} original idea).
 
 To avoid simplify the solution each time a new sample is acquired like
-in \cite{DownsGM01}, we need a way to use indipendent SVs only. Hence,
+in \cite{DownsGM01}, we need a way to use independent SVs only. Hence,
 the main idea is to decouple the concept of ``basis'' vectors, used to
 build the classification function (\ref{eqn:sol}), from the samples
 used to find out the $\aa$s. If the selected basis vectors span the
@@ -22,7 +22,7 @@ it up in order to obtain even fewer support vectors (see Section
 \ref{sec:exp} for a deeper discussion on this point).
 
 Denoting the indexes of the vectors in the current basis, after $l$
-training samples, by $\b$, and the new sample under judgement by
+training samples, by $\b$, and the new sample under judgment by
 $\xx_{l+1}$, the algorithm can then be summed up as follows:
 
 \begin{enumerate}
@@ -99,7 +99,7 @@ respect to $\dd$, we obtain
 
 Note that $K_{\b\b}$ can be safely inverted since, by incremental
 construction, it is full-rank. An efficient way to do it, exploiting
-the incrementality of the approach, is that of updating it
+the incremental nature of the approach, is that of updating it
 recursively: after the addition of a new sample, the new
 $K_{\b\b}^{-1}$ then becomes
 
@@ -129,9 +129,9 @@ incremental algorithm \cite{CauwenberghsP00}.
 
 The training method largely follows Keerthi et
 al. \cite{KeerthiDC05,KeerthiCDC06}, that we have adapted for online
-training. The algorithm directly minimises problem
-(\ref{eqn:svm_primal}) as opposed to the standard way of minimising
-its dual Lagrangian form, allowing to select explicitely the basis
+training. The algorithm directly minimizes problem
+(\ref{eqn:svm_primal}) as opposed to the standard way of minimizing
+its dual Lagrangian form, allowing to select explicitly the basis
 vectors to use. We set $p=2$ in (\ref{eqn:svm_primal}) and transform
 it to an unconstrained problem.  Let $\d \subset \{1,\ldots,l\}$; then
 the unconstrained problem is

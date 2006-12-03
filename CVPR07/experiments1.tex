@@ -1,18 +1,23 @@
 In this section we report the experimental evaluation of OISVMs. We
 first test the method on a set of databases commonly used in the
 machine learning community (section \ref{exp:ml}); we then apply it to
-the more realistic scenario of indoor place recognition across
-different viewpoints and illumination conditions (section
+the more realistic scenario of place recognition, where the aim is to
+update the model to handle variations in an indoor environment
+ (section
 \ref{exp:idol2}).
 
 OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
 \cite{ChangL01}. For the sake of comparison, LIBSVM has been modified
 as suggested by the Authors in order to set $p=2$ in
 (\ref{eqn:svm_primal}); this modified version is called LIBSVM-2 in
-the following. In the case of finite-dimensional kernels, we only show
+the following. 
+The software library was also extended to various families of kernels,
+and to two approximate incremental extension of SVM, the fixed-partition incremental
+SVM \cite{syed99incremental}, and the memory-controlled incremental SVM \cite{luo:icra07}.
+In the case of finite-dimensional kernels, we only show
 the performance of LIBSVM-2 against OISVMs with $\eta$ at machine
 precision, since the solution found by OISVM is exactly equivalent; in
-the case of the infinite-dimensional kernel, we show curves for
+the case of infinite-dimensional kernels, we show curves for
 various values of $\eta$.
 
 \subsection{Experiments with Standard Benchmark Databases}
@@ -54,7 +59,7 @@ train/test runs.
  using a Gaussian kernel. For each benchmark, we report the difference
  in classification rate with respect to LIBSVM-2 and the
  percentage of the number of SVs with respect to LIBSVM and
- LIBSVM-2. The value of $\eta$ has been choosen in order not to loose
+ LIBSVM-2. The value of $\eta$ has been chosen in order not to loose
  more than $0.5\%$ accuracy.}
 \end{table*}
 
