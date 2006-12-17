@@ -1,11 +1,25 @@
 %
 % Advanced Robotics submission
-% Implicitly Learning Object Affordances
+% Internal models of reaching and grasping
 % Castellini, Orabona, Metta, Sandini
 %
 
 \documentclass{arsubmit}
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+
+\def\RR{\mathbb{R}}
+\def\NN{\mathbb{N}}
+\def\xx{\mathbf{x}}
+\def\ww{\mathbf{w}}
+\def\aa{\mathbf{\alpha}}
+\def\bb{\mathbf{\beta}}
+\def\ee{\mathbf{e}}
+\def\dd{\mathbf{d}}
+\def\mdd{\tilde{\dd}}
+\def\b{\mathcal{B}}
+\def\d{\mathcal{D}}
 
 \title{Internal models of reaching and grasping}
 
@@ -32,6 +46,10 @@ capturing systems and its application
 \section{INTRODUCTION}
 \label{sec:introduction}
 \input{intro}
+
+\section{SUPPORT VECTOR MACHINES}
+\label{sec:svm}
+\input{svm}
 
 \section{MATERIALS AND METHODS}
 \label{sec:exp_desc}
