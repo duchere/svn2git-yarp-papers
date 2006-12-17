@@ -10,10 +10,10 @@ unknown.
 \subsubsection*{Devices}
 
 We collected data using a 22-sensors Immersion DataGlove for the hand
-posture, an Ascension Flock-Of-Birds (FoB) for the hand position and a
-Force Resistor Sensor (FSR) to detect the contact moment with the
-object. Figure \ref{fig:devices} shows the devices, as worn by a
-subject.
+posture \cite{dataglove}, an Ascension Flock-Of-Birds (FoB) for the hand
+position \cite{fob} and a Force Resistor Sensor (FSR) to detect the
+contact moment with the object. Figure \ref{fig:devices} shows the
+devices, as worn by a subject.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -31,20 +31,29 @@ subject.
 \end{figure}
 
 The DataGlove was worn by the subject on the right hand. The device
-returns $22$ $8$-bit numbers, describing the position of the three
-phalanxes of each finger (for the thumb, rotation and two phalanxes),
-the four finger-to-finger abductions, the palm arch, the wrist pitch
-and the wrist yaw. The FoB sensor was firmly mounted on the DataGlove,
-just above the subject\'s wrist, with the X/Y plane being parallel to
-the palm plane in the resting position. The device returns $6$
-double-precision numbers describing the position ($x$, $y$ and $z$ in
-inches) and rotation (azimuth, elevation and roll in angles) of the
-sensor with respect to a magnetic basis mounted about one meter away
-from the subject. The FSR was mounted on the subject\'s thumb. It
-returns a $32$-bit number approximately inversely proportional to the
-pressure applied to the surface of the sensor. All devices were tuned
-to stream at $50$Hz, and their data were synchronised, collected and
-saved in real time.
+returns $22$ $8$-bit numbers linearly related to the angles between
+the ends of the sensors and roughly indicating the angles between the
+subject's hand joints; the sensors are embedded in the glove in order
+for them to be adherent to the subject's skin. The resolution of the
+sensors is on average about $1$ degree \cite{dataglove_res}. The
+sensors describe the position of the three phalanxes of each finger
+(for the thumb, rotation and two phalanxes), the four finger-to-finger
+abductions, the palm arch, the wrist pitch and the wrist yaw.
+
+The FoB was firmly mounted on the DataGlove, just above the subject's
+wrist, with the X/Y plane being parallel to the palm plane in the
+resting position. The device returns $6$ double-precision numbers
+describing the position ($x$, $y$ and $z$ in inches) and rotation
+(azimuth, elevation and roll in angles) of the sensor with respect to
+a magnetic basis mounted about one meter away from the subject. The
+FoB's resolution is about $??$ \cite{fob_res}.
+
+Lastly, the FSR was mounted on the subject's thumb. It returns a
+$32$-bit number approximately inversely proportional to the pressure
+applied to the surface of the sensor.
+
+All data were synchronised, collected and saved in real time at about
+$50$Hz.
 
 \subsubsection*{Subjects}
 
@@ -55,22 +64,17 @@ knowledge of the aim of the experiment.
 
 \subsubsection*{Method}
 
-The subjects were asked to sit comfortably in front of a clean
+The subjects were asked to sit confortably in front of a clean
 workspace of about one squared meter, at the center of which an object
 was placed, in a predefined position. The subjects were then asked to
-wear the DataGlove (along with the FoB and FSR), and to choose a
-resting position for their right hand and arm.
-
-The subjects had to grasp the object with their right hand any way
-they wanted, not necessarily the same way each time, keeping a
-``natural'' attitude, i.e., without employing weird hand positions
-and/or postures, but being able to seize the object with precision or
-power grips, using the whole hand cilyndrically or just a subset of
-their fingers, etc. After grasping the object, they had to drop it
-somewhere else in the workspace, and then return their right hand and
-arm in the initial resting position. Subsequently, they had to use
-their left hand to reposition the object roughly in the same place it
-was before.
+wear the devices and choose a resting position for their right hand
+and arm. They were then instructed to grasp the object with their
+right hand any way they wanted, not necessarily the same way each
+time, keeping a ``natural'' attitude. After grasping the object, they
+had to drop it somewhere else in the workspace, and then return their
+right hand and arm in the initial resting position. Subsequently, they
+had to use their left hand to reposition the object roughly in the
+same place it was before.
 
 We first had the subjects do a trial run of the experiment, in order
 for them to gain confidence in the setup. A beeping sound was heard
@@ -78,7 +82,7 @@ each time the subject made contact with the object (that is, each time
 the FSR signalled a significant change), and they were asked to try
 and hear the beep each time they grasped the object. Although this
 ruled out grasps which made no use of the thumb, it enabled us to
-better understand the contact point.
+better gather the contact points.
 
 After the trial run, subjects were asked to repeat the
 grasp/drop/reposition procedure $120$ times per each object. We
@@ -101,23 +105,21 @@ mug (Figure \ref{fig:objects} shows the objects).
 
 The $120$-grasps session was done twice, resulting in approximately
 $240$ grasps for each of the three objects. The numbers are not
-precise since now and them the subjects would actually grasp without
-hearing the beeping sound since the FSR did not activate properly; but
-this problem has been corrected in the batch analysis of
-data. Moreover, in two cases the FSR broke down toward the end of the
-experiment, resulting in a slightly smaller number of grasps.
+precise since now and then the subjects would grasp without properly
+activating the FSR. This problem has been corrected in the batch
+analysis of data. Moreover, in two cases the FSR broke down toward the
+end of the experiment, resulting in a slightly smaller number of
+grasps. In order not to have the subjects ``specialise'' on a
+particular object, we alternated the sessions this way: first the can,
+then the roll and then the mug, all of this two times.
 
-In order not to have the subjects ``specialise'' on a particular
-object, we alternated the sessions this way: first the can, then the
-roll and then the mug, all of this two times.
-
-Each experiment lasted $35$ to $56$ minutes depending on the subject's
-confidence and speed; although almost no subjects reported tiredness,
-we allowed for rest between each session. It was reported by almost
-every subject that the experiment became rapidly boring, which lets us
-claim that almost all grasps were done in a natural, almost
-unconscious way. Figure \ref{fig:setup} shows the main phases of the
-experiment.
+Each experiment (one subject, six sessions) lasted $35$ to $56$
+minutes depending on the subject's confidence and speed; although
+almost no subjects reported tiredness, we allowed for rest between
+each session. It was reported by almost every subject that the
+experiment became rapidly boring, which lets us claim that almost all
+grasps were done in a natural, almost unconscious way. Figure
+\ref{fig:setup} shows the main phases of the experiment.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -127,23 +129,23 @@ experiment.
       \includegraphics[width=0.3\linewidth]{exp3.eps} \\
       $(a)$ & $(b)$ & $(c)$
     \end{tabular}
-    \caption{The experiment. The subject sits confortably in
-    front of a clean workspace, at the center of which an object is
-    placed $(a)$, with his right hand in a resting position. He then
-    grasps the object and drops it somewhere else in the workspace
-    $(b)$, bringing then his arm and hand in the resting
-    position. Lastly, he repositions the object in the initial
-    position using his left arm and hand $(c)$. The procedure is repeated
-    for $120$ times, then this session is repeated for each of the
-    three objects, and all of this is done twice, resulting in
-    approximately $240$ grasps for each subject and object.}
+    \caption{The experiment. The subject sits confortably in front of
+    a clean workspace, at the center of which an object is placed
+    $(a)$, with his right hand in a resting position. He then grasps
+    the object and drops it somewhere else in the workspace $(b)$,
+    bringing then his arm and hand in the resting position. Lastly, he
+    repositions the object in the initial position using his left arm
+    and hand $(c)$. The procedure is repeated for $120$ times, then
+    this session is repeated for each of the three objects, and all of
+    this is done twice, resulting in approximately $240$ grasps for
+    each subject and object.}
     \label{fig:setup}
   \end{center}
 \end{figure}
 
 \subsection{Building the training set}
 
-\subsubsection{Detecting grasps}
+\subsubsection*{Detecting grasps}
 
 In order to train a Support Vector Machine, it is required that an
 appropriate number of \emph{examples} be extracted from the subjects'
@@ -152,7 +154,7 @@ gathered off a single joint, together with a target value for that
 joint --- the value the SVM must guess by means of regression.
 
 As described above, each user was instructed to grasp each object in
-two separate session; therefore, each session records a time sequence
+two separate sessions; therefore, each session records a time sequence
 in which data from all sensors ($6$ from the FoB and $22$ from the
 DataGlove) are recorded continually. From each session and for each
 sensor we have automatically extracted the sub-sequences representing
@@ -165,7 +167,8 @@ all cases with a spike, signalling, whenever the subject made contact
 with the object, a significantly different value from that recorded
 elsewhere shortly before the contact. The spike instants were taken as
 the \emph{ending} points of each grasp sequence, and were gathered by
-observing the first derivative of the FSR value. After each spike, we
+checking when the first derivative of its value dropped by more than
+$10\%$ of its overall minimum value. Moreover, after each spike, we
 ignored one second of the sequence, in order not to detect possible
 spurious spikes which happened immediately after the grasp, due to
 object slippage and/or blurred values coming from the FSR.
@@ -176,19 +179,18 @@ acceleration, averaged over $0.2$ seconds, from the ending point
 backwards. Since we had instructed the subjects to always return to
 the resting position before initiating a new grasp, when the grasp
 starts, the speed must be close to zero and the acceleration must be
-negative, since the subjsect's arm is moving toward the FoB's
-reference point (that is, the distance diminishes). Therefore, we set
-the grasp starting point at the nearest moment in time before the
-ending point in which the hand speed was close to zero and the hand
-acceleration was negative. In order to avoid detecting spurious
-speed/acceleration glitches when the hand made contact with the
-object, we ignored $0.1$ seconds just before the ending point. Figure
-\ref{fig:grasp_detection} $(a)$ shows an example set of detected
-grasps. The detected start and end points of the grasps are
-highlighted. As one can see, the hand speed (green curve) shows the
-well known bell-shaped curve during a grasp \cite{...} {\bf GIORGIO
-metti una citazione qui}: the hand speed diminishes, reaches a minimum
-and then gets back to zero till the ending point of the grasp.
+negative (the subject's arm is moving \emph{toward} the FoB's
+reference point). Therefore, we set the grasp starting point at the
+nearest moment in time before the ending point in which the hand speed
+was close to zero and the hand acceleration was negative. In order to
+avoid detecting spurious speed/acceleration glitches when the hand
+made contact with the object, we ignored $0.1$ seconds just before the
+ending point. Figure \ref{fig:grasp_detection} $(a)$ shows an example
+set of detected grasps. The detected start and end points of the
+grasps are highlighted. As one can see, the hand speed (green curve)
+shows the well known bell-shaped curve during a grasp \cite{...} {\bf
+GIORGIO metti una citazione qui}: the hand speed diminishes, reaches a
+minimum and then gets back to zero till the ending point of the grasp.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -219,16 +221,15 @@ $658$ grasps. The data were also manually observed in order to verify
 that spurious detected grasps would be an insignificant fraction of
 the total grasps.
 
-\subsubsection{Grasping speed}
+\subsubsection*{Grasping speed}
 
 In order to make time sequences suitable for Support Vector Machines,
-they must be all the same length\footnote{an interesting possibility is
+they must be all the same length\footnote{an interesting possbility is
 that of employing a kernel which can consider time sequences of
-different lengths, see e.g. \cite{} {\bf FRANCESCO aggiungi citazione
-qui}. This issue is the subject of future research.}; in order to do
-this, since in general not all grasp sequences have the same length,
-it is crucial to have an idea of how fast the grasps are.
-
+different lenghts, see e.g. \cite{...} {\bf FRANCESCO aggiungi
+citazione qui}. This issue is the subject of future research.}; in
+order to do this, since in general not all grasp sequences have the
+same length, it is crucial to have an idea of how fast the grasps are.
 Figure \ref{fig:grasp_sequence} $(b)$ shows the average grasp
 durations for all subjects over the six sessions of each experiment
 (moving average over $50$ grasps); as one would expect, in general the
@@ -236,3 +237,7 @@ subjects get rapidly used to the grasp/drop/reposition task and the
 grasps become faster and faster. It must be remarked, though, that
 this is not the case for all subjects considered one by one. Overall,
 the grasps last $0.61 \pm 0.21$ seconds.
+
+Therefore, we stretched every grasp sequence to $1$ second by linear
+interpolation, obtaining fixed-length time sequences of $50$ samples
+for each sensor and grasp sequence.
