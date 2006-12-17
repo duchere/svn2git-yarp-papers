@@ -1,0 +1,43 @@
+In order to understand how far our system could predict the grasping
+hand position and posture, we followed this methodology. First of all,
+for each regression experiment, we defined an \emph{input sequence} as
+a sequence of time sequences grouped by subject or by object or
+both. Then from each input sequence we extracted the related grasp
+sequences according to the methodology described in the previous
+Section. Lastly, we fixed a \emph{blind percentage} $B$ of the
+grasp sequence.
+
+For each grasp sequence, we considered the values of the sensors at
+the ending point of the sequence, that is, at the time of contact with
+the object, as the target value. The input given to the Support Vector
+Machine was then $(1-B)\%$ starting from the starting point of the
+sequence. In other words, the last $B\%$ of the sequence was hidden to
+the system. We expected that bigger $B$s would lead to a bigger
+regression error, and tried to find what was the maximum $B$ for which
+an acceptable error was achieved.
+
+We grouped the $28$ sensors this way: the $3$ numbers representing the
+position of the hand (coming from the FoB), the $3$ numbers
+representing the orientation of the hand (coming from the FoB too),
+and the $22$ numbers representing the posture of the hand (coming from
+the DataGlove). According to the device resolutions detailed in the
+previous Section, we defined an ``acceptable'' error like this: $1$
+centimeter for each component of the hand position, $1$ degree for
+each component of the hand orientation and $3$ units for each
+component of the hand posture.
+
+As far as the Support Vector Machines are concerned, a Gaussian kernel
+was chosen, and its hyperparameters ($C$ and $\gamma$) were found by
+grid search \cite{...}. The error on regression was obtained by
+$5$-fold cross-validation on the grasp sequences obtained from the
+target input sequence. This ensures that the system is able to
+generalise well.
+
+\subsubsection*{Accuracy on a single subject}
+
+\subsubsection*{Accuracy on a single object}
+
+\subsubsection*{Overall accuracy}
+
+\subsubsection*{Discussion}
+
