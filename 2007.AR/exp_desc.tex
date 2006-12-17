@@ -1,5 +1,5 @@
 In this Section we detail the process of gathering data from the
-subjects and processing them in iorder to make them suitable for
+subjects and processing them in order to make them suitable for
 analysis by a Support Vector Machine. The aim is that of building
 sequences of biometric data (hand position and posture) from time
 sequences in which the times of start and end of the grasps are
@@ -35,12 +35,12 @@ returns $22$ $8$-bit numbers, describing the position of the three
 phalanxes of each finger (for the thumb, rotation and two phalanxes),
 the four finger-to-finger abductions, the palm arch, the wrist pitch
 and the wrist yaw. The FoB sensor was firmly mounted on the DataGlove,
-just above the subject's wrist, with the X/Y plane being parallel to
+just above the subject\'s wrist, with the X/Y plane being parallel to
 the palm plane in the resting position. The device returns $6$
 double-precision numbers describing the position ($x$, $y$ and $z$ in
 inches) and rotation (azimuth, elevation and roll in angles) of the
 sensor with respect to a magnetic basis mounted about one meter away
-from the subject. The FSR was mounted on the subject's thumb. It
+from the subject. The FSR was mounted on the subject\'s thumb. It
 returns a $32$-bit number approximately inversely proportional to the
 pressure applied to the surface of the sensor. All devices were tuned
 to stream at $50$Hz, and their data were synchronised, collected and
@@ -55,7 +55,7 @@ knowledge of the aim of the experiment.
 
 \subsubsection*{Method}
 
-The subjects were asked to sit confortably in front of a clean
+The subjects were asked to sit comfortably in front of a clean
 workspace of about one squared meter, at the center of which an object
 was placed, in a predefined position. The subjects were then asked to
 wear the DataGlove (along with the FoB and FSR), and to choose a
@@ -222,9 +222,9 @@ the total grasps.
 \subsubsection{Grasping speed}
 
 In order to make time sequences suitable for Support Vector Machines,
-they must be all the same length\footnote{an interesting possbility is
+they must be all the same length\footnote{an interesting possibility is
 that of employing a kernel which can consider time sequences of
-different lenghts, see e.g. \cite{} {\bf FRANCESCO aggiungi citazione
+different lengths, see e.g. \cite{} {\bf FRANCESCO aggiungi citazione
 qui}. This issue is the subject of future research.}; in order to do
 this, since in general not all grasp sequences have the same length,
 it is crucial to have an idea of how fast the grasps are.
@@ -233,6 +233,6 @@ Figure \ref{fig:grasp_sequence} $(b)$ shows the average grasp
 durations for all subjects over the six sessions of each experiment
 (moving average over $50$ grasps); as one would expect, in general the
 subjects get rapidly used to the grasp/drop/reposition task and the
-grasps become faster and faster. It must be remarled, though, that
+grasps become faster and faster. It must be remarked, though, that
 this is not the case for all subjects considered one by one. Overall,
 the grasps last $0.61 \pm 0.21$ seconds.
