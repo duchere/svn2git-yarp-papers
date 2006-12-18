@@ -9,11 +9,11 @@ unknown.
 
 \subsubsection*{Devices}
 
-We collected data using a 22-sensors Immersion DataGlove for the hand
-posture \cite{dataglove}, an Ascension Flock-Of-Birds (FoB) for the hand
-position \cite{fob} and a Force Resistor Sensor (FSR) to detect the
-contact moment with the object. Figure \ref{fig:devices} shows the
-devices, as worn by a subject.
+We collected data using a $22$-sensors Immersion CyberGlove for the
+hand posture \cite{cyberglove}, an Ascension Flock-Of-Birds (FoB) for
+the hand position \cite{fob} and a Force Resistor Sensor (FSR) to
+detect the contact moment with the object. Figure \ref{fig:devices}
+shows the devices, as worn by a subject.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -23,30 +23,32 @@ devices, as worn by a subject.
       $(a)$ & $(b)$
     \end{tabular}
     \caption{The devices used for the experiment, as worn by a
-    subject: $(a)$ the DataGlove with the Flock-of-Birds just above the
-    subject's wrist; $(b)$ the Force Resistor Sensor attached to the
-    subject's thumb.}
+    subject: $(a)$ the CyberGlove with the Flock-of-Birds just above
+    the subject's wrist; $(b)$ the Force Resistor Sensor attached to
+    the subject's thumb.}
     \label{fig:devices}
   \end{center}
 \end{figure}
 
-The DataGlove was worn by the subject on the right hand. The device
+The CyberGlove was worn by the subject on the right hand. The device
 returns $22$ $8$-bit numbers linearly related to the angles between
 the ends of the sensors and roughly indicating the angles between the
 subject's hand joints; the sensors are embedded in the glove in order
 for them to be adherent to the subject's skin. The resolution of the
-sensors is on average about $1$ degree \cite{dataglove_res}. The
+sensors is on average about $0.5$ degree \cite{cyberglove}, but the
+noise associated with the sensors has been experimentally determined
+to be $1.1$ on average and $3$ at the maximum \cite{212431}. The
 sensors describe the position of the three phalanxes of each finger
 (for the thumb, rotation and two phalanxes), the four finger-to-finger
 abductions, the palm arch, the wrist pitch and the wrist yaw.
 
-The FoB was firmly mounted on the DataGlove, just above the subject's
+The FoB was firmly mounted on the CyberGlove, just above the subject's
 wrist, with the $X/Y$ plane being parallel to the palm plane in the
 resting position. The device returns $6$ double-precision numbers
 describing the position ($x$, $y$ and $z$ in inches) and rotation
 (azimuth, elevation and roll in angles) of the sensor with respect to
 a magnetic basis mounted about one meter away from the subject. The
-FoB's resolution is about $??$ \cite{fob_res}.
+FoB's resolution is $0.1$ inches and $0.5$ degrees \cite{fob}.
 
 Lastly, the FSR was mounted on the subject's thumb. It returns a
 $32$-bit number approximately inversely proportional to the pressure
@@ -156,7 +158,7 @@ joint --- the value the SVM must guess by means of regression.
 As described above, each user was instructed to grasp each object in
 two separate sessions; therefore, each session records a time sequence
 in which data from all sensors ($6$ from the FoB and $22$ from the
-DataGlove) are recorded continually. From each session and for each
+CyberGlove) are recorded continually. From each session and for each
 sensor we have automatically extracted the sub-sequences representing
 the grasping action.
 
@@ -185,7 +187,7 @@ nearest moment in time before the ending point in which the hand speed
 was close to zero and the hand acceleration was negative. In order to
 avoid detecting spurious speed/acceleration glitches when the hand
 made contact with the object, we ignored $0.1$ seconds just before the
-ending point. Figure \ref{fig:grasp_detection} $(a)$ shows an example
+ending point. Figure \ref{fig:grasp_sequence} $(a)$ shows an example
 set of detected grasps. The detected start and end points of the
 grasps are highlighted. As one can see, the hand speed (green curve)
 shows the well known bell-shaped curve during a grasp \cite{...} {\bf
