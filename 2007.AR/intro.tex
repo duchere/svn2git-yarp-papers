@@ -72,17 +72,18 @@ clearly they can be used to reproduce and mimic human movement \cite{wolpert-01}
 In particular, we investigated whether the final configuration of the arm and hand can be
 predicted from the initial part of the movement, in practice, by imagining that the 
 final part of the action is occluded by a screen. We analyzed how much error we make in 
-predicting the final position of the fingers joint angles and the three dimensional 
-coordinates of the wrist. We also analyzed whether the knowledge of the grasped object 
+predicting the final position of the fingers joint angles and the configuration of  
+the wrist in space: i.e. position and orientation of a coordinate system fixed with respect
+to the palm of the hand. We also analyzed whether the knowledge of the grasped object 
 makes a difference in performance as it should intuitively do.
 
 In a previous experiment, we analyzed the problem of recognizing hand gestures visually
 by incorporating a generative approach that used motor information explicitly 
 \cite{lopes-05,metta-06}.
 In that case we showed that an action recognition system that uses motor information in
-a preprocessing step can perform better ($97\%$ recognition rate versus $80\%$) than a 
-traditional classifier built directly in terms of visual information. This justifies 
-the fact that as a preprocessing step we can consider a visuo to motor mapping that 
+a preprocessing step can perform better ($97\%$ recognition rate versus $80\%$ on the test
+set) than a traditional classifier built directly in terms of visual information. This 
+justifies the fact that as a preprocessing step we can consider a visuo to motor mapping that 
 transforms the available visual information into motor data. This procedure is consistent 
 in that it can be trained through a procedure of self-observation. We can imagine that 
 the brain can exercise its control and simultaneously acquire both the motor commands and 
@@ -90,13 +91,17 @@ the corresponding visual information and learn such a mapping. In the following,
 will only consider motor information since we can safely assume that the visuo-motor map
 can always incorporated in the global internal model.
 
+As we already mentioned, on the practical side, a system that can lean internal models 
+effectively can find application in such a variate tasks as predicting and interpreting 
+human behavior, in surveillance and behavior understanding, in mimicry, and in 
+teleoperation of a robot. For example, in controlling or teleoperating an anthropomorphic 
+robotic platform, we can guess the user intention and ask the robot to complete the 
+action autonomously. Predicting the user intention finds its natural role building 
+man-machine interfaces and possibly into the control of prosthetic devices.
 
-
-- current goal: prosthetic, teleoperation
-
-- future goals: robotics
-
-- no vision: justified by the fact that motor+vision can learn a model that maps vision into motor
+In the following, we describe the methods and the experimental setup in section 
+\ref{sec:exp_desc}, the results obtained in section \ref{sec:exp_res} and finally we 
+discuss them and comment on future development in section \ref{sec:Conclusions}.
 
 
 
