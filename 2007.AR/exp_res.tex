@@ -1,43 +1,57 @@
-In order to understand how far our system could predict the grasping 
-hand position and posture, we followed this methodology. First of all,
-for each regression experiment, we defined an \emph{input sequence} as
-a sequence of time sequences grouped by subject or by object or
-both. Then from each input sequence we extracted the related grasp
-sequences according to the methodology described in the previous
-Section. Lastly, we fixed a \emph{blind percentage} $B$ of the
-grasp sequence.
+Our machine learning system is based upon Support Vector Machines
+(SVMs). Introduced in the early 90s by Boser, Guyon and Vapnik
+\cite{BGV92}, SVMs are a class of kernel-based learning algorithms
+deeply rooted in Statistical Learning Theory \cite{v-edbed-82}. As
+opposed to analogous algorithms such as, e.g., artificial neural
+networks, they have the main advantages that their training is
+guaranteed to end up in a global solution, that they can easily work
+in highly dimensional, non-linear feature spaces, and that the
+solution achieved is sparse. Due to these good properties, they have
+been now extensively used in, e.g., speech recognition, object
+classification and function approximation with good results
+\cite{Cristianini00}. For an extensive introduction to regression
+based upon SVMs, see, e.g., \cite{SmolaTut2004}. Our system employs
+LIBSVM v2.82 \cite{ChangL01}, a standard, efficient implementation of
+Support Vector Machines.
 
-For each grasp sequence, we considered the values of the sensors at
-the ending point of the sequence, that is, at the time of contact with
-the object, as the target value. The input given to the Support Vector
-Machine was then $(1-B)\%$ starting from the starting point of the
-sequence. In other words, the last $B\%$ of the sequence was hidden to
-the system. We expected that bigger $B$s would lead to a bigger
-regression error, and tried to find what was the maximum $B$ for which
-an acceptable error was achieved.
+We were mainly interested in answering two questions:
 
-We grouped the $28$ sensors this way: the $3$ numbers representing the
-position of the hand (coming from the FoB), the $3$ numbers
-representing the orientation of the hand (coming from the FoB too),
-and the $22$ numbers representing the posture of the hand (coming from
-the DataGlove). According to the device resolutions detailed in the
-previous Section, we defined an ``acceptable'' error like this: $1$
-centimeter for each component of the hand position, $1$ degree for
-each component of the hand orientation and $3$ units for each
-component of the hand posture.
+\begin{enumerate}
+
+  \item how far in the future can our system predict well?
+
+  \item how does the knowledge of the grasped object affect the error?
+
+\end{enumerate}
+
+In order to answer the first question, we have set up a regression
+experiment in which a \emph{blind fraction} $0 \leq B \leq 1$ of the
+grasp was taken as main parameter. $B$ indicates what fraction of the
+data associated to the grasp, from the contact point backwards, is
+hidden to the system. In practice, since the sampling frequency was
+$50$Hz and each grasp was stretched to $1$ second, a sequence of
+$(1-b)*50$ samples was fed to the SVM, along with the desired value as
+target. This procedure was repeated for each single sensor. At the
+end, the overall error was obtained by grouping the $28$ sensors this
+way: the $3$ numbers representing the position of the hand (coming
+from the FoB), the $3$ numbers representing the orientation of the
+hand (coming from the FoB too), and the $22$ numbers representing the
+posture of the hand (coming from the DataGlove). According to the
+device resolutions detailed in the previous Section, we set the
+$\epsilon$ value related to the SVM \cite{SmolaTut2004} like this:
+$0.1$ inches for each component of the hand position, $0.5$ degrees
+for each component of the hand orientation and $1$ degree for each
+component of the hand posture. As an ``acceptable'' error, we
+considered approximately two or three times this value.
 
 As far as the Support Vector Machines are concerned, a Gaussian kernel
 was chosen, and its hyperparameters ($C$ and $\gamma$) were found by
-grid search \cite{...}. The error on regression was obtained by
-$5$-fold cross-validation on the grasp sequences obtained from the
-target input sequence. This ensures that the system is able to
-generalise well.
-
-\subsubsection*{Accuracy on a single subject}
-
-\subsubsection*{Accuracy on a single object}
+grid search. The error on regression was obtained by $5$-fold
+cross-validation. This ensures a good degree of generalisation.
 
 \subsubsection*{Overall accuracy}
+
+\subsubsection*{Accuracy given an object}
 
 \subsubsection*{Discussion}
 

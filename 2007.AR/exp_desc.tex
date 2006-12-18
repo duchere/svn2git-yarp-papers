@@ -1,9 +1,6 @@
-In this Section we detail the process of gathering data from the
+In this Section we detail the process of gathering data from human
 subjects and processing them in order to make them suitable for
-analysis by a Support Vector Machine. The aim is that of building
-sequences of biometric data (hand position and posture) from time
-sequences in which the times of start and end of the grasps are
-unknown.
+analysis by a machine learning system.
 
 \subsection{Experimental Setup}
 
@@ -23,7 +20,7 @@ shows the devices, as worn by a subject.
       $(a)$ & $(b)$
     \end{tabular}
     \caption{The devices used for the experiment, as worn by a
-    subject: $(a)$ the CyberGlove with the Flock-of-Birds just above
+    subject: $(a)$ the CyberGlove, with the Flock-of-Birds just above
     the subject's wrist; $(b)$ the Force Resistor Sensor attached to
     the subject's thumb.}
     \label{fig:devices}
@@ -52,15 +49,16 @@ FoB's resolution is $0.1$ inches and $0.5$ degrees \cite{fob}.
 
 Lastly, the FSR was mounted on the subject's thumb. It returns a
 $32$-bit number approximately inversely proportional to the pressure
-applied to the surface of the sensor.
+applied to the surface of the sensor. We only used the FSR as an
+on-off indicator of when the sunbject made contact with the object.
 
-All data were synchronised, collected and saved in real time at about
-$50$Hz.
+All data were synchronised, collected and saved in real time at a
+frequency of $50$Hz.
 
 \subsubsection*{Subjects}
 
 Eleven subjects, four females and seven males aged $24$ to $34$ of
-several different nationalities, joined the experiment. They were all
+different nationalities, joined the experiment. They were all
 right-handed and fully able-bodied, and were given initially some
 knowledge of the aim of the experiment.
 
@@ -87,9 +85,14 @@ ruled out grasps which made no use of the thumb, it enabled us to
 better gather the contact points.
 
 After the trial run, subjects were asked to repeat the
-grasp/drop/reposition procedure $120$ times per each object. We
-employed, in turn, three objects: a beer can, a scotch tape roll and a
-mug (Figure \ref{fig:objects} shows the objects).
+grasp/drop/reposition procedure $120$ times per each object. We will
+call both this procedure and the data time sequence gathered during
+the procedure, a \emph{session}. We employed, in turn, three objects:
+a beer can, a scotch tape roll and a mug (Figure \ref{fig:objects}
+shows the objects). The object were chosen so that each one could be
+grasped in several different ways, but with a certain degree of
+overlapping, e.g., both the beer can and the mug could be grasped
+cylindrically, but only the mug could be grasped using the handle.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -99,29 +102,28 @@ mug (Figure \ref{fig:objects} shows the objects).
       \includegraphics[height=0.2\textheight]{mug.eps} \\
       $(a)$ & $(b)$ & $(c)$
     \end{tabular}
-    \caption{The objects used inthe experiment: a beer can $(a)$, a scotch
-    tape roll $(b)$ and a mug $(c)$.}
+    \caption{The objects used in the experiment: a beer can $(a)$, a
+    scotch tape roll $(b)$ and a mug $(c)$.}
     \label{fig:objects}
   \end{center}
 \end{figure}
 
-The $120$-grasps session was done twice, resulting in approximately
-$240$ grasps for each of the three objects. The numbers are not
-precise since now and then the subjects would grasp without properly
-activating the FSR. This problem has been corrected in the batch
-analysis of data. Moreover, in two cases the FSR broke down toward the
-end of the experiment, resulting in a slightly smaller number of
-grasps. In order not to have the subjects ``specialise'' on a
-particular object, we alternated the sessions this way: first the can,
-then the roll and then the mug, all of this two times.
+Each experiment employed one subject and consisted of six sessions:
+first the can, then the roll and then the mug, all of this two times,
+for an approximate total of $720$ grasps per subject, $240$ per
+object. The numbers are not precise since now and then the subjects
+would grasp without properly activating the FSR. This problem has been
+corrected in the batch analysis of data. Moreover, in two cases the
+FSR broke down toward the end of the experiment, resulting in a
+slightly smaller number of grasps.
 
-Each experiment (one subject, six sessions) lasted $35$ to $56$
-minutes depending on the subject's confidence and speed; although
-almost no subjects reported tiredness, we allowed for rest between
-each session. It was reported by almost every subject that the
-experiment became rapidly boring, which lets us claim that almost all
-grasps were done in a natural, almost unconscious way. Figure
-\ref{fig:setup} shows the main phases of the experiment.
+Each experiment lasted $35$ to $56$ minutes depending on the subject's
+confidence and speed; although almost no subjects reported tiredness,
+we allowed for rest between each session. It was reported by almost
+every subject that the experiment became rapidly boring, which lets us
+claim that almost all grasps were done in a natural, almost
+unconscious way. Figure \ref{fig:setup} shows the main phases of the
+experiment.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -137,10 +139,7 @@ grasps were done in a natural, almost unconscious way. Figure
     the object and drops it somewhere else in the workspace $(b)$,
     bringing then his arm and hand in the resting position. Lastly, he
     repositions the object in the initial position using his left arm
-    and hand $(c)$. The procedure is repeated for $120$ times, then
-    this session is repeated for each of the three objects, and all of
-    this is done twice, resulting in approximately $240$ grasps for
-    each subject and object.}
+    and hand $(c)$.}
     \label{fig:setup}
   \end{center}
 \end{figure}
@@ -149,34 +148,22 @@ grasps were done in a natural, almost unconscious way. Figure
 
 \subsubsection*{Detecting grasps}
 
-In order to train a Support Vector Machine, it is required that an
-appropriate number of \emph{examples} be extracted from the subjects'
-data. An example in this setting is a time sequence of biometric data,
-gathered off a single joint, together with a target value for that
-joint --- the value the SVM must guess by means of regression.
-
-As described above, each user was instructed to grasp each object in
-two separate sessions; therefore, each session records a time sequence
-in which data from all sensors ($6$ from the FoB and $22$ from the
-CyberGlove) are recorded continually. From each session and for each
-sensor we have automatically extracted the sub-sequences representing
-the grasping action.
-
-In order to figure out when each single grasping sequence starts and
-ends, we first observed the values of the FSR mounted on the subject's
-thumb. We manually verified that the FSR correctly reacted in almost
-all cases with a spike, signalling, whenever the subject made contact
-with the object, a significantly different value from that recorded
-elsewhere shortly before the contact. The spike instants were taken as
-the \emph{ending} points of each grasp sequence, and were gathered by
-checking when the first derivative of its value dropped by more than
-$10\%$ of its overall minimum value. Moreover, after each spike, we
-ignored one second of the sequence, in order not to detect possible
-spurious spikes which happened immediately after the grasp, due to
-object slippage and/or blurred values coming from the FSR.
+In order to figure out when each single grasp starts and ends in a
+session, we first observed the values of the FSR mounted on the
+subject's thumb. We manually verified that the FSR correctly reacted
+in almost all cases with a spike, signalling, whenever the subject
+made contact with the object, a significantly different value from
+that recorded elsewhere shortly before the contact. The spike instants
+were taken as the \emph{ending} points of each grasp, and were
+gathered by checking when the first derivative of the FSR value
+dropped by more than $10\%$ of its overall minimum value. Moreover,
+after each spike, we ignored one second of the session, in order not
+to detect possible spurious spikes which happened immediately after
+the grasp, due to object slippage and/or blurred values coming from
+the FSR.
 
 Subsequently, in order to detect the \emph{starting} point of each
-grasp, for each ending point, we observed the hand speed and
+grasp, for each ending point we observed the hand speed and
 acceleration, averaged over $0.2$ seconds, from the ending point
 backwards. Since we had instructed the subjects to always return to
 the resting position before initiating a new grasp, when the grasp
@@ -187,12 +174,16 @@ nearest moment in time before the ending point in which the hand speed
 was close to zero and the hand acceleration was negative. In order to
 avoid detecting spurious speed/acceleration glitches when the hand
 made contact with the object, we ignored $0.1$ seconds just before the
-ending point. Figure \ref{fig:grasp_sequence} $(a)$ shows an example
-set of detected grasps. The detected start and end points of the
-grasps are highlighted. As one can see, the hand speed (green curve)
-shows the well known bell-shaped curve during a grasp \cite{...} {\bf
-GIORGIO metti una citazione qui}: the hand speed diminishes, reaches a
-minimum and then gets back to zero till the ending point of the grasp.
+ending point; moreover, we ignored grasps which resulted shorter than
+$280$ milliseconds. All these values were determined experimentally to
+be near optimal in order to catch as many grasps as possible while
+avoiding spurious ones.
+
+Figure \ref{fig:grasp_sequence} $(a)$ shows an example set of detected
+grasps. As one can see, the hand speed (green curve) shows the well
+known bell-shaped curve during a grasp \cite{...} {\bf GIORGIO metti
+una citazione qui}: the hand speed diminishes, reaches a minimum and
+then gets back to zero till the ending point of the grasp.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -202,7 +193,7 @@ minimum and then gets back to zero till the ending point of the grasp.
       $(a)$ & $(b)$
     \end{tabular}
     \caption{$(a)$ Detecting the grasps. The Figure shows $10$ seconds
-    of the subject grasping an object. The red bands indicate the
+    of a subject grasping an object. The red bands indicate the
     start and end of a grasp; the black line is the FSR response; and
     the green line is the hand speed. As one can see, the ending
     points are found near the FSR spike, indicating contact; moreover,
@@ -215,31 +206,31 @@ minimum and then gets back to zero till the ending point of the grasp.
   \end{center}
 \end{figure}
 
-Overall, the procedure could recognise $727 \pm 9$ grasps for each
-subject, which matches the desired result of $720$, that is, $120$ per
-session with two sessions and three objects. As far as the two
-subjects who broke down the FSR, the procedure recognised $565$ and
-$658$ grasps. The data were also manually observed in order to verify
-that spurious detected grasps would be an insignificant fraction of
-the total grasps.
+Overall, the procedure could recognise $716 \pm 12$ grasps for each
+subject, which matches the desired result of $720$ ($120$ per session,
+each user running six sessions). As far as the two subjects who broke
+down the FSR, the procedure recognised $550$ and $649$ grasps. The
+data were also manually observed in order to verify that spurious
+detected grasps would be an insignificant fraction of the total
+grasps.
 
 \subsubsection*{Grasping speed}
 
-In order to make time sequences suitable for Support Vector Machines,
-they must be all the same length\footnote{an interesting possbility is
-that of employing a kernel which can consider time sequences of
-different lenghts, see e.g. \cite{...} {\bf FRANCESCO aggiungi
-citazione qui}. This issue is the subject of future research.}; in
-order to do this, since in general not all grasp sequences have the
-same length, it is crucial to have an idea of how fast the grasps are.
-Figure \ref{fig:grasp_sequence} $(b)$ shows the average grasp
-durations for all subjects over the six sessions of each experiment
-(moving average over $50$ grasps); as one would expect, in general the
-subjects get rapidly used to the grasp/drop/reposition task and the
-grasps become faster and faster. It must be remarked, though, that
-this is not the case for all subjects considered one by one. Overall,
-the grasps last $0.61 \pm 0.21$ seconds.
+In general, in order to make time sequences suitable for a machine
+learning system, they must be all the same length\footnote{an
+interesting possbility is that of employing a kernel which can
+consider time sequences of different lenghts, see
+e.g. \cite{shimodaira02dynamic}. This issue is the subject of future
+research.}; in order to do this, since in general not all grasps have
+the same length, it is crucial to have an idea of how fast each grasp
+is. Figure \ref{fig:grasp_sequence} $(b)$ shows the average grasp
+durations for all subjects over each experiment (moving average over
+$50$ grasps); as one would expect, in general the subjects get rapidly
+used to the grasp/drop/reposition task and the grasps become faster
+and faster. It must be remarked, though, that this is not the case for
+all subjects considered one by one.
 
-Therefore, we stretched every grasp sequence to $1$ second by linear
-interpolation, obtaining fixed-length time sequences of $50$ samples
-for each sensor and grasp sequence.
+On average, the grasp duration is $0.62 \pm 0.20$ seconds. We decided
+then to stretch every grasp to $1$ second by linear interpolation,
+obtaining fixed-length time sequences of $50$ samples for each sensor
+and grasp.
