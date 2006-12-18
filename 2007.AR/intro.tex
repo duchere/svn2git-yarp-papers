@@ -67,9 +67,30 @@ In this study, we set forth to investigate whether a machine equipped with enoug
 information about human movement could acquire a similar ``internal model'' via machine 
 learning methods. Internal models of this type can potentially be used in various ways
 including the control of robotic artifacts, the interpretation of human movements, and 
-clearly they can be used to reproduce and mimic human movement. 
+clearly they can be used to reproduce and mimic human movement \cite{wolpert-01}. 
 
-- previous experiment: mirror
+In particular, we investigated whether the final configuration of the arm and hand can be
+predicted from the initial part of the movement, in practice, by imagining that the 
+final part of the action is occluded by a screen. We analyzed how much error we make in 
+predicting the final position of the fingers joint angles and the three dimensional 
+coordinates of the wrist. We also analyzed whether the knowledge of the grasped object 
+makes a difference in performance as it should intuitively do.
+
+In a previous experiment, we analyzed the problem of recognizing hand gestures visually
+by incorporating a generative approach that used motor information explicitly 
+\cite{lopes-05,metta-06}.
+In that case we showed that an action recognition system that uses motor information in
+a preprocessing step can perform better ($97\%$ recognition rate versus $80\%$) than a 
+traditional classifier built directly in terms of visual information. This justifies 
+the fact that as a preprocessing step we can consider a visuo to motor mapping that 
+transforms the available visual information into motor data. This procedure is consistent 
+in that it can be trained through a procedure of self-observation. We can imagine that 
+the brain can exercise its control and simultaneously acquire both the motor commands and 
+the corresponding visual information and learn such a mapping. In the following, we 
+will only consider motor information since we can safely assume that the visuo-motor map
+can always incorporated in the global internal model.
+
+
 
 - current goal: prosthetic, teleoperation
 
