@@ -50,7 +50,7 @@ FoB's resolution is $0.1$ inches and $0.5$ degrees \cite{fob}.
 Lastly, the FSR was mounted on the subject's thumb. It returns a
 $32$-bit number approximately inversely proportional to the pressure
 applied to the surface of the sensor. We only used the FSR as an
-on-off indicator of when the sunbject made contact with the object.
+on-off indicator of when the subject made contact with the object.
 
 All data were collected, synchronised, and saved in real time at a
 frequency of $50$Hz.
@@ -193,15 +193,15 @@ then gets back to zero till the ending point of the grasp.
       $(a)$ & $(b)$
     \end{tabular}
     \caption{$(a)$ Detecting the grasps. The Figure shows $10$ seconds
-    of a subject grasping an object. The red bands indicate the
-    start and end of a grasp; the black line is the FSR response; and
-    the green line is the hand speed. As one can see, the ending
-    points are found near the FSR spike, indicating contact; moreover,
-    the hand speed shows the well known bell-shaped curve during a
-    grasp. $(b)$ Grasps duration. The Figure shows the speed of the grasps
-    (moving average over 50 grasps) averaged for all subjects. As the
-    experiments advance, the grasping durations become shorter and
-    shorter.}
+    of a subject grasping an object. The red bands indicate the start
+    and end of a grasp; the black line is the FSR response; and the
+    green line is the hand speed. As one can see, the ending points
+    are found near the FSR spike, indicating contact; moreover, the
+    hand speed shows the well known bell-shaped curve during a
+    grasp. $(b)$ Grasps duration. The Figure shows the duraton of the
+    grasps (moving average over 50 grasps) averaged for all
+    subjects. As the experiments advance, the duration becomes shorter
+    and shorter.}
     \label{fig:grasp_sequence}
   \end{center}
 \end{figure}
@@ -217,20 +217,21 @@ grasps.
 \subsubsection*{Grasping speed}
 
 In general, in order to make time sequences suitable for a machine
-learning system, they must be all the same length\footnote{an
-interesting possbility is that of employing a kernel which can
-consider time sequences of different lenghts, see
-e.g. \cite{shimodaira02dynamic}. This issue is the subject of future
+learning system, they all must have the same length.\footnote{An
+interesting possibility is that of employing a kernel which can
+consider time sequences of different lenghts, see, e.g.,
+\cite{shimodaira02dynamic} This issue is the subject of future
 research.}; in order to do this, since in general not all grasps have
-the same length, it is crucial to have an idea of how fast each grasp
-is. Figure \ref{fig:grasp_sequence} $(b)$ shows the average grasp
-durations for all subjects over each experiment (moving average over
-$50$ grasps); as one would expect, in general the subjects get rapidly
-used to the grasp/drop/reposition task and the grasps become faster
-and faster. It must be remarked, though, that this is not the case for
-all subjects considered one by one.
+the same length, we stretched each sequence to a predefined
+lenght. The predefined length was chosen according to the average
+speed of the grasps. Figure \ref{fig:grasp_sequence} $(b)$ shows the
+average grasp durations for all subjects over each experiment (moving
+average over $50$ grasps); as one would expect, in general the
+subjects get rapidly used to the grasp/drop/reposition task and the
+grasps become faster and faster. It must be remarked, though, that
+this is not the case for all subjects considered one by one.
 
-On average, the grasp duration is $0.62 \pm 0.20$ seconds. We decided
+On average, the grasp duration was $0.62 \pm 0.20$ seconds. We decided
 then to stretch every grasp to $1$ second by linear interpolation,
 obtaining fixed-length time sequences of $50$ samples for each sensor
 and grasp.
