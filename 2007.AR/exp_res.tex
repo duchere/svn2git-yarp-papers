@@ -24,25 +24,25 @@ We were mainly interested in answering two questions:
 
 \end{enumerate}
 
-In order to answer the first question, we have set up a regression
+In order to answer the questions, we have set up a regression
 experiment in which a \emph{blind fraction} $0 \leq B \leq 1$ of the
 grasp was taken as main parameter. $B$ indicates what fraction of the
-data associated to the grasp, from the contact point backwards, is
-hidden to the system. In practice, since the sampling frequency was
-$50$Hz and each grasp was stretched to $1$ second, a sequence of
-$(1-b)*50$ samples was fed to the SVM, along with the desired value as
-target. This procedure was repeated for each single sensor. At the
-end, the overall error was obtained by grouping the $28$ sensors this
-way: the $3$ numbers representing the position of the hand (coming
-from the FoB), the $3$ numbers representing the orientation of the
-hand (coming from the FoB too), and the $22$ numbers representing the
-posture of the hand (coming from the DataGlove). According to the
-device resolutions detailed in the previous Section, we set the
-$\epsilon$ value related to the SVM \cite{SmolaTut2004} like this:
-$0.1$ inches for each component of the hand position, $0.5$ degrees
-for each component of the hand orientation and $1$ degree for each
-component of the hand posture. As an ``acceptable'' error, we
-considered approximately two or three times this value.
+grasp, from the contact point backwards, is hidden to the system. In
+practice, since the sampling frequency was $50$Hz and each grasp was
+stretched to $1$ second, a sequence of $(1-b) \cdot 50$ samples was
+fed to the SVM, along with the desired value as regression target,
+i.e., the actual position/orientation/posture of the hand at the time
+of contact. This procedure was repeated independently for each single
+sensor. At the end, the overall error was obtained by grouping the
+errors for each sensor this way: the position of the hand ($3$
+sensors), the hand orientation ($2$ sensors), and the posture of the
+hand ($22$ sensors). According to the device resolutions detailed in
+the previous Section, we set the $\epsilon$ value related to the SVM
+\cite{SmolaTut2004} like this: $0.1$ inches for each component of the
+hand position, $0.5$ degrees for each component of the hand
+orientation and $1$ degree for each component of the hand posture. As
+an ``acceptable'' error, we considered approximately two or three
+times this value.
 
 As far as the Support Vector Machines are concerned, a Gaussian kernel
 was chosen, and its hyperparameters ($C$ and $\gamma$) were found by
@@ -51,7 +51,13 @@ cross-validation. This ensures a good degree of generalisation.
 
 \subsubsection*{Overall accuracy}
 
+In order to answer the first question above, we collected all sessions
+together and checked the overall regression error. Results are visible
+in Figure \ref{gino} for various values of $B$...
+
 \subsubsection*{Accuracy given an object}
 
-\subsubsection*{Discussion}
-
+In order to answer the second question, we ran three separate
+regression experiments by collecting, in turn, all sessions obtained
+for the beer can, for the scotch roll and for the mug. Results are
+visible in Figure \ref{gino2}.
