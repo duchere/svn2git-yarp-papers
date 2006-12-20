@@ -1,6 +1,9 @@
 In this Section we detail the process of gathering data from human
 subjects and processing them in order to make them suitable for
-analysis by a machine learning system.
+analysis by a machine learning system. In particular, we address the
+problem of building a \emph{training set}, that is, a set of data
+effectively representing, for each user and object considered, the
+grasping process, that could be used to train the system.
 
 \subsection{Experimental Setup}
 
@@ -215,18 +218,18 @@ insignificant fraction of the total grasps.
 \subsubsection*{Grasping speed}
 
 In general, in order to make time sequences suitable for a machine
-learning system, they all must have the same length.\footnote{An
-alternative possibility is shown in \cite{shimodaira02dynamic}. This
-issue is the subject of future research.}; in order to do this, since
-in general not all grasps have the same length, we stretched each
-sequence to a predefined lenght. The predefined length was chosen
-according to the average speed of the grasps. Figure
-\ref{fig:grasp_sequence} $(b)$ shows the average grasp durations for
-all subjects over each experiment (moving average over $50$ grasps);
-as one would expect, in general the subjects get rapidly used to the
-grasp/drop/reposition task and the grasps become faster and faster. It
-must be remarked, though, that this is not the case for all subjects
-considered one by one.
+learning system, they all must have the same length;\footnote{An
+alternative possibility appears, e.g., in
+\cite{shimodaira02dynamic}; this issue is the subject of future
+research.} in order to do this, since in general not all grasps have
+the same length, we stretched each sequence to a predefined
+length. The predefined length was chosen according to the average
+speed of the grasps. Figure \ref{fig:grasp_sequence} $(b)$ shows the
+average grasp durations for all subjects over each experiment (moving
+average over $50$ grasps); as one would expect, in general the
+subjects get rapidly used to the grasp/drop/reposition task and the
+grasps become faster and faster. It must be remarked, though, that
+this is not the case for all subjects considered one by one.
 
 On average, the grasp duration was $0.62 \pm 0.20$ seconds. We decided
 then to stretch every grasp to $1$ second by linear interpolation,
@@ -238,37 +241,71 @@ and grasp.
 Our machine learning system is based upon Support Vector Machines
 (SVMs). Introduced in the early 90s by Boser, Guyon and Vapnik
 \cite{BGV92}, SVMs are a class of kernel-based learning algorithms
-deeply rooted in Statistical Learning Theory \cite{v-edbed-82}. As
-opposed to analogous algorithms such as, e.g., artificial neural
-networks, they have the main advantages that their training is
-guaranteed to end up in a global solution, that they can easily work
-in highly dimensional, non-linear feature spaces, and that the
-solution achieved is sparse. Due to these good properties, they have
-been now extensively used in, e.g., speech recognition, object
-classification and function approximation with good results
-\cite{Cristianini00}. 
+deeply rooted in Statistical Learning Theory \cite{v-edbed-82}, now
+extensively used in, e.g., speech recognition, object classification
+and function approximation with good results \cite{Cristianini00}.
 
-Assume $S=\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and
-$y_i \in \RR$, is a set of samples and output values; we want to find a function $f(\xx)$
-such its value best predicts the associated output $y$ of any future sample $\xx$.
-In the SVM framework this is done minimizing the expression:
-\begin{equation} \label{eqn:svm_primal}
-  \min R \left( S \right) + C \sum_{i=1}^l L^\epsilon \left( x_i, y_i, f \right)
+We are interested here in the problem of SVM regression, that is:
+given a function whose value is known only for a finite number of
+points in its input domain, find its best approximation $f$ drawn from
+a suitable functional space $\mathcal{F}$. In practice, let
+$S=\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and $y_i \in \RR$ be
+a set of $l$ points and output values of the unknown function
+(actually, the training set); then the resulting $f(\xx)$ is a sum of
+$l$ elementary functions $K(\xx,\yy)$, each one centered on a point in
+$S$, and weighted by real coefficients $\alpha_i$:
+
+\begin{equation} \label{eqn:sol}
+  f(\xx) = \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b
 \end{equation}
-where $L^\epsilon \left( x_i, y_i, f \right)$ is our loss function and in particular
-is equal to $max(0,|y_i-f(x_i)|-\epsilon)$. Hence the $\epsilon$ parameter controls the
-width of the insensitive band around the
-output values, e.g. training errors within this band are not considered.
-The $R \left( S \right)$ is a regularization term that assures us a good generalization
-power, thus the function to minimize is a trade-off between a term that measures the errors
-done on the training sample and a smoothness term that avoids to overfit;
-the $C$ parameter controls this trade-off.
-Moreover it turns out that it is possible to implicetely non linear transform the input
-values via a \emph{kernel function}. In all regression tests, a Gaussian kernel was chosen, and the
-hyperparameters ($C$ and $\sigma^2$ of the gaussian) were found by grid search. The
-error on regression was obtained by $2$-fold cross-validation.
 
-For an extensive introduction to regression
-based upon SVMs, see, e.g., \cite{SmolaTut2004}. Our system employs
-LIBSVM v2.82 \cite{ChangL01}, a standard, efficient implementation of
-Support Vector Machines.
+\noindent where $b \in \RR$. The choice of $K$, the so-called
+\emph{kernel}, is done \emph{a priori} and defines $\mathcal{F}$ once and for
+all; it is therefore crucial. According to a standard practice (see,
+e.g., \cite{Cristianini00}) we have chosen a \emph{Gaussian} kernel,
+which has one positive parameter $\gamma \in \RR$ defining the
+standard deviation of the Gaussian functions used to build
+(\ref{eqn:sol}).
+
+Let $C \in \RR$ be a positive parameter; then the $\alpha_i$s and $b$
+are found by solving the following minimisation problem
+(\emph{training phase}):
+
+\begin{equation} \label{eqn:svm_primal}
+  \min \left( R(S) + C \sum_{i=1}^l L^\epsilon (x_i,y_i,f) \right)
+\end{equation}
+
+\noindent where $R(S)$ is a \emph{regularisation term} and
+$L^\epsilon (x_i,y_i,f)$ is a \emph{loss functional}. Minimising the
+sum of $R$ and $S$ together, rather than just the loss functional,
+ensures that the solution will approximate well the values in the
+training set, at the same time avoiding overfitting, i.e., exhibiting
+poor accuracy on points outside the training set. In SVM regression,
+$L^\epsilon (x_i,y_i,f) = \mbox{max}(0,|y_i-f(x_i)|-\epsilon)$,
+where $\epsilon > 0$ controls the width of an ``insensitive band'' around
+the output values, e.g., errors on the training set within this band
+are neglected.
+
+There are therefore three parameters to be tuned in our setting:
+$C$, $\gamma$ and $\epsilon$. In all our regression tests, we found
+$C$ and $\gamma$ by grid search, whereas $\epsilon$ was chosen
+according to the resolution of the sensors being examined (see next
+Section for a deeper discussion).
+
+Notice, lastly, that the quantity to be minimised in Equation
+(\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
+of a kernel, SVMs have the advantages that their training is
+guaranteed to end up in a global solution and that they can easily
+work in highly dimensional, non-linear feature spaces, as opposed to
+analogous algorithms such as, e.g., artificial neural networks. For an
+extensive introduction to regression based upon SVMs, see, e.g.,
+\cite{SmolaTut2004}. Our system employs LIBSVM v2.82 \cite{ChangL01},
+a standard, efficient implementation of SVMs.
+
+According to the procedure described in the previous parts of this
+Section, we decided to define $\RR^{50}$ as the input space of our
+machines, and to use, for each sensor in the setup, the stretched
+grasping sequences as points; the target values would then be the
+values of the same sensor at the time of contact with the object. This
+way we have obtained $28$ SVMs, each one approximating the value of a
+sensor at the time of contact.
