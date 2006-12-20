@@ -235,3 +235,27 @@ On average, the grasp duration was $0.62 \pm 0.20$ seconds. We decided
 then to stretch every grasp to $1$ second by linear interpolation,
 obtaining fixed-length time sequences of $50$ samples for each sensor
 and grasp.
+
+\subsection{Support Vector Machines}
+
+{\bf FRANCESCO: espandiamo questa?}
+
+Our machine learning system is based upon Support Vector Machines
+(SVMs). Introduced in the early 90s by Boser, Guyon and Vapnik
+\cite{BGV92}, SVMs are a class of kernel-based learning algorithms
+deeply rooted in Statistical Learning Theory \cite{v-edbed-82}. As
+opposed to analogous algorithms such as, e.g., artificial neural
+networks, they have the main advantages that their training is
+guaranteed to end up in a global solution, that they can easily work
+in highly dimensional, non-linear feature spaces, and that the
+solution achieved is sparse. Due to these good properties, they have
+been now extensively used in, e.g., speech recognition, object
+classification and function approximation with good results
+\cite{Cristianini00}. For an extensive introduction to regression
+based upon SVMs, see, e.g., \cite{SmolaTut2004}. Our system employs
+LIBSVM v2.82 \cite{ChangL01}, a standard, efficient implementation of
+Support Vector Machines.
+
+In all regression tests, a Gaussian kernel was chosen, and its
+hyperparameters ($C$ and $\gamma$) were found by grid search. The
+error on regression was obtained by $2$-fold cross-validation.

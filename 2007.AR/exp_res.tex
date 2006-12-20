@@ -1,19 +1,3 @@
-Our machine learning system is based upon Support Vector Machines
-(SVMs). Introduced in the early 90s by Boser, Guyon and Vapnik
-\cite{BGV92}, SVMs are a class of kernel-based learning algorithms
-deeply rooted in Statistical Learning Theory \cite{v-edbed-82}. As
-opposed to analogous algorithms such as, e.g., artificial neural
-networks, they have the main advantages that their training is
-guaranteed to end up in a global solution, that they can easily work
-in highly dimensional, non-linear feature spaces, and that the
-solution achieved is sparse. Due to these good properties, they have
-been now extensively used in, e.g., speech recognition, object
-classification and function approximation with good results
-\cite{Cristianini00}. For an extensive introduction to regression
-based upon SVMs, see, e.g., \cite{SmolaTut2004}. Our system employs
-LIBSVM v2.82 \cite{ChangL01}, a standard, efficient implementation of
-Support Vector Machines.
-
 We were mainly interested in answering two questions:
 
 \begin{enumerate}
@@ -24,40 +8,51 @@ We were mainly interested in answering two questions:
 
 \end{enumerate}
 
-In order to answer the questions, we have set up a regression
-experiment in which a \emph{blind fraction} $0 \leq B \leq 1$ of the
-grasp was taken as main parameter. $B$ indicates what fraction of the
-grasp, from the contact point backwards, is hidden to the system. In
-practice, since the sampling frequency was $50$Hz and each grasp was
-stretched to $1$ second, a sequence of $(1-b) \cdot 50$ samples was
-fed to the SVM, along with the desired value as regression target,
-i.e., the actual position/orientation/posture of the hand at the time
-of contact. This procedure was repeated independently for each single
-sensor. At the end, the overall error was obtained by grouping the
-errors for each sensor this way: the position of the hand ($3$
-sensors), the hand orientation ($2$ sensors), and the posture of the
-hand ($22$ sensors). According to the device resolutions detailed in
-the previous Section, we set the $\epsilon$ value related to the SVM
-\cite{SmolaTut2004} like this: $0.1$ inches for each component of the
-hand position, $0.5$ degrees for each component of the hand
-orientation and $1$ degree for each component of the hand posture. As
-an ``acceptable'' error, we considered approximately two or three
-times this value.
+In order to answer the first question, we have checked how the error
+on regression changes as the \emph{blind fraction} $0 \leq B \leq 1$
+of the grasp increases from $0.1$ to $0.5$. The blind fraction
+indicates what percentage of the grasp, from the contact point
+backwards, is hidden to the system. In practice, since the sampling
+frequency was $50$Hz and each grasp was stretched to $1$ second, a
+sequence of $50(1-b)$ samples was fed to the SVM, along with the
+desired value as regression target, i.e., the actual
+position/orientation/posture of the hand at the time of contact.
 
-As far as the Support Vector Machines are concerned, a Gaussian kernel
-was chosen, and its hyperparameters ($C$ and $\gamma$) were found by
-grid search. The error on regression was obtained by $5$-fold
-cross-validation. This ensures a good degree of generalisation.
+This procedure was repeated independently for each single sensor. The
+errors for each sensor were then grouped this way: the position of the
+hand ($3$ sensors, the $x,y,z$ from the FoB), the hand orientation
+($3$ sensors, the azimuth, elevation and roll form the FoB), and the
+posture of the hand ($22$ sensors, the joint positions from the
+CyberGlove). According to the device resolutions detailed in the
+previous Section, we set the $\epsilon$ value related to the SVM
+\cite{SmolaTut2004} to $0.1$ inches for the hand position, $0.5$
+degrees for the hand orientation and $1$ degree for the hand posture.
 
-\subsubsection*{Overall accuracy}
+In order to answer the second question, we compared the error obtained
+as described above using four different sample sets: first the overall
+error, obtained by joining all sessions together; then, in turn, the
+error obtained on each single object, obtained by joining all sessions
+for each object.
 
-In order to answer the first question above, we collected all sessions
-together and checked the overall regression error. Results are visible
-in Figure \ref{gino} for various values of $B$...
+Figure \ref{fig:err_all} shows the experimental results.
 
-\subsubsection*{Accuracy given an object}
-
-In order to answer the second question, we ran three separate
-regression experiments by collecting, in turn, all sessions obtained
-for the beer can, for the scotch roll and for the mug. Results are
-visible in Figure \ref{gino2}.
+\begin{figure}[htbp]
+  \begin{center}
+    \begin{tabular}{ccc}
+      \includegraphics[width=0.32\textwidth]{error_pos.eps} &
+      \includegraphics[width=0.32\textwidth]{error_ori.eps} &
+      \includegraphics[width=0.32\textwidth]{error_pst.eps} \\
+      $(a)$ & $(b)$ & $(c)$ \\
+      \includegraphics[width=0.32\textwidth]{error_cmp_pos.eps} &
+      \includegraphics[width=0.32\textwidth]{error_cmp_ori.eps} &
+      \includegraphics[width=0.32\textwidth]{error_cmp_pst.eps} \\
+      $(d)$ & $(e)$ & $(f)$ \\
+    \end{tabular}
+    \caption{Regression results as the blind fraction $B$ increases
+    from $0.1$ to $0.5$. $(a)-(c)$ comparison among the three single
+    objects for the hand position, orientation and posture; $(d)-(f)$
+    comparison between the average error on single objects and the
+    overall error.}
+    \label{fig:err_all}
+  \end{center}
+\end{figure}
