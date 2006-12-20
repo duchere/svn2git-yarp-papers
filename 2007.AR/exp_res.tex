@@ -73,3 +73,46 @@ results.
     \label{fig:err_all}
   \end{center}
 \end{figure}
+
+Consider Figure \ref{fig:err_all}, left column: as one can see, as far
+as the hand position and orientation are concerned, the three objects
+show a comparable error. On the other hand, there is a precise ranking
+in the hand posture regression: the mug is more difficult than the
+scotch roll, which is in turn harder than the beer can. This is
+intuitively sensible, since it is possible to grasp the scotch roll in
+more ways than the can, and it is possible to grasp the mug in even
+more ways (especially, using the handle).
+
+Since the hand position sensors have a resolution of $0.1$ inches, a
+resonable error seems to be about $0.5$ inches. This is on average
+attained for $B=0.3$. Since the average grasp lasts on average $0.62$
+seconds, we can say that the system can predict reasonably well
+something less than $200$ milliseconds before the grasp what the hand
+position will be. Similar considerations lead us to say that the
+system is able to predict the hand orientation $120$ milliseconds before
+the grasp with an error of about $2.5$ degrees. The hand posture
+requires a slightly more careful study: since the maximum noise on the
+CyberGlove sensors has been experimentally determined to be $3$
+degrees \cite{212431}, it seems reasonable to take half this value as
+the resolution of the sensor. A five-fold-resolution error is then
+attained at $B=0.15$ ($9$ milliseconds before the grasp) for the mug
+and the scotch roll, and $B=0.3$ ($200$) for the can. This anwsers the
+first question.
+
+As far as the second question is concerned, consider Figure
+\ref{fig:err_all}, right column: the average error attained on the
+single objects is always consistently smaller than that attained on
+the overall sequence. A further analysis of the Support Vector Machine
+hyperparameters $C$ and $\gamma$, and the number of support vectors
+retained by the machines, reveals that the computational complexity of
+the tasks is comparable. The analysis of single objects (sum over the
+three machines) requires about $1\%$ more support vectors than the
+overall analysis. For each single-object machine, the number of sample
+considered is about one third of the overall machine, with $C$ being
+almost always smaller. This indicates that the machines trained on
+single objects are significantly faster than the one trained on the
+overall sequence, while attaining a better accuracy.
+
+Summing up, if the problem is split into subproblems, each one
+regarding a single object, performances are better and the total
+computational complexity remains roughly the same.
