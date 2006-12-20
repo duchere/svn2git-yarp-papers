@@ -235,8 +235,6 @@ and grasp.
 
 \subsection{Support Vector Machines}
 
-{\bf FRANCESCO: espandiamo questa?}
-
 Our machine learning system is based upon Support Vector Machines
 (SVMs). Introduced in the early 90s by Boser, Guyon and Vapnik
 \cite{BGV92}, SVMs are a class of kernel-based learning algorithms
@@ -248,11 +246,29 @@ in highly dimensional, non-linear feature spaces, and that the
 solution achieved is sparse. Due to these good properties, they have
 been now extensively used in, e.g., speech recognition, object
 classification and function approximation with good results
-\cite{Cristianini00}. For an extensive introduction to regression
+\cite{Cristianini00}. 
+
+Assume $S=\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and
+$y_i \in \RR$, is a set of samples and output values; we want to find a function $f(\xx)$
+such its value best predicts the associated output $y$ of any future sample $\xx$.
+In the SVM framework this is done minimizing the expression:
+\begin{equation} \label{eqn:svm_primal}
+  \min R \left( S \right) + C \sum_{i=1}^l L^\epsilon \left( x_i, y_i, f \right)
+\end{equation}
+where $L^\epsilon \left( x_i, y_i, f \right)$ is our loss function and in particular
+is equal to $max(0,|y_i-f(x_i)|-\epsilon)$. Hence the $\epsilon$ parameter controls the
+width of the insensitive band around the
+output values, e.g. training errors within this band are not considered.
+The $R \left( S \right)$ is a regularization term that assures us a good generalization
+power, thus the function to minimize is a trade-off between a term that measures the errors
+done on the training sample and a smoothness term that avoids to overfit;
+the $C$ parameter controls this trade-off.
+Moreover it turns out that it is possible to implicetely non linear transform the input
+values via a \emph{kernel function}. In all regression tests, a Gaussian kernel was chosen, and the
+hyperparameters ($C$ and $\sigma^2$ of the gaussian) were found by grid search. The
+error on regression was obtained by $2$-fold cross-validation.
+
+For an extensive introduction to regression
 based upon SVMs, see, e.g., \cite{SmolaTut2004}. Our system employs
 LIBSVM v2.82 \cite{ChangL01}, a standard, efficient implementation of
 Support Vector Machines.
-
-In all regression tests, a Gaussian kernel was chosen, and its
-hyperparameters ($C$ and $\gamma$) were found by grid search. The
-error on regression was obtained by $2$-fold cross-validation.
