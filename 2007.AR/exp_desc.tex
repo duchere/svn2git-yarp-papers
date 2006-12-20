@@ -113,9 +113,7 @@ first the can, then the roll and then the mug, all of this two times,
 for an approximate total of $720$ grasps per subject, $240$ per
 object. The numbers are not precise since now and then the subjects
 would grasp without properly activating the FSR. This problem has been
-corrected in the batch analysis of data. Moreover, in two cases the
-FSR broke down toward the end of the experiment, resulting in a
-slightly smaller number of grasps.
+corrected in the batch analysis of data.
 
 Each experiment lasted $35$ to $56$ minutes depending on the subject's
 confidence and speed; although almost no subjects reported tiredness,
@@ -208,28 +206,27 @@ the end of the trajectory.
 
 Overall, the procedure could recognise $716 \pm 12$ grasps for each
 subject, which matches the desired result of $720$ ($120$ per session,
-each user running six sessions). As far as the two subjects who broke
-down the FSR, the procedure recognised $550$ and $649$ grasps. The
-data were also manually observed in order to verify that spurious
-detected grasps would be an insignificant fraction of the total
-grasps.
+each user running six sessions). During two of the experiments, the
+FSR sensor broke down, resulting in the procedure recognising $550$
+and $649$ grasps in those cases. All data were also manually observed
+in order to verify that spurious detected grasps would be an
+insignificant fraction of the total grasps.
 
 \subsubsection*{Grasping speed}
 
 In general, in order to make time sequences suitable for a machine
 learning system, they all must have the same length.\footnote{An
-interesting possibility is that of employing a kernel which can
-consider time sequences of different lenghts, see, e.g.,
-\cite{shimodaira02dynamic} This issue is the subject of future
-research.}; in order to do this, since in general not all grasps have
-the same length, we stretched each sequence to a predefined
-lenght. The predefined length was chosen according to the average
-speed of the grasps. Figure \ref{fig:grasp_sequence} $(b)$ shows the
-average grasp durations for all subjects over each experiment (moving
-average over $50$ grasps); as one would expect, in general the
-subjects get rapidly used to the grasp/drop/reposition task and the
-grasps become faster and faster. It must be remarked, though, that
-this is not the case for all subjects considered one by one.
+alternative possibility is shown in \cite{shimodaira02dynamic}. This
+issue is the subject of future research.}; in order to do this, since
+in general not all grasps have the same length, we stretched each
+sequence to a predefined lenght. The predefined length was chosen
+according to the average speed of the grasps. Figure
+\ref{fig:grasp_sequence} $(b)$ shows the average grasp durations for
+all subjects over each experiment (moving average over $50$ grasps);
+as one would expect, in general the subjects get rapidly used to the
+grasp/drop/reposition task and the grasps become faster and faster. It
+must be remarked, though, that this is not the case for all subjects
+considered one by one.
 
 On average, the grasp duration was $0.62 \pm 0.20$ seconds. We decided
 then to stretch every grasp to $1$ second by linear interpolation,
