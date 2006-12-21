@@ -1,59 +1,56 @@
 From this first batch of data we can mostly pose further questions and
-sketch future research rather than draw definite conclusions. For
-the machine learning questions we addressed in this paper, we do a 
+sketch future research rather than draw definite conclusions. For the
+machine learning questions we addressed in this paper, we do a
 reasonably good job in providing an answer which is fairly conclusive;
-on the other hand, it remains difficult to say something other than 
+on the other hand, it remains difficult to say something other than
 speculations when comparing these results to neuroscience.
 
-In short, the answer to our two questions is that we can predict well 
-given that we have access to motor information at least during learning, 
-and that knowing the objects to be grasped improves the ability to
-predict the outcome of an action. There are many caveats in this 
-experiment, as for example, the question on whether a pre-processing
-of the data through clustering could improve performance further: i.e.
-given that objects afford certain grasping postures and they are 
-executed with high probability. In humans the quality of the prediction
-of grasping is a function of the expectancies of the various possible 
-grasp types which are in turn determined by the past experience of 
-manipulation of the target object (Fadiga, personal communication).
+In short, the answer to our two questions is that we can predict well
+given that we have access to motor information at least during
+learning, and that knowing the objects to be grasped improves the
+ability to predict the outcome of an action. There are many caveats in
+this experiment, as for example, the question on whether a
+pre-processing of the data through clustering could improve
+performance further: i.e.  given that objects afford certain grasping
+postures and they are executed with high probability. In humans the
+quality of the prediction of grasping is a function of the
+expectancies of the various possible grasp types which are in turn
+determined by the past experience of manipulation of the target object
+(Fadiga, personal communication).
 
-The rationale behind a possible analysis of the data using machine 
-learning goes by noting that apart from the choice of the kernel and 
+The rationale behind a possible analysis of the data using machine
+learning goes by noting that apart from the choice of the kernel and
 the cost functional, the solution found by SVM's is optimal. Further,
 the dependence from hyperparameters has been optimized out in our case
 by grid search and cross-validation that although expensive is known
-to provide good results. An analysis of the solution should thus provide 
-an accurate characterization of the problem qua the data set that has
-been collected. 
+to provide good results. An analysis of the solution should thus
+provide an accurate characterization of the problem qua the data set
+that has been collected.
 
-In this sense (and only in this sense) we have shown that by partitioning
-the training set per object provides a general improvement of the quality
-of the solution and simultaneously of the training time (worst case $O(n^3)$ 
-versus $O(3 \cdot (n/3)^3)$ in our case with $3$ objects and $n$ the total 
-number of samples). This can be an effective strategy when the world 
-affords such an intuitive partitioning as for objects (seen as discrete
-entities).
+In this sense (and only in this sense) we have shown that by
+partitioning the training set per object provides a general
+improvement of the quality of the solution and simultaneously of the
+training time (worst case $O(n^3)$ versus $O(3 \cdot (n/3)^3)$ in our
+case with $3$ objects and $n$ the total number of samples). This can
+be an effective strategy when the world affords such an intuitive
+partitioning as for objects (seen as discrete entities).
 
 This is also true from what is known about the brain structures that
-control grasping where the presence of a target object, its shape and 
-affordance, and in general any contextual cue, are coded separately by 
-different populations of neurons and influence simultaneously the 
+control grasping where the presence of a target object, its shape and
+affordance, and in general any contextual cue, are coded separately by
+different populations of neurons and influence simultaneously the
 response of the neurons that enact specific motor plans. After motor
 prediction is in place, the next step, that of recognizing the action
-of another individual is conceptually simple since it amounts to 
+of another individual is conceptually simple since it amounts to
 building a classifier on highly predictable motor trajectories.
 
-Another interesting question that is left to future research is whether
-we can investigate the complexity of the controllers of reaching and
-grasping (which are known to develop separately in humans) from the
-complexity of the learned internal models or as a consequence of the 
-prediction error. 
+Another interesting question that is left to future research is
+whether we can investigate the complexity of the controllers of
+reaching and grasping (which are known to develop separately in
+humans) from the complexity of the learned internal models or as a
+consequence of the prediction error.
 
 Clearly, the fact that we can train such internal models is prone to
 be applied in various contexts, as we mentioned, ranging from control
 of robots through interpretation and prediction of human behavior in
 particular for man-machine communication.
-
-
-
-
