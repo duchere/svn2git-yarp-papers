@@ -1,5 +1,5 @@
 In this Section we detail the process of gathering data from human
-subjects and processing them in order to make them suitable for
+subjects and the processing that makes them suitable for
 analysis by a machine learning system. In particular, we address the
 problem of building a \emph{training set}, that is, a set of data
 effectively representing, for each user and object considered, the
@@ -46,7 +46,7 @@ The FoB was firmly mounted on the CyberGlove, just above the subject's
 wrist, with the $X/Y$ plane being parallel to the palm plane in the
 resting position. The device returns $6$ double-precision numbers
 describing the position ($x$, $y$ and $z$ in inches) and rotation
-(azimuth, elevation and roll in angles) of the sensor with respect to
+(azimuth, elevation and roll in degrees) of the sensor with respect to
 a magnetic basis mounted about one meter away from the subject. The
 FoB's resolution is $0.1$ inches and $0.5$ degrees \cite{fob}.
 
@@ -67,12 +67,12 @@ knowledge of the aim of the experiment.
 
 \subsubsection*{Method}
 
-The subjects were asked to sit confortably in front of a clean
-workspace of about one squared meter, at the center of which an object
+The subjects were asked to sit comfortably in front of a clean
+workspace of about one square meter, at the center of which an object
 was placed, in a predefined position. The subjects were then asked to
 wear the devices and choose a resting position for their right hand
 and arm. They were then instructed to grasp the object with their
-right hand any way they wanted, not necessarily the same way each
+right hand as they felt appropriate, not necessarily the same way each
 time, keeping a ``natural'' attitude. After grasping the object, they
 had to drop it somewhere else in the workspace, and then return their
 right hand and arm in the initial resting position. Subsequently, they
@@ -88,10 +88,10 @@ ruled out grasps which made no use of the thumb, it enabled us to
 better determine the contact points.
 
 After the trial run, subjects were asked to repeat the
-grasp/drop/reposition procedure $120$ times per each object. We will
+grasp/drop/reposition procedure $120$ times for each object. We will
 call both this procedure and the data time sequence gathered during
 the procedure, a \emph{session}. We employed, in turn, three objects:
-a beer can, a scotch tape roll and a mug (Figure \ref{fig:objects}
+a beer can, a duct tape roll and a mug (Figure \ref{fig:objects}
 shows the objects). The objects were chosen so that each of them could be
 grasped in several different ways, but with a certain degree of
 overlapping, e.g., both the beer can and the mug could be grasped
@@ -106,7 +106,7 @@ cylindrically, but only the mug could be grasped using the handle.
       $(a)$ & $(b)$ & $(c)$
     \end{tabular}
     \caption{The objects used in the experiment: a beer can $(a)$, a
-    scotch tape roll $(b)$ and a mug $(c)$.}
+    duct tape roll $(b)$ and a mug $(c)$.}
     \label{fig:objects}
   \end{center}
 \end{figure}
@@ -120,10 +120,10 @@ corrected in the batch analysis of the data.
 
 Each experiment lasted $35$ to $56$ minutes depending on the subject's
 confidence and speed; although almost no subjects reported tiredness,
-we allowed for rest between each session. It was reported by almost
+we allowed them to rest between sessions. It was reported by almost
 every subject that the experiment became rapidly boring, which lets us
 claim that almost all grasps were done in a natural, almost
-unconscious way. Figure \ref{fig:setup} shows the main phases of the
+unconsciously. Figure \ref{fig:setup} shows the main phases of the
 experiment.
 
 \begin{figure}[htbp]
@@ -158,13 +158,13 @@ that recorded elsewhere shortly before the contact. The spike instants
 were taken as the \emph{ending} points of each grasp, and were
 gathered by checking when the first derivative of the FSR value
 dropped by more than $10\%$ of its overall minimum value. Moreover,
-after each spike, we ignored one second of the session, in order not
-to detect possible spurious spikes which happened immediately after
+after each spike, we ignored one second of the session, to avoid 
+detecting possible spurious spikes which happened immediately after
 the grasp, due to object slippage and/or blurred values coming from
 the FSR.
 
 Subsequently, in order to detect the \emph{starting} point of each
-grasp, for each ending point we observed the hand speed and
+action, for each ending point we observed the hand speed and
 acceleration, averaged over $0.2$ seconds, from the ending point
 backwards. Since we had instructed the subjects to always return to
 the resting position before initiating a new grasp, when the grasp
