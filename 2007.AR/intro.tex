@@ -1,21 +1,85 @@
-{\bf GIORGIO, io scorcerei vigorosamente da qui fino agli asterischi;
-oppure farei una nuova sezione ``related work''....}
+One of the most distinguishing features of cognitive systems is the
+ability to \emph{learn to predict} the future course of actions and
+the results of ongoing behaviours, and in general to plan actions well
+in advance. It is now relatively well understood that the brain builds
+models of the physical world through learning. These models are
+sometimes called ``internal models'', meaning that they are the
+internal rehearsal (or simulation) of the world enacted by the brain.
 
-It is reasonably well established that the brain stores ``internal
-models'' of actions either because they are required to control
-movements or, as it has been determined more recently, to interpret
-the movements of others \cite{kawato-99, wolpert-03, mussaivaldi-00,
-lackner-98}. There is a large body of literature that links the
-observation of actions to action execution, like for example the study
-of the motor system conducted by Rizzolatti and colleagues in
-relatively recent years
-\cite{rizzolatti-04,gallese-96,rizzolatti-01}. In the monkey, premotor
-area F5 has been particularly well studied and it is in fact the
-location where ``mirror neurons'' were first identified. In this
-respect, mirror neurons are the quintessential correlate of internal
-models since they are activated both when executing a specific
-grasping action and when observing a congruent action being executed
-by another individual (or the experimenter) \cite{fadiga-00}.
+Interestingly, internal models are built not only because they are
+required to control movements, but also, as it has been determined
+more recently, to interpret the movements of others \cite{kawato-99,
+wolpert-03, mussaivaldi-00, lackner-98}. There is now a large body of
+literature that links the observation of actions to action execution,
+like for example the study of the motor system conducted by Rizzolatti
+and colleagues in relatively recent years
+\cite{rizzolatti-04,gallese-96,rizzolatti-01}. It seems then that
+building internal models of actions is a key feature of intelligent
+living systems.
+
+Moreover, it has been shown in the context of object grasping, that
+the efficiency of an internal model can be improved by priors on the
+object to be grasped, i.e., the presence of a target object and its
+geometrical properties strongly constrain the type of grasp and the
+approach to the object, and, as a consequence, the brain might need to
+include this information when planning an appropriate course of
+action.
+
+In this paper we set forth to investigate whether a computer, equipped
+with enough sensory information about human movements, namely
+grasping, could acquire something like an internal model using machine
+learning methods. In particular we wonder $(a)$ whether the final
+configuration of the hand, i.e., at the very moment an object is
+grasped, could be predicted from the initial part of the movement; and
+$(b)$ whether the knowledge of the object to be grasped could improve
+the model efficiency, leading to a smaller error in prediction.
+
+To shed light on these questions, we have set up an experiment in
+which several able-bodied subjects have performed a highly repetitive
+grasping task on various daily life objects, and we have collected
+data about their hand position, orientation and posture. Then we have
+tried to put a computer in the same situation a human observer would
+be if he were to see only the initial part of a grasping action, the
+final part being occluded by a screen: a sub-sequence of each grasping
+sequence, namely the initial segment a human observer would be able to
+see, was used to train an efficient machine learning system based upon
+Support Vector Machines.
+
+We have then analyzed the error in predicting the final hand
+configuration; and we have analyzed whether the \emph{a priori}
+knowledge of the grasped object makes a difference in performance as
+it should intuitively do. The results we present here, albeit still in
+a preliminary shape, indicate that the machine is able to predict
+reasonably well human reaching and grasping, and that prior knowledge
+of the object to be grasped improves the performance of the machine,
+while keeping the same computational cost.
+
+Once actually realised, optimised and implemented, such internal
+models could potentially be used in various ways including the control
+of semi-autonomous teleoperated / prosthetic robotic artifacts, the
+interpretation of human movements, and mimicry of human movements
+\cite{wolpert-01}. For example, in controlling or teleoperating an
+anthropomorphic robotic platform, such models would be able to guess
+the user intention and ask the robot to complete the action
+autonomously. Predicting the user intention finds its natural role in
+building man-machine interfaces and possibly into the control of
+prosthetic devices.
+
+The paper is structured as follows: after a brief review of related
+work, we describe the methods and the experimental setup in section
+\ref{sec:exp_desc} and the results obtained in section
+\ref{sec:exp_res}; lastly we discuss them and comment on future
+development in section \ref{sec:Conclusions}.
+
+\subsection{Related work}
+
+In the monkey, premotor area F5 has been particularly well studied and
+it is in fact the location where ``mirror neurons'' were first
+identified. In this respect, mirror neurons are the quintessential
+correlate of internal models since they are activated both when
+executing a specific grasping action and when observing a congruent
+action being executed by another individual (or the experimenter)
+\cite{fadiga-00}.
 
 In a study by Umilt\`a et al. \cite{umilta-01} the response of mirror
 neurons to the observation of actions that terminate behind a screen
@@ -57,7 +121,8 @@ presence of objects is a clear contextual cue. In humans, it has been
 demonstrated that the activation of brain areas correlated to action
 observation is not simply a perceptual effect but rather the
 activation of a precise sensorimotor model which includes for example
-the hand kinematics \cite{pozzo-06}.
+the hand kinematics
+\cite{pozzo-06}.
  
 Accordingly, Fadiga et al. \cite{fadiga-99,vargas-04} have shown that
 motor imagery changes the excitability of the cortico-spinal
@@ -76,65 +141,20 @@ action generation.  It is known in this respect that the time required
 to simulate an action is the same that is required to execute that
 action \cite{sirigu-96}. For a review refer to \cite{jeannerod-99}.
 
-{\bf ************************ }
-
-In this paper we set forth to investigate whether a computer, equipped
-with enough sensory information about human movement, namely during
-grasping, could acquire a similar ``internal model'' using machine
-learning methods. In particular, we investigated whether the final
-configuration of the hand, i.e., at the very moment an object is
-grasped, could be predicted from the initial part of the movement.
-
-We put the computer in the same situation a human observer would be if
-he were to see only the initial part of a grasping action, the final
-part being occluded by a screen. We first had several human
-able-bodied subjects perform a highly repetitive grasping task on
-various daily life objects, and collected data about their hand
-position, orientation and posture. Subsequently, a sub-sequence of
-each grasping sequence, namely the initial segment the human observer
-would be able to see, was used to train a well-known and particularly
-efficient machine learning system based upon Support Vector Machines.
-
-We then analyzed the error the machine made in predicting the final
-hand configuration; and we analyzed whether the \emph{a priori}
-knowledge of the grasped object makes a difference in performance as
-it should intuitively do. The results we present here, albeit still in
-a preliminary shape, indicate that the machine is able to predict
-reasonably well human reaching and grasping, and that prior knowledge
-of the object to be grasped improves the performance of the machine,
-while keeping the same computational cost.
-
-%% GIORGIO: anche questa parte sarebbe related work...
-%%%
-%% In a previous experiment, we analyzed the problem of recognizing hand
-%% gestures visually by incorporating a generative approach that used
-%% motor information explicitly \cite{lopes-05,metta-06}. In that case we
-%% showed that an action recognition system that uses motor information
-%% in a preprocessing step can perform better ($97\%$ recognition rate
-%% versus $80\%$ on the test set) than a traditional classifier built
-%% directly in terms of visual information. This justifies the fact that
-%% as a preprocessing step we can consider a visuo to motor mapping that
-%% transforms the available visual information into motor data. This
-%% procedure is consistent in that it can be trained through 
-%% self-observation. We can imagine that the brain can exercise its
-%% control and simultaneously acquire both the motor commands and the
-%% corresponding visual information and learn such a mapping. In the
-%% following, we will only consider motor information since we can safely
-%% assume that the visuo-motor map can always incorporated in the global
-%% internal model.
-
-Once actually realised, optimised and implemented, such internal
-models could potentially be used in various ways including the control
-of semi-autonomous teleoperated / prosthetic robotic artifacts, the
-interpretation of human movements, and mimicry of human movements
-\cite{wolpert-01}. For example, in controlling or teleoperating an
-anthropomorphic robotic platform, such models would be able to guess
-the user intention and ask the robot to complete the action
-autonomously. Predicting the user intention finds its natural role in
-building man-machine interfaces and possibly into the control of
-prosthetic devices.
-
-The paper is structured as follows: we describe the methods and the
-experimental setup in section \ref{sec:exp_desc} and the results
-obtained in section \ref{sec:exp_res}; lastly we discuss them and
-comment on future development in section \ref{sec:Conclusions}.
+As far as gesture / hand configuration recognition is concerned, in a
+previous experiment we have analyzed the problem of recognizing hand
+gestures visually by incorporating a generative approach that used
+motor information explicitly \cite{lopes-05,metta-06}. In that case we
+showed that an action recognition system that uses motor information
+in a preprocessing step can perform better ($97\%$ recognition rate
+versus $80\%$ on the test set) than a traditional classifier built
+directly in terms of visual information. This justifies the fact that
+as a preprocessing step we can consider a visuo to motor mapping that
+transforms the available visual information into motor data. This
+procedure is consistent in that it can be trained through
+self-observation. We can imagine that the brain can exercise its
+control and simultaneously acquire both the motor commands and the
+corresponding visual information and learn such a mapping. In the
+following, we will only consider motor information since we can safely
+assume that the visuo-motor map can always incorporated in the global
+internal model.
