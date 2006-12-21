@@ -85,7 +85,7 @@ each time the subject made contact with the object (that is, each time
 the FSR signalled a significant change), and they were asked to try
 and hear the beep each time they grasped the object. Although this
 ruled out grasps which made no use of the thumb, it enabled us to
-better gather the contact points.
+better determine the contact points.
 
 After the trial run, subjects were asked to repeat the
 grasp/drop/reposition procedure $120$ times per each object. We will
@@ -112,11 +112,11 @@ cylindrically, but only the mug could be grasped using the handle.
 \end{figure}
 
 Each experiment employed one subject and consisted of six sessions:
-first the can, then the roll and then the mug, all of this two times,
+first the can, then the roll and then the mug, all of them twice,
 for an approximate total of $720$ grasps per subject, $240$ per
 object. The numbers are not precise since now and then the subjects
 would grasp without properly activating the FSR. This problem has been
-corrected in the batch analysis of data.
+corrected in the batch analysis of the data.
 
 Each experiment lasted $35$ to $56$ minutes depending on the subject's
 confidence and speed; although almost no subjects reported tiredness,
@@ -198,11 +198,10 @@ the end of the trajectory.
     and end of a grasp; the black line is the FSR response; and the
     green line is the hand speed. As one can see, the ending points
     are found near the FSR spike, indicating contact; moreover, the
-    hand speed shows the well known bell-shaped curve during a
-    grasp. $(b)$ Grasps duration. The Figure shows the duraton of the
+    hand speed shows the well known bell-shaped profile of planar reaching. 
+    $(b)$ Grasps duration. The Figure shows the duraton of the
     grasps (moving average over 50 grasps) averaged for all
-    subjects. As the experiments advance, the duration becomes shorter
-    and shorter.}
+    subjects. As the experiments advance, the duration becomes shorter.}
     \label{fig:grasp_sequence}
   \end{center}
 \end{figure}
@@ -210,8 +209,8 @@ the end of the trajectory.
 Overall, the procedure could recognise $716 \pm 12$ grasps for each
 subject, which matches the desired result of $720$ ($120$ per session,
 each user running six sessions). During two of the experiments, the
-FSR sensor broke down, resulting in the procedure recognising $550$
-and $649$ grasps in those cases. All data were also manually observed
+FSR sensor broke down, resulting in the recognition of only $550$
+and $649$ grasps. All data were also parsed by hand 
 in order to verify that spurious detected grasps would be an
 insignificant fraction of the total grasps.
 
@@ -229,7 +228,7 @@ average grasp durations for all subjects over each experiment (moving
 average over $50$ grasps); as one would expect, in general the
 subjects get rapidly used to the grasp/drop/reposition task and the
 grasps become faster and faster. It must be remarked, though, that
-this is not the case for all subjects considered one by one.
+this is not the case for all subjects when considered individually.
 
 On average, the grasp duration was $0.62 \pm 0.20$ seconds. We decided
 then to stretch every grasp to $1$ second by linear interpolation,
@@ -284,13 +283,13 @@ poor accuracy on points outside the training set. In SVM regression,
 $L^\epsilon (x_i,y_i,f) = \mbox{max}(0,|y_i-f(x_i)|-\epsilon)$,
 where $\epsilon > 0$ controls the width of an ``insensitive band'' around
 the output values, e.g., errors on the training set within this band
-are neglected.
+are not penalized.
 
 There are therefore three parameters to be tuned in our setting:
 $C$, $\gamma$ and $\epsilon$. In all our regression tests, we found
 $C$ and $\gamma$ by grid search, whereas $\epsilon$ was chosen
 according to the resolution of the sensors being examined (see next
-Section for a deeper discussion).
+Section for a more detailed discussion).
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
@@ -307,5 +306,5 @@ Section, we decided to define $\RR^{50}$ as the input space of our
 machines, and to use, for each sensor in the setup, the stretched
 grasping sequences as points; the target values would then be the
 values of the same sensor at the time of contact with the object. This
-way we have obtained $28$ SVMs, each one approximating the value of a
+way we have obtained $28$ SVMs, each approximating the value of a
 sensor at the time of contact.

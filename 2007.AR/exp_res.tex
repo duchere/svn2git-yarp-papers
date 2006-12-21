@@ -46,8 +46,8 @@ so to obtain an estimate of how complex it is to approximate the grasp
 for the can, roll and mug, unbiased by the differences among the
 subjects. Subsequently we averaged these three errors and compared the
 average with the overall error, obtained by joining \emph{all}
-sessions together. Figure \ref{fig:err_all} shows the experimental
-results.
+sessions together in a single training set. Figure \ref{fig:err_all} 
+shows the experimental results.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -107,6 +107,11 @@ number of sample considered is about one third of the overall machine,
 with $C$ being on average smaller. This indicates that the machines
 trained on single objects are significantly faster than the one
 trained on the overall sequence, while attaining a better accuracy.
+By looking at the panels on the left, we can see that the single
+object machines can do worse than the average machine but on the 
+other hand they can sometimes perform much better. The idea is that 
+it is worth anyway to exploit the data when available rather 
+than blindly processing them as a single lot.
 
 Summing up, if the problem is split into subproblems, each one
 regarding a single object, performances are better and the total
