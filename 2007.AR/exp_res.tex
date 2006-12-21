@@ -29,16 +29,18 @@ of $B$ would smoothly lead to larger errors. Figure
   \end{center}
 \end{figure}
 
-This procedure was repeated independently for each single sensor. The
-errors for each sensor were then grouped and averaged accordingly to
-their measurement unit and meaning: the position of the hand ($3$
-sensors, the $x,y,z$ from the FoB), the hand orientation ($3$ sensors,
-the azimuth, elevation and roll from the FoB), and the posture of the
-hand ($22$ sensors, the joint positions from the
-CyberGlove). According to the device resolutions detailed in the
-previous Section, we set $\epsilon$ to $0.1$ inches for the hand
-position, $0.5$ degrees for the hand orientation and $1$ degree for
-the hand posture.
+This procedure was repeated independently for each single sensor; the
+regression error obtained is the error attained by $2$-fold cross
+validation with the optimal $C$ and $\sigma$, determined using the
+procedure detailed in the previous Section. The errors for each sensor
+were then grouped and averaged accordingly to their measurement unit
+and meaning: the position of the hand ($3$ sensors, the $x,y,z$ from
+the FoB), the hand orientation ($3$ sensors, the azimuth, elevation
+and roll from the FoB), and the posture of the hand ($22$ sensors, the
+joint positions from the CyberGlove). According to the device
+resolutions (see the previous Section), we set $\epsilon$ to $0.1$
+inches for the hand position, $0.5$ degrees for the hand orientation
+and $1$ degree for the hand posture.
 
 In order to answer the second question, we first compared the error
 obtained as described above using all sessions for each single object,
@@ -78,41 +80,71 @@ intuitively sensible, since it is possible to grasp the scotch roll in
 more ways than the can, and it is possible to grasp the mug in even
 more ways (especially, using the handle).
 
-Since the hand position sensors have a resolution of $0.1$ inches, a
-resonable error seems to be about $0.5$ inches. This is on average
-attained for $B=0.3$. Since the average grasp lasts on average $0.62$
-seconds, we can say that the system can predict reasonably well
-something less than $200$ milliseconds before the grasp what the hand
-position will be. Similar considerations lead us to say that the
-system is able to predict the hand orientation $120$ milliseconds
-before the grasp with an error of about $2.5$ degrees. The hand
-posture requires a slightly more careful study: since the maximum
-noise on the CyberGlove sensors has been experimentally determined to
-be $3$ degrees \cite{212431}, it seems reasonable to take half this
-value as a minimal starting point. A five-fold error is then attained
-at $B=0.15$ ($9$ milliseconds before the grasp) for the mug and the
-scotch roll, and $B=0.3$ ($200$ milliseconds) for the can. This
-anwsers the first question.
+To determine how far in the future SVMs can predict well, we need to
+decide what an acceptable error is. In general, this is
+application-dependent. In this case we decided to accept an error as
+large as $5$ times a minimum threshold, determined by taking into
+account the resolutions of the sensors as declared in the devices
+manuals and related publications (see the previous Section). This lead
+us to $0.5$ inches for the hand position, $2.5$ degrees for the hand
+orientation, and $7.5$ degrees for the hand posture. As far as the
+hand posture is concerned, it must be remarked that, in this paper, we
+have only considered the average of errors on all the $22$ sensors,
+whereas in a more detailed analysis one should take into account that,
+e.g., an error on the wrist pitch would lead to a worse displacement
+of the hand, than an error on a phalanx would. This is subject of
+future research.
+
+As one can see from the graphs, the acceptable error is attained for
+the hand position at $B=0.3$, for the hand orientation at $B=0.2$ and
+for the hand posture at $B=0.15$ (mug and scotch roll) and $B=0.3$
+(beer can). Since the average grasp lasts on average $0.62$ seconds,
+we can say that the system can predict reasonably well
+
+\begin{itemize}
+
+  \item something less than $200$ milliseconds in advance the hand
+    position,
+
+  \item about $120$ milliseconds in advance the hand orientation, and
+
+  \item about $90$ milliseconds in advance the hand posture while
+    grasping the mug or the scotch roll, and about $200$ milliseconds
+    in advance the hand posture while grasping the beer can.
+
+\end{itemize}
+
+This answers the first question.
 
 As far as the second question is concerned, consider Figure
-\ref{fig:err_all}, right column: the average error attained on the
-single objects is always consistently smaller than that attained on
-the overall sequence. A further analysis of $C$ and $\gamma$, and the
-number of support vectors retained by the machines, which indicates
-``how hard'' the problems are, reveals that the computational
-complexity of the tasks is comparable. The analysis of single objects
-(sum over the three machines) requires about $1\%$ more support
-vectors than the overall analysis. For each single-object machine, the
-number of sample considered is about one third of the overall machine,
-with $C$ being on average smaller. This indicates that the machines
-trained on single objects are significantly faster than the one
-trained on the overall sequence, while attaining a better accuracy.
-By looking at the panels on the left, we can see that the single
-object machines can do worse than the average machine but on the 
-other hand they can sometimes perform much better. The idea is that 
-it is worth anyway to exploit the data when available rather 
-than blindly processing them as a single lot.
+\ref{fig:err_all}, right column: the curve representing the error on
+the single objects is always consistently smaller than the other one,
+indicating that a specific SVM trained on a single object will on
+average be more precise than a SVM trained on all objects altogether:
+the \emph{a priori} knowledge of the object improves the
+performance. A further analysis of $C$ (see Figure \ref{fig:C_trend}),
+indicates that the optimal values found for $C$ show a decreasing
+trend. This correctly suggests that, as $B$ increases, more and more
+information is missing from the training set (the regularisation term
+in Equation (\ref{eqn:svm_primal}) becomes increasingly important).
 
-Summing up, if the problem is split into subproblems, each one
-regarding a single object, performances are better and the total
-computational complexity of the solution remains roughly the same.
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{C_trend.eps}
+    \caption{The trend of the hyperparameter $C$ as $B$ is
+    increased. $C$ has a definite decreasing trend.}
+    \label{fig:C_trend}
+  \end{center}
+\end{figure}
+
+Let us now focus upon the number of support vectors found by the
+SVMs. It turns out that SVMs trained on single objects have roughly
+the same number of support vectors as the one trained on the overall
+sequence (figures show about $1\%$ more in the first case). This means
+that the single-object problems are computationally as hard as the
+overall one, but, as we have seen, they are more precise.
+
+Summing up, we can say that if the problem is split into subproblems,
+each one regarding a single object, performances are better and the
+total computational complexity of the solution remains roughly the
+same. This answers the second question.

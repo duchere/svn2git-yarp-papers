@@ -255,14 +255,14 @@ $l$ elementary functions $K(\xx,\yy)$, each one centered on a point in
 $S$, and weighted by real coefficients $\alpha_i$:
 
 \begin{equation} \label{eqn:sol}
-  f(\xx) = \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b
+  f(\xx) = \sum_{i=1}^l \alpha_i K(\xx,\xx_i) + b
 \end{equation}
 
 \noindent where $b \in \RR$. The choice of $K$, the so-called
 \emph{kernel}, is done \emph{a priori} and defines $\mathcal{F}$ once and for
 all; it is therefore crucial. According to a standard practice (see,
 e.g., \cite{Cristianini00}) we have chosen a \emph{Gaussian} kernel,
-which has one positive parameter $\gamma \in \RR$ defining the
+which has one positive parameter $\sigma \in \RR$ which is the
 standard deviation of the Gaussian functions used to build
 (\ref{eqn:sol}).
 
@@ -271,25 +271,37 @@ are found by solving the following minimisation problem
 (\emph{training phase}):
 
 \begin{equation} \label{eqn:svm_primal}
-  \min \left( R(S) + C \sum_{i=1}^l L^\epsilon (x_i,y_i,f) \right)
+  \min \left( R(S,K,\aa) + C \sum_{i=1}^l L^\epsilon (\xx_i,y_i,f) \right)
 \end{equation}
 
-\noindent where $R(S)$ is a \emph{regularisation term} and
-$L^\epsilon (x_i,y_i,f)$ is a \emph{loss functional}. Minimising the
-sum of $R$ and $S$ together, rather than just the loss functional,
-ensures that the solution will approximate well the values in the
-training set, at the same time avoiding overfitting, i.e., exhibiting
-poor accuracy on points outside the training set. In SVM regression,
-$L^\epsilon (x_i,y_i,f) = \mbox{max}(0,|y_i-f(x_i)|-\epsilon)$,
-where $\epsilon > 0$ controls the width of an ``insensitive band'' around
-the output values, e.g., errors on the training set within this band
-are not penalized.
+\noindent where $R$ is a \emph{regularisation term} and
+$L^\epsilon$ is a \emph{loss functional}. In practice, after the
+training phase, some of the $\alpha_i$s will be zero; the $\xx_i$s
+associated with non-zero $\alpha_i$s are called \emph{support
+vectors}. Both the training time (i.e., the time required by the
+training phase) and the testing time (i.e., the time required to find
+the value of a point not in $S$) crucially depend on the total number
+of support vectors; therefore, this number is an indicator of how hard
+the problem is.
 
-There are therefore three parameters to be tuned in our setting:
-$C$, $\gamma$ and $\epsilon$. In all our regression tests, we found
-$C$ and $\gamma$ by grid search, whereas $\epsilon$ was chosen
-according to the resolution of the sensors being examined (see next
-Section for a more detailed discussion).
+In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L^\epsilon$
+together, rather than just the loss functional, ensures that the
+solution will approximate well the values in the training set, at the
+same time avoiding overfitting, i.e., exhibiting poor accuracy on
+points outside $S$. Smaller values of the parameter $C$ give more
+importance to the regularisation term and vice-versa.
+
+Moreover, in SVM regression, $L^\epsilon (\xx_i,y_i,f) =
+\mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$, where $\epsilon > 0$ controls
+the width of an ``insensitive band'' around the output values, e.g.,
+errors on the training set within this band are not considered.
+
+There are, therefore, three parameters to be tuned in our setting:
+$C$, $\sigma$ and $\epsilon$. In all our regression tests, we found
+the optimal values of $C$ and $\sigma$ by grid search with $2$-fold
+cross-validation, whereas $\epsilon$ was chosen accordingly to the
+resolution of the sensors being examined (see next Section for a more
+detailed discussion).
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
@@ -306,5 +318,5 @@ Section, we decided to define $\RR^{50}$ as the input space of our
 machines, and to use, for each sensor in the setup, the stretched
 grasping sequences as points; the target values would then be the
 values of the same sensor at the time of contact with the object. This
-way we have obtained $28$ SVMs, each approximating the value of a
+way we have obtained $28$ SVMs, each one approximating the value of a
 sensor at the time of contact.
