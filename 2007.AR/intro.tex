@@ -1,18 +1,18 @@
-It is reasonably well established that the brain stores internal
-models of actions either because they are required to control
+It is reasonably well established that the brain stores ``internal
+models'' of actions either because they are required to control
 movements or, as it has been determined more recently, to interpret
 the movements of others \cite{kawato-99, wolpert-03, mussaivaldi-00,
-lackner-98}.  There is a large body of literature that links
-observation of actions to action execution as for example the study of
-the motor system conducted by Rizzolatti and colleagues in relatively
-recent years \cite{rizzolatti-04,gallese-96,rizzolatti-01}.
-
-In the monkey, premotor area F5 has been particularly well studied and
-it is in fact the location where ``mirror neurons'' were first
-identified. In this respect, mirror neurons are the quintessential
-correlate of internal models since they are activated both when
-executing a specific grasping action and when observing a congruent
-action being executed by another individual (or the experimenter)
+lackner-98}. There is a large body of literature that links the
+observation of actions to action execution, like for example the study
+of the motor system conducted by Rizzolatti and colleagues in
+relatively recent years
+\cite{rizzolatti-04,gallese-96,rizzolatti-01}. In the monkey, premotor
+area F5 has been particularly well studied and it is in fact the
+location where ``mirror neurons'' were first identified. In this
+respect, mirror neurons are the quintessential correlate of internal
+models since they are activated both when executing a specific
+grasping action and when observing a congruent action being executed
+by another individual (or the experimenter)
 \cite{fadiga-00}.
 
 In a study by Umilt\`a et al. \cite{umilta-01} the response of mirror
@@ -34,17 +34,16 @@ monkey \cite{gallese-96}.
 presence of a target object and its geometrical properties strongly
 constrain the type of grasp and the approach to the object, and that,
 as a consequence, the brain might need to include this information
-when planning an appropriate course of action.  As we mentioned
-earlier, in the monkey these constraints are so strong that mirror
-neurons do not fire unless the goal of the action is clearly
-perceivable. The brain codes for the object-motor identity in part via
-another class of F5 visuomotor neurons called ``canonical neurons''
-(for a discussion see for example \cite{metta-06}).  To complete the
-``picture'', the work of Graziano, Hu, and Gross \cite{graziano-97}
-has shown that the presence of objects is coded in the ventral
-premotor cortex and maintained even when the object is no longer
-visible as long as there is evidence for its presence at a particular
-location.
+when planning an appropriate course of action. In the monkey these
+constraints are so strong that mirror neurons do not fire unless the
+goal of the action is clearly perceivable. The brain codes for the
+object-motor identity in part via another class of F5 visuomotor
+neurons called ``canonical neurons'' (for a discussion see for example
+\cite{metta-06}). To complete the picture, the work of Graziano,
+Hu, and Gross \cite{graziano-97} has shown that the presence of
+objects is coded in the ventral premotor cortex and maintained even
+when the object is no longer visible as long as there is evidence for
+its presence at a particular location.
 
 Relevant to this discussion, the work of Fogassi et
 al. \cite{fogassi-05} contributed to the identification of mirror
@@ -52,12 +51,11 @@ neurons in the parietal cortex (inferior parietal lobule), which are
 thought to be related to the decoding of the intentions of
 others. Contextual information which links the enacted action to its
 final goal seems to be implicated in this type of neural response. The
-presence of objects is a clear contextual cue.
-
-In humans, it has been demonstrated that the activation of brain areas
-correlated to action observation is not simply a perceptual effect but
-rather the activation of a precise sensorimotor model which includes
-for example the hand kinematics \cite{pozzo-06}.
+presence of objects is a clear contextual cue. In humans, it has been
+demonstrated that the activation of brain areas correlated to action
+observation is not simply a perceptual effect but rather the
+activation of a precise sensorimotor model which includes for example
+the hand kinematics \cite{pozzo-06}.
  
 Accordingly, Fadiga et al. \cite{fadiga-99,vargas-04} have shown that
 motor imagery changes the excitability of the cortico-spinal
@@ -69,36 +67,25 @@ similar experiment \cite{fadiga-05}, the excitability of
 cortico-spinal pathways was also examined as a consequence of the
 actual sensory input. In summary, the motor system is similarly
 activated when acting in first person, when imagining an action, or
-when watching somebody else's action.
+when watching somebody else's action. Jeannerod \cite{jeannerod-88},
+for example, goes to a great length in showing how plausible is the
+fact that mental imagery uses the same internal models used by actual
+action generation.  It is known in this respect that the time required
+to simulate an action is the same that is required to execute that
+action \cite{sirigu-96}. For a review refer to \cite{jeannerod-99}.
 
-% note: it'd be nice to examine the difference with
-% presence/absence of the object in
-% humans using the TMS.
-
-Jeannerod \cite{jeannerod-88}, for example, goes to a great length in
-showing how plausible is the fact that mental imagery uses the same
-internal models used by actual action generation.  It is known in this
-respect that the time required to simulate an action is the same that
-is required to execute that action \cite{sirigu-96}. For a review
-refer to \cite{jeannerod-99}.
-
-In this study, we set forth to investigate whether a machine equipped
+In this paper we set forth to investigate whether a machine equipped
 with enough sensory information about human movement could acquire a
-similar ``internal model'' via machine learning methods. Internal
-models of this type can potentially be used in various ways including
-the control of robotic artifacts, the interpretation of human
-movements, and clearly they can be used to reproduce and mimic human
-movements \cite{wolpert-01}.
-
-In particular, we investigated whether the final configuration of the
-arm and hand can be predicted from the initial part of the movement,
-in practice, by imagining that the final part of the action is
-occluded by a screen. We analyzed how much error we make in predicting
-the final position of the fingers joint angles and the configuration
-of the wrist in space: i.e. position and orientation of a coordinate
-system fixed with respect to the palm of the hand. We also analyzed
-whether the knowledge of the grasped object makes a difference in
-performance as it should intuitively do.
+similar ``internal model'' via machine learning methods. In
+particular, we investigated whether the final configuration of the arm
+and hand can be predicted from the initial part of the movement by
+imagining that the final part of the action is occluded by a
+screen. We analyzed how much error we make in predicting the final
+position of the fingers joint angles and the configuration of the
+wrist in space: i.e., position and orientation of a coordinate system
+fixed with respect to the palm of the hand. We also analyzed whether
+the knowledge of the grasped object makes a difference in performance
+as it should intuitively do.
 
 In a previous experiment, we analyzed the problem of recognizing hand
 gestures visually by incorporating a generative approach that used
@@ -117,17 +104,17 @@ following, we will only consider motor information since we can safely
 assume that the visuo-motor map can always incorporated in the global
 internal model.
 
-As we already mentioned, on the practical side, a machine that can
-learn internal models effectively can find application in such a
-variate tasks as predicting and interpreting human behavior, in
-surveillance and scene understanding, in mimicry of human behavior, and in
-the teleoperation of a robot. For example, in controlling or teleoperating
-an anthropomorphic robotic platform, we can guess the user intention
-and ask the robot to complete the action autonomously. Predicting the
-user intention finds its natural role in building man-machine interfaces
+If actually realised, such internal models could potentially be used
+in various ways including the control of semi-autonomous teleoperated
+/ prosthetic robotic artifacts, the interpretation of human movements,
+and clearly they can be used to reproduce and mimic human movements
+\cite{wolpert-01}. For example, in controlling or teleoperating an
+anthropomorphic robotic platform, we can guess the user intention and
+ask the robot to complete the action autonomously. Predicting the user
+intention finds its natural role in building man-machine interfaces
 and possibly into the control of prosthetic devices.
 
-In the following, we describe the methods and the experimental setup
-in section \ref{sec:exp_desc}, the results obtained in section
-\ref{sec:exp_res} and finally we discuss them and comment on future
-development in section \ref{sec:Conclusions}.
+The paper is structured as follows: we describe the methods and the
+experimental setup in section \ref{sec:exp_desc} and the results
+obtained in section \ref{sec:exp_res}; lastly we discuss them and
+comment on future development in section \ref{sec:Conclusions}.

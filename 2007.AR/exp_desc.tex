@@ -207,12 +207,12 @@ the end of the trajectory.
 \end{figure}
 
 Overall, the procedure could recognise $716 \pm 12$ grasps for each
-subject, which matches the desired result of $720$ ($120$ per session,
-each user running six sessions). During two of the experiments, the
-FSR sensor broke down, resulting in the recognition of only $550$
-and $649$ grasps. All data were also parsed by hand 
-in order to verify that spurious detected grasps would be an
-insignificant fraction of the total grasps.
+subject, which matches the desired result of $720$, that is $120$ per
+session, each user running six sessions (during two experiments, the
+FSR sensor broke down, resulting in the recognition of only $550$ and
+$649$ grasps). All data were also parsed by hand in order to verify
+that spurious detected grasps would be an insignificant fraction of
+the total grasps.
 
 \subsubsection*{Grasping speed}
 
@@ -242,7 +242,9 @@ Our machine learning system is based upon Support Vector Machines
 \cite{BGV92}, SVMs are a class of kernel-based learning algorithms
 deeply rooted in Statistical Learning Theory \cite{v-edbed-82}, now
 extensively used in, e.g., speech recognition, object classification
-and function approximation with good results \cite{Cristianini00}.
+and function approximation with good results \cite{Cristianini00}. We
+now give a very quick account of SVMs; for an extensive introduction
+to the subject, see, e.g., \cite{SmolaTut2004}.
 
 We are interested here in the problem of SVM regression, that is:
 given a function whose value is known only for a finite number of
@@ -285,11 +287,11 @@ of support vectors; therefore, this number is an indicator of how hard
 the problem is.
 
 In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L^\epsilon$
-together, rather than just the loss functional, ensures that the
-solution will approximate well the values in the training set, at the
-same time avoiding overfitting, i.e., exhibiting poor accuracy on
-points outside $S$. Smaller values of the parameter $C$ give more
-importance to the regularisation term and vice-versa.
+together ensures that the solution will approximate well the values in
+the training set, at the same time avoiding overfitting, i.e.,
+exhibiting poor accuracy on points outside $S$. Smaller values of the
+parameter $C$ give more importance to the regularisation term and
+vice-versa.
 
 Moreover, in SVM regression, $L^\epsilon (\xx_i,y_i,f) =
 \mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$, where $\epsilon > 0$ controls
@@ -308,10 +310,9 @@ Notice, lastly, that the quantity to be minimised in Equation
 of a kernel, SVMs have the advantages that their training is
 guaranteed to end up in a global solution and that they can easily
 work in highly dimensional, non-linear feature spaces, as opposed to
-analogous algorithms such as, e.g., artificial neural networks. For an
-extensive introduction to regression based upon SVMs, see, e.g.,
-\cite{SmolaTut2004}. Our system employs LIBSVM v2.82 \cite{ChangL01},
-a standard, efficient implementation of SVMs.
+analogous algorithms such as, e.g., artificial neural networks. Our
+system employs LIBSVM v2.82 \cite{ChangL01}, a standard, efficient
+implementation of SVMs.
 
 According to the procedure described in the previous parts of this
 Section, we decided to define $\RR^{50}$ as the input space of our
