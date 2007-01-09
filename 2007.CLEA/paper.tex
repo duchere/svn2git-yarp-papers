@@ -4,13 +4,10 @@
 % Castellini, Sandini
 %
 
-% related work
-% citazioni
-
 \documentclass[a4paper,10pt,conference]{ieeeconf}
 
-\IEEEoverridecommandlockouts
-\overrideIEEEmargins
+%\IEEEoverridecommandlockouts
+%\overrideIEEEmargins
 
 \usepackage{float}
 \usepackage{graphicx}
@@ -75,8 +72,7 @@ The outcome of the experiment is that such a system, based upon
 Support Vector Machines, meets all the requirements, being $(a)$
 highly accurate, $(b)$ compact and fast, and $(c)$ largely unaffected
 by the subjects' diversity. The system is, moreover, trained by
-something like $3.5$ minutes of human biometric data in the worst
-case.
+something like $3.5$ minutes of human data in the worst case.
 
 \end{abstract}
 
@@ -84,7 +80,7 @@ case.
 \section{INTRODUCTION}
 
 \begin{figure*}[ht]
-  \begin{center}
+  \centering
     \begin{tabular}{ccc}
       \includegraphics[width=0.31\linewidth]{glove.eps} &
       \includegraphics[width=0.31\linewidth]{e504.eps} &
@@ -96,41 +92,42 @@ case.
     wrist; $(b)$ the ASL E504 gaze tracker (pan/tilt near-infrared
     camera); $(c)$ the whole setup.}
     \label{fig:devices}
-  \end{center}
 \end{figure*}
 
 Complex human/robotic interaction is a scenario in which a robotic
 artifact must be timely and accurately guided by a human being, the
 environmental conditions being hostile. A typical example is
-teleoperation \cite{...}, consisting of having a robotic setup (the
-\emph{slave}) work in a remote environment, guided by a human user
-(the \emph{master}). In a basic setting, the slave is reasonably
-humanoid or at least intuitively controllable by the master; the
-master is fully able-bodied; and the cooperation between master and
-slave is realised in such a way that the actions performed by the
-master can be precisely and timely replicated by the slave.
+teleoperation, consisting of having a robotic setup (the \emph{slave})
+work in a remote environment, guided by a human user (the
+\emph{master}). In a basic setting, the slave is reasonably humanoid
+or at least intuitively controllable by the master; the master is
+fully able-bodied; and the cooperation between master and slave is
+realised in such a way that the actions performed by the master can be
+precisely and timely replicated by the slave. In order to convey a
+feeling of telepresence, in particular, a high bandwidth is required
+for the slave-to-master sensorial feedback \cite{telesensation}.
 
 But, when any of the above conditions fails, teleoperation must be
 somehow augmented in order to keep on working. The slave could consist
-of a set of surgical tools \cite{...} not immediately related to the
-human fingers; or, the master could be a disabled person placed in a
-domotic environment \cite{...}, trying to manipulate his/her own
-appliances; or, lastly, the master/slave communication bandwidth could
-be insufficient for a timely and accurate transmission of
-commands/visual feedback.
+of a set of surgical tools \cite{okamura} not immediately related to
+the human fingers; or, the master could be a disabled person; or,
+lastly, the master/slave communication bandwidth could be insufficient
+for a timely and accurate transmission of sensorial feedback.
 
 One of the possibilities to overcome these problems is that of making
 the slave more intelligent by building into it \emph{internal models}
-of the required actions \cite{...}. It is envisioned, in this
-scenario, that the master should first train the slave to perform the
-actions required, in a safe and controlled environment; and that this
-acquired knowledge should then be used by the slave in real
-situations, whenever the environment or the master's abilities do not
-allow direct control. Upon detecting the master's intention to, e.g.,
-grasp an object in its own workspace, the slave should take control
-over, initiate and complete a grasping action possibly modelled upon
-the user's style, and then return the control to the master. This is
-what we call \emph{semi-autonomous teleoperation}.
+of the required actions
+\cite{kawato-99,wolpert-03,mussaivaldi-00,lackner-98}. It is
+envisioned, in this scenario, that the master should first train the
+slave to perform the actions required, in a safe and controlled
+environment; and that this acquired knowledge should then be used by
+the slave in real situations, whenever the environment or the master's
+abilities do not allow direct control. Upon detecting the master's
+intention to, e.g., grasp an object in its own workspace, the slave
+should take control over, initiate and complete a grasping action
+possibly modelled upon the user's style, and then return the control
+to the master. This is what we call \emph{semi-autonomous
+teleoperation}.
 
 As a minimum set of requirements, such a model should be
 
@@ -144,9 +141,9 @@ As a minimum set of requirements, such a model should be
     human-robot interaction scenario.
 
   \item \emph{Flexible.} It must adapt well to different subjects'
-    biometric parameters (speed of reach, direction of motion),
-    abilities and intentions; and it must be trained in a reasonably
-    short amount of time.
+    parameters (speed of reach, direction of motion), abilities and
+    intentions; and it must be trained in a reasonably short amount of
+    time.
 
 \end{enumerate}
 
@@ -173,8 +170,8 @@ built, and that is fulfills all the criteria enumerated above: it is
 highly accurate; the solution achieved is extremely compact; and these
 characteristics are largely independent of the subjects'
 abilities. Lastly, the training phase is accomplished using about
-$3.5$ minutes of biometric data gathered in real-time off each
-subject, in the worst case.
+$3.5$ minutes of data gathered in real-time off each subject, in the
+worst case.
 
 The paper is structured as follows: after a quick review of related
 work, Section \ref{sec:mat} describes the materials and methods used
@@ -182,13 +179,19 @@ in the experiment; Section \ref{sec:res} shows the experimental
 results, and Section \ref{sec:con} draws conclusions and outlines
 future work.
 
-\subsection{Related work}
+\subsection*{Related work}
 
-intelligent teleoperation
-
-learning by imitation; internal models
-
-applications of machine learning to biometric data
+The work presented here can be seen as a simple instance of learning
+by imitation. Building an internal model of a specific action through
+machine learning seems to be a promising, albeit quite young, research
+field: specific cases are, e.g., \cite{black1} where cortical activity
+in monkeys is used to reconstruct their movements, \cite{emg} where
+the electromyographic signal is used, and \cite{yokoi} where f-MRI is
+used, with an application to hand prosthestics \cite{yokoi2}. Mirror
+neurons, now widely studied in neurosciences, are a scientific
+paradigm of learning by imitation
+\cite{rizzolatti-04,gallese-96,rizzolatti-01} and indicate that such
+models are actually present in the primates' nervous system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{MATERIALS AND METHODS}
@@ -266,14 +269,14 @@ single subject was about $3.5$ minutes, resulting in no tiredness.
 \label{subsec:dataset}
 
 The first question was \emph{what} to monitor off the subjects'
-biometric data. A few intuitive considerations led us to consider
-$(a)$ the subjects' hand velocity, $(b)$ the variance of the subjects'
-gaze coordinates and $(c)$ the information whether the subjects' right
-hand was open or closed. Essentially, it is expected that, when the
-user wants to grasp an object, he/she first \emph{fixates} the desired
-object and then \emph{reaches} for it \cite{...}; lastly, at some time
-after the beginning of the reaching movement, he/she will close the
-right hand as if to grasp, as instructed.
+data. A few intuitive considerations led us to consider $(a)$ the
+subjects' hand velocity, $(b)$ the variance of the subjects' gaze
+coordinates and $(c)$ the information whether the subjects' right hand
+was open or closed. Essentially, it is expected that, when the user
+wants to grasp an object, he/she first \emph{fixates} the desired
+object and then \emph{reaches} for it; lastly, at some time after the
+beginning of the reaching movement, he/she will close the right hand
+as if to grasp, as instructed.
 
 We then expect, when fixating, the gaze coordinates to hover around
 the point on the screen where the desired object is seen; that is,
@@ -405,7 +408,7 @@ There are, therefore, two parameters to be tuned in our setting: $C$
 and $\sigma$. In all our tests we found the optimal values of $C$ and
 $\sigma$ by grid search with $3$-fold cross-validation. This ensures
 that the obtained models will have a high generalisation
-power \cite{...}.
+power.
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
@@ -445,7 +448,7 @@ noted above, the intuition is that, during the grasp (or maybe a
 little sooner or a little later, depending on the value of $T_c$) the
 hand velocity should be large while the gaze position standard
 deviation should be small. Therefore, finding five thresholds and
-comparing instant by instant the biometric values with them could be
+comparing instant by instant the subjects' values with them could be
 enough. In other words, machine learning could be not needed for
 solving the problem.
 
@@ -471,14 +474,13 @@ won't work well enough. Figure \ref{fig:comparison} shows the accuracy
 achieved by the two systems.
 
 \begin{figure}[htbp]
-  \begin{center}
+  \centering
     \includegraphics[width=\linewidth]{comparison.eps}
     \caption{Comparison between a simple thresholding system and
     SVMs. The curves denote the average accuracy over all subjects,
     whereas the errorbars represent the minimum and maximum
     accuracies.}
     \label{fig:comparison}
-  \end{center}
 \end{figure}
 
 The curves show the average accuracy over all the subjects, while the
@@ -492,6 +494,22 @@ thresholding system than with SVMs, at least if one wishes to obtain a
 reasonable accuracy. Notice, also, that the error bars are indeed
 shorter in the case of SVMs, making it for a more robust (i.e., less
 sensitive to the variance over the subjects) prediction.
+
+\begin{figure*}[!t]
+  \centering
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\textwidth]{predictionT.eps} &
+      \includegraphics[width=0.45\textwidth]{predictionS.eps} \\
+      $(a)$ & $(b)$
+    \end{tabular}
+    \caption{Predicted labels when $T_c=2$ for a particularly hard
+    subject for SVMs (number $5$, a $73$-years old woman who has
+    undergone a cataract operation). The graph shows $20$ seconds of
+    data. $(a)$ Labels predicted by the thresholds system. $(b)$
+    Labels predicted by the SVM. The dotted red line indicates the
+    true labels, whereas the blue spots are the predicted ones.}
+    \label{fig:prediction}
+\end{figure*}
 
 A few more considerations will further justify the choice of a machine
 learning schema. Firstly, there are strong hints that a threshold
@@ -525,23 +543,6 @@ at their best average accuracy (that is, for $T_c=2$), SVMs are
 $96.04\%$ accurate whereas the threshold system gets a score of
 $90.9\%$.
 
-\begin{figure*}[!t]
-  \begin{center}
-    \begin{tabular}{cc}
-      \includegraphics[width=0.45\textwidth]{predictionT.eps} &
-      \includegraphics[width=0.45\textwidth]{predictionS.eps} \\
-      $(a)$ & $(b)$
-    \end{tabular}
-    \caption{Predicted labels when $T_c=2$ for a particularly hard
-    subject for SVMs (number $5$, a $73$-years old woman who has
-    undergone a cataract operation). The graph shows $20$ seconds of
-    data. $(a)$ Labels predicted by the thresholds system, $(b)$
-    Labels predicted by the SVM. The dotted red line indicates the
-    true labels, whereas the blue spots are the predicted ones.}
-    \label{fig:prediction}
-  \end{center}
-\end{figure*}
-
 As a typical example, Figure \ref{fig:prediction} shows $20$ seconds
 of predicted labels for $T_c=2$ for the most difficult subject for
 SVMs, that is, subject $5$ (a 73-years old woman who has undergone in
@@ -560,7 +561,7 @@ Section. Figure \ref{fig:accuracy} $(a)$ is essentially a more
 detailed version of the red curve in Figure \ref{fig:comparison}.
 
 \begin{figure*}[ht]
-  \begin{center}
+  \centering
     \begin{tabular}{cc}
       \includegraphics[width=0.45\textwidth]{accuracy.eps} &
       \includegraphics[width=0.45\textwidth]{hyperparams.eps} \\
@@ -572,7 +573,6 @@ detailed version of the red curve in Figure \ref{fig:comparison}.
     $T_c$ varies; $(b)$ the values of $C$ (blue ``plus'' symbols) and
     $\sigma$ (red circles) versus the accuracy.}
     \label{fig:accuracy}
-  \end{center}
 \end{figure*}
 
 Consider Figure \ref{fig:accuracy} $(a)$: it is apparent that SVMs
@@ -621,7 +621,7 @@ curve shows the average size over all subjects, while the error bars
 represent the minimum and maximum size.
 
 \begin{figure*}[!t]
-  \begin{center}
+  \centering
     \begin{tabular}{cc}
       \includegraphics[width=0.45\linewidth]{SVs.eps} &
       \includegraphics[width=0.45\textwidth]{svs_subj.eps} \\
@@ -632,7 +632,6 @@ represent the minimum and maximum size.
     the minimum and maximum size. $(b)$ The same graph, but one curve
     for each subject.}
     \label{fig:svs}
-  \end{center}
 \end{figure*}
 
 Interestingly, as $T_c$ grows (and therefore as the accuracy grows,
@@ -666,7 +665,7 @@ value of $T_c$ for each subject, such that in that point the
 corresponding model is both accurate and small.
 
 \begin{figure*}[!t]
-  \begin{center}
+  \centering
     \begin{tabular}{cc}
       \includegraphics[width=0.45\textwidth]{svs_params.eps} &
       \includegraphics[width=0.45\textwidth]{acc_svs.eps} \\
@@ -683,7 +682,6 @@ corresponding model is both accurate and small.
     corner). Both clusters display a precise trend: the higher the
     accuracy, the smaller the models.}
     \label{fig:svs_params}
-  \end{center}
 \end{figure*}
 
 Consider Figure \ref{fig:svs_params} $(a)$, plotting the parameters
@@ -723,7 +721,7 @@ will be the $\tau(i)$ mentioned in the Subsection
 along with their characteristics, for each subject.
 
 \begin{table}[!t]
-  \begin{center}
+  \centering
     \caption{Best model found for each subject.}
     \begin{tabular}{|r|r|r|r|}
       \hline
@@ -739,7 +737,6 @@ along with their characteristics, for each subject.
       \hline
     \end{tabular}
     \label{tab:tau}
-  \end{center}
 \end{table}
 
 As expected, there is a model for each user which is both accurate
@@ -755,9 +752,9 @@ case, again, a finer analysis of large values of $T_c$ is required).
 \label{sec:con}
 
 In this paper we have tried to obtain good internal models of when to
-grasp by applying Support Vector Machines to biometric data gathered
-off diverse human subjects, engaged in a simple grasping experiment in
-a teleoperation scenario.
+grasp by applying Support Vector Machines to data gathered off diverse
+human subjects, engaged in a simple grasping experiment in a
+teleoperation scenario.
 
 The experimental results and related analysis reveals that the
 approach is definitely successful. First of all, the problem is not
@@ -802,6 +799,8 @@ The work is supported by the EC project NEURObotics
 Technology and Francesco Orabona of the LIRA-Lab for their support.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\IEEEtriggeratref{6}
 
 {\small
 \bibliographystyle{unsrt}
