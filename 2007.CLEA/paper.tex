@@ -4,10 +4,13 @@
 % Castellini, Sandini
 %
 
+% risistemare le figure?
+% equilibrare colonne ultima pagina
+
 \documentclass[a4paper,10pt,conference]{ieeeconf}
 
-%\IEEEoverridecommandlockouts
-%\overrideIEEEmargins
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
 
 \usepackage{float}
 \usepackage{graphicx}
@@ -34,10 +37,10 @@
 \author{Claudio Castellini and Giulio Sandini%
 \thanks{Claudio Castellini (corresponding author) is
 with the LIRA-Lab, University of Genova,
-viale F. Causa 13, 16145 Genova, Italy
+viale F. Causa 13, 16145 Genova, Italy. Email
 {\tt\small claudio.castellini@unige.it}}%
 \thanks{Giulio Sandini is with the Italian Institute of Technology,
-via Morego 16, 16100 Genova, Italy
+via Morego 16, 16100 Genova, Italy. Email
 {\tt\small giulio.sandini@iit.it}}%
 }
 
@@ -116,18 +119,16 @@ for a timely and accurate transmission of sensorial feedback.
 
 One of the possibilities to overcome these problems is that of making
 the slave more intelligent by building into it \emph{internal models}
-of the required actions
-\cite{kawato-99,wolpert-03,mussaivaldi-00,lackner-98}. It is
-envisioned, in this scenario, that the master should first train the
-slave to perform the actions required, in a safe and controlled
-environment; and that this acquired knowledge should then be used by
-the slave in real situations, whenever the environment or the master's
-abilities do not allow direct control. Upon detecting the master's
-intention to, e.g., grasp an object in its own workspace, the slave
-should take control over, initiate and complete a grasping action
-possibly modelled upon the user's style, and then return the control
-to the master. This is what we call \emph{semi-autonomous
-teleoperation}.
+of the required actions \cite{kawato-99}. It is envisioned, in this
+scenario, that the master should first train the slave to perform the
+actions required, in a safe and controlled environment; and that this
+acquired knowledge should then be used by the slave in real
+situations, whenever the environment or the master's abilities do not
+allow direct control. Upon detecting the master's intention to, e.g.,
+grasp an object in its own workspace, the slave should take control
+over, initiate and complete a grasping action possibly modelled upon
+the user's style, and then return the control to the master. This is
+what we call \emph{semi-autonomous teleoperation}.
 
 As a minimum set of requirements, such a model should be
 
@@ -166,9 +167,9 @@ simply and naturally fixating the object, reaching for it and closing
 their hand.
 
 The outcome of the experiment is that such a model can actually be
-built, and that is fulfills all the criteria enumerated above: it is
-highly accurate; the solution achieved is extremely compact; and these
-characteristics are largely independent of the subjects'
+built, and that it fulfills all the requirements enumerated above: it
+is highly accurate; the solution achieved is extremely compact; and
+these characteristics are largely independent of the subjects'
 abilities. Lastly, the training phase is accomplished using about
 $3.5$ minutes of data gathered in real-time off each subject, in the
 worst case.
@@ -182,31 +183,39 @@ future work.
 \subsection*{Related work}
 
 The work presented here can be seen as a simple instance of learning
-by imitation. Building an internal model of a specific action through
-machine learning seems to be a promising, albeit quite young, research
-field: specific cases are, e.g., \cite{black1} where cortical activity
-in monkeys is used to reconstruct their movements, \cite{emg} where
-the electromyographic signal is used, and \cite{yokoi} where f-MRI is
-used, with an application to hand prosthestics \cite{yokoi2}. Mirror
-neurons, now widely studied in neurosciences, are a scientific
-paradigm of learning by imitation
-\cite{rizzolatti-04,gallese-96,rizzolatti-01} and indicate that such
-models are actually present in the primates' nervous system.
+by imitation. Training a machine learning system upon human movements
+data essentially builds a model of the subject's motion parameters,
+and this schema is common among animals and humans. Such models are
+called \emph{internal models} (see, e.g.,
+\cite{kawato-99,wolpert-03,mussaivaldi-00}); and there is now
+evidence, represented by \emph{mirror neurons}
+\cite{rizzolatti-04,gallese-96,rizzolatti-01}, that such models are a
+somehow abstract representation of actions, since they are elicited
+both when a subject performs an action, but also when it sees the same
+action performed by a peer.
+
+Building internal models of action through machine learning seems then
+to be a promising idea. This has so far been primarily done via
+signals obtained off more invasive devices than those we use; specific
+cases are, e.g., \cite{black1} where cortical activity in monkeys is
+used to reconstruct their movements, \cite{emg} where the
+electromyographic signal is used, and \cite{yokoi} where f-MRI is
+used, with an application to hand prosthestics \cite{yokoi2}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{MATERIALS AND METHODS}
 \label{sec:mat}
 
 In this Section we detail the process of gathering data from human
-subjects and the processing that made them suitable for analysis by a
-machine learning system.
+subjects and how we made them suitable for analysis by a machine
+learning system.
 
 \subsection{Subjects}
 
-Seven subjects, four females and three males aged $30$ to $73$,
-volunteered to join the experiment. They are all right-handed and
+Seven subjects, four women and three men aged $30$ to $73$,
+volunteered to join the experiment. They were all right-handed and
 fully able-bodied, and were given no knowledge of the aim of the
-experiment. Four of the subjects are slightly visually
+experiment. Four of the subjects were slightly visually
 impaired. Moreover, the wide variance in the age of the subjects gave
 us a reasonable spectrum of velocities achieved when grasping objects.
 This was supposed to increase the difficulty of the experiment,
@@ -217,33 +226,28 @@ system could adapt to subjects with different motion/sight abilities.
 \subsection{Setup and devices}
 
 The subjects were asked to sit confortably in front of a clean
-workspace, and a flat $17$ inches color monitor was placed in front
-of them at a distance of about half a meter. They wore an Immersion
+workspace, and a flat $17$ inches color monitor was placed in front of
+them at a distance of about half a meter. They wore an Immersion
 \emph{CyberGlove} data glove \cite{cyberglove} on their right hand,
 and an Ascension \emph{Flock-of-Birds} (FoB) \cite{fob} magnetic
 tracker was firmly mounted on top of their wrist. Lastly, an ASL
 \emph{E504} gaze tracker \cite{e504} was placed on the left hand side
-of the monitor. Figure \ref{fig:devices} shows the setup and the
-devices.
+of the monitor. Figure \ref{fig:devices} shows the devices and setup.
 
-The FoB returns $6$ double-precision numbers describing the position
+The FoB returns six double-precision numbers describing the position
 ($x$, $y$ and $z$ in inches) and rotation (azimuth, elevation and roll
 in degrees) of the sensor with respect to a magnetic basis mounted
-about one meter away from the subject. The FoB's resolution is $0.1$
-inches and $0.5$ degrees \cite{fob}.
+about one meter away from the subject. Its resolution is $0.1$ inches
+and $0.5$ degrees. The E504, after a careful calibration phase,
+returns one true/false value, denoting validity of the gaze
+coordinates, and two double-precision numbers indicating the
+coordinates of the subject's gaze with respect to the monitor. The
+CyberGlove was used as an on-off switch, to detect when the subject's
+hand would close, by monitoring one of its sensors via a threshold.
 
-The E504, after a careful calibration phase, returns one true/false
-value, denoting validity of the gaze coordinates, and two
-double-precision numbers indicating the coordinates of the subject's
-gaze with respect to the monitor.
-
-The CyberGlove returns $22$ $8$-bit numbers linearly related to the
-angles between the ends of the sensors and roughly indicating the
-angles between the subject's hand joints; the sensors are embedded in
-the glove in order for them to be adherent to the subject's skin. In
-our setting, the CyberGlove was used as an on-off switch, to detect
-when the subject's hand would close, by monitoring one of its sensors
-via a threshold.
+The monitor showed the slave's workspace; the slave is the humanoid
+platform Babybot \cite{babybotHum2005}. For the experiment we only
+employed one of its colour cameras.
 
 All data were collected, synchronised, and saved in real time at a
 frequency of about $47$Hz.
@@ -274,9 +278,9 @@ subjects' hand velocity, $(b)$ the variance of the subjects' gaze
 coordinates and $(c)$ the information whether the subjects' right hand
 was open or closed. Essentially, it is expected that, when the user
 wants to grasp an object, he/she first \emph{fixates} the desired
-object and then \emph{reaches} for it; lastly, at some time after the
-beginning of the reaching movement, he/she will close the right hand
-as if to grasp, as instructed.
+object and then \emph{reaches} for it (see, e.g., \cite{johansson01});
+lastly, at some time after the beginning of the reaching movement,
+he/she will close the right hand as if to grasp, as instructed.
 
 We then expect, when fixating, the gaze coordinates to hover around
 the point on the screen where the desired object is seen; that is,
@@ -344,9 +348,8 @@ Our machine learning system is based upon Support Vector Machines
 \cite{BGV92}, SVMs are a class of kernel-based learning algorithms
 deeply rooted in Statistical Learning Theory \cite{v-edbed-82}, now
 extensively used in, e.g., speech recognition, object classification
-and function approximation with good results \cite{Cristianini00}. We
-now give a very quick account of SVMs; for an extensive introduction
-to the subject, see, e.g., \cite{SmolaTut2004}.
+and function approximation with good results \cite{Cristianini00}. For
+an extensive introduction to the subject, see, e.g., \cite{Burges98}.
 
 We are interested here in the problem of SVM classification, that is:
 given a set of $l$ training samples $S=\{\xx_i,y_i\}_{i=1}^l$, with
@@ -372,7 +375,7 @@ and for all; it is therefore crucial. According to a standard practice
 kernel, which has one positive parameter $\sigma \in \RR$ which is the
 standard deviation of the Gaussian functions used to build
 (\ref{eqn:sol}). Notice that this is not related to the fact that the
-approximand source might or might not be Gaussian.
+target probability distribution might or might not be Gaussian.
 
 Now, let $C \in \RR$ be a positive parameter; then the $\alpha_i$s and
 $b$ are found by solving the following minimisation problem
@@ -389,14 +392,14 @@ $\alpha_i$s are called \emph{support vectors}. Both the training time
 (i.e., the time required by the training phase) and the testing time
 (i.e., the time required to find the value of a point not in $S$)
 crucially depend on the total number of support vectors; therefore,
-this number is an indicator of how hard the problem is. Even better,
-since it is known \cite{Steinwart03} that the number of support
-vectors grows linearly with the sample set, a good indicator of the
-hardness of the problem is the percentage of support vectors with
-respect to the sample set size. We will denote this percentage by the
-symbol $p_{SV}$ and call it \emph{size} of the related model. Willing
-to implement the system on-line then, one has to choose models with
-the smallest possible size.
+this number is an indicator of how hard the problem is. Since the
+number of support vectors is proportional to the sample set
+\cite{Steinwart03}, an even better indicator of the hardness of the
+problem is the percentage of support vectors with respect to the
+sample set size. We will denote this percentage by the symbol $p_{SV}$
+and call it \emph{size} of the related model. Willing to implement the
+system on-line, one has to choose models with the smallest possible
+size.
 
 In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L$ together
 ensures that the solution will approximate well the values in the
@@ -407,16 +410,21 @@ $C$ give more importance to the regularisation term and vice-versa.
 There are, therefore, two parameters to be tuned in our setting: $C$
 and $\sigma$. In all our tests we found the optimal values of $C$ and
 $\sigma$ by grid search with $3$-fold cross-validation. This ensures
-that the obtained models will have a high generalisation
-power.
+that the obtained models will have a high generalisation power, i.e.,
+their guess will be accurate also on samples not in $S$.
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
 of a kernel, SVMs have the advantages that their training is
 guaranteed to end up in a global solution and that they can easily
 work in highly dimensional, non-linear feature spaces, as opposed to
-analogous algorithms such as, e.g., artificial neural networks. We
-have employed LIBSVM v2.82 \cite{ChangL01}, a standard, efficient
+analogous algorithms such as, e.g., artificial neural networks. As a
+matter of fact, SVMs are best employed when the chosen kernel maps the
+samples to a space in which the problem is \emph{linearly separable},
+that is, a hyperplane (linear function) can be found which separates
+the samples labelled $1$ from those labelled $-1$.
+
+We have employed LIBSVM v2.82 \cite{ChangL01}, a standard, efficient
 implementation of SVMs.
 
 According to the procedure described in the previous parts of this
@@ -445,55 +453,42 @@ subjects kept their arm and hand still between grasping attempts, one
 could think that a simple ``if/then/else'' method, based upon a
 threshold for each coordinate of the input space, would suffice. As
 noted above, the intuition is that, during the grasp (or maybe a
-little sooner or a little later, depending on the value of $T_c$) the
-hand velocity should be large while the gaze position standard
-deviation should be small. Therefore, finding five thresholds and
-comparing instant by instant the subjects' values with them could be
-enough. In other words, machine learning could be not needed for
-solving the problem.
+little sooner, depending on the value of $T_c$) the hand velocity
+should be large while the gaze position standard deviation should be
+small. Therefore, finding five thresholds and comparing instant by
+instant the subjects' values with them could be enough. In other
+words, machine learning could be not needed for solving the problem.
 
 In order to answer this question, at least partially, we ran our SVM
-against such a simple thresholding system. For each subject and for
-each dimension of the input space (that is, for each hand velocity and
-gaze position coordinate) we found out the maximum and minimum values
-over the whole sequence, then subdivided this interval into $10$
-parts. Lastly we exhaustively tried all $10^5$ possible thresholds and
-picked up the choice which maximised the accuracy over the labels. The
-thresholds $(t_1,t_2,t_3,t_4,t_5)$ were checked like this: if the
-values of the hand velocity moving averages were larger than
-$(t_1,t_2,t_3)$ and the values of the gaze position standard
-deviations were smaller than $(t_4,t_5)$, then the system would guess
-the label $1$; it would guess $-1$ otherwise. Indeed, if the
-accuracies achieved by the two systems were comparable, one would be
-driven toward the simpler one, also since, after having found the best
-thresholds, the testing time would be constant and extremely small,
-making it ideal for real-time, online processing.
+against such a simple threshold system. For each subject and for each
+dimension of the input space (that is, for each hand velocity and gaze
+position coordinate) we found out the maximum and minimum values over
+the whole sequence, then subdivided this interval into $10$
+parts. Lastly we exhaustively tried all $10^5$ possible thresholds
+$(t_1,t_2,t_3,t_4,t_5)$ and picked up the choice which maximised the
+accuracy. The thresholds were checked like this: if the values of the
+hand velocity moving averages were larger than $(t_1,t_2,t_3)$ and the
+values of the gaze position standard deviations were smaller than
+$(t_4,t_5)$, then the system would guess the label $1$; it would guess
+$-1$ otherwise. Indeed, if the accuracies achieved by the two systems
+were comparable, one would be driven toward the simpler one, also
+since, after having found the best thresholds, the testing time would
+be constant and extremely small, making it ideal for real-time, online
+processing.
 
-Unfortunately, it turns out that such a simple thresholding system
-won't work well enough. Figure \ref{fig:comparison} shows the accuracy
+Unfortunately, it turns out that such a simple threshold system won't
+work well enough. Figure \ref{fig:comparison} shows the accuracy
 achieved by the two systems.
 
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\linewidth]{comparison.eps}
-    \caption{Comparison between a simple thresholding system and
+    \caption{Comparison between a simple threshold system and
     SVMs. The curves denote the average accuracy over all subjects,
     whereas the errorbars represent the minimum and maximum
     accuracies.}
     \label{fig:comparison}
 \end{figure}
-
-The curves show the average accuracy over all the subjects, while the
-error bars represent the minimum and maximum accuracies achieved by
-each method. As one can see, SVMs are consistently and uniformly
-better than thresholds; moreover, there is basically no overlapping
-between the error bars (except for a few points on the left-hand side
-of the graph --- that is, where the accuracy is quite low), indicating
-that there is almost no chance one can do better with such a
-thresholding system than with SVMs, at least if one wishes to obtain a
-reasonable accuracy. Notice, also, that the error bars are indeed
-shorter in the case of SVMs, making it for a more robust (i.e., less
-sensitive to the variance over the subjects) prediction.
 
 \begin{figure*}[!t]
   \centering
@@ -505,27 +500,42 @@ sensitive to the variance over the subjects) prediction.
     \caption{Predicted labels when $T_c=2$ for a particularly hard
     subject for SVMs (number $5$, a $73$-years old woman who has
     undergone a cataract operation). The graph shows $20$ seconds of
-    data. $(a)$ Labels predicted by the thresholds system. $(b)$
+    data. $(a)$ Labels predicted by the threshold system. $(b)$
     Labels predicted by the SVM. The dotted red line indicates the
     true labels, whereas the blue spots are the predicted ones.}
     \label{fig:prediction}
 \end{figure*}
 
+The curves show the average accuracy over all the subjects, while the
+error bars represent the minimum and maximum accuracies achieved by
+each method. As one can see, SVMs are consistently and uniformly
+better than the threshold system; moreover, there is basically no
+overlapping between the error bars (except for a few points on the
+left-hand side of the graph --- that is, where the accuracy is quite
+low), indicating that there is almost no chance one can do better with
+such a system than with SVMs, at least if one wishes to obtain a
+reasonable accuracy. Notice, also, that the error bars are indeed
+shorter in the case of SVMs, making it for a more robust (i.e., less
+sensitive to the variance over the subjects) prediction.
+
 A few more considerations will further justify the choice of a machine
 learning schema. Firstly, there are strong hints that a threshold
 system would not scale up to more complex and/or larger problems,
-especially since the computational cost of such a method grows
-polynomially with the number of subdivisions of each input space
-dimension, and exponentially with the number of input space
-dimensions; moreover, such a simple method is likely to be much more
-prone to noise affecting the samples than SVMs are (picture a more
-realistic case in which the subject, between grasping attempts, is doing
-``something else'' rather than keeping the arm still).
+since the computational cost of such a method grows polynomially with
+the number of subdivisions of each input space dimension, and
+exponentially with the number of input space dimensions; moreover,
+such a simple method is likely to be much more prone to noise
+affecting the samples than SVMs are (picture a more realistic case in
+which the subject, between grasping attempts, is doing ``something
+else'' rather than keeping the arm still). In fact, employing such a
+system is tantamount to defining the functional space of decision
+surfaces $\mathcal{F}$ as the set of coordinate-wise half-spaces, as
+opposed to the much richer space induced by a Gaussian kernel.
 
 Secondly, it must be noted that the number of $1$ labels is much
 smaller than that of $-1$ labels; actually, the average number of $1$s
 is $17.1\% \pm 4.3\%$ of the whole set of labels. This is due to the
-fact that the grasping act lasts a few tenth of a second and, for the
+fact that the grasping act lasts a few tenths of a second and, for the
 rest of the time, the subject is at rest.  As a consequence, a dumb
 predictor which guessed $-1$ identically would achieve an average
 accuracy of about $83\%$! When looking at accuracy values, it must
@@ -546,12 +556,41 @@ $90.9\%$.
 As a typical example, Figure \ref{fig:prediction} shows $20$ seconds
 of predicted labels for $T_c=2$ for the most difficult subject for
 SVMs, that is, subject $5$ (a 73-years old woman who has undergone in
-the past a cataract surgical operation): as one can see, the
-thresholds prediction shows a number of false positives and negatives,
+the past a cataract surgical operation): as one can see, the threshold
+system prediction shows a number of false positives and negatives,
 whereas the SVM prediction suffers of only a few false negatives.
 
 \subsection{Accuracy}
 \label{subsec:accuracy}
+
+\begin{figure*}[!t]
+  \centering
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\textwidth]{accuracy.eps} &
+      \includegraphics[width=0.45\textwidth]{hyperparams.eps} \\
+      $(a)$ & $(b)$
+    \end{tabular}
+    \caption{Accuracy obtained by the SVM and related values of the
+    parameters $C$ and $\sigma$ found by grid search. $(a)$ Accuracy
+    curve for each subject (numbered $1$ to $7$), as the time window
+    $T_c$ varies; $(b)$ the values of $C$ (blue ``plus'' symbols) and
+    $\sigma$ (red circles) versus the accuracy.}
+    \label{fig:accuracy}
+\end{figure*}
+
+\begin{figure*}[!t]
+  \centering
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\linewidth]{SVs.eps} &
+      \includegraphics[width=0.45\textwidth]{svs_subj.eps} \\
+      $(a)$ & $(b)$
+    \end{tabular}
+    \caption{Model size as $T_c$ grows. $(a)$ The points denote the
+    average size over all subjects, whereas the error bars represent
+    the minimum and maximum size. $(b)$ The same graph, but one curve
+    for each subject.}
+    \label{fig:svs}
+\end{figure*}
 
 Figure \ref{fig:accuracy} $(a)$ shows the accuracy attained by the SVM
 for each subject separately, numbered $1$ to $7$; Figure
@@ -560,21 +599,6 @@ the accuracy, obtained by grid search as detailed in the previous
 Section. Figure \ref{fig:accuracy} $(a)$ is essentially a more
 detailed version of the red curve in Figure \ref{fig:comparison}.
 
-\begin{figure*}[ht]
-  \centering
-    \begin{tabular}{cc}
-      \includegraphics[width=0.45\textwidth]{accuracy.eps} &
-      \includegraphics[width=0.45\textwidth]{hyperparams.eps} \\
-      $(a)$ & $(b)$
-    \end{tabular}
-    \caption{Accuracy obtained by the SVM and related values of the
-    paramters $C$ and $\sigma$ found by grid search. $(a)$ Accuracy
-    curve for each subject (numbered $1$ to $7$), as the time window
-    $T_c$ varies; $(b)$ the values of $C$ (blue ``plus'' symbols) and
-    $\sigma$ (red circles) versus the accuracy.}
-    \label{fig:accuracy}
-\end{figure*}
-
 Consider Figure \ref{fig:accuracy} $(a)$: it is apparent that SVMs
 attain an excellent result on all subjects. The maximum accuracy is
 attained, depending on the subject, for $T_c$ between $1.5$ and $2$
@@ -582,7 +606,7 @@ seconds, and ranges from about $99\%$ (subjects $3$ and $7$) to
 $96.71\%$ (subject $5$, not surprisingly). All curves seem to reach
 the maximum accuracy as $T_c$ grows, and then keep roughly
 constant. This is somehow surprising, also taking into account that,
-for the threshold method (recall Figure \ref{fig:comparison}, blue
+for the threshold system (recall Figure \ref{fig:comparison}, blue
 curve), the accuracy degrades as a longer and longer time window is
 considered.
 
@@ -620,20 +644,6 @@ for each value of $T_c$: the smaller the size, the better. Figure
 curve shows the average size over all subjects, while the error bars
 represent the minimum and maximum size.
 
-\begin{figure*}[!t]
-  \centering
-    \begin{tabular}{cc}
-      \includegraphics[width=0.45\linewidth]{SVs.eps} &
-      \includegraphics[width=0.45\textwidth]{svs_subj.eps} \\
-      $(a)$ & $(b)$
-    \end{tabular}
-    \caption{Model size as $T_c$ grows. $(a)$ The points denote the
-    average size over all subjects, whereas the errorbars represent
-    the minimum and maximum size. $(b)$ The same graph, but one curve
-    for each subject.}
-    \label{fig:svs}
-\end{figure*}
-
 Interestingly, as $T_c$ grows (and therefore as the accuracy grows,
 recall Figure \ref{fig:comparison}, red plot), the size of the related
 model \emph{decreases}. This in general indicates that the problem is
@@ -653,8 +663,8 @@ phenomenon. Figure \ref{fig:svs} $(b)$ shows the actual model sizes
 subject by subject. It is from this Figure apparent that the size
 presents wide oscillations corresponding to small changes in $T_c$,
 while maintaining a decreasing trend. As an example, subject $2$ has
-$p_{SV}=43.49\%$ when $T_c=1.25$ seconds, but drops to $5.48\%$ when
-$T_c=1.3$ seconds!
+$p_{SV}=43.49\%$ when $T_c=1.25$ seconds, but drops to $p_{SV}=5.48\%$
+when $T_c=1.3$ seconds!
 
 The reason of these oscillations is that parameter grid search is done
 by taking the parameter values corresponding to the model with best
@@ -686,12 +696,12 @@ corresponding model is both accurate and small.
 
 Consider Figure \ref{fig:svs_params} $(a)$, plotting the parameters
 $C$ and $\sigma$ like in Figure \ref{fig:accuracy} $(b)$, but this
-time versus the compactness: it turns out that the most compact models
-have $C=100$, but this is a vague indication, since other values of
-$C$ attain good compactness values, too; but that $\sigma=0.7071$ is
-definitely the best value, since when $\sigma=0.2236$ the compactness
-is indeed smaller. Interestingly, these good values match those found
-in Subsection \ref{subsec:accuracy}.
+time versus the size: it turns out that the smallest models have
+$C=100$, but this is a vague indication, since other values of $C$
+attain small models, too; but that $\sigma=0.7071$ is definitely the
+best value, since when $\sigma=0.2236$ the models are indeed
+smaller. Interestingly, these good values match those found in
+Subsection \ref{subsec:accuracy}.
 
 We still have to check that these values are not tuned upon a certain
 (subset of) subject(s); if that were the case, there would still be
@@ -704,19 +714,17 @@ wide oscillations in size observed in Figure \ref{fig:svs} $(b)$. It
 also turns out that the upper right corner cluster in Figure
 \ref{fig:svs_params} $(b)$ is characterised by $\sigma=0.2236$. The
 Figure also tells us that there is a trend in both clusters,
-associating accuracy and compactness.
+associating accuracy and small size.
 
 \subsection{Flexibility}
 
 Lastly: can we then say that SVMs produce ``good'' models for each
-subject? And, if so, what characteristics are common among the best
-models, and what are the differences? Based upon the considerations in
-the previous Subsection, we can define, for each subject, a notion of
-``best'' model as the one which is lowest and rightmost in
-\ref{fig:svs_params} $(b)$, that is, which has the highest accuracy
-and compactness for that subject. To each of these models, and
-therefore to each subject, a values of $T_c$ is associated, and this
-will be the $\tau(i)$ mentioned in the Subsection
+subject? Based upon the considerations in the previous Subsection, we
+can define, for each subject, a notion of ``best'' model as the one
+which is lowest and rightmost in \ref{fig:svs_params} $(b)$, that is,
+which is the most accurate and smallest for that subject. To each of
+these models, and therefore to each subject, a values of $T_c$ is
+associated, and this will be the $\tau(i)$ mentioned in the Subsection
 \ref{subsec:dataset}. Table \ref{tab:tau} lists the models found,
 along with their characteristics, for each subject.
 
@@ -751,10 +759,10 @@ case, again, a finer analysis of large values of $T_c$ is required).
 \section{CONCLUSIONS AND FUTURE WORK}
 \label{sec:con}
 
-In this paper we have tried to obtain good internal models of when to
-grasp by applying Support Vector Machines to data gathered off diverse
-human subjects, engaged in a simple grasping experiment in a
-teleoperation scenario.
+In this paper we have tried to obtain good artificial internal models
+of when to grasp by applying Support Vector Machines to data gathered
+off diverse human subjects, engaged in a simple grasping experiment in
+a teleoperation scenario.
 
 The experimental results and related analysis reveals that the
 approach is definitely successful. First of all, the problem is not
@@ -800,7 +808,7 @@ Technology and Francesco Orabona of the LIRA-Lab for their support.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\IEEEtriggeratref{6}
+\IEEEtriggeratref{12}
 
 {\small
 \bibliographystyle{unsrt}
