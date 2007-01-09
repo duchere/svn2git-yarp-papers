@@ -4,16 +4,15 @@
 % Castellini, Sandini
 %
 
-% foto del setup
 % related work
-% fixes
-% bibliografia
+% citazioni
 
 \documentclass[a4paper,10pt,conference]{ieeeconf}
 
 \IEEEoverridecommandlockouts
 \overrideIEEEmargins
 
+\usepackage{float}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
@@ -83,6 +82,22 @@ case.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
+
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tabular}{ccc}
+      \includegraphics[width=0.31\linewidth]{glove.eps} &
+      \includegraphics[width=0.31\linewidth]{e504.eps} &
+      \includegraphics[width=0.31\linewidth]{setup.eps} \\
+      $(a)$ & $(b)$ & $(c)$
+    \end{tabular}
+    \caption{The setup and devices used for the experiment: $(a)$ the
+    Immersion CyberGlove with the Flock-of-Birds sensor just above the
+    wrist; $(b)$ the ASL E504 gaze tracker (pan/tilt near-infrared
+    camera); $(c)$ the whole setup.}
+    \label{fig:devices}
+  \end{center}
+\end{figure*}
 
 Complex human/robotic interaction is a scenario in which a robotic
 artifact must be timely and accurately guided by a human being, the
@@ -169,8 +184,6 @@ future work.
 
 \subsection{Related work}
 
-{\bf FIX}
-
 intelligent teleoperation
 
 learning by imitation; internal models
@@ -196,12 +209,12 @@ us a reasonable spectrum of velocities achieved when grasping objects.
 This was supposed to increase the difficulty of the experiment,
 especially as far as the gaze control is concerned, but at the same
 time it should have given us a more realistic idea of how a learning
-system could adapt to subjects with different motion//sight abilities.
+system could adapt to subjects with different motion/sight abilities.
 
 \subsection{Setup and devices}
 
 The subjects were asked to sit confortably in front of a clean
-workspace, and a a flat $17$ inches color monitor was placed in front
+workspace, and a flat $17$ inches color monitor was placed in front
 of them at a distance of about half a meter. They wore an Immersion
 \emph{CyberGlove} data glove \cite{cyberglove} on their right hand,
 and an Ascension \emph{Flock-of-Birds} (FoB) \cite{fob} magnetic
@@ -210,32 +223,16 @@ tracker was firmly mounted on top of their wrist. Lastly, an ASL
 of the monitor. Figure \ref{fig:devices} shows the setup and the
 devices.
 
-\begin{figure*}[htbp]
-  \begin{center}
-    \begin{tabular}{ccc}
-      \includegraphics[width=0.31\linewidth]{devices1.eps} &
-      \includegraphics[width=0.31\linewidth]{devices1.eps} &
-      \includegraphics[width=0.31\linewidth]{devices1.eps} \\
-      $(a)$ & $(b)$ & $(c)$
-    \end{tabular}
-    \caption{The setup and devices used for the experiment: $(a)$ the
-    Immersion CyberGlove with the Flock-of-Birds sensor just above the
-    subject's wrist; $(b)$ the ASL E504 gaze tracker; $(c)$ the whole
-    setup.}
-    \label{fig:devices}
-  \end{center}
-\end{figure*}
-
 The FoB returns $6$ double-precision numbers describing the position
 ($x$, $y$ and $z$ in inches) and rotation (azimuth, elevation and roll
 in degrees) of the sensor with respect to a magnetic basis mounted
 about one meter away from the subject. The FoB's resolution is $0.1$
 inches and $0.5$ degrees \cite{fob}.
 
-The E504, after a careful calibration phase, returns essentially one
-true/false value, denoting validity of the gaze coordinates, and two
-integers indicating the coordinates of the subject's gaze with respect
-to the monitor.
+The E504, after a careful calibration phase, returns one true/false
+value, denoting validity of the gaze coordinates, and two
+double-precision numbers indicating the coordinates of the subject's
+gaze with respect to the monitor.
 
 The CyberGlove returns $22$ $8$-bit numbers linearly related to the
 angles between the ends of the sensors and roughly indicating the
@@ -279,18 +276,17 @@ after the beginning of the reaching movement, he/she will close the
 right hand as if to grasp, as instructed.
 
 We then expect, when fixating, the gaze coordinates to hover around
-the point on the screen where the desired object is seen, that is, the
-gaze coordinates' standard deviation to be \emph{small}; also we
-expect, while reaching, the hand to move toward the screen, that is,
-we expect the hand velocity to be \emph{large}. The instants in which
-the hand is closed will signal the intention to grasp, whereas those
-when the hand is open will be taken as negative examples. Data $(a)$
-were easily obtained by differentiating in time the hand position
-$x,y,z$ coordinates obtained from the FoB, while $(b)$ and $(c)$ were
-obtained straight from the E504 and the CyberGlove. The samples
-corresponding to negative values of the E504 validity flag were
-ignored, manually verifying that this would not hamper the overall
-statistics.
+the point on the screen where the desired object is seen; that is,
+their standard deviation to be \emph{small}; also we expect, while
+reaching, the hand to move toward the screen, that is, we expect the
+hand velocity to be \emph{large}. The instants in which the hand is
+closed will signal the intention to grasp, whereas those when the hand
+is open will be taken as negative examples. Data $(a)$ were easily
+obtained by differentiating in time the hand position $x,y,z$
+coordinates obtained from the FoB, while $(b)$ and $(c)$ were obtained
+straight from the E504 and the CyberGlove. The samples corresponding
+to negative values of the E504 validity flag were ignored, manually
+verifying that this would not hamper the overall statistics.
 
 In the end, out of each subject we obtained a sequence of $6$-tuples
 (the three hand velocity coordinates, the two gaze coordinates and the
@@ -322,14 +318,14 @@ considering data obtained during two or more independent grasping
 attempts.
 
 By examining all sequences we found out that the interval between one
-grapsing attempt and the following one lasted on average $7.1 \pm 1.8$
+grasping attempt and the following one lasted on average $7.1 \pm 1.8$
 seconds. We then decided to let $T_c$ range in the interval
 $0.1,\ldots,2$ seconds with a step of $0.05$ seconds, and then to also
 check $T_c=3,4,5$ seconds.
 
 In general, we expected to find a ``best'' value for $T_c$, which
 would then be the required $\tau(i)$ for each user, figuring out that
-shorter values would lead to too little information about the ongoing
+shorter values would convey too little information about the ongoing
 movement, and that longer ones would tend to incorporate too much
 useless information about the resting periods of the subjects' hand
 and gaze; we also expected the former effect to be more pronounced
@@ -354,12 +350,13 @@ given a set of $l$ training samples $S=\{\xx_i,y_i\}_{i=1}^l$, with
 $\xx_i \in \RR^m$ and $y_i \in \{-1,1\}$, find a function $f$, drawn
 from a suitable functional space $\mathcal{F}$, which best
 approximates the probability distribution of the source of the
-elements of $S$. In order to decide whether a sample belongs to either
-category, the sign of $f$ is considered, with the convention that
-$sgn(f(\xx)) \geq 0$ indicates $y = 1$ and vice-versa. In practice,
-$f(\xx)$ is a sum of $l$ elementary functions $K(\xx,\yy)$, each one
-centered on a point in $S$, and weighted by real coefficients
-$\alpha_i$:
+elements of $S$. This function will be called a \emph{model} of the
+unknown probability distribution. In order to decide whether a sample
+belongs to either category, the sign of $f$ is considered, with the
+convention that $sgn(f(\xx)) \geq 0$ indicates $y = 1$ and
+vice-versa. In practice, $f(\xx)$ is a sum of $l$ elementary functions
+$K(\xx,\yy)$, each one centered on a point in $S$, and weighted by
+real coefficients $\alpha_i$:
 
 \begin{equation} \label{eqn:sol}
   f(\xx) = \sum_{i=1}^l \alpha_i K(\xx,\xx_i) + b
@@ -389,9 +386,14 @@ $\alpha_i$s are called \emph{support vectors}. Both the training time
 (i.e., the time required by the training phase) and the testing time
 (i.e., the time required to find the value of a point not in $S$)
 crucially depend on the total number of support vectors; therefore,
-this number is an indicator of how hard the problem is. As a
-consequence, willing to implement the system on-line, one has to
-choose solutions with as few as possible support vectors.
+this number is an indicator of how hard the problem is. Even better,
+since it is known \cite{Steinwart03} that the number of support
+vectors grows linearly with the sample set, a good indicator of the
+hardness of the problem is the percentage of support vectors with
+respect to the sample set size. We will denote this percentage by the
+symbol $p_{SV}$ and call it \emph{size} of the related model. Willing
+to implement the system on-line then, one has to choose models with
+the smallest possible size.
 
 In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L$ together
 ensures that the solution will approximate well the values in the
@@ -403,15 +405,15 @@ There are, therefore, two parameters to be tuned in our setting: $C$
 and $\sigma$. In all our tests we found the optimal values of $C$ and
 $\sigma$ by grid search with $3$-fold cross-validation. This ensures
 that the obtained models will have a high generalisation
-power. \cite{...}
+power \cite{...}.
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
 of a kernel, SVMs have the advantages that their training is
 guaranteed to end up in a global solution and that they can easily
 work in highly dimensional, non-linear feature spaces, as opposed to
-analogous algorithms such as, e.g., artificial neural networks. Our
-system employs LIBSVM v2.82 \cite{ChangL01}, a standard, efficient
+analogous algorithms such as, e.g., artificial neural networks. We
+have employed LIBSVM v2.82 \cite{ChangL01}, a standard, efficient
 implementation of SVMs.
 
 According to the procedure described in the previous parts of this
@@ -509,17 +511,19 @@ fact that the grasping act lasts a few tenth of a second and, for the
 rest of the time, the subject is at rest.  As a consequence, a dumb
 predictor which guessed $-1$ identically would achieve an average
 accuracy of about $83\%$! When looking at accuracy values, it must
-therefore be checked that the accuracy is high enough to ensure a
-sensible prediction, and it must be reminded that an accuracy around
-$85\%$ is not much better than flipping a coin.\footnote{A sensible
-alternative would be that of considering a ``weigthed'' accuracy
-$\frac{n_1 c_1 + n_{-1} c_{-1}}{c_1+c_{-1}}$, where $n_i$ is the
-number of correctly guessed $i$ labels, $i \in \{1,-1\}$ and $c_i$ is
-the total number of $i$ labels.} Considering Figure
-\ref{fig:comparison} again in the light of this point, one realises
-that the superior performance of SVMs is even more relevant: at their
-best average accuracy (that is, for $T_c=2$), SVMs are $96.04\%$
-accurate whereas the threshold system gets a score of $90.9\%$.
+therefore be checked that the accuracy (percentage of correctly
+predicted labels with respect to the total number of labels) is high
+enough to ensure a sensible prediction, and it must be reminded that
+an accuracy around $85\%$ is not much better than flipping a
+coin.\footnote{A sensible alternative would be that of considering a
+``weigthed'' accuracy $\frac{n_1 c_1 + n_{-1} c_{-1}}{c_1+c_{-1}}$,
+where $n_i$ is the number of correctly guessed $i$ labels, $i \in
+\{1,-1\}$ and $c_i$ is the total number of $i$ labels.} Considering
+Figure \ref{fig:comparison} again in the light of this point, one
+realises that the superior performance of SVMs is even more relevant:
+at their best average accuracy (that is, for $T_c=2$), SVMs are
+$96.04\%$ accurate whereas the threshold system gets a score of
+$90.9\%$.
 
 \begin{figure*}[!t]
   \begin{center}
@@ -530,20 +534,20 @@ accurate whereas the threshold system gets a score of $90.9\%$.
     \end{tabular}
     \caption{Predicted labels when $T_c=2$ for a particularly hard
     subject for SVMs (number $5$, a $73$-years old woman who has
-    undergone a cataract surgical operation). The graph shows $20$
-    seconds of data. $(a)$ labels predicted by the thresholds system,
-    $(b)$ labels predicted by the SVM. The dotted red line indicates
-    the true labels, whereas the blue spots are the predicted ones.}
+    undergone a cataract operation). The graph shows $20$ seconds of
+    data. $(a)$ Labels predicted by the thresholds system, $(b)$
+    Labels predicted by the SVM. The dotted red line indicates the
+    true labels, whereas the blue spots are the predicted ones.}
     \label{fig:prediction}
   \end{center}
 \end{figure*}
 
 As a typical example, Figure \ref{fig:prediction} shows $20$ seconds
 of predicted labels for $T_c=2$ for the most difficult subject for
-SVMs, that is, subject $5$ (a 73-years old lady who has been operated
-for a cataract {\bf FIX}): as one can see, the thresholds prediction
-shows a number of false positives and negatives, whereas the SVM
-prediction suffers of only a few false negatives.
+SVMs, that is, subject $5$ (a 73-years old woman who has undergone in
+the past a cataract surgical operation): as one can see, the
+thresholds prediction shows a number of false positives and negatives,
+whereas the SVM prediction suffers of only a few false negatives.
 
 \subsection{Accuracy}
 \label{subsec:accuracy}
@@ -555,7 +559,7 @@ the accuracy, obtained by grid search as detailed in the previous
 Section. Figure \ref{fig:accuracy} $(a)$ is essentially a more
 detailed version of the red curve in Figure \ref{fig:comparison}.
 
-\begin{figure*}[!t]
+\begin{figure*}[ht]
   \begin{center}
     \begin{tabular}{cc}
       \includegraphics[width=0.45\textwidth]{accuracy.eps} &
@@ -586,12 +590,10 @@ As far as the subjects' abilities are concerned, the only obviously
 worse result is obtained on subject $5$, who is supposed to have a
 rather different kinematic behaviour than the others, because of her
 age, and poses severe problems to the gaze tracker calibration since
-her eyes have been surgically operated. Subject $2$ also shows a
-slightly worse performance than the others, and it is interesting to
-note that she suffers of a rare form of eye disease, which probably
-also makes the gaze tracker's job harder than usual. All in all,
-however, it seems that visual impairment do not significantly hinder
-the accuracy attained by the SVM.
+her eyes have been surgically operated. Subject $2$, also showing a
+slightly worse performance than the others, suffers of a rare form of
+eye disease. All in all, however, it seems that visual impairments do
+not significantly hinder the accuracy attained by the SVM.
 
 An interesting point for this analysis, moreover, comes from the
 observation of the distribution of the parameters' values versus the
@@ -599,27 +601,24 @@ accuracy (Figure \ref{fig:accuracy} $(b)$). First of all, notice that
 $C$ only takes values $10$, $100$ and $1000$, and that $\sigma$, with
 just one exception, only takes values $0.2236$ and $0.7071$ (that is,
 recall Subsection \ref{subsec:svm}, $\sqrt{\frac{5}{10^{k}}}$ with
-$k=1,2$). Checking which ``stripes'' are more dense on the right hand
-side, that is, where the accuracy is higher, we find that good values
-for the parameters are $C=100$ and $\sigma=0.7071$. These values,
-taking into account that the input space has dimension $5$, are pretty
-standard values denoting a rather easy problem; in particular, a value
-of $100$ for $C$ denotes that, in Equation \ref{eqn:svm_primal}, the
-regularisation term has little importance, or, which is equivalent,
-that the problem is well linearly separated in the feature space. This
-is one more point in favour of the specific use of a Gaussian kernel
-SVM approach for this problem. {\bf FIX. e` vero??!?}
+$k=1,2$). Checking which ``stripes'' are more dense where the accuracy
+is higher, we find that good values for the parameters are $C=100$ and
+$\sigma=0.7071$. These values, taking into account that the input
+space has dimension $5$, are pretty standard values denoting a rather
+easy problem; in particular, a value of $100$ for $C$ denotes that, in
+Equation \ref{eqn:svm_primal}, the regularisation term has little
+importance, or, which is equivalent, that the problem is well linearly
+separated in the feature space. This is one more point in favour of
+the specific use of a Gaussian kernel SVM approach for this
+problem.
 
-\subsection{Compactness}
+\subsection{Size of the models}
 
-Again, recall Subsection \ref{subsec:svm}. In order to check whether
-\emph{compact} machines can be built for this problem, we checked the
-number of support vectors obtained for each value of $T_c$, as a
-percentage of the total samples: the smaller the number of support
-vectors, the better. Figure \ref{fig:svs} $(a)$ plots the number of
-support vectors as $T_c$ grows, as a percentage of the total number of
-samples. The curve shows the average pecentages over all the subjects,
-while the error bars represent the minimum and maximum percentages.
+Again, recall Subsection \ref{subsec:svm}. We checked the model size
+for each value of $T_c$: the smaller the size, the better. Figure
+\ref{fig:svs} $(a)$ plots the size of each model as $T_c$ grows. The
+curve shows the average size over all subjects, while the error bars
+represent the minimum and maximum size.
 
 \begin{figure*}[!t]
   \begin{center}
@@ -628,46 +627,43 @@ while the error bars represent the minimum and maximum percentages.
       \includegraphics[width=0.45\textwidth]{svs_subj.eps} \\
       $(a)$ & $(b)$
     \end{tabular}
-    \caption{Number of support vectors as $T_c$ grows, as a percentage
-    of the total number of samples. $(a)$ The points denote the
-    average percentage of support vectors over all subjects, whereas
-    the errorbars represent the minimum and maximum percentages. $(b)$
-    The same graph, but one curve for each subject.}
+    \caption{Model size as $T_c$ grows. $(a)$ The points denote the
+    average size over all subjects, whereas the errorbars represent
+    the minimum and maximum size. $(b)$ The same graph, but one curve
+    for each subject.}
     \label{fig:svs}
   \end{center}
 \end{figure*}
 
 Interestingly, as $T_c$ grows (and therefore as the accuracy grows,
-recall Figure \ref{fig:comparison}, red plot), the number of support
-vectors \emph{decreases}. This in general indicates that the problem
-is more and more tractable, as fewer and fewer support vectors are
+recall Figure \ref{fig:comparison}, red plot), the size of the related
+model \emph{decreases}. This in general indicates that the problem is
+more and more tractable, as fewer and fewer support vectors are
 required to faithfully represent the decision surface. Notice,
 however, that the error bars are rather wide up to $T_c=2$, the
 support vectors being anyway as many as $40\%$ of the total samples in
 the best case ($T_c=1.85$, average $15.64\%$, minimum $4.16\%$,
 maximum $40.26\%$. It is not clear why the error bars drop so sharply
-for $T_c=2,3,4,5$ --- a finer analysis of the behaviour of the
-percentage is required for $T_c>2$).
+for $T_c=2,3,4,5$ --- a finer analysis of the behaviour of the models
+compactness is required for $T_c>2$).
 
 It would then seem that there is little chance to obtain a model which
-is \emph{both accurate compact} for all subjects, uniformly; but a
-deeper analysis of these data reveals an even more interesting
-phenomenon. Figure \ref{fig:svs} $(b)$ shows the actual percentages of
-suppport vectors, subject by subject. It is from this Figure apparent
-that the number of support vectors presents wide oscillations
-corresponding to small changes in $T_c$, while maintaining a
-decreasing trend. As an example, subject $2$ has $43.49\%$ support
-vectors when $T_c=1.25$ seconds, but drops to $5.48\%$ when $T_c=1.3$
-seconds!
+is \emph{both accurate and small} for all subjects, uniformly; but a
+deeper analysis of these data reveals an interesting
+phenomenon. Figure \ref{fig:svs} $(b)$ shows the actual model sizes
+subject by subject. It is from this Figure apparent that the size
+presents wide oscillations corresponding to small changes in $T_c$,
+while maintaining a decreasing trend. As an example, subject $2$ has
+$p_{SV}=43.49\%$ when $T_c=1.25$ seconds, but drops to $5.48\%$ when
+$T_c=1.3$ seconds!
 
 The reason of these oscillations is that parameter grid search is done
-by taking the parameter values corresponding to the best accuracy,
-regardless of the compactness of the model obtained. Small changes in
-the accuracy can then drive the search toward models with very
-different support vector percentages. This phenomenon enables us to
-find at least one distinct (possibly best) value of $T_c$ for each
-subject, such that in that point the corresponding model is both
-accurate and compact.
+by taking the parameter values corresponding to the model with best
+accuracy, regardless of the size. Small changes in the accuracy can
+then drive the search toward much bigger or smaller models. This
+phenomenon enables us to find at least one distinct (possibly best)
+value of $T_c$ for each subject, such that in that point the
+corresponding model is both accurate and small.
 
 \begin{figure*}[!t]
   \begin{center}
@@ -676,45 +672,41 @@ accurate and compact.
       \includegraphics[width=0.45\textwidth]{acc_svs.eps} \\
       $(a)$ & $(b)$
     \end{tabular}
-    \caption{$(a)$ Percentage of support vectors versus the parameters
-    $C$ (blue pluses) and $\sigma$ (red circles). While $C$ seems
-    largely ininfluent as far as the compactness of the corresponding
-    models is concerned (with a certain preference for $C=100$), for
-    $\sigma=0.7071$ the machines are much more compact, getting a
-    number of support vectors as small as $3.45\%$. $(b)$ For each
-    subject, percentage of support vectors versus the accuracy. The
-    models are clustered into two clouds, one which has high accuracy
-    but large number of support vectors (the cloud in the upper right
-    corner) and one which has both a high accuracy and a small number
-    of support vectors (the cloud in the lower right corner). Both
-    clouds display a precise trend: the higher the accuracy, the
-    smaller the percentage of support vectors.}
+    \caption{$(a)$ Model size versus the parameters $C$ (blue ``plus''
+    symbols) and $\sigma$ (red circles). While $C$ seems largely
+    ininfluent on the size, with a certain preference for $C=100$, for
+    $\sigma=0.7071$ the models are much smaller, getting a $p_{SV}$ as
+    small as $3.45\%$. $(b)$ For each model, coloured according to the
+    subject it belongs to, size versus accuracy. The models are
+    grouped into two clusters, one of accurate but large models (upper
+    right corner) and one of accurate and small models (lower right
+    corner). Both clusters display a precise trend: the higher the
+    accuracy, the smaller the models.}
     \label{fig:svs_params}
   \end{center}
 \end{figure*}
 
 Consider Figure \ref{fig:svs_params} $(a)$, plotting the parameters
 $C$ and $\sigma$ like in Figure \ref{fig:accuracy} $(b)$, but this
-time versus the percentage of support vectors: it turns out that the
-most compact models have $C=100$, but this is a vague indication,
-since other values of $C$ attain good compactness values, too; but
-that $\sigma=0.7071$ is definitely the best value, since when
-$\sigma=0.2236$ the compactness is indeed poorer. Interestingly, these
-good values match those found in Subsection \ref{subsec:accuracy}.
+time versus the compactness: it turns out that the most compact models
+have $C=100$, but this is a vague indication, since other values of
+$C$ attain good compactness values, too; but that $\sigma=0.7071$ is
+definitely the best value, since when $\sigma=0.2236$ the compactness
+is indeed smaller. Interestingly, these good values match those found
+in Subsection \ref{subsec:accuracy}.
 
 We still have to check that these values are not tuned upon a certain
 (subset of) subject(s); if that were the case, there would still be
-some subjects for which no accurate and compact models could be
+some subjects for which no accurate and small models could be
 found. As it turns out, this is not the case: by looking at Figure
 \ref{fig:svs_params} $(b)$, one realises that there are indeed
-accurate and compact models for every and each subject (they are the
-points in the cluster in the lower left corner of the graph). The two
-clusters correspond to the wide oscillations in the number of support
-vectors observed in Figure \ref{fig:svs} $(b)$.  It also turns out
-that the upper left corner cluster in Figure \ref{fig:svs_params}
-$(b)$ is characterised by $\sigma=0.2236$. The Figure also tells us
-that there is a trend in both clusters, associating accuracy and
-compactness.
+accurate and small models for every and each subject (the points in
+the lower right corner cluster). The two clusters correspond to the
+wide oscillations in size observed in Figure \ref{fig:svs} $(b)$. It
+also turns out that the upper right corner cluster in Figure
+\ref{fig:svs_params} $(b)$ is characterised by $\sigma=0.2236$. The
+Figure also tells us that there is a trend in both clusters,
+associating accuracy and compactness.
 
 \subsection{Flexibility}
 
@@ -724,28 +716,26 @@ models, and what are the differences? Based upon the considerations in
 the previous Subsection, we can define, for each subject, a notion of
 ``best'' model as the one which is lowest and rightmost in
 \ref{fig:svs_params} $(b)$, that is, which has the highest accuracy
-and lowest number of support vectors for that subject. To each of
-these models, and therefore to each subject, a values of $T_c$ is
-associated, and this will be the $\tau(i)$ mentioned in the Subsection
+and compactness for that subject. To each of these models, and
+therefore to each subject, a values of $T_c$ is associated, and this
+will be the $\tau(i)$ mentioned in the Subsection
 \ref{subsec:dataset}. Table \ref{tab:tau} lists the models found,
 along with their characteristics, for each subject.
 
 \begin{table}[!t]
   \begin{center}
-    \caption{Best model found for each subject. The Table displays,
-    for each subject, the accuracy, the number of support vectors and
-    the characteristic time window.}
+    \caption{Best model found for each subject.}
     \begin{tabular}{|r|r|r|r|}
       \hline
-      Subj. & Acc. (\%) & s.v. (\%) & $\tau(i)$ \\
+      Subj. & Acc. & $p_{SV}$ & $\tau(i)$ \\
       \hline
-      1 & 98.8972 & 4.564 & 2\\
-      2 & 97.3818 & 5.4769 & 1.3\\
-      3 & 98.3232 & 4.1379 & 1.8\\
-      4 & 98.6382 & 3.4477 & 4\\
-      5 & 96.6625 & 8.0841 & 1.55\\
-      6 & 98.5045 & 4.1625 & 1.85\\
-      7 & 98.6995 & 4.1278 & 1.55\\
+      1 & 98.90\% & 4.56\% & 2   \\
+      2 & 97.38\% & 5.48\% & 1.3 \\
+      3 & 98.32\% & 4.14\% & 1.8 \\
+      4 & 98.64\% & 3.45\% & 4   \\
+      5 & 96.66\% & 8.08\% & 1.55\\
+      6 & 98.50\% & 4.16\% & 1.85\\
+      7 & 98.70\% & 4.13\% & 1.55\\
       \hline
     \end{tabular}
     \label{tab:tau}
@@ -753,12 +743,12 @@ along with their characteristics, for each subject.
 \end{table}
 
 As expected, there is a model for each user which is both accurate
-(ranging from $98.9\%$ to $96.66\%$ accuracy) and compact (ranging
-from $3.45\%$ to $8.08\%$ support vectors). Consistently, the worst
-model is that of subject $5$. All models have $C=100$ or $C=1000$ and
-$\sigma=0.7071$, as predicted. The characteristic time windows range
-from $1.3$ seconds to $4$ seconds (in this latter case, again, a finer
-analysis of large values of $T_c$ is required).
+(ranging from $98.9\%$ to $96.66\%$ accuracy) and small (ranging from
+$p_{SV}=3.45\%$ to $p_{SV}=8.08\%$). Consistently, the worst model is
+that of subject $5$. All models have $C=100$ or $C=1000$ and
+$\sigma=0.7071$, as predicted. The characteristic time windows
+$\tau(i)$ range from $1.3$ seconds to $4$ seconds (in this latter
+case, again, a finer analysis of large values of $T_c$ is required).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{CONCLUSIONS AND FUTURE WORK}
@@ -780,9 +770,9 @@ each subject reveals a good degree of linear separation of the data
 \emph{in the feature space}.
 
 The models obtained for each subject are $(a)$ highly accurate, giving
-the correct guess in $98.9\%$ to $96.66\%$ of the cases; $(b)$ very
-compact (and therefore fast and usable in an on-line environment), the
-number of support vectors for each model ranging from $3.45\%$ to
+the correct guess in $98.9\%$ to $96.66\%$ of the cases; $(b)$ small,
+and therefore fast and usable in an on-line environment, the
+percentage of support vectors for each model ranging from $3.45\%$ to
 $8.08\%$ of the sample set; and $(c)$ flexible, able to find an
 optimal characteristic time window for each subject, in the range from
 $1.3$ seconds to $4$ seconds.
