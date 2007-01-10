@@ -4,9 +4,6 @@
 % Castellini, Sandini
 %
 
-% risistemare le figure?
-% equilibrare colonne ultima pagina
-
 \documentclass[a4paper,10pt,conference]{ieeeconf}
 
 \IEEEoverridecommandlockouts
@@ -274,39 +271,37 @@ single subject was about $3.5$ minutes, resulting in no tiredness.
 
 The first question was \emph{what} to monitor from the subjects'
 data. A few intuitive considerations led us to consider $(a)$ the
-subjects' hand velocity, $(b)$ the variance of the subjects' gaze
-coordinates and $(c)$ the information whether the subjects' right hand
-was open or closed. Essentially, it is expected that, when the user
-wants to grasp an object, he/she first \emph{fixates} the desired
-object and then \emph{reaches} for it (see, e.g., \cite{johansson01});
-lastly, at some time after the beginning of the reaching movement,
-he/she will close the right hand as if to grasp, as instructed.
+average of the subjects' hand velocity, $(b)$ the variance of the
+subjects' gaze coordinates and $(c)$ the information whether the
+subjects' right hand was open or closed. Essentially, it is expected
+that, when the user wants to grasp an object, he/she first
+\emph{fixates} the desired object and then \emph{reaches} for it (see,
+e.g., \cite{johansson01}); lastly, at some time after the beginning of
+the reaching movement, he/she will close the right hand as if to
+grasp, as instructed.
 
-We then expect, when fixating, the gaze coordinates to hover around
-the point on the screen where the desired object is seen; that is,
-their standard deviation to be \emph{small}; also we expect, while
-reaching, the hand to move toward the screen, that is, we expect the
-hand velocity to be \emph{large}. The instants in which the hand is
-closed will signal the intention to grasp, whereas those when the hand
-is open will be taken as negative examples. Data $(a)$ were easily
-obtained by differentiating in time the hand position $x,y,z$
-coordinates obtained from the FoB, while $(b)$ and $(c)$ were obtained
-straight from the E504 and the CyberGlove. The samples corresponding
-to negative values of the E504 validity flag were ignored, manually
-verifying that this would not hamper the overall statistics.
+We then expect, while fixating, the gaze coordinates to hover around
+the point on the screen where the desired object is seen, that is,
+their standard deviation over some time to be \emph{small}; also we
+expect, while reaching, the hand to move toward the object on the
+screen, that is, the hand velocity components to be on average
+\emph{large}. The instants in which the hand is closed will signal the
+intention to grasp, whereas those when the hand is open will be taken
+as negative examples. Data $(a)$ were easily obtained by
+differentiating in time the hand position $x,y,z$ coordinates obtained
+from the FoB, while $(b)$ and $(c)$ were obtained straight from the
+E504 and the CyberGlove. (The samples corresponding to negative values
+of the E504 validity flag were ignored, manually verifying that this
+would not hamper the overall statistics.)
 
-In the end, out of each subject we obtained a sequence of $6$-tuples
-(the three hand velocity coordinates, the two gaze coordinates and the
-open/closed hand flag).
-
-Reasonably, we expected the above considerations to be valid
-\emph{over a certain time window}, characteristic of the
-fixation/reaching operations --- call it $\tau$. In general each
-subject will have a different $\tau(i), i=1,\ldots,7$.
-
-Driven by the above considerations, we then decided to feed the
-learning system the following data: for each user $i$ (and therefore
-for each sequence) and for a range of different values $T_c$
+From each subject we obtained a sequence of $6$-tuples (the three hand
+velocity coordinates, the two gaze coordinates and the open/closed
+hand flag). The above considerations should be valid \emph{over a
+certain time window}, characteristic of the fixation/reaching
+operations --- call it $\tau$; and in general each subject will have a
+different $\tau(i), i=1,\ldots,7$. Driven by this, we then decided to
+feed the learning system the following data: for each user $i$ (and
+therefore for each sequence) and for a range of different values $T_c$
 attributed to $\tau(i)$, the \emph{hand velocity average values} over
 $T_c$ (three real numbers) and the \emph{gaze position standard
 deviations} over $T_c$ (two real numbers). Training was enforced by
@@ -457,7 +452,12 @@ little sooner, depending on the value of $T_c$) the hand velocity
 should be large while the gaze position standard deviation should be
 small. Therefore, finding five thresholds and comparing instant by
 instant the subjects' values with them could be enough. In other
-words, machine learning could be not needed for solving the problem.
+words, SVMs could be not needed for solving the problem. \footnote{This
+alternative approach is a simple instance of a \emph{decision
+tree}. See, e.g., \cite{dtrees} for more details. A full comparison of
+the two learning methods is out of the scope of this paper, but notice
+that decision trees have been used, e.g., in fish motion recognition
+\cite{fish}.}
 
 In order to answer this question, at least partially, we ran our SVM
 against such a simple threshold system. For each subject and for each
