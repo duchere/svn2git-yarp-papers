@@ -64,7 +64,7 @@ plain, point-to-point teleoperation.
 
 In this paper we investigate the possibility of building such an
 intelligent robotic artifact by training a machine learning system on
-data gathered off several human subjects while trying to grasp objects
+data gathered from several human subjects while trying to grasp objects
 in a teleoperation setup. The idea is to have the slave ``guess'' when
 the master wants to grasp an object with the maximum possible
 accuracy; at the same time, the system must be light enough to be
@@ -150,10 +150,10 @@ As a minimum set of requirements, such a model should be
 
 The applications of such a general framework are huge, even outside
 the domain of teleoperation; picture, for instance, a prosthetic hand
-trained to grasp by an amputee's EMG, according to the shape and
-affordances of the objects in the workspace; and possibly, also
-trained to recognise the \emph{way} the subjects wants to grasp a
-particular object. If the model works fine, the feeling of control by
+trained to grasp by an amputee's electromyographic signal, according
+to the shape and affordances of the objects in the workspace; and
+possibly, also trained to recognise the \emph{way} the subjects wants
+to grasp a particular object. If the model works fine, the control by
 the user could be greatly improved.
 
 In this paper we investigate the possibility of building such an
@@ -171,7 +171,7 @@ built, and that it fulfills all the requirements enumerated above: it
 is highly accurate; the solution achieved is extremely compact; and
 these characteristics are largely independent of the subjects'
 abilities. Lastly, the training phase is accomplished using about
-$3.5$ minutes of data gathered in real-time off each subject, in the
+$3.5$ minutes of data gathered in real-time from each subject, in the
 worst case.
 
 The paper is structured as follows: after a quick review of related
@@ -196,11 +196,11 @@ action performed by a peer.
 
 Building internal models of action through machine learning seems then
 to be a promising idea. This has so far been primarily done via
-signals obtained off more invasive devices than those we use; specific
+signals obtained from more invasive devices than those we use; specific
 cases are, e.g., \cite{black1} where cortical activity in monkeys is
 used to reconstruct their movements, \cite{emg} where the
 electromyographic signal is used, and \cite{yokoi} where f-MRI is
-used, with an application to hand prosthestics \cite{yokoi2}.
+used, with an application to hand prosthetics \cite{yokoi2}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{MATERIALS AND METHODS}
@@ -272,7 +272,7 @@ single subject was about $3.5$ minutes, resulting in no tiredness.
 \subsection{Building the data set}
 \label{subsec:dataset}
 
-The first question was \emph{what} to monitor off the subjects'
+The first question was \emph{what} to monitor from the subjects'
 data. A few intuitive considerations led us to consider $(a)$ the
 subjects' hand velocity, $(b)$ the variance of the subjects' gaze
 coordinates and $(c)$ the information whether the subjects' right hand
@@ -654,7 +654,7 @@ support vectors being anyway as many as $40\%$ of the total samples in
 the best case ($T_c=1.85$, average $15.64\%$, minimum $4.16\%$,
 maximum $40.26\%$. It is not clear why the error bars drop so sharply
 for $T_c=2,3,4,5$ --- a finer analysis of the behaviour of the models
-compactness is required for $T_c>2$).
+size is required for $T_c>2$).
 
 It would then seem that there is little chance to obtain a model which
 is \emph{both accurate and small} for all subjects, uniformly; but a
@@ -700,7 +700,7 @@ time versus the size: it turns out that the smallest models have
 $C=100$, but this is a vague indication, since other values of $C$
 attain small models, too; but that $\sigma=0.7071$ is definitely the
 best value, since when $\sigma=0.2236$ the models are indeed
-smaller. Interestingly, these good values match those found in
+larger. Interestingly, these good values match those found in
 Subsection \ref{subsec:accuracy}.
 
 We still have to check that these values are not tuned upon a certain
@@ -708,13 +708,14 @@ We still have to check that these values are not tuned upon a certain
 some subjects for which no accurate and small models could be
 found. As it turns out, this is not the case: by looking at Figure
 \ref{fig:svs_params} $(b)$, one realises that there are indeed
-accurate and small models for every and each subject (the points in
-the lower right corner cluster). The two clusters correspond to the
-wide oscillations in size observed in Figure \ref{fig:svs} $(b)$. It
-also turns out that the upper right corner cluster in Figure
-\ref{fig:svs_params} $(b)$ is characterised by $\sigma=0.2236$. The
-Figure also tells us that there is a trend in both clusters,
-associating accuracy and small size.
+accurate and small models for every subject (the points in the lower
+right corner cluster). The two clusters correspond to the wide
+oscillations in size observed in Figure \ref{fig:svs} $(b)$. It turns
+out that the upper right corner cluster in Figure \ref{fig:svs_params}
+$(b)$ is characterised by $\sigma=0.2236$, whereas the lower right
+corner cluster has $\sigma=0.7071$. The Figure also tells us that
+there is a trend in both clusters, associating accuracy and small
+size.
 
 \subsection{Flexibility}
 
@@ -761,7 +762,7 @@ case, again, a finer analysis of large values of $T_c$ is required).
 
 In this paper we have tried to obtain good artificial internal models
 of when to grasp by applying Support Vector Machines to data gathered
-off diverse human subjects, engaged in a simple grasping experiment in
+from diverse human subjects, engaged in a simple grasping experiment in
 a teleoperation scenario.
 
 The experimental results and related analysis reveals that the
