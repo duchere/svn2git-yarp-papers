@@ -1,0 +1,45 @@
+\section{Control of the neck}
+
+The neck is characterized by an original structure and has required the design of an original control technique. The final design is based on the use of an inertia sensor, which has been positioned on the top of the robot head. The sensor measures the (absolute) rotation\footnote{The rotation is expressed by three angles which will be denoted roll ($\theta_r$), pitch ($\theta_p$) and yaw ($\theta_y$). The three motors of the neck influence the first two angles ($\theta_r$), pitch ($\theta_p$). The remaining degree of rotation ($\theta_y$) is directly influenced by the head pan which is moved by a specific motor.} of the head with respect to an inertial reference frame. Using the information from this sensor we developed a closed loop controller to position the head in any desired configuration. 
+
+\subsection{Neck control in details}
+
+The development of the control loop has required the development of a \textsc{Matlab} model of the neck structure. The model is based on the assumption that the spring has a constant length (since it is always compressed). When the spring is bended, the assumption is that its curvature is constant along the entire spring length. Using this model we were able to compute the ideal tendons lengths given the pose of the neck, or equivalently the ideal tendons lengths ($l_1$, $l_2$, $l_3$) given the inertia sensor measurement ($\theta_r$, $\theta_p$). Practically, the model of the system is a function $f: \mathbb R^3 \longrightarrow \mathbb R^3$ such that:
+\begin{eqnarray} \label{Eq:Model}
+\begin{bmatrix}
+l_1\\
+l_2\\
+l_3
+\end{bmatrix} = f (\theta_r, \theta_p).
+\end{eqnarray}
+
+The final control loop for positioning the neck in the desired configuration ($\theta_r^d$, $\theta_p^d$) is the following:
+\begin{eqnarray} \label{Eq:Control_V1}
+\begin{bmatrix}
+\frac{d l_1}{dt}\\
+\frac{d l_2}{dt}\\
+\frac{d l_3}{dt}
+\end{bmatrix} = -\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}
+ \begin{bmatrix}
+\theta_r - \theta_r^d\\
+\theta_p - \theta_p^d
+\end{bmatrix},
+\end{eqnarray}
+where $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ is the Jacobian of the function $f$ with respect to $\theta_r$, $\theta_p$ computed at the current configuration $\theta_r$, $\theta_p$. 
+
+The above model (\ref{Eq:Model}) is ideal and assumes that the three tendons are always stretched. Practically, it is always desirable to have the stretched tendons. However, due to the imperfections in the model, the tendons may loose tension if the control strategy (\ref{Eq:Control_V1}) is applied for a long time. The final solution has been to apply a different control strategy which mixes two different controllers:
+\begin{eqnarray} \label{Eq:Control_V2}
+\begin{bmatrix}
+\frac{d l_1}{dt}\\
+\frac{d l_2}{dt}\\
+\frac{d l_3}{dt}
+\end{bmatrix} = -(1-\gamma)\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}
+ \begin{bmatrix}
+\theta_r - \theta_r^d\\
+\theta_p - \theta_p^d
+\end{bmatrix} - \gamma \left( \begin{bmatrix} l_1\\
+l_2\\
+l_3
+\end{bmatrix} - f(\theta_r, \theta_p) \right),
+\end{eqnarray}
+where $\gamma$ is an arbitrary value in the interval $[0, 1]$. The second term of the controller (the one multiplied by $\gamma$) guarantees that the the length of the cables remains similar to the length of the model. This strategy is sufficient to guarantee that the tendons maintain a tension which is more or less constant among the different configurations. In this final configuration the jacobian $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ can be substituted with a constant jacobian computed at the reference configuration $\theta_r$=$\theta_p$=0.
