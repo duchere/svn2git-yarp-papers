@@ -19,49 +19,31 @@ where the function $\tilde f_{head} : \mathbb R^6 \longrightarrow \mathbb R^4$ d
 \begin{eqnarray*}
 \mathbf x_c = f_{head} (\mathbf q_{head}), \qquad f_{head} : \mathbb R^6 \longrightarrow \mathbb R^3.
 \end{eqnarray*}
-Clearly, the task specification does not constrain all the head degrees of freedom. Roughly speaking\footnote{More formally, let $\bar {\mathbf q}_{head} = \begin{bmatrix} \bar {\mathbf q}_{eyes} & \bar {\mathbf q}_{neck} \end{bmatrix}$ be a fixating configuration, i.e. $f_{head}(\bar {\mathbf q}_{head}) = 0$. Moreover, let's assume that the given head configuration is non-singular, i.e. the Jacobian of $\frac{\partial f_{head}}{\partial \mathbf q_{head}}(\bar {\mathbf q}_{head})$ has full row rank. Then, by the implicit function theorem there exists a function $\mathbf q_{neck}(\cdot): \mathbb R^3 \longrightarrow \mathbb R^3$ (locally defined around $\bar {\mathbf q}_{eyes}$) such that $f_{head}({\mathbf q}_{eyes}, {\mathbf q}_{neck} ({\mathbf q}_{eyes}) ) = 0$ for all the configuration ${\mathbf q}_{eyes}$ belonging to the neighborhood of $\bar {\mathbf q}_{eyes}$.}, we are imposing $m=3$ constraints but we have $n=6$ free variables available so that we remain with $n-m=3$ additional degrees of freedom. Practically, we can have different configuration of the head ($\mathbf q_{head,1} \neq \mathbf q_{head,2}$) both keeping the same target in fixation (${\mathbf x}_{c,1} = {\mathbf x}_{c,2} = 0$). This redundancy issue has to be addressed carefully given the kinematic and dynamic properties of the head. Specifically, 
+Clearly, the task specification does not constrain all the head degrees of freedom. Roughly speaking\footnote{More formally, let $\bar {\mathbf q}_{head} = \begin{bmatrix} \bar {\mathbf q}_{eyes} & \bar {\mathbf q}_{neck} \end{bmatrix}$ be a fixating configuration, i.e. $f_{head}(\bar {\mathbf q}_{head}) = 0$. Moreover, let's assume that the given head configuration is non-singular, i.e. the Jacobian of $\frac{\partial f_{head}}{\partial \mathbf q_{head}}(\bar {\mathbf q}_{head})$ has full row rank. Then, by the implicit function theorem there exists a function $\mathbf q_{neck}(\cdot): \mathbb R^3 \longrightarrow \mathbb R^3$ (locally defined around $\bar {\mathbf q}_{eyes}$) such that $f_{head}({\mathbf q}_{eyes}, {\mathbf q}_{neck} ({\mathbf q}_{eyes}) ) = 0$ for all the configuration ${\mathbf q}_{eyes}$ belonging to the neighborhood of $\bar {\mathbf q}_{eyes}$.}, we are imposing $m=3$ constraints but we have $n=6$ free variables available so that we remain with $n-m=3$ additional degrees of freedom. Practically, we can have different configuration of the head ($\mathbf q_{head,1} \neq \mathbf q_{head,2}$) both keeping the same target in fixation (${\mathbf x}_{c,1} = {\mathbf x}_{c,2} = 0$). This redundancy issue has to be addressed carefully given the kinematic and dynamic properties of the head. Specifically, a trivial solution (such as constraining/blocking three degrees of freedom out of six) is not to be recommended since a good tracking behavior should involve all the  head degrees of freedom. Therefore, a good tracker should take advantage of the eyes reduced inertia to perform fast movements; at the same time the eyes limited range of movements should be overcome by moving the neck which is instead capable of wider movements.
 
+With these ideas in mind the strategy we have chosen consists in using the eyes version and common tilt to perform a sort of saccadic movement on the desired target and then to follow the movement of the eyes with the neck yaw and pitch, respctively. This choice is a consequence of the fact that the eyes can make fast movements because of their low inertia. However, their range of movement is small if compared with the neck movement which is characterized by a pretty big range even if with a bigger inertia. This strategy allows us to keep the target always at the center of the image while also allowing fast and large movements for the target itself. Mathematically the above strategy can be implemented as follows:
 
-
-Specifically, the target location with respect to the head position is represented by a three dimensional vector 
-
-We implemented a control strategy for verging on a target (blue ball) which has been attached to the robot hand. We assume that there's an attention system on the robot capable of localizing the target on the image plane. 
-
-The strategy we have chosen consists in using a dominant eye (in our case the left eye) to perform a saccade on the desired target and then to follow the dominant eye movement with the neck. This choice is a consequence of the fact that the eyes can make fast movement because of their low inertia. However, their range of movement is small if compared with the neck movement which is characterized by a pretty big range even if with a bigger inertia. This strategy allows us to keep the target always at the center of the image while also allowing a big range of movement for the target itself. Mathematically the above strategy can be implemented as follows:
-
-\begin{eqnarray} 
-\left\{ \begin{matrix}
-\frac{d \alpha_p^l}{ d t} &=&   K_p u_l\\
-\frac{d \theta_y}{ d t} &=&   K_y \alpha_p^l \\
-\frac{d \alpha_t^l} {d t} &=&   K_t v_l\\
-\frac{d \theta_p} {d t} &=&   K_r \alpha_t^l
-\end{matrix} \right.,
-\end{eqnarray}
-where $\alpha_p^l$ and $\alpha_t^l$ are the pan and tilt positions of the left eye and where $\theta_y$ and $\theta_p$ are the yaw and pitch movement of the neck. This control strategy allows us to asymptotically fixate the target with the left eye ($u_l \rightarrow 0$, $v_l \rightarrow 0$) while also also guaranteeing an asymptotically  straight gaze ($\alpha_p^l \rightarrow 0$, $\alpha_t^l \rightarrow 0$). Another possible control strategy which takes into account the fact that the eye movements anticipate the neck movements is the following:
 \begin{eqnarray} \label{Eq:HeadEyeControl}
 \left\{ \begin{matrix}
-\frac{d \alpha_p^l}{ d t} &=&   K_p u_l\\
-\frac{d \theta_y}{ d t} &=&   K_y \alpha_p^l + K_{yp} u_l\\
-\frac{d \alpha_t^l} {d t} &=&   K_t v_l\\
-\frac{d \theta_p} {d t} &=&   K_r \alpha_t^l + K_{yt} v_l
-\end{matrix} \right. .
+\frac{d \alpha_v^c}{ d t} &=&   K_p (u_l + u_r)\\
+\frac{d \theta_y}{ d t} &=&   K_y \alpha_v^c \\
+\frac{d \alpha_t^c} {d t} &=&   K_t (v_l + v_r)\\
+\frac{d \theta_p} {d t} &=&   K_r \alpha_t^c
+\end{matrix} \right.,
 \end{eqnarray}
-In order to verge on the target (i.e. $u_l \rightarrow 0$, $v_l \rightarrow 0$, $u_r \rightarrow 0$, $v_r \rightarrow 0$), we need also to guarantee that $u_r \rightarrow 0$ and $v_r \rightarrow 0$. Assuming that the two cameras are aligned (up to a calibration of the system), we have that $v_r \rightarrow 0$ is automatically implied by $v_l \rightarrow 0$. We are therefore left with guaranteeing that $u_r \rightarrow 0$. This is trivially guaranteed by the following control law:
-\begin{eqnarray} \label{Eq:EyeVergenceControl}
-\frac{d \alpha_p^r}{ d t} &=&   K_p u_r
+where $\alpha_t^c$ and $\alpha_v^c$ are the eyes version and common tilt and where $\theta_y$ and $\theta_p$ are the yaw and pitch movement of the neck. In the proposed control scheme, the vergence degree of freedom $\alpha_v^d$, which somehow corresponds to the distance of the target does not influence the neck position and is therefore controlled separately from the neck:
+\begin{eqnarray} 
+\frac{d \alpha_v^d}{ d t} &=&   K_p (u_l - u_r).
 \end{eqnarray}
-Using the above control strategy (\ref{Eq:HeadEyeControl}) and (\ref{Eq:EyeVergenceControl}),  we obtained the tracking results shown in Figure \ref{Fig:TimeResponse}.
+Finally, the neck roll degree of freedom $\theta_r$ is kept fixed, i.e. $\theta_r^d=0$.
 
-\begin{figure}[tbp]
+The proposed control strategy allows us to asymptotically fixate the target ($u_l \rightarrow 0$, $v_l \rightarrow 0$, $u_r \rightarrow 0$ which implies $v_r \rightarrow 0$) while also also guaranteeing an asymptotically  straight gaze ($\alpha_v^c \rightarrow 0$, $\alpha_t^c \rightarrow 0$). Moreover, by choosing a suitable value for the gains $K_p$, $K_y$, $K_t$ and $K_r$ it is possible to achieve an asymptotic behavior with the eyes moving rapidly on the target and the neck following the eye movement with a slower movement. Using the this control strategy (\ref{Eq:HeadEyeControl}), we obtained the tracking results shown in Figure \ref{Fig:TimeResponse}.
+
+
+\begin{figure}[h!]
 \centering
-\includegraphics[width=130mm]{Figure/TimeResponseImage.jpg}
-\caption{The picture shows the time response of the tracking behavior of the fixation controller. The picture shows that the target is effectively driven to the image center (up to an accuracy of one pixel).}
+\includegraphics[width=100mm]{Figure/TimeResponseImage.jpg}\\ \vspace{1cm}
+\includegraphics[width=100mm]{Figure/TimeResponseEyesNeck.jpg}
+\caption{The top picture shows the time response of target position ($u_l$, $v_l$, $u_r$) during a fixation movement. It can be seen that the target is effectively driven to the image center (up to an accuracy of one pixel). The bottom picture shows the time response of the head position ($\alpha_v^c$, $\alpha_v^d$, $\alpha_t^c$, $\theta_p$, $\theta_y$; the values of $\alpha_t^d$ and $\theta_r$ are omitted since they are kept constantly zero) during a fixation movement. The picture shows that the dominant eye (left eye) is effectively driven to straight gaze configuration ($\alpha_p^l \rightarrow 0$, $\alpha_t^l \rightarrow 0$ up to an accuracy of one degree). The neck is instead positioned so as to face the target.}
 \label{Fig:TimeResponse}
-\end{figure}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=130mm]{Figure/TimeResponseEyesNeck.jpg}
-\caption{The picture shows the time response of the tracking behavior of the fixation controller. The picture shows that the dominant eye (left eye) is effectively driven to straight gaze configuration ($\alpha_p^l \rightarrow 0$, $\alpha_t^l \rightarrow 0$ up to an accuracy of one degree). The neck is instead positioned so as to face the target.}
-\label{Fig:TimeResponseNeck}
 \end{figure}
