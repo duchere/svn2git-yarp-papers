@@ -1,0 +1,340 @@
+\title{Force field modeling in prediction tasks}
+\author{}
+\date{}
+
+\maketitle
+
+
+\section{Introduction}
+
+Object interception and catching are considered everyday and simple actions. However they not only require coordination and agility, but they also need prediction. 
+%Actually if we wait until the object arrives to the desired interception point without moving our hand we'll miss the catch.
+Practically we would miss the object catching if we initiate the movement at the moment in which the object reaches the planned interception point. 
+%In fact our body is  characterized by delays between the input from the central nervous system and the corresponding motor act
+In fact the presence of delays within our central nervous system causes a systematic delay between action instantiation and motor act beginning \citep{Zago}. These delays don't let us adjust instantaneously our movements and force us to use a catching strategy based on prediction rather than on feedback control. 
+
+This kind of prediction reaches almost perfection in professional players of sports such as baseball, tennis or table tennis \citep{Zago}. However, it seems to be quite effective in most of us: we usually successfully deal with falling or thrown objects. Of course such a common skill has been extensively studied to find out on which mechanisms it is based.
+
+Many of the first theories considered the visual input as the unique information used by the brain to predict where and when to intercept a flying object. Different theories used retinal expansion of the object image, perceived distance and velocity of the target and other similar variables to compute the time the object needed to get to the interception point (\cite{Gibson}, \cite{Goodale}, \cite{Regan}, \cite{Tresilian_perception}, \cite{Tresilian_trends}, \cite{Turvey}). 
+
+% EVENTUALMENTE RISCRIVERE In addition various strategies to get there in time(movement start on passing a threshold on time or distance (\cite{Bootsma}, \cite{Gray}, \cite{Lee}, \cite{Port},  \cite{Rushton}, \cite{Senot} ) were proposed.
+
+%More recently some authors have shown that a ''only-visual'' approach can't account for our ability in prediction. In particular when we have to deal with an accelerating object we couldn't predict precisely its time of arrival by using only visual informations, because our visual system can't correctly perceive accelerations 
+
+The problem with these preliminary theories is that if we were to rely only on a ``purely visual'' strategy, we would not be able to catch an accelerating object, because our visual system can't reliably estimate accelerations (\cite{Lincoln}, \cite{Werkhoven}). Nevertheless we live in a world subjected to the gravity law and therefore it's not so uncommon to face an acceleration. Indeed it has been proved that people are really precise in timing their catching in the case of a vertically falling object (\cite{Lacquaniti_book}, \cite{Lacquaniti1}). This fact can be explained by making the hypothesis that prediction is not only based on the visual input but also on something else, in this case an a priori estimate of  constant gravitational acceleration (\cite{Lacquaniti_internal}, \cite{Zago_internal}). This hypothesis has also been reinforced by an experiment realized on the Spacelab \citep{McIntyre} in which subjects showed a persistence in the use of this a priori estimate (called internal model) even if they were no more subjected to gravity.
+%
+%Other experiments have also been developed to discover which other inputs could be useful in prediction for catching. 
+
+Another interesting experiment \citep{Senot_updown} demonstrated that postural proprioceptive information, in particular of head and neck,  had a significant influence on the timing strategy used in a ball interception task.
+
+As a result it seems that the prediction of timing in interception depends on visual input, postural proprioceptive information and an internal model of gravity, at least for vertically falling targets.
+
+An interesting question could be whether the central nervous system uses only this information when  performing a prediction task. If action and perception were two separate structures in the human brain, we would think that no additional information is required to perform prediction, which is mainly a perceptual task. However, recent studies seem to point out that motor skills play a fundamental role when performing some kind of perceptual tasks. An important theory suggests that we use our own motor system when interpreting the actions of other individuals \citep{Liberman}. The underlying hypothesis is that others' actions are decoded by activating our own motor system at a sub-threshold level and there appears to be a special neural mechanism for decoding such information \citep{Wolpert_social}. Moreover Gallese suggests that there could be a unifying framework for all the apparently different aspects of interpersonal relations, based on embodied simulation. This simulation is defined as \emph{an implicit mechanism meant to model the objects and events that the mechanism itself is supposed to control while interacting with them} and represents  a control functional mechanism, its function being the modeling of the objects to be controlled \citep{Gallese_social}.
+
+%Actually it has been shown that it's easier to understand and predict other people's movements when we are able in first person to perform the same movements (\citep{Pozzo}, \citep{basket}).
+
+These hypotheses are also supported on a neurophysiological basis by the finding of ``mirror neurons'' (\cite{Rizzolatti}, \cite{Gallese}). These neural cells, discovered in the premotor cortex of the monkey and also in many areas of human brain (\cite{Fadiga}, \cite{Rizzolatti_pet}), fire not only when an action is realized, but also when the subject sees the same action performed by another agent, thus providing a strong link between self experience (that is, own actions) and perception. Their function appears to be the basis of imitation (\cite{Billard},\cite{Buccino}, \cite{Fogassi}, \cite{Iacoboni} \cite{Williams}) and also of a certain kind of prediction, which consists in anticipating other agent's movement \citep{Blakemore}.  It seems then that our brain models the behaviour of others, much the same as it models our own behaviour. The results of this
+modeling process enable us to understand and predict what the behaviour of others is.% This finding is also proved by another experiment \citep{basket}, in which has been shown that the capability to predict if a ball will enter a basket on a video correlates with the subject's ability as basketball player.
+
+
+Gallese proposes furthermore that simulation, interpreted as our systematic way of modeling the external reality, is the only epistemic
+strategy available to organisms (such as ourselves) that derive their knowledge of the world by means of interactions
+with the world itself. In this path we wonder whether although mirror neurons don't directly participate in inanimate objects interception, either in adults \citep{Flanagan} or infants\citep{Claes}, the ``simulation'' strategy, and thus the modeling of external world on the basis of self generated actions, apply also in object interception prediction. In this case, to intercept a target our CNS could also rely on an internal model of the flying object, somehow related to our skill in actions performing. In this paper we want to understand if prediction besides being influenced by perceptual cues, relies also on information related to the motor system.
+
+It has already been shown that the kinematics of our own movements might influence our prediction capabilities. Within this framework, Pozzo \citep{Pozzo} suggested that subjects recall internal kinematic model of action when they need to extrapolate the final position of a target that suddenly vanishes behind an obstacle. He proposed an experiment in which each stimulus consisted of a dot moving either upwards or downwards, and corresponding to vertical arm movements that were masked in the last part of the trajectory. The stimulus could either move according to biological and or non-biological kinematic laws of pointing tasks. Subjects were asked to estimate the final position of the dot. It emerged that estimation of the final position decreased in precision and increased in variability for movements that violated the kinematic laws of arm pointing task. He then inferred that motion estimation relies on internal models that contain specific kinematic details of vertical arm movement, which can be rapidly recalled during motion observation.
+
+Moreover we suggest that prediction might be also influenced by the dynamics experienced by our own motor system. To our knowledge, this hypothesis has not been fully explored so far. This research topic is somehow inspired by a large amount of studies on human ability of generating accurate and appropriate motor behavior under many different and often uncertain environmental conditions. When using tools which have their intrinsic dynamic, we learn how to adapt our internal dynamical model to the new dynamic context \citep{Kawato}. This could induce us to think that what has to be modeled is the dynamics of the object. This idea is also supported by Mussa-Ivaldi findings, according to which if a subject performs reaching immersed in a perturbing force field, he progressively models the force applied to his arm and after a training he is able to use this model to produce a correct reaching by counterbalancing the externally applied force.
+
+%Both these results let us think of mirror neurons (\cite{Rizzolatti}, \cite{Gallese}). %which as already known, play a relevant role in prediction.
+%These neural cells, discovered in the premotor cortex of the monkey and also in many areas of humans' brain (\cite{Fadiga}, \cite{Rizzolatti_pet}), fire not only when an action is realized, but also when the subject sees the same action performed by another agent. Their function appears to be the basis of imitation (\cite{Billard},\cite{Buccino}, \cite{Fogassi}, \cite{Iacoboni} \cite{Williams}) and also of a certain kind of prediction, in which is other agent's movement to be anticipated \citep{Blakemore}. However it has been demonstrated that they don't directly participate in inanimate objects interception, both in adults \citep{Flanagan} and infants\citep{Claes}.
+%Nevertheless it becomes clear that action and perception, motor and perceptual systems are intimately linked: also the perception of others' movements is strictly dependent on the action we have made.
+
+%Pozzo \citep{Pozzo} proposed an experiment in which a subject had to predict where would have disappeared and reappeared a dot on a screen, which represented a finger tip. The data collected show that humans make less prediction errors when the ''finger'' movements follow biological kinematics. 
+%
+%Skilled motor behaviour relies on accurate predictive models of both our own body and external objects and environments. As the dynamics of our body changes during development, and as we experience tools that have their own intrinsic dynamics, we constantly need to acquire new models and update existing models. 
+
+
+Therefore, in our opinion two fundamental questions remain open and need to be addressed:
+\begin{enumerate}
+	\item  When performing a catching (or more in general a task which subsumes prediction) do we take advantage of the presence of a fixed force field structure that generates trajectories?
+	\item Assuming that the answer to the first question is yes,  does the central nervous system rely on its own motor representation to decode the external force field?
+\end{enumerate}
+
+In order to address these questions our paper is organized as follows:
+
+In Section \ref{Methods} we introduce our experimental design; in Section \ref{first_phase} we describe results related to the first question. Consequently in Section \ref{second_phase} we report results addressing the second question. Discussions are left to Section \ref{Discussion}.
+
+
+
+%\begin{enumerate}
+%	\item When performing a catching (or more in general a task which subsumes prediction) does our internal model rely on kinematic or dynamic cues?
+%	
+%	\item When performing a prediction task does the central nervous system rely on its own motor internal models (either kinematic or dynamic)?
+%	
+%\end{enumerate}
+%
+%We proposed therefore an experiment to try to have an insight in this field. Our experiment is organized as follows: subjects look at a computer screen and move a magnetic tracker vertically to drive a small paddle up and down on the right side of the screen. Their task is to intercept a ball with the paddle which crosses the scene following a parabolic path. The last part of the ball trajectory is hidden in order to force subjects to use prediction. The subjects are divided in two groups: to part of them are presented trajectories always different, yet generated by the same vertical force field. The trajectories proposed to the others were instead driven by a new vertical force field at each trial. The kinematic structure of trajectories, however, in both cases remained similar and simple: ball followed always a parabolic path. Then (1) if subjects don't rely on unifying models in prediction, but try to intercept each new trial separately, they should find no significant difference between the throws in the two conditions proposed. (2) Furthermore if were kinematic cues to drive prediction, we had to find similar performances in the two groups. Instead results revealed that the first subjects performed significantly better than the other group. According to us this could support the hypothesis that prediction rely on models and that dynamic informations play a key role.
+
+%This result induces us to think that prediction makes also use of other complex mechanisms in addition to those cited before. In particular it seems that it's easier to predict a movement that we are able to do. 
+
+%We suppose that a similar principle applies also to the field of prediction we are interested in. In particular we postulate that the motor system has a central role in guiding prediction and that therefore is the dynamic of a moving object, rather than its kinematic, the most important information to realize a successful interception.
+%This seems in agreement with a recent work \citep{paper_palline} whose experiment in ball catching has shown that the ability to
+%pursue a bouncing ball depended on experience with the ball’s dynamic properties. When the ball with which the subjects were playing was unexpectedly replaced with a more elastic ball, subjects were unable to track it, and instead made a series of saccades. Within 2 or 3 trials, subjects were once
+%again able to accurately pursue the ball. Their observations suggest that observers maintain an internal model of the dynamic properties of the world, and rapidly update
+%this model when errors occur.
+
+
+%Our theory could be looked at as an extension of the internal model theory proposed by Mussa-Ivaldi in the motor control field \citep{Mussa}. He demonstrated that if a subject makes reaching immersed in a force field he progressively models the force applied to his arm and after a training is able to use this model to produce a correct reaching by counterbalancing this force. We propose that something similar happens when we try to intercept an object moving in a force field (for example the gravitational one). With training we should be able to model the force field applied on the object and to use it in the interception. The dynamic informations are obtained by looking at multiple throws of the object and through an involvement of the motor system in the intercepting task.
+
+
+
+%We proposed an experiment to show that prediction is highly related to dynamical characteristics of the flying object, that these characteristics can be somehow modeled by a subject and that the motor system has a key role in the process.
+
+%Mussa Ivaldi and others [3] demonstrated that
+%a subject moving in a force field, builds an internal model of that field and adopt this
+%model to correctly adapt his movements against the perturbing force.
+
+% ARTICOLO GALLESE
+
+%We now know that
+%there is no such thing as an objective reality that our brain
+%is supposed to represent. For example, there are no objective
+%colours in the world, colour being the result of the
+%wavelength reflectance of objects, the surrounding lighting conditions, the colour cones in our eyes, and the neural
+%circuitry connected to those colour cones. There is no colour
+%out there independent of us.
+%The same argument holds for interpersonal relations.
+%There can be no other persons out there independent of us.
+%When we try to understand the behaviour of others, our
+%brain is not representing an objective external personal
+%reality. Our brain models the behaviour of others, much the
+%same as it models our own behaviour. The results of this
+%modelling process enable us to understand and predict
+%what the behaviour of others is.
+%
+%My proposal is that all these different levels of organism–
+%organism interactions, whatever the complexity of the
+%relational specifications defining them might be, rely first
+%on the same basic functional mechanism: embodied simulation.
+%Embodied simulation enables the constitution of a
+%shared and common background of implicit certitudes about
+%ourselves and, simultaneously, about others
+%
+%The third definition conveys a totally
+%different meaning: namely, it characterizes simulation as
+%a process meant to produce a better understanding of a
+%given situation or state of affairs, by means of modelling
+%it.
+%
+%I will use the term simulation in a way that is close to the
+%third definition given above: an implicit mechanism meant to
+%model the objects and events that the mechanism itself is supposed
+%to control while interacting with them. The term interaction
+%is considered here in its broadest sense. Simulation
+%is a control functional mechanism, its function being the
+%modelling of the objects to be controlled. Indeed, a current
+%authoritative view on motor control envisages simulation
+%as the mechanism employed by forward models to
+%predict the sensory consequences of impending actions
+%(see Wolpert et al. 2003). According to this view, the predicted
+%consequences are the simulated ones.
+%%
+%Furthermore, I argue that simulation is not a prerogative
+%of the motor system. In other words, simulation is not
+%just confined to the executive control strategies presiding
+%over our functioning in the world, but is a basic functional
+%mechanism, used by vast parts of the brain.
+%I propose that
+%simulation, that is, how we model reality, is the only epistemic
+%strategy available to organisms such as ourselves
+%deriving their knowledge of the world by means of interactions
+%with the world. What we call the representation of
+%reality is not a copy of what is objectively given, but an
+%interactive model of what cannot be known in itself.
+%
+%Perception requires the capacity to predict forthcoming
+%sensory events. Similarly, action requires the capacity to
+%predict the consequences of action. Both predictions are
+%the result of unconscious and automatic simulation processes.
+%The advantage of this theory is that it is extremely
+%parsimonious: if my theory is correct, a single mechanism—
+%embodied simulation—can provide a common functional
+%framework for all the apparently different aspects of interpersonal
+%relations.
+%
+%In the next section I review the neuroscientific evidence
+%showing that simulation is a pervasive functional characteristic
+%of the monkey and human brain.
+
+% ARTICOLO WOLPERT
+%
+%Movement is the only way we have of interacting with the
+%world, whether foraging for food or attracting a waiter’s
+%attention. Direct information transmission between
+%people, through speech, arm gestures or facial expressions,
+%is mediated through the motor system which provides a
+%common code for communication. From this viewpoint,
+%the purpose of the human brain is to use sensory representations
+%to determine future actions. Moreover, in recent
+%years the motor system has been implicated in many traditionally
+%non-motor domains. An important idea is that
+%the perception of the action of others, including speech,
+%involves the motor system (Liberman & Whalen 2000).
+%The proposal is that others’ actions are decoded by activating
+%one’s own action system at a sub-threshold level and
+%there appears to be a special neural mechanism for decoding
+%such information. Recently, these ideas have gained
+%empirical support in neuroscience with the finding of ‘mirror
+%neurons’ that respond to both self-generated actions
+%and the actions of others (Gallese et al. 1996; Rizzolatti &
+%Arbib 1998; Gallese 2003). Human neuroimaging and
+%magnetic stimulation studies have also shown that the
+%areas associated with action are also active during imitation
+%and observation (Fadiga et al. 1995, 2002; Iacoboni
+%et al. 1999; Grezes et al. 2001). Moreover, pre-motor systems
+%are activated when subjects view manipulable tools
+%or even action verbs (Martin et al. 1996; Grafton et al.
+%1997). Such studies have brought the motor system to the
+%forefront in the investigation of action interpretation and
+%social interaction.
+
+%
+%Motor control is, therefore, concerned with inputs and
+%outputs from a controlled object (e.g. the arm) that is part
+%of our own body. When interacting with another person
+%we can think of an analogous social interaction loop in
+%which the controlled object is the other person rather than
+%part of our own body (figure 1b). Again, our motor commands
+%cause muscle contractions and these lead to motor
+%consequenceswhich generate communicative signals, such
+%as speech or gestures. When perceived by another person
+%these can have influences on their hidden (mental) state,
+%which constitutes the set of parameters that determine
+%their behaviour. We can regard the other person as having
+%a state in the same way that our own body has a state. If
+%we know the state of someone else and have a model of
+%their behaviour, we should be able to predict their
+%response to a given input that we or the environment provides.
+%Given the other person’s state, the motor command
+%we have generated, and the context provided by the
+%environment, the other person will generate motor commands
+%causing consequences. We can perceive these
+%consequences and these can be used to determine our next
+%motor command, thereby closing a social interaction loop.
+
+%Therefore, in social interactions, by controlling someone
+%else rather than our own body, we can estimate their hidden
+%state including their mental state rather than the state
+%of our own body.
+
+%On the basis of computational studies it has been proposed
+%that the CNS internally simulates aspects of the
+%sensorimotor loop in planning, control and learning
+%(Kawato et al. 1987; Jordan 1995; Miall & Wolpert 1996;
+%Wolpert & Flanagan 2001). The neural circuits within the
+%CNS that perform such transformations are termed
+%internal models as they are internal to the CNS and model
+%aspects of the sensorimotor loop. Internal models that predict
+%the sensory consequences of a motor command are
+%known as forward models as they model the causal
+%(forward) relationship between actions and their consequences.
+%A forward model, therefore, can be used to predict
+%how the motor system’s state changes in response to
+%a given motor command. Therefore, whereas the
+%descending motor command acts on the actual sensorimotor
+%system, a copy of this motor command, termed efference
+%copy can pass into a forward model which acts as a
+%neural simulator of the musculoskeletal system and
+%environment. A forward model can, therefore, be used as
+%a predictor or simulator of the consequences of an action.
+%An inverse model performs the opposite transformation to
+%a forward model, determining the motor command
+%required to achieve some desired outcome. Here, we will
+%use predictor and controller synonymously with forward
+%and inverse models, respectively.
+%
+%Skilled motor behaviour relies on accurate predictive
+%models of both our own body and external objects and
+%environments. As the dynamics of our body changes during
+%development, and as we experience tools that have
+%their own intrinsic dynamics, we constantly need to
+%acquire new models and update existing models. Thus,
+%forward models are not fixed entities but must be learned
+%and updated through experience. Learning a predictive
+%model is relatively straightforward. By comparing the
+%predicted and actual outcome of a motor command a prediction
+%error can be generated. Well-established computational
+%learning rules can be used to translate these errors
+%in prediction into changes in synaptic weights that will
+%improve any future predictions of a forward model. We
+%can consider a similar forward or predictive model for
+%social interaction. In this case another person’s response
+%to my motor commands or communicative behaviour is
+%modelled. Again, discrepancies between anticipated and
+%actual behaviour can be used to refine such a model.
+%Therefore, by monitoring one’s own action and the
+%response of others it is possible to learn a predictive model
+%of the likely behaviour of someone in response to our
+%actions.
+%
+%Inverse models or controllers are in general more difficult
+%to learn. Additional transformations may have to be
+%applied to the error signal before it can be used to train
+
+%Humans demonstrate a remarkable ability to generate
+%accurate and appropriate motor behaviour under many
+%different and often uncertain environmental conditions. It
+%has been proposed that the CNS uses a modular approach
+%in which multiple controllers coexist and are selected
+%based on the movement context or state (Jacobs et al.
+%1991; Narendra et al. 1995; Narendra & Balakrishnan
+%1997; Ghahramani & Wolpert 1997). Therefore, when we
+%pick up an object with unknown dynamics we need to
+%identify the context and select the appropriate controller.
+%One possible solution to this identification and selection
+%problem has been proposed in the form of the MOSAIC
+%model (Wolpert & Kawato 1998; Haruno et al. 2001;
+%Doya et al. 2002). The idea is that the brain simultaneously
+%runs multiple forward models that predict the
+%behaviour of the motor system to determine the current
+%dynamics of the body which will change when interacting
+%with different objects. Consider a very simple example in
+%which there are only two contexts: that a teapot to be lifted
+%is either full or empty (figure 2). When a motor command
+%is generated, an efference copy of the motor command is
+%used to simulate the sensory consequences under the two
+%possible contexts. The predictions based on an empty teapot
+%suggest that lift-off will take place early compared with
+%a full teapot and that the lift will be higher. These predictions
+%are compared with actual feedback. As the teapot is,
+%in fact, empty the sensory feedback matches the predictions
+%of the empty teapot context. This leads to a high
+%likelihood for the empty teapot and a low likelihood of the
+%full teapot. Each predictor can, therefore, be regarded as
+%a hypothesis tester for the context that it models. The
+%smaller the error in prediction, the more likely the context.
+%Moreover, each predictor is paired with a corresponding
+%controller forming a predictor–controller pair. The
+%MOSAIC model is able to learn a set of predictors to
+%cover the experienced behaviours and also ensures that the
+%each paired controller is the appropriate controller to use
+%in the context for which paired predictor is tuned (Haruno
+%et al. 2001). If the prediction of one of the forward models
+%closely matches the actual sensory feedback, then its
+%paired controller will be selected and used to determine
+%subsequent motor commands. In computational terms,
+%the sensory prediction error from a given forward model
+%is represented as a probability; if the error is small then
+%the probability that the forward model is appropriate is
+%high. The set of probabilities, termed responsibilities, from
+%an array of forward models is used to weight the outputs
+%of the paired controllers.
+%Various experiments let us lean toward the second hypothesis.
+%A possible advice on the answer could be found in slightly different research paths. Various experiments seem to point out that first person experience improves our cognitive and in particular predictive skill. 
+
+% ABSTRACT POZZO
+%How do we extrapolate the final position of hand trajectory that suddenly vanishes behind a wall? Studies showing maintenance of cortical activity after objects in motion disappear suggest that internal model of action may be recalled to reconstruct the missing part of the trajectory. Although supported by neurophysiological and brain imaging studies, behavioural evidence for this hypothesis is sparse. Further, in humans, it is unknown if the recall of internal model of action at motion observation can be tuned with kinematic features of movement. Here, we propose a novel experiment to address this question. Each stimulus consisted of a dot moving either upwards or downwards, and corresponding to vertical arm movements that were masked in the last part of the trajectory. The stimulus could either move according to biological and or non-biological kinematic laws of pointing tasks.We compared subjects’ estimations of the stimulus vanishing or final position after biological and after non-biological motion displays. Subjects systematically overestimated the vanishing and final position for the two directions (up and
+%down) and the two kinematics displayed (biological and non-biological). However, estimation of the final position decreased in precision and increased in variability for movements that violated the kinematic laws of arm pointing task.
+%The results suggest that motion inference does not rely only upon visual extrapolating mechanisms based on past visual trajectory information. We propose that motion estimation relies on internal models that contain specific kinematic details of vertical arm movement, which can be rapidly recalled during motion observation 
+%
+
