@@ -4,8 +4,8 @@
 We describe two approaches to solve the reaching task. A first method 
 uses the forward mapping between the arm joint space and the position 
 of the hand represented in the head reference frame \begin{bmatrix} 
-\theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3. The 
-second method controls the speeds of the arm so to minimize the position 
+\theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3 \end{bmatrix}. 
+The second method controls the speeds of the arm so to minimize the position 
 of the hand in the image plane with respect to the target (usually the 
 center of the image plane).
 
@@ -30,7 +30,7 @@ converge to $\alpha_t^c \rightarrow 0$ and $\alpha_v^c \rightarrow 0$.
 After convergence has been achieved we have:
 
 \begin{eqnarray*}
-\mathbf \tilde{x}_{target}=
+\tilde {\mathbf x}_{target}=
 \begin{bmatrix} \theta_y & \theta_p & 0 & \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
 \end{eqnarray*}
 
@@ -50,12 +50,12 @@ If the robot is tracking the hand, the same subset of the head joint space can b
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
 \end{eqnarray*}
 
-Under this assumption  
+Under these assumptions we can train a neural network to approximate the forward mapping between the arm joint space $\mathbf q_{arm}$ and the position of the hand $\mathbf x_{hand}$:
 
-\begin{equation} \label{Eq:reaching2}
-\mathbf q_{arm}=f_{ol}}(\mathbf x_{ol_hand}), \qquad f_{ol} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
+\begin{equation} \label{Eq:forward}
+\mathbf x_{hand}=f_{forward}}(\mathbf q_{arm}), \qquad f_{ol} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
 
-\subsection{Closed Loop Reaching}
+Suppose now the robot is tracking
 
 
 
