@@ -10,54 +10,50 @@ of the hand in the image plane with respect to the target (usually the
 center of the image plane).
 
 \subsection{Open Loop Reaching}
-This approach uses a mapping which links 
-the position of the head in joint space to the arm joint configuration
-which brings the hand to the fixation point:
-
-\begin{equation} \label{Eq:reaching1}
-\mathbf q_{head}=\tilde{f}_{ol}}(\mathbf q_{arm}), \qquad \tilde{f}_{ol} : \mathbb R^7 \longrightarrow \mathbb R^4.
-\end{equation}
-
-where $\mathbf q_{arm}$ and $\mathbf q_{head}$ are the configurations of the arm and head 
-respectively. In the condition when the robot fixates the hand, $\mathbf q_{head}$
-implicitly codes its spatial location. we use the subscript \emph{ol} to stress the
-fact that this function allows the robot to reach for a target in open-loop, 
-meaning that once the hand has started to move no further corrections can be 
-made to the trajectory.
-
-Given the kinematics of the robot $\mathbf q_{head}$ is made up of the following quantities:
+Suppose the robot is tracking a target using the controlled described in 
+\ref{Sec:TrackerController}. In the further assumption of perfect tracking 
+(the visual error is zero), the spatial position of the target
+in the world can be represented by means of the head joints:
 
 \begin{eqnarray*}
-\mathbf q_{head}=
+\mathbf \tilde{x}_{target}= \mathbf q_{head} =
 \begin{bmatrix} \theta_y & \theta_p & \theta_r & \alpha_v^d & \alpha_v^c & \alpha_t^c \end{bmatrix}^\top \in \mathbb R^6.
 \end{eqnarray*}
 
-During tracking $\theta_r$ is maintained stationary to 0, while the head controller 
+Not all components of $\mathb q_{head}$ are actually needed. During tracking 
+$\theta_r$ is maintained stationary to 0, while the head controller 
 poses additional contraints on the head joints; in particular we know from section 
 \ref{Sec:TrackerController} that the controller minimizes $\alpha_t^c$ and
 $\alpha^c_v$ (see equation \ref{Eq:HeadEyeControl}) so that they asymptotically
-converge to $\alpha_t^c \rightarrow 0$ and $\alpha_v^c \rightarrow 0$. In this 
-case we have:
+converge to $\alpha_t^c \rightarrow 0$ and $\alpha_v^c \rightarrow 0$. 
+
+After convergence has been achieved we have:
 
 \begin{eqnarray*}
-\mathbf q_{head}=
+\mathbf \tilde{x}_{target}=
 \begin{bmatrix} \theta_y & \theta_p & 0 & \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
 \end{eqnarray*}
 
-Let us define:
+we define:
 
 \begin{eqnarray*}
-\mathbf x_{ol_hand}=
+\mathbf x_{target}=
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
 \end{eqnarray*}
 
-which, in our case, uniquely codes the position of the hand in a subset of the head joint space; we now rewrite \ref{Eq:reaching1} to get:
+which, in our case, uniquely codes the position of the target. This representation is very close to a three dimensional polar representation in which \theta_y and \theta_p code respectively azimuth and elevation, while distance is substituted with \alpha_v (\emph{vergence} angle). 
+
+If the robot is tracking the hand, the same subset of the head joint space can be used to code the spatial location of the hand:
+
+\begin{eqnarray*}
+\mathbf x_{hand}=
+\begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
+\end{eqnarray*}
+
+Under this assumption  
 
 \begin{equation} \label{Eq:reaching2}
-\mathbf q_{arm}=f_{ol}}(\mathbf x_{ol_hand}), \qquad f_{ol} : \mathbb R^3 \longrightarrow \mathbb R^4.
-\end{equation}
-
-in which the dimensionality of the mapping has been greatly reduced.
+\mathbf q_{arm}=f_{ol}}(\mathbf x_{ol_hand}), \qquad f_{ol} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
 
 \subsection{Closed Loop Reaching}
 
