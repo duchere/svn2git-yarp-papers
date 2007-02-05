@@ -2,64 +2,65 @@
 \label{sec:reaching}
 
 We describe two approaches to solve the reaching task. A first method 
-uses the mapping between the head and arm joints when the
-robot is fixating the hand (i.e. when the latter is at the center of
-both cameras). The second method controls the speeds of the arm 
-so to minimize the position of the hand in the image plane with respect
-to the target (usually the center of the image plane).
+uses the forward mapping between the arm joint space and the position 
+of the hand represented in the head reference frame \begin{bmatrix} 
+\theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3. The 
+second method controls the speeds of the arm so to minimize the position 
+of the hand in the image plane with respect to the target (usually the 
+center of the image plane).
 
-In the first case the mapping can be represented as a function which links 
+\subsection{Open Loop Reaching}
+This approach uses a mapping which links 
 the position of the head in joint space to the arm joint configuration
 which brings the hand to the fixation point:
 
-
 \begin{equation} \label{Eq:reaching1}
-\mathbf q_{arm}=\tilde{f}_{OL}}(\mathbf q_{head}), \qquad f_{CL} : \mathbb R^7 \longrightarrow \mathbb R^4.
+\mathbf q_{head}=\tilde{f}_{ol}}(\mathbf q_{arm}), \qquad \tilde{f}_{ol} : \mathbb R^7 \longrightarrow \mathbb R^4.
 \end{equation}
 
-where $q_{arm}$ and $q_{head}$ are the configurations of the arm and head 
-respectively. In the condition when the robot fixates the hand, ${q_head}$
-implicitly codes its spatial location. we use the subscript OL to stress the
+where $\mathbf q_{arm}$ and $\mathbf q_{head}$ are the configurations of the arm and head 
+respectively. In the condition when the robot fixates the hand, $\mathbf q_{head}$
+implicitly codes its spatial location. we use the subscript \emph{ol} to stress the
 fact that this function allows the robot to reach for a target in open-loop, 
-meaning that once the hand has started to move no other correction can be 
+meaning that once the hand has started to move no further corrections can be 
 made to the trajectory.
 
-Given the kinematics of the robot
-${q_head}$ is made up of the following quantities:
+Given the kinematics of the robot $\mathbf q_{head}$ is made up of the following quantities:
 
 \begin{eqnarray*}
 \mathbf q_{head}=
-\begin{bmatrix} \theta_y & \theta_p & \theta_r \alpha_v^d & \alpha_v^c & \alpha_t^c \end{bmatrix}^\top \in \mathbb R^6.
+\begin{bmatrix} \theta_y & \theta_p & \theta_r & \alpha_v^d & \alpha_v^c & \alpha_t^c \end{bmatrix}^\top \in \mathbb R^6.
 \end{eqnarray*}
 
-During tracking ${\theta_r}$ is maintained stationary to 0, while the head controller 
+During tracking $\theta_r$ is maintained stationary to 0, while the head controller 
 poses additional contraints on the head joints; in particular we know from section 
-\ref{Sec:TrackerController} that the controller minimizes ${\alfa_t^c}$ and
-${\alfa^c_v}$ (see equation \ref{Eq:HeadEyeControl}) so that they asymptotically
-convergece to ${\alfa_t^c \rightarrow 0}$ and ${\alfa_v^c \rightarrow 0}$. In this 
+\ref{Sec:TrackerController} that the controller minimizes $\alpha_t^c$ and
+$\alpha^c_v$ (see equation \ref{Eq:HeadEyeControl}) so that they asymptotically
+converge to $\alpha_t^c \rightarrow 0$ and $\alpha_v^c \rightarrow 0$. In this 
 case we have:
 
 \begin{eqnarray*}
 \mathbf q_{head}=
-\begin{bmatrix} \theta_y & \theta_p & 0 \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
+\begin{bmatrix} \theta_y & \theta_p & 0 & \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
 \end{eqnarray*}
 
 Let us define:
 
 \begin{eqnarray*}
-\mathbf q_{target}=
-\begin{bmatrix} \theta_y \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
+\mathbf x_{ol_hand}=
+\begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
 \end{eqnarray*}
 
-which codes the position of the target the head is currently fixating at. In the
-assumption that the robot is fixating the hand we can re-write equation 
-\eq{Eq:reaching1} to get:
+which, in our case, uniquely codes the position of the hand in a subset of the head joint space; we now rewrite \ref{Eq:reaching1} to get:
 
 \begin{equation} \label{Eq:reaching2}
-\mathbf q_{arm}=\tilde{f}_{OL}}(\mathbf q_{target}), \qquad f_{OL} : \mathbb R^3 \longrightarrow \mathbb R^4.
+\mathbf q_{arm}=f_{ol}}(\mathbf x_{ol_hand}), \qquad f_{ol} : \mathbb R^3 \longrightarrow \mathbb R^4.
 \end{equation}
 
-in which the dimensionality of the mapping has been greatily reduced.
+in which the dimensionality of the mapping has been greatly reduced.
+
+\subsection{Closed Loop Reaching}
+
 
 
 
