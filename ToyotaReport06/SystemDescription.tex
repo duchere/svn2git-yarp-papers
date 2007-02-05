@@ -7,7 +7,8 @@
 \label{Fig:PicureJames}
 \end{figure}
 
-The reaching controller has been implemented on our humanoid robot James (see figure \ref{Fig:PicureJames}). James consists of 22 DOFs, actuated by a total of 23 motors, whose torque is transmitted to the joints by belts and stainless-steel tendons. The head is equipped with two eyes, which can pan and tilt independently (4 DOFs), and is mounted on a 3-DOF neck, which allows the movement of the head as needed in the 3D rotational space.
+The reaching controller has been implemented on our humanoid robot James (see figure \ref{Fig:PicureJames}). James consists of 22 DOFs, actuated by a total of 23 motors, whose torque is transmitted to the joints by belts and stainless-steel tendons. The head is equipped with two eyes, which can pan and tilt independently (4 DOFs), and is mounted on a 3-DOF neck, which allows the movement of the head as needed in the 3D rotational space. The
+arm has 
 
 
 \subsection{Head and eyes actuation structure} \label{Sec:HeadEyesStructure}
@@ -29,7 +30,7 @@ The head structure has a total of 7 degrees of freedom, actuated by 8 motors. Fo
 \alpha_t^r & \mbox{ : } \mbox{right eye tilt} & \alpha_p^r & \mbox{ : } \mbox{right eye pan}\\
 \alpha_t^l & \mbox{ : } \mbox{left eye tilt} & \alpha_p^l & \mbox{ : } \mbox{left eye pan}
 \end{align*}
-Even though the eyes can be moved independently, our strategy was to couple their movements so as to achieve a more human-like motion. In particular, instead of controlling $\alpha_t^r$, $\alpha_p^r$, $\alpha_t^l$, $\alpha_p^l$ (see Figure \ref{Fig:EyePanTilt}) we decided to use common tilt $\alpha_t^c$, differential tilt $\alpha_t^d$, vergence $\alpha_v^d$ and version $\alpha_v^c$ (see Figure \ref{Fig:EyeCoordinatedMovements}) defined as follows:
+Even though the eyes can be moved independently, our strategy was to couple their movements so as to achieve a more human-like motion. In particular, instead of controlling $\alpha_t^r$, $\alpha_p^r$, $\alpha_t^l$, $\alpha_p^l$ (see Figure \ref{Fig:EyePanTilt}) we decided to use common tilt $\alpha_t^c$, differential tilt $\alpha_t^d$, vergence $\alpha_v^d$ and version $\alpha_v^c$ (see Figure \ref{Fig:EyeCoordinatedMovements}) defined as follows %(nat: I find the superscripts d and c a bit confusing, because they lack symmetry... can we drop them?):
 \begin{align*}
 \alpha_v^d & = \frac{\alpha_p^r - \alpha_p^l}{2} & \alpha_v^c & = \frac{\alpha_p^r + \alpha_p^l}{2},\\
 \alpha_t^d & = \frac{\alpha_p^r - \alpha_p^l}{2} & \alpha_t^c & = \frac{\alpha_p^r + \alpha_p^l}{2}.
