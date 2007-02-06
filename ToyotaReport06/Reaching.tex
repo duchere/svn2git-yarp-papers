@@ -24,7 +24,7 @@ Not all components of $\mathbf q_{head}$ are actually needed. During tracking
 $\theta_r$ is maintained stationary to 0, while the head controller 
 poses additional contraints on the head joints; in particular we know from section 
 \ref{Sec:TrackerController} that the controller minimizes $\alpha_t^c$ and
-$\alpha^c_v$ (see equation \ref{Eq:HeadEyeControl}) so that they asymptotically
+$\alpha^c_v$ (see equation (\ref{Eq:HeadEyeControl})) so that they asymptotically
 converge to $\alpha_t^c \rightarrow 0$ and $\alpha_v^c \rightarrow 0$. 
 
 After convergence has been achieved we have:
@@ -69,8 +69,8 @@ which solves the following minimization:
 \end{equation}
 %
 where $\mathbf x_{target}$ is measured from the encoders of the head, while 
-$\mathbf x_{arm}$ is computed from $\mathbf q_{arm}$ through \ref{Eq:forward}. Given the 
-redundancy of the arm kinematics problem \ref{Eq:reaching1} has infinite solutions. To 
+$\mathbf x_{arm}$ is computed from $\mathbf q_{arm}$ through Eq. (\ref{Eq:forward}). Given the 
+redundancy of the arm kinematics the minimization (\ref{Eq:reaching1}) has infinite solutions. To 
 overcome this problem we constrained the solution so that one of the joint, for example 
 joint number 2, is forced to remain as close as possible to a predefined position $q_{20}$:
 %
@@ -84,7 +84,7 @@ joint number 2, is forced to remain as close as possible to a predefined positio
 
 \emph{[missing description: numerical recipes algorithm]}
 
-To laern the forward map of equation \ref{Eq:forward} we programmed the robot 
+To learn the forward map of equation (\ref{Eq:forward}) we programmed the robot 
 to perform random movement with the arm (chosen to uniformly sample 
 a predefined region in the robot workspace). During this ``exploratory'' phase the robot
 tracked the hand, to collect samples of the form:
@@ -104,7 +104,7 @@ A neural network was then trained to learn the relation:
 \end{math}
 \end{center}
 %
-which approximates equation \ref{Eq:forward}.
+which approximates equation (\ref{Eq:forward}).
 
 
 
