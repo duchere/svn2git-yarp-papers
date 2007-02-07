@@ -152,25 +152,24 @@ between the hand and the target, we can implement a closed loop
 control to reach for a visually identified target.
 
 We know that the Jacobian matrix relates movement of the arm 
-%$\mathbf{\tilde{q}_{arm}}$ in the 
+$\mathbf{\delta q_{arm}}$ in the 
 joint space with displacement of the hand 
-%$\delta u_{hand}=\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_lm$
-%$\mathbf{\tilde{q}_{arm}}$ in the 
-joint space with displacement of the hand 
-%$\delta u_{hand}=
-%\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_l\end{array}^T$ 
+\begin{math}\delta u_{hand}=
+\left[ \begin{array}{ccc}
+  \delta u_r & \delta v_r & \delta u_{lm}
+\end{array} \right]^T\end{math} 
 in the image plane, formally:
 %
 \begin{center} 
 \begin{math}
 \label{eq:jacobian1}
-  \mathbf{\delta \tilde{u}_hand}=
+  \mathbf{\delta u_{hand}}=
   \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf q_{head}\right)
-  \mathbf{\tilde{q}_{arm}}
+  \mathbf{\delta q_{arm}}
 \end{math}
 \end{center}
 %
-where $\tilde{\mathbf J} in \Re^{3x4}$ depends on 
+where $\tilde{\mathbf J} \in \Re^{3x4}$ depends on 
 both the configuration of the arm and the head. Due to the 
 additional constrained posed by the head tracker, we showed
 that only a subset of the head joint $\mathbf x_{head}$ is 
@@ -180,9 +179,9 @@ can rewrite equation (\ref{eq:jacobian1}) as:
 \begin{center} 
 \begin{math}
 \label{eq:jacobian2}
-  \mathbf{\delta \tilde{u}_hand}=
+  \mathbf{\delta \delta u_{hand}}=
   \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf x_{head}\right)
-  \mathbf{\tilde{q}_{arm}}
+  \mathbf{\delta q_{arm}}
 \end{math}
 \end{center}
 %
@@ -195,9 +194,9 @@ sufficient to uniquely identify the position of the head. Equation
 \begin{center} 
 \begin{math}
 \label{eq:jacobian3}
-  \mathbf{\delta \tilde{u}_hand}=
+  \mathbf{\delta u_{hand}}=
   \mathbf J\left(\mathbf q_{arm}\right)
-  \mathbf{\tilde{q}_{arm}}
+  \mathbf{\delta q_{arm}}
 \end{math}
 \end{center}
 %
@@ -213,7 +212,7 @@ to achieve this convergence is to apply a joint velocity:
 %
 \begin{center}
 \begin{math}
-\dot q_{arm}=-k \cdot \mathbf J^{\#} u_{hand}
+\dot q_{arm}=-k \cdot \mathbf J^{\#} \mathbf{\delta u_{hand}}
 \end{math}
 \end{center}
 %
