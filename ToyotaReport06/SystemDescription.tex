@@ -39,25 +39,29 @@ Even though the eyes can be moved independently, our strategy was to couple thei
 \begin{figure}
   % Requires \usepackage{graphicx}
   \begin{center}
-  \includegraphics{Figure/EyePan.eps}& &
-  \includegraphics{Figure/EyeTilt.eps}}\\
+%  \epackage{graphicx}
+  \includegraphics{Figure/EyePan.eps}
+  \includegraphics{Figure/EyeTilt.eps}
   %Top view & & Lateral view
   \end{center}
-  \caption{The left picture shows a top view of the eyeball and indicates the pan angle. The right picture instead shows the lateral view with the tilt angle.}\label{Fig:EyePanTilt}
- \end{figure}
+  \caption{The left picture shows a top view of the eyeball and indicates the pan angle. The right picture instead shows the lateral view with the tilt angle.}
+  \label{Fig:EyePanTilt}
+\end{figure}
 
 \begin{figure}
   % Requires \usepackage{graphicx}
   \begin{center}
-  \begin{tabular}{ccc}
-  \parbox{60mm}{\includegraphics[height=40mm]{Figure/EyeVergenceVersion.eps}}  & &
-  \parbox{60mm}{\includegraphics[height=40mm]{Figure/EyeCommDiffTilt.eps}}
-  \\
-  Top view & & Lateral view
+	\begin{tabular}{ccc}
+	  \parbox{60mm}{\includegraphics[height=40mm]{Figure/EyeVergenceVersion.eps}}  & &
+	  \parbox{60mm}{\includegraphics[height=40mm]{Figure/EyeCommDiffTilt.eps}}
+	  \\
+	  Top view & & Lateral view
+	  %	  \end{t\\
+	  %	Top view & & Lateral view
   \end{tabular}
-  \end{center}
-  \caption{The left picture shows a top view of the eyeball and indicates the version (top) and the vergence (down) angles. The right picture instead shows the lateral view with the common (top) and differential tilt (down) angles.}\label{Fig:EyeCoordinatedMovements}
- \end{figure}
+\end{center}
+\caption{The left picture shows a top view of the eyeball and indicates the version (top) and the vergence (down) angles. The right picture instead shows the lateral view with the common (top) and differential tilt (down) angles.}\label{Fig:EyeCoordinatedMovements}
+  \end{figure}
 
 Practically, the differential tilt angle will not be used. The underlying assumption is the perfect orthogonality between the camera axis and the pan axis of rotation\footnote{\samepage Suppose that our task consists in fixating a given target, i.e. putting the target projections in the center of the left and right image planes. Since the target moves in a three dimensional space, in principle we only need three control variables to actually fixate the target in every possible configuration. It can be shown that these three variables can be $\alpha_v^d$, $\alpha_v^c$ and $\alpha_t^c$ (while keeping $\alpha_t^d=0$) if the system mechanics and optics are perfectly aligned. In particular, the assumptions are the following:
 \begin{enumerate}
