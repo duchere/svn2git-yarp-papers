@@ -154,7 +154,7 @@ control to reach for a visually identified target.
 We know that the Jacobian matrix relates movement of the arm 
 $\mathbf{\tilde{q}_{arm}}$ in the 
 joint space with displacement of the hand 
-$\delta u_{hand}=\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_l}\end{array}^T}$ 
+$\delta u_{hand}=\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_l\end{array}^T$ 
 in the image plane, formally:
 %
 \begin{center} 
@@ -173,6 +173,8 @@ that only a subset of the head joint $\mathbf x_{head}$ is
 sufficient to uniquely identify the position of the head, so we 
 can rewrite equation (\ref{eq:jacobian1}) as:
 %
+\begin{center} 
+\begin{math}
 \label{eq:jacobian2}
   \mathbf{\delta \tilde{u}_hand}=
   \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf x_{head}\right)
@@ -190,28 +192,28 @@ sufficient to uniquely identify the position of the head. Equation
 \begin{math}
 \label{eq:jacobian3}
   \mathbf{\delta \tilde{u}_hand}=
-  \mathbf J\left(\mathbf q_{arm})
+  \mathbf J\left(\mathbf q_{arm}\right)
   \mathbf{\tilde{q}_{arm}}
 \end{math}
 \end{center}
 %
-where $\mathbf J(.)} in \mathbb \Re^{3x4}$, whose coefficients depend 
+where $\mathbf J(\cdot) in \mathbb \Re^{3x4}$, whose coefficients depend 
 only on the arm joint configuration.
 
 Suppose now the robot has to reach for an object. If the head tracker
 has achieved convergence on the object, its image should project on 
 the center of both images. To solve the problem the controller of the 
 arm needs to compute the arm command which minimizes the position of the
-hand in the images ($\u_{hand} \rightarrow 0$). A possible control trategy
+hand in the images ($u_{hand} \rightarrow 0$). A possible control strategy
 to achieve this convergence is to apply a joint velocity:
 %
 \begin{center}
 \begin{math}
-\dot{q}_arm=-k \cdot \mathbf J^#\u_{hand}
+\dot q_{arm}=-k \cdot \mathbf J^{\#} u_{hand}
 \end{math}
 \end{center}
 %
-where $\mathbf J^#$ is the pseudo-inverse of $\mathbf J$.
+where $\mathbf J^{\#}$ is the pseudo-inverse of $\mathbf J$.
 
 \subsection{Learning the Arm Jacobian}
 %
