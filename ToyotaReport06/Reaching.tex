@@ -139,10 +139,10 @@ discarded), so from a point of view of the learning it would be
 straightforward to have an online implementation of the same mechanism.
 
 \begin{figure}[tbp]
+\label{fig:reaching-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
 } \caption{Error} 
-\label{fig:reaching-error}
 \end{figure}
 
 \subsection{Closed Loop Reaching}
@@ -152,9 +152,13 @@ between the hand and the target, we can implement a closed loop
 control to reach for a visually identified target.
 
 We know that the Jacobian matrix relates movement of the arm 
-$\mathbf{\tilde{q}_{arm}}$ in the 
+%$\mathbf{\tilde{q}_{arm}}$ in the 
 joint space with displacement of the hand 
-$\delta u_{hand}=\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_l\end{array}^T$ 
+%$\delta u_{hand}=\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_lm$
+%$\mathbf{\tilde{q}_{arm}}$ in the 
+joint space with displacement of the hand 
+%$\delta u_{hand}=
+%\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_l\end{array}^T$ 
 in the image plane, formally:
 %
 \begin{center} 
@@ -166,7 +170,7 @@ in the image plane, formally:
 \end{math}
 \end{center}
 %
-where $\tilde{\mathbf J(.)} in \Re^{3x4}$ depends on 
+where $\tilde{\mathbf J} in \Re^{3x4}$ depends on 
 both the configuration of the arm and the head. Due to the 
 additional constrained posed by the head tracker, we showed
 that only a subset of the head joint $\mathbf x_{head}$ is 
@@ -183,7 +187,7 @@ can rewrite equation (\ref{eq:jacobian1}) as:
 \end{center}
 %
 
-From equation (\cite{eq:forward1}) it is clear that 
+From equation (\ref{Eq:forward}) it is clear that 
 $q_{arm}$ and $x_{head}$ are redundant and only $q_{arm}$ is 
 sufficient to uniquely identify the position of the head. Equation
 (\ref{eq:jacobian1} can be further simplified to:
