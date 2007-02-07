@@ -11,12 +11,12 @@ In this report we discuss the implementation of a vergence controller on a human
 
 \begin{figure}[h!tbp]
 \centering
-\includegraphics[width=80mm]{Figure/James1.jpg}
+\includegraphics[width=80mm]{Figure/James1.eps}
 \caption{The humanoid robot James.}
-\label{Fig:PicureJames}
+\label{Fig:PictureJames}
 \end{figure}
 
-The fixation controller has been implemented on our humanoid robot James (see figure \ref{Fig:PicureJames}). James consists of 22 DOFs, actuated by a total of 23 motors, whose torque is transmitted to the joints by belts and stainless-steel tendons. The head is equipped with two eyes, which can pan and tilt independently (4 DOFs), and is mounted on a 3-DOF neck, which allows the movement of the head as needed in the 3D rotational space.
+The fixation controller has been implemented on our humanoid robot James (see figure \ref{Fig:PictureJames}). James consists of 22 DOFs, actuated by a total of 23 motors, whose torque is transmitted to the joints by belts and stainless-steel tendons. The head is equipped with two eyes, which can pan and tilt independently (4 DOFs), and is mounted on a 3-DOF neck, which allows the movement of the head as needed in the 3D rotational space.
 
 
 \subsection{Head-eye actuation structure}
@@ -24,8 +24,8 @@ The fixation controller has been implemented on our humanoid robot James (see fi
 \begin{figure}[h!tbp]
   % Requires \usepackage{graphicx}
   \centering
-  \includegraphics[width=60mm]{Figure/EyePhoto.jpg}
-  \includegraphics[width=60mm]{Figure/EyeSection.jpg}\\
+  \includegraphics[width=60mm]{Figure/EyePhoto.eps}
+  \includegraphics[width=60mm]{Figure/EyeSection.eps}\\
   \caption{The left picture shows the tendon driven eye. The
  two tendons are actuated by two motors. The first motor moves the vertical
   tendon (tilt motion). The second motor moves the horizontal tendon (pan motion). The
@@ -132,7 +132,7 @@ Using the above control strategy (\ref{Eq:HeadEyeControl}) and (\ref{Eq:EyeVerge
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=130mm]{Figure/TimeResponseEyesNeck.jpg}
+\includegraphics[width=130mm]{Figure/TimeResponseEyesNeck.eps}
 \caption{The picture shows the time response of the tracking behavior of the fixation controller. The picture shows that the dominant eye (left eye) is effectively driven to straight gaze configuration ($\alpha_p^l \rightarrow 0$, $\alpha_t^l \rightarrow 0$ up to an accuracy of one degree). The neck is instead positioned so as to face the target.}
 \label{Fig:TimeResponseNeck}
 \end{figure}

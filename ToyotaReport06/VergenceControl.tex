@@ -7,8 +7,8 @@ One of the main modules in the reaching controller is represented by the {\tt tr
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=40mm]{Figure/LeftImage.jpg} \hspace{1cm}
-\includegraphics[width=40mm]{Figure/RightImage.jpg}
+\includegraphics[width=40mm]{Figure/LeftImage.eps} \hspace{1cm}
+\includegraphics[width=40mm]{Figure/RightImage.eps}
 \caption{Two typical images taken from the two cameras mounted on the eyes of the robot. The attention system gives us the target position on the two image planes (in this case the center of the blue ball). The coordinates of the target on the right image plane will be denoted $u_r$, $v_r$, while on the left image will be denoted $u_l$, $v_l$. The {\tt tracker controller} task is to move the eyes and the neck in order to keep the target point at the center of the two image planes, i.e. $u_r = v_r = u_l = v_l = 0$.}
 \label{Fig:ImagePlane}
 \end{figure}
@@ -44,8 +44,8 @@ The proposed control strategy allows us to asymptotically fixate the target ($u_
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=100mm]{Figure/TimeResponseImage.jpg}\\ \vspace{1cm}
-\includegraphics[width=100mm]{Figure/TimeResponseEyesNeck.jpg}
+\includegraphics[width=100mm]{Figure/TimeResponseImage.eps}\\ \vspace{1cm}
+\includegraphics[width=100mm]{Figure/TimeResponseEyesNeck.eps}
 \caption{The top picture shows the time response of target position ($u_l$, $v_l$, $u_r$) during a fixation movement. It can be seen that the target is effectively driven to the image center (up to an accuracy of one pixel). The bottom picture shows the time response of the head position ($\alpha_v^c$, $\alpha_v^d$, $\alpha_t^c$, $\theta_p$, $\theta_y$; the values of $\alpha_t^d$ and $\theta_r$ are omitted since they are kept constantly zero) during a fixation movement. The picture shows that the eyes effectively reaches a straight gaze configuration ($\alpha_v^c \rightarrow 0$, $\alpha_t^c \rightarrow 0$ up to an accuracy of one degree). The neck and the eyes vergence are instead positioned so as to face the target, i.e. the final value of $\theta_p$, $\theta_y$ and $\alpha_v^d$ differ from zero.}
 \label{Fig:TimeResponse}
 \end{figure}

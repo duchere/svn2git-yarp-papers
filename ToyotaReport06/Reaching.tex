@@ -11,6 +11,7 @@ speed of the arm so to minimize the position of the hand in the
 image plane with respect to a desired target (usually the fixated object).
 
 \subsection{Open Loop Reaching}
+%
 Suppose the robot is tracking a target using the control strategy described in 
 Section \ref{Sec:TrackerController}. In the further assumption of perfect tracking 
 (the visual error is zero), the three dimensional spatial position of the target 
@@ -112,36 +113,105 @@ A neural network was then trained to learn the relation:
 %
 which approximates equation (\ref{Eq:forward}).
 
+\subsection{Learning the open loop reaching}
+\label{sec:learning-open-loop}
+%
+In the experiment reported in this paper we collected a data set of 
+about 2890 samples that we devided in a training set (2168 samples) and 
+a test set (725 samples). We used the training set to train a neural 
+network to approximate equation ((\ref{Eq:forward}). The neural network 
+we employed was the Receptive Field Weighted Regression model proposed 
+by \cite{schaal98Constructive}. This network implements an online learning
+method, meaning that a learning step is performed every time a new 
+sample is shown to the network. All samples in the training set were shown
+to the netowork only once in a random order. After each training step the 
+performance of the network was validated on the whole test set, by computing
+the mean squared error between each sample in the test set and the 
+corresponding network output. The plot in figure (\ref{fig:reaching-error})
+shows the trend of the error on the test set during learning. The final 
+error was 1.89 on average with standard deviation 1.49.
+
+In the experiment reported here learning was performed offline. This was 
+mainly to simplify the analysis of the results and perform cross-validation 
+on a predefined test set. However, the learning algorithm we used was purely 
+incremental (each sample was shown to the network only once and immediatly 
+discarded), so from a point of view of the learning it would be 
+straightforward to have an online implementation of the same mechanism.
+
 \begin{figure}[tbp]
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
-} \caption{Error.} 
-\label{fig:Reaching error}
+} \caption{Error} 
+\label{fig:reaching-error}
 \end{figure}
 
+\subsection{Closed Loop Reaching}
+%
+Under the assumption that the robot can visually measure the distance
+between the hand and the target, we can implement a closed loop 
+control to reach for a visually identified target.
 
+We know that the Jacobian matrix relates movement of the arm 
+$\mathbf{\tilde{q}_{arm}}$ in the 
+joint space with displacement of the hand 
+$\delta u_{hand}=\begin{array}{ccc} \delta u_r & \delta v_r & \delta u_l}\end{array}^T}$ 
+in the image plane, formally:
+%
+\begin{center} 
+\begin{math}
+\label{eq:jacobian1}
+  \mathbf{\delta \tilde{u}_hand}=
+  \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf q_{head}\right)
+  \mathbf{\tilde{q}_{arm}}
+\end{math}
+\end{center}
+%
+where $\tilde{\mathbf J(.)} in \Re^{3x4}$ depends on 
+both the configuration of the arm and the head. Due to the 
+additional constrained posed by the head tracker, we showed
+that only a subset of the head joint $\mathbf x_{head}$ is 
+sufficient to uniquely identify the position of the head, so we 
+can rewrite equation (\ref{eq:jacobian1}) as:
+%
+\label{eq:jacobian2}
+  \mathbf{\delta \tilde{u}_hand}=
+  \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf x_{head}\right)
+  \mathbf{\tilde{q}_{arm}}
+\end{math}
+\end{center}
+%
 
+From equation (\cite{eq:forward1}) it is clear that 
+$q_{arm}$ and $x_{head}$ are redundant and only $q_{arm}$ is 
+sufficient to uniquely identify the position of the head. Equation
+(\ref{eq:jacobian1} can be further simplified to:
+%
+\begin{center} 
+\begin{math}
+\label{eq:jacobian3}
+  \mathbf{\delta \tilde{u}_hand}=
+  \mathbf J\left(\mathbf q_{arm})
+  \mathbf{\tilde{q}_{arm}}
+\end{math}
+\end{center}
+%
+where $\mathbf J(.)} in \mathbb \Re^{3x4}$, whose coefficients depend 
+only on the arm joint configuration.
 
+Suppose now the robot has to reach for an object. If the head tracker
+has achieved convergence on the object, its image should project on 
+the center of both images. To solve the problem the controller of the 
+arm needs to compute the arm command which minimizes the position of the
+hand in the images ($\u_{hand} \rightarrow 0$). A possible control trategy
+to achieve this convergence is to apply a joint velocity:
+%
+\begin{center}
+\begin{math}
+\dot{q}_arm=-k \cdot \mathbf J^#\u_{hand}
+\end{math}
+\end{center}
+%
+where $\mathbf J^#$ is the pseudo-inverse of $\mathbf J$.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection{Learning the Arm Jacobian}
+%
