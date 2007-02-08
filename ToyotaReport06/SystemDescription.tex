@@ -40,9 +40,11 @@ Even though the eyes can be moved independently, our strategy was to couple thei
   % Requires \usepackage{graphicx}
   \begin{center}
 %  \epackage{graphicx}
-  \includegraphics{Figure/EyePan.eps}
-  \includegraphics{Figure/EyeTilt.eps}
-  %Top view & & Lateral view
+	\begin{tabular}{ccc}
+  \parbox{30mm}{\includegraphics[height=30mm]{Figure/EyePan.eps}} & \hspace{2cm} &
+  \parbox{30mm}{\includegraphics[height=30mm]{Figure/EyeTilt.eps}}\\
+  Top view & \hspace{2cm} & $\quad$ Lateral view
+  \end{tabular}
   \end{center}
   \caption{The left picture shows a top view of the eyeball and indicates the pan angle. The right picture instead shows the lateral view with the tilt angle.}
   \label{Fig:EyePanTilt}
@@ -52,10 +54,10 @@ Even though the eyes can be moved independently, our strategy was to couple thei
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
-	  \parbox{60mm}{\includegraphics[height=40mm]{Figure/EyeVergenceVersion.eps}}  & &
-	  \parbox{60mm}{\includegraphics[height=40mm]{Figure/EyeCommDiffTilt.eps}}
+	  \parbox{40mm}{\includegraphics[height=40mm]{Figure/EyeVergenceVersion.eps}}  & \hspace{2cm} &
+	  \parbox{40mm}{\includegraphics[height=40mm]{Figure/EyeCommDiffTilt.eps}}
 	  \\
-	  Top view & & Lateral view
+	  Top view & \hspace{2cm} & Lateral view
 	  %	  \end{t\\
 	  %	Top view & & Lateral view
   \end{tabular}
