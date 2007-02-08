@@ -5,7 +5,7 @@ The neck is characterized by an original structure and has required the design o
 \subsection{Neck control in details}
 
 The development of the control loop has required the development of a \textsc{Matlab} model of the neck structure. The model is based on the assumption that the spring has a constant length (since it is always compressed). When the spring is bended, the assumption is that its curvature is constant along the entire spring length. Using this model we were able to compute the ideal tendons lengths given the pose of the neck, or equivalently the ideal tendons lengths ($l_1$, $l_2$, $l_3$) given the inertia sensor measurement ($\theta_r$, $\theta_p$). Practically, the model of the system is a function $f: \mathbb R^3 \longrightarrow \mathbb R^3$ such that:
-\begin{eqnarray} \label{Eq:Model}
+\begin{eqnarray} \label{Eq:Model_neck}
 \begin{bmatrix}
 l_1\\
 l_2\\
@@ -27,7 +27,7 @@ The final control loop for positioning the neck in the desired configuration ($\
 \end{eqnarray}
 where $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ is the Jacobian of the function $f$ with respect to $\theta_r$, $\theta_p$ computed at the current configuration $\theta_r$, $\theta_p$. 
 
-The above model (\ref{Eq:Model}) is ideal and assumes that the three tendons are always stretched. Practically, it is always desirable to have the stretched tendons. However, due to the imperfections in the model, the tendons may loose tension if the control strategy (\ref{Eq:Control_V1}) is applied for a long time. The final solution has been to apply a different control strategy which mixes two different controllers:
+The above model (\ref{Eq:Model_neck}) is ideal and assumes that the three tendons are always stretched. Practically, it is always desirable to have the stretched tendons. However, due to the imperfections in the model, the tendons may loose tension if the control strategy (\ref{Eq:Control_V1}) is applied for a long time. The final solution has been to apply a different control strategy which mixes two different controllers:
 \begin{eqnarray} \label{Eq:Control_V2}
 \begin{bmatrix}
 \frac{d l_1}{dt}\\
