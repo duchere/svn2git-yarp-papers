@@ -13,9 +13,9 @@ image plane with respect to a desired target (usually the fixated object).
 \subsection{Open Loop Reaching}
 %
 Suppose the robot is tracking a target using the control strategy described in 
-Section \ref{Sec:TrackerController}. In the further assumption of perfect tracking 
-(the visual error is zero), the three dimensional spatial position of the target 
-with respect to the robot, denoted $\tilde {\mathbf x}_{target} \in \mathbb R^3$, 
+Section \ref{Sec:TrackerController}. In the further assumption of perfect 
+tracking (the visual error is zero), the three dimensional spatial position 
+of the target with respect to the robot, denoted $\tilde {\mathbf x}_{target} \in \mathbb R^3$, 
 is a function of the head configuration $\mathbf q_{head} =
 \begin{bmatrix} \theta_y & \theta_p & \theta_r & \alpha_v^d & \alpha_v^c & \alpha_t^c \end{bmatrix}^\top \in \mathbb R^6$.
 However, the representation of the target position, $\tilde {\mathbf x}_{target}$, 
@@ -203,16 +203,24 @@ sufficient to uniquely identify the position of the head. Equation
 where $\mathbf J(\cdot) in \mathbb \Re^{3x4}$, whose coefficients depend 
 only on the arm joint configuration.
 
-Suppose now the robot has to reach for an object. If the head tracker
-has achieved convergence on the object, its image should project on 
-the center of both images. To solve the problem the controller of the 
-arm needs to compute the arm command which minimizes the position of the
-hand in the images ($u_{hand} \rightarrow 0$). A possible control strategy
-to achieve this convergence is to apply a joint velocity:
+Suppose now the robot has to reach for an object, whose visual position is 
+represented by $x_c$. To solve the problem 
+the controller of the arm needs to compute the arm command which minimizes 
+the error:
 %
 \begin{center}
 \begin{math}
-\dot q_{arm}=-k \cdot \mathbf J^{\#} \mathbf{\delta u_{hand}}
+  e=\left||u_{hand}-x_c\right||^2
+\end{math}
+\end{center}
+%
+When the head tracker has achieved convergence on the object, 
+$x_c \approx 0 $ and $e$ $\approx \left||u_{hand}\right||^2$.
+The following control strategy minimizes $e$:
+%
+\begin{center}
+\begin{math}
+\dot q_{arm}=-k \cdot \mathbf J^{\#} \mathbf{u_{hand}}
 \end{math}
 \end{center}
 %
