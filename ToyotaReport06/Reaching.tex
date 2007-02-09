@@ -274,5 +274,26 @@ obtained by training a neural network:
 %
 whose output components are the coefficients of 
 $\hat{\jacobian}^\# \in \mathbb R^{4 \times 3}$.
+
+We report here the result of a learning session. The robot explored 210 different 
+arm positions $\qarm^j$ randomly distributed within a region of the workspace. In 
+each of these positions the robot executed $m=10$ perturbations 
+$\deltaqarm^k$ and estimated an example $\jacobian_i^j$ for the neural network.Overall
+we collected 210 samples of $\jacobian^\#$. We trained the neural network on a 
+subset of 158 elements (train set); each sample was shown to the network only once 
+and then discarded. Following each training step, we evaluated the performance of 
+the network by computing mean squared error and standard deviation on the 
+remainder 52 elements (test set). At the end of the training the error on the test 
+set was 0.91 on average, with stadard deviation of 1.11. Figure 
+\ref{fig:jacobian-error} reports the plot of the error during learning.
 %
+\begin{figure}[tbp]
+\label{fig:jacobian-error}
+\centerline{
+\includegraphics[width=4.0in, angle=0 ]{./Figure/jacobian-error.eps}
+} \caption{Error} 
+\end{figure}
+%
+
+
 
