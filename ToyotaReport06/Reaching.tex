@@ -135,7 +135,7 @@ performance of the network was validated on the whole test set, by computing
 the mean squared error between each sample in the test set and the 
 corresponding network output. The plot in figure (\ref{fig:reaching-error})
 shows the trend of the error on the test set during learning. The final 
-average error was 1.89 degrees with standard deviation 1.49.
+mse was 5.7 with standard deviation 10.4.
 
 In the experiment reported in this paper learning was performed offline. 
 This was to simplify the analysis of the results and perform cross-validation 
@@ -148,7 +148,9 @@ straightforward to have an online implementation of the same mechanism.
 \label{fig:reaching-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
-} \caption{Error} 
+} \caption{Learning of the arm forward function.}
+  
+} 
 \end{figure}
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
@@ -284,14 +286,14 @@ subset of 158 elements (train set); each sample was shown to the network only on
 and then discarded. Following each training step, we evaluated the performance of 
 the network by computing mean squared error and standard deviation on the 
 remainder 52 elements (test set). At the end of the training the error on the test 
-set was 0.91 on average, with stadard deviation of 1.11. Figure 
+set was 2, with stadard deviation 7.1. Figure 
 \ref{fig:jacobian-error} reports the plot of the error during learning.
 %
 \begin{figure}[tbp]
 \label{fig:jacobian-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/jacobian-error.eps}
-} \caption{Error} 
+} \caption{Learning the arm jacobian.} 
 \end{figure}
 %
 
