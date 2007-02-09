@@ -13,9 +13,9 @@ One of the main modules in the reaching controller is represented by the {\tt tr
 \label{Fig:ImagePlane}
 \end{figure}
  
-In this section we describe how the tracker has been implemented on James. The crucial aspect concerns the redundancy of the control problem as it has been stated above. In order to state this more clearly, we need to be more rigorous in defining the control task previously described as ``directing gaze toward a given target''. Specifically, let $u_r$ and $v_r$ be the coordinates of the target on the right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates of the target on the left image plane. As it was previously said, the values of $u_r$, $v_r$, $u_l$, $v_l$ will be the output of another module, the {\tt target locator}. Therefore, directing gaze toward the target consists in moving the neck and the eyes so as to obtain $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. Let us define the vector $\tilde \utarget= \begin{bmatrix} u_r & v_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the target location in the image planes. Assuming that the target does not move with respect to the robot, we have that $\tilde \utarget$ can be expressed as a function of the head configuration $\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes} & \mathbf q_{neck} \end{bmatrix}^\top \in \mathbb R^6$:
+In this section we describe how the tracker has been implemented on James. The crucial aspect concerns the redundancy of the control problem as it has been stated above. In order to state this more clearly, we need to be more rigorous in defining the control task previously described as ``directing gaze toward a given target''. Specifically, let $u_r$ and $v_r$ be the coordinates of the target on the right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates of the target on the left image plane. As it was previously said, the values of $u_r$, $v_r$, $u_l$, $v_l$ will be the output of another module, the {\tt target locator}. Therefore, directing gaze toward the target consists in moving the neck and the eyes so as to obtain $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. Let us define the vector $\tilde {\mathbf u}_{target}= \begin{bmatrix} u_r & v_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the target location in the image planes. Assuming that the target does not move with respect to the robot, we have that $\tilde {\mathbf u}_{target}$ can be expressed as a function of the head configuration $\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes} & \mathbf q_{neck} \end{bmatrix}^\top \in \mathbb R^6$:
 \begin{eqnarray*}
-\tilde \utarget = \tilde f_{head} (\mathbf q_{head}),
+\tilde {\mathbf u}_{target} = \tilde f_{head} (\mathbf q_{head}),
 \end{eqnarray*}
 where the function $\tilde f_{head} : \mathbb R^6 \longrightarrow \mathbb R^4$ depends on the head kinematics. Under suitable assumptions\footnote{The hypothesis is that we do not move the differential tilt, i.e. $\alpha_t^d = 0$ and that the camera optical axes are somehow aligned with the pan rotation axes. See also Section \ref{Sec:HeadEyesStructure} for further details.}, we do not need to impose simultaneously the four conditions $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$ since one of them will be automatically satisfied given that the other three conditions are satisfied\footnote{In practice we have that if $u_l=0$, $v_l=0$ and $u_r=0$ then $v_r=0$. Alternatively, if $u_l=0$, $u_r=0$ and $v_r=0$ then $u_r=0$. This fact follows trivially considering that the target moves in a three dimensional space.}. Under this simplification we have that our control task can be redefined as the problem of controlling $\utarget = \begin{bmatrix} u_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^3$ to zero. The kinematic function will be in this case:
 \begin{eqnarray*}
@@ -44,20 +44,19 @@ The proposed control strategy allows us to asymptotically fixate the target ($u_
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=100mm]{Figure/TimeResponseImage.eps}\\ \vspace{1cm}
-\includegraphics[width=100mm]{Figure/TimeResponseEyesNeck.eps}
+\includegraphics[width=80mm]{Figure/TimeResponseImage.eps}\\ \includegraphics[width=60mm]{Figure/TimeResponseEyes.eps}
+\includegraphics[width=60mm]{Figure/TimeResponseEyesNeck.eps}
 \caption{The top picture shows the time response of target position 
-($u_l$, $v_l$, $u_r$) during a fixation movement. It can be seen 
+($u_l$: solid, $v_l$: dashed, $u_r$: dotted) during a fixation movement. It can be seen 
 that the target is effectively driven to the image center (up 
-to an accuracy of one pixel). The bottom picture shows the time 
-response of the head position ($\alpha_v^c$, $\alpha_v^d$, 
-$\alpha_t^c$, $\theta_p$, $\theta_y$; the values of $\alpha_t^d$ 
-and $\theta_r$ are omitted since they are kept constantly zero) 
-during a fixation movement. The picture shows that the eyes 
-effectively reaches a straight gaze configuration ($\alpha_v^c 
-\rightarrow 0$, $\alpha_t^c \rightarrow 0$ up to an accuracy of one 
-degree). The neck and the eyes vergence are instead positioned so 
-as to face the target, i.e. the final value of $\theta_p$, 
-$\theta_y$ and $\alpha_v^d$ differ from zero.}
+to an accuracy of one pixel). The bottom left picture shows the time 
+response of the eyes position ($\alpha_v^d$: solid, $\alpha_v^c$: dashed, 
+$\alpha_t^c$: dotted); notice that the eyes 
+effectively reache a straight gaze configuration ($\alpha_v^c 
+\rightarrow 0$, $\alpha_t^c \rightarrow 0$) and the target distance is
+encoded in the vergence $\alpha_v^d$ whose steady state value is different
+from zero. Finally, the right bottom picture shows the neck movement ($\theta_p$
+:solid, $\theta_y$: dashed). The pan and tilt steady state 
+values are used to encode the target direction.}
 \label{Fig:TimeResponse}
 \end{figure}
