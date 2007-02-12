@@ -73,8 +73,8 @@ $\xhand$:
 \label{Eq:forward}
 \mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
 %
-It is easy to train a neural network to  approximate the arm forward mapping 
-(Eq. \ref{Eq:forward}): 
+In the next section we show how we trained a neural network to approximate
+the arm forward mapping (Eq. \ref{Eq:forward}): 
 %
 \begin{equation} 
 \label{Eq:forward2}
@@ -141,7 +141,7 @@ a test set (725 samples). The neural network we employed was the
 Receptive Field Weighted Regression model proposed 
 by \cite{schaal98Constructive}. This network implements an online learning
 method, meaning that a learning step is performed every time a new 
-sample is shown to the network. All samples in the training set were shown
+sample is presented to the network. All samples in the training set were shown
 to the network in a random order. After each training step the 
 performance of the network was validated on the whole test set, by computing
 the mean squared error between each sample in the test set and the 
@@ -154,7 +154,7 @@ In the experiment reported in this paper the network was trained offline.
 This was to simplify the analysis of the results and perform cross-validation 
 on a predefined test set. However, the learning algorithm we used was purely 
 incremental (each sample was shown to the network only once and immediatly 
-discarded), so in this regard it will be straightforward to have an 
+discarded), so in this regard it would be straightforward to have an 
 online implementation of the same mechanism.
 
 \begin{figure}[tbp]
@@ -174,7 +174,7 @@ We know that the Jacobian matrix relates movement of the arm
 $\deltaqarm$ in the joint space with displacement of the hand 
 \begin{math}\deltauhand=
 \left[ \begin{array}{ccc}
-  \delta u_r & \delta v_r & \delta u_{l}
+  \delta u_r & \delta u_l & \delta v_{l}
 \end{array} \right]^T\end{math} 
 in the image plane, formally:
 %
@@ -234,7 +234,7 @@ to the one which produces the minimum joint speeds, that is:
 \qquad \jacobian^\# \in \mathbb R^{4 \times 3},
 \end{equation}
 %
-where $\jacobian^\#$ is pseudo-inverse of $\jacobian$).
+where $\jacobian^\#$ is the pseudo-inverse of $\jacobian$.
 
 \subsection{Learning the Arm Jacobian}
 %
@@ -249,7 +249,7 @@ moves the arm randomly, while maintainining gaze on the hand. At
 the end of each movement $j$ the arm is in a configuration 
 $\qarm^j$,  while the eyes are fixating the hand 
 ($\uhand \approx 0$) with the gaze centered within the neck 
-(the head tracker has been reached convergence). Each 
+(the head tracker has reached convergence). Each 
 arm configuration corresponds to a different value of 
 $\jacobian_j=\jacobian\left(\qarm^j\right)$. 
 Now the robot inhibits the head tracker and performs a sequence $m$
@@ -266,7 +266,7 @@ $\uhand$ of small amounts $\deltauhand^k$:
 \end{center}
 %
 All $m$ perturbations $\deltauhand^k$ and 
-$\deltaqarm^k$ are linearly realated thourgh $\jacobian_i$ 
+$\deltaqarm^k$ are linearly related through $\jacobian_i$ 
 as described in Eq. (\ref{eq:jacobian2}). From these $m$ 
 observations we can derive a least squares estimation of $\jacobian_j$ from 
 which, in turn, we can compute the pseudo-inverse $\jacobian_j^\#$. 
@@ -293,7 +293,7 @@ $\hat{\jacobian}^\# \in \mathbb R^{4 \times 3}$.
 We report here the result of a learning session. The robot explored 210 
 different arm positions $\qarm^j$ randomly distributed within a region of 
 the workspace. In each of these positions the robot executed $m=10$ 
-perturbations $\deltaqarm^k$ and estimated an example $\jacobian_i^j$ for 
+perturbations $\deltaqarm^k$ and estimated an example $\jacobian^\#_j$ for 
 the neural network. Overall we collected 210 samples for $\jacobian^\#$. 
 We trained the neural network on a subset of 158 elements (train set); each 
 sample was shown to the network only once and then discarded. Following each 
