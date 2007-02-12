@@ -1,73 +1,87 @@
 \section{Reaching}
 \label{sec:reaching}
 
-In this section, we describe two approaches which have been 
-implemented on our robot to solve the reaching task. A first method 
+In this section, we describe the two approaches we followed to solve
+the reaching task on our robot.The first method 
 uses the forward mapping between the arm joint space and the three 
 dimensional position of the hand represented in the head reference 
 frame $\begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top 
 \in \mathbb R^3$. 
 The second method uses a visual servoing technique to control the 
-speed of the arm so to minimize the position of the hand in the 
+speed of the arm to minimize the position of the hand in the 
 image plane with respect to a desired target (usually the fixated object).
 
 \subsection{Open Loop Reaching}
 %
 Suppose the robot is tracking a target using the control strategy described in 
-Section \ref{Sec:TrackerController}. In the further assumption of perfect 
+Section \ref{Sec:TrackerController}. In the assumption of perfect 
 tracking (the visual error is zero), the three dimensional spatial position 
 of the target with respect to the robot, denoted $\tilde {\mathbf x}_{target} 
 \in \mathbb R^3$, 
 is a function of the head configuration $\mathbf q_{head} =
 \begin{bmatrix} \theta_y & \theta_p & \theta_r & \alpha_v^d & \alpha_v^c & \alpha_t^c \end{bmatrix}^\top \in \mathbb R^6$.
-However, the representation of the target position, $\tilde {\mathbf x}_{target}$, 
-in terms of the full head configuration, $\mathbf q_{head}$, is clearly redundant.
-Specifically, the same target position can be represented different head configurations. 
-In order to obtain a one to one mapping between the target configuration and the 
-head position we have to carefully analyze the {\tt tracker controller}. During tracking 
-$\theta_r$ is maintained stationary ($\theta_r^d = 0$), while the head controller 
-poses additional constraints on the head joints; in particular we know from section 
-\ref{Sec:TrackerController} that the controller minimizes $\alpha_t^c$ and
-$\alpha^c_v$ (see equation (\ref{Eq:HeadEyeControl})) so that they asymptotically
-converge to $\alpha_t^c \rightarrow 0$ and $\alpha_v^c \rightarrow 0$. Ideally, after 
-fixation has been achieved, we should have:
+However, the representation of the target position, 
+$\tilde {\mathbf x}_{target}$, in terms of the full head configuration, 
+$\mathbf q_{head}$, is clearly redundant.
+Specifically, the same target position can be represented by different 
+head configurations. To obtain a one to one mapping between the target 
+position and the head configuration we have to analyze the 
+{\tt tracker controller}. The latter maintains $\theta_r$ stationary 
+($\theta_r^d = 0$) and poses additional constraints on the head joints. 
+In particular we know from section \ref{Sec:TrackerController} that the 
+controller minimizes $\alpha_t^c$ and $\alpha^c_v$ (see equation 
+(\ref{Eq:HeadEyeControl})) so that they asymptotically
+converge to zero ($\alpha_t^c \rightarrow 0$ and 
+$\alpha_v^c \rightarrow 0$). Ideally, after 
+fixation is achieved, we have:
 %
 \begin{eqnarray}
 {\mathbf q}_{head}=
 \begin{bmatrix} \theta_y & \theta_p & 0 & \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
 \end{eqnarray}
 %
-Since there exists a one to one mapping between the three dimensional position of the target 
-$\tilde {\mathbf x}_{target}$ and the three non-zero variables $\theta_y$, $\theta_p$ 
-and $\alpha_v^d$, we can define:
+Since there exists a one to one mapping between the three dimensional 
+position of the target 
+$\tilde {\mathbf x}_{target}$ and the three non-zero variables 
+$\theta_y$, $\theta_p$ and $\alpha_v^d$, we can define:
 %
 \begin{eqnarray}
 \mathbf x_{target}=
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
 \end{eqnarray}
 %
-This new variable $\mathbf x_{target} \in \mathbb R^3$ uniquely codes the position 
-of the target. The representation is very similar to a three dimensional polar 
-representation in which $\theta_y$ and $\theta_p$ code respectively azimuth 
-and elevation, while distance is substituted with $\alpha_v$ (\emph{vergence} angle). 
+This new variable $\mathbf x_{target} \in \mathbb R^3$ uniquely codes the 
+spatial position of the target in a way that resembles a three dimensional 
+polar representation. In particular $\theta_y$ and $\theta_p$ code 
+respectively \emph{azimuth} and \emph{elevation}, while \emph{distance} is 
+substituted with $\alpha_v$ (the \emph{vergence} angle). 
 
-If the robot is tracking the hand, the same subset of the head joint space can be used to code the spatial location of the hand:
+If the robot tracks the hand, the same subset of the head joint space 
+can be used to code the spatial location of the hand:
 %
 \begin{eqnarray*}
 \xhand=
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
 \end{eqnarray*}
 %
-Under these assumptions we can train a neural network to approximate the 
-forward mapping between the arm joint space $\qarm$ and the 
-position of the hand $\xhand$:
+Under these assumtions, the \emph{forward mapping} 
+$f_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4$
+relates the arm configuration $\qarm$ with the position of the hand 
+$\xhand$:
 %
 \begin{equation} 
 \label{Eq:forward}
 \mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
 %
-Suppose now that we want to control the robot to reach for a target 
-that is currently fixated. Formally the problem can be formulated 
+It is easy to train a neural network to  approximate the arm forward mapping 
+(Eq. \ref{Eq:forward}): 
+%
+\begin{equation} 
+\label{Eq:forward2}
+\mathbf x_{hand}=\hat{f}_{arm}(\mathbf q_{arm}), \qquad \hat{f}_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
+%
+Suppose now that the robot is fixating a target and that we want to control 
+the robot to reach for it. Formally the problem can be formulated 
 as determining the value of $\qarm$ which solves the 
 following minimization:
 %
@@ -78,12 +92,11 @@ following minimization:
 \end{equation}
 %
 where $\mathbf x_{target}$ is measured from the encoders of the head, while 
-$\mathbf x_{hand}$ is computed from $\qarm$ through Eq. (\ref{Eq:forward}). 
+$\mathbf x_{hand}$ is computed from $\qarm$ through Eq. (\ref{Eq:forward2}).
 Given the redundancy of the arm kinematics the minimization 
-(\ref{Eq:reaching1}) has infinite solutions. To 
-overcome this problem we constrained the solution so that one of the joint, 
-for example joint number 2, is forced to remain as close as possible to 
-a predefined position $q_{20}$:
+(\ref{Eq:reaching1}) has infinite solutions. We constrained the problem by 
+forcing one of the joints, for example joint number 2, to remain as close 
+as possible to a predefined value $q_{20}$:
 %
 \begin{equation} 
 \label{Eq:reaching2}
@@ -93,7 +106,7 @@ a predefined position $q_{20}$:
   \right].
 \end{equation}
 
-The optimization of (\ref{Eq:reaching2}) can be performed numercially with 
+The optimization of (\ref{Eq:reaching2}) can be performed numerically with 
 different tools. Discussing the different properties of these numerical 
 tools falls outside the scope of this paper. In our implementation, we used 
 the downhill simplex method \cite{ne:Computer:65} as implemented in 
@@ -124,38 +137,39 @@ which approximates Eq. (\ref{Eq:forward}).
 
 In the experiment reported in this paper we collected a data set of 
 about 2890 samples that we devided in a training set (2168 samples) and 
-a test set (725 samples). We used the training set to train a neural 
-network to approximate Eq. (\ref{Eq:forward}). The neural network 
-we employed was the Receptive Field Weighted Regression model proposed 
+a test set (725 samples). The neural network we employed was the 
+Receptive Field Weighted Regression model proposed 
 by \cite{schaal98Constructive}. This network implements an online learning
 method, meaning that a learning step is performed every time a new 
 sample is shown to the network. All samples in the training set were shown
-to the network only once in a random order. After each training step the 
+to the network in a random order. After each training step the 
 performance of the network was validated on the whole test set, by computing
 the mean squared error between each sample in the test set and the 
 corresponding network output. The plot in figure (\ref{fig:reaching-error})
-shows the trend of the error on the test set during learning. The final 
-mse was 5.7 with standard deviation 10.4.
+shows the trend of the error on the test set during learning. At the end of
+the training the network reached the performance of $\emph{mse}=5.7$ 
+with $\emph{std}=10.4$.
 
-In the experiment reported in this paper learning was performed offline. 
+In the experiment reported in this paper the network was trained offline. 
 This was to simplify the analysis of the results and perform cross-validation 
 on a predefined test set. However, the learning algorithm we used was purely 
 incremental (each sample was shown to the network only once and immediatly 
-discarded), so from a point of view of the learning it would be 
-straightforward to have an online implementation of the same mechanism.
+discarded), so in this regard it will be straightforward to have an 
+online implementation of the same mechanism.
 
 \begin{figure}[tbp]
 \label{fig:reaching-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
-} \caption{Learning of the arm forward function.} 
+} \caption{Learning of the arm forward function. The plot reports the \emph 
+on the test set during learning. See text.}
 \end{figure}
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
 %
-Under the assumption that the robot can visually measure the distance
-between the hand and the target, we can implement a closed loop 
-control to reach for a visually identified target.
+If the robot can visually measure the distance
+between the hand and the target, reaching can also be solved
+visually, by implementing a closed loop control.
 
 We know that the Jacobian matrix relates movement of the arm 
 $\deltaqarm$ in the joint space with displacement of the hand 
@@ -187,8 +201,8 @@ can rewrite equation (\ref{eq:jacobian1}) as:
 \end{equation}
 %
 
-From equation (\ref{Eq:forward}) it is clear that 
-$\qarm$ and $\xtarget$ are redundant and only $\qarm$ is 
+Moreover, from equation (\ref{Eq:forward}) it is clear that 
+$\qarm$ and $\xtarget$ are redundant and that only $\qarm$ is 
 sufficient to uniquely identify the position of the head. Eq.
 (\ref{eq:jacobian2}) can be further simplified to:
 %
@@ -199,11 +213,10 @@ sufficient to uniquely identify the position of the head. Eq.
   \deltaqarm,\qquad \jacobian \in \mathbb R^{3,4}
 \end{equation}
 %
-in which $\jacobian$ depend only on the arm 
-joint configuration $\qarm$.
+in which $\jacobian$ depend only on the arm joint configuration $\qarm$.
 
 Suppose now the robot has to reach for an object, whose visual position is 
-represented by $\utarget$. To solve the problem 
+represented by $\utarget$. To solve this problem 
 the controller of the arm needs to compute the arm command which minimizes 
 the error:
 %
@@ -213,14 +226,16 @@ the error:
 %
 When the head tracker has achieved convergence on the object, 
 $\utarget \approx 0 $ and $e$ $\approx \left||\uhand\right||^2$.
-The following control strategy minimizes $e$:
+Due to the redundancy of the arm, the minimization of $e$ can have
+infinite solutions. Among them, the minimum norm solution corresponds
+to the one which produces the minimum joint speeds, that is:
 %
 \begin{equation}
 \mathbf{\dot q}_{arm}=-k \cdot \jacobian^\# \uhand, 
 \qquad \jacobian^\# \in \mathbb R^{4,3},
 \end{equation}
 %
-where $\jacobian^\#$ is the pseudo-inverse of $\jacobian$.
+where $\jacobian^\#$ is pseudo-inverse of $\jacobian$).
 
 \subsection{Learning the Arm Jacobian}
 %
@@ -235,7 +250,7 @@ moves the arm randomly, while maintainining gaze on the hand. At
 the end of each movement $j$ the arm is in a configuration 
 $\qarm^j$,  while the eyes are fixating the hand 
 ($\uhand \approx 0$) with the gaze centered within the neck 
-(convergence of the head tracker has been achieved). Each 
+(the head tracker has been reached convergence). Each 
 arm configuration corresponds to a different value of 
 $\jacobian_j=\jacobian\left(\qarm^j\right)$. 
 Now the robot inhibits the head tracker and performs a sequence $m$
@@ -256,6 +271,7 @@ $\deltaqarm^k$ are linearly realated thourgh $\jacobian_i$
 as described in Eq. (\ref{eq:jacobian2}). From these $m$ 
 observations we can derive a least squares estimation of $\jacobian_j$ from 
 which, in turn, we can compute the pseudo-inverse $\jacobian_j^\#$. 
+
 Re-iterating this procedure leads to the collection of a series of examples:
 %
 \begin{center}
@@ -275,23 +291,25 @@ obtained by training a neural network:
 whose output components are the coefficients of 
 $\hat{\jacobian}^\# \in \mathbb R^{4 \times 3}$.
 
-We report here the result of a learning session. The robot explored 210 different 
-arm positions $\qarm^j$ randomly distributed within a region of the workspace. In 
-each of these positions the robot executed $m=10$ perturbations 
-$\deltaqarm^k$ and estimated an example $\jacobian_i^j$ for the neural network.Overall
-we collected 210 samples of $\jacobian^\#$. We trained the neural network on a 
-subset of 158 elements (train set); each sample was shown to the network only once 
-and then discarded. Following each training step, we evaluated the performance of 
-the network by computing mean squared error and standard deviation on the 
-remainder 52 elements (test set). At the end of the training the error on the test 
-set was 2, with stadard deviation 7.1. Figure 
-\ref{fig:jacobian-error} reports the plot of the error during learning.
+We report here the result of a learning session. The robot explored 210 
+different arm positions $\qarm^j$ randomly distributed within a region of 
+the workspace. In each of these positions the robot executed $m=10$ 
+perturbations $\deltaqarm^k$ and estimated an example $\jacobian_i^j$ for 
+the neural network. Overall we collected 210 samples for $\jacobian^\#$. 
+We trained the neural network on a subset of 158 elements (train set); each 
+sample was shown to the network only once and then discarded. Following each 
+training step, we evaluated the performance of the network by computing 
+\emph{mse} and \emph{std} on the remaining 52 elements (test set). At the 
+end of the training the error on the test set was $\emph{mse}=2$, with 
+$\emph{std}=7.1$. Figure \ref{fig:jacobian-error} reports the plot of 
+the error during learning.
 %
 \begin{figure}[tbp]
 \label{fig:jacobian-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/jacobian-error.eps}
-} \caption{Learning the arm jacobian.} 
+} \caption{Learning the arm jacobian. The plot represents the \emph{mse} on 
+the test set during learning. See text.} 
 \end{figure}
 %
 
