@@ -123,7 +123,7 @@ phase the robot tracked the hand, and collected samples of the form:
 \begin{center}
 \begin{math}
   \left(\begin{array}{cc}
-    \qarm^i , \xhand^i\end{array}\right)_{i \in 0,1\dots}
+    \qarm^i , \xhand^i\end{array}\right)_{i = 0,1\dots}
 \end{math}
 \end{center}
 %
@@ -145,7 +145,7 @@ sample is shown to the network. All samples in the training set were shown
 to the network in a random order. After each training step the 
 performance of the network was validated on the whole test set, by computing
 the mean squared error between each sample in the test set and the 
-corresponding network output. The plot in figure (\ref{fig:reaching-error})
+corresponding network output. The plot in figure \ref{fig:reaching-error}
 shows the trend of the error on the test set during learning. At the end of
 the training the network reached the performance of $\emph{mse}=5.7$ 
 with $\emph{std}=10.4$.
@@ -158,11 +158,10 @@ discarded), so in this regard it will be straightforward to have an
 online implementation of the same mechanism.
 
 \begin{figure}[tbp]
-\label{fig:reaching-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
 } \caption{Learning of the arm forward function. The plot reports the \emph 
-on the test set during learning. See text.}
+on the test set during learning. See text.}\label{fig:reaching-error}
 \end{figure}
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
@@ -175,7 +174,7 @@ We know that the Jacobian matrix relates movement of the arm
 $\deltaqarm$ in the joint space with displacement of the hand 
 \begin{math}\deltauhand=
 \left[ \begin{array}{ccc}
-  \delta u_r & \delta v_r & \delta u_{lm}
+  \delta u_r & \delta v_r & \delta u_{l}
 \end{array} \right]^T\end{math} 
 in the image plane, formally:
 %
@@ -197,7 +196,7 @@ can rewrite equation (\ref{eq:jacobian1}) as:
 \label{eq:jacobian2}
   \deltauhand=
   \tilde{\jacobian}\left(\qarm, \xtarget\right)
-  \deltaqarm, \qquad \tilde{\jacobian} \in \mathbb R^{3,4}.
+  \deltaqarm, \qquad \tilde{\jacobian} \in \mathbb R^{3 \times 4}.
 \end{equation}
 %
 
@@ -210,7 +209,7 @@ sufficient to uniquely identify the position of the head. Eq.
 \label{eq:jacobian3}
   \deltauhand=
   \jacobian \left(\qarm\right)
-  \deltaqarm,\qquad \jacobian \in \mathbb R^{3,4}
+  \deltaqarm,\qquad \jacobian \in \mathbb R^{3\times4}
 \end{equation}
 %
 in which $\jacobian$ depend only on the arm joint configuration $\qarm$.
@@ -221,18 +220,18 @@ the controller of the arm needs to compute the arm command which minimizes
 the error:
 %
 \begin{equation}
-  e=\left||\uhand-\utarget\right||^2.
+  e=\left\|\uhand-\utarget\right\|^2.
 \end{equation}
 %
 When the head tracker has achieved convergence on the object, 
-$\utarget \approx 0 $ and $e$ $\approx \left||\uhand\right||^2$.
+$\utarget \approx 0 $ and $e$ $\approx \left\|\uhand\right\|^2$.
 Due to the redundancy of the arm, the minimization of $e$ can have
 infinite solutions. Among them, the minimum norm solution corresponds
 to the one which produces the minimum joint speeds, that is:
 %
 \begin{equation}
 \mathbf{\dot q}_{arm}=-k \cdot \jacobian^\# \uhand, 
-\qquad \jacobian^\# \in \mathbb R^{4,3},
+\qquad \jacobian^\# \in \mathbb R^{4 \times 3},
 \end{equation}
 %
 where $\jacobian^\#$ is pseudo-inverse of $\jacobian$).
@@ -262,7 +261,7 @@ $\uhand$ of small amounts $\deltauhand^k$:
   \left(\begin{array}{cc}
     \deltauhand^k , 
 	\deltaqarm^k \end{array}
-  \right)_{k \in 0,1\dots,m}
+  \right)_{k = 0,1\dots,m}
 \end{math}
 \end{center}
 %
@@ -277,7 +276,7 @@ Re-iterating this procedure leads to the collection of a series of examples:
 \begin{center}
 \begin{math}
   \left(\begin{array}{cc}
-    \qarm^j , \jacobian_j^\# \end{array}\right)_{j \in 0,1\dots}
+    \qarm^j , \jacobian_j^\# \end{array}\right)_{j = 0,1\dots}
 \end{math}
 \end{center}
 %
@@ -305,11 +304,10 @@ $\emph{std}=7.1$. Figure \ref{fig:jacobian-error} reports the plot of
 the error during learning.
 %
 \begin{figure}[tbp]
-\label{fig:jacobian-error}
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/jacobian-error.eps}
 } \caption{Learning the arm jacobian. The plot represents the \emph{mse} on 
-the test set during learning. See text.} 
+the test set during learning. See text.} \label{fig:jacobian-error}
 \end{figure}
 %
 
