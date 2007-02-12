@@ -9,11 +9,11 @@ One of the main modules in the reaching controller is represented by the {\tt tr
 \centering
 \includegraphics[width=40mm]{Figure/LeftImage.eps} \hspace{1cm}
 \includegraphics[width=40mm]{Figure/RightImage.eps}
-\caption{Two typical images taken from the two cameras mounted on the eyes of the robot. The attention system gives us the target position on the two image planes (in this case the center of the blue ball). The coordinates of the target on the right image plane will be denoted $u_r$, $v_r$, while on the left image will be denoted $u_l$, $v_l$. The {\tt tracker controller} task is to move the eyes and the neck in order to keep the target point at the center of the two image planes, i.e. $u_r = v_r = u_l = v_l = 0$.}
+\caption{Two typical images taken from the two cameras mounted on the eyes of the robot. The attention system gives us the target position on the two image planes (in this case the center of the blue ball). The coordinates of the target on the right image plane will be denoted $u_r$, $v_r$, while on the left image will be denoted $u_l$, $v_l$. The {\tt tracker controller} task consists in moving the eyes and the neck in order to keep the target point at the center of the two image planes, i.e. $u_r = v_r = u_l = v_l = 0$.}
 \label{Fig:ImagePlane}
 \end{figure}
  
-In this section we describe how the tracker has been implemented on James. The crucial aspect concerns the redundancy of the control problem as it has been stated above. In order to state this more clearly, we need to be more rigorous in defining the control task previously described as ``directing gaze toward a given target''. Specifically, let $u_r$ and $v_r$ be the coordinates of the target on the right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates of the target on the left image plane. As it was previously said, the values of $u_r$, $v_r$, $u_l$, $v_l$ will be the output of another module, the {\tt target locator}. Therefore, directing gaze toward the target consists in moving the neck and the eyes so as to obtain $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. Let us define the vector $\tilde {\mathbf u}_{target}= \begin{bmatrix} u_r & v_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the target location in the image planes. Assuming that the target does not move with respect to the robot, we have that $\tilde {\mathbf u}_{target}$ can be expressed as a function of the head configuration $\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes} & \mathbf q_{neck} \end{bmatrix}^\top \in \mathbb R^6$:
+In this section we describe how the tracker has been implemented on James. The crucial aspect concerns the redundancy of the control problem as it has been stated above. In order to state this more clearly, we need to be more rigorous in defining the control task previously described as ``directing gaze toward a given target''. Specifically, let $u_r$ and $v_r$ be the coordinates of the target on the right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates of the target on the left image plane (see Figure \ref{Fig:ImagePlane}). As it was previously said, the values of $u_r$, $v_r$, $u_l$, $v_l$ will be the output of another module, the {\tt target locator}. Therefore, directing gaze toward the target consists in moving the neck and the eyes so as to obtain $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. Let us define the vector $\tilde {\mathbf u}_{target}= \begin{bmatrix} u_r & v_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the target location in the image planes. Assuming that the target does not move with respect to the robot, we have that $\tilde {\mathbf u}_{target}$ can be expressed as a function of the head configuration $\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes}^\top & \mathbf q_{neck}^\top \end{bmatrix}^\top \in \mathbb R^6$:
 \begin{eqnarray*}
 \tilde {\mathbf u}_{target} = \tilde f_{head} (\mathbf q_{head}),
 \end{eqnarray*}
@@ -52,11 +52,11 @@ that the target is effectively driven to the image center (up
 to an accuracy of one pixel). The bottom left picture shows the time 
 response of the eyes position ($\alpha_v^d$: solid, $\alpha_v^c$: dashed, 
 $\alpha_t^c$: dotted); notice that the eyes 
-effectively reache a straight gaze configuration ($\alpha_v^c 
+effectively reach a straight gaze configuration ($\alpha_v^c 
 \rightarrow 0$, $\alpha_t^c \rightarrow 0$) and the target distance is
 encoded in the vergence $\alpha_v^d$ whose steady state value is different
-from zero. Finally, the right bottom picture shows the neck movement ($\theta_p$
-:solid, $\theta_y$: dashed). The pan and tilt steady state 
+from zero. Finally, the right bottom picture shows the neck movement ($\theta_p$: solid,
+ $\theta_y$: dashed). The pan and tilt steady state 
 values are used to encode the target direction.}
 \label{Fig:TimeResponse}
 \end{figure}
