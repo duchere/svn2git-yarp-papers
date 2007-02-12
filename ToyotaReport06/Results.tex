@@ -28,7 +28,7 @@ position of the hand. However, measuring this distance is not an easy task. In t
 we approximate the real distance using the stereo cameras image plane distance. Practically speaking, suppose the 
 robot sees a target $\utarget$ to be grasped. As we have already seen in order to reach the 
 target we need to fixate it $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point as well, i.e. $
-{\uhand}} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate for the reaching precision, intended as  the
+{\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate for the reaching precision, intended as  the
 Cartesian distance between the object to be grasped and the position of the hand. Specifically,
 assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target. In a more realistic case,
 when the image plane distance is null, we can only guarantee that the Cartesian target-hand distance
@@ -97,7 +97,7 @@ after a different open loop movement, i.e. a different value for the variable $q
 As we have already seen in Section \ref{Eq:ClosedLoop} the residual image plane errors 
 due the imperfections in the forward kinamtic model can be reduced by a visual closed loop
 control strategy. This control strategy should move the arm so as to progressively drive the
-hand image plane positions, ${\uhand$, to zero. Of course this is guaranteed 
+hand image plane positions, $\uhand$, to zero. Of course this is guaranteed 
 only if the  Jacobian matrix has been learnt in a sufficiently accurate way. Figure 
 \ref{Fig:ImagePlaneClosedLoopErrors} and \ref{Fig:TimeResponseClosedLoopErrors} 
 show how the hand is actually driven to the 
