@@ -64,7 +64,7 @@ can be used to code the spatial location of the hand:
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
 \end{eqnarray*}
 %
-Under these assumtions, the \emph{forward mapping} 
+Under these assumptions, the \emph{forward mapping} 
 $f_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4$
 relates the arm configuration $\qarm$ with the position of the hand 
 $\xhand$:
@@ -136,7 +136,7 @@ A neural network was then trained to learn the relation:
 which approximates Eq. (\ref{Eq:forward}).
 
 In the experiment reported in this paper we collected a data set of 
-about 2890 samples that we devided in a training set (2168 samples) and 
+about 2890 samples that we divided in a training set (2168 samples) and 
 a test set (725 samples). The neural network we employed was the 
 Receptive Field Weighted Regression model proposed 
 by \cite{schaal98Constructive}. This network implements an online learning
@@ -153,7 +153,7 @@ with $\emph{std}=10.4$.
 In the experiment reported in this paper the network was trained offline. 
 This was to simplify the analysis of the results and perform cross-validation 
 on a predefined test set. However, the learning algorithm we used was purely 
-incremental (each sample was shown to the network only once and immediatly 
+incremental (each sample was shown to the network only once and immediately 
 discarded), so in this regard it would be straightforward to have an 
 online implementation of the same mechanism.
 
@@ -245,7 +245,7 @@ this section we describe a procedure by which the robot can
 autonomously acquire $\jacobian$ and $\jacobian^\#$.
 
 As described in Section \ref{sec:learning-open-loop}, the robot 
-moves the arm randomly, while maintainining gaze on the hand. At 
+moves the arm randomly, while maintaining gaze on the hand. At 
 the end of each movement $j$ the arm is in a configuration 
 $\qarm^j$,  while the eyes are fixating the hand 
 ($\uhand \approx 0$) with the gaze centered within the neck 

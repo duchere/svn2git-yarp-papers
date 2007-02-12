@@ -58,7 +58,7 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
  \end{eqnarray}
  
  The above minimization is such that $\hat f_{arm}(\mathbf q_{arm}^k) = \mathbf x_{target}$. Ideally, in absence
- of modelling errors we would have $ \mathbf x_{hand} = \mathbf x_{target}$ since $\mathbf x_{hand} = f_{arm}(\mathbf q_{arm}^k)$. In practice we have $\mathbf x_{hand} \simeq \hat f_{arm}(\mathbf q_{arm})$ 
+ of modeling errors we would have $ \mathbf x_{hand} = \mathbf x_{target}$ since $\mathbf x_{hand} = f_{arm}(\mathbf q_{arm}^k)$. In practice we have $\mathbf x_{hand} \simeq \hat f_{arm}(\mathbf q_{arm})$ 
  so that we can only achieve an approximate reaching $ \mathbf x_{hand} \simeq \mathbf x_{target}$ 
  which reflects into small image plane errors $\| \uhand - \utarget\| \simeq 0$. Different choices 
  of the free variables $q_{20}^1$, $\dots$, $q_{20}^K$ lead to different image plane errors as shown 
@@ -92,10 +92,10 @@ after a different open loop movement, i.e. a different value of $q_{20}$.
 \subsection{Closed Loop}
 
 As we described in Section \ref{Eq:ClosedLoop} the residual image plane errors 
-due to imperfections in the forward kinamtic model can be reduced by a visual closed loop
+due to imperfections in the forward kinematic model can be reduced by a visual closed loop
 control strategy. This control strategy move the arm so as to progressively 
 drive the hand position in the image planes ($\uhand$) to zero. Of course this is guaranteed 
-only if the  Jacobian matrix has been learnt in a sufficiently accurate way. Figures 
+only if the  Jacobian matrix has been learned in a sufficiently accurate way. Figures 
 \ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors},  \ref{Fig:TimeResponseOpenClosedLoop} and \ref{Fig:TimeResponseOpenClosedLoopErrors} 
 show how the hand is actually driven to the 
 exact image center in both the image planes. Moreover, it is important to notice the
