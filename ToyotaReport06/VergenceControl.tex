@@ -1,7 +1,8 @@
 \section{Tracker controller}
 \label{Sec:TrackerController}
 
-One of the main modules in the reaching controller is represented by the {\tt tracker controller}. The control objective of this specific module consists in directing gaze toward a given target. The input of this module is represented by the target location in the image planes of the right and left eyes; this information is passed by the {\tt target locator} module whose implementation falls outside the scope of this section. The output instead consists in the head motor commands necessary to direct gaze toward the target. 
+One of the main modules in the reaching controller is represented by the {\tt tracker controller}. The control objective of this specific module consists in directing gaze toward a given target. The input of this module is represented by the target location in the image planes of the right and left eyes; this information is received by the {\tt target locator} module whose task is to find the target in the right and left image planes.
+The output instead consists in the head motor commands necessary to direct gaze toward the target. 
 
 \subsection{Implementation}
 
@@ -13,7 +14,7 @@ One of the main modules in the reaching controller is represented by the {\tt tr
 \label{Fig:ImagePlane}
 \end{figure}
  
-In this section we describe how the tracker has been implemented on James. The crucial aspect concerns the redundancy of the control problem as it has been stated above. In order to state this more clearly, we need to be more rigorous in defining the control task previously described as ``directing gaze toward a given target''. Specifically, let $u_r$ and $v_r$ be the coordinates of the target on the right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates of the target on the left image plane (see Figure \ref{Fig:ImagePlane}). The values of $u_r$, $v_r$, $u_l$, $v_l$ will be the output of another module, the {\tt target locator}. Therefore, directing gaze toward the target consists in moving the neck and the eyes so as to obtain $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. Let us define the vector $\tilde {\mathbf u}_{target}= \begin{bmatrix} u_r & v_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the target location in the image planes. Assuming that the target does not move with respect to the robot, we have that $\tilde {\mathbf u}_{target}$ can be expressed as a function of the head configuration $\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes}^\top & \mathbf q_{neck}^\top \end{bmatrix}^\top \in \mathbb R^6$:
+In this section we describe how the tracker has been implemented on James. The crucial aspect concerns the redundancy of the control problem as it has been stated above. In order to state this more clearly, we need to be more rigorous in defining the control task previously described as ``directing gaze toward a given target''. Specifically, let $u_r$ and $v_r$ be the coordinates of the target on the right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates of the target on the left image plane (see Figure \ref{Fig:ImagePlane}). The values of $u_r$, $v_r$, $u_l$, $v_l$ are the output of another module, the {\tt target locator}. Therefore, directing gaze toward the target consists in moving the neck and the eyes so as to obtain $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. Let us define the vector $\tilde {\mathbf u}_{target}= \begin{bmatrix} u_r & v_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the target location in the image planes. Assuming that the target is stationary with respect to the robot, we have that $\tilde {\mathbf u}_{target}$ can be expressed as a function of the head configuration $\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes}^\top & \mathbf q_{neck}^\top \end{bmatrix}^\top \in \mathbb R^6$:
 \begin{eqnarray*}
 \tilde {\mathbf u}_{target} = \tilde f_{head} (\mathbf q_{head}),
 \end{eqnarray*}
@@ -39,10 +40,10 @@ where $\alpha_t^c$ and $\alpha_v^c$ are the eyes version and common tilt and whe
 \end{eqnarray}
 Finally, the neck roll degree of freedom $\theta_r$ is maintained fixed, i.e. $\theta_r^d=0$.
 
-The proposed control strategy allows us to asymptotically fixate the target ($u_l \rightarrow 0$, $v_l \rightarrow 0$, $u_r \rightarrow 0$ which implies $v_r \rightarrow 0$) while also also guaranteeing an asymptotically  straight gaze ($\alpha_v^c \rightarrow 0$, $\alpha_t^c \rightarrow 0$). Moreover, by choosing a suitable value for the gains $K_p$, $K_y$, $K_t$ and $K_r$ it is possible to achieve an asymptotic behavior with the eyes moving rapidly on the target and the neck following the eye movement with a slower movement. Using this control strategy (\ref{Eq:HeadEyeControl}), we obtained the tracking results shown in Figure \ref{Fig:TimeResponse}.
+The proposed control strategy allows us to asymptotically fixate the target ($u_l \rightarrow 0$, $v_l \rightarrow 0$, $u_r \rightarrow 0$ which implies $v_r \rightarrow 0$) while also also guaranteeing an asymptotically  straight gaze ($\alpha_v^c \rightarrow 0$, $\alpha_t^c \rightarrow 0$). Moreover, by choosing a suitable value for the gains $K_p$, $K_y$, $K_t$ and $K_r$ it is possible to achieve an asymptotic behavior with the eyes moving rapidly on the target and the neck following the eye movement with a slower movement\footnote{\samepage Choosing suitable values for the gains $K_p$, $K_y$, $K_t$ and $K_r$ is not an easy task. Practically, this is due to the fact that the controlled system is nonlinear. Therefore, the system time response (settling time, overshoot, step time) may vary considerably depending on the system initial configuration. The large overshoot observed in Figure \ref{Fig:TimeResponse} is a consequence of this non-linearity.} (see Figure \ref{Fig:TimeResponse}).
 
 
-\begin{figure}[!ht]
+\begin{figure} [!ht]
 \centering
 \includegraphics[width=80mm]{Figure/TimeResponseImage.eps}\\ \includegraphics[width=60mm]{Figure/TimeResponseEyes.eps}
 \includegraphics[width=60mm]{Figure/TimeResponseEyesNeck.eps}

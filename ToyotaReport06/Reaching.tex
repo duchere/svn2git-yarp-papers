@@ -5,9 +5,7 @@ In this section, we describe the two approaches we followed to solve
 the reaching task on our robot.The first method 
 uses the forward mapping between the arm joint space and the three 
 dimensional position of the hand represented in the head reference 
-frame $\begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top 
-\in \mathbb R^3$. 
-The second method uses a visual servoing technique to control the 
+frame. The second method uses a visual servoing technique to control the 
 speed of the arm to minimize the position of the hand in the 
 image plane with respect to a desired target (usually the fixated object).
 
@@ -65,13 +63,13 @@ can be used to code the spatial location of the hand:
 \end{eqnarray*}
 %
 Under these assumptions, the \emph{forward mapping} 
-$f_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4$
+$f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3$
 relates the arm configuration $\qarm$ with the position of the hand 
 $\xhand$:
 %
 \begin{equation} 
 \label{Eq:forward}
-\mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
+\mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3.\end{equation}
 %
 In the next section we show how we trained a neural network to approximate
 the arm forward mapping (Eq. \ref{Eq:forward}): 
@@ -83,7 +81,7 @@ the arm forward mapping (Eq. \ref{Eq:forward}):
 Suppose now that the robot is fixating a target and that we want to control 
 the robot to reach for it. Formally the problem can be formulated 
 as determining the value of $\qarm$ which solves the 
-following minimization:
+following optimization problem:
 %
 \begin{equation} 
 \label{Eq:reaching1}
@@ -106,9 +104,9 @@ as possible to a predefined value $q_{20}$:
   \right].
 \end{equation}
 
-The optimization of (\ref{Eq:reaching2}) can be performed numerically with 
-different tools. Discussing the different properties of these numerical 
-tools falls outside the scope of this paper. In our implementation, we used 
+The optimization of (\ref{Eq:reaching2}) can be performed numerically using various algorithms. 
+Discussing the different properties of these numerical 
+solutions falls outside the scope of this paper. In our implementation, we used 
 the downhill simplex method \cite{ne:Computer:65} as implemented in 
 \cite{mo:Press:90}.
 
@@ -157,26 +155,35 @@ incremental (each sample was shown to the network only once and immediately
 discarded), so in this regard it would be straightforward to have an 
 online implementation of the same mechanism.
 
-\begin{figure}[tbp]
+\begin{figure}[!htbp]
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
-} \caption{Learning of the arm forward function. The plot reports the \emph 
-on the test set during learning. See text.}\label{fig:reaching-error}
+} \caption{Learning of the arm forward function. The plot reports the \emph{error}
+on the test set during learning (see the text for details). The error is in degrees since $\xhand$
+is a vector formed by three angles.}\label{fig:reaching-error}
 \end{figure}
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
 %
 If the robot can visually measure the distance
 between the hand and the target, reaching can also be solved
-visually, by implementing a closed loop control.
+visually, by implementing a closed loop control. The underlying idea consists in
+performing a preliminary (open loop) reaching movement and then refining the action
+by visually correcting any residual error. 
 
-We know that the Jacobian matrix relates movement of the arm 
-$\deltaqarm$ in the joint space with displacement of the hand 
-\begin{math}\deltauhand=
-\left[ \begin{array}{ccc}
-  \delta u_r & \delta u_l & \delta v_{l}
-\end{array} \right]^T\end{math} 
-in the image plane, formally:
+We know that the Jacobian matrix relates arm velocities $\dot {\mathbf q}_{arm}$
+with hand velocities in the image plane $\dot {\mathbf u}_{hand} = \left[ 
+\begin{array}{ccc}
+  \dot u_r & \dot u_l & \dot v_{l}
+\end{array} \right]^\top$:
+\begin{equation} 
+  \dot {\mathbf u}_{hand}=
+  \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf q_{head}\right)
+  \dot {\mathbf q}_{arm},
+\end{equation}
+where $\tilde{\jacobian} \in \mathbb R^{3 \times 4}$ depends on 
+both the configuration of the arm and the head. Practically, assuming sufficiently small
+arm movements $\deltaqarm$, we can use the following approximation:
 %
 \begin{equation} 
 \label{eq:jacobian1}
@@ -184,10 +191,9 @@ in the image plane, formally:
   \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf q_{head}\right)
   \deltaqarm,
 \end{equation}
-%
-where $\tilde{\jacobian} \in \mathbb R^{3 \times 4}$ depends on 
-both the configuration of the arm and the head. Due to the 
-additional constrained posed by the head tracker, we showed
+where $\deltauhand$ = $[ \Delta u_r$, $\Delta u_l$, $\Delta v_{l}]^\top$
+is the image plane displacement resulting from the arm movement $\deltaqarm$. Due to the 
+additional constraints posed by the head tracker, we showed
 that only a subset of $\qhead$, $\xtarget$, is 
 sufficient to uniquely identify the position of the head, so we 
 can rewrite equation (\ref{eq:jacobian1}) as:
@@ -200,9 +206,8 @@ can rewrite equation (\ref{eq:jacobian1}) as:
 \end{equation}
 %
 
-Moreover, from equation (\ref{Eq:forward}) it is clear that 
-$\qarm$ and $\xtarget$ are redundant and that only $\qarm$ is 
-sufficient to uniquely identify the position of the head. Eq.
+Moreover, after the preliminary open loop reaching movement, we know
+that $\xtarget = \hat f(\qarm)$ so that  Eq.
 (\ref{eq:jacobian2}) can be further simplified to:
 %
 \begin{equation} 
@@ -248,7 +253,7 @@ As described in Section \ref{sec:learning-open-loop}, the robot
 moves the arm randomly, while maintaining gaze on the hand. At 
 the end of each movement $j$ the arm is in a configuration 
 $\qarm^j$,  while the eyes are fixating the hand 
-($\uhand \approx 0$) with the gaze centered within the neck 
+($\uhand \approx 0$) with a straight gaze
 (the head tracker has reached convergence). Each 
 arm configuration corresponds to a different value of 
 $\jacobian_j=\jacobian\left(\qarm^j\right)$. 
@@ -269,7 +274,7 @@ All $m$ perturbations $\deltauhand^k$ and
 $\deltaqarm^k$ are linearly related through $\jacobian_i$ 
 as described in Eq. (\ref{eq:jacobian2}). From these $m$ 
 observations we can derive a least squares estimation of $\jacobian_j$ from 
-which, in turn, we can compute the pseudo-inverse $\jacobian_j^\#$. 
+which, in turn, we can compute the Moore-Penrose pseudo-inverse $\jacobian_j^\#$. 
 
 Re-iterating this procedure leads to the collection of a series of examples:
 %
@@ -295,7 +300,7 @@ different arm positions $\qarm^j$ randomly distributed within a region of
 the workspace. In each of these positions the robot executed $m=10$ 
 perturbations $\deltaqarm^k$ and estimated an example $\jacobian^\#_j$ for 
 the neural network. Overall we collected 210 samples for $\jacobian^\#$. 
-We trained the neural network on a subset of 158 elements (train set); each 
+We trained the neural network on a subset of 158 elements (training set); each 
 sample was shown to the network only once and then discarded. Following each 
 training step, we evaluated the performance of the network by computing 
 \emph{mse} and \emph{std} on the remaining 52 elements (test set). At the 

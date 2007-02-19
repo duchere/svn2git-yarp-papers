@@ -3,7 +3,7 @@
 
 In this section we describe the reaching performance obtained with 
 the reaching controller described in the previous section. Within this context,
-it is important to underline that a formal definition of the performance 
+it is important to note that a formal definition of the performance 
 index is a nontrivial task. 
 
 If we were to consider a robot which operates in an highly structured
@@ -28,16 +28,16 @@ position of the hand. However, measuring this distance is not an easy task. In t
 we approximate the real distance with the (stereo) \emph{image plane distance}. Practically speaking, suppose the 
 robot sees a target $\utarget$ to be grasped. Following our strategy, in order to reach the 
 target we need to fixate it, i.e. $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point, i.e. $
-{\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target. In a more realistic case, when the image plane distance is null, we can only guarantee that the Cartesian target-hand distance is upper bounded by a threshold which depends only on the camera intrinsic parameters\footnote{
+{\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target. In a more realistic case, when the image plane distance is null, we can only guarantee that the Cartesian target-hand distance is upper bounded by a quantity which depends only on the camera intrinsic parameters\footnote{
 Computing this upper bound is out of the scope of this paper.}. 
 
 \subsection{Open Loop}
 The first attempt to reach the target consists in using (\ref{Eq:reaching2})
 to choose the arm configuration $\q_{arm}$ which brings the hand to the center 
-of the image planes.Clearly, if the forward 
+of the image planes. Clearly, if the forward 
 kinematic function (\ref{Eq:forward}) were perfectly represented and if the target were reachable, we would have $\mathbf x_{hand} =  \mathbf x_{target}$, which implies that the target-hand Cartesian distance 
  is null (see Section \ref{sec:reaching} for details). Therefore, in this ideal case, the open loop 
- strategy already leads to $\| \uhand - \utarget \| = 0$. In practice, the model 
+ strategy already results in $\| \uhand - \utarget \| = 0$. In practice, the model 
  (\ref{Eq:forward}) cannot exactly represent the system kinematic\footnote{Part of the representational 
  errors are related to the way we have chosen the represent the kinematic function, in this case the
  so called Receptive Field Weighted Regression model. Part are due to the mechanical plays of the
@@ -93,13 +93,13 @@ after a different open loop movement, i.e. a different value of $q_{20}$.
 
 As we described in Section \ref{Eq:ClosedLoop} the residual image plane errors 
 due to imperfections in the forward kinematic model can be reduced by a visual closed loop
-control strategy. This control strategy move the arm so as to progressively 
+control strategy. This control strategy moves the arm so as to progressively 
 drive the hand position in the image planes ($\uhand$) to zero. Of course this is guaranteed 
-only if the  Jacobian matrix has been learned in a sufficiently accurate way. Figures 
+only if the  Jacobian matrix has been learned in a sufficient accuracy. Figures 
 \ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors},  \ref{Fig:TimeResponseOpenClosedLoop} and \ref{Fig:TimeResponseOpenClosedLoopErrors} 
 show how the hand is actually driven to the 
 exact image center in both the image planes. Moreover, it is important to notice the
-approximative linearity of the path followed by the hand. This linearity shows 
+approximative linearity of the path followed by the hand. This linearity denotes 
 a good accuracy of the learned Jacobian.
 
 \begin{figure}

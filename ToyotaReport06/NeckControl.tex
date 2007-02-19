@@ -1,6 +1,6 @@
-\section{Control of the neck}
+\section{Control of the neck} \label{Sec:NeckControl}
 
-The neck is characterized by a peculiar structure and has required the design of an original control technique. The final design is based on the use of an inertia sensor, which has been positioned on top of the robot head. The sensor measures the (absolute) pitch and roll rotations\footnote{The rotation is expressed by three angles which will be denoted roll ($\theta_r$), pitch ($\theta_p$) and yaw ($\theta_y$). The three motors of the neck influence the first two angles ($\theta_r$), pitch ($\theta_p$). The remaining degree of rotation ($\theta_y$) is directly influenced by the head pan which is moved by a specific motor.} of the head with respect to an inertial reference frame. Using the information from this sensor we developed a closed loop controller to orient the head in any desired configuration. 
+The neck is characterized by a peculiar structure and has required the design of an original control technique. The final design is based on the use of a set of gyroscopes, which have been positioned on top of the robot head. The sensors measure the (absolute) pitch and roll rotations\footnote{The rotation is expressed by three angles which will be denoted roll ($\theta_r$), pitch ($\theta_p$) and yaw ($\theta_y$). The three motors of the neck influence the first two angles ($\theta_r$), pitch ($\theta_p$). The remaining degree of rotation ($\theta_y$) is directly influenced by the head pan which is moved by a specific motor.} of the head with respect to an inertial reference frame. Using the information from this sensor we developed a closed loop controller to orient the head in any desired configuration. 
 
 \subsection{Neck control in details}
 
@@ -29,7 +29,7 @@ The final control loop for positioning the neck in the desired configuration ($\
 \end{eqnarray}
 where $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ is the Jacobian of the function $f$ with respect to $\theta_r$, $\theta_p$ computed at the current configuration $\theta_r$, $\theta_p$. 
 
-The above model (\ref{Eq:Model_neck}) is ideal and assumes that the three tendons are always stretched. Due to the imperfections in the model, the tendons may loose tension if the control strategy (\ref{Eq:Control_V1}) is applied for a long time. The final solution has been to apply a different control strategy which mixes two different controllers:
+The above model (\ref{Eq:Model_neck}) is ideal and assumes that the three tendons are always subject to a minimum tension. Due to the imperfections in the model, the tendons may loose tension if the control strategy (\ref{Eq:Control_V1}) is applied. Given a long enough time window th controller might drift. A corrective term is therefore required. The solution is:
 \begin{eqnarray} \label{Eq:Control_V2}
 \begin{bmatrix}
 \frac{d l_1}{dt}\\
@@ -44,4 +44,4 @@ l_2\\
 l_3
 \end{bmatrix} - f(\theta_r, \theta_p) \right),
 \end{eqnarray}
-where $\gamma$ is an arbitrary constant in the interval $[0, 1]$. The second term of the controller (the one multiplied by $\gamma$) guarantees that the the length of the cables remains similar to the length of the model. This strategy is sufficient to guarantee that the tendons maintain a tension which is more or less constant among the different configurations. In this final configuration the jacobian $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ can be substituted with a constant jacobian computed at the reference configuration $\theta_r$=$\theta_p$=0.
+where $\gamma$ is an arbitrary constant in the range $[0, 1]$. The second term of the controller (the one multiplied by $\gamma$) guarantees that the the length of the cables remains similar to the length of the model. This strategy is sufficient to guarantee that the tendons maintain a tension which is more or less constant across different configurations of the structure. In this final configuration the jacobian $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ can be substituted with a constant jacobian computed at the reference configuration $\theta_r$=$\theta_p$=0.
