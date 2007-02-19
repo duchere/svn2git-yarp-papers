@@ -1,0 +1,35 @@
+We presented a new method to reduce the number of SVs needed by a
+Support Vector Machine in an online setting, called OISVMs (Online
+Independent Support Vector Machines). OISVMs avoid using in the
+solution those support vectors which are linearly dependent of
+previous ones in the feature space --- in other words, the kernel
+matrix is always kept at full rank. The optimization problem is solved
+via an incremental algorithm which benefits of the small size of the
+kernel matrix.
+
+We tested the method both on a standard set of benchmark databases and
+a real-world case study, namely place recognition in an indoor
+environment, from sequences acquired by robot platforms under
+different weather conditions and across a time span of several months.
+
+The experimental results show that $(i)$ in the case of
+finite-dimensional kernels, OISVMs attain the theoretical limit of
+linearly independent support vectors allowed by the feature space,
+without losing any accuracy with respect to ordinary SVMs; $(ii)$ in
+the case of infinite-dimensional kernels, they dramatically reduce the
+number of support vectors at the price of a negligible degradation in
+the accuracy. In fact, OISVMs obtain an accuracy up to $0.063\%$ worse
+than SVMs with less than $5\%$ of the support vectors of a standard
+SVM on a set of standard benchmark databases; whereas, on the
+real-world application, we get as few as one third of the SVs required
+by the fixed-partition method, while retaining essentially the same
+accuracy.
+
+A current limitation of the algorithm is that it requires to store in
+memory all training data. This is unfeasible for applications like
+place recognition by robot platforms, as it might lead to a memory
+explosion. A possible solution might be to combine the OISVM with the
+KNN-SVM algorithm \cite{zhang:cvpr06}, so to keep separated the data
+storage from the discriminative classification. Another possibility is
+to discard training data in a principled way, so to minimize the
+effect on the SV solution. Future work will focus on this issue.
