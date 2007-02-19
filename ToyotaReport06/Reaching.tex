@@ -134,19 +134,27 @@ A neural network was then trained to learn the relation:
 which approximates Eq. (\ref{Eq:forward}).
 
 In the experiment reported in this paper we collected a data set of 
-about 2890 samples that we divided in a training set (2168 samples) and 
-a test set (725 samples). The neural network we employed was the 
+about 2890 samples that we divided in a training set ($N_{train}=2168$
+ samples) and 
+a test set ($N_{test}=725$ samples). The neural network we employed was the 
 Receptive Field Weighted Regression model proposed 
 by \cite{schaal98Constructive}. This network implements an online learning
 method, meaning that a learning step is performed every time a new 
 sample is presented to the network. All samples in the training set were shown
 to the network in a random order. After each training step the 
 performance of the network was validated on the whole test set, by computing
-the mean squared error between each sample in the test set and the 
-corresponding network output. The plot in figure \ref{fig:reaching-error}
+the Mean Squared Error (\emph{MSE}) between each sample in the test set, 
+$\xhand^i$, and the corresponding network output, 
+$\mathbf{\hat{x}}_{hand}^i$:
+%
+\begin{equation}
+\emph{MSE}=\frac{1}{N_{test}}\sum_{i=0}^{N_{test}-1}\|\xhand^i- \hat{\mathbf{x}}_{hand}^i\|^2
+\end{equation}
+%
+The plot in figure \ref{fig:reaching-error}
 shows the trend of the error on the test set during learning. At the end of
-the training the network reached the performance of $\emph{mse}=5.7$ 
-with $\emph{std}=10.4$.
+the training the network reached the performance of $\emph{MSE}=5.7$ 
+(with $\emph{STD}=10.4$).
 
 In the experiment reported in this paper the network was trained offline. 
 This was to simplify the analysis of the results and perform cross-validation 
@@ -158,9 +166,9 @@ online implementation of the same mechanism.
 \begin{figure}[!htbp]
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/reachingError1.eps}
-} \caption{Learning of the arm forward function. The plot reports the \emph{error}
-on the test set during learning (see the text for details). The error is in degrees since $\xhand$
-is a vector formed by three angles.}\label{fig:reaching-error}
+} \caption{Learning of the arm forward function. The plot reports the 
+\emph{MSE} on the test set during learning (see the text for details).}
+\label{fig:reaching-error}
 \end{figure}
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
@@ -300,18 +308,20 @@ different arm positions $\qarm^j$ randomly distributed within a region of
 the workspace. In each of these positions the robot executed $m=10$ 
 perturbations $\deltaqarm^k$ and estimated an example $\jacobian^\#_j$ for 
 the neural network. Overall we collected 210 samples for $\jacobian^\#$. 
-We trained the neural network on a subset of 158 elements (training set); each 
+We trained the neural network on a subset of $N_{train}=158$ elements 
+(training set); each 
 sample was shown to the network only once and then discarded. Following each 
 training step, we evaluated the performance of the network by computing 
-\emph{mse} and \emph{std} on the remaining 52 elements (test set). At the 
-end of the training the error on the test set was $\emph{mse}=2$, with 
-$\emph{std}=7.1$. Figure \ref{fig:jacobian-error} reports the plot of 
+\emph{MSE} on the remaining $N_{test}=52$ elements 
+(test set). At the 
+end of the training the error on the test set was $\emph{MSE}=2$ 
+($\emph{STD}=7.1$). Figure \ref{fig:jacobian-error} reports the plot of 
 the error during learning.
 %
 \begin{figure}[tbp]
 \centerline{
 \includegraphics[width=4.0in, angle=0 ]{./Figure/jacobian-error.eps}
-} \caption{Learning the arm jacobian. The plot represents the \emph{mse} on 
+} \caption{Learning the arm jacobian. The plot represents the \emph{MSE} on 
 the test set during learning. See text.} \label{fig:jacobian-error}
 \end{figure}
 %
