@@ -44,7 +44,7 @@ An ANOVA with Condition [two levels: \textit{Test - up} and \textit{Test - down}
 In order to have an overview of the results it is useful to perform a multiple comparison among the means of the errors in the three conditions, which supports the hypothesis of a clear separation between them (see Fig.\ref{figMultCompTTC}).
 
 
-\textcolor{red}{Observing the error sign in the test groups performances (see Fig.\ref{figTTC}, right panel) it results that subjects at the beginning of the experiment made errors always in the same direction. Who had to deal with trajectories downward oriented usually ended up with the paddle above the real arrival point of the ball, while those who were trying to intercept upward oriented balls missed the catch keeping the paddle below the ball. This could be explained by the hypothesis that during the first blocks of trials subjects try to preview the interception point by interpolating the last part of the ball trajectory with a straight line, tangent to the parabolic curve in correspondence of the beginning of the wall, as described in Fig.\ref{figSchemaRetta}. To check this assumption it has been considered the difference between two distances: the absolute distance between the last paddle position and the real arrival point of the ball ($e_p$) and the absolute distance between the last paddle position and the arrival point of the ball along the presumed tangent straight line ($e_r$). The results, shown in Fig. \ref{figRetta}, suggest that this ``straight line'' strategy is used on the average only during the first sets of blocks, while afterward the prediction seems to become more precise and also tuned to the trajectory parabolic shape.}
+\textcolor{red}{Observing the error sign in the test groups performances (see Fig.\ref{figTTC}, right panel) it results that subjects at the beginning of the experiment made errors always in the same direction. Who had to deal with trajectories downward oriented usually ended up with the paddle above the real arrival point of the ball, while those who were trying to intercept upward oriented balls missed the catch keeping the paddle below the ball. This could be explained by the hypothesis that during the first blocks of trials subjects try to preview the interception point by interpolating the last part of the ball trajectory with a straight line, tangent to the parabolic curve in correspondence of the beginning of the wall, as described in Fig.\ref{figSchemaRetta}. To check this assumption it has been considered the difference between two distances: the absolute distance between the last paddle position and the real arrival point of the ball ($e_p$) and the absolute distance between the last paddle position and the arrival point of the ball along the presumed tangent straight line ($e_r$). The results, shown in Figg. \ref{figRetta} and \ref{figMedieRetta}, suggest that this ``straight line'' strategy is used on the average only during the first sets of blocks, while afterward the prediction seems to become more precise and also tuned to the trajectory parabolic shape. It seems, instead, that this kind of strategy is, on the average, never abandoned by the control group, which maintains the paddle always nearer to the straight line arrival point than to the real one.}
 
 \begin{figure}[tbp]
 	\centering
@@ -57,10 +57,17 @@ In order to have an overview of the results it is useful to perform a multiple c
 \begin{figure}[tbp]
 	\centering
 		\includegraphics[width=15cm]{fig/EsRettaParab.eps}
-		\includegraphics[width =8cm]{fig/MediaRettaTmeno.eps}
+		\caption{Difference (in pixel) between $e_p$ and $e_r$ for a representative test subject.  For a definition of $e_p$ and $e_r$ see the caption of Fig \ref{figSchemaRetta}. A positive value of the plot indicates that the paddle at the interception time is nearer to the ball arrival point along the straight line, while a negative value means that the paddle is nearer to the real arrival point of the ball, that follows a parabolic path.}
+\label{figRetta}
+\end{figure}
+
+\begin{figure}[tbp]
+	\centering
+\includegraphics[width =8cm]{fig/MediaRettaTmeno.eps}
 		\includegraphics[width =8cm]{fig/MediaRettaTpiù.eps}
-		\caption{\textbf{Above} - Difference (in pixel) between $e_p$ and $e_r$ for a representative subject. \textbf{Below} - Mean difference (in pixel) between $e_p$ and $e_r$ in each test group: \textbf{Left} - test, downward direction, \textbf{Right} - test, upward  direction. For a definition of $e_p$ and $e_r$ see the caption of Fig \ref{figSchemaRetta}. A positive value of the plot indicates that the paddle at the interception time is nearer to the ball arrival point along the straight line, while a negative value means that the paddle is nearer to the real arrival point of the ball, that follows a parabolic path.}
-		\label{figRetta}
+		\includegraphics[width =8cm]{fig/MediaRettaControllo.eps}
+		\caption{\textbf{Above} - Mean difference (in pixel) between $e_p$ and $e_r$ in each test group: \textit{Left} - test, downward direction, \textit{Right} - test, upward  direction. \textbf{Below} - Mean difference (in pixel) between $e_p$ and $e_r$ in control group. For a definition of $e_p$ and $e_r$ see the caption of Fig \ref{figSchemaRetta}. A positive value of the plot indicates that the paddle at the interception time is nearer to the ball arrival point along the straight line, while a negative value means that the paddle is nearer to the real arrival point of the ball, that follows a parabolic path.}
+		\label{figMedieRetta}
 \end{figure}
 
 
