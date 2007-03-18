@@ -3,13 +3,7 @@
 %
 Obrero \cite{obrero} consists of a hand, an arm and a head
 (Figure~\ref{fig:RobotObrero}). Obrero was designed to approach
-manipulation as a task manly guided by tactile and force feedback.
-%We use the robot's limb as a sensing/exploring device as opposed
-%to a pure acting device. This is a convenient approach to operate
-%in unstructured environments, on unmodeled objects.
-Obrero's limbs are designed to
-%is sensor-rich and safe, it is designed
-reduce the risk of damages upon contact with objects.
+manipulation as a task mainly guided by tactile and force feedback.
 The head consists of a
 commercial camcorder (SONY DCR-HC20) that can move along the pan
 and tilt directions. The arm has 6 Degrees of Freedom (DOF)
@@ -56,7 +50,7 @@ mounted in all joints and encoders in the motors.
 deformation of each of them is measured by a total of four sensors.
 (b) Tactile sensors mounted on the hand.} \label{fig:TactileSensors}
 \end{figure}
-%
+
 The tactile sensors mounted on the hand were designed to satisfy the
 needs of robotic tasks. Each unit has a dome-like sensor (see
 figure~\ref{fig:TactileSensors}a) made of silicon rubber. At the
@@ -69,14 +63,15 @@ favors contact with the environment from any direction, as
 opposed to most of the tactile sensors which are
 flat. The high deformability and the properties of the silicon
 rubber allow the sensors to conform to the objects, thus
-increasing friction and improving contact detection. In this
-particular implementation, we used the ``magnetic'' version of
-these tactile sensors, however, an optical version has also been
-tested. The description of the design and the analysis of these
-sensors can be found in \cite{etorresjSoft}.
-
-Groups of tactile sensors were placed on the hand. Two groups of
-four were placed on each finger (a group in each of the two
+increasing friction and improving contact detection. 
+%In this
+%particular implementation, we used the ``magnetic'' version of
+%these tactile sensors, however, an optical version has also been
+%tested. 
+The description of the design and the analysis of these
+sensors can be found in \cite{etorresjSoft}.Groups of tactile 
+sensors were placed on the hand. Two groups of four were placed 
+on each finger (a group in each of the two
 phalanges) and 16 on the palm. A detail of the palm and fingers
 can be observed in figure~\ref{fig:TactileSensors}b. Each one of
 these tactile units uses four sensors to determine the contact

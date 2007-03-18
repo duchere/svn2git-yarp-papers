@@ -4,8 +4,8 @@
 In this section we describe a few perceptual and motor competencies required
 for the robot to be able to control the body in a meaningful and safe way:
 this includes a simple attention system to spot the objects to be grasped
-and the ability to control the body to reach out for them. A the end of the
-section we describe how the these capabilities are integrated in the grasping
+and the ability to control the body to reach out for them. At the end of the
+section we describe how these capabilities are integrated in the grasping
 behavior.
 %
 \subsection{Attention System}
@@ -52,8 +52,8 @@ computed as the orientation of the line passing through the
 top-most and bottom-most pixels of the arm area. Next, specific
 features (the small circular black and white potentiometers on the
 fingers) are searched on the arm area. The hand is identified if
-more than two of these features are found. The detection just
-described proved reliable enough for our purposes and was used as
+more than two of these features are found. This algorithm
+proved reliable enough for our purposes and was used as
 a short-cut in place of other, more general, methods
 \cite{metta03early,natale05from}.
 
@@ -136,9 +136,8 @@ arm $\alpha$. This mapping was learnt online by using the neural network
 proposed by \cite{schaal98Constructive}.
 
 The mapping of equation~\ref{eq-arm-direct} allows computing 
-the polar coordinates of the hand with respect of the robot 
-from the encoders of the arm. Whenever required 
-equation~\ref{eq-head-direct} maps the polar coordinates
+the polar coordinates of the hand from the encoders of the arm. 
+Whenever required equation~\ref{eq-head-direct} maps the polar coordinates
 back onto the image plane.
 
 \subsection{Reaching}
@@ -180,10 +179,8 @@ to the Jacobian transposed of the manipulator, that is:
 \end{equation}
 %
 $\nabla f\left(q_{arm}\right)$ was approximated by partial
- differentiation of equation \ref{eq-arm-direct}. Because 
-the basis functions used by the neural network are guassians
-this was easily done analytically (another approach is to perform
-numerical differentiation).
+ differentiation of equation \ref{eq-arm-direct} (in our case
+by analytical diffrentiation of the output of the neural network).
 
 To summarize we have described a method to compute the arm
 commands required to reach for a visual target. The method employs
@@ -201,9 +198,9 @@ is two-dimensional and does not carry any information
 about distance. The solution found by descending the gradient of the
 direct kinematics takes care of minimizing the distance between the target
 and the hand \emph{on the image plane}, and as such, is not concerned
-with the third dimension $R$ (the distance between the hand and the head, 
-along the optical axis of the camera).
-In practice however the components of the gradient along $R$ are small
+with the third dimension, the distance between the hand and the head, 
+along the optical axis of the camera ($R$).
+In practice, however, the components of the gradient along $R$ are small
 compared to the others. The value of $R$ at the end of the reaching movement
 depends on the initial position of the arm; we chose this value so to keep
 the hand above the table.
@@ -240,10 +237,10 @@ arm.
 
 $v_3\in \ker \left(J\left(q_{arm}\right)\right)$: $v_3$ lays in the null 
 space of the arm Jacobian; in our case the null space of the Jacobian 
-consists of those vector that do not affect
+consists of those vectors that do not affect
 either the projection of the hand onto the visual plane or the orientation
 of the arm. These vectors produce a movement of the hand along the optical
-axis of the camera, or, in other word, along $R$.
+axis of the camera, or, in other words, along $R$.
 %
 \subsection{A grasping behavior}
 In this section we describe the grasping behavior of the robot.
@@ -252,7 +249,7 @@ of the robot. The head tracks the object until it remains
 stationary within the workspace of the arm. The robot reaches for
 the object; motion is planned visually as described in
 Section~\ref{sec:reaching}. Reaching is not accurate enough to
-guarantee a correct grasp. Since no three dimensional information
+guarantee a correct grasp: since no three dimensional information
 is available the arm reaches a region above the object (see
 Section~\ref{sec:reaching}). At this point the exploration starts;
 the robot computes the explorative primitives $v_1$, $v_2$ and
