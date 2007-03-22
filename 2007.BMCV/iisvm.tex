@@ -1,0 +1,179 @@
+The possibility to obtain a more compact representation of $f(\xx)$
+follows from the fact that the solution to a SVM problem (that is, the
+$\alpha_i$s) is not unique if $K$ does not have full rank
+\cite{Burges98}, which is equivalent to some of the SVs being linearly
+dependent on some others \emph{in the feature space} (this is the core
+of Downs et al.'s \cite{DownsGM01} original idea).
+
+To avoid simplify the solution each time a new sample is acquired like
+in \cite{DownsGM01}, we need a way to use independent SVs only. Hence,
+the main idea is to decouple the concept of ``basis'' vectors, used to
+build the classification function (\ref{eqn:sol}), from the samples
+used to find out the $\alpha_i$s. If the selected basis vectors span the
+same subspace as the whole sample set, the solution found will be
+equivalent --- that is, we will not lose any precision.
+
+We hereby propose, after having received a new training sample, to
+incrementally add it to the basis if it is linearly independent in the
+feature space from those already present in the basis itself. The
+solution found is \emph{the same} as in the classical SVM formulation;
+therefore, no approximation whatsoever is involved, unless one gives
+it up in order to obtain even fewer support vectors (see Section
+\ref{sec:exp} for a deeper discussion on this point).
+
+Denoting the indexes of the vectors in the current basis, after $l$
+training samples, by $\b$, and the new sample under judgment by
+$\xx_{l+1}$, the algorithm can then be summed up as follows:
+
+\begin{enumerate}
+
+  \item check whether $\xx_{l+1}$ is linearly independent from the
+        basis in the feature space; if it is, add it to $\b$;
+        otherwise, leave $\b$ unchanged.
+
+  \item incrementally re-train the machine.
+
+\end{enumerate}
+
+In the following, the notations $A_{IJ}$ and $\mathbf{v}_I$, where $A$
+is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
+turn the sub-matrix and the sub-vector obtained from $A$ and
+$\mathbf{v}$ by taking the indexes in $I$ and $J$.
+
+\subsection{Linear independence}
+
+In general, checking whether a matrix has full rank is done via some
+decomposition, or by looking at the eigenvalues of the matrix; but
+here we want to check whether a \emph{single} vector is linearly
+independent from a matrix which is already known to be
+full-rank. Inspired by the definition of linear independence, we check
+how well the vector can be approximated by a linear combination of the
+vectors in the set \cite{EngelMM02sparse}. Let $d_j \in \RR$; then let
+
+\begin{equation} \label{eqn:ald1}
+  \Delta = \min_\dd \left|\left|\sum_{j \in \b} d_j \phi(\xx_j) - \phi(\xx_{l+1}) \right|\right|^2
+\end{equation}
+
+If $\Delta > 0$ then $\xx_{l+1}$ is linearly independent with respect
+to the basis, and $l+1$ is added to $\b$. In practice, we check
+whether $\Delta \leq \eta$ where $\eta > 0$ is a tolerance factor, and
+expect that larger values of $\eta$ lead to worse accuracy, but also
+to smaller bases. As a matter of fact, if $\eta$ is set at machine
+precision, OISVMs retain the exact accuracy of SVMs. Notice also that
+if the feature space has finite dimension $n$, then no more than $n$
+linearly independent vectors can be found, and $\b$ will never contain
+more than $n$ vectors.
+
+Expanding equation (\ref{eqn:ald1}) we get
+
+\begin{eqnarray} \label{eqn:ald2}
+  \Delta = \min_{\dd} ( ~
+      \sum_{i,j \in \b} d_j d_i \phi(\xx_j) \cdot \phi(\xx_i) \\
+    - 2\sum_{j \in \b} d_j \phi(\xx_j) \cdot \phi(\xx_{l+1}) \nonumber \\
+    + \phi(\xx_{l+1}) \cdot \phi(\xx_{l+1}) ~ ) \nonumber
+\end{eqnarray}
+
+\noindent that is, applying the kernel trick,
+
+\begin{equation} \label{eqn:ald3}
+  \Delta = \min_{\dd} \left(
+      \dd^T K_{\b\b}\dd
+    - 2 \dd^T \mathbf{k}
+    + K(\xx_{l+1},\xx_{l+1})
+  \right)
+\end{equation}
+
+\noindent where $k_i = K(\xx_i,\xx_{l+1})$ with $i \in \b$. Solving
+(\ref{eqn:ald3}), that is, applying the extremum conditions with
+respect to $\dd$, we obtain
+
+\begin{equation} \label{eqn:ald4}
+  \mdd = K_{\b\b}^{-1} \mathbf{k} \\
+\end{equation}
+
+\noindent and, by replacing (\ref{eqn:ald4}) in (\ref{eqn:ald3}) once,
+
+\begin{equation} \label{eqn:ald5}
+  \Delta = K(\xx_{l+1},\xx_{l+1}) - \mathbf{k}^T \mdd
+\end{equation}
+
+Note that $K_{\b\b}$ can be safely inverted since, by incremental
+construction, it is full-rank. An efficient way to do it, exploiting
+the incremental nature of the approach, is that of updating it
+recursively: after the addition of a new sample, the new
+$K_{\b\b}^{-1}$ then becomes
+
+\begin{equation} \label{eqn:inv_upd}
+  \left[\begin{array}{cccc}
+       &               &   & 0 \\
+       & K_{\b\b}^{-1} &   & \vdots \\
+       &               &   & 0 \\
+     0 &       \cdots  & 0 & 0
+  \end{array}\right]
+  +
+  \frac{1}{\Delta}
+  \left[\begin{array}{c}
+    \mdd \\
+    -1
+  \end{array}\right]
+  \left[\begin{array}{cc}
+    \mdd^T & -1
+  \end{array}\right]
+\end{equation}
+
+\noindent where $\mdd$ and $\Delta$ are already evaluated during the
+test (this method matches the one used in Cauwenberghs and Poggio's
+incremental algorithm \cite{CauwenberghsP00}). Thanks to this
+incremental evaluation, the time complexity of the linear independence
+check is $O(|\b|^2)$, as one can easily see from Equation
+(\ref{eqn:ald4}).
+
+\subsection{Training the machine}
+
+The training method largely follows Keerthi et
+al. \cite{KeerthiDC05,KeerthiCDC06}, that we have adapted for online
+training. The algorithm directly minimizes problem
+(\ref{eqn:svm_primal}) as opposed to the standard way of minimizing
+its dual Lagrangian form, allowing to select explicitly the basis
+vectors to use. We set $p=2$ in (\ref{eqn:svm_primal}) and transform
+it to an unconstrained problem.  Let $\d \subset \{1,\ldots,l\}$; then
+the unconstrained problem is
+
+\begin{equation} \label{eqn:primal}
+  \min_{\bb} \left( 
+      \frac{1}{2} \bb^T K_{\d\d} \bb
+    + \frac{1}{2} C \sum_{i=1}^l max \left(0,1-y_i K_{i\d} \bb \right)^2
+  \right)
+\end{equation}
+
+\noindent where $\bb$ is the vector of the Lagrangian coefficients involved
+in $f(\xx)$, analogously to the $\alpha_i$s in the original
+formulation. If we set $\d = \b$, then the solution to the problem is
+unique since $K_{\b\b}$ is full rank by construction. Newton's method
+as modified by Keerthi et al. \cite{KeerthiDC05,KeerthiCDC06} can then
+be used to solve (\ref{eqn:primal}) after each new sample. When the
+new sample $\xx_{l+1}$ is received the method goes as follows:
+
+\begin{enumerate}
+
+   \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
+     K_{i\b} \bb$ and $\bb$ is the vector of optimal coefficients
+     with $l$ training samples; if $\mathcal{I}$ hasn't changed, stop.
+
+   \item otherwise, let the new $\bb$ be $\bb - \gamma
+     \mathbf{P}^{-1}\mathbf{g}$, where $\mathbf{P} = K_{\b\b} + C
+     K_{\b\mathcal{I}} K_{\b\mathcal{I}}^T$ and $\mathbf{g} = K_{\b\b}
+     \bb - C K_{\b\mathcal{I}} \left(
+     \mathbf{y}_{\mathcal{I}}-\mathbf{o}_{\mathcal{I}}\right)$.
+
+   \item go back to Step 1.
+
+\end{enumerate}
+
+In Step $2$ above, $\gamma$ is set to one. In order to speed up the
+algorithm, we maintain an updated Cholesky decomposition of
+$\mathbf{P}$. It turns out that the algorithm converges in very few
+iterations, usually $0$ to $2$; the time complexity of the re-training
+step is $O(|\b|l)$, as well as its space complexity; hence, keeping
+$\b$ small will speed up the training time as well as the testing
+time.

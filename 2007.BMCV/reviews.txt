@@ -1,0 +1,125 @@
+Review #1
+ 
+Overall Rating: 	*3* - Borderline
+
+The authors propose a way to incrementally learn SVM using independent
+basis vectors. Their method results in significant reduction in the
+number of support vectors with exact same perforamnce in the finite
+dimensional case and comparable perforamnce in the infinite dimesnional
+case. Experiment results are convincing and the paper is well written.
+The idea is very similar to that in the reference 11 but adopted for the
+online version. In that sense, it is not a totally original idea. The
+experiments are limited but are very convincing. Since the ultimate aim
+is not just reducing the number of support vectors but also the over all
+time of training and testing, a comparison of times would have been
+great. Ultimately, the prior work by Cauwenberghs and Poggio looks like
+the key method in thi paper and the experiments to justify it in an
+applied setting. Thus, the paper has a primarily experimental
+contribution and as such is not truly new CVPR work.
+
+Novelty: 				*2* - Original
+Importance / Relevance: 	*2* - Interesting to a Subarea
+Reference to Prior Work: 	*1* - Excellent
+Clarity of Presentation: 	*2* - Is Clear Enough
+Technical Correctness: 		*2* - Probably Correct, Did
+						Not Check Completely
+Experimental Validation: 	*2* - Limited but Convincing
+
+--------------------------------------------------------------------
+
+Review #2	 
+ 
+Overall Rating: 	*4* - Probably Reject
+
+The paper describes an online SVM algorithm that takes a continuous
+input stream of data. It is claimed to be fast and accurate. However,
+the benefit of keeping the small set of support vectors is not clear.
+The main contribution of the paper is to apply the idea to the situation
+of robotic place recognition, a very fitting application.
+
+Novelty: 				*3* - Minor Originality
+						It is largely based on Keerthi06.
+Importance / Relevance: 	*2* - Interesting to a Subarea
+Reference to Prior Work: 	*2* - References Adequate
+Clarity of Presentation: 	*2* - Is Clear Enough
+Technical Correctness: 		*3* - Contains Rectifiable Errors
+
+The central idea is to keep the kernel matrix small while online. This
+point needs to be emphasized. See the pseudo code of the training
+algorithm (line 361-370): it is an iteration of Newton steps to
+accomodate the newly arrived training data x_{l+1} Except for the fact
+that x_{l+1} does not enter the basis B if it is linearly dependent on
+B, the algorithm is the same as Keerthi06. The speed-up from a fewer
+number of support vectors is not apparent. There should be a experiment
+against Keerthi06 and show the benefit of smaller number of SVs.
+
+Experimental Validation: 	*2* - Limited but Convincing
+
+The comparison to other online SVMs [26] [24] are limited because the
+real comparison should be to Keerthi06, where the theoretical part is
+largely based on. Having said that, it does serve the purpose of
+applying the theoretical idea to this setting of robotic place
+recognition which is quite fitting, and the results are on par to [26]
+[24].
+
+--------------------------------------------------------------------
+
+Review #3	 
+ 
+Overall Rating: 	*3* - Borderline
+
+This paper describes an approach to on line learning of the SVM. The
+paper combines two ideas: that of Downs & al for representing the
+decision function as a combination of linearly independent SVs and an
+extension of that of Keerthi et al for 'online' training. The paper is
+well written, with some interesting ideas, but suffers from two
+problems: context and direction. The key contributions are really (1) a
+reduced set method: however the reduced set method is not placed in the
+context of other reduced set methods (see 18.3 of Schoelkopf and Smola)
+and (2) an incremental training method for SVMs. The reduced set
+approach relies on a parameter, eta, which represents the maximum
+allowable error of linear prediction of a new SV given the existing set
+of SVs. It isn't really clear to me what this parameter means in feature
+space (nothing is that clear to me in feature space). Some discussion
+would help here, particularly since the value is set quite a long way
+above typical machine precisions in the experimental section (0.1). The
+whole premise of the approach seems to be that the feature space will be
+of fixed dimension. However, if you have a fixed dimensional
+representation which is low enough dimension to make use of this feature
+why would you be using a kernel machine? In that context you are just
+performing linear SVM in a fixed basis. This simplifies the situation
+greatly. In practice, few expert practioners want this (with notable
+high dimensional exceptions, like text, for which n+1 will typically be
+much larger than data set size anyway), because they turned to
+non-parametric methods specifically because a fixed basis wasn't
+powerful enough. The idea that for infinite dimensional kernels (like
+the RBF) only a fixed number will be required in practice is also
+flawed. Typically the number of SVs rises logarithmically with the data
+set size.
+
+Novelty: 				*3* - Minor Originality
+
+The approach combines two existing ideas in an interesting way.
+
+Importance / Relevance: 	*2* - Interesting to a Subarea
+
+Large data sets and on line learning are of interest to a large minority
+of the community.
+
+Reference to Prior Work: 	*3* - Some References Missing
+
+See in particular 18.3 of Schoelkopf and Smola for a greater discussion
+of reduced set methods.
+
+Clarity of Presentation: 	*1* - Reads Very Well
+
+Nice presentation.
+
+Technical Correctness: 		*2* - Probably Correct, Did
+
+Not Check Completely
+
+Experimental Validation: 	*3* - Lacking in Some Ways
+
+Given the approach is for large data sets, one of the experiments should
+really have demonstrated the approach on a much larger data set.
