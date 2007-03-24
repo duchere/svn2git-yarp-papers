@@ -16,7 +16,7 @@ SVM, the fixed-partition incremental SVM \cite{syed99incremental}, and
 the memory-controlled incremental SVM \cite{pronobis:icvs06}.  In the case
 of finite-dimensional kernels, we only show the performance of
 LIBSVM-2 against OISVMs with $\eta$ at machine precision, since the
-solution found by OISVM is exactly equivalent; in the case of
+solution found by OISVM is \emph{exactly} equivalent; in the case of
 infinite-dimensional kernels, we show curves for various values of
 $\eta$.
 
@@ -24,8 +24,8 @@ $\eta$.
 \label{exp:ml}
 
 Figure \ref{fig:ad7} and Table \ref{table:t1} show the above mentioned
-comparison on some standard benchmark databases, available at
-\url{http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets}.  For
+comparison on some standard benchmark databases\footnote{
+\url{http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets}}.  For
 each benchmark, data are obtained by running $10$ random $75\%/25\%$
 train/test runs.
 

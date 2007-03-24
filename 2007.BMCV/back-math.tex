@@ -28,15 +28,10 @@ in the feature space, i.e., the space where $\Phi$ lives, whereas
 $\xi_i \in \RR$ are slack variables, $C \in \RR^+$ is an error penalty
 coefficient and $p$ is usually $1$ or $2$.
 
-Thanks to the introduction of $K(\cdot,\cdot)$ and the associated
-\emph{kernel matrix} $K$, with $K_{ij} = K(\xx_i,\xx_j)$, SVMs are
-able to find $f(\xx)$, complex as it may be, by solving a linear
-separation problem in a highly-dimensional space. This idea is often
-called \emph{kernel trick}. In practice, most of the $\alpha_i$ are
-found to be zero after training and therefore can be neglected in
-evaluating the separating hyperplane in formula (\ref{eqn:sol}) (those
-$\xx_i$s which cannot be neglected are called \emph{support vectors},
-SV).
+In practice, most of the $\alpha_i$ are
+found to be zero after training; the vectors with an associated $\alpha_i$
+different from zero are the support vectors. Notice hence that the testing
+time of a new point is proportional to the number of SVs.
 
 In the following, the term \emph{kernel dimension} will refer, as is
 customary, to the dimension of the feature space. The kernel dimension

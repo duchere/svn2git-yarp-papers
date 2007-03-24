@@ -66,13 +66,11 @@ more than $n$ vectors.
 
 Expanding equation (\ref{eqn:ald1}) we get
 
-\begin{eqnarray} \label{eqn:ald2}
-  \Delta = \min_{\dd} ( ~
-      \sum_{i,j \in \b} d_j d_i \phi(\xx_j) \cdot \phi(\xx_i) \\
-    - 2\sum_{j \in \b} d_j \phi(\xx_j) \cdot \phi(\xx_{l+1}) \nonumber \\
-    + \phi(\xx_{l+1}) \cdot \phi(\xx_{l+1}) ~ ) \nonumber
-\end{eqnarray}
-
+\begin{equation} \label{eqn:ald2}
+  \Delta = \min_{\dd} \left( \sum_{i,j \in \b} d_j d_i \phi(\xx_j) \cdot \phi(\xx_i) 
+    - 2\sum_{j \in \b} d_j \phi(\xx_j) \cdot \phi(\xx_{l+1})
+    + \phi(\xx_{l+1}) \cdot \phi(\xx_{l+1}) \right)
+\end{equation}
 \noindent that is, applying the kernel trick,
 
 \begin{equation} \label{eqn:ald3}

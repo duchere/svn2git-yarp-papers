@@ -10,42 +10,34 @@ well founded, $(c)$ they can easily work with highly dimensional,
 non-linear data, and $(d)$ the solution achieved is sparse. Due to
 these good properties, they have been now extensively used in, e.g.,
 speech recognition, object classification and function approximation
-\cite{Cristianini00}. On the other hand, one of their main drawbacks
-is their alleged inability to cope with large datasets
-\cite{KeerthiCDC06}.
+\cite{Cristianini00}. On the other hand they have the disadvantage to
+``grow'' for ever \cite{Steinwart03}, that is the complexity of the solution and the testing
+time grow proportionally with the number of training samples.
+SVMs can be up to 50 slower of other specialized approaches with
+similar performances \cite{BurgesS96}.
 
-Yet, in most real-life applications, datasets \emph{are} large, for
-example when online learning must be performed. Online learning is a
+This problem can be particularly important if we consider the case in
+which online learning must be performed. Online learning is a
 scenario in which training data is provided one example at a time, as
-opposed to the batch mode in which all examples are available at once
-(see \cite{Laskov2006} and citations therein). In the case of, e.g.,
+opposed to the batch mode in which all examples are available at once.
+In the case of, e.g.,
 non-stationary data, online algorithms will generally perform better
 since ambiguous information (i.e., whose distribution varies over
-time) is present, and couldn't possibly be taken into account by the
+time) is present, and could not possibly be taken into account by the
 batch algorithm. Online algorithms allow to incorporate additional
 training data, when it is available, without re-training from scratch.
 
 In an online setting there is no guarantee that the flow of data will
 \emph{ever} cease; therefore, applying SVMs here looks appealing but
-we need a way to cope with large datasets. One of the keys to the
-problem seems to lie in the sparseness of their solution. That an SVM
-solution is \emph{sparse} means that usually just a few samples
-account for its complexity; in fact, SVMs can be seen as a way of
-compressing data by selecting ``the most important'' samples
-(\emph{support vectors}, SV) among those in the training set. Keeping
-the number of SVs small without losing accuracy is therefore a major
-challenge. This is even more relevant since a recent result
-\cite{Steinwart03} shows that this number grows indefinitely with
-the number of training samples, and the testing time --- a central
-issue in online learning, since one might want to test in real time
---- crucially depends on it.
+we need a way to constraint the complexity of the solution and, at the
+same time, to respect the online nature of the problem. 
 
-In this paper we propose a method of incrementally selecting SVs based
-upon \emph{linear independence in the feature space}: SVs which are
+In this paper we propose a method of incrementally selecting ``basis
+vectors'' that are used to build the solution of the SVM training problem,
+based upon \emph{linear independence in the feature space}: vectors which are
 linearly dependent on already stored ones are rejected, and a smart,
 incremental minimization algorithm is employed to find the new minimum
-of the cost function. The size of the kernel matrix (the core of an
-SVM and its major bottleneck) is therefore kept small. Our experiments
+of the cost function. Our experiments
 indicate that SVMs employing this idea, that we call
 \emph{Online Independent Support Vector Machines} (OISVMs), do not
 grow linearly with the training set, as it was the case in
@@ -62,10 +54,10 @@ robotic vision: place recognition in an indoor environment, from
 sequences acquired by robot platforms under different weather
 conditions and across a time span of several months. Our results show
 that, on standard benchmarks, the accuracy of OISVMs can be up to only
-$0.063\%$ worse than SVMs, with less than $5\%$ of the support
-vectors; whereas, on the real-world application, we get as few as one
-third of the SVs required by an approximated incremental method, while
-retaining essentially the same accuracy.
+$0.063\%$ worse than SVMs, being more than $20$ times faster;
+whereas, on the real-world application,
+we get a speed-up of $3$ times required by an approximated
+incremental method, while retaining essentially the same accuracy.
 
 The paper is structured as follows: after a review of the relevant
 literature, Section \ref{sec:bg} gives an overview of background
