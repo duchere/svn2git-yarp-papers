@@ -14,6 +14,73 @@ Excising device dependencies from code
 Conclusions
 
 
+\section{Sad fate}
+
+Many robot projects are ``black holes'', in terms of software.  A lot
+of software gets sucked in, but very little comes out.  Once a piece
+of software has been adapted to a particular robot, it takes a lot
+of work to extricate it again and apply it to another.
+
+Obviously the answer to this problem is modularity.  So there are 
+now many architectures/frameworks/... for modular robot systems.
+The prime concern for any such system should be that it is not
+a ``black hole'' -- that once a piece of software has been adapted
+to a particular framework, it takes a lot of work to extricate it
+again and apply it to another.  That would be a bit self-defeating.
+
+We study YARP from this perspective.  How sticky is resultant user
+code to the robot and to the framework itself?
+
+
+\section{Free and Open Source}
+
+Useful, more malleable.
+
+Has the pragmatic benefit that a user of the software can
+modify and integrate it to their hearts content without the 
+pain of dealing with opaque binaries.
+
+Has the revolutionary benefit that the user is not trapped in the role
+of being a ``consumer'' of software, but can also be a publisher of
+the changes, additions, and integrative work they do in an effective
+form.  This is achieved by explicitly granting far more rights to
+users than they have under the law of most countries, contrasting with
+agreeably with the formerly more common practice of attempting to
+minimize user rights.  These rights are typically granted
+conditionally; a user may only make use of these extended rights if
+(for example) distributed code is always available in its most useful
+original (source) form, with compatible freedoms attached to it.  This
+condition seeks to balance freedoms of individuals versus benefit to
+the group.  The freedom to distribute code in obscure (compiled) forms
+
+
+
+Split between people who emphasize pragmatic concerns and those
+who emphasize freedom.  Just cite the issue, no need to revisit
+it here.
+
+
+\section{CMake}
+
+Open-source, deals well with various IDEs and command-line development.
+
+Not as familiar as autoconf/automake/... etc.
+
+Has the excellent property of being simpler than making Makefiles
+or configuring a project, when external libraries are involved.
+
+The big downside is that the language is unfamiliar and a bit ugly.
+It is simple and well-documented, but quirky.  An alternative with
+some similar properties, scons, uses python instead.  The ant system
+uses with java also seems cleaner.  However, it gets the job
+done, and has the huge advantage of not being dependent on an
+external language being installed.
+
+CMake is free and open-source, with a healthy community of 
+developers.
+
+
+
 \section{Call for publication}
 
 As a research community, we both read and produce papers, building on
