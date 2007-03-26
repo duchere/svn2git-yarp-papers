@@ -1,2 +1,170 @@
 
-The introduction.
+\section{Outline}
+
+The sad fate of most robot software
+
+Modularity in robotics
+
+YARP: Yet Another Robot Platform
+
+Excising communication ?plumbing? from code
+
+Excising device dependencies from code
+
+Conclusions
+
+
+\section{Call for publication}
+
+As a research community, we both read and produce papers, building on
+each others' work.
+
+We also both acquire and produce software
+
+Our software tends to die with our projects
+
+Sad!  Software collaboration speeds things up
+
+Research groups that all use a specific robot (Khepera, Pioneer, AIBO,
+...) often form a natural software community
+
+But each alone is a small subset of robotics
+
+Groups developing new robots face obstacles
+
+Differences in sensors, actuators, bodies...
+
+Differences in processors, operating systems, libraries, frameworks,
+languages, compilers...
+
+Big barriers to software collaboration
+
+
+\section{Modularity}
+
+Constant hardware flux
+
+Parts change rapidly
+
+Interfaces change slowly
+
+Lots of software grew and evolved alongside the changing hardware
+
+Parts change rapidly
+
+Interfaces change slowly
+
+``Modularity'' is rewarded
+
+
+\subsection{Broom}
+
+The way parts interact can last longer than the parts themselves
+
+E.g. an eternal broom
+
+replace broom head
+
+replace broom handle
+
+
+\subsection{Theseus}
+
+Long-lived software is like the Ship of Theseus
+
+The mast gets replaced
+
+The planks get replaced
+
+Over time, everything may get replaced
+
+In philosophy, this is a ``paradox of identity''
+
+For us, it's just our job
+
+
+\subsection{dark path}
+
+The opposite of a modular system is a coupled one.
+
+In a ``coupled'' system, changes in one part trigger changes in another.
+
+Coupling leads to complexity
+
+Complexity leads to confusion
+
+Confusion leads to suffering
+
+This is the path to the Dark Side
+
+\subsection{modular robots}
+
+Robot software is notoriously hardware-specific and task-specific
+
+Both hardware and target tasks change quickly, even within the
+lifetime of one project
+
+Our humanoid robots are far more complex than one person can build and
+maintain, both in terms of hardware and software
+
+They need to be modular
+
+
+\subsection{YARP}
+
+YARP is an open-source software library  for humanoid robotics
+
+History
+
+An MIT / LIRA-Lab collaboration
+
+Born on Kismet, grew on COG
+
+With a major overhaul, now used by RobotCub consortium
+
+Exists as an independent open source project
+
+C++ source code
+
+
+\subsection{Things we use}
+
+CMake slide.
+
+SWIG slide.
+
+
+\subsection{What is YARP for}
+
+
+Factor out details of data flow between programs from program source code
+
+Data flow is very specific to robot platform, experimental setup,
+network layout, communication protocol, etc.
+
+Useful to keep ``algorithm'' and ``plumbing'' separate
+
+Factor out details of devices used by programs from program source code
+
+The devices can then be replaced over time by comparable alternatives;
+code can be used in other systems
+
+
+\section{Literature}
+
+The literature of a research community both expresses its ideas, and
+aids in their evolution
+
+Published ideas are read, evaluated, and built upon
+
+Useful advances get published
+
+Publication of software can speed progress
+
+Facilitates evaluating and comparing approaches
+
+Brings new research topics into reach
+
+Publish or perish!
+
+
