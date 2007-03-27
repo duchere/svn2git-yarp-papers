@@ -89,7 +89,7 @@ after a different open loop movement, i.e. a different value of $q_{20}$.
 }\label{Fig:ImagePlaneOpenLoopErrors}
   \end{figure}
 
-\subsection{Closed Loop}
+\subsection{Closed Loop} \label{Sec:ResultsClosedLoop}
 
 As we described in Section \ref{Eq:ClosedLoop} the residual image plane errors 
 due to imperfections in the forward kinematic model can be reduced by a visual closed loop
@@ -102,7 +102,49 @@ exact image center in both the image planes. Moreover, it is important to notice
 approximative linearity of the path followed by the hand. This linearity denotes 
 a good accuracy of the learned Jacobian.
 
-\begin{figure}
+\newpage 
+\subsection{Superimposed Open and Closed Loop}
+
+Finally, we tested an alternative control strategy based on activating the closed loop 
+phase immediately after the hand becomes visible on both image planes. This second strategy
+is such that the open a closed loop strategies will be active at the same time for a 
+certain period. The structure is based on a classical control scheme, which can be represented as follows:
+
+\begin{figure*}[th!]
+\begin{center}
+\includegraphics[scale = 0.25]{Figure/cx.eps}
+\end{center}
+\end{figure*}
+
+Practically, the feedforward control corresponds to the open loop part of the reaching movement.
+It is activated exactly as described in Section \ref{sec:openReaching} and therefore it does not
+require the hand to be visible in the image plane. The feedback control
+instead corresponds to the closed loop part of the movement and can be activated when the hand
+has been localized in both the image planes. Practically, the final solution can be described by the 
+following scheme:
+
+\begin{figure*}[th!]
+\begin{center}
+\includegraphics[scale = 0.25]{Figure/OpenVSClosedLoopSwitch.eps}
+\end{center}
+\end{figure*}
+
+Clearly, when both the open and closed loop controllers are active, the system receives position 
+and velocity control simultaneously\footnote{A position command ${\mathbf q}_{arm,d}$ is 
+always translated into a trajectory following command by moving 
+the hand along a trajectory $\mathbf q_{arm}(t)$, $t \in [0, T]$ such that: $T$ is the execution time,
+$\mathbf q_{arm}(0)$ is the arm position when the command is received, $\mathbf q_{arm}(T) = {\mathbf q}_{arm,d}$ is the desired final position. If a velocity command $\dot {\mathbf q}_{arm,d}$ is received while executing a position
+command $\mathbf q_{arm}(t)$, the original velocity command is transformed into a different
+one which takes into account the position command. In particular, the resulting commanded 
+velocity is $\dot {\mathbf q}_{arm} = \dot {\mathbf q}_{arm}(t) + \dot {\mathbf q}_{arm, d}$.}. 
+
+A comparison between this control strategy and the one proposed in Section \ref{Sec:ResultsClosedLoop}
+is given in Figure \ref{Fig:TimeResponseOpenVSClosedLoopErrors} and \ref{Fig:TimeResponseOpenVSClosedLoop}. 
+Performances are clearly improved. First the image plane movement (Figure \ref{Fig:TimeResponseOpenVSClosedLoopErrors})
+is much more regular resulting in a unique linear movement instead of begin divided into two segments. Secondly, the
+execution time is clearly reduced as it can be noted in Figure \ref{Fig:TimeResponseOpenVSClosedLoop}.
+
+\begin{figure}[th!]
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
@@ -170,4 +212,42 @@ relatively small error. The closed loop phase reduces this error to zero.}\label
   \end{tabular}
 \end{center}
 \caption{The picture shows the time response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
+  \end{figure}
+  
+  
+  \begin{figure}
+  % Requires \usepackage{graphicx}
+  \begin{center}
+	\begin{tabular}{ccc}
+	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/LeftEyeOpenVSClosedLoop.eps}}  & \hspace{2cm} &
+	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/RightEyeOpenVSClosedLoop.eps}}
+	  \\
+	  \parbox{40mm}{\centering Left eye } & \hspace{2cm} & \parbox{40mm}{\centering Right eye }
+	  %	  \end{t\\
+	  %	Top view & & Lateral view
+  \end{tabular}
+\end{center}
+\caption{The figure shows the movement of the hand on the image planes 
+during the execution of a single reaching movement. For both pictures, 
+on the horizontal axis 
+we have $u_r$ and $u_l$ while on the vertical axis we have $v_r$ and $v_l$ (always in pixels).
+The traces correspond to the hand position during the movement. The dashed line is the hand movement
+during an open loop movement followed by a closed loop phase. The solid trace is instead the hand movement during 
+the superposition of open and closed loop strategies. Clearly this second control architecture is more effective 
+in terms of driving the hand directly to the target in spite of waiting the end of open loop movement.}\label{Fig:TimeResponseOpenVSClosedLoopErrors}
+  \end{figure}
+  
+  \begin{figure}
+  % Requires \usepackage{graphicx}
+  \begin{center}
+	\begin{tabular}{ccc}
+	  \parbox{50mm}{\includegraphics[width=40mm]{Figure/OpenVSClosedLoopTimeResponse1.eps}}  & \hspace{2cm} &
+	  \parbox{50mm}{\includegraphics[width=40mm]{Figure/OpenVSClosedLoopTimeResponse2.eps}}
+	  %	  \end{t\\
+	  %	Top view & & Lateral view
+  \end{tabular}
+\end{center}
+\caption{The pictures show the time response of $u_l$ (left picture) and $v_l$ (right picture). The dashed line is the hand movement
+during an open loop movement followed by a closed loop phase. The solid trace is instead the hand movement during 
+the superposition of open and closed loop strategies. Remarkably, this second control architecture results in a faster response because when the hand becomes visible it is directly driven to the target without waiting for the open loop phase end.}\label{Fig:TimeResponseOpenVSClosedLoop}
   \end{figure}
