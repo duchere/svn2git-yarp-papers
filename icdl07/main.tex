@@ -70,14 +70,19 @@
 % make the title area
 \maketitle
 \begin{abstract}
-We show here how we finally managed to have our robot reach for something
-\cite{schaal98Constructive}.
-\\
+In this paper we discuss the implementation of a precise reaching controller 
+on a humanoid robot upper torso. The proposed solution is completely based on a learning 
+strategy which does not rely on \emph{a priori} models of the arm 
+and head kinematics. The only major simplification is represented by the 
+assumption that a visual model of the hand is available (i.e. the robot 
+can visually localize the hand). In fact, from a practical point of view, 
+the problem of creating a visual model of the hand is a stand alone problem 
+which falls outside the scope of this work.
 \end{abstract}
 
 % key words
 \begin{keywords}
-LODL (Lot Of Development and Learning)
+Development of perceptual and motor systems, machine learning, visual servoing, redundant systems.
 \end{keywords}
 %
 \input{sec-introduction}
