@@ -5,62 +5,59 @@ it is through manipulation that infants gain direct access to objects
 and discover properties that otherwise would remain hidden. 
 Properties like weight, shape, texture and softness that 
 are, if not impossible, at least extremly hard to perceive by using
-visual information alone. In these cases haptic information originating 
+visual information alone. In adults information originating 
 from motor activity and direct contact with the environment, is 
-obviously helping perception in adults (cite Klatzky); during development
-the physical interaction between the infant and the environment might
-provide natural invariances useful for learning.
-Interestingly motor and perceptual development seem to follow a similar 
+obviously helping perception (cite Klatzky); during development
+the physical interaction with the environment might
+provide infants with natural invariances useful for learning.
+Interestingly, motor and perceptual development seem to follow a similar 
 timeline as if new achievements in the motor system were enacting new
-the development of new perceptual skills (cite bushnell and boudread 
-and needham, sticky mitten).
+the development of new perceptual skills (\cite{bushnell93motor}\cite{needham2002pick-me-up}).
 
-Research in developmental robotics has shown how motor activity (in particular 
-manipulation) can indeed be useful for either visual or haptic perception (cite 
-SharedChallenges paper as a review and consider adding more). One of the 
+Research in developmental robotics has demonstrated the importance of
+motor activity (in particular manipulation) for either visual or haptic 
+perception (\cite{fitzpatrick07shared}). One of the 
 limitations of these approaches is that controlling the interaction between
-the robot and the environment is difficult especially in absence of precise
-models of either one. Experiments with robots have thus focused on situations
+the robot and the environment is difficult especially when precise models are
+not available. Experiments with robots have thus focused on situations
 in which the interaction with the objects is quite simple. For these reasons
-we believe that to investigate perceptual development in robots we first need to 
+to investigate perceptual development in robots we first need to 
 address the problem of motor development and improve the way robots interact
-with the environment.
+with the world.
 
-In this paper we focus on reaching, which is an ability required for grasping. 
-If vision of the hand is available this problem is easily solved if the 
-visual Jacobian of the arm is available (visual servoing). Jacobian of the 
-eye-to-hand transformation is a function of the arm and head joints and includes 
-knowledge of the camera parameters; its estimation in practice is a hard task. 
+In this context we focus here on reaching, which is an ability required for 
+grasping. If vision of the hand is available this problem is easily solved 
+by employing the visual Jacobian of the arm (visual servoing). The 
+eye-to-hand Jacobian transformation is a function of the arm and head joints 
+and includes knowledge of the camera parameters; its estimation is in practice 
+a hard task.
 The advantage of this approach is that even inaccurate estimation of the Jacobian
 allows reducing the error of the task to zero. But the visual servoing approach 
 is not necessarely the best solution. On one hand delays in the control loop pose 
-limitations on the speed of the arm, while on the other hand the approach requires 
-that sight of the hand is continuously available during the task. Reaching can 
-also be performed open-loop by directly relating the joint of the head with that of
-the arm (cite motor-motor mapping). The drawback of this approach is that errors 
-in the task cannot be reduced arbitrarily as in the visual servoing case.
+limitations on the speed of the arm, while on the other hand it
+requires that sight of the hand is continuously available during the task. 
+Reaching can also be performed open-loop by directly relating the joint of 
+the head with that of the arm (\cite{blackburn94learning}\cite{metta99developmental}). 
+The drawback of this approach is that errors in the task cannot be reduced 
+arbitrarily as in the visual servoing case.
 
 Results in developmental psyhcology suggest that both solutions might be
-adopted by the brain. Clifton et al. (cite) tested whether infants require 
-vision of their hand when reaching; they found that infants' ability to touch 
-(and grasp) objects is indipendent of whether sight of the hand is available
-or not. Other experiments (cite Ashmed) show on the other hand that later on 
-in development there is an increase of visual guidance in reaching. These
-results suggest the hypothesis that there are two ``distinct'' reaching 
-mechanism: one that relays on ``proprioceptive'' information alone and 
-one that uses ``visual feedback'' to compensate for errors in the visual domain.
+adopted by the brain. Clifton et al. (\cite{clifton93isvisually}) 
+tested whether infants require vision of their hand when reaching; they 
+found that infants' ability to touch (and grasp) objects is indipendent 
+of whether sight of the hand is available or not. On the other hand 
+other experiments (\cite{ashmead93visual}) 
+show that later on in development there is an increase of visual guidance 
+in reaching. Together these results suggest the hypothesis that there 
+are two ``distinct'' reaching mechanism: one that relays on ``proprioceptive'' 
+information alone and one that uses ``visual feedback'' to compensate 
+for errors in the visual domain.
 
-In this paper we integrate the two solutions together. We use an open loop
-controller to bring the hand close to the target. A closed loop controller 
-employs visual information from the hand as soon as this is available. In this
+In this paper we integrate the two solutions. We use the open loop
+controller to bring the hand close to the target. The closed loop controller 
+is activated as soon as visual feedback from the hand is available. In this
 way the robot manages to reduce the error of the task to arbitrarily small 
-amounts. The problem of redundancy in solved in the first case by posing additional 
-constrains on the task. Finally we describe the procedure by which the robot learns all the 
-transformations required by the controllers (the open-loop mapping and the arm 
-visual Jacobian).
-
-
-\subsection{A sub introduction}
-\subsubsection{A sub sub introduction}
-a subsection.
-
+amounts. The problem of redundancy in solved in the first case by posing 
+additional constrains on the task. Finally we describe the procedure by 
+which the robot learns all the transformations required by the controllers 
+(the open-loop mapping and the arm visual Jacobian).
