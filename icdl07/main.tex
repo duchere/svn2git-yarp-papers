@@ -38,17 +38,35 @@
                         % which can be found as esplatex.ps and epslatex.pdf
                         % at: http://www.ctan.org/tex-archive/info/
 
-%\usepackage{amsmath}   % From the American Mathematical Society
+\usepackage{amsmath}   % From the American Mathematical Society
                         % A popular package that provides many helpful commands
                         % for dealing with mathematics. Note that the AMSmath
                         % package sets \interdisplaylinepenalty to 10000 thus
                         % preventing page breaks from occurring within multiline
                         % equations. Use:
+\usepackage{amssymb}
+
 \usepackage{multirow}
 \usepackage[left=0.71in,top=0.94in,right=0.71in,bottom=1.18in]{geometry}
 \setlength{\columnsep}{0.24in}
 % correct bad hyphenation here
 %\hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
+
+%New theorems
+\newtheorem{fact}{Proposition}
+\newtheorem{definition}{Definition}
+%New commands
+\newcommand{\q}{\mathbf q}
+\newcommand{\dq}{\dot {\mathbf q}}
+\newcommand{\deltauhand}{\Delta \mathbf {u}_{hand}}
+\newcommand{\deltaqarm}{\Delta \mathbf {q}_{arm}}
+\newcommand{\qarm}{\mathbf q_{arm}}
+\newcommand{\jacobian}{\mathbf J}
+\newcommand{\uhand}{\mathbf{u}_{hand}}
+\newcommand{\utarget}{\mathbf{u}_{target}}
+\newcommand{\xhand}{\mathbf{x}_{hand}}
+\newcommand{\qhead}{\mathbf{q}_{head}}
+\newcommand{\xtarget}{\mathbf{x}_{target}}
 
 \begin{document}
 % paper title
@@ -87,7 +105,10 @@ Development of perceptual and motor systems, machine learning, visual servoing, 
 %
 \input{sec-introduction}
 \input{sec-previous}
-\input{sec-conclusions}
+\include{sec-setup}
+\include{sec-gaze}
+\include{sec-reaching}
+\include{sec-results}
 \input{sec-acknowledgment}
 %
 
