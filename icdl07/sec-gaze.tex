@@ -3,7 +3,7 @@
 
 In this section we describe how we control the gaze of the robot to
 fixate a visual target.
-
+%
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=25mm]{Figure/LeftImage.eps} \hspace{1cm}
@@ -15,14 +15,15 @@ will be denoted $u_r$, $v_r$, and $u_l$, $v_l$ (respectively right
 and left cameras).}
 \label{Fig:ImagePlane}
 \end{figure}
- 
+% 
 The crucial aspect in this case concerns the redundancy of the 
 head. Let $u_r$ and $v_r$ be the coordinates of the target on the 
 right image plane. Similarly, let $u_l$ and $v_l$ be the coordinates 
 of the target on the 
 left image plane (see Figure \ref{Fig:ImagePlane}). The values of $u_r$, 
-$v_r$, $u_l$, $v_l$ are the output of a visual model whose description 
-is not important in this paper. Directing gaze toward the target 
+$v_r$, $u_l$, $v_l$ are the output of a visual module which detects the
+target in the image planes. Directing gaze 
+toward the target 
 consists in moving the neck and the eyes so as to obtain 
 $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$. 
 Let us define the vector 
@@ -68,9 +69,9 @@ i.e. $\theta_r^d=0$.
 
 The proposed control strategy allows us to asymptotically fixate the target 
 ($u_l \rightarrow 0$, $v_l \rightarrow 0$, $u_r \rightarrow 0$ which 
-implies $v_r \rightarrow 0$) while also also guaranteeing an asymptotically 
-straight gaze ($\alpha_v^c \rightarrow 0$, $\alpha_t^c \rightarrow 0$). Moreover
-, by choosing a suitable value for the gains $K_p$, $K_y$, $K_t$ and $K_r$ it
+implies $v_r \rightarrow 0$) while also guaranteeing an asymptotically 
+straight gaze ($\alpha_v^c \rightarrow 0$, $\alpha_t^c \rightarrow 0$). Moreover, 
+by choosing a suitable value for the gains $K_p$, $K_y$, $K_t$ and $K_r$ it
 is possible to achieve an asymptotic behavior with the eyes moving rapidly on 
 the target and the neck following the eye movement with a slower 
 movement.

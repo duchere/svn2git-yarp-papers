@@ -1,11 +1,10 @@
 \section{Results}
 \label{sec:results}
 
-In this section we describe the reaching performance obtained with 
-the reaching controller described in the previous section. A definition of 
-the performance 
-index is a nontrivial task. Following the proposed strategy, in order to reach the 
-target we need to fixate it, i.e. $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point, i.e. $
+In this section we report the results of the experiments we carried out
+to quantify the performance of the reaching. Following the proposed strategy, 
+in order to reach for the 
+target we first need to fixate it, i.e. $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point, i.e. $
 {\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target.
 
 \subsection{Open Loop}
@@ -24,7 +23,7 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
  shows the image plane errors after the execution of the open loop movement. The plot has been obtained
  by fixating a target and performing a series of open loop movements. Each open loop
  movement was different because (\ref{Eq:reaching2}) was solved 
- by choosing a different value $q_{20}$. 
+ by choosing a different value $q_{20}$. different value $q_{20}$. 
 
 
 \begin{figure}
@@ -40,7 +39,6 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
   \end{tabular}
 \end{center}
 \caption{Open loop image plane errors $\uhand$ for different
-choices of the redundant variable $q_{20}$. or different
 choices of the redundant variable $q_{20}$. On the horizontal axis 
 $u_r$ and $u_l$; vertical axis $v_r$ and $v_l$ (always in pixels).
 The hand position in the image plane is represented 
@@ -50,15 +48,18 @@ by the small circles.  Each circle corresponds to a different open loop movement
 
 \subsection{Closed Loop}
 
-As we described in Section \ref{Eq:ClosedLoop} the residual image plane errors 
+The residual image plane errors 
 due to imperfections in the forward kinematic model can be reduced by a visual closed loop
 control strategy. This control strategy moves the arm to progressively 
-drive the hand position in the image planes ($\xhand$) to zero. Of course this is guaranteed 
-only if the  Jacobian matrix has been learned in a sufficient accuracy. Figures 
+drive the hand position in the image planes ($\xhand$) to zero. 
 \ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors}, \ref{Fig:TimeResponseOpenClosedLoopErrors} and \ref{Fig:TimeResponseOpenClosedLoop}  
 show how the hand is actually driven to the 
-exact image center in both the image planes. Moreover, it is important to notice the
-approximative linearity of the path followed by the hand. This linearity denotes 
+exact image center in both the image planes. The closed loop controller 
+improves the accuracy of the reaching movement, but at the cost of a slower 
+execution velocity (see Figure \ref{Fig:TimeResponseOpenClosedLoop}). 
+Moreover, it is important to notice 
+the approximative linearity of the path followed by the hand 
+(see Figure \ref{Fig:ImagePlaneClosedLoopErrors}). This linearity denotes 
 a good accuracy of the learned Jacobian.
 
 \begin{figure}

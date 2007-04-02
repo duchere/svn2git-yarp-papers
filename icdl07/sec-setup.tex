@@ -23,7 +23,7 @@ The head structure has a total of 7 degrees of freedom, actuated by 8
 motors. Four of these motors are used to independently actuate the pan 
 and tilt movements of the left and right eyes. Even though the eyes 
 can be moved independently, our strategy was to couple their movements 
-so as to achieve a more human-like motion. We used a common tilt 
+so to achieve a more human-like motion. We used common tilt 
 $\alpha_t^c$, vergence $\alpha_v^d$ and version $\alpha_v^c$. 
 
 The neck has three degrees of freedom, denoted $\theta_y$, 
@@ -31,7 +31,6 @@ $\theta_p$ and $\theta_r$ for yaw, pitch and roll respectively. These
 two rotations are achieved with an unconventional actuation structure 
 (see for a detailed description \cite{jamone06james}). 
 
-To summarize, the variables relevant to understand the remainder are: the head joints $\mathbf q_{head}$ = $\begin{bmatrix} \alpha_t^c & \alpha_v^d & \alpha_v^c & \theta_y & \theta_p & \theta_r \end{bmatrix}^\top \in \mathbb R^6$ and the first four arm joints (3 d.o.f. shoulder and wrist) denoted $\mathbf q_{arm} \in \mathbb R^4$.
-
-
-
+To summarize, the variables relevant to understand the rest of the paper
+are: the head joints 
+$\mathbf q_{head}$ = $\begin{bmatrix} \alpha_t^c & \alpha_v^d & \alpha_v^c & \theta_y & \theta_p & \theta_r \end{bmatrix}^\top \in \mathbb R^6$ and the first four arm joints (3 d.o.f. shoulder and elbow) denoted $\mathbf q_{arm} \in \mathbb R^4$.

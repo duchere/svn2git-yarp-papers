@@ -2,7 +2,7 @@
 \label{sec:reaching}
 
 In this section, we describe the two approaches we followed to solve
-the reaching task on our robot.The first method 
+the reaching task on our robot. The first method 
 uses the forward mapping between the arm joint space and the three 
 dimensional position of the hand represented in the head reference 
 frame. The second method uses a visual servoing technique to control the 
@@ -11,7 +11,7 @@ image plane with respect to a desired target (usually the fixated object).
 
 \subsection{Open Loop Reaching}
 %
-Suppose the robot is tracking a target using the control strategy described 
+Suppose the robot is tracking a target as described 
 in Section \ref{Sec:gazecontrol}. In the assumption of perfect 
 tracking (the visual error is zero), the three dimensional spatial position 
 of the target with respect to the robot, denoted $\tilde {\mathbf x}_{target} 
@@ -108,9 +108,9 @@ a predefined region in the robot workspace). During this ``exploratory''
 phase the robot tracked the hand, and collected samples of the form: $
 %
 \left(\begin{array}{cc}
-  \qarm^i , \xhand^i\end{array}\right)_{i = 0,1\dots}$
+  \qarm^i , \xhand^i\end{array}\right)_{i = 0,1\dots}$.
 %
-A neural network was then trained to learn the relation:
+ A neural network was then trained to learn the relation:
 %
 \begin{equation} 
   \xhand=\hat{f}_{arm}\left(\qarm \right),
@@ -203,7 +203,7 @@ that $\xtarget = \hat f(\qarm)$ so that  Eq.
   \deltaqarm,\qquad \jacobian \in \mathbb R^{3\times4}
 \end{equation}
 %
-in which $\jacobian$ depend only on the arm joint configuration $\qarm$.
+in which $\jacobian$ depends only on the arm joint configuration $\qarm$.
 
 Suppose now the robot has to reach for an object, whose visual position is 
 represented by $\utarget$. To solve this problem 
@@ -291,9 +291,8 @@ the error during learning.
 	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/jacobian-error.eps}}
   \end{tabular}
 \end{center}
-\caption{Left: learning of the arm forward function. The plot reports the 
-\emph{MSE} on the test set during learning (see the text for details). 
-Right: learning the arm jacobian. The plot represents the \emph{MSE} on 
+\caption{Left: learning of the arm forward function. Right: learning the 
+arm jacobian. The plots represent the \emph{MSE} on 
 the test set during learning. See text for more details}\label{Fig:learningerrors}
 \end{figure}
 
