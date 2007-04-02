@@ -69,7 +69,7 @@ redundancy issue has to be addressed carefully given the kinematic and
 dynamic properties of the head. Specifically, a trivial solution (such 
 as constraining/blocking three degrees of freedom out of six) is not to be 
 recommended since a good tracking behavior should involve all the  head 
-degrees of freedom. Therefore, a good tracker should take advantage of 
+degrees of freedom. In particular, a good tracker should take advantage of 
 the eyes reduced inertia to perform fast movements; at the same time the 
 eyes limited range of movements should be overcome by moving the neck which 
 is instead capable of wider movements.
@@ -87,10 +87,10 @@ as follows:
 
 \begin{eqnarray} \label{Eq:HeadEyeControl}
 \left\{ \begin{matrix}
-\frac{d \alpha_v^c}{ d t} &=&   K_p (u_l + u_r)\\
-\frac{d \theta_y}{ d t} &=&   K_y \alpha_v^c \\
-\frac{d \alpha_t^c} {d t} &=&   K_t (v_l + v_r)\\
-\frac{d \theta_p} {d t} &=&   K_r \alpha_t^c
+\frac{\dot {\alpha_v^c} &=&   K_p (u_l + u_r)\\
+\frac{\dot {\theta_y} &=&   K_y \alpha_v^c \\
+\frac{\dot {\alpha_t^c} &=&   K_t (v_l + v_r)\\
+\frac{\dot {\theta_p} &=&   K_r \alpha_t^c
 \end{matrix} \right.,
 \end{eqnarray}
 where $\alpha_t^c$ and $\alpha_v^c$ are the eyes version and common tilt and 
@@ -99,7 +99,7 @@ In the proposed control scheme, the vergence degree of freedom $\alpha_v^d$,
 which somehow corresponds to the distance of the target does not influence 
 the neck position and is therefore controlled separately from the neck:
 \begin{eqnarray} 
-\frac{d \alpha_v^d}{ d t} &=&   K_p (u_l - u_r).
+\frac{ \dot \alpha_v^d} &=&   K_p (u_l - u_r).
 \end{eqnarray}
 Finally, the neck roll degree of freedom $\theta_r$ is maintained fixed, 
 i.e. $\theta_r^d=0$.
