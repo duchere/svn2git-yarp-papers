@@ -1,0 +1,12 @@
+More formally, let $\bar {\mathbf q}_{head} = \begin{bmatrix} \bar 
+{\mathbf q}_{eyes} & \bar {\mathbf q}_{neck} \end{bmatrix}$ 
+be a fixating position, i.e. $f_{head}(\bar {\mathbf q}_{head}) = 0$. 
+Moreover, let's assume that the given head configuration is non-singular, 
+i.e. the Jacobian matrix: $$\frac{\partial f_{head}}{\partial \mathbf 
+q_{head}}(\bar {\mathbf q}_{head}),$$ has full row rank. Then, by the 
+implicit function theorem there exists a function 
+$\mathbf q_{neck}(\cdot): \mathbb R^3 \longrightarrow \mathbb R^3$ 
+(locally defined around $\bar {\mathbf q}_{eyes}$) such that 
+$f_{head}({\mathbf q}_{eyes}, {\mathbf q}_{neck} ({\mathbf q}_{eyes}) ) = 0$ 
+for all the configuration ${\mathbf q}_{eyes}$ belonging to the neighborhood 
+of $\bar {\mathbf q}_{eyes}$.
