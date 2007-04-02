@@ -3,33 +3,10 @@
 
 In this section we describe the reaching performance obtained with 
 the reaching controller described in the previous section. Within this context,
-it is important to note that a formal definition of the performance 
-index is a nontrivial task. 
-
-If we were to consider a robot which operates in an highly structured
-environment, the definition of the performance index would have been much easier. 
-Specifically, for an industrial robot, the reaching task can be identified 
-with the problem of positioning the hand accurately with respect to a world 
-reference frame\footnote{Typical industrial robots do not use vision. Their 
-grasping movement is the result of 3-D positioning the gripper exactly in the 
-position where they know the object to be grasped will be positioned. The problem
-of positioning the object is then left to the user.}. In this case, the reaching 
-precision can be measured in terms of the distance between the desired and 
-actual position of the hand in the world reference frame.
- 
-In our case, a similar performance index definition cannot be applied. James has not 
-been designed to operate in an industrial scenario. Moreover, in our context, the definition of a reference 
-frame fixed with respect to the external world does not play the same crucial 
-role played in the industrial framework. In our mind, it is more important to 
-precisely locate the hand with respect to the object than to precisely locate 
-the hand in the external world frame. Therefore, our reaching performance index 
-should measure the Cartesian distance between the object to be grasped and the final 
-position of the hand. However, measuring this distance is not an easy task. In this section
-we approximate the real distance with the (stereo) \emph{image plane distance}. Practically speaking, suppose the 
-robot sees a target $\utarget$ to be grasped. Following our strategy, in order to reach the 
+it is important to note that a definition of the performance 
+index is a nontrivial task. Following the proposed strategy, in order to reach the 
 target we need to fixate it, i.e. $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point, i.e. $
-{\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target. In a more realistic case, when the image plane distance is null, we can only guarantee that the Cartesian target-hand distance is upper bounded by a quantity which depends only on the camera intrinsic parameters\footnote{
-Computing this upper bound is out of the scope of this paper.}. 
+{\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target.
 
 \subsection{Open Loop}
 The first attempt to reach the target consists in using (\ref{Eq:reaching2})
@@ -94,7 +71,7 @@ after a different open loop movement, i.e. a different value of $q_{20}$.
 As we described in Section \ref{Eq:ClosedLoop} the residual image plane errors 
 due to imperfections in the forward kinematic model can be reduced by a visual closed loop
 control strategy. This control strategy moves the arm so as to progressively 
-drive the hand position in the image planes ($\mathbf x_{hand}$) to zero. Of course this is guaranteed 
+drive the hand position in the image planes ($\xhand$) to zero. Of course this is guaranteed 
 only if the  Jacobian matrix has been learned in a sufficient accuracy. Figures 
 \ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors},  \ref{Fig:TimeResponseOpenClosedLoop} and \ref{Fig:TimeResponseOpenClosedLoopErrors} 
 show how the hand is actually driven to the 
