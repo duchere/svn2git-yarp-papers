@@ -50,12 +50,12 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
  by choosing a different value $q_{20}$. Let us denote the open loop movements $\q_{arm}^1$, $\dots$, 
  $\q_{arm}^K$ such that:
  
- \begin{eqnarray} \label{Eq:OpenLoopMovements}
+ \begin{multline} \label{Eq:OpenLoopMovements}
  \q_{arm}^k = \arg \min_{\mathbf q_{arm}}
   \left[
-  \left\| \hat f_{arm}(\mathbf q_{arm}) - \mathbf x_{target}\right\|^2 + \left(q_{arm,2}-q_{20}^k\right)^2
+  \left\| \hat f_{arm}(\mathbf q_{arm}) - \mathbf x_{target}\right\|^2 \right. \\ + \left. \left(q_{arm,2}-q_{20}^k\right)^2
   \right].
- \end{eqnarray}
+ \end{multline}
  
  The above minimization is such that $\hat f_{arm}(\mathbf q_{arm}^k) = \mathbf x_{target}$. Ideally, in absence
  of modeling errors we would have $ \mathbf x_{hand} = \mathbf x_{target}$ since $\mathbf x_{hand} = f_{arm}(\mathbf q_{arm}^k)$. In practice we have $\mathbf x_{hand} \simeq \hat f_{arm}(\mathbf q_{arm})$ 
@@ -70,15 +70,15 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/LeftEyeOpenLoop.eps}}  & \hspace{2cm} &
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/RightEyeOpenLoop.eps}}
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/LeftEyeOpenLoop.eps}}  & \hspace{0.1cm} &
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/RightEyeOpenLoop.eps}}
 	  \\
-	  \parbox{40mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{40mm}{\centering Right eye }
+	  \parbox{30mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{30mm}{\centering Right eye }
 	  %	  \end{t\\
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{The figure shows the open loop image plane errors $\uhand$ for different
+\caption{Open loop image plane errors $\uhand$ for different
 choices of the redundant variable $q_{20}$. For both pictures, on the horizontal axis 
 we have $u_r$ and $u_l$ while on the vertical axis we have $v_r$ and $v_l$ (always in pixels).
 In this specific case the target is in the middle of the two image planes 
@@ -94,7 +94,7 @@ after a different open loop movement, i.e. a different value of $q_{20}$.
 As we described in Section \ref{Eq:ClosedLoop} the residual image plane errors 
 due to imperfections in the forward kinematic model can be reduced by a visual closed loop
 control strategy. This control strategy moves the arm so as to progressively 
-drive the hand position in the image planes ($\uhand$) to zero. Of course this is guaranteed 
+drive the hand position in the image planes ($\mathbf x_{hand}$) to zero. Of course this is guaranteed 
 only if the  Jacobian matrix has been learned in a sufficient accuracy. Figures 
 \ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors},  \ref{Fig:TimeResponseOpenClosedLoop} and \ref{Fig:TimeResponseOpenClosedLoopErrors} 
 show how the hand is actually driven to the 
@@ -106,15 +106,15 @@ a good accuracy of the learned Jacobian.
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/LeftEyeClosedLoop.eps}}  & \hspace{2cm} &
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/RightEyeClosedLoop.eps}}
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/LeftEyeClosedLoop.eps}}  & \hspace{.1cm} &
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/RightEyeClosedLoop.eps}}
 	  \\
-	  \parbox{40mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{40mm}{\centering Right eye }
+	  \parbox{30mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{30mm}{\centering Right eye }
 	  %	  \end{t\\
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{The picture shows different closed loop control actions. Each trace correspond to a different Cartesian position of the target to be reached (which 
+\caption{Traces of different closed loop control actions. Each trace correspond to a different Cartesian position of the target to be reached (which 
 is always at the center of the image planes). The traces start exactly after the execution of the open loop movement, so that the initial position corresponds to the initial open loop error. Notice that all the traces end up in the image center (both left and right image planes) thus indicating that the visual errors are completely eliminated by the closed loop controller.}\label{Fig:ImagePlaneClosedLoopErrors}
   \end{figure}
 
@@ -122,15 +122,15 @@ is always at the center of the image planes). The traces start exactly after the
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/TimeReponseLeftClosedLoop.eps}}  & \hspace{2cm} &
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/TimeReponseRightClosedLoop.eps}}
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/TimeReponseLeftClosedLoop.eps}}  & \hspace{.1cm} &
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/TimeReponseRightClosedLoop.eps}}
 	  \\
-	  \parbox{40mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{40mm}{\centering Right eye }
+	  \parbox{30mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{30mm}{\centering Right eye }
 	  %	  \end{t\\
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{The picture shows the time response of the closed loop controller. The solid lines corresponds to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Clearly, the hand is driven to the image center with a null steady state error. Even if velocity was not our primarily concern, the time response is reasonably fast (an error of thirty pixels is eliminated in about 
+\caption{Time response of the closed loop controller. The solid lines corresponds to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Clearly, the hand is driven to the image center with a null steady state error. Even if velocity was not our primarily concern, the time response is reasonably fast (an error of thirty pixels is eliminated in about 
 three seconds). }\label{Fig:TimeResponseClosedLoopErrors}
   \end{figure}
 
@@ -139,15 +139,15 @@ three seconds). }\label{Fig:TimeResponseClosedLoopErrors}
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/LeftEyeOpenClosedLoop.eps}}  & \hspace{2cm} &
-	  \parbox{40mm}{\includegraphics[width=40mm]{Figure/RightEyeOpenClosedLoop.eps}}
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/LeftEyeOpenClosedLoop.eps}}  & \hspace{.1cm} &
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/RightEyeOpenClosedLoop.eps}}
 	  \\
-	  \parbox{40mm}{\centering Left eye } & \hspace{2cm} & \parbox{40mm}{\centering Right eye }
+	  \parbox{30mm}{\centering Left eye } & \hspace{.1cm} & \parbox{30mm}{\centering Right eye }
 	  %	  \end{t\\
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{The figure shows the movement of the hand on the image planes 
+\caption{Movement of the hand on the image planes (320$\times$240)
 during the execution of different reaching actions. For both pictures, 
 on the horizontal axis 
 we have $u_r$ and $u_l$ while on the vertical axis we have $v_r$ and $v_l$ (always in pixels).
@@ -161,13 +161,13 @@ relatively small error. The closed loop phase reduces this error to zero.}\label
   % Requires \usepackage{graphicx}
   \begin{center}
 	\begin{tabular}{ccc}
-	  \parbox{50mm}{\includegraphics[width=40mm]{Figure/LeftEyeOpenClosedLoopTimeResponse.eps}}  & \hspace{2cm} &
-	  \parbox{50mm}{\includegraphics[width=40mm]{Figure/RightEyeOpenClosedLoopTimeResponse.eps}}
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/LeftEyeOpenClosedLoopTimeResponse.eps}}  & \hspace{.1cm} &
+	  \parbox{30mm}{\includegraphics[width=30mm]{Figure/RightEyeOpenClosedLoopTimeResponse.eps}}
 	  \\
-	  \parbox{50mm}{\centering Left eye } & \hspace{2cm} & \parbox{50mm}{\centering Right eye }
+	  \parbox{30mm}{\centering Left eye } & \hspace{.1cm} & \parbox{50mm}{\centering Right eye }
 	  %	  \end{t\\
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{The picture shows the time response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
+\caption{Time response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
   \end{figure}
