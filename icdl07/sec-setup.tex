@@ -31,11 +31,7 @@ $\theta_p$ and $\theta_r$ for yaw, pitch and roll respectively. These
 two rotations are achieved with an unconventional actuation structure 
 (see for a detailed description \cite{jamone06james}). 
 
-To summarize, the variables describing the state of the robot that 
-are relevant to understand the remainder of the paper are:nd the remainder of the paper are: $\mathbf q_{head}$ = $\begin{bmatrix} \alpha_t^c & \alpha_v^d & \alpha_v^c & \theta_y & \theta_p & \theta_r \end{bmatrix}^\top \in \mathbb R^6$
-and the subset of arm joints from the shoulder to the elbow (assuming
-that the wrist DOFs affect only the orientation of the hand): 
-$\mathbf q_{arm} \in \mathbb R^4$.
+To summarize, the variables relevant to understand the remainder are: the head joints $\mathbf q_{head}$ = $\begin{bmatrix} \alpha_t^c & \alpha_v^d & \alpha_v^c & \theta_y & \theta_p & \theta_r \end{bmatrix}^\top \in \mathbb R^6$ and the first four arm joints (3 d.o.f. shoulder and wrist) denoted $\mathbf q_{arm} \in \mathbb R^4$.
 
 
 
