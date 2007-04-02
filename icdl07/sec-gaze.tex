@@ -87,10 +87,10 @@ as follows:
 
 \begin{eqnarray} \label{Eq:HeadEyeControl}
 \left\{ \begin{matrix}
-\frac{\dot {\alpha_v^c} &=&   K_p (u_l + u_r)\\
-\frac{\dot {\theta_y} &=&   K_y \alpha_v^c \\
-\frac{\dot {\alpha_t^c} &=&   K_t (v_l + v_r)\\
-\frac{\dot {\theta_p} &=&   K_r \alpha_t^c
+\dot {\alpha_v^c} &=&   K_p (u_l + u_r)\\
+\dot {\theta_y} &=&   K_y \alpha_v^c \\
+\dot {\alpha_t^c} &=&   K_t (v_l + v_r)\\
+\dot {\theta_p} &=&   K_r \alpha_t^c
 \end{matrix} \right.,
 \end{eqnarray}
 where $\alpha_t^c$ and $\alpha_v^c$ are the eyes version and common tilt and 
@@ -99,7 +99,7 @@ In the proposed control scheme, the vergence degree of freedom $\alpha_v^d$,
 which somehow corresponds to the distance of the target does not influence 
 the neck position and is therefore controlled separately from the neck:
 \begin{eqnarray} 
-\frac{ \dot \alpha_v^d} &=&   K_p (u_l - u_r).
+\dot {\alpha_v^d} &=&   K_p (u_l - u_r).
 \end{eqnarray}
 Finally, the neck roll degree of freedom $\theta_r$ is maintained fixed, 
 i.e. $\theta_r^d=0$.
