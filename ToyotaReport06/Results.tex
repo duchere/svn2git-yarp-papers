@@ -251,3 +251,28 @@ in terms of driving the hand directly to the target in spite of waiting the end 
 during an open loop movement followed by a closed loop phase. The solid trace is instead the hand movement during 
 the superposition of open and closed loop strategies. Remarkably, this second control architecture results in a faster response because when the hand becomes visible it is directly driven to the target without waiting for the open loop phase end.}\label{Fig:TimeResponseOpenVSClosedLoop}
   \end{figure}
+  
+  
+    
+  \begin{figure}
+  % Requires \usepackage{graphicx}
+  \begin{center}
+	\begin{tabular}{ccc}
+	  \parbox{60mm}{\includegraphics[width=60mm]{Figure/RedundancyLeft.eps}}  & \hspace{1cm} &
+	  \parbox{60mm}{\includegraphics[width=60mm]{Figure/RedundancyRight.eps}}
+	  \\
+	  \parbox{40mm}{\centering Left eye } & \hspace{1cm} & \parbox{40mm}{\centering Right eye }
+	  %	  \end{t\\
+	  %	Top view & & Lateral view
+  \end{tabular}
+\end{center}
+\caption{The figure shows image plane movements during a three phase movement. First the open loop movement, then the closed loop movement and finally a movement in the null space of the given task (keeping the hand in fixations). Remarkably, there's a minor image plane movement (less then ten pixels) during the null space movement, thus indicating a very good jacobian estimation.}\label{Fig:RedundancyImagePlane}
+  \end{figure}
+  
+  \begin{figure}
+  % Requires \usepackage{graphicx}
+  \begin{center}
+	\includegraphics[width=80mm]{Figure/RedundancyArm.eps}
+	\end{center}
+\caption{The picture shows the arm movement corresponding to the image plane movements shown in Figure \ref{Fig:RedundancyImagePlane}. Remarkably, the null space movement is characterized by large joint movements which are however not visible in the image plane due to the jacobian based compensation.} \label{Fig:RedundancyArm}
+  \end{figure}
