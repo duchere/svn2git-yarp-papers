@@ -3,7 +3,7 @@
 
 In this section we describe the reaching performance obtained with 
 the reaching controller described in the previous section. Within this context,
-it is important to note that a definition of the performance 
+it is important to note that a at a definition of the performance 
 index is a nontrivial task. Following the proposed strategy, in order to reach the 
 target we need to fixate it, i.e. $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point, i.e. $
 {\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target.
@@ -146,5 +146,5 @@ relatively small error. The closed loop phase reduces this error to zero.}\label
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{Time response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
+\caption{Time response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and rightime response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
   \end{figure}

@@ -151,7 +151,7 @@ $\mathbf{\hat{x}}_{hand}^i$:
 \emph{MSE}=\frac{1}{N_{test}}\sum_{i=0}^{N_{test}-1}\|\xhand^i- \hat{\mathbf{x}}_{hand}^i\|^2
 \end{equation}
 %
-The plot in figure \ref{fig:reaching-error}
+The plot in figure \ref{Fig:reachingerrors}
 shows the trend of the error on the test set during learning. At the end of
 the training the network reached the performance of $\emph{MSE}=5.7$ 
 (with $\emph{STD}=10.4$).
@@ -162,14 +162,6 @@ on a predefined test set. However, the learning algorithm we used was purely
 incremental (each sample was shown to the network only once and immediately 
 discarded), so in this regard it would be straightforward to have an 
 online implementation of the same mechanism.
-
-\begin{figure}[tbhp]
-\centerline{
-\includegraphics[width=3.0in, angle=0 ]{./Figure/reachingError1.eps}
-} \caption{Learning of the arm forward function. The plot reports the 
-\emph{MSE} on the test set during learning (see the text for details).}
-\label{fig:reaching-error}
-\end{figure}
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
 %
@@ -316,13 +308,22 @@ training step, we evaluated the performance of the network by computing
 \emph{MSE} on the remaining $N_{test}=52$ elements 
 (test set). At the 
 end of the training the error on the test set was $\emph{MSE}=2$ 
-($\emph{STD}=7.1$). Figure \ref{fig:jacobian-error} reports the plot of 
+($\emph{STD}=7.1$). Figure \ref{Fig:learningerrors} reports the plot of 
 the error during learning.
 %
-\begin{figure}[tbp]
-\centerline{
-\includegraphics[width=3.5in, angle=0 ]{./Figure/jacobian-error.eps}
-} \caption{Learning the arm jacobian. The plot represents the \emph{MSE} on 
-the test set during learning. See text.} \label{fig:jacobian-error}
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \begin{center}
+	\begin{tabular}{ccc}
+	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/reachingError1.eps}}  & \hspace{.1cm} &
+	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/jacobian-error.eps}}
+	  \\
+	  \parbox{30mm}{\centering Left eye } & \hspace{0.1cm} & \parbox{30mm}{\centering Right eye }
+  \end{tabular}
+\end{center}
+\caption{Left: learning of the arm forward function. The plot reports the 
+\emph{MSE} on the test set during learning (see the text for details). 
+Right: learning the arm jacobian. The plot represents the \emph{MSE} on 
+the test set during learning. See text for more details}\label{Fig:learningerrors}
 \end{figure}
-%
+
