@@ -1,2 +1,25 @@
 \section{Conclusions}
-We're cool
+In this paper we have described the implementation of a reaching
+behavior that integrates together an open loop and a closed 
+loop controller. The open loop controller
+allows the robot to perform faster movements and does not require visual 
+feedback from the hand. When sight of the hand is available the closed
+loop controller allows for precise positioning of the hand in the 
+image plane. The procedure among the other things estimates the eye-to-hand
+visual Jacobian of the robot. In this respect our method provides
+similar results to the ones described in the literature \cite{}
+
+We describe an explorative strategy by which the robot autonomously 
+acquires the transformations required to control the hand to reach for a
+visually identified target.
+
+We do not rely on any prior information about the 
+parameters of the robot. The only simplification was that we used 
+a color mark to visual localize the hand of the robot. Our assumption
+is that the hand localization/identification is a separate problem
+that needs to be solved before learning reaching. Previous work
+by the same and other authors have suggested procedures by which 
+the robot could autonomously learn to solve this task 
+(\cite{Natale05,edsinger06what}). It will be interesting to see
+how these approaches can be integrated with the work described 
+in this paper.
