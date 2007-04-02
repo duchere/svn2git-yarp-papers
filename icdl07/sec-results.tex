@@ -56,15 +56,12 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
   \end{tabular}
 \end{center}
 \caption{Open loop image plane errors $\uhand$ for different
-choices of the redundant variable $q_{20}$. For both pictures, on the horizontal axis 
-we have $u_r$ and $u_l$ while on the vertical axis we have $v_r$ and $v_l$ (always in pixels).
-In this specific case the target is in the middle of the two image planes 
-$[u_{r, target}, v_{r, target}] =[0,0]$ and $[u_{l, target}, v_{l, target}]=[0,0]$.
-The hand position in the image plane is instead represented 
-by the small circles.  Each circle corresponds to the hand position 
-after a different open loop movement, i.e. a different value of $q_{20}$.
+choices of the redundant variable $q_{20}$. On the horizontal axis 
+$u_r$ and $u_l$; vertical axis $v_r$ and $v_l$ (always in pixels).
+The hand position in the image plane is represented 
+by the small circles.  Each circle corresponds to a different open loop movement, i.e. a different value of $q_{20}$.
 }\label{Fig:ImagePlaneOpenLoopErrors}
-  \end{figure}
+ \end{figure}
 
 \subsection{Closed Loop}
 
@@ -92,7 +89,7 @@ a good accuracy of the learned Jacobian.
   \end{tabular}
 \end{center}
 \caption{Traces of different closed loop control actions. Each trace correspond to a different Cartesian position of the target to be reached (which 
-is always at the center of the image planes). The traces start exactly after the execution of the open loop movement, so that the initial position corresponds to the initial open loop error. Notice that all the traces end up in the image center (both left and right image planes) thus indicating that the visual errors are completely eliminated by the closed loop controller.}\label{Fig:ImagePlaneClosedLoopErrors}
+is always at the center of the image planes). All the traces end up in the image center thus indicating that the visual errors are completely eliminated by the closed loop controller.}\label{Fig:ImagePlaneClosedLoopErrors}
   \end{figure}
 
 \begin{figure}
@@ -107,8 +104,7 @@ is always at the center of the image planes). The traces start exactly after the
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{Time response of the closed loop controller. The solid lines corresponds to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Clearly, the hand is driven to the image center with a null steady state error. Even if velocity was not our primarily concern, the time response is reasonably fast (an error of thirty pixels is eliminated in about 
-three seconds). }\label{Fig:TimeResponseClosedLoopErrors}
+\caption{Time response of the closed loop controller. Solid lines: hand horizontal position in the left ($u_l$) and right ($u_r$). Dashed lines: vertical position, $v_l$ and $v_r$.}\label{Fig:TimeResponseClosedLoopErrors}
   \end{figure}
 
 
@@ -125,12 +121,8 @@ three seconds). }\label{Fig:TimeResponseClosedLoopErrors}
   \end{tabular}
 \end{center}
 \caption{Movement of the hand on the image planes (320$\times$240)
-during the execution of different reaching actions. For both pictures, 
-on the horizontal axis 
-we have $u_r$ and $u_l$ while on the vertical axis we have $v_r$ and $v_l$ (always in pixels).
-The traces correspond to the hand position during the movement. The solid line is the hand movement
-during the closed loop phase. The dashed trace is instead the hand movement during the open loop 
-phase. Clearly the open loop movement drives the hand to the target (the image centers) with a 
+during the execution of different reaching actions. 
+Solid line: closed loop. Dashed trace: open loop. Clearly the open loop movement drives the hand to the target (the image centers) with a 
 relatively small error. The closed loop phase reduces this error to zero.}\label{Fig:TimeResponseOpenClosedLoopErrors}
   \end{figure}
   
@@ -146,5 +138,5 @@ relatively small error. The closed loop phase reduces this error to zero.}\label
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{Time response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and rightime response of the closed loop and open loop strategy. The solid lines correspond to the hand horizontal position in the left ($u_l$) and right ($u_r$) image planes. The dashed lines correspond to the vertical position, $v_l$ and $v_r$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
-  \end{figure}
+\caption{Time response of the closed loop and open loop strategy. Solid lines: $u_r$ and $u_l$. Dashed lines: $v_r$ and $v_l$. Remarkably, the open loop phase is faster but does not drive the hand exactly on the target. The closed loop is slower but more accurate.}\label{Fig:TimeResponseOpenClosedLoop}
+\end{figure}
