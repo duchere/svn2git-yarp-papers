@@ -5,13 +5,18 @@ loop controller. The open loop controller
 allows the robot to perform faster movements and does not require visual 
 feedback from the hand. When sight of the hand is available the closed
 loop controller allows for precise positioning of the hand in the 
-image plane. The procedure among the other things estimates the eye-to-hand
-visual Jacobian of the robot. In this respect our method provides
-similar results to the ones described in the literature \cite{}
+image plane. 
 
 We describe an explorative strategy by which the robot autonomously 
 acquires the transformations required to control the hand to reach for a
-visually identified target.
+visually identified target. Among the other things this strategy 
+allows the estimation of the eye-to-hand visual Jacobian of the robot. 
+The estimation of the Jacobian is a simple task, and several solutions 
+have been proposed (cite). None of these work, however, take into
+account the motion of the head; in the experiments reported here the 
+estimation of the Jacobian is performaed with good accuracy for a subset 
+of the arm workspace and for \emph{different head postures}. We think
+this is an important contribution with respect to the state of the art.
 
 We do not rely on any prior information about the 
 parameters of the robot. The only simplification was that we used 
