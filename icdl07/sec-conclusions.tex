@@ -8,19 +8,21 @@ loop controller allows for precise positioning of the hand in the
 image plane. 
 
 We describe an explorative strategy by which the robot autonomously 
-acquires the transformations required to control the hand to reach for a
-visually identified target. Among the other things this strategy 
+acquires the forward motor map and the visual Jacobian transformations. 
+Among the other things this strategy 
 allows the estimation of the eye-to-hand visual Jacobian of the robot. 
-The estimation of the Jacobian is a simple task, and several solutions 
-have been proposed (cite). None of these work, however, take into
-account the motion of the head; in the experiments reported here the 
-estimation of the Jacobian is performaed with good accuracy for a subset 
-of the arm workspace and for \emph{different head postures}. We think
+The estimation of the Jacobian is a well studied task for which several 
+solutions have been proposed \cite{Hosoda94versatile,Mansard06jacobian,
+Lapreste04efficient}. None of these works, however, addresses the 
+problem of the redundancy of both the head and the arm. In the experiments 
+reported here the estimation of the Jacobian is performaed with good 
+accuracy for a subset of the arm workspace and for 
+\emph{different head postures}. We believe
 this is an important contribution with respect to the state of the art.
 
 We do not rely on any prior information about the 
-parameters of the robot. The only simplification was that we used 
-a color mark to visual localize the hand of the robot. Our assumption
+kinematic structure of the robot. The only simplification was that we used 
+a color marker to visually localize the hand of the robot. Our assumption
 is that the hand localization/identification is a separate problem
 that needs to be solved before learning reaching. Previous work
 by the same and other authors have suggested procedures by which 
