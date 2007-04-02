@@ -24,25 +24,7 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
  shows the image plane errors after the execution of the open loop movement. The plot has been obtained
  by fixating a target and performing a series of open loop movements. Each open loop
  movement was different because (\ref{Eq:reaching2}) was solved 
- by choosing a different value $q_{20}$. Let us denote the open loop movements $\q_{arm}^1$, $\dots$, 
- $\q_{arm}^K$ such that $\q_{arm}^k$ is the solution of:
- 
-{\footnotesize 
-  \begin{eqnarray} \label{Eq:OpenLoopMovements}
-	\min_{\mathbf q_{arm}}
-	\left[
-	  \left\| \hat f_{arm}(\mathbf q_{arm}) - \mathbf x_{target}\right\|^2 + \left(q_{arm,2}-q_{20}^k\right)^2
-	  \right].
-  \end{eqnarray}
-}
-
- The above minimization is such that $\hat f_{arm}(\mathbf q_{arm}^k) = \mathbf x_{target}$. Ideally, in absence
- of modeling errors we would have $ \mathbf x_{hand} = \mathbf x_{target}$ since $\mathbf x_{hand} = f_{arm}(\mathbf q_{arm}^k)$. In practice we have $\mathbf x_{hand} \simeq \hat f_{arm}(\mathbf q_{arm})$ 
- so that we can only achieve an approximate reaching $ \mathbf x_{hand} \simeq \mathbf x_{target}$ 
- which reflects into small image plane errors $\| \uhand - \utarget\| \simeq 0$. Different choices 
- of the free variables $q_{20}^1$, $\dots$, $q_{20}^K$ lead to different image plane errors as shown 
- in Figure \ref{Fig:ImagePlaneOpenLoopErrors}.
-
+ by choosing a different value $q_{20}$. 
 
 
 \begin{figure}
@@ -73,7 +55,7 @@ due to imperfections in the forward kinematic model can be reduced by a visual c
 control strategy. This control strategy moves the arm to progressively 
 drive the hand position in the image planes ($\xhand$) to zero. Of course this is guaranteed 
 only if the  Jacobian matrix has been learned in a sufficient accuracy. Figures 
-\ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors},  \ref{Fig:TimeResponseOpenClosedLoop} and \ref{Fig:TimeResponseOpenClosedLoopErrors} 
+\ref{Fig:ImagePlaneClosedLoopErrors}, \ref{Fig:TimeResponseClosedLoopErrors}, \ref{Fig:TimeResponseOpenClosedLoopErrors} and \ref{Fig:TimeResponseOpenClosedLoop}  
 show how the hand is actually driven to the 
 exact image center in both the image planes. Moreover, it is important to notice the
 approximative linearity of the path followed by the hand. This linearity denotes 

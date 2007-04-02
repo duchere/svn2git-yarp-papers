@@ -83,7 +83,7 @@ where $\mathbf x_{target}$ is measured from the encoders of the head, while
 $\mathbf x_{hand}$ is computed from $\qarm$ through Eq. (\ref{Eq:forward}).
 Given the redundancy of the arm kinematics the minimization 
 (\ref{Eq:reaching1}) has infinite solutions. We constrained the problem by 
-forcing one of the joints, for example joint number 2, to remain as close 
+forcing one of the joints, for example joint number 2 (the elbow joint), to remain as close 
 as possible to a predefined value $q_{20}$:
 %
 \begin{equation} 
@@ -152,7 +152,7 @@ online implementation of the same mechanism.
 %
 If the robot can visually measure the distance
 between the hand and the target, reaching can also be solved
-visually, by implementing a closed loop control. The underlying idea consists in
+visually, by implementing a closed control loop . The underlying idea consists in
 performing a preliminary (open loop) reaching movement and then refining the action
 by visually correcting any residual error. 
 
@@ -225,7 +225,7 @@ to the one which produces the minimum joint speeds, that is:
 \qquad \jacobian^\# \in \mathbb R^{4 \times 3},
 \end{equation}
 %
-where $\jacobian^\#$ is the pseudo-inverse of $\jacobian$.
+where $\jacobian^\#$ is the Moore-Penrose pseudo-inverse of $\jacobian$.
 
 \subsection{Learning the Arm Jacobian}
 %
@@ -244,33 +244,20 @@ $\qarm^j$,  while the eyes are fixating the hand
 arm configuration corresponds to a different value of 
 $\jacobian_j=\jacobian\left(\qarm^j\right)$. 
 Now the robot inhibits the head tracker and performs a sequence $m$
-of small arm movements $\deltaqarm^k$ which perturb 
-$\uhand$ of small amounts $\deltauhand^k$:
-%
-\begin{center}
-\begin{math}
+of small arm movements $\deltaqarm^k$ which perturb $\uhand$ of small amounts $\deltauhand^k$:$
   \left(\begin{array}{cc}
     \deltauhand^k , 
 	\deltaqarm^k \end{array}
   \right)_{k = 0,1\dots,m}
-\end{math}
-\end{center}
-%
-All $m$ perturbations $\deltauhand^k$ and 
+$. All $m$ perturbations $\deltauhand^k$ and 
 $\deltaqarm^k$ are linearly related through $\jacobian_i$ 
 as described in Eq. (\ref{eq:jacobian2}). From these $m$ 
 observations we can derive a least squares estimation of $\jacobian_j$ from 
-which, in turn, we can compute the Moore-Penrose pseudo-inverse $\jacobian_j^\#$. 
+which, in turn, we can compute the pseudo-inverse $\jacobian_j^\#$. 
 
 Re-iterating this procedure leads to the collection of a series of examples:
-%
-\begin{center}
-\begin{math}
-  \left(\begin{array}{cc}
-    \qarm^j , \jacobian_j^\# \end{array}\right)_{j = 0,1\dots}
-\end{math}
-\end{center}
-%
+$  \left(\begin{array}{cc}
+    \qarm^j , \jacobian_j^\# \end{array}\right)_{j = 0,1\dots}$.
 An approximation $\hat{\jacobian}^\#$ of $\jacobian^\#$ is finally
 obtained by training a neural network:
 %
