@@ -1,11 +1,8 @@
 \section{Gaze control}
 \label{Sec:gazecontrol}
 
-One of the main modules in the reaching controller is represented 
-by the {\tt gaze controller}, which directs gaze toward a given 
-target. The input of this module is represented by the target 
-location in the image planes. The output instead consists in the head 
-motor commands necessary to direct gaze toward the target. 
+In this section we describe how we control the gaze of the robot to
+fixate a visual target.
 
 \begin{figure}[tbp]
 \centering
@@ -31,30 +28,14 @@ $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$.
 Let us define the vector 
 $\tilde {\mathbf u}_{target}= \begin{bmatrix} u_r & v_r & u_l & v_l 
 \end{bmatrix}^\top \in \mathbb R^4$ corresponding to the 
-target location in the image planes. Assuming that the target is stationary 
-with respect to the robot, we have that $\tilde {\mathbf u}_{target}$ 
-can be expressed as a function of the head configuration 
-$\mathbf q_{head} = \begin{bmatrix} \mathbf q_{eyes}^\top & \mathbf q_{neck}^\top \end{bmatrix}^\top \in \mathbb R^6$:
-\begin{eqnarray*}
-\tilde {\mathbf u}_{target} = \tilde f_{head} (\mathbf q_{head}),
-\end{eqnarray*}
-where the function $\tilde f_{head} : \mathbb R^6 \longrightarrow \mathbb R^4$ 
-depeends on the head kinematics. Under reasonable 
+target location in the image planes. Under reasonable 
 assumptions, we do not need to impose simultaneously 
 the four conditions $u_r=0$, $v_r=0$, $u_l=0$, $v_l=0$.  Our control task 
 can be redefined as the problem of controlling 
 $\utarget = \begin{bmatrix} u_r & u_l & v_l \end{bmatrix}^\top \in \mathbb R^3$ 
-to zero. The kinematic function will be in this case:
-\begin{eqnarray*}
-\utarget = f_{head} (\mathbf q_{head}), \qquad f_{head} : \mathbb R^6 \longrightarrow \mathbb R^3.
-\end{eqnarray*}
-Clearly, the task specification does not constrain all the head degrees of 
+to zero. Clearly, the task specification does not constrain all the head degrees of 
 freedom (we are imposing $m=3$ constraints but we have $n=6$ free variables 
 available: we remain with $n-m=3$ additional degrees of freedom). 
-Practically, we can have 
-different configuration of the head ($\mathbf q_{head,1} \neq \mathbf 
-q_{head,2}$) both keeping the same target in fixation 
-(${\mathbf u}_{target,1} = {\mathbf u}_{target,2} = 0$). 
 The strategy we have chosen to solve this ``redundancy problem'' consists in 
 using two controller for the eyes and the neck. The former controls 
 the eyes version and common tilt to track the object, while the latter
@@ -63,13 +44,17 @@ the neck. Mathematically the above strategy can be implemented
 as follows:
 
 \begin{eqnarray} \label{Eq:HeadEyeControl}
-\left\{ \begin{matrix}
+\left\{\begin{matrix}
 \dot {\alpha_v^c} &=&   K_p (u_l + u_r)\\
-\dot {\theta_y} &=&   K_y \alpha_v^c \\
+\dot {\theta_y} &=&   K_y \alpha_v^c 
+\end{matrix}
+\right.,\quad
+\left\{ \begin{matrix}
 \dot {\alpha_t^c} &=&   K_t (v_l + v_r)\\
 \dot {\theta_p} &=&   K_r \alpha_t^c
 \end{matrix} \right.,
 \end{eqnarray}
+%
 where $\alpha_t^c$ and $\alpha_v^c$ are the eyes version and common tilt and 
 where $\theta_y$ and $\theta_p$ are the yaw and pitch movement of the neck. 
 In the proposed control scheme, the vergence degree of freedom $\alpha_v^d$, 

@@ -31,22 +31,18 @@ controller minimizes $\alpha_t^c$ and $\alpha^c_v$ (see equation
 (\ref{Eq:HeadEyeControl})) so that they asymptotically
 converge to zero ($\alpha_t^c \rightarrow 0$ and 
 $\alpha_v^c \rightarrow 0$). Ideally, after 
-fixation is achieved, we have:
-%
-\begin{eqnarray}
-{\mathbf q}_{head}=
+fixation is achieved, we have $
+\mathbf {q}_{head}=
 \begin{bmatrix} \theta_y & \theta_p & 0 & \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
-\end{eqnarray}
+$
 %
 Since there exists a one to one mapping between the three dimensional 
 position of the target 
 $\tilde {\mathbf x}_{target}$ and the three non-zero variables 
-$\theta_y$, $\theta_p$ and $\alpha_v^d$, we can define:
-%
-\begin{eqnarray}
+$\theta_y$, $\theta_p$ and $\alpha_v^d$, we can define $
 \mathbf x_{target}=
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
-\end{eqnarray}
+$
 %
 This new variable $\mathbf x_{target} \in \mathbb R^3$ uniquely codes the 
 spatial position of the target in a way that resembles a three dimensional 
@@ -55,12 +51,10 @@ respectively \emph{azimuth} and \emph{elevation}, while \emph{distance} is
 substituted with $\alpha_v$ (the \emph{vergence} angle). 
 
 If the robot tracks the hand, the same subset of the head joint space 
-can be used to code the spatial location of the hand:
-%
-\begin{eqnarray*}
+can be used to code the spatial location of the hand: $
 \xhand=
 \begin{bmatrix} \theta_y & \theta_p & \alpha_v^d\end{bmatrix}^\top \in \mathbb R^3.
-\end{eqnarray*}
+$
 %
 Under these assumptions, the \emph{forward mapping} 
 $f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3$
@@ -72,12 +66,8 @@ $\xhand$:
 \mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3.\end{equation}
 %
 In the next section we show how we trained a neural network to approximate
-the arm forward mapping (Eq. \ref{Eq:forward}): 
-%
-\begin{equation} 
-\label{Eq:forward2}
-\mathbf x_{hand}=\hat{f}_{arm}(\mathbf q_{arm}), \qquad \hat{f}_{arm} : \mathbb R^3 \longrightarrow \mathbb R^4.\end{equation}
-%
+the arm forward mapping (Eq. \ref{Eq:forward}).
+
 Suppose now that the robot is fixating a target and that we want to control 
 the robot to reach for it. Formally the problem can be formulated 
 as determining the value of $\qarm$ which solves the 
@@ -90,7 +80,7 @@ following optimization problem:
 \end{equation}
 %
 where $\mathbf x_{target}$ is measured from the encoders of the head, while 
-$\mathbf x_{hand}$ is computed from $\qarm$ through Eq. (\ref{Eq:forward2}).
+$\mathbf x_{hand}$ is computed from $\qarm$ through Eq. (\ref{Eq:forward}).
 Given the redundancy of the arm kinematics the minimization 
 (\ref{Eq:reaching1}) has infinite solutions. We constrained the problem by 
 forcing one of the joints, for example joint number 2, to remain as close 
@@ -105,8 +95,7 @@ as possible to a predefined value $q_{20}$:
 \end{equation}
 
 The optimization of (\ref{Eq:reaching2}) can be performed numerically using 
-various algorithms. Discussing the different properties of these numerical 
-solutions falls outside the scope of this paper. In our implementation, we used 
+various algorithms. In our implementation, we used 
 the downhill simplex method \cite{ne:Computer:65} as implemented in 
 \cite{mo:Press:90}.
 
@@ -116,14 +105,10 @@ the downhill simplex method \cite{ne:Computer:65} as implemented in
 To learn the forward map of Eq. (\ref{Eq:forward}) we programmed 
 the robot to perform random movements with the arm (chosen to uniformly sample 
 a predefined region in the robot workspace). During this ``exploratory'' 
-phase the robot tracked the hand, and collected samples of the form:
+phase the robot tracked the hand, and collected samples of the form: $
 %
-\begin{center}
-\begin{math}
-  \left(\begin{array}{cc}
-    \qarm^i , \xhand^i\end{array}\right)_{i = 0,1\dots}
-\end{math}
-\end{center}
+\left(\begin{array}{cc}
+  \qarm^i , \xhand^i\end{array}\right)_{i = 0,1\dots}$
 %
 A neural network was then trained to learn the relation:
 %
