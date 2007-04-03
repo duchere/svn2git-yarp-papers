@@ -73,37 +73,32 @@
 \title{\huge Learning precise 3D reaching in a humanoid robot}
 
 % author names and affiliations
-\author{\authorblockN{Lorenzo Natale}
+\author{\authorblockN{Lorenzo Natale, Francesco Nori, Giulio Sandini}
 \authorblockA{
 \textit{Italian Institute of Technology}\\
 \textit{Via Morego 30, Genova, ITALY}\\
-\textit{lorenzo.natale@iit.it}\\}%
-\and
-\authorblockN{Francesco Nori}
-\authorblockA{
-\textit{Italian Institute of Technology}\\
-\textit{Via Morego 30, Genova, ITALY}\\
-\textit{francesco.nori@iit.it}\\}
+\textit{\{lorenzo.natale, francesco.nori, giulio.sandini\}@iit.it}\\}
 \and
 \authorblockN{Giorgio Metta}
 \authorblockA{
-\textit{Italian Institute of Technology}\\
+\textit{University of Genoa and Italian Institute of Technology}\\
 \textit{Via Morego 30, Genova, ITALY}\\
 \textit{giorgio.metta@iit.it}\\}
-}%
+}
 
 % make the title area
 \maketitle
 \begin{abstract}
 In this paper we discuss the implementation of a precise reaching controller 
-on an upper torso humanoid robot. The proposed solution is based 
-on a learning strategy which does not rely on \emph{a priori} models of either
-the arm or head kinematics. After learning the robot can reach for visually 
-identified objects, in the 3-dimensional space. Reaching integrates together 
-an open loop and a closed loop strategy; the open loop allows ballistic 
-movements, while the closed loop performs precise positioning of the hand in 
-the visual space. Differently from other approaches we handle the critical 
-case of redundancy in the head and arm. 
+on an upper-torso humanoid robot. The proposed solution is based on a 
+learning strategy which does not rely on \emph{a priori} models of the 
+kinematics of the arm nor of that of the head. After learning, the robot 
+can reach for visually identified objects in 3-dimensional space. Reaching 
+integrates an open loop and a closed loop component; the open loop controller allows 
+ballistic movements, while the closed loop one performs precise positioning of 
+the hand in visual space. Differently from other approaches we handle 
+the critical case of redundancy in the head and the arm and propose a 
+solution that although preliminary possesses some biological relevance.
 \end{abstract}
 
 % key words

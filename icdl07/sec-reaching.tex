@@ -7,11 +7,11 @@ uses the forward mapping between the arm joint space and the three
 dimensional position of the hand represented in the head reference 
 frame. The second method uses a visual servoing technique to control the 
 speed of the arm to minimize the position of the hand in the 
-image plane with respect to a desired target (usually the fixated object).
+image plane with respect to a desired target (the fixated object).
 
 \subsection{Open Loop Reaching}
 %
-Suppose the robot is tracking a target as described 
+Suppose that the robot is tracking a target as described 
 in Section \ref{Sec:gazecontrol}. In the assumption of perfect 
 tracking (the visual error is zero), the three dimensional spatial position 
 of the target with respect to the robot, denoted $\tilde {\mathbf x}_{target} 
@@ -24,7 +24,7 @@ $\mathbf q_{head}$, is clearly redundant.
 Specifically, the same target position can be represented by different 
 head configurations. To obtain a one to one mapping between the target 
 position and the head configuration we have to analyze the 
-{\tt gaze controller}. The latter maintains $\theta_r$ stationary 
+gaze controller. The latter maintains $\theta_r$ stationary 
 ($\theta_r^d = 0$) and poses additional constraints on the head joints. 
 In particular we know from section \ref{Sec:gazecontrol} that the 
 controller minimizes $\alpha_t^c$ and $\alpha^c_v$ (see equation 
@@ -65,7 +65,7 @@ $\xhand$:
 \label{Eq:forward}
 \mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3.\end{equation}
 %
-In the next section we show how we trained a neural network to approximate
+In the next section we show how a neural network could be trained to approximate
 the arm forward mapping (Eq. \ref{Eq:forward}).
 
 Suppose now that the robot is fixating a target and that we want to control 
@@ -142,17 +142,17 @@ the training the network reached the performance of $\emph{MSE}=5.7$
 (with $\emph{STD}=10.4$).
 
 In the experiment reported in this paper the network was trained offline. 
-This was to simplify the analysis of the results and perform cross-validation 
-on a predefined test set. However, the learning algorithm we used was purely 
+This was done to simplify the analysis of the results and to perform cross-validation 
+on a predefined test set. However, the learning algorithm we used is purely 
 incremental (each sample was shown to the network only once and immediately 
-discarded), so in this regard it would be straightforward to have an 
-online implementation of the same mechanism.
+discarded), so in this regard it would be straightforward to convert the 
+same approach to an online implementation.
 
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
 %
-If the robot can visually measure the distance
-between the hand and the target, reaching can also be solved
-visually, by implementing a closed control loop . The underlying idea consists in
+If the robot could visually measure the distance
+between the hand and the target, then reaching could also be solved
+visually, by implementing a closed control loop. The underlying idea consists in
 performing a preliminary (open loop) reaching movement and then refining the action
 by visually correcting any residual error. 
 
@@ -167,7 +167,7 @@ with hand velocities in the image plane $\dot {\mathbf u}_{hand} = \left[
   \dot {\mathbf q}_{arm},
 \end{equation}
 where $\tilde{\jacobian} \in \mathbb R^{3 \times 4}$ depends on 
-both the configuration of the arm and the head. Practically, assuming 
+both the configuration of the arm and the head. In practice, assuming 
 sufficiently small arm movements $\deltaqarm$, we can use the following 
 approximation:
 %
@@ -203,9 +203,9 @@ that $\xtarget = \hat f(\qarm)$ so that  Eq.
   \deltaqarm,\qquad \jacobian \in \mathbb R^{3\times4}
 \end{equation}
 %
-in which $\jacobian$ depends only on the arm joint configuration $\qarm$.
+where $\jacobian$ depends only on the arm joint configuration $\qarm$.
 
-Suppose now the robot has to reach for an object, whose visual position is 
+Suppose now that the robot has to reach for an object, whose visual position is 
 represented by $\utarget$. To solve this problem 
 the controller of the arm needs to compute the arm command which minimizes 
 the error:
@@ -218,7 +218,7 @@ When the head tracker has achieved convergence on the object,
 $\utarget \approx 0 $ and $e$ $\approx \left\|\uhand\right\|^2$.
 Due to the redundancy of the arm, the minimization of $e$ can have
 infinite solutions. Among them, the minimum norm solution corresponds
-to the one which produces the minimum joint speeds, that is:
+to the minimum joint speeds, that is:
 %
 \begin{equation}
 \mathbf{\dot q}_{arm}=-k \cdot \jacobian^\# \uhand, 

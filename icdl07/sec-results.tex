@@ -2,7 +2,7 @@
 \label{sec:results}
 
 In this section we report the results of the experiments we carried out
-to quantify the performance of the reaching. Following the proposed strategy, 
+to quantify the performance of the reaching movements. Following the proposed strategy, 
 in order to reach for the 
 target we first need to fixate it, i.e. $\utarget = 0$. Using the available sensor (i.e. vision) the best we can do to precisely reach the target is moving the hand to the fixation point, i.e. $
 {\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target.
@@ -11,13 +11,13 @@ target we first need to fixate it, i.e. $\utarget = 0$. Using the available sens
 The first attempt to reach the target consists in using (\ref{Eq:reaching2})
 to choose the arm configuration $\q_{arm}$ which brings the hand to the center 
 of the image planes. Clearly, if the forward 
-kinematic function (\ref{Eq:forward}) were perfectly represented and if the target were reachable, we would have $\mathbf x_{hand} =  \mathbf x_{target}$, which implies that the target-hand Cartesian distance 
- is null (see Section \ref{sec:reaching} for details). Therefore, in this ideal case, the open loop 
+kinematic function (\ref{Eq:forward}) were perfectly represented and if the target were reachable, then we would have $\mathbf x_{hand} =  \mathbf x_{target}$, which implies that the target-hand Cartesian distance 
+ is zero (see Section \ref{sec:reaching} for details). Therefore, in this ideal case, the open loop 
  strategy already results in $\| \uhand - \utarget \| = 0$. In practice, the model 
- (\ref{Eq:forward}) cannot exactly represent the system kinematic\footnote{Part of the representational 
- errors are related to the way we have chosen the represent the kinematic function, in this case the
- so called Receptive Field Weighted Regression model. Part are due to the mechanical plays of the
- kinematic structure.}. Therefore, even tough we can find $\q_{arm}$ such that $\mathbf x_{hand}=
+ (\ref{Eq:forward}) cannot exactly represent the system's kinematic\footnote{Part of the representational 
+ errors are related to the representation of the kinematic function, in this case the
+ so called Receptive Field Weighted Regression model. Part are due to the mechanical plays and backlash of the
+ mechanical structure.}. Therefore, even tough we can find $\q_{arm}$ such that $\mathbf x_{hand}=
  \hat f_{arm}(\mathbf q_{arm})$ it is not guaranteed that after the movement execution 
  $\| \uhand - \utarget \| = 0$. Figure \ref{Fig:ImagePlaneOpenLoopErrors}
  shows the image plane errors after the execution of the open loop movement. The plot has been obtained
@@ -56,9 +56,9 @@ drive the hand position in the image planes ($\xhand$) to zero. Figures
 show how the hand is actually driven to the 
 exact image center in both the image planes. The closed loop controller 
 improves the accuracy of the reaching movement, but at the cost of a slower 
-execution velocity (see Figure \ref{Fig:TimeResponseOpenClosedLoop}). 
+execution speed (see Figure \ref{Fig:TimeResponseOpenClosedLoop}). 
 Moreover, it is important to notice 
-the approximative linearity of the path followed by the hand 
+the quasi-linearity of the path followed by the hand 
 (see Figure \ref{Fig:ImagePlaneClosedLoopErrors}). This linearity denotes 
 a good accuracy of the learned Jacobian.
 

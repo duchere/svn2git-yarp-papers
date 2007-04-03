@@ -10,38 +10,36 @@
 %[*] the interaction matrix ds = L(q_head, q_arm) dx_hand
 
 In this section we briefly describe previous approaches to the problem of 
-learning how to perform precise reaching with a robot arm. As stated above, the problem 
-naturally splits down into two phases, open loop and closed loop, both well 
+learning how to reach visual targets with a robot arm. As stated above, the problem 
+naturally splits down into two components, open loop and closed loop, both well 
 studied in literature.
 
-The {\em open loop} phase requires a sensory-motor map encoding the relationship between hand visual localization and arm position. Following a classical procedure, this map can be practically decomposed into three parts: the robot forward kinematics (mapping the hand reference frame into a robot reference frame), the camera projective map (mapping the hand reference frame into a camera reference frame) and the hand/eye map (mapping the camera reference frame into the hand reference frame). Extensive literature has been produced to describe different calibration procedures for retrieving each of these basic maps. Suitable kinematic \cite{Hollerbach96calibration} and hand/eye \cite{Tsai88calibration} calibration procedures can be used to retrieve the forward kinematic and the hand/eye maps. Similarly, different algorithms and strategies have been proposed for cameras and stereo rigs calibration, which is a well known problem `per se', studied mainly in computer vision \cite{Soatto03vision} but with extensive application in robotics. 
+The {\em open loop} phase requires a sensory-motor map encoding the relationship between the hand visual localization and the arm position. Following a classical procedure, this map can be practically decomposed into three parts: the robot forward kinematics (mapping the hand reference frame into a reference frame on the robot), the camera projective map (mapping the hand reference frame into a camera reference frame) and the hand/eye map (mapping the camera reference frame into the hand reference frame). Extensive literature is available describing different calibration procedures for retrieving each of these basic maps. Suitable kinematic \cite{Hollerbach96calibration} and hand/eye \cite{Tsai88calibration} calibration procedures can be used to retrieve the forward kinematics and the hand/eye maps. Similarly, different algorithms and strategies have been proposed for cameras and stereo rigs calibration, which is a well known problem in itself, studied mainly in computer vision \cite{Soatto03vision} but with extensive application in robotics. 
 
-Though the final result of these procedures can be extremely accurate, the standard calibration techniques require the robot to operate in an highly structured environment (typically represented by a calibrated grid or object) with a precisely calibrated hand pose sensor (typically a stereo rig), which is not desirable in certain applications. Therefore, alternative procedures have been proposed in order to relax some of the above assumptions. In \cite{AHE01} for example, an hand/eye calibration procedure which does not use any calibration object is proposed. Other approaches have introduced the possibility of performing a kinematic calibration without measuring the hand pose \cite{Bennett91calibration}, but only relying on proprioception and exploiting specific kinematic constraints (e.g. by keeping the hand fixed on the ground).
+Although the final result of these procedures can be extremely accurate, the standard calibration techniques require the robot to operate in a highly structured environment (typically represented by a calibrated grid or a known object) with a precisely calibrated hand pose sensor (typically a stereo rig), which is not desirable in certain applications and, certainly, does not seem to be biologically plausible. Therefore, alternative procedures have been proposed in order to relax some of the above assumptions. In \cite{AHE01} for example, an hand/eye calibration procedure which does not use a calibration object is proposed. Other approaches have introduced the possibility of performing a kinematic calibration without measuring the hand pose \cite{Bennett91calibration} by relying on proprioception and by exploiting specific kinematic constraints (e.g. by keeping the hand stationary with respect to the ground, used as reference).
 
 For certain applications the classical calibration procedures are not 
 necessary. A simpler approach \cite{blackburn94learning} avoids the estimation 
 of the three maps mentioned above by learning a single forward map. 
-In this case
-the map links the head joint position to the corresponding arm position that
-keeps the hand in fixation. When the robot fixates the target reaching can be 
-performed by inverting this map to retrieve the arm command which brings
+In this case the map links the head joint position to the corresponding arm position while 
+maintaining the hand at the center of the images (fixation). When the robot fixates the 
+target reaching can be performed by inverting this map to retrieve the arm command which brings
 the hand to the fixation point. Recently this approach has been successfully 
 extended to redundant manipulators \cite{lopes06learning}, although in the 
 case of a 2-dimensional visual space.
 
-The {\em closed loop} phase requires knowledge of the Jacobian of the open loop map.
-It can be derived analytically from 
-mathematical differentiation of the function describing the forward map itself. 
-Alternatively, some works have proposed techniques to directly estimate the Jacobian matrix
-\cite{Hosoda94versatile,Mansard06jacobian} or its inverse 
-\cite{Lapreste04efficient}.
+The {\em closed loop} controller requires knowledge of the Jacobian of the open loop map.
+It can be derived analytically from mathematical differentiation of the function describing 
+the forward map itself. 
+Alternatively, techniques can be brought to bear to directly estimate the Jacobian matrix
+\cite{Hosoda94versatile,Mansard06jacobian} or its inverse \cite{Lapreste04efficient}.
 
 In this paper we integrated together the 
-open \cite{blackburn94learning,Mansard06jacobian} and closed 
+open \cite{blackburn94learning,Mansard06jacobian,scaz07fast} and closed 
 \cite{Hosoda94versatile,lopes06learning} loop 
 strategies, both performed in the 3-dimensional space.
 We also propose a procedure to estimate 
 the Jacobian of the manipulator in the case of a redundant head and arm. All the 
 transformations required to perform the task, are autonomously estimated by the robot 
- without relying on any \emph{a priori} knowledge about the robot 
-kinematic structure.
+without relying on any \emph{a priori} knowledge about the robot kinematic structure and
+without an explicit manual labeling of the training data.
