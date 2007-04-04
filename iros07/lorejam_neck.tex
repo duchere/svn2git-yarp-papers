@@ -73,7 +73,7 @@ especially if we are interested in replicating both kinematic and dynamical aspe
 
 \section{Humanoid platform} \label{Sec:Platform}
 
-The robotic platform on which the discussed controllers have been implemented is the humanoid robot James \cite{James06}.\\James is a 22-DOF torso with moving eyes and neck, an arm and a highly anthropomorphic hand. In the following subsections we briefly cover the robot design, its actuation, and sensorization. More details about the neck structure are given in section 3.
+The robotic platform on which the discussed controller has been implemented is the humanoid robot James \cite{James06}.\\James is a 22-DOF torso with moving eyes and neck, an arm and a highly anthropomorphic hand (see Figure \ref{Fig:PicureJames}). In the following subsections we briefly cover the robot design, its actuation, and sensorization. More details about the neck structure are given in section 3.
 
 \begin{figure}[h!tbp]
 \centering
@@ -156,15 +156,26 @@ l_2\\
 l_3
 \end{bmatrix} - f(\theta_r, \theta_p) \right),
 \end{eqnarray}
-where $\gamma$ is an arbitrary constant in the range $[0, 1]$. The second term of the controller (the one multiplied by $\gamma$) guarantees that the the length of the cables remains similar to the length of the model. This strategy is sufficient to guarantee that the tendons maintain a tension which is more or less constant across different configurations of the structure. In this final configuration the jacobian $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ can be substituted with a constant jacobian computed at the reference configuration $\theta_r$=$\theta_p$=0.
+where $\gamma$ is an arbitrary constant in the range $[0, 1]$. The second term of the controller (the one multiplied by $\gamma$) guarantees that the the length of the cables remains similar to the length of the model. This strategy is sufficient to guarantee that the tendons maintain a tension which is more or less constant across different configurations of the structure (see Figure \ref{Fig:HeadPos}). In this final configuration the jacobian $\begin{bmatrix} \frac{\partial f} {\partial \theta_r} &  \frac{\partial f} {\partial \theta_p} \end{bmatrix}$ can be substituted with a constant jacobian computed at the reference configuration $\theta_r$=$\theta_p$=0.
 
 
 \section{Experimental data} \label{Sec:ExpData}
 
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=20mm]{HeadRight.jpg} \hspace{1pt}
+\includegraphics[width=20mm]{HeadLeft.jpg} \hspace{1pt}
+\includegraphics[width=21mm]{HeadAhead.jpg} \hspace{1pt}
+\includegraphics[width=20mm]{HeadBack.jpg} \hspace{1pt}\\
+
+\caption{James head. Different configurations seen from different views. Its complex actuation system gives compliance and wide ranges to the motion.}
+\label{Fig:HeadPos}
+\end{figure}
+
 
 \section{Future work} \label{Sec:FutureWork}
 
-Preliminary works have been carried out concerning the development of a non-model-based controller for James neck.\\The planned solution makes use of a Receptive Field Neural Network to extimate the joint-space velocities needed to move the head with the desired task-space velocities, given the actual joint configuration.\\After a training phase, in which the workspace is randomly explored by the robot and the network learns on-line from the gathered sensory data, the trained network is able to map the two spaces. This mapping is called, in mathematical terms, the global inverse Jacobian matrix.\\Unfortunately, due to the redundant actuation system we deal with, our Jacobian matrix is not square, and so not invertible. This means that for a given set of actual joints positions and required task-space velocities there is not a unique solution in terms of joint-space velocities; nevertheless, within this family of solutions, just a very limited set is usable in practice, because a minimum amount of tension is needed along the tendons to avoid their possible outgo from the capstans.\\To overcome this problem, the velocities applied to the motors during the training phase result from the summation of two weighted terms: the first is a random one, and has a bigger weight, and the second tries to keep a suitable tension along the tendons, acting in the null-space of the Jacobian.\\A first stage of development for the discussed controller has been already reached, and an initial version has been tested on James. Results show that the system is able to learn the inverse Jacobian after a training stage of about an hour. Th e trained controller allows the head to reach the desired equilibrium position in the task-space, with logarithmic velocity profiles and a good degree of accuracy.
+Preliminary works have been carried out concerning the development of a non-model-based controller for James neck.\\The planned solution makes use of a Receptive Fields Neural Network to extimate the joint-space velocities needed to move the head with the desired task-space velocities, given the actual joint configuration. The learning algorithm is an implementation, with some modifications, of the Receptive Fields Weighted Regression proposed by Schaal and Atkenson \cite{Schaal98rfwr}.\\After a training phase, in which the workspace is randomly explored by the robot and the network learns on-line from the gathered sensory data, the trained network is able to map the two spaces. This mapping is called, in mathematical terms, the global inverse Jacobian matrix.\\Unfortunately, due to the redundant actuation system we deal with, our Jacobian matrix is not square, and so not invertible. This means that for a given set of actual joints positions and required task-space velocities there is not a unique solution in terms of joint-space velocities; nevertheless, within this family of solutions, just a very limited set is usable in practice, because a minimum amount of tension is needed along the tendons to avoid their possible outgo from the capstans.\\To overcome this problem, the velocities applied to the motors during the training phase result from the summation of two weighted terms: the first is a random one, and has a bigger weight, and the second tries to keep a suitable tension along the tendons, acting in the null-space of the Jacobian.\\A first stage of development for the discussed controller has been already reached, and an initial version has been tested on James. Results show that the system is able to learn a good approximation of the inverse Jacobian after a training stage of about a hour. The trained controller allows the head to reach the desired equilibrium position in the task-space, with logarithmic velocity profiles and a satisfying degree of accuracy.
 
 
 \section{Conclusions} \label{Sec:Conclusions}
