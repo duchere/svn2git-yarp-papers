@@ -1,0 +1,36 @@
+\section{Conclusions}
+In this paper we have described the implementation of a reaching
+behavior that integrates together an open loop and a closed 
+loop controller. The open loop controller
+allows the robot to perform faster movements and does not require visual 
+feedback from the hand. When sight of the hand is available the closed
+loop controller allows for precise positioning of the hand in the 
+image plane. 
+
+We describe an exploration strategy by means of which the robot autonomously 
+acquires the forward motor map and the visual Jacobian transformations. 
+Among other things this strategy 
+allows the estimation of the eye-to-hand visual Jacobian of the robot. 
+The estimation of the Jacobian is a well studied task for which several 
+solutions have been proposed \cite{Hosoda94versatile,Mansard06jacobian,
+Lapreste04efficient}. None of these works, however, addresses the 
+problem of the redundancy of both the head and the arm. In the experiments 
+reported here the estimation of the Jacobian is performed with good 
+accuracy for a subset of the arm workspace and for 
+\emph{different head postures}. We believe
+this is an important contribution with respect to the state of the art.
+It is also suggested that choosing fixation as a precondition for reaching
+is a plausible simplification of an otherwise complex kinematics. This 
+strategy has been observed in behavioral experiments in humans 
+\cite{flanders-daghestani-berthoz-1999}.
+
+We do not rely on prior information about the 
+kinematic structure of the robot. The only major simplification was that we used 
+a color marker to visually localize the hand of the robot. Our assumption
+is that the hand localization/identification is a separate problem
+that needs to be solved before learning to reach. Previous work
+by the same and other authors have suggested procedures by which 
+the robot could autonomously learn to solve this task 
+(\cite{Natale05,edsinger06what}). It will be interesting to see
+how these approaches can be integrated with the work described 
+in this paper.

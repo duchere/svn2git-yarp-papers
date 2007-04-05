@@ -1,0 +1,128 @@
+%% This skeleton file requires IEEEtran.cls version 1.6 or later.
+%%
+\documentclass[conference,letterpaper]{IEEEtran}
+% If the IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it:
+%\documentclass[conference]{../sty/IEEEtran}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+% some very useful LaTeX packages include:
+
+\usepackage{cite}      % Written by Donald Arseneau
+                        % V1.6 and later of IEEEtran pre-defines the format
+                        % of the cite.sty package \cite{} output to follow
+                        % that of IEEE. Loading the cite package will
+                        % result in citation numbers being automatically
+                        % sorted and properly "ranged". i.e.,
+                        % [1], [9], [2], [7], [5], [6]
+                        % (without using cite.sty)
+                        % will become:
+                        % [1], [2], [5]--[7], [9] (using cite.sty)
+                        % cite.sty's \cite will automatically add leading
+                        % space, if needed. Use cite.sty's noadjust option
+                        % (cite.sty V3.8 and later) if you want to turn this
+                        % off. cite.sty is already installed on most LaTeX
+                        % systems. The latest version can be obtained at:
+                        % http://www.ctan.org/tex-archive/macros/latex/contrib
+%/supported/cite/
+
+\usepackage[dvips]{graphicx}  % Written by David Carlisle and Sebastian Rahtz
+                        % Required if you want graphics, photos, etc.
+                        % graphicx.sty is already installed on most LaTeX
+                        % systems. The latest version and documentation can
+                        % be obtained at:
+                        % http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+                        % Another good source of documentation is "Using
+                        % Imported Graphics in LaTeX2e" by Keith Reckdahl
+                        % which can be found as esplatex.ps and epslatex.pdf
+                        % at: http://www.ctan.org/tex-archive/info/
+
+\usepackage{amsmath}   % From the American Mathematical Society
+                        % A popular package that provides many helpful commands
+                        % for dealing with mathematics. Note that the AMSmath
+                        % package sets \interdisplaylinepenalty to 10000 thus
+                        % preventing page breaks from occurring within multiline
+                        % equations. Use:
+\usepackage{amssymb}
+
+\usepackage{multirow}
+\usepackage[left=0.71in,top=0.94in,right=0.71in,bottom=1.18in]{geometry}
+\setlength{\columnsep}{0.24in}
+% correct bad hyphenation here
+%\hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
+
+%New theorems
+\newtheorem{fact}{Proposition}
+\newtheorem{definition}{Definition}
+%New commands
+\newcommand{\q}{\mathbf q}
+\newcommand{\dq}{\dot {\mathbf q}}
+\newcommand{\deltauhand}{\Delta \mathbf {u}_{hand}}
+\newcommand{\deltaqarm}{\Delta \mathbf {q}_{arm}}
+\newcommand{\qarm}{\mathbf q_{arm}}
+\newcommand{\jacobian}{\mathbf J}
+\newcommand{\uhand}{\mathbf{u}_{hand}}
+\newcommand{\utarget}{\mathbf{u}_{target}}
+\newcommand{\xhand}{\mathbf{x}_{hand}}
+\newcommand{\qhead}{\mathbf{q}_{head}}
+\newcommand{\xtarget}{\mathbf{x}_{target}}
+
+\begin{document}
+% paper title
+\title{\huge Learning precise 3D reaching in a humanoid robot}
+
+% author names and affiliations
+\author{\authorblockN{Lorenzo Natale, Francesco Nori, Giulio Sandini}
+\authorblockA{
+\textit{Italian Institute of Technology}\\
+\textit{Via Morego 30, Genova, ITALY}\\
+\textit{\{lorenzo.natale, francesco.nori, giulio.sandini\}@iit.it}\\}
+\and
+\authorblockN{Giorgio Metta}
+\authorblockA{
+\textit{University of Genoa and Italian Institute of Technology}\\
+\textit{Via Morego 30, Genova, ITALY}\\
+\textit{giorgio.metta@iit.it}\\}
+}
+
+% make the title area
+\maketitle
+\begin{abstract}
+In this paper we discuss the implementation of a precise reaching controller 
+on an upper-torso humanoid robot. The proposed solution is based on a 
+learning strategy which does not rely on \emph{a priori} models of the 
+kinematics of the arm nor of that of the head. After learning, the robot 
+can reach for visually identified objects in 3-dimensional space. Reaching 
+integrates an open loop and a closed loop component; the open loop controller allows 
+ballistic movements, while the closed loop one performs precise positioning of 
+the hand in visual space. Differently from other approaches we handle 
+the critical case of redundancy in the head and the arm and propose a 
+solution that although preliminary possesses some biological relevance.
+\end{abstract}
+
+% key words
+\begin{keywords}
+Visual servoing, reaching, learning, development, humanoid robotics.
+\end{keywords}
+%
+\input{sec-introduction}
+\input{sec-previous}
+\input{sec-setup}
+\input{sec-gaze}
+\input{sec-reaching}
+\input{sec-results}
+\input{sec-conclusions}
+\input{sec-acknowledgment}
+%
+
+% references section
+%%% this must be IEEEtran
+\bibliographystyle{IEEEtran}
+\bibliography{main}
+
+\end{document}
+
+
+
+
