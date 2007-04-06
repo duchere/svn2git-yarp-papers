@@ -1,16 +1,16 @@
 \section{Introduction}
 To reach for a visually identified object the robot has to solve
-an inverse kinematic problem. This 
-problem has been studied extensively in the robotic literature 
+an inverse kinematic problem. This problem has been studied 
+extensively in the robotic literature 
 and many solutions exist. None of these solutions is easy to 
-implement in practice. The main limitation is that they usually require 
+implement in practice. The main limitations are that they usually require 
 some knowledge of the robot kinematics and that the camera parameters 
 are either available ``a priori'' or estimated by means of a specific
 calibration procedure. The problem become even more complicated 
-in the case of humanoid robots which are often characterized by 
-a large number of degrees of freedom (DOF) and redundancy. The 
-kinematics of the robot in these systems becomes a complicated 
-function whose estimation is not, in practice, a trivial task.
+for humanoid robots which are often characterized by 
+a large number of degrees of freedom (DOF) and redundancies in the 
+arm and head. The kinematics of the robot in these systems becomes a 
+complex function whose estimation is not, in practice, a trivial task.
 
 The traditioanl approach separates reaching in two
 problems: 1) estimate the location of the target and
@@ -33,7 +33,7 @@ transforming the position of the target in the visual domain into the
 arm joint vector which solves the task. Extensive literature describe 
 calibration procedures for retrieving at least part of the parameters 
 which characterize this mapping 
-\cite{Holerbach96calibration,Tsai88Calibration}. 
+\cite{Hollerbach96calibration,Tsai88Calibration}. 
 These techniques can be quite accurate but require the robot to operate
 in somewhat structured environment, typically involving a known object (or
 a calibration grid), and a calibrated hand pose sensor. Some procedures 
@@ -65,7 +65,7 @@ this target is thus implicitly coded by the posture of the whole head (the
 angle of vergence between the eyes provide a measure of distance). 
 This solution is not only convenient from an engeneering perspective. Studies 
 on humans suggest that this might indeed be a biologically plausible 
-solution (\cite{flanders-daghestani-berthoz-1999}).
+solution \cite{flanders-daghestani-berthoz-1999}.
 
 The procedure to learn the motor-motor map is strightforward and can be 
 easily aquired in a ``motor babbling'' phase in which the robot moves 
@@ -79,14 +79,14 @@ the accuracy of the reaching task. Although this accuracy varies with the
 system, it might not be satisfactory for practical tasks.
 
 This problem can be solved by using a visual servoing control schema (for a 
-review: \cite{hutchinson96tutorial)}). These techniques use the 
+review: \cite{hutchinson96tutorial}). These techniques use the 
 Jacobian matrix to control the arm so that the visual distance between the 
 hand and the target is progressively reduced to zero. The advantage is that 
 even an inaccurate Jacobian matrix assures convergece 
 of the hand to the desired location (trajectory). When continuous visual 
 feedback is available closed loop techniques probably provide the best 
 results, provided the Jacobian matrix is known with 
-adequate accuracy. \cite{Hosoda94versatile,Mansard06jacobian,Lapreset04efficient} 
+adequate accuracy. \cite{Hosoda94versatile,Mansard06jacobian,Lapreste04efficient} 
 describe procedures to estimate the Jacobian matrix of a robot. Unfortunately 
 these techniques do not suggest how to deal with the 
 degrees of freedom problem. The Jacobian matrix, in fact, is a function
