@@ -1,67 +1,122 @@
 \section{Introduction}
-Growing evidence in developmental psychology shows the importance 
-of motor activity for cognitive development in humans \cite{gallese06mirror}. 
-In particular it is through manipulation that infants gain direct access to objects 
-and discover properties that otherwise would remain hidden. 
-This concerns for example properties like weight, shape, texture and 
-softness that are, if not impossible, at least extremely hard to perceive 
-by using visual information alone. In adults information originating 
-from motor activity and direct contact with the environment, supports 
-perception \cite{klatzky87hand}; during development
-the physical interaction with the environment provides infants 
-with natural invariances that are useful occasions for learning.
-Interestingly, motor and perceptual development seem to follow synchronous  
-schedules as if new achievements in the motor system were promoting
-the development of new perceptual skills \cite{bushnell93motor}.
+To reach for a visually identified object the robot has to solve
+an inverse kinematic problem. This 
+problem has been studied extensively in the robotic literature 
+and many solutions exist. None of these solutions is easy to 
+implement in practice. The main limitation is that they usually require 
+some knowledge of the robot kinematics and that the camera parameters 
+are either available ``a priori'' or estimated by means of a specific
+calibration procedure. The problem become even more complicated 
+in the case of humanoid robots which are often characterized by 
+a large number of degrees of freedom (DOF) and redundancy. The 
+kinematics of the robot in these systems becomes a complicated 
+function whose estimation is not, in practice, a trivial task.
 
-Research in developmental robotics has demonstrated the importance of
-motor activity (in particular manipulation) for visual and haptic 
-perception \cite{fitzpatrick07shared}. One of the 
-limitations of these approaches is that controlling the interaction between
-the robot and the environment is difficult especially when precise models are
-not available. Experiments with robots have thus focused on situations
-in which the interaction with objects is relatively simple. For these reasons
-the investigation of perceptual development in robots requires addressing 
-the problem of motor development first and improving how robots interact
-with the world.
+The traditioanl approach separates reaching in two
+problems: 1) estimate the location of the target and
+2) solve the arm inverse kinematics to compute the set of joint
+angles which brings the hand to the target. Assuming we know the 
+parameters of the stereo vision system, standard vision techniques
+allow to solve the first problem and compute the position of the 
+target in the 3D Cartesian space \cite{Soatto03vision}. These methods 
+however require that the parameters of the cameras are known with 
+good accuracy: this is a well studied problem in computer 
+vision \cite{Soatto03vision}. Once the 
+position of the target in the Cartesian space is available 
+the second problem (i.e. the computation of the arm joint vector) is 
+easily solved if the direct kinematics of the arm is available. 
+Imposing additional constraints on the task helps to deal with 
+redundancies \cite{liegeois77automatic}.
 
-In this context we focus on reaching, which is clear prerequisite for 
-grasping. If vision of the hand and target were available then this problem 
-would be easily solved by employing a visual servoing approach (see 
-\cite{hutchinson96tutorial} for a review) which is typically based on 
-the use of the visuo-motor Jacobian of the arm. The eye-to-hand Jacobian 
-transformation is a function of the arm and head joints and includes knowledge 
-of the camera parameters; its estimation is in practice a difficult task.
-The fundamental advantage of this approach is that even an inaccurate estimation 
-of the Jacobian allows reducing the error of the task to zero. But the visual 
-servoing approach is not necessarily the best solution. On one hand delays in 
-the control loop pose limitations on the speed of the arm, while on the other 
-hand it requires that the hand and target are continuously visible for the 
-duration of the movement. 
-Reaching can also be performed open-loop by directly relating the joint angles of 
-the head with those of the arm \cite{blackburn94learning,metta99developmental}. 
-The drawback of this approach is that errors because of modeling inaccuracies and 
-noise in the sensors, calculations, actuation, cannot be made arbitrarily small 
-as in the visual servoing case.
+In general solving the reaching task requires a sensory-motor map
+transforming the position of the target in the visual domain into the 
+arm joint vector which solves the task. Extensive literature describe 
+calibration procedures for retrieving at least part of the parameters 
+which characterize this mapping 
+\cite{Holerbach96calibration,Tsai88Calibration}. 
+These techniques can be quite accurate but require the robot to operate
+in somewhat structured environment, typically involving a known object (or
+a calibration grid), and a calibrated hand pose sensor. Some procedures 
+have been proposed to relax part of these assumptions. In particular 
+\cite{AHE01} avoids the need for a calibrated object, whereas 
+\cite{Bennett91calibration} exploits specific kinematic constraints 
+to avoids an explicit measure of the hand pose.
 
-Results in developmental psychology suggest that both solutions might be
-adopted by the brain. Clifton et al. \cite{clifton93isvisually} 
-tested whether infants require vision of their hand when reaching; they 
-found that infants' ability to touch (and grasp) objects is independent 
-of whether sight of the hand is available or not. On the other hand 
-other experiments \cite{ashmead93visual} show that later on in development 
-there is an increase of visual guidance in reaching. Together these results 
-suggest the hypothesis that there are two ``distinct'' reaching mechanism: 
-one that relies on ``proprioceptive'' information alone and one that uses 
-``visual feedback'' to compensate for errors in the visual domain. Further,
-there are studies that show the link of the control of the gaze in relation
-to the precision of reaching \cite{flanders-daghestani-berthoz-1999}. 
-In this paper we integrate the two modes of control with an approach based on
-the hypothesis that the target object is fixated. We use the open loop
-controller to bring the hand close to the target. The closed loop controller 
-is activated when visual feedback from the hand is available. In practice,
-we show that the error could be made arbitrarily small. The problem of 
-redundancy in solved in the first case by imposing additional constraints to 
-the task. Finally, we describe the procedure by which the robot learns all 
-the transformations required by the controllers (the open-loop mapping and 
-the arm visual Jacobian).
+Depending on how we decide to encode the target position (and the 
+particular sensory-motor transformation which solves the reaching task)
+these calibration procedures might not be necessary. Assuming that 
+the robot is fixating the target, the joints of the head implicitly 
+encode the position of the target in the world. In this case a simpler 
+appraoch could be to directly map the joint vector defining the current 
+head posture to the arm joint vector corresponding to the configuration 
+of the arm that brings the hand to the fixation point. We call this map 
+a forward ``motor-motor'' map because it is a direct link between the motor 
+angle of the head and those of the arm 
+\cite{blackburn94learning,metta99developmental}. 
+
+Reaching can be performed by inverting this motor-motor 
+map to retrieve the arm command which brings the hand to the fixation 
+point. An extension of this approach to redundant manipulators has
+been proposed in \cite{lopes06learning}. What is interesting in this 
+approach is that it avoids esplicit computation of the 3D position 
+of the target; what the robot needs, is the ability to control gaze
+so that both eyes verge on the target. The position of 
+this target is thus implicitly coded by the posture of the whole head (the 
+angle of vergence between the eyes provide a measure of distance). 
+This solution is not only convenient from an engeneering perspective. Studies 
+on humans suggest that this might indeed be a biologically plausible 
+solution (\cite{flanders-daghestani-berthoz-1999}).
+
+The procedure to learn the motor-motor map is strightforward and can be 
+easily aquired in a ``motor babbling'' phase in which the robot moves 
+the arm randomly while at the same time maintains fixation on the hand. 
+The samples aquired in this way are relayed to a modules which 
+approximate the function relating arm and head joint vectors. The 
+limitation of these approaches is that reaching
+is intrinsically ballistic and does not use visual feedback. The precision 
+with which the forward map is learned poses an intrinsic bound on
+the accuracy of the reaching task. Although this accuracy varies with the
+system, it might not be satisfactory for practical tasks.
+
+This problem can be solved by using a visual servoing control schema (for a 
+review: \cite{hutchinson96tutorial)}). These techniques use the 
+Jacobian matrix to control the arm so that the visual distance between the 
+hand and the target is progressively reduced to zero. The advantage is that 
+even an inaccurate Jacobian matrix assures convergece 
+of the hand to the desired location (trajectory). When continuous visual 
+feedback is available closed loop techniques probably provide the best 
+results, provided the Jacobian matrix is known with 
+adequate accuracy. \cite{Hosoda94versatile,Mansard06jacobian,Lapreset04efficient} 
+describe procedures to estimate the Jacobian matrix of a robot. Unfortunately 
+these techniques do not suggest how to deal with the 
+degrees of freedom problem. The Jacobian matrix, in fact, is a function
+of bith the arm and the head joints, and its estimation become 
+quickly hard as the number of joints increase.
+
+A somewhat intermediate approach is described in \cite{scaz07fast}. In 
+this case the robot uses stereo vision to compute the position
+of the hand in the 3D space; reaching is here accomplished by inverting the 
+forward mapping between the arm joints and the 3D position of the hand. This 
+solution employs a visuomotor map, which naturally maps vision to motor space. 
+Indeed from the forward map the authors derives the eye-to-hand visual 
+Jacobian of the arm which allows the robot to drive the hand to the target with 
+arbitrary precision. To deal with the degrees of freedom problem the authors
+propose an approximate solution where the head joint vector is substituted 
+for by the output of the robot gyroscope. The drawback of this approach is that 
+it requires prior calibration of the visual system and that the relative position 
+of the two cameras does not change. In practice this forces the robot to maintain 
+the eyes stationary to a fixed position with respect of the head. 
+
+The technique we propose in this paper integrates the open loop and the 
+closed loop approaches. We use a motor-motor map to direct 
+the hand close to the fixated object. The closed loop controller is activated 
+as soon as visual feedback from the hand becomes available. Together 
+these strategies enable the robot to initiate a reaching action regardless
+of whether sight of the hand is available or not (e.g. when the hand is 
+out of view or in the dark). The closed loop controller allows taking
+advantage of the visual feedback to arbitrarely reduce the positioning
+error. The robot autonomously learns the eye-to-hand Jacobian matrix and 
+the motor-motor map for an area within the arm workspace and for different
+head postures. The method we proposes does not rely on any prior information
+about the robot kinematic structure nor it requires camera calibration 
+or solving the esplicit 3D problem.
