@@ -1,13 +1,54 @@
 \section{Reaching}
 \label{sec:reaching}
 
-In this section, we describe the two approaches we followed to solve
-the reaching task on our robot. The first method 
-uses the forward mapping between the arm joint space and the three 
+In our formulation the problem of reaching consists in 
+moving the robot arm so as to reach with the hand an observed 
+target. In its most complete formulation, this problem can
+be solved by using a unique map which gives the image plane position 
+of the hand $\uhand$ given the head $\qhead$ and the arm 
+configuration $\qarm$. Clearly, the computation of this map may be computationally
+expensive, especially for highly redundant robots. Practically  
+the map can be subdivided into smaller units. In particular, the cartesian 
+position of a target $\tilde {\mathbf x}_{target} 
+\in \mathbb R^3$ (with respect to a robot centered reference frame)
+ can be measured with the stereo camera system. Given that the head is moving,
+ we have $\tilde {\mathbf x}_{target}  = F(\qhead, \utarget)$ for a
+ suitably defined function $F$. In practice, the estimation of this function 
+ is a delicate calibration procedure. Considering previous works, 
+ it requires an initial camera calibration procedure (mapping the target
+ in a camera center reference frame), followed by an head kinematic calibration 
+ (mapping the camera reference frame into the robot reference frame). The latter
+ can be either done with classical techniques \cite{Hollerbach96calibration},
+ or with an approximated but more biologically plausible technique \cite{scaz07fast}. 
+
+When considering the hand as the target to be localized, the above map can be used to
+estimate the forward kinematic map $G$, which gives the hand cartesian position 
+$\tilde {\mathbf x}_{hand}$ as a function of the robot arm configuration:
+$\tilde {\mathbf x}_{hand}  = G(\qarm)$. The combination of the maps $F$ and $G$ can be used to 
+perform open and closed loop target reaching\footnote{Given an observed target $\utarget$
+with the head in the position $\qhead$, the open loop reaching is the result of:
+$$ \qarm =  \arg \min_q  \left\| G(\mathbf q) - F(\qhead, \utarget) \right\|. $$
+When the hand is visible on the image plane,residual (image plane) errors can be 
+reduced implementing a visual servoing controller:
+$$ \dot {\mathbf q}_{arm} = - {\frac{\partial G} {\partial \mathbf q}}^\# {\frac{\partial F}{\partial \mathbf u}} (\uhand - \utarget),
+$$ where $A^\#$ is the Moore-Penrose pseudo-inverse of the matrix $A$.
+}.
+
+In this paper we tackle the reaching problem with a different approach, originally 
+proposed in \cite{blackburn94learning} and here extended to the case of a redundant head
+and a redundant arm. Instead of representing the target position in the cartesian space 
+$\tilde {\mathbf x}_{target}$, we use a representation in a 
+space $\xtarget$ homogeneous to the previous one but strictly related to the robot
+motor space. With this representation no camera calibration is needed and a fully 
+autonomous learning can be performed. 
+
+The remaining of the section, is divided into two parts. First we describe the forward 
+mapping between the arm joint space and the three 
 dimensional position of the hand represented in the head reference 
-frame. The second method uses a visual servoing technique to control the 
+frame. Then we describe a visual servoing technique to control the 
 speed of the arm to minimize the position of the hand in the 
 image plane with respect to a desired target (the fixated object).
+Both section contain a description of the learning procedure.
 
 \subsection{Open Loop Reaching} \label{sec:openReaching}
 %
@@ -68,8 +109,8 @@ $\xhand$:
 In the next section we show how a neural network could be trained to approximate
 the arm forward mapping (Eq. \ref{Eq:forward}).
 
-Suppose now that the robot is fixating a target and that we want to control 
-the robot to reach for it. Formally the problem can be formulated 
+Suppose now that the map has already been learned and that the robot is fixating a 
+target to be reached. Formally the problem can be formulated 
 as determining the value of $\qarm$ which solves the 
 following optimization problem:
 %
@@ -99,7 +140,7 @@ various algorithms. In our implementation, we used
 the downhill simplex method \cite{ne:Computer:65} as implemented in 
 \cite{mo:Press:90}.
 
-\subsection{Learning the open loop reaching} 
+\subsubsection{Learning the open loop reaching} 
 \label{sec:learning-open-loop}
 %
 To learn the forward map of Eq. (\ref{Eq:forward}) we programmed 
@@ -141,13 +182,6 @@ shows the trend of the error on the test set during learning. At the end of
 the training the network reached the performance of $\emph{MSE}=5.7$ 
 (with $\emph{STD}=10.4$).
 
-In the experiment reported in this paper the network was trained offline. 
-This was done to simplify the analysis of the results and to perform cross-validation 
-on a predefined test set. However, the learning algorithm we used is purely 
-incremental (each sample was shown to the network only once and immediately 
-discarded), so in this regard it would be straightforward to convert the 
-same approach to an online implementation.
-
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
 %
 If the robot could visually measure the distance
@@ -156,7 +190,14 @@ visually, by implementing a closed control loop. The underlying idea consists in
 performing a preliminary (open loop) reaching movement and then refining the action
 by visually correcting any residual error. 
 
-We know that the Jacobian matrix relates arm velocities $\dot {\mathbf q}_{arm}$
+A classical closed loop implementation based on the forward model 
+(\ref{Eq:forward}) would be the following:
+$$ \qarm = -\left[ \frac{\partial f_{arm}}{\partial \qarm} \right]^\# (\xhand - \xtarget),$$
+where $A^\#$ denotes the Moore-Penrose pseudo-inverse of a matrix $A$. However,
+if we are fixating the target, we do not have direct access to $\xhand$
+which, instead, requires to fixate the hand. A possible solution consists in 
+directly measuring $\xhand$ by temporarily shifting the robot attention to the hand.
+Alternatively, our idea is to estimate the Jacobian matrix which relates arm velocities $\dot {\mathbf q}_{arm}$
 with hand velocities in the image plane $\dot {\mathbf u}_{hand} = \left[ 
 \begin{array}{ccc}
   \dot u_r & \dot u_l & \dot v_{l}
@@ -222,12 +263,11 @@ to the minimum joint speeds, that is:
 %
 \begin{equation}
 \mathbf{\dot q}_{arm}=-k \cdot \jacobian^\# \uhand, 
-\qquad \jacobian^\# \in \mathbb R^{4 \times 3},
+\qquad \jacobian^\# \in \mathbb R^{4 \times 3}.
 \end{equation}
 %
-where $\jacobian^\#$ is the Moore-Penrose pseudo-inverse of $\jacobian$.
 
-\subsection{Learning the Arm Jacobian}
+\subsubsection{Learning the Closed Loop Reaching}
 %
 In the previous section we used the Jacobian of the manipulator
 $\jacobian$ (actually its pseudo-inverse $\jacobian^\#$) to 
