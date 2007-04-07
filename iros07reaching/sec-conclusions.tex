@@ -1,36 +1,34 @@
 \section{Conclusions}
-In this paper we have described the implementation of a reaching
-behavior that integrates together an open loop and a closed 
-loop controller. The open loop controller
-allows the robot to perform faster movements and does not require visual 
-feedback from the hand. When sight of the hand is available the closed
-loop controller allows for precise positioning of the hand in the 
-image plane. 
+We have described the implementation of a reaching controller which 
+enables a humanoid robot to reach for visually identified objects 
+in the 3-dimensional space. Our solution integrates an open loop and 
+a closed loop controller. The former allows the robot to perform 
+ballisitc movements towards the target and does not require visual feedback.
+This strategy is important not only to improve the velocity of the arm, but 
+also to initiate a reaching movement when the hand is not visible (e.g. 
+when the hand is out of sight). The latter employs visual feedback from 
+the hand to guarantee precise positioning of the hand in the image plane.
 
-We describe an exploration strategy by means of which the robot autonomously 
-acquires the forward motor map and the visual Jacobian transformations. 
-Among other things this strategy 
-allows the estimation of the eye-to-hand visual Jacobian of the robot. 
-The estimation of the Jacobian is a well studied task for which several 
-solutions have been proposed \cite{Hosoda94versatile,Mansard06jacobian,
-Lapreste04efficient}. None of these works, however, addresses the 
-problem of the redundancy of both the head and the arm. In the experiments 
-reported here the estimation of the Jacobian is performed with good 
-accuracy for a subset of the arm workspace and for 
-\emph{different head postures}. We believe
-this is an important contribution with respect to the state of the art.
-It is also suggested that choosing fixation as a precondition for reaching
-is a plausible simplification of an otherwise complex kinematics. This 
-strategy has been observed in behavioral experiments in humans 
-\cite{flanders-daghestani-berthoz-1999}.
+During an exploration phase the robot autonomously acquires the required 
+sensory-motor transformations. Learning does not rely on prior information 
+about the kinematic structure of the robot. The only simplification was 
+that we used a color marker to visually localize the hand of the robot. 
+Our assumption is that the hand localization/identification is a separate 
+problem that is already solved when the robot starts learning to reach. 
+Some solutions to this problem have been proposed in the literature, 
+see for example in \cite{Natale05,edsinger06what}.
 
-We do not rely on prior information about the 
-kinematic structure of the robot. The only major simplification was that we used 
-a color marker to visually localize the hand of the robot. Our assumption
-is that the hand localization/identification is a separate problem
-that needs to be solved before learning to reach. Previous work
-by the same and other authors have suggested procedures by which 
-the robot could autonomously learn to solve this task 
-(\cite{Natale05,edsinger06what}). It will be interesting to see
-how these approaches can be integrated with the work described 
-in this paper.
+The learning strategy allows the estimation of the eye-to-hand visual 
+Jacobian of the robot. The estimation of the Jacobian is a task for which 
+several solutions have been proposed 
+\cite{Hosoda94versatile,Mansard06jacobian,Lapreste04efficient,scaz07fast}.
+Unfortunately these techniques do not address the degrees-of-freedom problem 
+and the problem of redundancy of the head and the arm. In the solution we
+propose the estimation of the Jacobian is fully autonomous and 
+does not impose any constraints on the number of the degrees of freedom
+that are actuated (the stimation of the Jacobian is performed on a subset 
+of the arm workspace and for different head postures). We show that 
+choosing the fixation point as a reference frame for encoding the target 
+position and the Jacobian matrix leads to a simple solution to an otherwise 
+complex kinematic task.
+

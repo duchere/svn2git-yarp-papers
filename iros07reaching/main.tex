@@ -70,14 +70,14 @@
 
 \begin{document}
 % paper title
-\title{\huge Learning precise 3D reaching in a humanoid robot}
+\title{\huge Autonomous learning of 3D reaching in a humanoid robot}
 
 % author names and affiliations
-\author{\authorblockN{Lorenzo Natale, Francesco Nori, Giulio Sandini}
+\author{\authorblockN{Francesco Nori, Lorenzo Natale, Giulio Sandini}
 \authorblockA{
 \textit{Italian Institute of Technology}\\
 \textit{Via Morego 30, Genova, ITALY}\\
-\textit{\{lorenzo.natale, francesco.nori, giulio.sandini\}@iit.it}\\}
+\textit{\{francesco.nori, lorenzo.natale, giulio.sandini\}@iit.it}\\}
 \and
 \authorblockN{Giorgio Metta}
 \authorblockA{
@@ -89,21 +89,28 @@
 % make the title area
 \maketitle
 \begin{abstract}
-In this paper we discuss the implementation of a precise reaching controller 
-on an upper-torso humanoid robot. The proposed solution is based on a 
-learning strategy which does not rely on \emph{a priori} models of the 
-kinematics of the arm nor of that of the head. After learning, the robot 
-can reach for visually identified objects in 3-dimensional space. Reaching 
-integrates an open loop and a closed loop component; the open loop controller allows 
-ballistic movements, while the closed loop one performs precise positioning of 
-the hand in visual space. Differently from other approaches we handle 
-the critical case of redundancy in the head and the arm and propose a 
-solution that although preliminary possesses some biological relevance.
+In robotics the problem of reaching has been extensively addressed. None 
+of the exsiting techniques, however, are well suited for humanoid robots.
+In these robots the large number of degrees of freedom and kinematic 
+redundancies make it difficult to estimate the eye-to-hand 
+sensory-motor map which converts the position of the target into 
+appropriate arm commands to solve the reaching task. We descibe the 
+implementation of a precise reaching controller on an upper-torso humanoid 
+robot. The solution we propose does not rely on prior models of the 
+kinematic structure of either the arm or the head. A learning strategy 
+enables the robot to acquire the required sensory-motor transformations.
+After learning the robot is able to precisely reach for a visually identified
+object in the 3-dimensional space. In this technique we use the fixation point 
+(represented in the head joints motor space) as a reference frame 
+to code the position of the object \em{and} to represent the eye-to-hand 
+Jacobian matrix. This strategy successfully deals with the kinematic
+redundancy of the structure and constraints the dimensionality of the 
+problem.
 \end{abstract}
 
 % key words
 \begin{keywords}
-Visual servoing, reaching, learning, development, humanoid robotics.
+Visual servoing, reaching, learning, Jacobian, humanoid robotics.
 \end{keywords}
 %
 \input{sec-introduction}
