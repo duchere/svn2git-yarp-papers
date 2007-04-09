@@ -192,7 +192,7 @@ by visually correcting any residual error.
 
 A classical closed loop implementation based on the forward model 
 (\ref{Eq:forward}) would be the following:
-$$ \qarm = -\left[ \frac{\partial f_{arm}}{\partial \qarm} \right]^\# (\xhand - \xtarget),$$
+$$ \dot {\mathbf q}_{arm} = -\left[ \frac{\partial f_{arm}}{\partial \qarm} \right]^\# (\xhand - \xtarget),$$
 where $A^\#$ denotes the Moore-Penrose pseudo-inverse of a matrix $A$. However,
 if we are fixating the target, we do not have direct access to $\xhand$
 which, instead, requires to fixate the hand. A possible solution consists in 
@@ -261,7 +261,7 @@ Due to the redundancy of the arm, the minimization of $e$ can have
 infinite solutions. Among them, the minimum norm solution corresponds
 to the minimum joint speeds, that is:
 %
-\begin{equation}
+\begin{equation} \label{Eq:ClosedLoopStrategy}
 \mathbf{\dot q}_{arm}=-k \cdot \jacobian^\# \uhand, 
 \qquad \jacobian^\# \in \mathbb R^{4 \times 3}.
 \end{equation}
