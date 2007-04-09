@@ -6,10 +6,10 @@ and many solutions exist. None of these solutions is easy to
 implement in practice. The main limitations are that they usually require 
 some knowledge of the robot kinematics and that the camera parameters 
 are either available ``a priori'' or estimated by means of a specific
-calibration procedure. The problem become even more complicated 
+calibration procedure. The problem becomes even more complicated 
 for humanoid robots which are often characterized by 
 a large number of degrees of freedom (DOF) and redundancies in the 
-arm and head. The kinematics of the robot in these systems becomes a 
+arm and head. The kinematic of the robot in these systems becomes a 
 complex function whose estimation is not, in practice, a trivial task.
 
 The traditional approach separates reaching in two
@@ -19,11 +19,11 @@ angles which brings the hand to the target. Assuming we know the
 parameters of the stereo vision system, standard vision techniques
 allow to solve the first problem and compute the position of the 
 target in the 3D Cartesian space \cite{Soatto03vision}. These methods 
-however require that the parameters of the cameras are known with 
+however require the parameters of the cameras to be known with 
 good accuracy. Once the 
 position of the target in the Cartesian space is available 
 the second problem (i.e. the computation of the arm joint vector) is 
-easily solved if the direct kinematics of the arm are available. 
+easily solved by inverting the direct kinematic, if available. 
 Imposing additional constraints on the task helps to deal with 
 redundancies \cite{liegeois77automatic}.
 
@@ -70,7 +70,7 @@ The procedure to learn the motor-motor map is straightforward and can be
 easily acquired in a ``motor babbling'' phase in which the robot moves 
 the arm randomly while at the same time maintains fixation on the hand. 
 The samples acquired in this way are relayed to a module which 
-approximate the function relating arm and head joint vectors. The 
+approximates the function relating arm and head joint vectors. The 
 limitation of these approaches is that reaching
 is intrinsically ballistic and does not use visual feedback. The precision 
 with which the forward map is learned poses an intrinsic bound on
@@ -80,12 +80,11 @@ system, it might not be satisfactory for practical tasks.
 This problem can be solved by using a visual servoing control schema (for a 
 review: \cite{hutchinson96tutorial}). These techniques use the 
 Jacobian matrix to control the arm so that the visual distance between the 
-hand and the target is progressively reduced to zero. The advantage is that 
-weak conditions on the Jacobian matrix are sufficient to guarantee the convergence 
-of the hand to the desired location (trajectory). When continuous visual 
+hand and the target is progressively reduced to zero. Weak conditions 
+on the Jacobian matrix are sufficient to guarantee the convergence 
+of the hand to the desired location or trajectory (see \cite{Samson91robot} for details). When continuous visual 
 feedback is available closed loop techniques probably provide the best 
-results, provided the Jacobian matrix is known with 
-adequate accuracy. \cite{Hosoda94versatile,Mansard06jacobian,Lapreste04efficient} 
+results, provided the Jacobian matrix is known. \cite{Hosoda94versatile,Mansard06jacobian,Lapreste04efficient} 
 describe procedures to estimate the Jacobian matrix of a robot. Unfortunately 
 these techniques do not suggest how to deal with highly redundant systems.
 The Jacobian matrix, in fact, is a function
@@ -104,7 +103,7 @@ propose an approximate solution where the head joint vector is substituted
 for by the output of the robot gyroscope. The drawback of this approach is that 
 it requires prior calibration of the visual system and no relative movement 
 between the cameras. In practice this solution forces the robot to maintain 
-the eyes stationary to a fixed position with respect of the head. 
+the eyes stationary in a fixed position with respect of the head. 
 
 The technique we propose in this paper integrates the open loop and the 
 closed loop approaches. We use a motor-motor map to direct 
@@ -116,6 +115,6 @@ out of view or in the dark). The closed loop controller allows taking
 advantage of the visual feedback to arbitrarily reduce the positioning
 error. The robot autonomously learns the eye-to-hand Jacobian matrix and 
 the motor-motor map within an area within the arm workspace and with different
-head postures. The method we proposes does not rely on any prior information
+head postures. The method we propose does not rely on any prior information
 about the robot kinematic structure nor it requires camera calibration 
 or solving the explicit 3D problem.
