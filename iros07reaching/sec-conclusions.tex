@@ -3,11 +3,10 @@ We have described the implementation of a reaching controller which
 enables a humanoid robot to reach for visually identified objects 
 in the 3-dimensional space. Our solution integrates an open loop and 
 a closed loop controller. The former allows the robot to perform 
-ballisitc movements towards the target and does not require visual feedback.
+ballistic movements toward the target and does not require visual feedback.
 This strategy is important not only to improve the velocity of the arm, but 
 also to initiate a reaching movement when the hand is not visible (e.g. 
-when the hand is out of sight). The latter employs visual feedback from 
-the hand to guarantee precise positioning of the hand in the image plane.
+when the hand is out of sight). The latter employs visual feedback to guarantee precise positioning of the hand in the image plane.
 
 During an exploration phase the robot autonomously acquires the required 
 sensory-motor transformations. Learning does not rely on prior information 
@@ -18,15 +17,15 @@ problem that is already solved when the robot starts learning to reach.
 Some solutions to this problem have been proposed in the literature, 
 see for example in \cite{Natale05,edsinger06what}.
 
-The learning strategy allows the estimation of the eye-to-hand visual 
-Jacobian of the robot. The estimation of the Jacobian is a task for which 
+The learning strategy allows the autonomous estimation of the eye-to-hand visual 
+Jacobian. The estimation of the Jacobian is a task for which 
 several solutions have been proposed 
 \cite{Hosoda94versatile,Mansard06jacobian,Lapreste04efficient,scaz07fast}.
 Unfortunately these techniques do not address the degrees-of-freedom problem 
 and the problem of redundancy of the head and the arm. In the solution we
 propose the estimation of the Jacobian is fully autonomous and 
 does not impose any constraints on the number of the degrees of freedom
-that are actuated (the stimation of the Jacobian is performed on a subset 
+that are actuated (the estimation of the Jacobian is performed on a subset 
 of the arm workspace and for different head postures). We show that 
 choosing the fixation point as a reference frame for encoding the target 
 position and the Jacobian matrix leads to a simple solution to an otherwise 

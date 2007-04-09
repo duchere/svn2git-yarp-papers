@@ -36,18 +36,16 @@ $$ where $A^\#$ is the Moore-Penrose pseudo-inverse of the matrix $A$.
 
 In this paper we tackle the reaching problem with a different approach, originally 
 proposed in \cite{blackburn94learning} and here extended to the case of a redundant head
-and a redundant arm. Instead of representing the target position in the cartesian space 
+and arm. Instead of representing the target position in the cartesian space 
 $\tilde {\mathbf x}_{target}$, we use a representation in a 
 space $\xtarget$ homogeneous to the previous one but strictly related to the robot
 motor space. With this representation no camera calibration is needed and a fully 
 autonomous learning can be performed. 
 
-The remaining of the section, is divided into two parts. First we describe the forward 
+The remaining of the section, is divided into two parts. First we describe in details the forward motor-motor
 mapping between the arm joint space and the three 
 dimensional position of the hand represented in the head reference 
-frame. Then we describe a visual servoing technique to control the 
-speed of the arm to minimize the position of the hand in the 
-image plane with respect to a desired target (the fixated object).
+frame. Then we describe a visual servoing technique based on the eye-to-hand Jacobian matrix.
 Both section contain a description of the learning procedure.
 
 \subsection{Open Loop Reaching} \label{sec:openReaching}
@@ -143,7 +141,7 @@ the downhill simplex method \cite{ne:Computer:65} as implemented in
 \subsubsection{Learning the open loop reaching} 
 \label{sec:learning-open-loop}
 %
-To learn the forward map of Eq. (\ref{Eq:forward}) we programmed 
+To learn the forward motor-motor map of Eq. (\ref{Eq:forward}) we programmed 
 the robot to perform random movements with the arm (chosen to uniformly sample 
 a predefined region in the robot workspace). During this ``exploratory'' 
 phase the robot tracked the hand, and collected samples of the form: $
@@ -197,7 +195,7 @@ where $A^\#$ denotes the Moore-Penrose pseudo-inverse of a matrix $A$. However,
 if we are fixating the target, we do not have direct access to $\xhand$
 which, instead, requires to fixate the hand. A possible solution consists in 
 directly measuring $\xhand$ by temporarily shifting the robot attention to the hand.
-Alternatively, our idea is to estimate the Jacobian matrix which relates arm velocities $\dot {\mathbf q}_{arm}$
+Alternatively, our idea is to estimate the eye-to-hand Jacobian matrix which relates arm velocities $\dot {\mathbf q}_{arm}$
 with hand velocities in the image plane $\dot {\mathbf u}_{hand} = \left[ 
 \begin{array}{ccc}
   \dot u_r & \dot u_l & \dot v_{l}
@@ -263,8 +261,9 @@ to the minimum joint speeds, that is:
 %
 \begin{equation} \label{Eq:ClosedLoopStrategy}
 \mathbf{\dot q}_{arm}=-k \cdot \jacobian^\# \uhand, 
-\qquad \jacobian^\# \in \mathbb R^{4 \times 3}.
+\qquad \jacobian^\# \in \mathbb R^{4 \times 3},
 \end{equation}
+where $k$ is an arbitrary positive scalar.
 %
 
 \subsubsection{Learning the Closed Loop Reaching}

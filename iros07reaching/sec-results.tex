@@ -8,11 +8,11 @@ target we first need to fixate it, i.e. $\utarget = 0$. Using the available sens
 {\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target.
 
 \subsection{Open Loop}
-The first attempt to reach the target consists in using the learned forward model 
+The first attempt to reach the target consists in using the learned motor-motor map 
 (\ref{Eq:forward}) and the strategy (\ref{Eq:reaching2})
 to choose the arm configuration $\q_{arm}$ which brings the hand to the center 
 of the image planes. Clearly, if the forward 
-kinematic function (\ref{Eq:forward}) were perfectly represented and if the target were reachable, then we would have 
+kinematic function (\ref{Eq:forward}) were perfectly represented and if the target were reachable, then, after (\ref{Eq:reaching2}), we would have 
 $\mathbf x_{hand} =  \mathbf x_{target}$, which implies that the target-hand Cartesian distance 
  is zero (see Section \ref{sec:reaching} for details). Therefore, in this ideal case, the open loop 
  strategy already results in $\| \uhand - \utarget \| = 0$. In practice, the model 
@@ -54,7 +54,7 @@ The residual image plane errors
 due to imperfections in the forward kinematic model can be reduced by a visual closed loop
 control strategy (\ref{Eq:ClosedLoopStrategy}), started immediately after the open loop phase. Relatively weak conditions on the learned 
 Jacobian \cite{Samson91robot} guarantee the convergence of the image plane errors $\uhand$ to zero, and therefore
-the convergence of the hand $\xhand$ on the target $\xtarget$. Figures
+the convergence of the hand $\xhand$ to the target $\xtarget$. Figures
 \ref{Fig:ImagePlaneClosedLoopErrors}, %\ref{Fig:TimeResponseClosedLoopErrors}, 
 \ref{Fig:TimeResponseOpenClosedLoopErrors} and \ref{Fig:TimeResponseOpenClosedLoop}  
 show how the hand is actually driven to the 
@@ -163,12 +163,12 @@ following scheme:
 \end{figure}
 
 Clearly, when both the open and closed loop controllers are active, the system receives position 
-and velocity control simultaneously\footnote{A position command ${\mathbf q}_{arm,d}$ is 
+and velocity control simultaneously\footnote{In our system, a position command ${\mathbf q}_{arm,d}$ is 
 always translated into a trajectory following command by moving 
 the hand along a trajectory $\mathbf q_{arm}(t)$, $t \in [0, T]$ such that: $T$ is the execution time,
 $\mathbf q_{arm}(0)$ is the arm position when the command is received, $\mathbf q_{arm}(T) = {\mathbf q}_{arm,d}$
-is the desired final position, $\dot {\mathbf q}_{arm}(t) = 0$, $ \forall t > T$. If a velocity command $\dot {\mathbf q}_{arm,d}$ is received while executing a position
-command $\mathbf q_{arm}(t)$, the original velocity command is transformed into a new one, nominally
+is the desired final position and finally $\dot {\mathbf q}_{arm}(t) = 0$, $ \forall t > T$. If a velocity command $\dot {\mathbf q}_{arm,d}$ is received while executing a position
+command $\mathbf q_{arm}(t)$, the original velocity command is transformed into a new one:
 $\dot {\mathbf q}_{arm} = \dot {\mathbf q}_{arm}(t) + \dot {\mathbf q}_{arm, d}$.}. 
 
 A comparison between this control strategy and the one proposed in Section \ref{Eq:ClosedLoop}

@@ -12,7 +12,7 @@ a large number of degrees of freedom (DOF) and redundancies in the
 arm and head. The kinematics of the robot in these systems becomes a 
 complex function whose estimation is not, in practice, a trivial task.
 
-The traditioanl approach separates reaching in two
+The traditional approach separates reaching in two
 problems: 1) estimate the location of the target and
 2) solve the arm inverse kinematics to compute the set of joint
 angles which brings the hand to the target. Assuming we know the 
@@ -20,11 +20,10 @@ parameters of the stereo vision system, standard vision techniques
 allow to solve the first problem and compute the position of the 
 target in the 3D Cartesian space \cite{Soatto03vision}. These methods 
 however require that the parameters of the cameras are known with 
-good accuracy: this is a well studied problem in computer 
-vision \cite{Soatto03vision}. Once the 
+good accuracy. Once the 
 position of the target in the Cartesian space is available 
 the second problem (i.e. the computation of the arm joint vector) is 
-easily solved if the direct kinematics of the arm is available. 
+easily solved if the direct kinematics of the arm are available. 
 Imposing additional constraints on the task helps to deal with 
 redundancies \cite{liegeois77automatic}.
 
@@ -40,17 +39,17 @@ a calibration grid), and a calibrated hand pose sensor. Some procedures
 have been proposed to relax part of these assumptions. In particular 
 \cite{AHE01} avoids the need for a calibrated object, whereas 
 \cite{Bennett91calibration} exploits specific kinematic constraints 
-to avoids an explicit measure of the hand pose.
+to avoid an explicit measure of the hand pose.
 
 Depending on how we decide to encode the target position (and the 
 particular sensory-motor transformation which solves the reaching task)
 these calibration procedures might not be necessary. Assuming that 
 the robot is fixating the target, the joints of the head implicitly 
 encode the position of the target in the world. In this case a simpler 
-appraoch could be to directly map the joint vector defining the current 
+approach could be to directly map the joint vector defining the current 
 head posture to the arm joint vector corresponding to the configuration 
 of the arm that brings the hand to the fixation point. We call this map 
-a forward ``motor-motor'' map because it is a direct link between the motor 
+a {\em forward ``motor-motor'' map} because it is a direct link between the motor 
 angle of the head and those of the arm 
 \cite{blackburn94learning,metta99developmental}. 
 
@@ -58,19 +57,19 @@ Reaching can be performed by inverting this motor-motor
 map to retrieve the arm command which brings the hand to the fixation 
 point. An extension of this approach to redundant manipulators has
 been proposed in \cite{lopes06learning}. What is interesting in this 
-approach is that it avoids esplicit computation of the 3D position 
+approach is that it avoids explicit computation of the 3D position 
 of the target; what the robot needs, is the ability to control gaze
 so that both eyes verge on the target. The position of 
 this target is thus implicitly coded by the posture of the whole head (the 
 angle of vergence between the eyes provide a measure of distance). 
-This solution is not only convenient from an engeneering perspective. Studies 
+This solution is not only convenient from an engineering perspective. Studies 
 on humans suggest that this might indeed be a biologically plausible 
 solution \cite{flanders-daghestani-berthoz-1999}.
 
-The procedure to learn the motor-motor map is strightforward and can be 
-easily aquired in a ``motor babbling'' phase in which the robot moves 
+The procedure to learn the motor-motor map is straightforward and can be 
+easily acquired in a ``motor babbling'' phase in which the robot moves 
 the arm randomly while at the same time maintains fixation on the hand. 
-The samples aquired in this way are relayed to a modules which 
+The samples acquired in this way are relayed to a module which 
 approximate the function relating arm and head joint vectors. The 
 limitation of these approaches is that reaching
 is intrinsically ballistic and does not use visual feedback. The precision 
@@ -82,41 +81,41 @@ This problem can be solved by using a visual servoing control schema (for a
 review: \cite{hutchinson96tutorial}). These techniques use the 
 Jacobian matrix to control the arm so that the visual distance between the 
 hand and the target is progressively reduced to zero. The advantage is that 
-even an inaccurate Jacobian matrix assures convergece 
+weak conditions on the Jacobian matrix are sufficient to guarantee the convergence 
 of the hand to the desired location (trajectory). When continuous visual 
 feedback is available closed loop techniques probably provide the best 
 results, provided the Jacobian matrix is known with 
 adequate accuracy. \cite{Hosoda94versatile,Mansard06jacobian,Lapreste04efficient} 
 describe procedures to estimate the Jacobian matrix of a robot. Unfortunately 
-these techniques do not suggest how to deal with the 
-degrees of freedom problem. The Jacobian matrix, in fact, is a function
-of bith the arm and the head joints, and its estimation become 
-quickly hard as the number of joints increase.
+these techniques do not suggest how to deal with highly redundant systems.
+The Jacobian matrix, in fact, is a function
+of both the arm and the head joints, and its estimation becomes
+quickly hard as the number of joints increases.
 
 A somewhat intermediate approach is described in \cite{scaz07fast}. In 
 this case the robot uses stereo vision to compute the position
-of the hand in the 3D space; reaching is here accomplished by inverting the 
+of the hand in the 3D space; reaching is then accomplished by inverting the 
 forward mapping between the arm joints and the 3D position of the hand. This 
 solution employs a visuomotor map, which naturally maps vision to motor space. 
-Indeed from the forward map the authors derives the eye-to-hand visual 
-Jacobian of the arm which allows the robot to drive the hand to the target with 
+Indeed from the forward map the authors derives the {\em eye-to-hand visual 
+Jacobian} of the arm which allows the robot to drive the hand to the target with 
 arbitrary precision. To deal with the degrees of freedom problem the authors
 propose an approximate solution where the head joint vector is substituted 
 for by the output of the robot gyroscope. The drawback of this approach is that 
-it requires prior calibration of the visual system and that the relative position 
-of the two cameras does not change. In practice this forces the robot to maintain 
+it requires prior calibration of the visual system and no relative movement 
+between the cameras. In practice this solution forces the robot to maintain 
 the eyes stationary to a fixed position with respect of the head. 
 
 The technique we propose in this paper integrates the open loop and the 
 closed loop approaches. We use a motor-motor map to direct 
 the hand close to the fixated object. The closed loop controller is activated 
-as soon as visual feedback from the hand becomes available. Together 
-these strategies enable the robot to initiate a reaching action regardless
-of whether sight of the hand is available or not (e.g. when the hand is 
+as soon as visual feedback of the hand becomes available. Together 
+these strategies enable the robot to initiate a reaching action whether or not 
+sight of the hand is available (e.g. when the hand is 
 out of view or in the dark). The closed loop controller allows taking
-advantage of the visual feedback to arbitrarely reduce the positioning
+advantage of the visual feedback to arbitrarily reduce the positioning
 error. The robot autonomously learns the eye-to-hand Jacobian matrix and 
-the motor-motor map for an area within the arm workspace and for different
+the motor-motor map within an area within the arm workspace and with different
 head postures. The method we proposes does not rely on any prior information
 about the robot kinematic structure nor it requires camera calibration 
-or solving the esplicit 3D problem.
+or solving the explicit 3D problem.
