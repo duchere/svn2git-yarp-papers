@@ -42,7 +42,7 @@ have been proposed to relax part of these assumptions. In particular
 to avoid an explicit measure of the hand pose.
 
 Depending on how we decide to encode the target position (and the 
-particular sensory-motor transformation which solves the reaching task)
+relative sensory-motor transformation)
 these calibration procedures might not be necessary. Assuming that 
 the robot is fixating the target, the joints of the head implicitly 
 encode the position of the target in the world. In this case a simpler 
@@ -54,8 +54,7 @@ angle of the head and those of the arm
 \cite{blackburn94learning,metta99developmental}. 
 
 Reaching can be performed by inverting this motor-motor 
-map to retrieve the arm command which brings the hand to the fixation 
-point. An extension of this approach to redundant manipulators has
+map. An extension of this approach to redundant manipulators has
 been proposed in \cite{lopes06learning}. What is interesting in this 
 approach is that it avoids explicit computation of the 3D position 
 of the target; what the robot needs, is the ability to control gaze
