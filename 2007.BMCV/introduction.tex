@@ -1,7 +1,42 @@
-Introduced in the early 90s by Boser, Guyon and Vapnik \cite{BGV92},
-\emph{Support Vector Machines} (SVMs) are a class of machine learning
-algorithms deeply rooted in Statistical Learning Theory
-\cite{v-edbed-82}, able to classify data taken from an unknown
+\textbf{BARBARA: citations in the ``place recognition'' part of the introuction?}
+
+Place recognition is an open and highly challenging problem in
+computer vision, especially when applied to mobile robotics in indoor
+environments. Simply stated, the problem is that of determining what
+room of a house or office a mobile robot is in, based upon what the
+robot sees thru one or more cameras. The problem is made very
+difficult by at least three factors:
+
+\begin{enumerate}
+
+  \item the input space is huge, since we deal with images, usually at
+    a reasonable resolution and in colour;
+
+  \item recognition must be done on-line and possibly in real time,
+    since the robot is moving around, and knowing what place the robot
+    is in would improve its stability against motion errors and
+    obstacle avoidance. The amount of data to take into account is
+    really massive, potentially endless;
+
+  \item images of the same place can be quite different as $(i)$
+    illumination conditions change according to the time of day and
+    the season, $(ii)$ places can be cluttered with objects shifted
+    around, and $(iii)$ people of other moving obstacles can get in
+    the way in real time.
+
+\end{enumerate}
+
+Quite clearly, only a machine learning approach can potentially solve
+the problem, given the amazing variability of the input data. A
+learning machine is adaptive in nature and, if properly trained, can
+tackle the variability of the input. Nevertheless, machine learning
+usually suffers when confronted with massive amounts of data and when
+asked to work on-line.
+
+A striking example of this is represented by Support Vector Machines
+(SVM), one of the most promising machine learning approaches
+nowadays. Introduced in the early 90s by Boser, Guyon and Vapnik
+\cite{BGV92}, SVMs are able to classify data drawn from an unknown
 probability distribution, given a set of training examples. As opposed
 to analogous methods such as, e.g., artificial neural networks, they
 have the main advantages that $(a)$ training is guaranteed to end up
@@ -11,57 +46,44 @@ non-linear data, and $(d)$ the solution achieved is sparse. Due to
 these good properties, they have been now extensively used in, e.g.,
 speech recognition, object classification and function approximation
 \cite{Cristianini00}. On the other hand they have the disadvantage to
-``grow'' for ever \cite{Steinwart03}, that is the complexity of the solution and the testing
-time grow proportionally with the number of training samples.
-SVMs can be up to 50 slower of other specialized approaches with
-similar performances \cite{BurgesS96}.
+``grow'' for ever \cite{Steinwart03}, that is the complexity of the
+solution and the testing time grow proportionally with the number of
+training samples. SVMs can be up to $50$ times slower of other
+specialized approaches with similar performances
+\cite{BurgesS96}.
 
-This problem can be particularly important if we consider the case in
-which online learning must be performed. Online learning is a
-scenario in which training data is provided one example at a time, as
-opposed to the batch mode in which all examples are available at once.
-In the case of, e.g.,
-non-stationary data, online algorithms will generally perform better
-since ambiguous information (i.e., whose distribution varies over
-time) is present, and could not possibly be taken into account by the
-batch algorithm. Online algorithms allow to incorporate additional
-training data, when it is available, without re-training from scratch.
+In this paper we propose an improvement to SVMs that we call Online
+Independent Support Vector Machines (OISVM). OISVMs incrementally
+select ``basis vectors'' that are used to build the solution of the
+SVM training problem, based upon \emph{linear independence in the
+feature space}: vectors which are linearly dependent on already stored
+ones are rejected, and a smart, incremental minimization algorithm is
+employed to find the new minimum of the cost function. As a matter of
+fact, our experiments indicate that the number of basis vectors of
+OISVMs (the ``size'' of a machine) does not grow linearly with the
+training set, as it was the case in \cite{Steinwart03}, but reaches a
+limit and then stops growing. This result is theoretically confirmed,
+e.g., in \cite{engel2004}, even in the case the feature space is
+infinite-dimensional.
 
-In an online setting there is no guarantee that the flow of data will
-\emph{ever} cease; therefore, applying SVMs here looks appealing but
-we need a way to constraint the complexity of the solution and, at the
-same time, to respect the online nature of the problem. 
-
-In this paper we propose a method of incrementally selecting ``basis
-vectors'' that are used to build the solution of the SVM training problem,
-based upon \emph{linear independence in the feature space}: vectors which are
-linearly dependent on already stored ones are rejected, and a smart,
-incremental minimization algorithm is employed to find the new minimum
-of the cost function. Our experiments
-indicate that SVMs employing this idea, that we call
-\emph{Online Independent Support Vector Machines} (OISVMs), do not
-grow linearly with the training set, as it was the case in
-\cite{Steinwart03}, but reach a limit size and then stop growing
-\cite{engel2004}. In the case of finite-dimensional feature spaces
-they also \emph{keep the full accuracy of standard SVMs}; whereas in
-the infinite-dimensional case, at the price of a negligible loss in
-accuracy, one can tune the growing rate of the machine.
-
-To support this claim, we show an extensive set of experimental
-results obtained by comparing SVMs and OISVMs on standard benchmark
-databases as well as on a real-world, online application coming from
-robotic vision: place recognition in an indoor environment, from
-sequences acquired by robot platforms under different weather
-conditions and across a time span of several months. Our results show
-that, on standard benchmarks, the accuracy of OISVMs can be up to only
-$0.063\%$ worse than SVMs, being more than $20$ times faster;
-whereas, on the real-world application,
-we get a speed-up of $3$ times required by an approximated
+Since both the training and testing time of a SVM depend on the size
+of the machine, \textbf{FRA: be more precise here: how exactly does it
+depend?}, such an approach is actually what is needed to tackle the
+problem of place recognition in mobile robotics. To support this
+claim, we show an extensive set of experimental results obtained by
+comparing SVMs and OISVMs on standard benchmark databases as well as
+on a real-world place recognition problem in an indoor
+environment. Data images are acquired continuously by two robot
+platforms under different weather conditions and across a time span of
+several months. Our results show that, on standard benchmarks, the
+accuracy of OISVMs can be up to only $0.063\%$ worse than SVMs, being
+more than $20$ times faster; in place recognition we get a speed-up of
+$3$ times with respect to the time required by an approximated
 incremental method, while retaining essentially the same accuracy.
 
 The paper is structured as follows: after a review of the relevant
 literature, Section \ref{sec:bg} gives an overview of background
 mathematics proper to SVMs; in Section \ref{sec:opt} OISVMs are
-described.  Section \ref{sec:exp}  shows the experimental results
-and lastly, in Section \ref{sec:concl}, conclusions are drawn and future
+described. Section \ref{sec:exp} shows the experimental results and
+lastly, in Section \ref{sec:concl}, conclusions are drawn and future
 work is outlined.

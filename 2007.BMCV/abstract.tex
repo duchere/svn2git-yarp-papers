@@ -1,23 +1,28 @@
-Support Vector Machines (SVMs) are a machine learning method widely
-employed in, e.g., visual recognition, medical diagnosis and robotic
-control. One of their most interesting characteristics is that the
-solution achieved is sparse: a few samples (support vectors) usually
-account for the complexity of the classification task. Both the
-training and testing time crucially depend on the number of support
-vectors, and it is then very important to keep it small, trying at the
-same time to retain the accuracy of the solution. This is especially
-evident in online settings such as topological mapping for a robotic
-platform, where a large amount of unknown data is expected to be
-available as the robot adapts to the changing environment.
+In the framework of indoor mobile robotics, \emph{place recognition}
+is a complex and challenging task. In domotics, for instance, a mobile
+robot may be required to navigate through the rooms of a flat; it is
+then crucial that self-localisation be enforced precisely,
+notwithstanding the changing conditions of illumination, objects being
+shifted around and/or people and other obstacles momentarily changing
+the appearance of the scene.
 
-In this paper we introduce a novel approach to the problem, called
-Online Independent SVMs, in which the solution is built online using
-only those support vectors which are linearly independent in the
-feature space. We then show that OISVMs achieve an excellent accuracy
-vs.~compactness trade-off in general, while retaining the full
-accuracy of ordinary SVMs in case a finite-dimensional kernel is
-used. This statement is supported by experiments on standard benchmark
-databases as well as on a real-world application, namely place
-recognition in an indoor environment, from sequences acquired by robot
-platforms under different weather conditions and across a time span of
-several months.
+In such a complex and multivariated problem involving robotic vision,
+machine learning seems the main way out, thanks to the possibility of
+adapting to changes in a smart and flexible way. Nevertheless,
+standard machine learning approaches usually suffer when confronted
+with massive amounts of data and when asked to work on-line, that is,
+when the flow of data is continuous and not guaranteed to ever
+cease. On-line learning requires a high training speed, all the more
+in place recognition, where a continuous flow of data comes from one
+or more cameras.
+
+In this paper we propose a new approach to the problem that we call
+Online Independent Support Vector Machines. This technique exploits
+linear independence in the image feature space to incrementally keep
+the size of the learning machine remarkably small while retaining the
+accuracy of a standard machine. Since the training and testing times
+crucially depend on the size of the machine, this solves the above
+stated problem. This claim is supported by our experimental results,
+achieved on a newly introduced image database called IDOL2, which
+contains $24$ image sequences acquired using a perspective camera
+mounted on two mobile robot platforms.

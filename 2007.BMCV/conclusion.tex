@@ -1,18 +1,24 @@
-We presented a new method to reduce the number of SVs needed by a
-Support Vector Machine in an online setting, called OISVMs (Online
-Independent Support Vector Machines). OISVMs avoid using in the
-solution those support vectors which are linearly dependent of
-previous ones in the feature space --- in other words, the kernel
-matrix is always kept at full rank. The optimization problem is solved
-via an incremental algorithm which benefits of the small size of the
-kernel matrix.
+In this paper we have shown a promising improvement to Support Vector
+Machines, that we call Online Independent Support Vector Machines
+(OISVM). OISVMs can effectively solve the problem of place recognition
+by a mobile robot, at least in the experiment we have shown. OISVMs
+were tested on the IDOL2 image database, which consists of image
+sequences acquired by robot platforms under different weather
+conditions and across a time span of several months; that is, in
+various lighting conditions and object placements, and acquired by two
+different robot platforms. OISVMs avoid using in the solution those
+support vectors which are linearly dependent of previous ones in the
+feature space --- in other words, the kernel matrix is always kept at
+full rank. The optimization problem is solved via an incremental
+algorithm which benefits of the small size of the kernel matrix.
 
-We tested the method both on a standard set of benchmark databases and
-a real-world case study, namely place recognition in an indoor
-environment, from sequences acquired by robot platforms under
-different weather conditions and across a time span of several months.
+As far as we know, this method is radically different from all
+analogous procedures presented so far in literature (e.g.,
+\cite{DownsGM01,nguyen2005,LeeM01,schoel06,KeerthiCDC06}) since it
+is \emph{not} an after-training simplification and it assumes
+\emph{no knowledge whatsoever} of the full training set beforehand.
 
-The experimental results show that $(i)$ in the case of
+Our experimental results show that $(i)$ in the case of
 finite-dimensional kernels, OISVMs attain the theoretical limit of
 linearly independent support vectors allowed by the feature space,
 without losing any accuracy with respect to ordinary SVMs; $(ii)$ in
@@ -25,11 +31,12 @@ real-world application, we get as few as one third of the SVs required
 by the fixed-partition method, while retaining essentially the same
 accuracy.
 
-A current limitation of the algorithm is that it requires to store in
-memory all training data. This is unfeasible for applications like
-place recognition by robot platforms, as it might lead to a memory
-explosion. A possible solution might be to combine the OISVM with the
-KNN-SVM algorithm \cite{zhang:cvpr06}, so to keep separated the data
-storage from the discriminative classification. Another possibility is
-to discard training data in a principled way, so to minimize the
-effect on the SV solution. Future work will focus on this issue.
+Since the training and testing time... \textbf{FRA: nuovamente....}. A
+careful study of the relationship between $\eta$ and the degradation
+in performance is being carried on; in fact, according to
+\cite{engel2004}, imposing a value of $\eta$ strictly larger than zero
+will eventually result in a \emph{finite} number of basis vectors,
+\emph{even in the case the feature space is
+infinite-dimensional}. Finding a precise relationship between $\eta$
+and this number would allow us to precisely dimension the machine
+depending on the required precision.

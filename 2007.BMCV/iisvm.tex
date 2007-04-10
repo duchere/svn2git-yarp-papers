@@ -1,17 +1,20 @@
-The possibility to obtain a more compact representation of $f(\xx)$
-follows from the fact that the solution to a SVM problem (that is, the
-$\alpha_i$s) is not unique if $K$ does not have full rank
-\cite{Burges98}, which is equivalent to some of the SVs being linearly
-dependent on some others \emph{in the feature space} (this is the core
-of Downs et al.'s \cite{DownsGM01} original idea).
+Let the \emph{kernel matrix} $K$ be defined such that $K_{ij} =
+K(\xx_i,\xx_j)$, with $i,j=1,\ldots,l$. The possibility to obtain a more
+compact representation of $f(\xx)$ follows from the fact that the
+solution to a SVM problem (that is, the $\alpha_i$s) is not unique if
+$K$ does not have full rank \cite{Burges98}, which is equivalent to
+some of the SVs being linearly dependent on some others \emph{in the
+feature space} (this is the core of Downs et al.'s \cite{DownsGM01}
+original idea).
 
-To avoid simplify the solution each time a new sample is acquired like
-in \cite{DownsGM01}, we need a way to use independent SVs only. Hence,
-the main idea is to decouple the concept of ``basis'' vectors, used to
-build the classification function (\ref{eqn:sol}), from the samples
-used to find out the $\alpha_i$s. If the selected basis vectors span the
-same subspace as the whole sample set, the solution found will be
-equivalent --- that is, we will not lose any precision.
+To avoid simplifying the solution each time a new sample is acquired
+like in \cite{DownsGM01}, we need a way to use independent SVs
+only. Hence, the main idea is to decouple the concept of ``basis''
+vectors, used to build the classification function (\ref{eqn:sol}),
+from the samples used to find out the $\alpha_i$s. If the selected
+basis vectors span the same subspace as the whole sample set, the
+solution found will be equivalent --- that is, we will not lose any
+precision.
 
 We hereby propose, after having received a new training sample, to
 incrementally add it to the basis if it is linearly independent in the

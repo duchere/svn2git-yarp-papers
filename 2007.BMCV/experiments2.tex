@@ -1,14 +1,12 @@
-\subsection{Experiments with Real-world Application}
+\subsection{Place Recognition}
 \label{exp:idol2}
 
-We performed a second series of experiments, namely place recognition
-in an indoor environment, to evaluate our algorithm. We considered a
-realistic scenario where the algorithm had to incrementally update the
-model, so to adapt to the variations in an indoor environment due to
-human activities over long time spans. These variations include people
-appearing in different rooms during working time, objects such as cups
-moved or taken in/out of the drawers, pieces of furniture pushed
-around, and so forth.
+We then considered a realistic scenario where the algorithm had to
+incrementally update the model, so to adapt to the variations in an
+indoor environment due to human activities over long time spans. These
+variations include people appearing in different rooms during working
+time, objects such as cups moved or taken in/out of the drawers,
+pieces of furniture pushed around, and so forth.
 
 \begin{figure*}[t]
 \centering \footnotesize
@@ -65,19 +63,19 @@ different functionality. The sequences were acquired under various
 weather and illumination conditions (sunny, cloudy, and night) and
 across a time span of six months. Thus, this data capture natural
 variability that occurs in real-world environments because of both
-natural changes in the illumination and human
-activity. Fig. \ref{fig:idol} shows some sample images from the
-database, illustrating the difficulties of the task.  The image
-sequences in the database are divided as follows: for each robot
-platform and for each type of illumination conditions, there were four
-sequences recorded. Of these four sequences, the first two were
-acquired six months before the last two. This means that, for each
-robot and for every illumination condition, there are always two
-sequences acquired under similar conditions, and two sequences
-acquired under very different conditions. This makes the database
-suitable for different kinds of evaluation on the adaptability of an
-incremental algorithm. For further details about the database, we
-refer the readers to \cite{luo:idol2}.
+natural changes in the illumination and human activity.
+Fig. \ref{fig:idol} shows some sample images from the database,
+illustrating the difficulties of the task.  The image sequences in the
+database are divided as follows: for each robot platform and for each
+type of illumination conditions, there were four sequences
+recorded. Of these four sequences, the first two were acquired six
+months before the last two. This means that, for each robot and for
+every illumination condition, there are always two sequences acquired
+under similar conditions, and two sequences acquired under very
+different conditions. This makes the database suitable for different
+kinds of evaluation on the adaptability of an incremental
+algorithm. For further details about the database, we refer the
+readers to \cite{luo:idol2}.
 
 The evaluation was performed using composed receptive field histograms
 (CRFH) \cite{linde:icpr04} as global image features and SIFT
@@ -90,54 +88,51 @@ of $\eta$, for both kernels.
 We benchmarked OISVM against two approximate incremental SVM
 extensions: the standard fixed-partition technique
 \cite{syed99incremental} and the memory-controlled incremental SVM
-\cite{pronobis:icvs06}, a recently introduced version of incremental SVM,
-inspired by the work of Downs et~al. \cite{DownsGM01}; this replicates
-the experimental setup of \cite{luo:icra07}, thus allowing for a
-straightforward comparison between exact and approximate methods on
-this task
-\footnote{We gratefully thank Jie Luo who gave us the software and assistance 
-necessary to replicate the experiments.}.  
-The algorithm was trained incrementally on three sequences
-from IDOL2, acquired under similar illumination conditions with the
-same robot platform; the fourth sequence was used for testing. In
-order to test the various properties of interest of the incremental
-algorithms, we need a reasonable number of incremental steps.  Thus,
-every sequence was splitted into $5$ subsequences, so that each subset
-contained one of the five images acquired by the robot every second
-(image sequences were acquired at a rate of 5fps). Since during
-acquisition the camera's viewpoint continuously changes
-\cite{luo:icra07}, the subsequences could be considered as recorded
-separately in a static environment but for varying pose.  This setup
-allows us to examine how the algorithms perform on data with less
-variations. In order to get a feeling of the variations of the frame
-images in a sequence, bottom row of Fig. \ref{fig:idol} shows some
-sample images acquired within a time span of 1.6 sec. This setup
-allows us to examine how the algorithms perform on data with less
-variations. As a result, training on each sequence was performed in 5
-steps, using one subsequence at a time, resulting in 15 steps in
-total. Overall, we considered 36 different permutations of training
-and test sequences for the exponential $\chi^2$ kernel and 12
-permutations for the matching kernel \footnote{Upon acceptance of the
-paper, we will report results on 36 permutations for the matching
-kernel as well (experiments currently running).}; here we report
-average results with standard deviation. Fig. \ref{fig:exp:idol},
-left, shows the recognition rates of the exponential $\chi^2$ kernel
-(top) and matching kernel (bottom) experiments obtained at each step
-using OISVM and the other approximate incremental
-algorithms. Fig. \ref{fig:exp:idol}, right, reports the number of
-support vectors stored in the model at each step of the incremental
-procedure, for both kernel types.
+\cite{pronobis:icvs06}, a recently introduced version of incremental
+SVM, inspired by the work of Downs et~al. \cite{DownsGM01}; this
+replicates the experimental setup of \cite{luo:icra07}, thus allowing
+for a straightforward comparison between exact and approximate methods
+on this task \footnote{We gratefully thank Jie Luo who gave us the
+software and assistance necessary to replicate the experiments.}.  The
+algorithm was trained incrementally on three sequences from IDOL2,
+acquired under similar illumination conditions with the same robot
+platform; the fourth sequence was used for testing. In order to test
+the various properties of interest of the incremental algorithms, we
+need a reasonable number of incremental steps.  Thus, every sequence
+was splitted into $5$ subsequences, so that each subset contained one
+of the five images acquired by the robot every second (image sequences
+were acquired at a rate of 5fps). Since during acquisition the
+camera's viewpoint continuously changes \cite{luo:icra07}, the
+subsequences could be considered as recorded separately in a static
+environment but for varying pose.  This setup allows us to examine how
+the algorithms perform on data with less variations. In order to get a
+feeling of the variations of the frame images in a sequence, bottom
+row of Fig. \ref{fig:idol} shows some sample images acquired within a
+time span of 1.6 sec. This setup allows us to examine how the
+algorithms perform on data with less variations. As a result, training
+on each sequence was performed in 5 steps, using one subsequence at a
+time, resulting in 15 steps in total. Overall, we considered 36
+different permutations of training and test sequences for the
+exponential $\chi^2$ kernel and 12 permutations for the matching
+kernel \footnote{Upon acceptance of the paper, we will report results
+on 36 permutations for the matching kernel as well (experiments
+currently running).}; here we report average results with standard
+deviation. Fig. \ref{fig:exp:idol}, left, shows the recognition rates
+of the exponential $\chi^2$ kernel (top) and matching kernel (bottom)
+experiments obtained at each step using OISVM and the other
+approximate incremental algorithms. Fig. \ref{fig:exp:idol}, right,
+reports the number of support vectors stored in the model at each step
+of the incremental procedure, for both kernel types.
 
 We see that, performance-wise, all methods achieves statistically
-comparable results; this is true for both kernel types. Regarding the
-growth of the SV solution as the incremental steps grow, the OISVM
-algorithm shows a considerable advantage with respect to the fixed
-partition and the memory controlled incremental methods. In the case
-of the exponential $\chi^{2}$ kernel this advantage is truly
-impressive (Fig \ref{fig:exp:idol}, top right): for $\eta=0.017$ and
-$0.025$ the reduction in the number of stored SV is of $34\%/21\%$
-(final incremental step) and compared to the fixed-partition method,
-and of $55\%/36\%$ (final incremental step) with respect to the
+comparable results; this is true for both kernel types. As far the
+machine size is concerned, the OISVM algorithm shows a considerable
+advantage with respect to the fixed partition and the memory
+controlled incremental methods. In the case of the exponential
+$\chi^{2}$ kernel this advantage is truly impressive (Fig
+\ref{fig:exp:idol}, top right): for $\eta=0.017$ and $0.025$ the
+size at the final incremental step is $34\%/21\%$ of that of the
+fixed-partition method, and $55\%/36\%$ of that of the
 memory-controlled algorithm. Even more important, OISVM, for these two
 values of $\eta$, has found a plateau in memory, while for the other
 two methods the trend seems to be of a growth (less pronounced for the
@@ -157,12 +152,9 @@ the algorithm might not reach a plateau in the SVs growth because, in
 the induced space of the matching kernel, there seems to be a high
 probability that couples training points are orthogonal or almost
 orthogonal (note that as the kernel is not a Mercer one, the geometric
-interpretation might not be valid).
-
-We can conclude that these results are in agreement with those
-obtained on the machine learning benchmark databases, and show the
-effectiveness of OISVM in controlling the growth of the SV solution
-for online learning scenarios.
+interpretation might not be valid). \textbf{FRA: ``might not reach a
+plateau''? ma come si concilia questo con il fatto che il numero di SV
+comunque e` limitato, anche in caso di kernel infinito-dimensionale?}
 
 \begin{figure*}[t]
   \centering \footnotesize

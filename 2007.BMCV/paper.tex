@@ -1,5 +1,20 @@
 \documentclass{bmvc}
 
+% TODO
+% - The limit for BMVC is 10 pages: we must cut 2 pages.
+% x It is not possible to apply method of Downs online: make a clear
+%   distinction between methods that are applied after training and methods
+%   before training.
+% x Stress that fewer number of SVs means faster testing; add something like
+%   "with OISVM the testing is x% time faster". Two reviewers say that it is
+%   not clear the link between less number of SVs and gain in speed.
+% x Stress the importance of small number of SVs, expecially in a setting
+%   where the flow of data can be infinite.
+% x Clearly state that it is not possible to test against Keerthi06: it is
+%   not online
+% x Add a discussion on the value of \eta and how to choose it.
+% x Stress the fact that in ANY case the number of bases will be finite.
+
 \usepackage{times}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -25,7 +40,7 @@
 
 % ------------------------------------------------------------------------ 
 
-\title{Online Independent Support Vector Machines}
+\title{Improving Machine Learning for\\Place Recognition}
 
 %\author{
 %Francesco Orabona, Claudio Castellini\\
@@ -70,16 +85,16 @@
 \label{sec:bg}
 \input{back-math}
 
-\section{Online Independent Support Vector Classification}
+\section{Online Independent Support Vector Machines}
 \label{sec:opt}
 \input{iisvm}
 
-\section{Experimental Results}
+\section{Place Recognition via OISVMs}
 \label{sec:exp}
 \input{experiments1}
 \input{experiments2}
 
-\section{Conclusions}
+\section{Discussion and conclusions}
 \label{sec:concl}
 \input{conclusion}
 % ------------------------------------------------------------------------ 
