@@ -1,0 +1,3 @@
+#!/bin/bash
+ps2pdf13 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true -dUseFlateCompression=true paper.pdf bmvc07.pdf
+rm paper.pdf
