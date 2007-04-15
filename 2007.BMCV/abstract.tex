@@ -7,7 +7,7 @@ shifted around and/or people and other obstacles momentarily changing
 the appearance of the scene.
 
 In such a complex and multivariated problem involving robotic vision,
-machine learning seems the main way out, thanks to the possibility of
+continuous learning seems the main way out, thanks to the possibility of
 adapting to changes in a smart and flexible way. Nevertheless,
 standard machine learning approaches usually suffer when confronted
 with massive amounts of data and when asked to work on-line, that is,
@@ -16,13 +16,17 @@ cease. On-line learning requires a high training speed, all the more
 in place recognition, where a continuous flow of data comes from one
 or more cameras.
 
-In this paper we propose a new approach to the problem that we call
+In this paper we 
+follow the SVM-based approach proposed by Pronobis et al \cite{pronobis:iros06},
+and we
+propose a new approach to the problem that we call
 Online Independent Support Vector Machines. This technique exploits
 linear independence in the image feature space to incrementally keep
 the size of the learning machine remarkably small while retaining the
 accuracy of a standard machine. Since the training and testing times
 crucially depend on the size of the machine, this solves the above
-stated problem. This claim is supported by our experimental results,
-achieved on a newly introduced image database called IDOL2, which
-contains $24$ image sequences acquired using a perspective camera
-mounted on two mobile robot platforms.
+stated problem. This claim is supported by  experimental results
+achieved on the IDOL2 database, 
+a recently introduced collection that
+contains $24$ image sequences 
+of a five rooms environment, acquired using a perspective camera across a time span of several months.
