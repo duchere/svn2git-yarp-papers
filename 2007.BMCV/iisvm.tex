@@ -11,7 +11,7 @@ To avoid simplifying the solution each time a new sample is acquired
 like in \cite{DownsGM01}, we need a way to use independent SVs
 only. Hence, the main idea is to decouple the concept of ``basis''
 vectors, used to build the classification function (\ref{eqn:sol}),
-from the samples used to find out the $\alpha_i$s. If the selected
+from the samples used to evaluate the errors $\xi_i$ in (\ref{eqn:svm_primal}). If the selected
 basis vectors span the same subspace as the whole sample set, the
 solution found will be equivalent --- that is, we will not lose any
 precision.

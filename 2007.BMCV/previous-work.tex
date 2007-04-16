@@ -5,7 +5,7 @@ geometrical map, or the environment representation, online. Brunskill
 et~al. \cite{emma:irca05} proposed a model using incremental PCA for
 simultaneous localization and mapping (SLAM). A similar approach was
 used in the only work we are aware of that uses an incremental method
-in the context of place recognition. In \cite{ljubjiana:icra02}
+in the context of place recognition \textbf{(MISSING REF?)}. In \cite{ljubjiana:icra02}
 incremental PCA was used to update low-dimensional representations of
 images taken by a mobile robot as it moved around in an
 environment. They also tested repetitive learning of their model with
@@ -46,4 +46,7 @@ the sample set; therefore, in an online setting, the size of a SVM
 would grow indefinitely, and so would the testing time. The exact
 solution to online SVM learning was given by Cauwenberghs and Poggio
 in 2000 \cite{CauwenberghsP00}, but their algorithm cannot be used to
-reduce the number of SVs.
+reduce the number of SVs. In \cite{syed99incremental} and
+\cite{pronobis:icvs06} approximate incremental
+versions of the SVM are proposed, that also achieve a reduction of the
+number of support vectors with small degradation of the performances.

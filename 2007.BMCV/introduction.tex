@@ -55,14 +55,18 @@ Still, it is well known that
 both
 the complexity of the
 support vector solution and the testing time grow proportionally with the number of
-training samples. SVMs can be up to $50$ times slower of other
+training samples \cite{Steinwart03}. SVMs can be up to $50$ times slower of other
 specialized approaches with similar performances
 \cite{BurgesS96}. This represents a serious drawback for SVMs in the robotic vision 
 domain: assuming to adopt an incremental learning approach, the continuous growth of the training data would
 soon make the resulting algorithm too slow for a robotic platform.
-Several authors have proposed various incremental extensions of the classic SVM algorithm (we refer the reader to section
-\ref{prev-work} for a review on the subject), where typically one approximates the exact solution in order to
-slow down the support vector's growth.
+A solution is to train the SVM and then to approximate the
+solution found with a smaller machine. Instead other authors have
+proposed various incremental extensions
+of the classic SVM algorithm, where typically
+one approximates the exact solution in order to slow down the
+support vector's growth. We refer the reader to section
+\ref{prev-work} for a review on the subject.
 
 In this paper we propose an improvement to SVMs that we call Online
 Independent Support Vector Machines (OISVMs). OISVMs incrementally
@@ -73,8 +77,8 @@ ones are rejected, and a smart, incremental minimization algorithm is
 employed to find the new minimum of the cost function. As a matter of
 fact, our experiments indicate that the number of basis vectors of
 OISVMs (the ``size'' of a machine) does not grow linearly with the
-training set, as it was the case in \cite{Steinwart03}, but reaches a
-limit and then stops growing. This result is theoretically confirmed,
+training set, but reaches a limit and then stops growing.
+This result is theoretically confirmed,
 e.g., in \cite{engel2004}, even in the case the feature space is
 infinite-dimensional.
 
