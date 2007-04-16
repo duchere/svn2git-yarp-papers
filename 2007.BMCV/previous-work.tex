@@ -19,12 +19,14 @@ simplification of the decision function is proposed in
 \cite{DownsGM01}, based upon linear independence of the SVs in the
 feature space, performed \emph{after} the training is done. This is a
 simple consequence of the fact that, if the feature space has
-dimension $n$, at most $n+1$ independent SVs are required to build the
+dimension $n$, at most $n+1$ SVs are required to build the
 solution \cite{PontilV98}. The idea is useful in reducing the testing
 time, but it is unfeasible in an online setting, since the
 simplification must be performed every time a new sample is
-acquired. Other after-training simplification methods, e.g. the one
-proposed in \cite{nguyen2005}, suffer from the same limitation.
+acquired. Other after-training simplification methods, e.g. see
+chapter 18.3 in \cite{SmolaS02} and \cite{nguyen2005}, suffer
+from the same limitation and are therefore useful only in an offline
+setting.
 
 On the other hand, discarding from the sample set the linearly
 dependent SVs will result in an approximation; other methods to

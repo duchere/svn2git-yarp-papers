@@ -1,12 +1,20 @@
-\subsection{Place Recognition}
-\label{exp:idol2}
-
-We then considered a realistic scenario where the algorithm had to
-incrementally update the model, so to adapt to the variations in an
-indoor environment due to human activities over long time spans. These
-variations include people appearing in different rooms during working
-time, objects such as cups moved or taken in/out of the drawers,
+In this section we report the experimental evaluation of OISVMs
+to the scenario of place recognition, where the aim is to update
+the model to handle variations in an indoor environment due to
+human activities over long time spans.
+These variations include people appearing in different rooms during
+working time, objects such as cups moved or taken in/out of the drawers,
 pieces of furniture pushed around, and so forth.
+
+OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
+\cite{ChangL01}. The software library has been extended to various
+families of kernels, and to two approximate incremental extensions of
+SVM, the fixed-partition incremental SVM \cite{syed99incremental}, and
+the memory-controlled incremental SVM \cite{pronobis:icvs06}, that at
+the same time are online and attempt to reduce the number of SVs.
+The kernels used are infinite-dimensional, so we show curves for various
+values of $\eta$.
+
 
 \begin{figure*}[t]
 \centering \footnotesize
@@ -45,7 +53,7 @@ c@{\hspace{0.002\linewidth}}c@{}}
 \end{tabular}
 \caption{Sample images illustrating the variations captured in the IDOL2 database.
 Images in the top row show the variability introduced by changes in
-illumination for two rooms (first six images) as well as people
+illumination for two rooms as well as people
 appearing in the environment.  The middle row shows the influence of
 people's everyday activity (first four images) as well as larger
 variations which happened over a time span of $6$ months. Finally, the
@@ -54,7 +62,7 @@ of images acquired one after another in $1.6$ seconds.}
 \label{fig:idol}
 \end{figure*}
 
-Experiments were conducted on a newly introduced database called IDOL2
+Experiments were conducted on the IDOL2 database
 (Image Database for rObot Localization 2, \cite{luo:idol2}), which
 contains $24$ image sequences acquired using a perspective camera
 mounted on two mobile robot platforms. The acquisition was performed
@@ -81,9 +89,8 @@ The evaluation was performed using composed receptive field histograms
 (CRFH) \cite{linde:icpr04} as global image features and SIFT
 \cite{lowe99object} for extracting local features. In the experiments,
 we consider both exponential $\chi^2$ kernel for SVM (when use CRFH),
-and local kernels \cite{wallraven:iccv03} (SIFT).  Similarly to the
-previous set of experiments, we run the OISVM using different values
-of $\eta$, for both kernels.
+and local kernels \cite{wallraven:iccv03} (SIFT). We run the OISVM
+using different values of $\eta$, for both kernels.
 
 We benchmarked OISVM against two approximate incremental SVM
 extensions: the standard fixed-partition technique
@@ -92,7 +99,7 @@ extensions: the standard fixed-partition technique
 SVM, inspired by the work of Downs et~al. \cite{DownsGM01}; this
 replicates the experimental setup of \cite{luo:icra07}, thus allowing
 for a straightforward comparison between exact and approximate methods
-on this task \footnote{We gratefully thank Jie Luo who gave us the
+on this task\footnote{We gratefully thank Jie Luo who gave us the
 software and assistance necessary to replicate the experiments.}.  The
 algorithm was trained incrementally on three sequences from IDOL2,
 acquired under similar illumination conditions with the same robot
@@ -108,15 +115,12 @@ environment but for varying pose.  This setup allows us to examine how
 the algorithms perform on data with less variations. In order to get a
 feeling of the variations of the frame images in a sequence, bottom
 row of Fig. \ref{fig:idol} shows some sample images acquired within a
-time span of 1.6 sec. This setup allows us to examine how the
-algorithms perform on data with less variations. As a result, training
+time span of 1.6 sec. As a result, training
 on each sequence was performed in 5 steps, using one subsequence at a
 time, resulting in 15 steps in total. Overall, we considered 36
 different permutations of training and test sequences for the
 exponential $\chi^2$ kernel and 12 permutations for the matching
-kernel \footnote{Upon acceptance of the paper, we will report results
-on 36 permutations for the matching kernel as well (experiments
-currently running).}; here we report average results with standard
+kernel; here we report average results with standard
 deviation. Fig. \ref{fig:exp:idol}, left, shows the recognition rates
 of the exponential $\chi^2$ kernel (top) and matching kernel (bottom)
 experiments obtained at each step using OISVM and the other
@@ -148,13 +152,13 @@ to the memory-controlled method, and there isn't a clear plateau in
 memory growth by any of the algorithms.  This behavior might be due to
 several factors: to begin with, the matching kernel is not a Mercer
 kernel \cite{fleuret:bmvc04}, which might affect the algorithm. Also,
-the algorithm might not reach a plateau in the SVs growth because, in
+the algorithm does not reach a plateau in the SVs growth because, in
 the induced space of the matching kernel, there seems to be a high
 probability that couples training points are orthogonal or almost
 orthogonal (note that as the kernel is not a Mercer one, the geometric
-interpretation might not be valid). \textbf{FRA: ``might not reach a
-plateau''? ma come si concilia questo con il fatto che il numero di SV
-comunque e` limitato, anche in caso di kernel infinito-dimensionale?}
+interpretation might not be valid). Note that given enough training
+points the machine will always reach a maximum size and will stop
+growing \cite{engel2004}.
 
 \begin{figure*}[t]
   \centering \footnotesize
@@ -171,3 +175,7 @@ comunque e` limitato, anche in caso di kernel infinito-dimensionale?}
          fixed-partition and memory-controlled methods. }
 \label{fig:exp:idol}
 \end{figure*}
+
+Other tests on a set of standard databases commonly used
+in the machine learning community, as well as more details
+about OISVM can be found in \cite{Orabona07}.
