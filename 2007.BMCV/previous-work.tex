@@ -1,26 +1,20 @@
-Visual place recognition for robot platforms is a widely researched
-topic in which online learning is critical. Incremental learning
-approaches have been so far mostly used for constructing the
-geometrical map, or the environment representation, online. Brunskill
-et~al. \cite{emma:irca05} proposed a model using incremental PCA for
-simultaneous localization and mapping (SLAM). A similar approach was
-used in the only work we are aware of that uses an incremental method
-in the context of place recognition \textbf{(MISSING REF?)}. In \cite{ljubjiana:icra02}
-incremental PCA was used to update low-dimensional representations of
-images taken by a mobile robot as it moved around in an
-environment. They also tested repetitive learning of their model with
-the same training images several times. While they obtained impressive
-results in terms of reconstruction, their method was not tested for
-classification.
+\bf{Bit on place recognition, to be added to introduction after the end of the 'enumerate'}
+
+
+The topic is  widely researched, but
+incremental learning approaches have been so far mostly used for constructing the
+geometrical map, or the environment representation, online\cite{emma:irca05, ljubjiana:icra02}.
+Robustness to illumination changes, and more generally to realistic
+visual variations in time, has been addresses in \cite{pronobis:iros06}, where it was showed that
+a pure learning approach can be very effective ....
+
 
 As far as SVMs are concerned, the solution of a SVM is a function of
 a subset of the training samples, called Support Vectors (SV). A
 simplification of the decision function is proposed in
 \cite{DownsGM01}, based upon linear independence of the SVs in the
-feature space, performed \emph{after} the training is done. This is a
-simple consequence of the fact that, if the feature space has
-dimension $n$, at most $n+1$ SVs are required to build the
-solution \cite{PontilV98}. The idea is useful in reducing the testing
+feature space, performed \emph{after} the training is done. 
+The idea is useful in reducing the testing
 time, but it is unfeasible in an online setting, since the
 simplification must be performed every time a new sample is
 acquired. Other after-training simplification methods, e.g. see
