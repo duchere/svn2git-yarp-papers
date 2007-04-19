@@ -2,19 +2,6 @@ In this section we report the experimental evaluation of OISVMs
 to the scenario of place recognition, where the aim is to update
 the model to handle variations in an indoor environment due to
 human activities over long time spans.
-These variations include people appearing in different rooms during
-working time, objects such as cups moved or taken in/out of the drawers,
-pieces of furniture pushed around, and so forth.
-
-OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
-\cite{ChangL01}. The software library has been extended to various
-families of kernels, and to two approximate incremental extensions of
-SVM, the fixed-partition incremental SVM \cite{syed99incremental}, and
-the memory-controlled incremental SVM \cite{pronobis:icvs06}, that at
-the same time are online and attempt to reduce the number of SVs.
-The kernels used are infinite-dimensional, so we show curves for various
-values of $\eta$.
-
 
 \begin{figure*}[t]
 \centering \footnotesize
@@ -51,10 +38,10 @@ c@{\hspace{0.002\linewidth}}c@{}}
 \includegraphics[width=0.123\linewidth]{figs/idol/drive8.png}   \\
 % -------------------------------------------------------------------
 \end{tabular}
-\caption{Sample images illustrating the variations captured in the IDOL2 database.
+\caption{Sample images illustrating the variations in the IDOL2 database.
 Images in the top row show the variability introduced by changes in
-illumination for two rooms as well as people
-appearing in the environment.  The middle row shows the influence of
+illumination as well as people appearing in the environment.
+The middle row shows the influence of
 people's everyday activity (first four images) as well as larger
 variations which happened over a time span of $6$ months. Finally, the
 bottom row illustrates the changes in viewpoint observed for a series
@@ -65,9 +52,9 @@ of images acquired one after another in $1.6$ seconds.}
 Experiments were conducted on the IDOL2 database
 (Image Database for rObot Localization 2, \cite{luo:idol2}), which
 contains $24$ image sequences acquired using a perspective camera
-mounted on two mobile robot platforms. The acquisition was performed
-within an indoor laboratory environment consisting of five rooms of
-different functionality. The sequences were acquired under various
+mounted on two mobile robot platforms, while moving in an indoor
+laboratory environment consisting of five different rooms.
+The sequences were acquired under various
 weather and illumination conditions (sunny, cloudy, and night) and
 across a time span of six months. Thus, this data capture natural
 variability that occurs in real-world environments because of both
@@ -89,16 +76,20 @@ The evaluation was performed using Composed Receptive Field Histograms
 (CRFH) \cite{linde:icpr04} as global image features and SIFT
 \cite{lowe99object} for extracting local features. In the experiments,
 we consider both exponential $\chi^2$ kernel for SVM (when use CRFH),
-and local kernels \cite{wallraven:iccv03} (SIFT). We run the OISVM
-using different values of $\eta$, for both kernels.
+and local kernels \cite{wallraven:iccv03} (SIFT). The kernels
+used are infinite-dimensional, so for both kernels we run the OISVM
+using different values of $\eta$.
 
-We benchmarked OISVM against two approximate incremental SVM
-extensions: the standard fixed-partition technique
-\cite{syed99incremental} and the memory-controlled incremental SVM
-\cite{pronobis:icvs06}, a recently introduced version of incremental
-SVM, inspired by the work of Downs et~al. \cite{DownsGM01}; this
-replicates the experimental setup of \cite{luo:icra07}, thus allowing
-for a straightforward comparison between exact and approximate methods
+OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
+\cite{ChangL01}. The software library has been extended to various
+families of kernels, and to the fixed-partition incremental SVM \cite{syed99incremental},
+an approximate incremental extension of SVM, that at
+the same time attempts to reduce the number of SVs.
+
+We benchmarked OISVM against the standard SVM formulation (offline)
+and an approximate incremental SVM extension: the fixed-partition technique
+\cite{syed99incremental}. In this way we can do a straightforward comparison
+between exact and approximate methods
 on this task\footnote{We gratefully thank Jie Luo who gave us the
 software and assistance necessary to replicate the experiments.}.  The
 algorithm was trained incrementally on three sequences from IDOL2,
@@ -131,24 +122,21 @@ of the incremental procedure, for both kernel types.
 We see that, performance-wise, all methods achieves statistically
 comparable results; this is true for both kernel types. As far the
 machine size is concerned, the OISVM algorithm shows a considerable
-advantage with respect to the fixed partition and the memory
-controlled incremental methods. In the case of the exponential
+advantage with respect to the fixed partition method. In the case of the exponential
 $\chi^{2}$ kernel this advantage is truly impressive (Fig
 \ref{fig:exp:idol}, top right): for $\eta=0.017$ and $0.025$ the
 size at the final incremental step is $34\%/21\%$ of that of the
-fixed-partition method, and $55\%/36\%$ of that of the
-memory-controlled algorithm. Even more important, OISVM, for these two
-values of $\eta$, has found a plateau in memory, while for the other
-two methods the trend seems to be of a growth (less pronounced for the
-memory controlled algorithm, which plot might be interpreted as an
-asymptotic plateau) proportional to the number of training data. Note
+fixed-partition method. Even more important, OISVM, for these two
+values of $\eta$, has found a plateau in memory, while for other incremental
+method the trend seems to be of a growth proportional to the
+number of training data. Note
 that the choice of the parameter $\eta$ is crucial for achieving an
 optimal trade-off between compactness of the solution and optimal
 performance.
 
 It is very interesting to note that, in the case of the matching
-kernel, the memory reduction for OISVM is less pronounced with respect
-to the memory-controlled method, and there isn't a clear plateau in
+kernel, the memory reduction for OISVM is less pronounced, and
+there isn't a clear plateau in
 memory growth by any of the algorithms.  This behavior might be due to
 several factors: to begin with, the matching kernel is not a Mercer
 kernel \cite{fleuret:bmvc04}, which might affect the algorithm. Also,
@@ -172,7 +160,7 @@ growing \cite{engel2004}.
   \end{tabular}
 \caption{Average results obtained for experiment performed on the IDOL2 database, using
          OISVM with  three different values of $\eta$, the 
-         fixed-partition and memory-controlled methods. }
+         fixed-partition. }
 \label{fig:exp:idol}
 \end{figure*}
 
