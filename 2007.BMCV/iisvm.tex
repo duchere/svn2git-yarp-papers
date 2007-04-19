@@ -6,15 +6,16 @@ $K$ does not have full rank \cite{Burges98}, which is equivalent to
 some of the SVs being linearly dependent on some others \emph{in the
 feature space} (this is the core of Downs et al.'s \cite{DownsGM01}
 original idea).
-
-To avoid simplifying the solution each time a new sample is acquired
-like in \cite{DownsGM01}, we need a way to use independent SVs
-only. Hence, the main idea is to decouple the concept of ``basis''
-vectors, used to build the classification function (\ref{eqn:sol}),
-from the samples used to evaluate the errors $\xi_i$ in (\ref{eqn:svm_primal}). If the selected
-basis vectors span the same subspace as the whole sample set, the
-solution found will be equivalent --- that is, we will not lose any
-precision.
+Applying the idea of Downs et al., or any other post-training
+method to reduce the number of SVs, in an online setting means simplifying the
+solution each time a new sample is acquired, that is obviously infeasible.
+We need a way to use independent SVs only, that is to
+decouple the concept of ``basis'' vectors, used to build
+the classification function (\ref{eqn:sol}), from the samples
+used to evaluate the errors $\xi_i$ in (\ref{eqn:svm_primal}).
+If the selected basis vectors span the same subspace as
+the whole sample set, the solution found will be equivalent
+--- that is, we will not lose any precision.
 
 We hereby propose, after having received a new training sample, to
 incrementally add it to the basis if it is linearly independent in the
@@ -58,7 +59,7 @@ vectors in the set \cite{EngelMM02sparse}. Let $d_j \in \RR$; then let
 \end{equation}
 
 If $\Delta > 0$ then $\xx_{l+1}$ is linearly independent with respect
-to the basis, and $l+1$ is added to $\b$. In practice, we check
+to the basis, and $\left\{l+1\right\}$ is added to $\b$. In practice, we check
 whether $\Delta \leq \eta$ where $\eta > 0$ is a tolerance factor, and
 expect that larger values of $\eta$ lead to worse accuracy, but also
 to smaller bases. As a matter of fact, if $\eta$ is set at machine
@@ -129,6 +130,7 @@ incremental evaluation, the time complexity of the linear independence
 check is $O(|\b|^2)$, as one can easily see from Equation
 (\ref{eqn:ald4}).
 
+
 \subsection{Training the machine}
 
 The training method largely follows Keerthi et
@@ -159,7 +161,7 @@ new sample $\xx_{l+1}$ is received the method goes as follows:
 
    \item let $\mathcal{I} = \{ i: 1-y_i o_i<0 \}$ where $o_i =
      K_{i\b} \bb$ and $\bb$ is the vector of optimal coefficients
-     with $l$ training samples; if $\mathcal{I}$ hasn't changed, stop.
+     with $l$ training samples; if $\mathcal{I}$ has not changed, stop.
 
    \item otherwise, let the new $\bb$ be $\bb - \gamma
      \mathbf{P}^{-1}\mathbf{g}$, where $\mathbf{P} = K_{\b\b} + C

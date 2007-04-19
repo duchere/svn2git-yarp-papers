@@ -11,16 +11,13 @@ support vectors which are linearly dependent of previous ones in the
 feature space. The optimization problem is solved via an incremental
 algorithm which benefits of the small number of the basis vectors.
 
-As far as we know, this method is radically different from all
+As far as we know, this method is different from all
 analogous procedures presented so far in literature (e.g.,
 \cite{DownsGM01,nguyen2005,LeeM01,schoel06,KeerthiCDC06}) since it
 is \emph{not} an after-training simplification and it assumes
 \emph{no knowledge whatsoever} of the full training set beforehand.
 
-Our experimental results show that $(i)$ in the case of
-finite-dimensional kernels, OISVMs attain the theoretical limit of
-linearly independent support vectors allowed by the feature space,
-without losing any accuracy with respect to ordinary SVMs; $(ii)$ in
+Our experimental results show that in
 the case of infinite-dimensional kernels, they dramatically reduce the
 number of support vectors at the price of a negligible degradation in
 the accuracy. In fact, we get as few as one third of the SVs required

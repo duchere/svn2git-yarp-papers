@@ -69,8 +69,7 @@ every illumination condition, there are always two sequences acquired
 under similar conditions, and two sequences acquired under very
 different conditions. This makes the database suitable for different
 kinds of evaluation on the adaptability of an incremental
-algorithm. For further details about the database, we refer the
-readers to \cite{luo:idol2}.
+algorithm. For further details about the database see \cite{luo:idol2}.
 
 The evaluation was performed using Composed Receptive Field Histograms
 (CRFH) \cite{linde:icpr04} as global image features and SIFT
@@ -85,14 +84,13 @@ OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
 families of kernels, and to the fixed-partition incremental SVM \cite{syed99incremental},
 an approximate incremental extension of SVM, that at
 the same time attempts to reduce the number of SVs.
-
-We benchmarked OISVM against the standard SVM formulation (offline)
-and an approximate incremental SVM extension: the fixed-partition technique
-\cite{syed99incremental}. In this way we can do a straightforward comparison
+In this way we can do a straightforward comparison
 between exact and approximate methods
 on this task\footnote{We gratefully thank Jie Luo who gave us the
-software and assistance necessary to replicate the experiments.}.  The
-algorithm was trained incrementally on three sequences from IDOL2,
+software and assistance necessary to replicate the experiments.}.
+Notice that for the standard SVM the training is not online.
+
+The algorithm was trained incrementally on three sequences from IDOL2,
 acquired under similar illumination conditions with the same robot
 platform; the fourth sequence was used for testing. In order to test
 the various properties of interest of the incremental algorithms, we
