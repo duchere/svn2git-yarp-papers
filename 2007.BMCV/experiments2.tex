@@ -86,8 +86,7 @@ an approximate incremental extension of SVM, that at
 the same time attempts to reduce the number of SVs.
 In this way we can do a straightforward comparison
 between exact and approximate methods
-on this task\footnote{We gratefully thank Jie Luo who gave us the
-software and assistance necessary to replicate the experiments.}.
+on this task.
 Notice that for the standard SVM the training is not online.
 
 The algorithm was trained incrementally on three sequences from IDOL2,
@@ -95,7 +94,7 @@ acquired under similar illumination conditions with the same robot
 platform; the fourth sequence was used for testing. In order to test
 the various properties of interest of the incremental algorithms, we
 need a reasonable number of incremental steps.  Thus, every sequence
-was splitted into $5$ subsequences, so that each subset contained one
+was split into $5$ subsequences, so that each subset contained one
 of the five images acquired by the robot every second (image sequences
 were acquired at a rate of 5fps). Since during acquisition the
 camera's viewpoint continuously changes \cite{luo:icra07}, the
@@ -124,7 +123,7 @@ advantage with respect to the fixed partition method. In the case of the exponen
 $\chi^{2}$ kernel this advantage is truly impressive (Fig
 \ref{fig:exp:idol}, top right): for $\eta=0.017$ and $0.025$ the
 size at the final incremental step is $34\%/21\%$ of that of the
-fixed-partition method. Even more important, OISVM, for these two
+fixed-partition method [\textbf{RESULTS RESPECT TO BATCH}]. Even more important, OISVM, for these two
 values of $\eta$, has found a plateau in memory, while for other incremental
 method the trend seems to be of a growth proportional to the
 number of training data. Note
@@ -134,7 +133,7 @@ performance.
 
 It is very interesting to note that, in the case of the matching
 kernel, the memory reduction for OISVM is less pronounced, and
-there isn't a clear plateau in
+there is not a clear plateau in
 memory growth by any of the algorithms.  This behavior might be due to
 several factors: to begin with, the matching kernel is not a Mercer
 kernel \cite{fleuret:bmvc04}, which might affect the algorithm. Also,
@@ -173,4 +172,4 @@ a problem in an online setting, but it could be solved using, for example,
 some kind of forgetting strategy. Another strategy can
 be the use out-of-core storage of the data
 (i.e. storage on the hard disk) in order to be able
-to deal with big cardinality of the training set.
+to deal with big training sets.

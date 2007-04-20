@@ -5,7 +5,7 @@ room of a house or office a mobile robot is in, based upon what the
 robot sees through one or more cameras. The problem is made very
 difficult by at least three factors: $(a)$ the input space is huge,
 since we deal with images, usually at a reasonable resolution and in
-colour; $(b)$ images of the same place can be quite different as
+color; $(b)$ images of the same place can be quite different as
 illumination conditions change and moving obstacles get in the way;
 and $(c)$, recognition must be done on-line in real time, as the robot
 is moving around.
@@ -41,9 +41,11 @@ for tackling the first two
 issues: indeed it was demonstrated that an approach based upon Support
 Vector Machines (SVM, see, e.g., \cite{BGV92}) \emph{in batch mode}
 could achieve a remarkable robustness to illumination changes and
-variability due to the normal use of the environments. As far as the
-third issue is concerned, it is well known that both the training and
-testing time of the machine crucially depend on the number of samples
+variability due to the normal use of the environments. At the same time
+the work elicited the problem of the growth of the testing time when a bigger
+training set was used, to have better recognition performances.
+In fact, as far as the third issue is concerned, it is well known that
+both the training and testing time of an SVM crucially depend on the number of samples
 considered \cite{KeerthiCDC06}; as well, the number of Support Vectors
 (SV) found, which determine the complexity of the solution to the
 problem, grows proportionally with respect to the number of samples
@@ -52,7 +54,8 @@ far, for on-line learning, where a potentially endless flow of data is
 acquired by the machine. SVMs can be up to $50$ times slower than
 other specialized approaches with similar performances
 \cite{BurgesS96}.
-Several approaches have been proposed so far for simplifying the SVM decision function: see for instance
+Several exact and approximate approaches have been proposed so
+far for simplifying the SVM decision function: see for instance
 \cite{DownsGM01}, based upon linear independence of the SVs in the
 feature space performed after training, and other after-training simplification methods (e.g. 
 chapter 18.3 in \cite{SmolaS02} and \cite{nguyen2005}).
@@ -74,7 +77,8 @@ employed to find the new minimum of the cost function. This keeps the
 number of SVs much smaller than usual, reducing the complexity of the
 solution and therefore both the training and testing time. 
 Unsupervised rank reduction methods have been proposed
-\cite{Baudat03} as well as supervised ones \cite{BachJordan2005}, but
+\cite{Baudat03} as well as supervised ones \cite{BachJordan2005}
+that achieve the same goals, but
 no application of these ideas appears so far, to the best of our
 knowledge, in online settings.
 This is particularly important since it
