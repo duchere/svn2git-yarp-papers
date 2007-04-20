@@ -165,3 +165,12 @@ growing \cite{engel2004}.
 Other tests on a set of standard databases commonly used
 in the machine learning community, as well as more details
 about OISVM can be found in \cite{Orabona07}.
+
+It is worth noting that, even if the solution is kept small and the
+number of support vectors will be finite in any case, the algorithm
+must store all the training samples that it receives. This can be
+a problem in an online setting, but it could be solved using, for example,
+some kind of forgetting strategy. Another strategy can
+be the use out-of-core storage of the data
+(i.e. storage on the hard disk) in order to be able
+to deal with big cardinality of the training set.

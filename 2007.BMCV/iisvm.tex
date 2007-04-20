@@ -130,6 +130,18 @@ incremental evaluation, the time complexity of the linear independence
 check is $O(|\b|^2)$, as one can easily see from Equation
 (\ref{eqn:ald4}).
 
+With this method we are approximating the original kernel matrix $K$
+with another matrix $\widehat{K}$ \cite{BachJordan2005};
+the quality of the approximation
+depends on $\eta$. In fact it is possible to show that
+$trace(K-\widehat{K}) \leq \eta |\b| \leq \eta l$, where $l$ is the number
+of samples acquired \cite{engel2004}. If we consider a normalized kernel,
+that is a kernel for which $K(x,x)$ is always equal to $1$, we can write
+$trace(K-\widehat{K})/trace(K) \leq \eta$.
+On the other hand a bigger $\eta$ means of course a smaller number
+of SVs, hence it controls the trade-off between accuracy and
+speed of the OISVM.
+
 
 \subsection{Training the machine}
 

@@ -18,11 +18,13 @@ is \emph{not} an after-training simplification and it assumes
 \emph{no knowledge whatsoever} of the full training set beforehand.
 
 Our experimental results show that in
-the case of infinite-dimensional kernels, they dramatically reduce the
-number of support vectors at the price of a negligible degradation in
-the accuracy. In fact, we get as few as one third of the SVs required
-by the fixed-partition method, while retaining essentially the same
-accuracy.
+the case of infinite-dimensional kernels, the number of support vectors
+is dramatically reduced at the price of a negligible degradation in
+the accuracy. In fact in the case of $\chi^2$ kernel, we get as few
+as $3.5$ times less SVs respect to the batch formulation and $3$
+times less respect to the fixed-partition method, while retaining
+essentially the same accuracy. In the case of the local kernel...
+[\textbf{COMPLETE AFTER WE HAVE THE FINAL RESULTS}]
 
 Since the training and testing time depend polynomially on the
 number of support vectors, reducing them bring an obvious speed up. A
@@ -31,6 +33,7 @@ in performance is being carried on; in fact, according to
 \cite{engel2004}, imposing a value of $\eta$ strictly larger than zero
 will eventually result in a \emph{finite} number of basis vectors,
 \emph{even in the case the feature space is
-infinite-dimensional}. Finding a precise relationship between $\eta$
-and this number would allow us to precisely dimension the machine
-depending on the required precision.
+infinite-dimensional}. On going research is on finding a precise
+relationship between $\eta$ and this number to allow
+us to precisely dimension the machine depending on the required
+precision.
