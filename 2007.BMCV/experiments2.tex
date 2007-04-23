@@ -1,5 +1,5 @@
 In this section we report the experimental evaluation of OISVMs
-to the scenario of place recognition, where the aim is to update
+on the place recognition scenario, where the aim is to update
 the model to handle variations in an indoor environment due to
 human activities over long time spans.
 
@@ -60,7 +60,7 @@ across a time span of six months. Thus, this data capture natural
 variability that occurs in real-world environments because of both
 natural changes in the illumination and human activity.
 Fig. \ref{fig:idol} shows some sample images from the database,
-illustrating the difficulties of the task.  The image sequences in the
+illustrating the difficulty of the task.  The image sequences in the
 database are divided as follows: for each robot platform and for each
 type of illumination conditions, there were four sequences
 recorded. Of these four sequences, the first two were acquired six
@@ -72,18 +72,21 @@ kinds of evaluation on the adaptability of an incremental
 algorithm. For further details about the database see \cite{luo:idol2}.
 
 The evaluation was performed using Composed Receptive Field Histograms
-(CRFH) \cite{linde:icpr04} as global image features and SIFT
-\cite{lowe99object} for extracting local features. In the experiments,
+(CRFH) \cite{linde:icpr04} as global image features and SIFT descriptors
+\cite{lowe99object} of local features computed using a
+Harris-Laplace detector \cite{HarrisS88}. In the experiments,
 we consider both exponential $\chi^2$ kernel for SVM (when use CRFH),
-and local kernels \cite{wallraven:iccv03} (SIFT). The kernels
-used are infinite-dimensional, so for both kernels we run the OISVM
-using different values of $\eta$.
+and local kernels \cite{wallraven:iccv03} (SIFT). Note the kernel in
+\cite{wallraven:iccv03} is not always positive semidefinite
+\cite{fleuret:bmvc04}, so this is also a test on non-Mercer
+kernels that have proved useful for visual recognition.
+The kernels used are infinite-dimensional, so for both
+kernels we run the OISVM using different values of $\eta$.
 
 OISVMs have been implemented in Matlab and tested against LIBSVM v2.82
 \cite{ChangL01}. The software library has been extended to various
 families of kernels, and to the fixed-partition incremental SVM \cite{syed99incremental},
-an approximate incremental extension of SVM, that at
-the same time attempts to reduce the number of SVs.
+an approximate incremental extension of SVM.
 In this way we can do a straightforward comparison
 between exact and approximate methods
 on this task.
