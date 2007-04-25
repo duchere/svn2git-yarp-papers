@@ -102,6 +102,27 @@ the beer can.
   \end{center}
 \end{figure}
 
+A further analysis of the hyperparameters (see Figure
+\ref{fig:C_trend}) confirms that, as $B$ increases, more and more
+information is missing from the training set: both $C$ and $\sigma$
+show a decreasing trend on all three groups of sensors (more
+pronounced in the case of $C$), meaning that the regularisation term
+in Equation (\ref{eqn:svm_primal}) becomes more and more important.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\linewidth]{trend_C.eps} &
+      \includegraphics[width=0.45\linewidth]{trend_sigma.eps}
+    \end{tabular}
+    \caption{The trend of the hyperparameters $C$ (left pane) and
+    $\sigma$ (right pane), as far as the hand position, orientation
+    and posture is concerned. As $B$ is increased, both parameters show a
+    decreasing trend, more pronounced in the case of $C$.}
+    \label{fig:C_trend}
+  \end{center}
+\end{figure}
+
 To determine how far in the future SVMs can predict well, we need to
 decide what an acceptable error is. In general, this is
 application-dependent. In this case we decided to accept an error as
@@ -149,32 +170,13 @@ performance.
 
 Notice that this effect is more pronounced in the case of the hand
 posture than for the hand position and orientation, where a
-substantial overlap of the error bars can be seen. This is sensible,
+substantial overlap of the error bars can be seen (the ANOVA test on
+the time series indicates low significance for the hand position and
+orientation, but high significance for the posture). This is sensible,
 since knowing \emph{what object} one is going to grasp will tell a
 great deal about \emph{how to shape one's hand} in order to grasp it,
 but it will definitely be less influential in order to determine where
 and how to \emph{reach}.
-
-A further analysis of the hyperparameters (see Figure
-\ref{fig:C_trend}) confirms that, as $B$ increases, more and more
-information is missing from the training set: both $C$ and $\sigma$
-show a decreasing trend on all three groups of sensors (more
-pronounced in the case of $C$), meaning that the regularisation term
-in Equation (\ref{eqn:svm_primal}) becomes more and more important.
-
-\begin{figure}[htbp]
-  \begin{center}
-    \begin{tabular}{cc}
-      \includegraphics[width=0.45\linewidth]{trend_C.eps} &
-      \includegraphics[width=0.45\linewidth]{trend_sigma.eps}
-    \end{tabular}
-    \caption{The trend of the hyperparameters $C$ (left pane) and
-    $\sigma$ (right pane), as far as the hand position, orientation
-    and posture is concerned. As $B$ is increased, both parameters show a
-    decreasing trend, more pronounced in the case of $C$.}
-    \label{fig:C_trend}
-  \end{center}
-\end{figure}
 
 Let us now focus upon the fraction of SVs found by the SVMs: consider
 Figure \ref{fig:hyperp}, right column, again. It turns out that SVMs
@@ -223,14 +225,11 @@ Figure \ref{fig:postures}.
 \begin{figure}[htbp]
   \begin{center}
     \begin{tabular}{cccc}
-%      \includegraphics[width=0.24\linewidth]{posture1.eps} &
-%      \includegraphics[width=0.24\linewidth]{posture2.eps} &
-%      \includegraphics[width=0.24\linewidth]{posture3.eps} &
-%      \includegraphics[width=0.24\linewidth]{posture4.eps} \\
-      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} &
-      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} &
-      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} &
-      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} \\
+      \includegraphics[width=0.22\linewidth]{posture1.eps} &
+      \includegraphics[width=0.22\linewidth]{posture2.eps} &
+      \includegraphics[width=0.22\linewidth]{posture3.eps} &
+      \includegraphics[width=0.22\linewidth]{posture4.eps} \\
+      (1) & (2) & (3) & (4) \\
     \end{tabular}
     \caption{The four prototypical hand postures when grasping the
       mug, as found by K-means clustering.}
@@ -255,10 +254,29 @@ experimental results.
       \includegraphics[width=0.45\textwidth]{error_pst_SV_cluster.eps} &
       \includegraphics[width=0.45\textwidth]{error_pst_cmp_SV_cluster.eps} \\
     \end{tabular}
-    \caption{Comparison between regression with/without knowledge of the grasp
-      type.}
+    \caption{Comparison among regression on single grasp types (left
+      column) and between regression with/without knowledge of the grasp
+      type (right column).}
     \label{fig:clustering}
   \end{center}
 \end{figure}
 
+First of all, it must be noticed (left column) that there is a
+considerably different error among the types of grasps, type $4$ begin
+the more complex, followed by $1$ and $3$ having the same complexity,
+and $2$ being the easiest one. This ranking is confirmed by the
+percentage of SVs graph (bottom left). But, as well, the error on the
+single grasps is \emph{smaller} than that on the mug (green curve in
+Figure \ref{fig:err_all}, bottom left graph) in three cases out of
+four, and only slightly larger in the case of grasp type $4$. This
+suggests that the machine is able to learn well a number of different
+grasp types, without ``specialising'' on one easy type.
 
+Secondly, consider the right column of the Figure. We have made an
+analogous comparison as that shown in Figure \ref{fig:err_all}, right
+column: in that case we compared the errors obtained with and without
+prior knowledge of the object to be grasped; here we compare the
+errors \emph{on the mug}, with and without prior knowledge of the type
+of grasp. The result is that knowing in advance the type of grasp
+makes the machine even more accurate and smaller than it used to be
+before.

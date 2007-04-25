@@ -301,7 +301,7 @@ practice (see, e.g., \cite{Cristianini00}) we have chosen a
 the Gaussian function $K$.
 
 Now, let $C \in \RR$ be a positive number; then the $\alpha_i$s and
-$b$ in \ref{eqn:sol} are found by solving the following minimisation
+$b$ in (\ref{eqn:sol}) are found by solving the following minimisation
 problem (\emph{training phase}):
 
 \begin{equation} \label{eqn:svm_primal}
@@ -309,10 +309,29 @@ problem (\emph{training phase}):
 \end{equation}
 
 \noindent where $R$ is a \emph{regularisation term} and
-$L^\epsilon$ is a \emph{loss functional}.
+$L^\epsilon$ is a \emph{loss functional}. Minimising the sum of $R$
+and $L^\epsilon$ together ensures that the solution will approximate
+well the values in the training set (thanks to $L^\epsilon$), at the
+same time avoiding overfitting, i.e., exhibiting poor accuracy on
+points outside $S$ (thanks to $R$). The regularisation term actually
+controls the ``complexity'' of $f(\xx)$. As is apparent from
+(\ref{eqn:svm_primal}), $C$ balances the relative importance of
+$L^\epsilon$ and $R$. In SVM regression, it is usually the case that
+$L^\epsilon (\xx_i,y_i,f) = \mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$,
+where $\epsilon > 0$ controls the width of an ``insensitive band''
+around the output values, e.g., errors on the training set within this
+band are not considered.
 
-It is usually the case that, after the training phase, some of the
-$\alpha_i$s are found to be zero; the $\xx_i$s associated with
+In the end, there are three numbers to be tuned in our setting, called
+\emph{hyperparameters}: $C$, $\sigma$ and $\epsilon$. In all our
+regression tests, we found the optimal values of $C$ and $\sigma$ by
+grid search with $5$-fold cross-validation, whereas $\epsilon$ was
+chosen accordingly to the resolution of the sensors being examined
+(see next Section for a more detailed discussion). This is standard
+practice in the machine learning literature.
+
+It is also usually the case that, after the training phase, some of
+the $\alpha_i$s are found to be zero; the $\xx_i$s associated with
 non-zero $\alpha_i$s are called \emph{support vectors} (SVs). Both the
 training time (i.e., the time required by the training phase) and the
 testing time (i.e., the time required to find the value of a point not
@@ -322,31 +341,6 @@ even better indicator is the \emph{fraction} of SVs with respect to
 $|S|$, since in the standard SVM setting the number of SVs grows
 proportionally to the total number of samples in $S$
 \cite{Steinwart03}.
-
-In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L^\epsilon$
-together ensures that the solution will approximate well the values in
-the training set, at the same time avoiding overfitting, i.e.,
-exhibiting poor accuracy on points outside $S$. 
-This formulation reflects the goal to find a function $f(\xx)$ that is
-as close as possible to the target values $y_i$ for all the training data,
-and at the same time is as simple as possible. The complexity of
-the function is measured by the reguralization term.
-Smaller values of $C$ give more importance to the regularisation
-term and vice-versa.
-
-Moreover, in SVM regression, it is usually the case that $L^\epsilon
-(\xx_i,y_i,f) = \mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$, where
-$\epsilon > 0$ controls the width of an ``insensitive band'' around
-the output values, e.g., errors on the training set within this band
-are not considered.
-
-There are, therefore, three numbers to be tuned in our setting, called
-\emph{hyperparameters}: $C$, $\sigma$ and $\epsilon$. In all our
-regression tests, we found the optimal values of $C$ and $\sigma$ by
-grid search with $5$-fold cross-validation, whereas $\epsilon$ was
-chosen accordingly to the resolution of the sensors being examined
-(see next Section for a more detailed discussion). This is standard
-practice in the machine learning literature.
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
