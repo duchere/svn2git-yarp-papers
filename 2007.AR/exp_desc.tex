@@ -122,7 +122,7 @@ Each experiment lasted $35$ to $56$ minutes depending on the subject's
 confidence and speed; although almost no subjects reported tiredness,
 we allowed them to rest between sessions. It was reported by almost
 every subject that the experiment became rapidly boring, which lets us
-claim that almost all grasps were done in a natural, almost
+claim that almost all grasps were done in a natural way, almost
 unconsciously. Figure \ref{fig:setup} shows the main phases of the
 experiment.
 
@@ -134,7 +134,7 @@ experiment.
       \includegraphics[width=0.3\linewidth]{exp3.eps} \\
       $(a)$ & $(b)$ & $(c)$
     \end{tabular}
-    \caption{The experiment. The subject sits confortably in front of
+    \caption{The experiment. The subject sits comfortably in front of
     a clean workspace, at the center of which an object is placed
     $(a)$, with his right hand in a resting position. He then grasps
     the object and drops it somewhere else in the workspace $(b)$,
@@ -198,9 +198,10 @@ the end of the trajectory.
     and end of a grasp; the black line is the FSR response; and the
     green line is the hand speed. As one can see, the ending points
     are found near the FSR spike, indicating contact; moreover, the
-    hand speed shows the well known bell-shaped profile of planar reaching. 
-    $(b)$ Grasps duration. The Figure shows the duraton of the
-    grasps (moving average over 50 grasps) averaged for all
+    hand speed shows the well known bell-shaped profile of planar
+    reaching \cite{morasso-81}. 
+    $(b)$ Grasps duration. The Figure shows the duration of the
+    grasps (moving average over $50$ grasps) averaged for all
     subjects. As the experiments advance, the duration becomes shorter.}
     \label{fig:grasp_sequence}
   \end{center}
@@ -214,26 +215,52 @@ $649$ grasps). All data were also parsed by hand in order to verify
 that spurious detected grasps would be an insignificant fraction of
 the total grasps.
 
-\subsubsection*{Grasping speed}
+\subsubsection*{The blind window}
 
-In general, in order to make time sequences suitable for a machine
-learning system, they all must have the same length;\footnote{An
-alternative possibility appears, e.g., in
-\cite{shimodaira02dynamic}; this issue is the subject of future
-research.} in order to do this, since in general not all grasps have
-the same length, we stretched each sequence to a predefined
-length. The predefined length was chosen according to the average
-speed of the grasps. Figure \ref{fig:grasp_sequence} $(b)$ shows the
-average grasp durations for all subjects over each experiment (moving
-average over $50$ grasps); as one would expect, in general the
-subjects get rapidly used to the grasp/drop/reposition task and the
-grasps become faster and faster. It must be remarked, though, that
-this is not the case for all subjects when considered individually.
+In order to test the power of prediction of our machine, we needed to
+somehow \emph{hide} to the system the final part of the grasping
+action. We therefore defined a \emph{blind window} $B$, with $0
+\leq B \leq 1$, representing what fraction of the grasp, from the
+contact point backwards, was hidden. Figure \ref{fig:B_example} shows a
+typical situation. It was intuitively expected that larger values of
+$B$ would smoothly lead to larger errors.
 
-On average, the grasp duration was $0.62 \pm 0.20$ seconds. We decided
-then to stretch every grasp to $1$ second by linear interpolation,
-obtaining fixed-length time sequences of $50$ samples for each sensor
-and grasp.
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{B_example.eps}
+    \caption{The blind window (the grey zone in the Figure) indicates
+    what fraction of each grasp, from the contact point backwards, is
+    hidden to the learning machine.
+    The data shown is a typical trajectory of the
+    thumb (rotation, inner phalanx, outer phalanx) during a grasp. In
+    this case the grasp lasts $0.78$ seconds and $B=0.375$. The last
+    sample (for $t=0.78$) is the target value.}
+    \label{fig:B_example}
+  \end{center}
+\end{figure}
+
+Moreover, in general, in order to make time sequences suitable for
+regression, they all must have the same length\footnote{An alternative
+possibility appears, e.g., in \cite{shimodaira02dynamic}; this issue
+is the subject of future research.} so that they can be represented as
+vectors in a fixed-dimension input space. In order to accomplish this,
+since in general not all grasps have the same length, for each grasp
+we decided to stretch its \emph{visible} window (i.e., a fraction of
+the grasp corresponding to $1-B$) to a predefined length; and it
+seemed reasonable to choose this length according to the average speed
+of the grasps, in order not to lose any information.
+
+Figure \ref{fig:grasp_sequence} $(b)$ shows the average grasp
+durations for all subjects over each experiment (moving average over
+$50$ grasps); as one would expect, in general the subjects get rapidly
+used to the grasp/drop/reposition task and the grasps become faster
+and faster. It must be remarked, though, that this is not the case for
+all subjects when considered individually. On average, the grasp
+duration was $0.62 \pm 0.20$ seconds. We decided then to stretch every
+visible window to $1$ second by linear interpolation, obtaining
+fixed-length time sequences of $50$ samples for each sensor and grasp;
+these time sequences were then represented as vectors in a
+$50$-dimensional space.
 
 \subsection{Support Vector Machines}
 
@@ -261,49 +288,61 @@ $S$, and weighted by real coefficients $\alpha_i$:
 \end{equation}
 
 \noindent where $b \in \RR$. The choice of $K$, the so-called
-\emph{kernel}, is done \emph{a priori} and defines $\mathcal{F}$ once and for
-all; it is therefore crucial. According to a standard practice (see,
-e.g., \cite{Cristianini00}) we have chosen a \emph{Gaussian} kernel,
-which has one positive parameter $\sigma \in \RR$ which is the
-standard deviation of the Gaussian functions used to build
-(\ref{eqn:sol}).
+\emph{kernel}, is done \emph{a priori} and defines $\mathcal{F}$
+once and for all; it is therefore crucial. According to a standard
+practice (see, e.g., \cite{Cristianini00}) we have chosen a
+\emph{Gaussian} kernel, so that
 
-Let $C \in \RR$ be a positive parameter; then the $\alpha_i$s and $b$
-are found by solving the following minimisation problem
-(\emph{training phase}):
+\begin{equation} \label{eqn:ker}
+  K(\xx,\yy) = e^{-\frac{||\xx-\yy||^2}{\sigma^2}}
+\end{equation}
+
+\noindent where $\sigma \in \RR^{+}$ is the \emph{standard deviation} of
+the Gaussian function $K$.
+
+Now, let $C \in \RR$ be a positive number; then the $\alpha_i$s and
+$b$ in \ref{eqn:sol} are found by solving the following minimisation
+problem (\emph{training phase}):
 
 \begin{equation} \label{eqn:svm_primal}
   \min \left( R(S,K,\aa) + C \sum_{i=1}^l L^\epsilon (\xx_i,y_i,f) \right)
 \end{equation}
 
 \noindent where $R$ is a \emph{regularisation term} and
-$L^\epsilon$ is a \emph{loss functional}. In practice, after the
-training phase, some of the $\alpha_i$s will be zero; the $\xx_i$s
-associated with non-zero $\alpha_i$s are called \emph{support
-vectors}. Both the training time (i.e., the time required by the
-training phase) and the testing time (i.e., the time required to find
-the value of a point not in $S$) crucially depend on the total number
-of support vectors; therefore, this number is an indicator of how hard
-the problem is.
+$L^\epsilon$ is a \emph{loss functional}. \textbf{FRANCESCO: breve
+spiegazione molto astratta dei due termini}
+
+It is usually the case that, after the training phase, some of the
+$\alpha_i$s are found to be zero; the $\xx_i$s associated with
+non-zero $\alpha_i$s are called \emph{support vectors} (SVs). Both the
+training time (i.e., the time required by the training phase) and the
+testing time (i.e., the time required to find the value of a point not
+in $S$) crucially depend on the total number of SVs; therefore, the
+total number of SVs is an indicator of how hard the problem is. An
+even better indicator is the \emph{fraction} of SVs with respect to
+$|S|$, since in the standard SVM setting the number of SVs grows
+proportionally to the total number of samples in $S$
+\cite{Steinwart03}.
 
 In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L^\epsilon$
 together ensures that the solution will approximate well the values in
 the training set, at the same time avoiding overfitting, i.e.,
-exhibiting poor accuracy on points outside $S$. Smaller values of the
-parameter $C$ give more importance to the regularisation term and
-vice-versa.
+exhibiting poor accuracy on points outside $S$. Smaller values of $C$
+give more importance to the regularisation term and vice-versa.
 
-Moreover, in SVM regression, $L^\epsilon (\xx_i,y_i,f) =
-\mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$, where $\epsilon > 0$ controls
-the width of an ``insensitive band'' around the output values, e.g.,
-errors on the training set within this band are not considered.
+Moreover, in SVM regression, it is usually the case that $L^\epsilon
+(\xx_i,y_i,f) = \mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$, where
+$\epsilon > 0$ controls the width of an ``insensitive band'' around
+the output values, e.g., errors on the training set within this band
+are not considered.
 
-There are, therefore, three parameters to be tuned in our setting:
-$C$, $\sigma$ and $\epsilon$. In all our regression tests, we found
-the optimal values of $C$ and $\sigma$ by grid search with $2$-fold
-cross-validation, whereas $\epsilon$ was chosen accordingly to the
-resolution of the sensors being examined (see next Section for a more
-detailed discussion).
+There are, therefore, three numbers to be tuned in our setting, called
+\emph{hyperparameters}: $C$, $\sigma$ and $\epsilon$. In all our
+regression tests, we found the optimal values of $C$ and $\sigma$ by
+grid search with $5$-fold cross-validation, whereas $\epsilon$ was
+chosen accordingly to the resolution of the sensors being examined
+(see next Section for a more detailed discussion). This is standard
+practice in the machine learning literature.
 
 Notice, lastly, that the quantity to be minimised in Equation
 (\ref{eqn:svm_primal}) is convex; due to this, as well as to the use
@@ -315,9 +354,6 @@ system employs LIBSVM v2.82 \cite{ChangL01}, a standard, efficient
 implementation of SVMs.
 
 According to the procedure described in the previous parts of this
-Section, we decided to define $\RR^{50}$ as the input space of our
-machines, and to use, for each sensor in the setup, the stretched
-grasping sequences as points; the target values would then be the
-values of the same sensor at the time of contact with the object. This
-way we have obtained $28$ SVMs, each one approximating the value of a
+Section, we defined $\RR^{50}$ as the input space of our machines. We
+have then set up $28$ such SVMs, each one approximating the value of a
 sensor at the time of contact.

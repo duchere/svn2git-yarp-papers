@@ -1,3 +1,7 @@
+% anno del balasko
+% due citazioni sul clustering
+% visualizzare posture e mettere le figure
+
 We were mainly interested in answering two questions:
 
 \begin{enumerate}
@@ -9,47 +13,40 @@ We were mainly interested in answering two questions:
 \end{enumerate}
 
 In order to answer the first question, we have checked how the error
-on regression changes as the \emph{blind fraction} $0 \leq B \leq 1$
-of the grasp increases from $0.1$ to $0.5$. The blind fraction
-indicates what percentage of the grasp, from the contact point
-backwards, is hidden to the system (Figure \ref{fig:B_example} shows a
-typical situation). It was intuitively expected that larger values of
-$B$ would smoothly lead to larger errors.
+on regression changes as $B$ varies from $0.1$ to $0.5$. This
+procedure was repeated independently for each single sensor.
 
-\begin{figure}[htbp]
-  \begin{center}
-    \includegraphics[width=0.5\linewidth]{B_example.eps}
-    \caption{The blind window (the grey zone in the Figure) indicates
-    what fraction of each grasp, from the contact point backwards, is
-    hidden to the SVM. The data shown is a typical trajectory of the
-    thumb (rotation, inner phalanx, outer phalanx) during a grasp. In
-    this case the grasp lasts $0.78$ seconds and $B=0.375$. The last
-    sample (for $t=0.78$) is the target value.}
-    \label{fig:B_example}
-  \end{center}
-\end{figure}
+To obtain statistically meaningful results, we recorded each mean
+error obtained \emph{on a single fold} of the cross-validation
+procedure; for each sensor and value of $B$, this means we have
+obtained $5$ numbers. The errors for each sensor were then grouped
+accordingly to their measurement units and meaning: the position of
+the hand ($3$ sensors, the $x,y,z$ from the FoB), the hand orientation
+($3$ sensors, the azimuth, elevation and roll from the FoB), and the
+posture of the hand ($22$ sensors, the joint positions from the
+CyberGlove). According to the device resolutions (see the previous
+Section), we set $\epsilon$ to $0.1$ inches for the hand position,
+$0.5$ degrees for the hand orientation and $1$ degree for the hand
+posture.
 
-This procedure was repeated independently for each single sensor; the
-regression error obtained is the error attained by $2$-fold cross
-validation with the optimal $C$ and $\sigma$, determined using the
-procedure detailed in the previous Section. The errors for each sensor
-were then grouped and averaged accordingly to their measurement unit
-and meaning: the position of the hand ($3$ sensors, the $x,y,z$ from
-the FoB), the hand orientation ($3$ sensors, the azimuth, elevation
-and roll from the FoB), and the posture of the hand ($22$ sensors, the
-joint positions from the CyberGlove). According to the device
-resolutions (see the previous Section), we set $\epsilon$ to $0.1$
-inches for the hand position, $0.5$ degrees for the hand orientation
-and $1$ degree for the hand posture.
+Lastly, for each group of sensors, we averaged the errors \emph{per
+single cross-validaton fold}, and evaluated the mean and standard
+deviation of these $5$ values. This gave us an indication of how well
+our machine performed on the hand position, orientation and posture. In
+all graphs, the points on the curves represent the mean values,
+whereas the error bars are placed at $\pm 1$ standard deviations.
 
-In order to answer the second question, we first compared the error
+In order to answer the second question, we first evaluated the error
 obtained as described above using all sessions for each single object,
 so to obtain an estimate of how complex it is to approximate the grasp
-for the can, roll and mug, unbiased by the differences among the
+for the can, roll and mug unbiased by the differences among the
 subjects. Subsequently we averaged these three errors and compared the
-average with the overall error, obtained by joining \emph{all}
-sessions together in a single training set. Figure \ref{fig:err_all}
-shows the experimental results.
+averages with the overall error, obtained by joining \emph{all}
+sessions together in a single training set.
+
+\subsection{Prediction power}
+
+Figure \ref{fig:err_all} shows the main experimental results.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -62,8 +59,7 @@ shows the experimental results.
       \includegraphics[width=0.45\textwidth]{error_cmp_pst.eps} \\
     \end{tabular}
     \caption{Regression results as the blind fraction $B$ increases
-    from $0.1$ to $0.5$. In each row, representing a different set of
-    sensors (in turn, hand position, orientation and posture), the
+    from $0.1$ to $0.5$. In each row the
     left-hand side pictures compare the errors on different objects,
     while the right-hand side pictures compare the average error on
     single objects and the overall error.}
@@ -71,14 +67,40 @@ shows the experimental results.
   \end{center}
 \end{figure}
 
-Consider Figure \ref{fig:err_all}, left column: as one can see, as far
-as the hand position and orientation are concerned, the three objects
-show a comparable error. On the other hand, there is a precise ranking
-in the hand posture regression: the mug is more difficult than the
-scotch roll, which is in turn harder than the beer can. This is
-intuitively sensible, since it is possible to grasp the scotch roll in
-more ways than the can, and it is possible to grasp the mug in even
-more ways (especially, using the handle).
+Consider Figure \ref{fig:err_all}, left column: first of all, as $B$
+increases, the error does, as it was intuitively expected: the more
+data is hidden, the harder the prediction becomes. Then, as one can
+see, as far as the hand position and orientation are concerned, the
+three objects show comparable errors. On the other hand, there is a
+precise ranking in the hand posture regression: the mug is more
+difficult than the scotch roll, which is in turn harder than the beer
+can. This also is intuitively sensible, since it is possible to grasp
+the scotch roll in more ways than the can, and it is possible to grasp
+the mug in even more ways (especially, using the handle).
+
+A further analysis of the obtained models (see Figure
+\ref{fig:hyperp}, left column) shows that, accordingly, the percentage
+of Support Vectors with respect to the total number of samples
+increases steadily as $B$ grows, indicating that the problem becomes
+harder and harder. The three curves also confirm that regression on
+the mug is the most difficult, followed in turn by the scotch roll and
+the beer can.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\textwidth]{error_pos_SV.eps} &
+      \includegraphics[width=0.45\textwidth]{error_cmp_pos_SV.eps} \\
+      \includegraphics[width=0.45\textwidth]{error_ori_SV.eps} &
+      \includegraphics[width=0.45\textwidth]{error_cmp_ori_SV.eps} \\
+      \includegraphics[width=0.45\textwidth]{error_pst_SV.eps} &
+      \includegraphics[width=0.45\textwidth]{error_cmp_pst_SV.eps} \\
+    \end{tabular}
+    \caption{Percentage of support vectors with respect to the total
+    number of samples.}
+    \label{fig:hyperp}
+  \end{center}
+\end{figure}
 
 To determine how far in the future SVMs can predict well, we need to
 decide what an acceptable error is. In general, this is
@@ -97,9 +119,9 @@ future research.
 
 As one can see from the graphs, the acceptable error is attained for
 the hand position at $B=0.3$, for the hand orientation at $B=0.2$ and
-for the hand posture at $B=0.15$ (mug and scotch roll) and $B=0.3$
-(beer can). Since the average grasp lasts on average $0.62$ seconds,
-we can say that the system can predict reasonably well
+for the hand posture at $B=0.15$ (mug), $0.2$ (scotch roll) and
+$B=0.35$ (beer can). Since the average grasp lasts on average $0.62$
+seconds, we can say that the system can predict reasonably well
 
 \begin{itemize}
 
@@ -108,43 +130,135 @@ we can say that the system can predict reasonably well
 
   \item about $120$ milliseconds in advance the hand orientation, and
 
-  \item about $90$ milliseconds in advance the hand posture while
-    grasping the mug or the scotch roll, and about $200$ milliseconds
-    in advance the hand posture while grasping the beer can.
+  \item about $100-200$ milliseconds in advance the hand posture, the
+    mug being the hardest and the beer can the easiest object.
 
 \end{itemize}
 
 This answers the first question.
 
+\subsection{Knowledge of the objects}
+
 As far as the second question is concerned, consider Figure
 \ref{fig:err_all}, right column: the curve representing the error on
-the single objects is always consistently smaller than the other one,
+the single objects is basically always smaller than the other one,
 indicating that a specific SVM trained on a single object will on
 average be more precise than a SVM trained on all objects altogether:
 the \emph{a priori} knowledge of the object improves the
-performance. A further analysis of $C$ (see Figure \ref{fig:C_trend}),
-indicates that the optimal values found for $C$ show a decreasing
-trend. This correctly suggests that, as $B$ increases, more and more
-information is missing from the training set (the regularisation term
-in Equation (\ref{eqn:svm_primal}) becomes increasingly important).
+performance.
+
+Notice that this effect is more pronounced in the case of the hand
+posture than for the hand position and orientation, where a
+substantial overlap of the error bars can be seen. This is sensible,
+since knowing \emph{what object} one is going to grasp will tell a
+great deal about \emph{how to shape one's hand} in order to grasp it,
+but it will definitely be less influential in order to determine where
+and how to \emph{reach}.
+
+A further analysis of the hyperparameters (see Figure
+\ref{fig:C_trend}) confirms that, as $B$ increases, more and more
+information is missing from the training set: both $C$ and $\sigma$
+show a decreasing trend on all three groups of sensors (more
+pronounced in the case of $C$), meaning that the regularisation term
+in Equation (\ref{eqn:svm_primal}) becomes more and more important.
 
 \begin{figure}[htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth]{C_trend.eps}
-    \caption{The trend of the hyperparameter $C$ as $B$ is
-    increased. $C$ has a definite decreasing trend.}
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\linewidth]{trend_C.eps} &
+      \includegraphics[width=0.45\linewidth]{trend_sigma.eps}
+    \end{tabular}
+    \caption{The trend of the hyperparameters $C$ (left pane) and
+    $\sigma$ (right pane), as far as the hand position, orientation
+    and posture is concerned. As $B$ is increased, both parameters show a
+    decreasing trend, more pronounced in the case of $C$.}
     \label{fig:C_trend}
   \end{center}
 \end{figure}
 
-Let us now focus upon the number of support vectors found by the
-SVMs. It turns out that SVMs trained on single objects have roughly
-the same number of support vectors as the one trained on the overall
-sequence (figures show about $1\%$ more in the first case). This means
-that the single-object problems are computationally as hard as the
-overall one, but, as we have seen, they are more precise.
+Let us now focus upon the fraction of SVs found by the SVMs: consider
+Figure \ref{fig:hyperp}, right column, again. It turns out that SVMs
+trained on single objects have a \emph{definitely smaller} fraction of
+SVs than the one trained on the overall sequence. This means that the
+machines trained on single objects \emph{are smaller and simpler than
+the overall one, while being more precise.}
 
 Summing up, we can say that if the problem is split into subproblems,
 each one regarding a single object, performances are better and the
-total computational complexity of the solution remains roughly the
-same. This answers the second question.
+computational complexity is smaller. This phenomenon is particularly
+evident as far as the hand posture is concerned, as one can
+intuitively expect.
+
+This answers the second question.
+
+\subsection{Single grasp types}
+
+A further interesting question is:
+
+\begin{itemize}
+
+  \item how well does our system perform on \emph{specific types of
+    grasp}?
+
+\end{itemize}
+
+In order to shed light on this point, we have considered the most
+complex and interesting object under this point of view, i.e., the
+mug. All sessions in which the subjects were grasping the mug have
+been collected, and all final grasping hand postures have been
+considered as representing the ways the mug was grasped. This resulted
+in slightly more than $2550$ samples, according to the fact that each
+of the $11$ subjects performed about $240$ mug grasps.
+
+The final positions were then clustered using a K-means clustering
+algorithm (see, e.g., \cite{...}). We used the freely available
+\emph{Fuzzy Clustering and Data Analysis Toolbox}) Matlab toolbox
+\cite{fctBalasko}; due to the intrinsically stochastic nature of the
+algorithm, we ran the algorithm $100$ times for $1,\ldots,10$ clusters
+and employed Dunn's Index \cite{...} to determine what was the optimal
+number of clusters. It was determined that the optimal number of
+clusters was $4$, corresponding to the four hand postures visible in
+Figure \ref{fig:postures}.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \begin{tabular}{cccc}
+%      \includegraphics[width=0.24\linewidth]{posture1.eps} &
+%      \includegraphics[width=0.24\linewidth]{posture2.eps} &
+%      \includegraphics[width=0.24\linewidth]{posture3.eps} &
+%      \includegraphics[width=0.24\linewidth]{posture4.eps} \\
+      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} &
+      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} &
+      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} &
+      \includegraphics[width=0.2\linewidth]{trend_sigma.eps} \\
+    \end{tabular}
+    \caption{The four prototypical hand postures when grasping the
+      mug, as found by K-means clustering.}
+    \label{fig:postures}
+  \end{center}
+\end{figure}
+
+We then split the mug grasps into four sets according to the
+clustering, and ran separate experiments on each set for
+$B=0.1,\ldots,0.5$; lastly, we compared the four error and SV
+percentage curves to one another, and to the mug curve of Figures
+\ref{fig:err_all} and \ref{fig:hyperp}, left column, bottom graph. We
+hoped to get more insight on how the knowledge of what grasp is being
+examined changed the situation. Figure \ref{fig:clustering} shows the
+experimental results.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \begin{tabular}{cc}
+      \includegraphics[width=0.45\textwidth]{error_pst_cluster.eps} &
+      \includegraphics[width=0.45\textwidth]{error_pst_cmp_cluster.eps} \\
+      \includegraphics[width=0.45\textwidth]{error_pst_SV_cluster.eps} &
+      \includegraphics[width=0.45\textwidth]{error_pst_cmp_SV_cluster.eps} \\
+    \end{tabular}
+    \caption{Comparison between regression with/without knowledge of the grasp
+      type.}
+    \label{fig:clustering}
+  \end{center}
+\end{figure}
+
+
