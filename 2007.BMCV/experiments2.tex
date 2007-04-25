@@ -58,7 +58,7 @@ The sequences were acquired under various
 weather and illumination conditions (sunny, cloudy, and night) and
 across a time span of six months. Thus, this data capture natural
 variability that occurs in real-world environments because of both
-natural changes in the illumination and human activity.
+natural changes in the illumination and human activities.
 Fig. \ref{fig:idol} shows some sample images from the database,
 illustrating the difficulty of the task.  The image sequences in the
 database are divided as follows: for each robot platform and for each
@@ -110,26 +110,26 @@ time span of 1.6 sec. As a result, training
 on each sequence was performed in 5 steps, using one subsequence at a
 time, resulting in 15 steps in total. Overall, we considered 36
 different permutations of training and test sequences for the
-exponential $\chi^2$ kernel and 12 permutations for the matching
+exponential $\chi^2$ kernel and 36 permutations for the matching
 kernel; here we report average results with standard
 deviation. Fig. \ref{fig:exp:idol}, left, shows the recognition rates
 of the exponential $\chi^2$ kernel (top) and matching kernel (bottom)
-experiments obtained at each step using OISVM and the other
-approximate incremental algorithms. Fig. \ref{fig:exp:idol}, right,
+experiments obtained at each step using OISVM, the fixed-partition
+algorithm and the standard SVM. Fig. \ref{fig:exp:idol}, right,
 reports the number of support vectors stored in the model at each step
 of the incremental procedure, for both kernel types.
 
 We see that, performance-wise, all methods achieves statistically
 comparable results; this is true for both kernel types. As far the
 machine size is concerned, the OISVM algorithm shows a considerable
-advantage with respect to the fixed partition method. In the case of the exponential
+advantage with respect to the fixed-partition method. In the case of the exponential
 $\chi^{2}$ kernel this advantage is truly impressive (Fig
 \ref{fig:exp:idol}, top right): for $\eta=0.017$ and $0.025$ the
 size at the final incremental step is $34\%/22\%$ of that of the
 fixed-partition method and $28\%/18\%$ of that of the
 standard batch method. Even more important, OISVM, for these two
-values of $\eta$, has found a plateau in memory, while for other incremental
-method the trend seems to be of a growth proportional to the
+values of $\eta$, has found a plateau in memory, while for other
+methods the trend seems to be of a growth proportional to the
 number of training data. Note
 that the choice of the parameter $\eta$ is crucial for achieving an
 optimal trade-off between compactness of the solution and optimal
@@ -168,7 +168,7 @@ growing \cite{engel2004}.
 Other tests on a set of standard databases commonly used
 in the machine learning community, as well as more details
 %about OISVM can be found in \cite{Orabona07}.
-about OISVM can be found in \cite{Anonymous}.
+about OISVM can be found in \cite{Anonymous}. 
 
 
 It is worth noting that, even if the solution is kept small and the

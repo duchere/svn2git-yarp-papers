@@ -47,13 +47,12 @@ training set was used, to have better recognition performances.
 In fact, as far as the third issue is concerned, it is well known that
 both the training and testing time of an SVM crucially depend on the number of samples
 considered \cite{KeerthiCDC06}; as well, the number of Support Vectors
-(SV) found, which determine the complexity of the solution to the
+(SVs) found, which determine the complexity of the solution to the
 problem, grows proportionally with respect to the number of samples
 \cite{Steinwart03}. This makes the approach unsuitable, at least so
 far, for on-line learning, where a potentially endless flow of data is
 acquired by the machine. SVMs can be up to $50$ times slower than
-other specialized approaches with similar performances
-\cite{BurgesS96}.
+other specialized approaches with similar performances~\cite{BurgesS96}.
 Several exact and approximate approaches have been proposed so
 far for simplifying the SVM decision function: see for instance
 \cite{DownsGM01}, based upon linear independence of the SVs in the
@@ -65,7 +64,7 @@ in 2000 \cite{CauwenberghsP00}, but their algorithm cannot be used to
 reduce the number of SVs. In \cite{syed99incremental} and
 \cite{pronobis:icvs06} approximate incremental
 versions of the SVM are proposed, that also achieve a reduction of the
-number of support vectors with small degradation of the performances.
+number of SVs with small degradation of their performances.
 
 In this paper we propose an improvement to SVMs that we call Online
 Independent Support Vector Machines (OISVMs). OISVMs incrementally
@@ -99,7 +98,7 @@ environment. Data images are acquired continuously by two robot
 platforms under different weather conditions and across a time span of
 several months. Our results show that our method achieves a speed-up
 of $3.5-2.3$ times with respect to the time required by the standard SVM,
-respectively with $\chi^2$ kernel and matching kernel,
+respectively with $\chi^2$ kernel and matching kernel \cite{wallraven:iccv03},
 while retaining essentially the same accuracy.
 
 The paper is structured as follows: after an overview  of background

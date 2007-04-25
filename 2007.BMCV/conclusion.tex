@@ -3,10 +3,9 @@ Machines, that we call Online Independent Support Vector Machines
 (OISVM). OISVMs can effectively solve the problem of place recognition
 by a mobile robot, at least in the experiment we have shown. OISVMs
 were tested on the IDOL2 image database, which consists of image
-sequences acquired by robot platforms under different weather
-conditions and across a time span of several months; that is, in
-various lighting conditions and object placements, and acquired by two
-different robot platforms. OISVMs avoid using in the solution those
+sequences acquired by two robot platforms under different weather
+conditions and across a time span of several months.
+OISVMs avoid using in the solution those
 support vectors which are linearly dependent of previous ones in the
 feature space. The optimization problem is solved via an incremental
 algorithm which benefits of the small number of the basis vectors.
@@ -25,7 +24,7 @@ the case of infinite-dimensional kernels, the number of support vectors
 is dramatically reduced at the price of a negligible degradation in
 the accuracy. In fact in the case of $\chi^2$ kernel, we get as few
 as $3.5$ times less SVs with respect to the batch formulation and $3$
-times less respect to the fixed-partition method, while retaining
+times less with respect to the fixed-partition method, while retaining
 essentially the same accuracy. In the case of the local kernel,
 the speed up are respectively $2.3$ and $2.1$.
 
