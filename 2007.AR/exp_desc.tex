@@ -309,8 +309,7 @@ problem (\emph{training phase}):
 \end{equation}
 
 \noindent where $R$ is a \emph{regularisation term} and
-$L^\epsilon$ is a \emph{loss functional}. \textbf{FRANCESCO: breve
-spiegazione molto astratta dei due termini}
+$L^\epsilon$ is a \emph{loss functional}.
 
 It is usually the case that, after the training phase, some of the
 $\alpha_i$s are found to be zero; the $\xx_i$s associated with
@@ -327,8 +326,13 @@ proportionally to the total number of samples in $S$
 In (\ref{eqn:svm_primal}), minimising the sum of $R$ and $L^\epsilon$
 together ensures that the solution will approximate well the values in
 the training set, at the same time avoiding overfitting, i.e.,
-exhibiting poor accuracy on points outside $S$. Smaller values of $C$
-give more importance to the regularisation term and vice-versa.
+exhibiting poor accuracy on points outside $S$. 
+This formulation reflects the goal to find a function $f(\xx)$ that is
+as close as possible to the target values $y_i$ for all the training data,
+and at the same time is as simple as possible. The complexity of
+the function is measured by the reguralization term.
+Smaller values of $C$ give more importance to the regularisation
+term and vice-versa.
 
 Moreover, in SVM regression, it is usually the case that $L^\epsilon
 (\xx_i,y_i,f) = \mbox{max}(0,|y_i-f(\xx_i)|-\epsilon)$, where
