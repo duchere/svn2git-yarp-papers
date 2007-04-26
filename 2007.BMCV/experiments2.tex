@@ -136,17 +136,17 @@ optimal trade-off between compactness of the solution and optimal
 performance.
 
 It is very interesting to note that, in the case of the matching
-kernel, the memory reduction for OISVM is less pronounced, and
-there is not a clear plateau in
-memory growth by any of the algorithms.  This behavior might be due to
-several factors: to begin with, the matching kernel is not a Mercer
-kernel \cite{fleuret:bmvc04}, which might affect the algorithm. Also,
-the algorithm does not reach a plateau in the SVs growth because, in
-the induced space of the matching kernel, there seems to be a high
-probability that couples training points are orthogonal or almost
-orthogonal (note that as the kernel is not a Mercer one, the geometric
-interpretation might not be valid). Note that given enough training
-points the machine will always reach a maximum size and will stop
+kernel, the memory reduction for OISVM is less pronounced, and there
+is not a clear plateau in memory growth by any of the algorithms.
+This behavior might be due to several factors: to begin with, the
+matching kernel is not a Mercer kernel \cite{fleuret:bmvc04}, which
+might affect the algorithm. Also, the algorithm does not reach a
+plateau in the SVs growth because, in the induced space of the
+matching kernel, there seems to be a high probability that pair of
+training points are orthogonal, or almost orthogonal, to each other
+(notice that, as the kernel is not a Mercer one, the geometric
+interpretation might not be valid). Anyway, given enough training
+points, the machine will always reach a maximum size and will stop
 growing \cite{engel2004}.
 
 \begin{figure*}[t]
@@ -165,17 +165,14 @@ growing \cite{engel2004}.
 \label{fig:exp:idol}
 \end{figure*}
 
-Other tests on a set of standard databases commonly used
-in the machine learning community, as well as more details
-%about OISVM can be found in \cite{Orabona07}.
-about OISVM can be found in \cite{Anonymous}. 
-
+Other tests on a set of standard databases commonly used in the
+machine learning community, as well as more details about OISVM can be
+found in \cite{Anonymous}.
 
 It is worth noting that, even if the solution is kept small and the
 number of support vectors will be finite in any case, the algorithm
-must store all the training samples that it receives. This can be
-a problem in an online setting, but it could be solved using, for example,
-some kind of forgetting strategy. Another strategy can
-be the use out-of-core storage of the data
-(i.e. storage on the hard disk) in order to be able
-to deal with big training sets.
+must store all the training samples that it receives. This can be a
+problem in an online setting, but it could be solved using, for
+example, some kind of forgetting strategy. Another strategy can be the
+use out-of-core storage of the data (i.e., storage on the hard disk)
+in order to be able to deal with big training sets.

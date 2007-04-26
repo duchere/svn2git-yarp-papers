@@ -16,8 +16,8 @@ analogous procedures presented so far in literature (e.g.,
 is \emph{not} an after-training simplification and it assumes
 \emph{no knowledge whatsoever} of the full training set beforehand.
 Moreover in case of finite-dimensional kernel and $\eta=0$, the
-solution is exactly the same of the standard formulation because
-any approximation is used.
+solution is exactly the same of the standard formulation because no
+approximation is used.
 
 Our experimental results show that in
 the case of infinite-dimensional kernels, the number of support vectors
@@ -28,14 +28,13 @@ times less with respect to the fixed-partition method, while retaining
 essentially the same accuracy. In the case of the local kernel,
 the speed up are respectively $2.3$ and $2.1$.
 
-Since the training and testing time depend polynomially on the
-number of support vectors, reducing them brings an obvious speed up. A
+Since the training and testing time depend polynomially on the number
+of support vectors, reducing them brings an obvious speed up. A
 careful study of the relationship between $\eta$ and the degradation
 in performance is being carried on; in fact, according to
 \cite{engel2004}, imposing a value of $\eta$ strictly larger than zero
 will eventually result in a \emph{finite} number of basis vectors,
 \emph{even in the case the feature space is
-infinite-dimensional}. On going research is on finding a precise
-relationship between $\eta$ and this number to allow
-us to precisely dimension the machine depending on the required
-precision.
+infinite-dimensional}. Further research about finding a precise
+relationship between $\eta$ and this number will allow us to precisely
+dimension the machine depending on the required precision.

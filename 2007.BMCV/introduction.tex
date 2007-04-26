@@ -5,16 +5,16 @@ room of a house or office a mobile robot is in, based upon what the
 robot sees through one or more cameras. The problem is made very
 difficult by at least three factors: $(a)$ the input space is huge,
 since we deal with images, usually at a reasonable resolution and in
-color; $(b)$ images of the same place can be quite different as
+colour; $(b)$ images of the same place can be quite different as
 illumination conditions change and moving obstacles get in the way;
 and $(c)$, recognition must be done on-line in real time, as the robot
-is moving around.
-The topic is  widely researched, but
-incremental learning approaches have been so far mostly used for constructing the
-geometrical map, or the environment representation, online\cite{emma:irca05, ljubjiana:icra02}.
-Robustness to illumination changes, and more generally to realistic
-visual variations in time, has been addresses in \cite{pronobis:iros06}, where it was showed that
-a pure learning approach can be very effective 
+is moving around. The topic is widely researched, but incremental
+learning approaches have been so far mostly used for constructing the
+geometrical map, or the environment representation,
+online \cite{emma:irca05, ljubjiana:icra02}. Robustness to illumination
+changes, and more generally to realistic visual variations in time,
+has been addressed in \cite{pronobis:iros06}, where it was showed that
+a pure learning approach can be very effective
 %Quite clearly, only a machine learning approach can potentially solve
 %the problem, given the amazing variability of the input data. A
 %learning machine is adaptive in nature and, if properly trained, can
@@ -37,15 +37,15 @@ a pure learning approach can be very effective
 %``grow'' for ever \cite{Steinwart03}, that is 
 %Recent work \cite{pronobis:iros06} has showed that a pure machine
 %learning approach can be very effective 
-for tackling the first two
-issues: indeed it was demonstrated that an approach based upon Support
-Vector Machines (SVM, see, e.g., \cite{BGV92}) \emph{in batch mode}
-could achieve a remarkable robustness to illumination changes and
-variability due to the normal use of the environments. At the same time
-the work elicited the problem of the growth of the testing time when a bigger
-training set was used, to have better recognition performances.
-In fact, as far as the third issue is concerned, it is well known that
-both the training and testing time of an SVM crucially depend on the number of samples
+for tackling the first two issues: indeed it was demonstrated that an
+approach based upon Support Vector Machines (SVM, see, e.g.,
+\cite{BGV92}) \emph{in batch mode} could achieve a remarkable
+robustness to illumination changes and variability due to the normal
+use of the environments. At the same time the work elicited the
+problem of the growth of the testing time when a bigger training set
+was used, to have better recognition performances.  In fact, as far as
+the third issue is concerned, it is well known that both the training
+and testing time of an SVM crucially depend on the number of samples
 considered \cite{KeerthiCDC06}; as well, the number of Support Vectors
 (SVs) found, which determine the complexity of the solution to the
 problem, grows proportionally with respect to the number of samples
@@ -56,15 +56,15 @@ other specialized approaches with similar performances~\cite{BurgesS96}.
 Several exact and approximate approaches have been proposed so
 far for simplifying the SVM decision function: see for instance
 \cite{DownsGM01}, based upon linear independence of the SVs in the
-feature space performed after training, and other after-training simplification methods (e.g. 
-chapter 18.3 in \cite{SmolaS02} and \cite{nguyen2005}).
-The exact
-solution to online SVM learning was given by Cauwenberghs and Poggio
-in 2000 \cite{CauwenberghsP00}, but their algorithm cannot be used to
-reduce the number of SVs. In \cite{syed99incremental} and
-\cite{pronobis:icvs06} approximate incremental
-versions of the SVM are proposed, that also achieve a reduction of the
-number of SVs with small degradation of their performances.
+feature space performed after training, and other after-training
+simplification methods (e.g.  chapter 18.3 in \cite{SmolaS02} and
+\cite{nguyen2005}). The exact solution to online SVM learning was
+given by Cauwenberghs and Poggio in 2000 \cite{CauwenberghsP00}, but
+their algorithm cannot be used to reduce the number of SVs. In
+\cite{syed99incremental} and \cite{pronobis:icvs06} approximate
+incremental versions of the SVM are proposed, that also achieve a
+reduction of the number of SVs with small degradation of their
+performances.
 
 In this paper we propose an improvement to SVMs that we call Online
 Independent Support Vector Machines (OISVMs). OISVMs incrementally
@@ -77,18 +77,15 @@ number of SVs much smaller than usual, reducing the complexity of the
 solution and therefore both the training and testing time. 
 Unsupervised rank reduction methods have been proposed
 \cite{Baudat03} as well as supervised ones \cite{BachJordan2005}
-that achieve the same goals, but
-no application of these ideas appears so far, to the best of our
-knowledge, in online settings.
-This is particularly important since it
-has been shown \cite{Steinwart03} that the SV set grows linearly with
-the sample set; therefore, in an online setting, the size of a SVM
-would grow indefinitely, and so would the testing time. 
-Our experiments instead indicate that the number of basis
-vectors of OISVMs does not grow linearly with the training set, but
-reaches a limit and then stops growing. This result is theoretically
-confirmed, e.g., in \cite{engel2004}, even in the case the feature
-space is infinite-dimensional.
+that achieve the same goals, but no application of these ideas appears
+so far, to the best of our knowledge, in online settings. This is
+particularly important since in an online setting the size of a SVM
+would grow indefinitely, and so would the testing time. Our
+experiments instead indicate that the number of basis vectors of
+OISVMs does not grow linearly with the training set, but reaches a
+limit and then stops growing. This result is theoretically confirmed,
+e.g., in \cite{engel2004}, even in the case the feature space is
+infinite-dimensional.
 
 Such an approach is actually what is needed to tackle the problem of
 place recognition in mobile robotics. To support this claim, we show

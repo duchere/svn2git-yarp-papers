@@ -1,21 +1,19 @@
 Let the \emph{kernel matrix} $K$ be defined such that $K_{ij} =
-K(\xx_i,\xx_j)$, with $i,j=1,\ldots,l$. The possibility to obtain a more
-compact representation of $f(\xx)$ follows from the fact that the
+K(\xx_i,\xx_j)$, with $i,j=1,\ldots,l$. The possibility to obtain a
+more compact representation of $f(\xx)$ follows from the fact that the
 solution to a SVM problem (that is, the $\alpha_i$s) is not unique if
 $K$ does not have full rank \cite{Burges98}, which is equivalent to
 some of the SVs being linearly dependent on some others \emph{in the
 feature space} (this is the core of Downs et al.'s \cite{DownsGM01}
-original idea).
-Applying the idea of Downs et al., or any other post-training
-method to reduce the number of SVs, in an online setting means simplifying the
-solution each time a new sample is acquired, that is obviously infeasible.
-We need a way to use independent SVs only, that is to
-decouple the concept of ``basis'' vectors, used to build
-the classification function (\ref{eqn:sol}), from the samples
-used to evaluate the errors $\xi_i$ in (\ref{eqn:svm_primal}).
-If the selected basis vectors span the same subspace as
-the whole sample set, the solution found will be equivalent
---- that is, we will not lose any precision.
+original idea). In an online setting, to apply Downs et al.'s idea, or
+any other post-training method to reduce the number of SVs, means to
+simplify the solution each time a new sample is acquired, which is
+obviously infeasible. We need a way to use independent SVs only, that
+is to decouple the concept of ``basis'' vectors, used to build the
+classification function (\ref{eqn:sol}), from the samples used to
+evaluate the $\xi_i$ in (\ref{eqn:svm_primal}). If the selected basis
+vectors span the same subspace as the whole sample set, the solution
+found will be equivalent --- that is, we will not lose any precision.
 
 We hereby propose, after having received a new training sample, to
 incrementally add it to the basis if it is linearly independent in the
@@ -39,7 +37,9 @@ $\xx_{l+1}$, the algorithm can then be summed up as follows:
 
 \end{enumerate}
 
-Hence the testing time for a new point will be $O(|\b|)$.
+Hence the testing time for a new point will be $O(|\b|)$, as opposed
+to $O(l)$ in the standard approach; therefore, keeping $\b$ small will
+improve the testing time without losing any precision whatsoever.
 
 In the following, the notations $A_{IJ}$ and $\mathbf{v}_I$, where $A$
 is a matrix, $\mathbf{v}$ is a vector and $I,J \subset \NN$ denote in
