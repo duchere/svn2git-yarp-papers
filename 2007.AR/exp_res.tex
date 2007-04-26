@@ -1,7 +1,3 @@
-% anno del balasko
-% due citazioni sul clustering
-% visualizzare posture e mettere le figure
-
 We were mainly interested in answering two questions:
 
 \begin{enumerate}
@@ -31,10 +27,11 @@ posture.
 
 Lastly, for each group of sensors, we averaged the errors \emph{per
 single cross-validaton fold}, and evaluated the mean and standard
-deviation of these $5$ values. This gave us an indication of how well
-our machine performed on the hand position, orientation and posture. In
-all graphs, the points on the curves represent the mean values,
-whereas the error bars are placed at $\pm 1$ standard deviations.
+deviation of the resulting $5$ values. This gave us an indication of
+how well our machine performed on the hand position, orientation and
+posture. In all graphs, the points on the curves represent the mean
+values, whereas the error bars are placed at $\pm 1$ standard
+deviations.
 
 In order to answer the second question, we first evaluated the error
 obtained as described above using all sessions for each single object,
@@ -179,9 +176,9 @@ but it will definitely be less influential in order to determine where
 and how to \emph{reach}.
 
 Let us now focus upon the fraction of SVs found by the SVMs: consider
-Figure \ref{fig:hyperp}, right column, again. It turns out that SVMs
-trained on single objects have a \emph{definitely smaller} fraction of
-SVs than the one trained on the overall sequence. This means that the
+Figure \ref{fig:hyperp}, right column. It turns out that SVMs trained
+on single objects have a \emph{definitely smaller} fraction of SVs
+than the one trained on the overall sequence. This means that the
 machines trained on single objects \emph{are smaller and simpler than
 the overall one, while being more precise.}
 
@@ -200,7 +197,7 @@ A further interesting question is:
 \begin{itemize}
 
   \item how well does our system perform on \emph{specific types of
-    grasp}?
+    grasps}?
 
 \end{itemize}
 
@@ -213,14 +210,14 @@ in slightly more than $2550$ samples, according to the fact that each
 of the $11$ subjects performed about $240$ mug grasps.
 
 The final positions were then clustered using a K-means clustering
-algorithm (see, e.g., \cite{...}). We used the freely available
-\emph{Fuzzy Clustering and Data Analysis Toolbox}) Matlab toolbox
-\cite{fctBalasko}; due to the intrinsically stochastic nature of the
-algorithm, we ran the algorithm $100$ times for $1,\ldots,10$ clusters
-and employed Dunn's Index \cite{...} to determine what was the optimal
-number of clusters. It was determined that the optimal number of
-clusters was $4$, corresponding to the four hand postures visible in
-Figure \ref{fig:postures}.
+algorithm (see, e.g., \cite{macqueen}). We used the freely available
+\emph{Fuzzy Clustering and Data Analysis} Matlab toolbox
+\cite{fctBalasko1,fctBalasko2}; due to the intrinsically stochastic
+nature of the algorithm, we ran the algorithm $100$ times for
+$1,\ldots,10$ clusters and employed Dunn's Index \cite{dunn} to
+determine what was the optimal number of clusters. It was determined
+that the optimal number of clusters was $4$, corresponding to the four
+hand postures visible in Figure \ref{fig:postures}.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -262,21 +259,20 @@ experimental results.
 \end{figure}
 
 First of all, it must be noticed (left column) that there is a
-considerably different error among the types of grasps, type $4$ begin
+considerably different error among the types of grasps, type $4$ being
 the more complex, followed by $1$ and $3$ having the same complexity,
 and $2$ being the easiest one. This ranking is confirmed by the
 percentage of SVs graph (bottom left). But, as well, the error on the
-single grasps is \emph{smaller} than that on the mug (green curve in
-Figure \ref{fig:err_all}, bottom left graph) in three cases out of
-four, and only slightly larger in the case of grasp type $4$. This
-suggests that the machine is able to learn well a number of different
-grasp types, without ``specialising'' on one easy type.
+single grasps is \emph{smaller} than that on the mug in three cases
+out of four, and only slightly larger in the case of grasp type
+$4$. This suggests that the machine is able to learn well a number of
+different grasp types, without ``specialising'' on one easy type.
 
-Secondly, consider the right column of the Figure. We have made an
-analogous comparison as that shown in Figure \ref{fig:err_all}, right
-column: in that case we compared the errors obtained with and without
-prior knowledge of the object to be grasped; here we compare the
-errors \emph{on the mug}, with and without prior knowledge of the type
-of grasp. The result is that knowing in advance the type of grasp
-makes the machine even more accurate and smaller than it used to be
-before.
+Secondly, consider Figure \ref{fig:clustering}, right column, showing
+an analogous comparison as that shown in Figure \ref{fig:err_all},
+right column: in that case we compared the errors obtained with and
+without prior knowledge of the object to be grasped; here we compare
+the errors \emph{on the mug}, with and without prior knowledge of
+\emph{the type of grasp}. The result is that knowing in advance the
+type of grasp makes the machine even more accurate and smaller than it
+used to be before.
