@@ -31,7 +31,8 @@ deviation of the resulting $5$ values. This gave us an indication of
 how well our machine performed on the hand position, orientation and
 posture. In all graphs, the points on the curves represent the mean
 values, whereas the error bars are placed at $\pm 1$ standard
-deviations.
+deviations. This is standard practice in the machine learning
+literature.
 
 In order to answer the second question, we first evaluated the error
 obtained as described above using all sessions for each single object,
@@ -104,7 +105,9 @@ A further analysis of the hyperparameters (see Figure
 information is missing from the training set: both $C$ and $\sigma$
 show a decreasing trend on all three groups of sensors (more
 pronounced in the case of $C$), meaning that the regularisation term
-in Equation (\ref{eqn:svm_primal}) becomes more and more important.
+in Equation (\ref{eqn:svm_primal}) becomes more and more important,
+and that the Gaussians used to build the solution become narrower and
+narrower.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -168,7 +171,7 @@ performance.
 Notice that this effect is more pronounced in the case of the hand
 posture than for the hand position and orientation, where a
 substantial overlap of the error bars can be seen (the ANOVA test on
-the time series indicates low significance for the hand position and
+the error indicates no significance for the hand position and
 orientation, but high significance for the posture). This is sensible,
 since knowing \emph{what object} one is going to grasp will tell a
 great deal about \emph{how to shape one's hand} in order to grasp it,
@@ -236,7 +239,8 @@ hand postures visible in Figure \ref{fig:postures}.
 
 We then split the mug grasps into four sets according to the
 clustering, and ran separate experiments on each set for
-$B=0.1,\ldots,0.5$; lastly, we compared the four error and SV
+$B=0.1,\ldots,0.5$; the four clusters represent about one quarter each
+of the total mug grasps. Lastly, we compared the four error and SV
 percentage curves to one another, and to the mug curve of Figures
 \ref{fig:err_all} and \ref{fig:hyperp}, left column, bottom graph. We
 hoped to get more insight on how the knowledge of what grasp is being
