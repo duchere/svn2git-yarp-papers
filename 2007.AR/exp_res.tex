@@ -219,23 +219,24 @@ algorithm (see, e.g., \cite{macqueen}). We used the freely available
 nature of the algorithm, we ran the algorithm $100$ times for
 $1,\ldots,10$ clusters and employed Dunn's Index \cite{dunn} to
 determine what was the optimal number of clusters. It was determined
-that the optimal number of clusters was $4$, corresponding to the four
-hand postures visible in Figure \ref{fig:postures}.
+that the optimal number of clusters was $4$.
+%% , corresponding to the four
+%% hand postures visible in Figure \ref{fig:postures}.
 
-\begin{figure}[htbp]
-  \begin{center}
-    \begin{tabular}{cccc}
-      \includegraphics[width=0.22\linewidth]{posture1.eps} &
-      \includegraphics[width=0.22\linewidth]{posture2.eps} &
-      \includegraphics[width=0.22\linewidth]{posture3.eps} &
-      \includegraphics[width=0.22\linewidth]{posture4.eps} \\
-      (1) & (2) & (3) & (4) \\
-    \end{tabular}
-    \caption{The four prototypical hand postures when grasping the
-      mug, as found by K-means clustering.}
-    \label{fig:postures}
-  \end{center}
-\end{figure}
+%% \begin{figure}[htbp]
+%%   \begin{center}
+%%     \begin{tabular}{cccc}
+%%       \includegraphics[width=0.22\linewidth]{posture1.eps} &
+%%       \includegraphics[width=0.22\linewidth]{posture2.eps} &
+%%       \includegraphics[width=0.22\linewidth]{posture3.eps} &
+%%       \includegraphics[width=0.22\linewidth]{posture4.eps} \\
+%%       (1) & (2) & (3) & (4) \\
+%%     \end{tabular}
+%%     \caption{The four prototypical hand postures when grasping the
+%%       mug, as found by K-means clustering.}
+%%     \label{fig:postures}
+%%   \end{center}
+%% \end{figure}
 
 We then split the mug grasps into four sets according to the
 clustering, and ran separate experiments on each set for
