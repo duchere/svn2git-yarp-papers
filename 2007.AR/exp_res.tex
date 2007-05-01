@@ -31,8 +31,7 @@ deviation of the resulting $5$ values. This gave us an indication of
 how well our machine performed on the hand position, orientation and
 posture. In all graphs, the points on the curves represent the mean
 values, whereas the error bars are placed at $\pm 1$ standard
-deviations. This is standard practice in the machine learning
-literature.
+deviations which is common practice in machine learning. 
 
 In order to answer the second question, we first evaluated the error
 obtained as described above using all sessions for each single object,
@@ -44,7 +43,7 @@ sessions together in a single training set.
 
 \subsection{Prediction power}
 
-Figure \ref{fig:err_all} shows the main experimental results.
+%Figure \ref{fig:err_all} shows the main experimental results.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -65,7 +64,7 @@ Figure \ref{fig:err_all} shows the main experimental results.
   \end{center}
 \end{figure}
 
-Consider Figure \ref{fig:err_all}, left column: first of all, as $B$
+With reference to Figure \ref{fig:err_all}, left column: first of all, as $B$
 increases, the error does, as it was intuitively expected: the more
 data is hidden, the harder the prediction becomes. Then, as one can
 see, as far as the hand position and orientation are concerned, the
@@ -76,7 +75,7 @@ can. This also is intuitively sensible, since it is possible to grasp
 the scotch roll in more ways than the can, and it is possible to grasp
 the mug in even more ways (especially, using the handle).
 
-A further analysis of the obtained models (see Figure
+The analysis of the obtained models (see Figure
 \ref{fig:hyperp}, left column) shows that, accordingly, the percentage
 of Support Vectors with respect to the total number of samples
 increases steadily as $B$ grows, indicating that the problem becomes
@@ -176,7 +175,8 @@ orientation, but high significance for the posture). This is sensible,
 since knowing \emph{what object} one is going to grasp will tell a
 great deal about \emph{how to shape one's hand} in order to grasp it,
 but it will definitely be less influential in order to determine where
-and how to \emph{reach}.
+and how to \emph{reach} unless there is a strong connection between
+the grasp type and the wrist orientation.
 
 Let us now focus upon the fraction of SVs found by the SVMs: consider
 Figure \ref{fig:hyperp}, right column. It turns out that SVMs trained

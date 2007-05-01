@@ -32,7 +32,7 @@ shows the devices, as worn by a subject.
 
 The CyberGlove was worn by the subject on the right hand. The device
 returns $22$ $8$-bit numbers linearly related to the angles between
-the ends of the sensors and roughly indicating the angles between the
+the ends of the sensors and roughly indicating the angles of the
 subject's hand joints; the sensors are embedded in the glove in order
 for them to be adherent to the subject's skin. The resolution of the
 sensors is on average about $0.5$ degree \cite{cyberglove}, but the
@@ -63,7 +63,8 @@ frequency of $50$Hz.
 Eleven subjects, four females and seven males aged $24$ to $34$ of
 different nationalities, joined the experiment. They were all
 right-handed and fully able-bodied, and were given initially some
-knowledge of the aim of the experiment.
+knowledge of the aim of the experiment. They expressed their informed
+consent about prior to their inclusion in the study.
 
 \subsubsection*{Method}
 
@@ -265,8 +266,9 @@ $50$-dimensional space.
 \subsection{Support Vector Machines}
 
 Our machine learning system is based upon Support Vector Machines
-(SVMs). Introduced in the early 90s by Boser, Guyon and Vapnik
-\cite{BGV92}, SVMs are a class of kernel-based learning algorithms
+(SVMs) in the particular variant for regression. 
+Introduced in the early 90s by Boser, Guyon and Vapnik \cite{BGV92}, 
+SVMs are a class of kernel-based learning algorithms
 deeply rooted in Statistical Learning Theory \cite{v-edbed-82}, now
 extensively used in, e.g., speech recognition, object classification
 and function approximation with good results \cite{Cristianini00}. We
@@ -279,7 +281,7 @@ points in its input domain, find its best approximation $f$ drawn from
 a suitable functional space $\mathcal{F}$. In practice, let
 $S=\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and $y_i \in \RR$ be
 a set of $l$ points and output values of the unknown function
-(actually, the training set); then the resulting $f(\xx)$ is a sum of
+(the training set); then the resulting $f(\xx)$ is a sum of
 $l$ elementary functions $K(\xx,\yy)$, each one centered on a point in
 $S$, and weighted by real coefficients $\alpha_i$:
 
@@ -313,7 +315,7 @@ $L^\epsilon$ is a \emph{loss functional}. Minimising the sum of $R$
 and $L^\epsilon$ together ensures that the solution will approximate
 well the values in the training set (thanks to $L^\epsilon$), at the
 same time avoiding overfitting, i.e., exhibiting poor accuracy on
-points outside $S$ (thanks to $R$). The regularisation term actually
+points outside $S$ (thanks to $R$). The regularisation term 
 controls the ``complexity'' of $f(\xx)$. As is apparent from
 (\ref{eqn:svm_primal}), $C$ balances the relative importance of
 $L^\epsilon$ and $R$. In SVM regression, it is usually the case that

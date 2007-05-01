@@ -4,35 +4,39 @@ the results of ongoing behaviours, and in general to plan actions well
 in advance. It is now relatively well understood that the brain builds
 models of the physical world through learning. These models are
 sometimes called ``internal models'', meaning that they are the
-internal rehearsal (or simulation) of the world enacted by the brain.
+internal rehearsal (or simulation) of the world enacted by the brain 
+\cite{kawato-99}.
 
-Interestingly, internal models are built not only because they are
+Interestingly, these models are built not only because they are
 required to control movements, but also, as it has been determined
-more recently, to interpret the movements of others \cite{kawato-99,
-wolpert-03, mussaivaldi-00, lackner-98}. There is now a large body of
+more recently, to interpret the movements of others \cite{wolpert-03, 
+mussaivaldi-00, lackner-98}. There is now a large body of
 literature that links the observation of actions to action execution,
 like for example the study of the motor system conducted by Rizzolatti
 and colleagues in relatively recent years
 \cite{rizzolatti-04,gallese-96,rizzolatti-01}. It seems then that
-building internal models of actions is a key feature of intelligent
-living systems.
+building predictions of the future course of action is a key feature 
+of intelligent living systems.
 
 Moreover, it has been shown in the context of object grasping, that
-the efficiency of an internal model can be improved by priors on the
-object to be grasped, i.e., the presence of a target object and its
-geometrical properties strongly constrain the type of grasp and the
-approach to the object, and, as a consequence, the brain might need to
-include this information when planning an appropriate course of
-action.
+the efficiency of a model of grasping can be improved by using knowledge 
+on the object to be grasped as priors \cite{lopes-05, metta-06}, i.e., the presence of a target 
+object and its geometrical properties strongly constrain the type of 
+grasp and the approach to the object, and, as a consequence, the brain 
+might need to include this information when planning an appropriate course 
+of action \cite{sakata-95}.
 
 In this paper we set forth to investigate whether a computer, equipped
 with enough sensory information about human movements, namely
-grasping, could acquire something like an internal model using machine
+grasping, could acquire a specialized model using machine
 learning methods. In particular we ask $(a)$ whether the final
 configuration of the hand, i.e., at the very moment an object is
 grasped, could be predicted from the initial part of the movement; and
 $(b)$ whether the knowledge of the object to be grasped could improve
 the model efficiency, leading to a smaller error in prediction.
+It is worth noting that we do not want to necessarily mimic the structure
+of the brain, but rather more simply analyze the human movement data 
+with the best possible algorithm available.
 
 To shed light on these questions, we have set up an experiment in
 which several able-bodied subjects have performed a highly repetitive
@@ -54,7 +58,7 @@ reasonably well human reaching and grasping, and that prior knowledge
 of the object to be grasped improves the performance of the machine,
 while keeping the same computational cost.
 
-Once actually realised, optimised and implemented, such internal
+Once actually realised, optimised and implemented, such 
 models could potentially be used in various ways including the control
 of semi-autonomous teleoperated / prosthetic robotic artifacts, the
 interpretation and possibly mimicry of human movements
@@ -76,7 +80,7 @@ development in section \ref{sec:Conclusions}.
 In the monkey, premotor area F5 has been particularly well studied and
 it is in fact the location where ``mirror neurons'' were first
 identified. In this respect, mirror neurons are the quintessential
-correlate of internal models since they are activated both when
+correlate of the modeling activity of the brain since they are activated both when
 executing a specific grasping action and when observing a congruent
 action being executed by another individual (or the experimenter)
 \cite{fadiga-00}.
@@ -88,7 +92,7 @@ neurons in situations where the final part of the action was occluded
 by an opaque screen with the monkey knowing of the presence/absence of
 an object to be grasped. As long as the object was shown to the
 monkey, the brain could easily supply the missing visual information
-by rehearsing the internal model of the action. The control
+by rehearsing the model of the action. The control
 experiment, in this case, was that of an identical hand kinematics, an
 identical screen but the absence of the target object, that is,
 identical visual stimulation apart from the knowledge of the presence
@@ -121,8 +125,8 @@ presence of objects is a clear contextual cue. In humans, it has been
 demonstrated that the activation of brain areas correlated to action
 observation is not simply a perceptual effect but rather the
 activation of a precise sensorimotor model which includes for example
-the hand kinematics
-\cite{pozzo-06}.
+the hand kinematics \cite{pozzo-06} and a precise muscular pattern of
+activations \cite{borroni-05}.
  
 Accordingly, Fadiga et al. \cite{fadiga-99,vargas-04} have shown that
 motor imagery changes the excitability of the cortico-spinal
@@ -156,10 +160,10 @@ self-observation. We can imagine that the brain can exercise its
 control and simultaneously acquire both the motor commands and the
 corresponding visual information and learn such a mapping. In the
 following, we will only consider motor information since we can safely
-assume that the visuo-motor map can always incorporated in the global
-internal model.
+assume that the visuo-motor map can be always incorporated in the global
+model.
 
-Lastly, machine learning has salready been used to \emph{classify} the
+Lastly, machine learning has already been used to \emph{classify} the
 types of grasps (e.g., in \cite{degranville,heumer}); but, to the best
 of our knowledge, nobody has applied it in order to perform
 \emph{regression} on the position and configuration of the hand.
