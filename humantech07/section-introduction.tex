@@ -1,4 +1,126 @@
 
+\section{Introduction}
+
+
+Software development for humanoid robots is somewhat of a back-water.
+Although it is a topic that excites the public imagination, the
+actual resources devoted worldwide are quite low.  The Japanese
+government and car manufacturers have invested in some high-profile
+projects
+
+
+
+
+Humanoid robotics is our passion, but in the grand scheme
+of world-wide software development 
+
+
+
+
+Big companies built on OSS (e.g. Google)
+
+
+\ \\
+\newpage
+
+
+\section{Summary}
+
+\begin{itemize}
+
+\item Driver access in C/C++ with minimal bureaucracy -- no
+entanglement with communication/middleware.  When operating
+on a single machine, if the user wishes, operation without
+transport or marshalling/demarshalling should be possible, ideally
+direct C/C++ calls.
+
+\item Ideally, drivers would be expressed in a form that
+can be ``ripped out'' of any library or framework in use
+with minimal hassle.
+
+\item Similarly, a communication/middleware mechanism that is 
+not tied up with the notion of drivers.
+
+\item A communication/middleware mechanism that is transport
+neutral, only depending on broad outline of services.
+
+
+
+\end{itemize}
+
+
+\section{Cites}
+
+\cite{kramer2007development}
+
+\cite{gerkey03player}
+
+\cite{natale05developmental}
+
+\cite{nesnas2006claraty}
+
+\cite{vaughan2006really}
+
+\cite{vonkrogh2006promise}
+
+
+The case of embedded Linux \cite{henkel2006selective}.
+
+Missing infrastructure.
+Need a lot of software.
+Ideally (for researchers starting out) should be commoditized.
+
+\section{Hardware diversity}
+
+Research groups that all use a specific robot (Khepera, Pioneer, AIBO,
+...) often form a natural software community.  But each alone is 
+a small subset of robotics.
+
+Groups developing new robots face obstacles.  There are big barriers
+to software collaboration: differences in sensors, actuators, and
+bodies; differences in processors, operating systems, libraries,
+frameworks, languages, compilers.
+
+
+\section{Device support}
+
+Summarize argument that, long term, free software approach 
+is better for supporting devices especially with smaller user
+bases, obsolescence.
+
+\section{Being different}
+
+
+Hardware defines the environment within which software operates.  Just
+like the niches of natural species, there are limits to the
+environments in which particular software can operate, although some
+are far more specialized than others.  Robots with unusual 
+hardware can find themselves initially bereft of software,
+until adaptation occurs.  Therefore robots that take advantage
+of novel hardware may require significant software effort.
+
+We examine the plight of small research groups, either academic or
+industrial, who wish to develop novel robots (as opposed to 
+build applications on existing robots).  We want to maximize the 
+reach of such research groups.
+
+Any given piece of software can operate in a certain set of 
+environments.  Every new robot is a new environment, with some
+overlap with existing ones.  Some software will run there,
+some will not.
+
+The more different a robot is from a standard PC, the ...
+
+In terms of software, robotic platforms can be quite ``genetically
+isolated'' from the mainstream population of PCs.  
+
+Computer science and PCs operate in a world that has been at least
+partially commodified; research groups in CS do not have to 
+reinvent the operating system for every project they undertake.
+
+
+
+
 \section{Outline}
 
 The sad fate of most robot software
@@ -31,6 +153,13 @@ again and apply it to another.  That would be a bit self-defeating.
 We study YARP from this perspective.  How sticky is resultant user
 code to the robot and to the framework itself?
 
+\section{Modularity}
+
+The way parts interact can last longer than the parts themselves.
+Long-lived software is like the Ship of Theseus -- the mast gets replaced,
+the planks get replaced, over time everything may get replaced (``paradox
+of identity'').
+
 
 \section{Free and Open Source}
 
@@ -51,7 +180,10 @@ conditionally; a user may only make use of these extended rights if
 (for example) distributed code is always available in its most useful
 original (source) form, with compatible freedoms attached to it.  This
 condition seeks to balance freedoms of individuals versus benefit to
-the group.  The freedom to distribute code in obscure (compiled) forms
+the group.  The existence of code in usable form with freedoms 
+attached can benefit many people;
+
+The freedom to distribute code in obscure (compiled) forms
 
 
 
@@ -233,5 +365,19 @@ Facilitates evaluating and comparing approaches
 Brings new research topics into reach
 
 Publish or perish!
+
+
+\section{PC analogy}
+
+See Bill Gates article in Scientific American, January 2007
+
+Difference: now we have the network.  Go the player route, rather than
+the single IDE.  Transform from hardware to open protocols as first
+step.  Then whole ecology of computation is available.
+
+Robots aren't that special.  webcam/microphone/games...
+
+The resources available to us are generally lower.  Smaller communities.
+Less software expertise.  This could chage.
 
 
