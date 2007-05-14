@@ -60,7 +60,8 @@ We split the process of creating an interface to a device into two
 parts: the ``thin wrapper'', and the ``network wrapper''.  
 
 Writing the thin wrapper means creating a C++ API to the device
-that follows a simple regular structure defined by YARP.
+that follows a simple regular structure defined by YARP
+(examples for interfacing with devices are usually written in C/C++).
 If there are similarities between this device and others,
 those similarities can be captures at this point by 
 shared interfaces with different implementations.
@@ -130,6 +131,21 @@ to the device is a YARP interface.
 The thin wrapper is a first step that attempts to reshape a
 device from a vendor into something a little bit more organized.
 
+The trajectory imagined for device creation:
+
+\begin{itemize}
+
+\item User works with whatever code they can get -- vendor
+supplied, from another project, etc.
+
+\item User wraps a simple class around the functionality,
+meeting YARP's simple specification for devices.  At this
+point, the reward they get is that device configuration
+can be easily made external to the code.  This is often
+useful when starting up a device for different purposes
+(normal, testing, different experimental parameters etc).
+
+\end{itemize}
 
 
 \subsection{Driver}
