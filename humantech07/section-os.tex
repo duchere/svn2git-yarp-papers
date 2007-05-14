@@ -1,5 +1,85 @@
 
 
+\section{Two views of a robot}
+
+From a software perspective, it is natural to consider a robot
+as a bundle of devices (sensors and actuators) that can be
+queried and controlled via whatever interfaces they provide.
+In YARP, we call this the ``device view'' of the robot.
+
+Interfaces to devices can be very idiosyncratic.  Some
+classes of devices (such as certain classes of camera) have become
+commoditized, and have relatively standard interfaces, leaving the
+user with considerable freedom in how those interfaces are used in
+software.  Other devices may be bundled with vendor-supplied software,
+without much freedom for the user to avoid dependencies or work around
+flaws.  This is understandable behavior on the part of a company,
+since decoupling their hardware and software could lead to more rapid
+competition and eventually commoditization, requiring rapid adjustment
+of business model in order to maintain competitiveness.  However,
+it can leave users of hardware in a bit of a bind.
+
+
+\subsection{Sticky devices}
+
+Consider the following scenarios:
+
+\begin{itemize}
+
+\item A user acquires a piece of hardware they want to use.  The
+hardware is very new.  It is bundled with a binary library and a
+skimpy example program that is the only way currently known to access
+that hardware.  Use of the library is quite restricted; it may be
+specific to a particular operating system version or even development
+environment.
+
+\item A user acquires many such devices, and wants to use them
+all at the same time.
+
+\end{itemize}
+
+Let us call devices which can only be accessed using vendor supplied
+material ``sticky devices'' because they tend to make the particular
+set of assumptions made by the vendor stick to the user's code.
+Dealing with several sticky devices at once becomes a nightmare.
+Worse still, any and all of those assumptions could change on the
+next release of the hardware~-- this is particularly likely if the 
+hardware is very new.
+
+A logical step in such a situation is to wrap the functionality
+supplied by the vendor in a facade, so that at least source code
+dependencies can be reduced.  But at a more basic level,
+compilation and linking of application that accesses two or more
+sticky devices can be very involved.  An option that YARP makes
+available is for wrappers around the devices to be made individually,
+compiled and built separately, and then used across the network.
+When performance requirements permit this solultion it is an
+effective mechanism for quarantining the sticky devices.
+
+
+
+
+
+
+\subsection{More}
+
+
+YARP offers two almost equivalent views of a robot.
+
+
+A set of ports to which you can connect and get data or send commands
+(port view).
+
+A set of devices which you can control or query according to a choice
+of interfaces (device view).
+
+The local device view: you are responsible for configuring and starting devices
+
+The remote device view: configuration and starting-up/shutting-down is
+packaged with the robot
+
+
+
 \section{Ports}
 
 Data source knows nothing about identity of modules that monitor it.
