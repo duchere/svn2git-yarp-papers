@@ -86,17 +86,46 @@ Wrappers are written for families of interfaces, and so in as much
 as one device is similar to existing devices, the network 
 wrapper may come for free.
 
+Why is it important to make devices easy to write?
+
+\begin{itemize}
+
+\item New hardware appears all the time, so the odds of a particular
+user being one of the first people interested in a particular device are
+non-negligible.  We are particularly interested in supporting humanoid
+robotics, where today's hardware is very lacking and we are guaranteed
+to be dealing with novel hardware for the forseeable future.
+
+\item Vendors may bundle hardware and software, and not permit
+redistribution of their software.  In practice, this can mean that
+work done to wrap a device by one group may not end up in a public
+repository, and so not reach other groups.  Licensing issues can push
+the amount of effort required above what a group is willing to
+casually contribute.  So some reinventing of the wheel is inevitable.
+This seems to be particularly the case on the Microsoft Windows
+platform, where the pool of free and open software available to build
+on is smaller and much more poorly packaged.
+
+\item There are several software architectures in existence for
+various overlapping robotics communities.  If someone has adapted
+a device to one of these architectures, it is still not trivial
+to use it in another.  YARP is trying to be a good citizen by
+reducing how much the core device code depends on YARP itself,
+making it in principle easier to reuse.
+
+
+\end{itemize}
+
+
 
 \subsection{The many-architecture problem}
 
 YARP is but one software architecture of many.  For example, in the
 world of mobile robotics, the Player/Stage project is widely used.
 
-
 We should 
 be careful of assuming that the interface the end-user will want
 to the device is a YARP interface.  
-
 
 The thin wrapper is a first step that attempts to reshape a
 device from a vendor into something a little bit more organized.
