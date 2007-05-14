@@ -124,9 +124,8 @@ making it in principle easier to reuse.
 YARP is but one software architecture of many.  For example, in the
 world of mobile robotics, the Player/Stage project is widely used.
 
-We should 
-be careful of assuming that the interface the end-user will want
-to the device is a YARP interface.  
+We should be careful of assuming that the interface the end-user will
+want to the device is a YARP interface.
 
 The thin wrapper is a first step that attempts to reshape a
 device from a vendor into something a little bit more organized.
@@ -268,4 +267,39 @@ Devices and communications are orthogonal features
 Can switch from remote use of device to local use and vice versa without pain
 
 Local use can be very efficient, just an extra virtual method call
+
+
+\subsection{Interoperability}
+
+YARP is a free and open source project.  Since its source code is
+released under a free and open license, useful parts of it can be used
+by other systems, and its operation can be studied.
+
+YARP has a large quantity of documentation (although we always need
+more).  The communication protocol it uses is documented, and can be
+interfaced with without using the YARP code-base.
+
+Beyond just documenting the communication protocol, particular attention
+has been devoted to make sure that that reading and writing data to a
+YARP port can be done with very little effort.  YARP ports will 
+accept and make connections of any of several different forms;
+for a program build without the YARP code-base, it suffices
+to implement just one of those connection types in order to
+get basic connectivity.  If bandwidth requirements are not
+excessive, the very simplest connection type can be implemented:
+a very basic text-mode protocol.
+
+For example, suppose there is a YARP system running, with a 
+port called ``/motor'' which will accept commands to move a
+motor.  For concreteness, let's imagine we have started the
+following standard YARP programs (on the same or different 
+machines):
+
+\begin{verbatim}
+yarp server
+yarpdev --device test_motor --axes 2
+\end{verbatim}
+
+
+
 
