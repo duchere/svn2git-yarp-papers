@@ -53,12 +53,64 @@ compilation and linking of application that accesses two or more
 sticky devices can be very involved.  An option that YARP makes
 available is for wrappers around the devices to be made individually,
 compiled and built separately, and then used across the network.
-When performance requirements permit this solultion it is an
+When performance requirements permit this solution it is an
 effective mechanism for quarantining the sticky devices.
 
+We split the process of creating an interface to a device into two
+parts: the ``thin wrapper'', and the ``network wrapper''.  
+
+Writing the thin wrapper means creating a C++ API to the device
+that follows a simple regular structure defined by YARP.
+If there are similarities between this device and others,
+those similarities can be captures at this point by 
+shared interfaces with different implementations.
+Once the thin wrapper is written, user code that accesses
+the device through that wrapper is less affected by its ``stickiness''
+because:
+
+\begin{itemize}
+
+\item To the extent that user code uses interfaces shared by other
+devices, another device can be substituted later without change to
+that part.  This could also include future versions of the same family
+of hardware.
+
+\item The network wrapper, when written, will allow the thin wrapper
+interface to be used via the network.  This decouples the compilation,
+build environment, libraries, operating system, and language
+dependencies of the device software and the user software.
+
+\end{itemize}
+
+Wrappers are written for families of interfaces, and so in as much
+as one device is similar to existing devices, the network 
+wrapper may come for free.
+
+
+\subsection{The many-architecture problem}
+
+YARP is but one software architecture of many.  For example, in the
+world of mobile robotics, the Player/Stage project is widely used.
+
+
+We should 
+be careful of assuming that the interface the end-user will want
+to the device is a YARP interface.  
+
+
+The thin wrapper is a first step that attempts to reshape a
+device from a vendor into something a little bit more organized.
 
 
 
+\subsection{Driver}
+
+We use the term ``Driver'' to refer to software interface the end-user
+has to a hardware device.  The software components involved in
+implementing the driver can be considered to be part of the device if
+we wish.  We can consider the process of taking a ``sticky device''
+and placing in a wrapper as a process of transforming the device such
+that drivers are easier to build.
 
 
 \subsection{More}
