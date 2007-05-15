@@ -19,16 +19,6 @@ get basic connectivity.  If bandwidth requirements are not
 excessive, the very simplest connection type can be implemented:
 a very basic text-mode protocol.
 
-For example, suppose there is a YARP system running, with a 
-port called ``/motor'' which will accept commands to move a
-motor.  For concreteness, let's imagine we have started the
-following standard YARP programs (on the same or different 
-machines):
-
-\begin{verbatim}
-yarp server
-yarpdev --device test_motor --axes 2
-\end{verbatim}
 
 
 \subsection{Binary and text mode}
@@ -297,12 +287,129 @@ connection -- these details are taken care of at the carrier level).
 
 \end{itemize}
 
-Before sending each message, YARP also expects the endpoint to
-know whether the connection can be ``escaped'' -- that is, it can
-accept port-to-port administrative communication that is not 
-passed on as normal user data.  All but the very simplest
-text-mode carriers can be escaped.
+Before sending each message, YARP also expects the endpoint to know
+whether the connection can be ``escaped'' -- that is, it can accept
+port-to-port administrative communication that is not passed on as
+normal user data.  The only time escaping is not desired on a carrier
+is in text-mode, when the bytes transmitted should follow the user
+data as slavishly as possible.  In all other cases, some
+administrative data is currently packaged by YARP with user data and
+then extracted at the other end.  In future carriers will be given
+more control over how this material (called the ``port protocol'') is
+embedded.
 
 Everything else is convention.
 
+\begin{tabular}{c|c|c}
+\hline
+8-byte magic number&protocol&variant \\\hline
+`Y' `A' 0x61 0x1E 0 0 `R' `P'&udp&\\\hline
+`Y' `A' 0x\-E1 0x1E 0 0 `R' `P'&udp&\\\hline
+`Y' `A' 0x62 0x1E 0 0 `R' `P'&mcast&\\\hline
+`Y' `A' 0x\-E2 0x1E 0 0 `R' `P'&mcast&\\\hline
+`Y' `A' 0x63 0x1E 0 0 `R' `P'&shmem&\\\hline
+`Y' `A' 0x\-E3 0x1E 0 0 `R' `P'&shmem&\\\hline
+`Y' `A' 0x64 0x1E 0 0 `R' `P'&tcp&without acks \\\hline
+`Y' `A' 0x\-E4 0x1E 0 0 `R' `P'&tcp&with acks \\\hline
+`C' `O' `N' `N' `E' `C' `T' ` ' &text&without acks \\\hline
+`C' `O' `N' `N' `A' `C' `K' ` ' &text&with acks \\\hline
+`L' `O' `C' `A' `L' `I' `T' `Y'&local&\\\hline
+\end{tabular}
+
+
+
+\subsection{YARP without YARP}
+
+Suppose some YARP programs are running and we want to send or
+receive data from them.
+
+For example, suppose there is a YARP system running, with a 
+port called ``/motor'' which will accept commands to move a
+motor.  For concreteness, let's imagine we have started the
+following standard YARP programs (on the same or different 
+machines):
+
+\begin{verbatim}
+yarp server
+yarpdev --device test_motor --axes 2 --single_port --name /demo
+\end{verbatim}
+
+The ``yarpdev'' program here creates a port called ``/demo'' that can
+accept command to a fake set of motors (2 axes or degrees of freedom),
+and report on their state.
+
+Normally we would interact with the motor through a code
+interface that deals with communication.  But if for 
+some reason we can't use the YARP codebase, what can
+we do?
+
+YARP ports listen to incoming tcp connections, always ready to make
+new connections for input or output.  Suppose we can discover that
+``/demo'' is listening on port 10022 of our current machine (we could
+discover that using netstat on Linux, or by querying the YARP server
+as we'll see shortly).
+
+We can then connect manually to the port as follows:
+
+\begin{tabular}{ll}
+(type in shell) & telnet 127.0.0.1 10022 \\
+(type in telnet) & CONNECT foo \\
+telnet responds with: & Welcome foo \\
+(type in telnet) & help \\
+telnet responds with: & (an explanation of available commands) \\
+(type in telnet) & * \\
+telnet responds with: & This is /demo at tcp://127.0.0.1:10032 ...
+\end{tabular}
+
+Everything so far would be basically the same for any YARP port.
+For people who have used MUDs, IRC, or serial interfaces to hardware,
+it should all seem vaguely familiar.
+
+So far all our communications have been ``administrative'' --
+we have communicated with the port but not really with the 
+program that owns it.  To do that, we send payload data.  For the
+text-mode carrier we've chosen (determined by the 8 initial
+bytes we sent, ``CONNECT '' in this case), this is done by typing
+``d'', hitting return, then writing a text-mode representation of
+the data we want to send.  Let's try it:
+
+\begin{tabular}{ll}
+(type in telnet) & d \\
+(type in telnet) & help \\
+telnet responds with: & (a list of possible yarpdev messages)\\
+(type in telnet) & d \\
+(type in telnet) & [get] [axes] \\
+telnet responds with: & [is] [axes] 2 [ok] \\
+(type in telnet) & d \\
+(type in telnet) & [set] [pos] 0 100.0 \\
+telnet responds with: & [ok]
+\end{tabular}
+
+We have determined that there are indeed two axes available as we requested
+when starting yarpdev, and have set the position target for the
+first axis to 100.0 units.  We could go on to query positions, use
+other interfaces, etc.  We can disconnect by closing our connection
+(or, more politely, sending the message ``q'').
+
+By default, the motor port will stream encoder readings from the motors
+to any reader that connects.  To subscribe to this stream, we simply
+connect as above and then type ``r'' to reverse the connection.
+Reversing means to invert which side should take the initiative
+in sending data.
+
+
+\begin{tabular}{ll}
+(type in shell) & telnet 127.0.0.1 10022 \\
+(type in telnet) & CONNECT foo \\
+telnet responds with: & Welcome foo \\
+(type in telnet) & r \\
+telnet responds with: & do \\
+...: & 100.0 0.0 \\
+telnet responds with: & do \\
+...: & 100.0 0.0 \\
+: & ...
+\end{tabular}
+
+The ``do'' is just like ``d'', to inform the recipient that user data 
+follows.  The ``o'' means that replies are not expected by the sender.
 
