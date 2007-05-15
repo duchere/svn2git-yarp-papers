@@ -1,0 +1,177 @@
+
+\section{Network protocol}
+
+YARP is a free and open source project.  Since its source code is
+released under a free and open license, useful parts of it can be used
+by other systems, and its operation can be studied.
+
+YARP has a large quantity of documentation (although we always need
+more).  The communication protocol it uses is documented, and can be
+interfaced with without using the YARP code-base.
+
+Beyond just documenting the communication protocol, particular attention
+has been devoted to make sure that that reading and writing data to a
+YARP port can be done with very little effort.  YARP ports will 
+accept and make connections of any of several different forms;
+for a program build without the YARP code-base, it suffices
+to implement just one of those connection types in order to
+get basic connectivity.  If bandwidth requirements are not
+excessive, the very simplest connection type can be implemented:
+a very basic text-mode protocol.
+
+For example, suppose there is a YARP system running, with a 
+port called ``/motor'' which will accept commands to move a
+motor.  For concreteness, let's imagine we have started the
+following standard YARP programs (on the same or different 
+machines):
+
+\begin{verbatim}
+yarp server
+yarpdev --device test_motor --axes 2
+\end{verbatim}
+
+
+\subsection{Binary and text mode}
+
+There is a constant tension between using binary formats and
+human-readable formats.  Binary formats can be much more efficient,
+but text mode formats can be much easier to work with and learn about
+experimentally without extensive study.
+
+The YARP communications system is written in two parts.  There
+are a set of ``carriers'' which do the work of providing
+connections between ports, so that data can be faithfully 
+transmitted from a source to a destination byte-for-byte.
+There is no marshalling process at this stage.
+
+The second part of the communication system is a standard data format.
+This standard is not enforced, so that the carriers could be reused by
+someone with different opinions about data representation, but helper
+functions and classes make it easy to meet.  This format is called the
+``bottle'' format for historical reasons.  There is a general-purpose
+helper class in YARP called ``Bottle'' that reads and writes data in
+this format, but the format is also used by special purpose classes
+such as Vector and Image.  Extensive examples are available on how
+to generate data in this form.
+
+\subsection{The bottle representation}
+
+The bottle representation is based on a nested structure of certain
+primitive types.  
+
+Here are some informal examples of bottles, expressed in text form:
+
+\begin{tabular}{p{6cm}p{6cm}}
+10 20 30 & a list of three integers \\
+10.0 20.5 31.4159 & a list of three floating point numbers \\
+action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers
+\end{tabular}
+
+The structure is basically that of an s-expression
+\cite{rivest1997sexp}, except that the outermost parentheses are
+omitted.  This makes the important and common case of messages without
+any nesting easier to write for those unfamiliar with s-expressions.
+The drawback is that this means that a bottle must always be a list,
+rather than any of the other primitive types, and (depending on the
+input mechanism) it may also need to be non-empty.
+
+The primitives types available are lists, integers, floating point
+numbers, strings, blobs (uninterpreted sequence of bytes), and
+``vocabs''.  The vocab type is the one unfamiliar type in this list.
+It is motivated by the dual requirements of efficiency of machine
+interpretation binary representations, and ease of human reading and
+writing of text representations.  For data with a tag in it upon which
+a dispatch will occur, it is simplest if that tag is a simple integer
+in binary mode rather than a piece of variable-length text.
+Vocabs are represented as simple integers in binary, and short
+(up to four ASCII character) strings in text, with a one-to-one
+mapping between the characters and bytes in the integer.  
+
+
+\begin{tabular}{p{6cm}p{6cm}}
+[set] [pos] 1 30.3 & a list of two vocabs, an integer, and a floating
+point number -- perhaps to set the position of a specific axis.
+\end{tabular}
+
+The important point is that under normal operation, ports can be
+sending fixed size messages to each other, but then when a human
+eavesdrops on that data or tries to insert a message, they can still
+understand and generate the identifiers being used.
+
+
+The basic constraints on the design of this format were as follows:
+
+\begin{itemize}
+
+\item Messages in ths format should have a convenient binary and text
+representation.
+
+\item The process of translating between binary and text
+representations should be mechanical, and ``round-trips'' should not
+change the value significantly (except potentially with some round-off
+in floating point numbers).
+
+\item The text representation should be as easy as possible
+to express from the command-line of common shells.
+
+\end{itemize}
+
+The reason for the last item is to make YARP messaging compatible
+with typical UNIX pipe operation.  Such operation does not 
+really survive well when different character encodings may be
+in use, but still has uses.
+
+
+
+character encoding issues, not yarp's concern (but clash with shell 
+operation).
+
+
+The structure
+can be expressed in several representations.  For messaging there are:
+
+\begin{itemize}
+
+\item Binary form -- used for efficient messaging that is
+easily machine readable/writable.
+
+\item Text form -- used for messaging that is easily human
+readable/writable (but less efficient for large messages).
+
+\end{itemize}
+
+It is also convenient to add two extra representations:
+
+\begin{itemize}
+
+\item Command-line form -- arguments to a program.
+
+\item Configuration form -- groups and lines in a configuration file.
+
+\end{itemize}
+
+This is useful when dealing with configuration of devices; since
+information could come from file, command line options, or across the
+network, it is convenient to have all the various represenations
+mapping to a homogeneous structure.
+
+
+
+\subsection{Examples}
+
+Capital letters are constants
+(L=List, D=Double, I=Integer, S=String, B=Blob, V=Vocab).
+
+
+
+A vector of 4 doubles.  S-expression: (1.0 -20.0 76.2 41.9).
+
+\newcommand{\mm}{p{0.25cm}}
+\newcommand{\m}{p{1cm}}
+\newcommand{\md}{p{2cm}}
+
+\begin{tabular}{|\m|\m|\md|\md|\md|\md|}
+\hline
+L+D & 4 & 1.0 & -20.0 & 76.2 & 41.9 \\
+\hline
+\end{tabular}
