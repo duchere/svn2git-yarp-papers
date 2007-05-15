@@ -61,7 +61,7 @@ primitive types.
 
 Here are some informal examples of bottles, expressed in text form:
 
-\begin{tabular}{p{6cm}p{6cm}}
+\begin{tabular}{p{5cm}p{6cm}}
 10 20 30 & a list of three integers \\
 10.0 20.5 31.4159 & a list of three floating point numbers \\
 action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers
@@ -88,7 +88,7 @@ Vocabs are represented as simple integers in binary, and short
 mapping between the characters and bytes in the integer.  
 
 
-\begin{tabular}{p{6cm}p{6cm}}
+\begin{tabular}{p{5cm}p{6cm}}
 [set] [pos] 1 30.3 & a list of two vocabs, an integer, and a floating
 point number -- perhaps to set the position of a specific axis.
 \end{tabular}
@@ -175,3 +175,36 @@ A vector of 4 doubles.  S-expression: (1.0 -20.0 76.2 41.9).
 L+D & 4 & 1.0 & -20.0 & 76.2 & 41.9 \\
 \hline
 \end{tabular}
+
+
+\subsection{Fiddling with the format}
+
+For robotics applications that are confined to a 
+local area network with all source code available,
+changes to the data format are possible.
+
+The default binary representation for integers on
+the wire for YARP is little-endian.  Conversions
+happen for non big-endian systems (e.g. MAC PPC).
+For a network that is all big-endian,  the 
+binary representation can be flipped. 
+
+This could also be desired for XDR compatibility.
+The string and blob representations also would
+need to be updated to do padding which YARP does
+not do.  These changes would be very narrowly
+localized.
+
+Such a modified system would lose binary-mode compatibility with any
+modules using the standard YARP binary format, but connections could
+still be made in text mode.
+
+In principle, evolution of the communication protocol in YARP can be
+relatively painless.  Since new ``carriers'' can be added,
+modifications could be placed within a new carrier, while support for
+older carriers is continued for a generation or two.  Ideally,
+something like today's text mode format should be honored for a long
+time, as a connection protocol of last resort.
+(NOTE: this is about more than just the bottle format; reorder).
+
+
