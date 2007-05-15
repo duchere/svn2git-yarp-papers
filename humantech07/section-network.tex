@@ -208,3 +208,101 @@ time, as a connection protocol of last resort.
 (NOTE: this is about more than just the bottle format; reorder).
 
 
+\subsection{Connection protocol}
+
+This is the protocol used for a single connection from an output port
+to an input port. It has two main phases, the handshake phase,
+and the message phase.
+
+We begin once the sender has successfully opened a bidirectional
+streaming connection (think: tcp socket) to the receiver.
+
+
+\subsubsection{Handshake phase}
+
+This phase follows immediately after the connection is established.
+
+\begin{itemize}
+
+\item {\bf Transmission of protocol specifier}:
+Sender transmits 8 bytes that identify the ``carrier'' that will be
+used for the connection.  The carrier can require switching to 
+some other form of stream, or using a particular strategy for
+encoding data.  The transmission of the initial 8 bytes is the
+only part of this protocol that is defined in terms of bytes sent.
+
+\item {\bf Transmission of sender name}: Sender transmits the name of
+the port it is associated with.  How this name is encoded and sent is
+the concern of the specific carrier.
+
+\item {\bf Transmission of extra header material}: Sender and
+receiver may engage in further communication as needed for the
+specific carrier.  
+
+\end{itemize}
+
+At the end of this phase, the sender and receiver are both ``aware''
+of which carrier is in use (this may have involved discarding the
+original stream and switching to a new one -- e.g. mcast, udp, shared
+memory) and both are aware of the identifier of the port at the
+other end of the connection.  This can be important for collaboration
+during connection shutdown.
+
+
+\subsubsection{Message phase}
+
+After the handshake, the connection is (as far as YARP is concerned)
+quiescent until either the sender decides to send a message across it.
+It is technically possible for the receiver to initiate activity --
+we'll return to this issue.
+
+\begin{itemize}
+
+\item {\bf Transmission of index}: Carrier-dependent. Some carriers
+will require statistics about the message (such as its length) to be
+given at the beginning.  YARP binary carriers have a fairly elaborate
+index, due historically to a limitation of the QNX message-passing
+API.  Text-mode carriers have no index at all, since it is
+unreasonable to expect a human to be able to generate one.
+
+\item {\bf Transmission of payload}: The actual message is
+transmitted in a carrier-dependent way.
+
+\item {\bf Acknowledgement of payload}: The receiver may 
+acknowledge transmission in some way.  Carrier-dependent.
+
+\end{itemize}
+
+The message phase repeats as often as the user wants.
+
+
+\subsection{What isn't carrier-dependent?}
+
+The description so far sounds very loose -- just about every aspect
+of a connection is carrier-dependent.  What does YARP actually
+expect of connections, in order to build on them?
+
+\begin{itemize}
+
+\item After the handshaking phase, both sides of a connection know the
+names of the other side.  This is important for housekeeping.
+
+\item After the handshaking phase, a connection endpoint must have
+certain knowledge about the connection that it can report to YARP.  It
+will be connection-based or connectionless.  It will be text mode or
+binary.  It will deliver acknowledgements or not.  It will be able to
+deliver replies or not.  It will be active or ``fake'' (in multicast,
+many logical connections can be serviced with a single active
+connection -- these details are taken care of at the carrier level).
+
+\end{itemize}
+
+Before sending each message, YARP also expects the endpoint to
+know whether the connection can be ``escaped'' -- that is, it can
+accept port-to-port administrative communication that is not 
+passed on as normal user data.  All but the very simplest
+text-mode carriers can be escaped.
+
+Everything else is convention.
+
+
