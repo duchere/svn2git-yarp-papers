@@ -1,4 +1,8 @@
 
+
+%% Just temporary
+\tableofcontents
+
 \section{Introduction}
 
 %%Hardware defines the environment within which software operates.  
@@ -39,6 +43,15 @@ reach of such research groups.
 
 In terms of software, robotic platforms can be quite ``genetically
 isolated'' from the mainstream population of PCs.  
+
+Research groups that all use a specific robot (Khepera, Pioneer, AIBO,
+...) often form a natural software community.  But each alone is 
+a small subset of robotics.
+
+Groups developing new robots face obstacles.  There are big barriers
+to software collaboration: differences in sensors, actuators, and
+bodies; differences in processors, operating systems, libraries,
+frameworks, languages, compilers.
 
 Computer science and PCs operate in a world that has been at least
 partially commodified; research groups in CS do not have to 
@@ -85,92 +98,14 @@ in use are UNIX-based).
 }
 \end{figure}
 
-\section{Summary}
-
-\begin{itemize}
-
-\item Driver access in C/C++ with minimal bureaucracy -- no
-entanglement with communication/middleware.  When operating
-on a single machine, if the user wishes, operation without
-transport or marshalling/demarshalling should be possible, ideally
-direct C/C++ calls.
-
-\item Ideally, drivers would be expressed in a form that
-can be ``ripped out'' of any library or framework in use
-with minimal hassle.
-
-\item Similarly, a communication/middleware mechanism that is 
-not tied up with the notion of drivers.
-
-\item A communication/middleware mechanism that is transport
-neutral, only depending on broad outline of services.
-
-
-
-\end{itemize}
-
-
-\section{Cites}
-
-\cite{kramer2007development}
-
-\cite{gerkey03player}
-
-\cite{natale05developmental}
-
-\cite{nesnas2006claraty}
-
-\cite{vaughan2006really}
-
-\cite{vonkrogh2006promise}
-
-
-The case of embedded Linux \cite{henkel2006selective}.
-
-Missing infrastructure.
-Need a lot of software.
-Ideally (for researchers starting out) should be commoditized.
-
-\section{Hardware diversity}
-
-Research groups that all use a specific robot (Khepera, Pioneer, AIBO,
-...) often form a natural software community.  But each alone is 
-a small subset of robotics.
-
-Groups developing new robots face obstacles.  There are big barriers
-to software collaboration: differences in sensors, actuators, and
-bodies; differences in processors, operating systems, libraries,
-frameworks, languages, compilers.
-
-
-\section{Device support}
-
-Summarize argument that, long term, free software approach 
-is better for supporting devices especially with smaller user
-bases, obsolescence.
-
-\section{Being different}
 
 
 
 
 
-\section{Outline}
-
-The sad fate of most robot software
-
-Modularity in robotics
-
-YARP: Yet Another Robot Platform
-
-Excising communication ``plumbing'' from code
-
-Excising device dependencies from code
-
-Conclusions
 
 
-\section{Sad fate}
+\section{A software ecology}
 
 Many robot projects are ``black holes'', in terms of software.  A lot
 of software gets sucked in, but very little comes out.  Once a piece
@@ -187,7 +122,6 @@ again and apply it to another.  That would be a bit self-defeating.
 We study YARP from this perspective.  How sticky is resultant user
 code to the robot and to the framework itself?
 
-\section{Modularity}
 
 The way parts interact can last longer than the parts themselves.
 Long-lived software is like the Ship of Theseus -- the mast gets replaced,
@@ -195,7 +129,7 @@ the planks get replaced, over time everything may get replaced (``paradox
 of identity'').
 
 
-\section{Free and Open Source}
+\subsection{Free and Open Source}
 
 Useful, more malleable.
 
@@ -226,7 +160,16 @@ who emphasize freedom.  Just cite the issue, no need to revisit
 it here.
 
 
-\section{CMake}
+
+
+\subsection{C/C++}
+
+very portable (especially C), though lots of details.
+
+but compile process?  varies a lot. autobuild tools
+(autoconf/automake).  and also CMAKE.
+
+CMAKE:
 
 Open-source, deals well with various IDEs and command-line development.
 
@@ -246,8 +189,33 @@ CMake is free and open-source, with a healthy community of
 developers.
 
 
+SWIG:
 
-\section{Call for publication}
+ACE:
+
+
+\subsection{Repositories}
+
+sourceforge.  debian.
+
+RANT FOLLOWS
+
+The literature of a research community both expresses its ideas, and
+aids in their evolution
+
+Published ideas are read, evaluated, and built upon
+
+Useful advances get published
+
+Publication of software can speed progress
+
+Facilitates evaluating and comparing approaches
+
+Brings new research topics into reach
+
+Publish or perish!
+
+REPEATED RANT FOLLOWS
 
 As a research community, we both read and produce papers, building on
 each others' work.
@@ -273,7 +241,9 @@ languages, compilers...
 Big barriers to software collaboration
 
 
-\section{Modularity}
+
+
+\subsection{Modularity}
 
 Constant hardware flux
 
@@ -290,8 +260,6 @@ Interfaces change slowly
 ``Modularity'' is rewarded
 
 
-\subsection{Broom}
-
 The way parts interact can last longer than the parts themselves
 
 E.g. an eternal broom
@@ -300,8 +268,6 @@ replace broom head
 
 replace broom handle
 
-
-\subsection{Theseus}
 
 Long-lived software is like the Ship of Theseus
 
@@ -316,8 +282,6 @@ In philosophy, this is a ``paradox of identity''
 For us, it's just our job
 
 
-\subsection{dark path}
-
 The opposite of a modular system is a coupled one.
 
 In a ``coupled'' system, changes in one part trigger changes in another.
@@ -330,8 +294,6 @@ Confusion leads to suffering
 
 This is the path to the Dark Side
 
-\subsection{modular robots}
-
 Robot software is notoriously hardware-specific and task-specific
 
 Both hardware and target tasks change quickly, even within the
@@ -343,7 +305,23 @@ maintain, both in terms of hardware and software
 They need to be modular
 
 
-\subsection{YARP}
+
+
+
+\section{YARP}
+
+
+The sad fate of most robot software
+
+Modularity in robotics
+
+YARP: Yet Another Robot Platform
+
+Excising communication ``plumbing'' from code
+
+Excising device dependencies from code
+
+
 
 YARP is an open-source software library  for humanoid robotics
 
@@ -359,12 +337,6 @@ Exists as an independent open source project
 
 C++ source code
 
-
-\subsection{Things we use}
-
-CMake slide.
-
-SWIG slide.
 
 
 \subsection{What is YARP for}
@@ -382,36 +354,5 @@ Factor out details of devices used by programs from program source code
 The devices can then be replaced over time by comparable alternatives;
 code can be used in other systems
 
-
-\section{Literature}
-
-The literature of a research community both expresses its ideas, and
-aids in their evolution
-
-Published ideas are read, evaluated, and built upon
-
-Useful advances get published
-
-Publication of software can speed progress
-
-Facilitates evaluating and comparing approaches
-
-Brings new research topics into reach
-
-Publish or perish!
-
-
-\section{PC analogy}
-
-See Bill Gates article in Scientific American, January 2007
-
-Difference: now we have the network.  Go the player route, rather than
-the single IDE.  Transform from hardware to open protocols as first
-step.  Then whole ecology of computation is available.
-
-Robots aren't that special.  webcam/microphone/games...
-
-The resources available to us are generally lower.  Smaller communities.
-Less software expertise.  This could chage.
 
 
