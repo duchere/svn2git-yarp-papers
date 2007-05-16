@@ -351,14 +351,22 @@ as we'll see shortly).
 
 We can then connect manually to the port as follows:
 
-\begin{tabular}{ll}
+\begin{tabular}{|l|l|}
+\hline
 (type in shell) & telnet 127.0.0.1 10022 \\
+\hline
 (type in telnet) & CONNECT foo \\
+\hline
 telnet responds with: & Welcome foo \\
+\hline
 (type in telnet) & help \\
+\hline
 telnet responds with: & (an explanation of available commands) \\
+\hline
 (type in telnet) & * \\
-telnet responds with: & This is /demo at tcp://127.0.0.1:10032 ...
+\hline
+telnet responds with: & This is /demo at tcp://127.0.0.1:10032 ... \\
+\hline
 \end{tabular}
 
 Everything so far would be basically the same for any YARP port.
@@ -373,16 +381,27 @@ bytes we sent, ``CONNECT '' in this case), this is done by typing
 ``d'', hitting return, then writing a text-mode representation of
 the data we want to send.  Let's try it:
 
-\begin{tabular}{ll}
+\begin{tabular}{|l|l|}
+\hline
 (type in telnet) & d \\
+\hline
 (type in telnet) & help \\
+\hline
 telnet responds with: & (a list of possible yarpdev messages)\\
+\hline
 (type in telnet) & d \\
+\hline
 (type in telnet) & [get] [axes] \\
+\hline
 telnet responds with: & [is] [axes] 2 [ok] \\
+\hline
 (type in telnet) & d \\
+\hline
 (type in telnet) & [set] [pos] 0 100.0 \\
-telnet responds with: & [ok]
+\hline
+telnet responds with: & [ok] \\
+\hline
+
 \end{tabular}
 
 We have determined that there are indeed two axes available as we requested
@@ -398,18 +417,34 @@ Reversing means to invert which side should take the initiative
 in sending data.
 
 
-\begin{tabular}{ll}
+\begin{tabular}{|l|l|}
+\hline
 (type in shell) & telnet 127.0.0.1 10022 \\
+\hline
 (type in telnet) & CONNECT foo \\
+\hline
 telnet responds with: & Welcome foo \\
+\hline
 (type in telnet) & r \\
+\hline
 telnet responds with: & do \\
-...: & 100.0 0.0 \\
-telnet responds with: & do \\
-...: & 100.0 0.0 \\
-: & ...
+\hline
+ & 100.0 0.0 \\
+\hline
+ & do \\
+\hline
+ & 100.0 0.0 \\
+\hline
+ & ... \\
+\hline
 \end{tabular}
 
-The ``do'' is just like ``d'', to inform the recipient that user data 
-follows.  The ``o'' means that replies are not expected by the sender.
+The ``do'' is just like ``d'', to inform the recipient that user data
+follows.  The ``o'' part means that replies are not expected by the
+sender, and should not be sent.  This seems like a small detail,
+but in fact when replies are not expected the performance of 
+streaming to multiple targets can be greatly improved in general,
+so it is worth mentioning.
+
+
 
