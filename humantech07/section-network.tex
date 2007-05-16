@@ -446,5 +446,13 @@ but in fact when replies are not expected the performance of
 streaming to multiple targets can be greatly improved in general,
 so it is worth mentioning.
 
+Suppose we wanted to send messages more efficiently?  We start out the
+same way, connecting via TCP, and then give the ``magic number'' of
+the carrier we want to use (tcp binary, udp, mcast, shmem, etc).
+Understanding these carriers is a bit harder than basic text-mode operation,
+but logically it is all the same thing.
+
+We had an initial problem that 
+
 
 
