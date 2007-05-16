@@ -35,3 +35,186 @@ neutral, only depending on broad outline of services.
 
 
 
+\section{YARP Devices}
+
+There are three separate concerns related to devices in YARP:
+
+Implementing specific drivers for particular devices 
+
+Defining interfaces for device families 
+
+Implementing network wrappers for interfaces
+
+Basic idea: if you view your devices through well thought out
+interfaces, the impact of device change can be minimized.
+
+
+\subsection{A light touch}
+
+New devices come out all the time -- needs to be easy to connect them
+to existing code
+
+YARP needs a minimal ``wrapper'' class to match vendor-supplied
+library with relevant interfaces that capture common capabilities
+
+YARP encourages separating configuration from source code -- separating
+the ``plumbing''
+
+Devices and communications remain distinct concerns
+
+(pictures)
+
+
+\subsection*{Why?}
+
+Allows collaboration between groups whose robots have different devices
+
+Makes device changes less painful
+
+Devices and communications are orthogonal features
+
+Can switch from remote use of device to local use and vice versa without pain
+
+Local use can be very efficient, just an extra virtual method call
+
+
+
+
+
+\subsection{Sticky devices}
+
+Consider the following scenarios:
+
+\begin{itemize}
+
+\item A user acquires a piece of hardware they want to use.  The
+hardware is very new.  It is bundled with a binary library and a
+skimpy example program that is the only way currently known to access
+that hardware.  Use of the library is quite restricted; it may be
+specific to a particular operating system version or even development
+environment.
+
+\item A user acquires many such devices, and wants to use them
+all at the same time.
+
+\end{itemize}
+
+Let us call devices which can only be accessed using vendor supplied
+material ``sticky devices'' because they tend to make the particular
+set of assumptions made by the vendor stick to the user's code.
+Dealing with several sticky devices at once becomes a nightmare.
+Worse still, any and all of those assumptions could change on the
+next release of the hardware~-- this is particularly likely if the 
+hardware is very new.
+
+A logical step in such a situation is to wrap the functionality
+supplied by the vendor in a facade, so that at least source code
+dependencies can be reduced.  But at a more basic level,
+compilation and linking of application that accesses two or more
+sticky devices can be very involved.  An option that YARP makes
+available is for wrappers around the devices to be made individually,
+compiled and built separately, and then used across the network.
+When performance requirements permit this solution it is an
+effective mechanism for quarantining the sticky devices.
+
+We split the process of creating an interface to a device into two
+parts: the ``thin wrapper'', and the ``network wrapper''.  
+
+Writing the thin wrapper means creating a C++ API to the device
+that follows a simple regular structure defined by YARP
+(examples for interfacing with devices are usually written in C/C++).
+If there are similarities between this device and others,
+those similarities can be captures at this point by 
+shared interfaces with different implementations.
+Once the thin wrapper is written, user code that accesses
+the device through that wrapper is less affected by its ``stickiness''
+because:
+
+\begin{itemize}
+
+\item To the extent that user code uses interfaces shared by other
+devices, another device can be substituted later without change to
+that part.  This could also include future versions of the same family
+of hardware.
+
+\item The network wrapper, when written, will allow the thin wrapper
+interface to be used via the network.  This decouples the compilation,
+build environment, libraries, operating system, and language
+dependencies of the device software and the user software.
+
+\end{itemize}
+
+Wrappers are written for families of interfaces, and so in as much
+as one device is similar to existing devices, the network 
+wrapper may come for free.
+
+Why is it important to make devices easy to write?
+
+\begin{itemize}
+
+\item New hardware appears all the time, so the odds of a particular
+user being one of the first people interested in a particular device are
+non-negligible.  We are particularly interested in supporting humanoid
+robotics, where today's hardware is very lacking and we are guaranteed
+to be dealing with novel hardware for the forseeable future.
+
+\item Vendors may bundle hardware and software, and not permit
+redistribution of their software.  In practice, this can mean that
+work done to wrap a device by one group may not end up in a public
+repository, and so not reach other groups.  Licensing issues can push
+the amount of effort required above what a group is willing to
+casually contribute.  So some reinventing of the wheel is inevitable.
+This seems to be particularly the case on the Microsoft Windows
+platform, where the pool of free and open software available to build
+on is smaller and much more poorly packaged.
+
+\item There are several software architectures in existence for
+various overlapping robotics communities.  If someone has adapted
+a device to one of these architectures, it is still not trivial
+to use it in another.  YARP is trying to be a good citizen by
+reducing how much the core device code depends on YARP itself,
+making it in principle easier to reuse.
+
+
+\end{itemize}
+
+
+
+\subsection{The many-architecture problem}
+
+YARP is but one software architecture of many.  For example, in the
+world of mobile robotics, the Player/Stage project is widely used.
+
+We should be careful of assuming that the interface the end-user will
+want to the device is a YARP interface.
+
+The thin wrapper is a first step that attempts to reshape a
+device from a vendor into something a little bit more organized.
+
+The trajectory imagined for device creation:
+
+\begin{itemize}
+
+\item User works with whatever code they can get -- vendor
+supplied, from another project, etc.
+
+\item User wraps a simple class around the functionality,
+meeting YARP's simple specification for devices.  At this
+point, the reward they get is that device configuration
+can be easily made external to the code.  This is often
+useful when starting up a device for different purposes
+(normal, testing, different experimental parameters etc).
+
+\end{itemize}
+
+
+\subsection{Driver}
+
+We use the term ``Driver'' to refer to software interface the end-user
+has to a hardware device.  The software components involved in
+implementing the driver can be considered to be part of the device if
+we wish.  We can consider the process of taking a ``sticky device''
+and placing in a wrapper as a process of transforming the device such
+that drivers are easier to build.
+
+

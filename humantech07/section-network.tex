@@ -21,6 +21,59 @@ a very basic text-mode protocol.
 
 
 
+\subsection{Port abstraction}
+
+Data source knows nothing about identity of modules that monitor it.
+(picture).
+
+We follow the Observer design pattern. 
+
+Special ``Port'' objects deliver data to:
+
+Any number of observers (other ``Port''s) ...
+
+... in any number of processes ...
+
+... distributed across any number of computers/OSes ...
+
+using any of several underlying communication protocols with different
+technical advantages, streaming or RPC
+
+This is called the YARP Network
+
+Connections can use different protocols
+
+Ports belong to processes
+
+Processes can be on different machines/OS
+
+(picture)
+
+\subsection*{Network example}
+
+RobotCub picture, with gigabit network.
+
+\subsection*{Why?}
+
+We've separated out most of the plumbing
+
+We get to change it dynamically (handy)
+
+More importantly, we have better modularity
+
+Programs can be moved around as load and OS/device/library
+ dependencies dictate
+
+Fundamental protocol for communication can be changed without 
+affecting programs
+
+Better chance that your code can be used by others (even just within 
+your group)
+
+
+
+
+
 \subsection{Binary and text mode}
 
 There is a constant tension between using binary formats and
