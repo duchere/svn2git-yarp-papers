@@ -1,24 +1,17 @@
 
 \section{Programs and ports}
 
-YARP is a free and open source project.  Since its source code is
-released under a free and open license, useful parts of it can be used
-by other systems, and its operation can be studied.
+A very basic problem that keeps cropping up in robotics projects is
+simply how to move data around between sensors, processors,
+and actuators.  
 
-YARP has a large quantity of documentation (although we always need
-more).  The communication protocol it uses is documented, and can be
-interfaced with without using the YARP code-base.
 
-Beyond just documenting the communication protocol, particular attention
-has been devoted to make sure that that reading and writing data to a
-YARP port can be done with very little effort.  YARP ports will 
-accept and make connections of any of several different forms;
-for a program build without the YARP code-base, it suffices
-to implement just one of those connection types in order to
-get basic connectivity.  If bandwidth requirements are not
-excessive, the very simplest connection type can be implemented:
-a very basic text-mode protocol.
 
+
+
+
+
+\subsection{The YARP Network}
 
 
 \begin{figure}[t]
@@ -31,6 +24,23 @@ Port example.  Explanation.
 %
 }
 \end{figure}
+
+
+The ``YARP Network'' is built up of nodes called
+``ports'' and directed edges called ``connections''.
+Ports are owned by processes; many ports can belong to the same
+process.  They deliver data to and from their owner.
+
+Upon creation, by default every port communicates with a server and is
+allocated a ``contact'' (an abstract address).  By default this is a
+free socket port number to listen on using tcp.  The port will make
+itself available for communication as directed.  Its responsibility
+is only to listen for communication, and upon receiving anything
+to create its side of a connection (and then immediately return 
+to listening).  This is simply a generalization of a server socket.
+
+A newly created connection is not constrained to using the
+same ...
 
 
 
@@ -592,3 +602,25 @@ Probably localization would not be practical at the network
 protocol level.  Also approach to character encoding is
 primitive and ad-hoc; no guarantee that encoded data
 will survive in text-mode.
+
+
+\subsection{Other bits}
+
+YARP is a free and open source project.  Since its source code is
+released under a free and open license, useful parts of it can be used
+by other systems, and its operation can be studied.
+
+YARP has a large quantity of documentation (although we always need
+more).  The communication protocol it uses is documented, and can be
+interfaced with without using the YARP code-base.
+
+Beyond just documenting the communication protocol, particular attention
+has been devoted to make sure that that reading and writing data to a
+YARP port can be done with very little effort.  YARP ports will 
+accept and make connections of any of several different forms;
+for a program build without the YARP code-base, it suffices
+to implement just one of those connection types in order to
+get basic connectivity.  If bandwidth requirements are not
+excessive, the very simplest connection type can be implemented:
+a very basic text-mode protocol.
+
