@@ -113,30 +113,17 @@ operation is possible.  This is a trade-off though, because this
 model of communication can mske a network brittle by introducing
 strong coupling of timing between processes.
 
-This is called the YARP Network
+Connections can use different protocols.
+Ports belong to processes.
+Processes can be on different machines/OS.
 
-Connections can use different protocols
-
-Ports belong to processes
-
-Processes can be on different machines/OS
-
-\subsection*{Why?}
-
-We've separated out most of the plumbing
-
-We get to change it dynamically (handy)
-
-More importantly, we have better modularity
-
+We've separated out most of the plumbing.  We get to change it dynamically (handy).  More importantly, we have better modularity.
 Programs can be moved around as load and OS/device/library
- dependencies dictate
-
+ dependencies dictate.
 Fundamental protocol for communication can be changed without 
-affecting programs
-
+affecting programs.
 Better chance that your code can be used by others (even just within 
-your group)
+your group).
 
 
 
