@@ -57,10 +57,8 @@ propagated to the user code. As a result, if interfaces are well designed,
  the impact on the code due to hardware change is minimized (see 
 \ref{fig:devices2}). 
 
-Interfaces to broad families of devices have been defined in YARP. The 
-minimum interface to a YARP device is called DeviceDriver and defines 
-methods to open and close a device. Other families of devices defined in YARP
-are:
+Interfaces to broad families of devices have been defined in YARP. Other families 
+of devices defined in YARP are:
 
 IFrameGrabberRgb, which defines the interface to devices which generate 
 a stream of color images. Methods in this interface provide access to the most 
@@ -94,9 +92,11 @@ each axis (usually referred to as ``torque or force control'').
 These last three interfaces are indipendent of the particular algorithm the control
 board implements to realize the corresponding functionality. These details are 
 delegated to specific interfaces. For example IPidControl includes methods to 
-interface to a PID controller, including methods to read or set the value of the 
+interface to a PID controller, including methods to read or set the values of the 
 gains.
 
+All devices in YARP implements the DeviceDriver interface. The latter defines 
+methods to manage the initialization and de-initialization of the device: 
 
 \begin{verbatim}
   virtual bool open(yarp::os::Searchable& config)=0;
@@ -114,8 +114,6 @@ This method performs all the operations required to close the
 device properly and release all the resources it was using. No
 parameters are required by the function.
 
-Other interfaces defined in YARP are the 
-
 The DeviceDriver interface does not seem very useful at first. In practice this 
 interface is never exposed to the user, and is used by a Factory object to create
 the device. In YARP each device has a Factory object, which is responsible for 
@@ -124,10 +122,7 @@ the user and is the only ``access point'' to the device and its interfaces. Othe
 interfaces can be objtained by casting this pointer to the appropriate virtual 
 class (in C++ this can be safely done through dynamic cast). The PolyDriver object 
 provides an interface to simplify the whole process of device creation, 
-initialization and interface access:
-
-
-
+initialization and interface access.
 
 
 \begin{figure}[tbp]
