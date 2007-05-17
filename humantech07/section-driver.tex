@@ -60,14 +60,18 @@ propagated to the user code. As a result, if interfaces are well designed,
 Interfaces to broad families of devices have been defined in YARP. Other families 
 of devices defined in YARP are:
 
-IFrameGrabberRgb, which defines the interface to devices which generate 
+\begin{itemize}
+
+\item IFrameGrabberRgb, which defines the interface to devices which generate 
 a stream of color images. Methods in this interface provide access to the most 
 recent frame acquired by the device, and information about its size (number of 
 columns and rows).
 
-IFrameGrabberControls, specifies a set of functionalities to control a typical 
+\item IFrameGrabberControls, specifies a set of functionalities to control a typical 
 framegrabber device. Methods of this interface allows controlling the 
 parameters of acquisition of the device, like shutter speed, brightness and gain.
+
+\end{itemize}
 
 Interfaces to motor control devices are more difficult to define. Control boards 
 designed for industrial applications have often a quite stadard interface which 
@@ -77,19 +81,23 @@ implement virtually an infinite type of functionalities and control algorithms.
 For this reason interface to control boards has been defined on the basis of 
 the control paradigm they implement. Accordingly, YARP defines:
 
-IEncoder: group all methods providing access to the motor encoders, like methods
+\begin{itemize}
+
+\item IEncoder: group all methods providing access to the motor encoders, like methods
 for reading the current position of velocity of each axis
 
-IPositionControl: methods to control motion of each axis by specifying its position
-(usually referred to as ``position control'')
+\item IPositionControl: methods to control motion of each axis by specifying its 
+position (usually referred to as ``position control'')
 
-IVelocityControl: methods to contorl motion of each axis by specifying its velocity 
-(usually referred to as ``velocity control'')
+\item IVelocityControl: methods to contorl motion of each axis by specifying its 
+velocity (usually referred to as ``velocity control'')
 
-ITorqueControl: defiens methods to control the amount of force/torque exerted by 
-each axis (usually referred to as ``torque or force control'').
+\item ITorqueControl: defiens methods to control the amount of force/torque exerted 
+by each axis (usually referred to as ``torque or force control'').
 
-These last three interfaces are indipendent of the particular algorithm the control
+\end{itemize}
+
+These last interfaces are indipendent of the particular algorithm the control
 board implements to realize the corresponding functionality. These details are 
 delegated to specific interfaces. For example IPidControl includes methods to 
 interface to a PID controller, including methods to read or set the values of the 
@@ -107,7 +115,7 @@ function as a list of key-value entries (a ``Searchable'' object). The latter
 can be specified in a text file (more details later).
 
 \begin{verbatim}
-virtual bool close()=0;
+  virtual bool close()=0;
 \end{verbatim}
 
 This method performs all the operations required to close the 
@@ -115,15 +123,68 @@ device properly and release all the resources it was using. No
 parameters are required by the function.
 
 The DeviceDriver interface does not seem very useful at first. In practice this 
-interface is never exposed to the user, and is used by a Factory object to create
-the device. In YARP each device has a Factory object, which is responsible for 
-creating the device and returning a pointer to it. This pointer is returned to 
-the user and is the only ``access point'' to the device and its interfaces. Other 
-interfaces can be objtained by casting this pointer to the appropriate virtual 
-class (in C++ this can be safely done through dynamic cast). The PolyDriver object 
+interface is never exposed to the user. In YARP to each device corresponds a 
+Factory object, which is responsible for creating the device and returning a 
+pointer to it. This pointer is the only ``access point'' to the device and 
+its interfaces. Other interfaces can be objtained by casting this pointer to the 
+appropriate virtual class (in C++ this can be safely done through dynamic cast). 
+The ``PolyDriver'' object 
 provides an interface to simplify the whole process of device creation, 
-initialization and interface access.
+initialization and interface access. The ``Polydriver'' contains a list of devices 
+available in YARP and an instance to the corresponding Factory; normally a
+user asks the ``Polydriver'' to create an instance of the particular device driver
+he wants to use. Device drivers are uniquely identified through a symbolic name; 
+the Polydriver searches the list of device for an entry whose name matches the 
+one that is requested and, if the match is found, it calls the appropriate 
+Factory. If the driver is successfully created the Factory returns a valid pointer 
+which is stored internally to the ``Polydriver''. The lifecycle of the device is
+managed by YARP through the ``Polydriver''; the user can access only to copies of this
+pointer thourgh calls to the ``view'' method. The ``view''' method performs 
+a dynamic cast of the internal pointer to the device driver to expose the requested
+interface before returning it to the user.
 
+For example suppose we want to use the ``test\_motor'' device. In YARP this 
+is a fake device which simulates a control board controlling 4 axes. This device 
+supports the ``IPositionControl'' and ``IVelocity'' interfaces. To begin with, we have 
+to create an instance of the ``Polydriver''. The actual device is create 
+by calling the 'Polydriver::open()'' method specifying the symbolic name of the device 
+(e.g. ``test\_motor''):
+
+\begin{verbatim}
+  Polydriver device;
+  device.open(\"test\_motor\");
+\end{verbatim}
+
+Now we can ask interfaces to ``test\_motor'' by calling the 
+``Polydriver::view()'' method:
+
+\begin{verbatim}
+  IPositionControl *ipos=0;
+  device.view(ipos);
+
+  IVelocityControl *ivel=0;
+  device.view(ivel);
+\end{verbatim}
+
+Checking if ivel and ipos are not null assures that ``test\_motor'' really supports
+the respective interfaces.
+
+For example we can now call methods of the ``IPositionControl'' interface to control 
+joint $0$ to move to the angular position of $40deg$, with the velocity of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
+
+\begin{verbatim}
+ipos->setRefAcceleration(0, 100);
+ipos->setRefSpeed(0, 5)
+ipos->positionMove(0, 40);
+\end{verbatim}
+
+Or use the ``IVelocity'' interface to servo joint 1 at the velocity of 
+$5\frac{deg}{s}$ with the acceleration of $100\frac{deg}{s^2}$:
+
+\begin{verbatim}
+ivel->setRefAcceleration(1,100);
+ivel->velocityMove(1, 5);
+\end{verbatim}
 
 \begin{figure}[tbp]
 \centerline{
@@ -135,6 +196,21 @@ code access the hardware through these interfaces and is not aware of
 the details of how the methods are actually implemented. The different 
 initialization parameters are listed in configuration files and are thus 
 separated from the code}\label{fig:devices2}
+\end{figure}
+
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=24cm]{fig-devices3.eps}
+}
+\caption{Network wrappers allow device remotization. A generic Network 
+wrapper exports the YARP interfaces so that they can be accessed remotely 
+by another machine through an RPC mechanism. At the other side of the 
+communication the client wrapper exports the network interface back 
+to the YARP interfaces from which the device is transparently accessed 
+by the client code. The only difference between a local device and a 
+remote one is in term of performances (the time it takes to execute 
+a given function).
+}\label{fig:devices3}
 \end{figure}
 
 \begin{itemize}
