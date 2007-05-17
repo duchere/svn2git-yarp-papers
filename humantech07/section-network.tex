@@ -1,5 +1,5 @@
 
-\section{Network protocol}
+\section{Programs and ports}
 
 YARP is a free and open source project.  Since its source code is
 released under a free and open license, useful parts of it can be used
@@ -38,21 +38,39 @@ Port example.  Explanation.
 
 \subsection{Port abstraction}
 
-Data source knows nothing about identity of modules that monitor it.
-(picture).
+Communication in YARP generally follows the {\it Observer} design
+pattern. Special port objects deliver messages to any number of
+observers (other ports), in any number of processes, distributed
+across any number of machines, using any of several underlying
+communication protocols. Figure XXX is a very simple network of ports
+for a visual tracking application.
 
-We follow the Observer design pattern. 
+Images are transmitted from a camera (``/camera'') port to a viewer
+(``/viewer1'') port and the input of a visual tracker
+(``/tracker/image''). The tracker annotates the image, for example by
+placing a marker on a tracked point, and transmits that to another
+viewer (``/viewer2''). The tracker also sends just the tracked position
+from a position output port (``/tracker/position'') to a input
+controlling head position (``/motor/position''). Every port belongs to a
+process. They do not need to belong to the same process. Every
+connection can take place using a different protocol and/or physical
+network. The use of several different protocol allows us to exploit
+their best characteristics.
+TCP is reliable, it can be used to guarantee the reception of a message.
+UDP can be faster than TCP, but without guarantees.
+Multicast is efficient for distributing the same information to large
+numbers of targets.
+Shared memory can be employed for local connections.
 
-Special ``Port'' objects deliver data to:
+If messages follow YARP guidelines, then they can be
+automatically converted to and from a ``text mode'' connection, for easy
+human monitoring and intervention in the system.
 
-Any number of observers (other ``Port''s) ...
-
-... in any number of processes ...
-
-... distributed across any number of computers/OSes ...
-
-using any of several underlying communication protocols with different
-technical advantages, streaming or RPC
+Connections between ports in YARP can carry replies if desired,
+so conventional ``RPC'' (remote procedure call) style synchronous
+operation is possible.  This is a trade-off though, because this
+model of communication can mske a network brittle by introducing
+strong coupling of timing between processes.
 
 This is called the YARP Network
 
@@ -61,12 +79,6 @@ Connections can use different protocols
 Ports belong to processes
 
 Processes can be on different machines/OS
-
-(picture)
-
-\subsection*{Network example}
-
-RobotCub picture, with gigabit network.
 
 \subsection*{Why?}
 
@@ -84,8 +96,6 @@ affecting programs
 
 Better chance that your code can be used by others (even just within 
 your group)
-
-
 
 
 
