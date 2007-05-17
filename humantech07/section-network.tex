@@ -36,6 +36,12 @@ of YARP to know anything about that.
 
 \end{itemize}
 
+Communication in YARP generally follows the {\it Observer} design
+pattern. Special port objects deliver messages to any number of
+observers (other ports), in any number of processes, distributed
+across any number of machines, using any of several underlying
+communication protocols. Figure XXX is a very simple network of ports
+for a visual tracking application.
 
 
 
@@ -51,41 +57,7 @@ of YARP to know anything about that.
 }
 \caption{
 %
-Port example.  Explanation.
-%
-}
-\end{figure}
-
-
-The ``YARP Network'' is built up of nodes called
-``ports'' and directed edges called ``connections''.
-Ports are owned by processes; many ports can belong to the same
-process.  They deliver data to and from their owner.
-
-Upon creation, by default every port communicates with a server and is
-allocated a ``contact'' (an abstract address).  By default this is a
-free socket port number to listen on using tcp.  The port will make
-itself available for communication as directed.  Its responsibility
-is only to listen for communication, and upon receiving anything
-to create its side of a connection (and then immediately return 
-to listening).  This is simply a generalization of a server socket.
-
-A newly created connection is not constrained to using the
-same ...
-
-
-
-
-
-\subsection{Port abstraction}
-
-Communication in YARP generally follows the {\it Observer} design
-pattern. Special port objects deliver messages to any number of
-observers (other ports), in any number of processes, distributed
-across any number of machines, using any of several underlying
-communication protocols. Figure XXX is a very simple network of ports
-for a visual tracking application.
-
+Port example.
 Images are transmitted from a camera (``/camera'') port to a viewer
 (``/viewer1'') port and the input of a visual tracker
 (``/tracker/image''). The tracker annotates the image, for example by
@@ -95,13 +67,59 @@ from a position output port (``/tracker/position'') to a input
 controlling head position (``/motor/position''). Every port belongs to a
 process. They do not need to belong to the same process. Every
 connection can take place using a different protocol and/or physical
-network. The use of several different protocol allows us to exploit
+network.
+%
+}
+\end{figure}
+
+For the purposes of YARP, communication takes place through
+``connections'' between named entities called ``ports''. These form a
+directed graph, the ``YARP Network'', where ports are the nodes, and
+connections are the edges.
+
+Each port is assigned a unique name, such as
+``/icub/camera/left''. Every port is registered by name with a ``name
+server''. The goal is to ensure that if you know the name of a port,
+that is all you need in order to be able to communicate with it from
+any machine.
+
+The purpose of ports is to move data from one thread to another (or
+several others) across process and machine boundaries. The flow of
+data can be manipulated and monitored externally (e.g. from the
+command-line) at run-time. In other words, the edges in the YARP
+Network are entirely mutable.
+
+A port can send data to any number of other ports. A port can receive
+data from any number of other ports. Connections between ports can be
+freely added or removed, and may use different underlying transports.
+ The use of several different protocol allows us to exploit
 their best characteristics.
 TCP is reliable, it can be used to guarantee the reception of a message.
 UDP can be faster than TCP, but without guarantees.
 Multicast is efficient for distributing the same information to large
 numbers of targets.
 Shared memory can be employed for local connections.
+
+The YARP name server is a server that tracks information about
+ports. It indexes this information by name, playing a role analogous
+to DNS on the internet. To communicate with a port, the properties of
+that port need to be known (the machine it is running on, the socket
+it is listening on, the carriers it supports). The YARP name server
+offers a convenient place to store these properties, so that only the
+name of the port is needed to recover them.
+
+
+%% Upon creation, by default every port communicates with a server and is
+%% allocated a ``contact'' (an abstract address).  By default this is a
+%% free socket port number to listen on using tcp.  The port will make
+%% itself available for communication as directed.  Its responsibility
+%% is only to listen for communication, and upon receiving anything
+%% to create its side of a connection (and then immediately return 
+%% to listening).  This is simply a generalization of a server socket.
+
+
+%%\subsection{Port abstraction}
+
 
 If messages follow YARP guidelines, then they can be
 automatically converted to and from a ``text mode'' connection, for easy
@@ -113,21 +131,20 @@ operation is possible.  This is a trade-off though, because this
 model of communication can mske a network brittle by introducing
 strong coupling of timing between processes.
 
-Connections can use different protocols.
-Ports belong to processes.
-Processes can be on different machines/OS.
+%%Connections can use different protocols.
+%%Ports belong to processes.
+%%Processes can be on different machines/OS.
 
-We've separated out most of the plumbing.  We get to change it dynamically (handy).  More importantly, we have better modularity.
+We've separated out most of the plumbing.  We get to change it
+dynamically (handy).  More importantly, we have better modularity.
 Programs can be moved around as load and OS/device/library
- dependencies dictate.
-Fundamental protocol for communication can be changed without 
-affecting programs.
-Better chance that your code can be used by others (even just within 
-your group).
+dependencies dictate.  Fundamental protocol for communication can be
+changed without affecting programs.  Better chance that your code can
+be used by others (even just within your group).
 
 
 
-\subsection{Binary and text mode}
+\subsection{Human readable/writable communication}
 
 There is a constant tension between using binary formats and
 human-readable formats.  Binary formats can be much more efficient,
@@ -150,17 +167,18 @@ this format, but the format is also used by special purpose classes
 such as Vector and Image.  Extensive examples are available on how
 to generate data in this form.
 
-\subsection{The bottle representation}
-
 The bottle representation is based on a nested structure of certain
 primitive types.  
-
 Here are some informal examples of bottles, expressed in text form:
 
-\begin{tabular}{p{5cm}p{6cm}}
+\begin{tabular}{|p{5cm}|p{6cm}|}
+\hline
 10 20 30 & a list of three integers \\
+\hline
 10.0 20.5 31.4159 & a list of three floating point numbers \\
-action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers
+\hline
+action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers \\
+\hline
 \end{tabular}
 
 The structure is basically that of an s-expression
@@ -184,9 +202,11 @@ Vocabs are represented as simple integers in binary, and short
 mapping between the characters and bytes in the integer.  
 
 
-\begin{tabular}{p{5cm}p{6cm}}
+\begin{tabular}{|p{5cm}|p{6cm}|}
+\hline
 [set] [pos] 1 30.3 & a list of two vocabs, an integer, and a floating
-point number -- perhaps to set the position of a specific axis.
+point number -- perhaps to set the position of a specific axis. \\
+\hline
 \end{tabular}
 
 The important point is that under normal operation, ports can be
@@ -251,29 +271,25 @@ information could come from file, command line options, or across the
 network, it is convenient to have all the various represenations
 mapping to a homogeneous structure.
 
+%% \subsection{Examples}
+
+%% Capital letters are constants
+%% (L=List, D=Double, I=Integer, S=String, B=Blob, V=Vocab).
+
+%% A vector of 4 doubles.  S-expression: (1.0 -20.0 76.2 41.9).
+
+%% \newcommand{\mm}{p{0.25cm}}
+%% \newcommand{\m}{p{1cm}}
+%% \newcommand{\md}{p{2cm}}
+
+%% \begin{tabular}{|\m|\m|\md|\md|\md|\md|}
+%% \hline
+%% L+D & 4 & 1.0 & -20.0 & 76.2 & 41.9 \\
+%% \hline
+%% \end{tabular}
 
 
-\subsection{Examples}
-
-Capital letters are constants
-(L=List, D=Double, I=Integer, S=String, B=Blob, V=Vocab).
-
-
-
-A vector of 4 doubles.  S-expression: (1.0 -20.0 76.2 41.9).
-
-\newcommand{\mm}{p{0.25cm}}
-\newcommand{\m}{p{1cm}}
-\newcommand{\md}{p{2cm}}
-
-\begin{tabular}{|\m|\m|\md|\md|\md|\md|}
-\hline
-L+D & 4 & 1.0 & -20.0 & 76.2 & 41.9 \\
-\hline
-\end{tabular}
-
-
-\subsection{Fiddling with the format}
+%%\subsection{Fiddling with the format}
 
 For robotics applications that are confined to a 
 local area network with all source code available,
@@ -314,7 +330,7 @@ We begin once the sender has successfully opened a bidirectional
 streaming connection (think: tcp socket) to the receiver.
 
 
-\subsubsection{Handshake phase}
+\subsubsection*{Handshake phase}
 
 This phase follows immediately after the connection is established.
 
@@ -345,7 +361,7 @@ other end of the connection.  This can be important for collaboration
 during connection shutdown.
 
 
-\subsubsection{Message phase}
+\subsubsection*{Message phase}
 
 After the handshake, the connection is (as far as YARP is concerned)
 quiescent until either the sender decides to send a message across it.
@@ -372,7 +388,7 @@ acknowledge transmission in some way.  Carrier-dependent.
 The message phase repeats as often as the user wants.
 
 
-\subsection{What isn't carrier-dependent?}
+\subsubsection*{What isn't carrier-dependent?}
 
 The description so far sounds very loose -- just about every aspect
 of a connection is carrier-dependent.  What does YARP actually
@@ -404,23 +420,22 @@ then extracted at the other end.  In future carriers will be given
 more control over how this material (called the ``port protocol'') is
 embedded.
 
-Everything else is convention.
 
-\begin{tabular}{c|c|c}
-\hline
-8-byte magic number&protocol&variant \\\hline
-`Y' `A' 0x61 0x1E 0 0 `R' `P'&udp&\\\hline
-`Y' `A' 0x\-E1 0x1E 0 0 `R' `P'&udp&\\\hline
-`Y' `A' 0x62 0x1E 0 0 `R' `P'&mcast&\\\hline
-`Y' `A' 0x\-E2 0x1E 0 0 `R' `P'&mcast&\\\hline
-`Y' `A' 0x63 0x1E 0 0 `R' `P'&shmem&\\\hline
-`Y' `A' 0x\-E3 0x1E 0 0 `R' `P'&shmem&\\\hline
-`Y' `A' 0x64 0x1E 0 0 `R' `P'&tcp&without acks \\\hline
-`Y' `A' 0x\-E4 0x1E 0 0 `R' `P'&tcp&with acks \\\hline
-`C' `O' `N' `N' `E' `C' `T' ` ' &text&without acks \\\hline
-`C' `O' `N' `N' `A' `C' `K' ` ' &text&with acks \\\hline
-`L' `O' `C' `A' `L' `I' `T' `Y'&local&\\\hline
-\end{tabular}
+%% \begin{tabular}{c|c|c}
+%% \hline
+%% 8-byte magic number&protocol&variant \\\hline
+%% `Y' `A' 0x61 0x1E 0 0 `R' `P'&udp&\\\hline
+%% `Y' `A' 0x\-E1 0x1E 0 0 `R' `P'&udp&\\\hline
+%% `Y' `A' 0x62 0x1E 0 0 `R' `P'&mcast&\\\hline
+%% `Y' `A' 0x\-E2 0x1E 0 0 `R' `P'&mcast&\\\hline
+%% `Y' `A' 0x63 0x1E 0 0 `R' `P'&shmem&\\\hline
+%% `Y' `A' 0x\-E3 0x1E 0 0 `R' `P'&shmem&\\\hline
+%% `Y' `A' 0x64 0x1E 0 0 `R' `P'&tcp&without acks \\\hline
+%% `Y' `A' 0x\-E4 0x1E 0 0 `R' `P'&tcp&with acks \\\hline
+%% `C' `O' `N' `N' `E' `C' `T' ` ' &text&without acks \\\hline
+%% `C' `O' `N' `N' `A' `C' `K' ` ' &text&with acks \\\hline
+%% `L' `O' `C' `A' `L' `I' `T' `Y'&local&\\\hline
+%% \end{tabular}
 
 
 
@@ -611,34 +626,4 @@ with other programs via binary messages over udp or multicast etc.
 %port supporting all the carriers that YARP does would be quite a lot
 %of work.  To make a basic port that just supports text-mode tcp
 %communication is easier.  A demo is a little cumbersome for this paper...
-
-
-\subsection{Problems}
-
-Not localization friendly, English bias at a quite low level.
-Probably localization would not be practical at the network
-protocol level.  Also approach to character encoding is
-primitive and ad-hoc; no guarantee that encoded data
-will survive in text-mode.
-
-
-\subsection{Other bits}
-
-YARP is a free and open source project.  Since its source code is
-released under a free and open license, useful parts of it can be used
-by other systems, and its operation can be studied.
-
-YARP has a large quantity of documentation (although we always need
-more).  The communication protocol it uses is documented, and can be
-interfaced with without using the YARP code-base.
-
-Beyond just documenting the communication protocol, particular attention
-has been devoted to make sure that that reading and writing data to a
-YARP port can be done with very little effort.  YARP ports will 
-accept and make connections of any of several different forms;
-for a program build without the YARP code-base, it suffices
-to implement just one of those connection types in order to
-get basic connectivity.  If bandwidth requirements are not
-excessive, the very simplest connection type can be implemented:
-a very basic text-mode protocol.
 
