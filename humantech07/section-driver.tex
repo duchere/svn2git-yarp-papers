@@ -147,16 +147,16 @@ For example suppose we want to use the ``test\_motor'' device. In YARP this
 is a fake device which simulates a control board controlling 4 axes. This device 
 supports the ``IPositionControl'' and ``IVelocity'' interfaces. To begin with, we have 
 to create an instance of the ``Polydriver''. The actual device is create 
-by calling the 'Polydriver::open()'' method specifying the symbolic name of the device 
-(e.g. ``test\_motor''):
+by calling the ``Polydriver::open()'' method specifying the symbolic name of the 
+device (e.g. ``test\_motor''):
 
 \begin{verbatim}
   Polydriver device;
   device.open(\"test\_motor\");
 \end{verbatim}
 
-Now we can ask interfaces to ``test\_motor'' by calling the 
-``Polydriver::view()'' method:
+Now we can ask interfaces to ``test\_motor'' by calling the ``Polydriver::view()'' 
+method:
 
 \begin{verbatim}
   IPositionControl *ipos=0;
@@ -169,7 +169,7 @@ Now we can ask interfaces to ``test\_motor'' by calling the
 Checking if ivel and ipos are not null assures that ``test\_motor'' really supports
 the respective interfaces.
 
-For example we can now call methods of the ``IPositionControl'' interface to control 
+We can now call methods of the ``IPositionControl'' interface to control 
 joint $0$ to move to the angular position of $40deg$, with the velocity of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
 
 \begin{verbatim}
@@ -195,8 +195,46 @@ the same interfaces (through their respective wrapper classes). The user
 code access the hardware through these interfaces and is not aware of 
 the details of how the methods are actually implemented. The different 
 initialization parameters are listed in configuration files and are thus 
-separated from the code}\label{fig:devices2}
+separated from the code.}\label{fig:devices2}
 \end{figure}
+
+A further level of separation is achieved by supporting device remotization. 
+This feature is important because flexibility imposes 
+that processes are written so that they can be easily moved across distinct machines 
+if required. Knowledge of whether a process is accessing a given device locally or 
+remotely would clearly limit this flexibility, because would force modification 
+in the code of the process itself. Remotization also facilitate portability 
+across different platforms, as it naturally defines a ``binary'' interface that can 
+be used to make resources available on one platform to processes compiled and running 
+on a different one.
+
+The remotization mechanism relies on the communication layer (see \emph{add 
+reference to port section} and on two \emph{Network Wrappers} one acting as a 
+\emph{Server} and the other acting as a \emph{Client}. Both \emph{Network Wrappers} 
+are devices implementing the very same set of interfaces as the device they wrap. 
+Both devices act proxies and talk to each other using a predefined 
+protocol, which involves one or more YARP Ports configured for RPC or streaming
+(see \ref{fig:devices3})
+
+The \emph{Server Wrapper} creates an instance of the wrapped device and forwards 
+requests from the incoming connections to the device by calling its interfaces. 
+If the request involves a reply this is sent back to the calling port so that it 
+is received by the remote client. The mechanism used by the \emph{Server Wrapper} 
+to access the local device is the same we have described for the user code; as 
+such the \emph{Server Wrapper} is a total independent entity that can be reused 
+for all devices implementing the same interface(s). 
+
+The process at the other side of the communication creates the 
+\emph{Client Wrapper}. The latter exports exactly the same interfaces as the 
+device driver it wraps so the process is not aware that it is not talking to 
+a real device. The job of the \emph{Client Wrapper} is to convert calls from 
+the user code in packets of bytes and send them to the other end of the 
+communication, and, in case a reply is expected, waits for data and dispatch 
+it to the calling process. The responsibility of the proxies among the other 
+things is to perform the marshalling and de-marshalling of the information 
+so that it is correctly interpreted by the distinct platforms (e.g. data can 
+be represented using different standards).
+
 
 \begin{figure}[tbp]
 \centerline{
