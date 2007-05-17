@@ -1,9 +1,87 @@
-
-
 \section{Devices and Drivers}
 
-Lorenzo?
+Code reuse becomes difficult at the level at which algorithms 
+communicate with the low-level hardware. The OS layer of YARP tries 
+to minimize dependencies between algorithms and the hardware for 
+which the operating system defines a constant interface (threading, 
+memory, network, filesystem). Unfortunately more specific harware 
+(motor control boards and framegrabbers are just 
+popular examples) requires a more sophisticated mechanism. In these 
+cases vendors provide device drivers and a set of API to simplify 
+code development. The API comes in the form of a static or dynamic 
+library which must be linked in the user code. Unfortunately
+APIs vary a lot even within devices that belong to the same family. 
+Even worse the API of the same hardware may vary on different 
+operating systems or change on future releases. User code becomes 
+dependent on the particular board for which it was initially developed 
+and bound to the decisions and assumptions of the vendor. For 
+example venodor A might decide to use integers to represent the position 
+of a motor joint, wheras vendor B might decide to use a floating point
+variable. More often even similar devices have different ``initialization'' 
+procedure. Consider for example a motor control board which has a serial
+interface to the host computer; the API of this board will probably require 
+that some parameters (port number, baud rate, number of data bits, etc) are 
+specified when the device is created. These parameters will be different 
+those required by the API of the version of the board that has a USB 
+interface (see \ref{fig:devices1}). When possible these (and other) 
+differences must be hidden if we want that the same user code can 
+effectively interface to the two devices.
 
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=24cm]{fig-devices1.eps}
+}
+\caption{Example of code dependency. VA-Board is a 
+motor control board which interface to the robot through serial port. 
+Changes in the board (in the example above the VB-Board uses USB) are 
+propagated to the user code.}\label{fig:devices1}
+\end{figure}
+
+YARP implements the separation between user and device specific code 
+in three ways: i) separation between device initialization and user code 
+ii) definition of interfaces for device families and ii) creation of 
+network wrappers and separation between devices and communication. 
+
+An interface to a YARP device is the specification of the functionalities
+it provides. The implementation of a YARP device consists in a  
+``wrapper'' class which implements at least all methods specified by
+the interface. All details specific of the hardware (vendor's API and 
+library) are handled here and are hidden by the interface. The idea is 
+that changes in the hardware are catched by the wrapper class and never 
+propagated to the user code. As a result, if interfaces are well designed,
+ the impact on the code due to hardware change is minimized (see 
+\ref{fig:devices2}). 
+Interfaces to broad classes of devices have been defined in YARP. The 
+minimum interface to a YARP device is called DeviceDriver and defines 
+the following methods:
+
+\begin{verbatim}
+  virtual bool open(yarp::os::Searchable& config)=0;
+\end{verbatim}
+
+This method opens the device. Parameters to the devices are passed to the
+function as a list of key-value entries (Searchable). The latter can be 
+specified in a text file.
+
+\begin{verbatim}
+virtual bool close()=0;
+\end{verbatim}
+
+This method performs all the operations required to close the 
+device properly and release all the resources it was using. No
+parameters are required by the function.
+
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=24cm]{fig-devices2.eps}
+}
+\caption{Interfaces allow code reuse. VA-Board and VB-Boards now implemnt
+the same interfaces (through their respective wrapper classes). The user 
+code access the hardware through these interfaces and is not aware of 
+the details of how the methods are actually implemented. The different 
+initialization parameters are listed in configuration files and are thus 
+separated from the code}\label{fig:devices2}
+\end{figure}
 
 \begin{itemize}
 
