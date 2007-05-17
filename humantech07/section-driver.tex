@@ -38,30 +38,73 @@ propagated to the user code.}\label{fig:devices1}
 \end{figure}
 
 YARP implements the separation between user and device specific code 
-in three ways: i) separation between device initialization and user code 
-ii) definition of interfaces for device families and ii) creation of 
-network wrappers and separation between devices and communication. 
+in three ways: i) definition of interfaces for device families ii) 
+separation of device initialization and creation from the rest of the code and 
+ii) creation of network wrappers and separation between devices and 
+communication. 
 
 An interface to a YARP device is the specification of the functionalities
-it provides. The implementation of a YARP device consists in a  
-``wrapper'' class which implements at least all methods specified by
-the interface. All details specific of the hardware (vendor's API and 
-library) are handled here and are hidden by the interface. The idea is 
-that changes in the hardware are catched by the wrapper class and never 
+it provides. In practice in C++ an interface is a virtual base class, whose 
+member functions define the ensamble of the functionalities a device must 
+implement to be able to provide that interface. The implementation of a 
+YARP device consists in a ``wrapper'' class which implements all 
+methods specified by the interface. A single device can of course expose 
+more than a single interface (in C++ this is implemented through multiple
+inheritance). All details specific of the hardware 
+(vendor's API and library) are handled here and are hidden by its interfaces. 
+The idea is that changes in the hardware are catched by the wrapper class and never 
 propagated to the user code. As a result, if interfaces are well designed,
  the impact on the code due to hardware change is minimized (see 
 \ref{fig:devices2}). 
-Interfaces to broad classes of devices have been defined in YARP. The 
+
+Interfaces to broad families of devices have been defined in YARP. The 
 minimum interface to a YARP device is called DeviceDriver and defines 
-the following methods:
+methods to open and close a device. Other families of devices defined in YARP
+are:
+
+IFrameGrabberRgb, which defines the interface to devices which generate 
+a stream of color images. Methods in this interface provide access to the most 
+recent frame acquired by the device, and information about its size (number of 
+columns and rows).
+
+IFrameGrabberControls, specifies a set of functionalities to control a typical 
+framegrabber device. Methods of this interface allows controlling the 
+parameters of acquisition of the device, like shutter speed, brightness and gain.
+
+Interfaces to motor control devices are more difficult to define. Control boards 
+designed for industrial applications have often a quite stadard interface which 
+provides a PID control algorithm and position or velocity control modes. Things 
+become more complicated when we consider also programmable devices that can 
+implement virtually an infinite type of functionalities and control algorithms. 
+For this reason interface to control boards has been defined on the basis of 
+the control paradigm they implement. Accordingly, YARP defines:
+
+IEncoder: group all methods providing access to the motor encoders, like methods
+for reading the current position of velocity of each axis
+
+IPositionControl: methods to control motion of each axis by specifying its position
+(usually referred to as ``position control'')
+
+IVelocityControl: methods to contorl motion of each axis by specifying its velocity 
+(usually referred to as ``velocity control'')
+
+ITorqueControl: defiens methods to control the amount of force/torque exerted by 
+each axis (usually referred to as ``torque or force control'').
+
+These last three interfaces are indipendent of the particular algorithm the control
+board implements to realize the corresponding functionality. These details are 
+delegated to specific interfaces. For example IPidControl includes methods to 
+interface to a PID controller, including methods to read or set the value of the 
+gains.
+
 
 \begin{verbatim}
   virtual bool open(yarp::os::Searchable& config)=0;
 \end{verbatim}
 
 This method opens the device. Parameters to the devices are passed to the
-function as a list of key-value entries (Searchable). The latter can be 
-specified in a text file.
+function as a list of key-value entries (a ``Searchable'' object). The latter 
+can be specified in a text file (more details later).
 
 \begin{verbatim}
 virtual bool close()=0;
@@ -70,6 +113,22 @@ virtual bool close()=0;
 This method performs all the operations required to close the 
 device properly and release all the resources it was using. No
 parameters are required by the function.
+
+Other interfaces defined in YARP are the 
+
+The DeviceDriver interface does not seem very useful at first. In practice this 
+interface is never exposed to the user, and is used by a Factory object to create
+the device. In YARP each device has a Factory object, which is responsible for 
+creating the device and returning a pointer to it. This pointer is returned to 
+the user and is the only ``access point'' to the device and its interfaces. Other 
+interfaces can be objtained by casting this pointer to the appropriate virtual 
+class (in C++ this can be safely done through dynamic cast). The PolyDriver object 
+provides an interface to simplify the whole process of device creation, 
+initialization and interface access:
+
+
+
+
 
 \begin{figure}[tbp]
 \centerline{
@@ -84,7 +143,6 @@ separated from the code}\label{fig:devices2}
 \end{figure}
 
 \begin{itemize}
-
 
 \item Summarize argument that, long term, free software approach 
 is better for supporting devices especially with smaller user
