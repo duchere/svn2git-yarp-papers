@@ -472,23 +472,20 @@ as we'll see shortly).
 
 We can then connect manually to the port as follows:
 
-\begin{tabular}{|l|l|}
+\setlength{\doublerulesep}{\arrayrulewidth}
+
+\begin{center}
+\begin{tabular}{ll}
+\hline\hline
+{\bf user types} & {\bf system responds} \\
 \hline
-(type in shell) & telnet 127.0.0.1 10022 \\
-\hline
-(type in telnet) & CONNECT foo \\
-\hline
-telnet responds with: & Welcome foo \\
-\hline
-(type in telnet) & help \\
-\hline
-telnet responds with: & (an explanation of available commands) \\
-\hline
-(type in telnet) & * \\
-\hline
-telnet responds with: & This is /demo at tcp://127.0.0.1:10032 ... \\
+{\bf \$} telnet 127.0.0.1 10022 & {\it (telnet startup message)} \\
+CONNECT foo & Welcome foo \\
+help & {\it (an explanation of available commands)} \\
+* & This is /demo at tcp://127.0.0.1:10032 ... \\
 \hline
 \end{tabular}
+\end{center}
 
 Everything so far would be basically the same for any YARP port.
 For people who have used MUDs, IRC, or serial interfaces to hardware,
@@ -502,28 +499,20 @@ bytes we sent, ``CONNECT '' in this case), this is done by typing
 ``d'', hitting return, then writing a text-mode representation of
 the data we want to send.  Let's try it:
 
-\begin{tabular}{|l|l|}
+\begin{center}
+\begin{tabular}{ll}
+\hline\hline
+{\bf user types} & {\bf system responds} \\
 \hline
-(type in telnet) & d \\
+ d & {\it (no response, waiting for data)} \\
+ help & {\it (a list of available yarpdev commands)} \\
+ d & {\it (no response, waiting for data)} \\
+ {[get] [axes]} &  {[is] [axes] 2 [ok]} \\
+ d & {\it (no response, waiting for data)} \\
+ {[set] [pos] 0 100.0} & {[ok]} \\
 \hline
-(type in telnet) & help \\
-\hline
-telnet responds with: & (a list of possible yarpdev messages)\\
-\hline
-(type in telnet) & d \\
-\hline
-(type in telnet) & [get] [axes] \\
-\hline
-telnet responds with: & [is] [axes] 2 [ok] \\
-\hline
-(type in telnet) & d \\
-\hline
-(type in telnet) & [set] [pos] 0 100.0 \\
-\hline
-telnet responds with: & [ok] \\
-\hline
-
 \end{tabular}
+\end{center}
 
 We have determined that there are indeed two axes available as we requested
 when starting yarpdev, and have set the position target for the
@@ -538,27 +527,23 @@ Reversing means to invert which side should take the initiative
 in sending data.
 
 
-\begin{tabular}{|l|l|}
+\begin{center}
+\begin{tabular}{ll}
+\hline\hline
+{\bf user types} & {\bf system responds} \\
 \hline
-(type in shell) & telnet 127.0.0.1 10022 \\
-\hline
-(type in telnet) & CONNECT foo \\
-\hline
-telnet responds with: & Welcome foo \\
-\hline
-(type in telnet) & r \\
-\hline
-telnet responds with: & do \\
-\hline
- & 100.0 0.0 \\
-\hline
+{\bf \$} telnet 127.0.0.1 10022 & {\it (telnet startup message)} \\
+CONNECT foo & Welcome foo \\
+r & do \\
+& 100.0 0.0 \\
  & do \\
-\hline
  & 100.0 0.0 \\
-\hline
- & ... \\
+ & {\it (continues streaming motor state)} \\
+ & \ldots \\
 \hline
 \end{tabular}
+\end{center}
+
 
 The ``do'' is just like ``d'', to inform the recipient that user data
 follows.  The ``o'' part means that replies are not expected by the
@@ -587,27 +572,22 @@ on.  Suppose it is on 127.0.0.1 listening to port number 10000.
 We can communicate with the name server exactly as with any regular
 port.
 
-\begin{tabular}{|l|p{8cm}|}
+
+\begin{center}
+\begin{tabular}{lp{8cm}}
+\hline\hline
+{\bf user types} & {\bf system responds} \\
 \hline
-(type in shell) & telnet 127.0.0.1 10000 \\
-\hline
-(type in telnet) & CONNECT foo \\
-\hline
-telnet responds with: & Welcome foo \\
-\hline
-(type in telnet) & d \\
-\hline
-(type in telnet) & help \\
-\hline
-telnet responds with: & (an explanation of available name server commands) \\
-\hline
-(type in telnet) & d \\
-\hline
-(type in telnet) & query /motors \\
-\hline
-telnet responds with: & registration name /motors ip 127.0.0.1 port 10022 type tcp \\
+{\bf \$} telnet 127.0.0.1 10000 & {\it (telnet startup message)} \\
+CONNECT foo & Welcome foo \\
+ d & {\it (no response, waiting for data)} \\
+ help & {\it (a list of available name server commands)} \\
+ d & {\it (no response, waiting for data)} \\
+ {query /motors} &  registration name /motors ip 127.0.0.1 port 10022 type tcp \\
 \hline
 \end{tabular}
+\end{center}
+
 
 So we now know how to reach /motors (tcp connection to 127.0.0.1 port 10022).
 %
