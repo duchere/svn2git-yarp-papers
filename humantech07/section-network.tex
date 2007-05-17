@@ -392,17 +392,17 @@ Suppose some YARP programs are running and we want to send or
 receive data from them.
 
 For example, suppose there is a YARP system running, with a 
-port called ``/motor'' which will accept commands to move a
+port called ``/motors'' which will accept commands to move a
 motor.  For concreteness, let's imagine we have started the
 following standard YARP programs (on the same or different 
 machines):
 
 \begin{verbatim}
 yarp server
-yarpdev --device test_motor --axes 2 --single_port --name /demo
+yarpdev --device test_motor --axes 2 --single_port --name /motors
 \end{verbatim}
 
-The ``yarpdev'' program here creates a port called ``/demo'' that can
+The ``yarpdev'' program here creates a port called ``/motors'' that can
 accept command to a fake set of motors (2 axes or degrees of freedom),
 and report on their state.
 
@@ -413,7 +413,7 @@ we do?
 
 YARP ports listen to incoming tcp connections, always ready to make
 new connections for input or output.  Suppose we can discover that
-``/demo'' is listening on port 10022 of our current machine (we could
+``/motors'' is listening on port 10022 of our current machine (we could
 discover that using netstat on Linux, or by querying the YARP server
 as we'll see shortly).
 
@@ -520,6 +520,59 @@ the carrier we want to use (tcp binary, udp, mcast, shmem, etc).
 Understanding these carriers is a bit harder than basic text-mode operation,
 but logically it is all the same thing.
 
+One part we skipped at the start was how to discover how to 
+access ports in ths first place.  If we know the port we want
+is called ``/motors'', how do we discover where it is?
+
+To do that, we need to talk to the ``yarp server'', which is analogous
+to a standard DNS name server.  If we're using YARP, our program would
+be able to discover where the server is by itself (by checking
+standard configuration files if available or sending broadcast
+messages if necessary).  Or, if we don't want to use yarp at all, we
+can simply make a note of what machine and port number it is running
+on.  Suppose it is on 127.0.0.1 listening to port number 10000.
+We can communicate with the name server exactly as with any regular
+port.
+
+\begin{tabular}{|l|p{8cm}|}
+\hline
+(type in shell) & telnet 127.0.0.1 10000 \\
+\hline
+(type in telnet) & CONNECT foo \\
+\hline
+telnet responds with: & Welcome foo \\
+\hline
+(type in telnet) & d \\
+\hline
+(type in telnet) & help \\
+\hline
+telnet responds with: & (an explanation of available name server commands) \\
+\hline
+(type in telnet) & d \\
+\hline
+(type in telnet) & query /motors \\
+\hline
+telnet responds with: & registration name /motors ip 127.0.0.1 port 10022 type tcp \\
+\hline
+\end{tabular}
+
+So we now know how to reach /motors (tcp connection to 127.0.0.1 port 10022).
+%
+So, with a running YARP system, we have seen how to discover
+and communicate with running programs, sending commands and reading
+data, without using any YARP libraries or executables.  All the steps
+we've gone through are trivial in any language with a basic socket
+library (we're not using any special features of telnet, it is just
+for demonstration purposes).  It is important to remember, though,
+that while we've been communicating with the ``/motors'' port using
+text across tcp, at the same time the same port could be communicating
+with other programs via binary messages over udp or multicast etc.
+
+
+%What if we wanted to make a port ourselves?  To make a full-featured
+%port supporting all the carriers that YARP does would be quite a lot
+%of work.  To make a basic port that just supports text-mode tcp
+%communication is easier.  A demo is a little cumbersome for this paper...
 
 
 \subsection{Problems}
@@ -528,3 +581,4 @@ Not localization friendly, English bias at a quite low level.
 Probably localization would not be practical at the network
 protocol level.  Also approach to character encoding is
 primitive and ad-hoc; no guarantee that encoded data
+will survive in text-mode.

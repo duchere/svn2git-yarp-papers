@@ -1,0 +1,85 @@
+
+
+\section{YARP Basics}
+
+
+The sad fate of most robot software
+
+Modularity in robotics
+
+YARP: Yet Another Robot Platform
+
+Excising communication ``plumbing'' from code
+
+Excising device dependencies from code
+
+
+
+YARP is an open-source software library  for humanoid robotics
+
+History
+
+An MIT / LIRA-Lab collaboration
+
+Born on Kismet, grew on COG
+
+With a major overhaul, now used by RobotCub consortium
+
+Exists as an independent open source project
+
+C++ source code
+
+
+
+\subsection{What is YARP for}
+
+
+Factor out details of data flow between programs from program source code
+
+Data flow is very specific to robot platform, experimental setup,
+network layout, communication protocol, etc.
+
+Useful to keep ``algorithm'' and ``plumbing'' separate
+
+Factor out details of devices used by programs from program source code
+
+The devices can then be replaced over time by comparable alternatives;
+code can be used in other systems
+
+
+
+
+\subsection{Two views of a robot}
+
+From a software perspective, it is natural to consider a robot
+as a bundle of devices (sensors and actuators) that can be
+queried and controlled via whatever interfaces they provide.
+In YARP, we call this the ``device view'' of the robot.
+
+Interfaces to devices can be very idiosyncratic.  Some
+classes of devices (such as certain classes of camera) have become
+commoditized, and have relatively standard interfaces, leaving the
+user with considerable freedom in how those interfaces are used in
+software.  Other devices may be bundled with vendor-supplied software,
+without much freedom for the user to avoid dependencies or work around
+flaws.  This is understandable behavior on the part of a company,
+since decoupling their hardware and software could lead to more rapid
+competition and eventually commoditization, requiring rapid adjustment
+of business model in order to maintain competitiveness.  However,
+it can leave users of hardware in a bit of a bind.
+
+
+YARP offers two almost equivalent views of a robot.
+
+
+A set of ports to which you can connect and get data or send commands
+(port view).
+
+A set of devices which you can control or query according to a choice
+of interfaces (device view).
+
+The local device view: you are responsible for configuring and starting devices
+
+The remote device view: configuration and starting-up/shutting-down is
+packaged with the robot
+
