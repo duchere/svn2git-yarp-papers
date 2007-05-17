@@ -3,7 +3,38 @@
 
 A very basic problem that keeps cropping up in robotics projects is
 simply how to move data around between sensors, processors,
-and actuators.  
+and actuators.  There's a universe of ``middleware'' solutions
+in existence for communication.  Our own preferred solution
+in YARP has the following features:
+
+\begin{itemize}
+
+\item We use an abstract model of communication that is
+transport-neutral and peer-to-peer.
+
+\item The underlying transport used for each individual connection
+between peers can be selected independently.  Choices such as network
+versus shared memory, tcp versus udp, unicast versus multicast, text
+versus binary, which of several networks to transmit on, etc can be
+made based on a case by case basis.  We encourage such details to be
+external configuration choices rather than properties embedded in
+programs.
+
+\item We are careful to have one text-mode transport that is
+super-easy to implement, for those who wish to interact with a YARP
+system without using any of the YARP libraries or executables.  We
+believe this is very important for supporting interoperability.
+
+\item The model of communication is not intertwined with our
+ideas about how devices work or how processes should be started/stopped.
+
+\item Our implementation is portable.  We use the ACE operating system
+portability layer.  ACE is free and open source, and has a large
+community maintaining ports on many operating systems.  We do not use
+any aspects of ACE/TAO's CORBA implementation though, or expect users
+of YARP to know anything about that.
+
+\end{itemize}
 
 
 
