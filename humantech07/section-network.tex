@@ -1,4 +1,9 @@
 
+%% for nicer tables
+\setlength{\doublerulesep}{\arrayrulewidth}
+
+
+
 \section{Programs and ports}
 
 A very basic problem that keeps cropping up in robotics projects is
@@ -171,15 +176,19 @@ The bottle representation is based on a nested structure of certain
 primitive types.  
 Here are some informal examples of bottles, expressed in text form:
 
-\begin{tabular}{|p{5cm}|p{6cm}|}
+\begin{center}
+\begin{tabular}{lp{6cm}}
+\hline\hline
+{\bf text-form bottle} & {\bf interpretation} \\
 \hline
 10 20 30 & a list of three integers \\
-\hline
 10.0 20.5 31.4159 & a list of three floating point numbers \\
-\hline
 action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers \\
-\hline
+{[set] [pos] 1 30.3} & a list of two vocabs, an integer, and a floating
+point number -- perhaps to set the position of a specific axis. \\
+\hline\hline
 \end{tabular}
+\end{center}
 
 The structure is basically that of an s-expression
 \cite{rivest1997sexp}, except that the outermost parentheses are
@@ -201,13 +210,6 @@ Vocabs are represented as simple integers in binary, and short
 (up to four ASCII character) strings in text, with a one-to-one
 mapping between the characters and bytes in the integer.  
 
-
-\begin{tabular}{|p{5cm}|p{6cm}|}
-\hline
-[set] [pos] 1 30.3 & a list of two vocabs, an integer, and a floating
-point number -- perhaps to set the position of a specific axis. \\
-\hline
-\end{tabular}
 
 The important point is that under normal operation, ports can be
 sending fixed size messages to each other, but then when a human
@@ -472,8 +474,6 @@ as we'll see shortly).
 
 We can then connect manually to the port as follows:
 
-\setlength{\doublerulesep}{\arrayrulewidth}
-
 \begin{center}
 \begin{tabular}{ll}
 \hline\hline
@@ -483,7 +483,7 @@ We can then connect manually to the port as follows:
 CONNECT foo & Welcome foo \\
 help & {\it (an explanation of available commands)} \\
 * & This is /demo at tcp://127.0.0.1:10032 ... \\
-\hline
+\hline\hline
 \end{tabular}
 \end{center}
 
@@ -510,7 +510,7 @@ the data we want to send.  Let's try it:
  {[get] [axes]} &  {[is] [axes] 2 [ok]} \\
  d & {\it (no response, waiting for data)} \\
  {[set] [pos] 0 100.0} & {[ok]} \\
-\hline
+\hline\hline
 \end{tabular}
 \end{center}
 
@@ -540,7 +540,7 @@ r & do \\
  & 100.0 0.0 \\
  & {\it (continues streaming motor state)} \\
  & \ldots \\
-\hline
+\hline\hline
 \end{tabular}
 \end{center}
 
@@ -584,7 +584,7 @@ CONNECT foo & Welcome foo \\
  help & {\it (a list of available name server commands)} \\
  d & {\it (no response, waiting for data)} \\
  {query /motors} &  registration name /motors ip 127.0.0.1 port 10022 type tcp \\
-\hline
+\hline\hline
 \end{tabular}
 \end{center}
 
