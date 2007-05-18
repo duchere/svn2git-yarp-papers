@@ -4,15 +4,19 @@
 
 
 
-\section{Programs and ports}
+\section{Transporting data}
 
 A very basic problem that keeps cropping up in robotics projects is
 simply how to move data around between sensors, processors,
 and actuators.  There's a universe of ``middleware'' solutions
-in existence for communication.  Our own preferred solution
+in existence for communication (see for example the 
+review in \cite{collett2005player}).
+%
+%
+Our own preferred solution
 in YARP has the following features:
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item We use an abstract model of communication that is
 transport-neutral and peer-to-peer.
@@ -219,7 +223,7 @@ understand and generate the identifiers being used.
 
 The basic constraints on the design of this format were as follows:
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item Messages in ths format should have a convenient binary and text
 representation.
@@ -248,7 +252,7 @@ operation).
 The structure
 can be expressed in several representations.  For messaging there are:
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item Binary form -- used for efficient messaging that is
 easily machine readable/writable.
@@ -260,7 +264,7 @@ readable/writable (but less efficient for large messages).
 
 It is also convenient to add two extra representations:
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item Command-line form -- arguments to a program.
 
@@ -336,7 +340,7 @@ streaming connection (think: tcp socket) to the receiver.
 
 This phase follows immediately after the connection is established.
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item {\bf Transmission of protocol specifier}:
 Sender transmits 8 bytes that identify the ``carrier'' that will be
@@ -370,7 +374,7 @@ quiescent until either the sender decides to send a message across it.
 It is technically possible for the receiver to initiate activity --
 we'll return to this issue.
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item {\bf Transmission of index}: Carrier-dependent. Some carriers
 will require statistics about the message (such as its length) to be
@@ -396,7 +400,7 @@ The description so far sounds very loose -- just about every aspect
 of a connection is carrier-dependent.  What does YARP actually
 expect of connections, in order to build on them?
 
-\begin{itemize}
+\begin{itemize} \pflist
 
 \item After the handshaking phase, both sides of a connection know the
 names of the other side.  This is important for housekeeping.
