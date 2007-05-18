@@ -9,8 +9,8 @@
 A very basic problem that keeps cropping up in robotics projects is
 simply how to move data around between sensors, processors,
 and actuators.  There's a universe of ``middleware'' solutions
-in existence for communication (see for example the 
-review in \cite{collett2005player}).
+in existence for communication (see the survey in \cite{kramer2007development}
+and the related work review in \cite{collett2005player}).
 %
 %
 Our own preferred solution
@@ -30,18 +30,20 @@ external configuration choices rather than properties embedded in
 programs.
 
 \item We are careful to have one text-mode transport that is
-super-easy to implement, for those who wish to interact with a YARP
-system without using any of the YARP libraries or executables.  We
-believe this is very important for supporting interoperability.
+extremely easy to implement, for those who wish to interact with a
+YARP system without using any of the YARP libraries or executables.
+We believe this is very important for supporting interoperability, and
+providing a gentle slope to integrating YARP into an existing system
+or vice versa.
 
 \item The model of communication is not intertwined with our
 ideas about how devices work or how processes should be started/stopped.
 
-\item Our implementation is portable.  We use the ACE operating system
-portability layer.  ACE is free and open source, and has a large
-community maintaining ports on many operating systems.  We do not use
-any aspects of ACE/TAO's CORBA implementation though, or expect users
-of YARP to know anything about that.
+\item We use other key free and open source projects to make
+our libraries usable in as many environments as possible.
+We use the ACE operating system portability layer (but {\it not} the
+associated implementation of CORBA), the CMake build system,
+the SWIG wrapper generator.
 
 \end{itemize}
 
