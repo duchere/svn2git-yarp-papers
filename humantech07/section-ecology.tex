@@ -238,3 +238,57 @@ They need to be modular
 
 
 
+\section{Player/stage}
+
+The closest project in spirit to YARP is that of the Player project
+\cite{vaughan2006reusable}.  The Player/Stage software collection is 
+widely used in the field of mobile robotics, and is the nucleus of
+a healthy, pragmatic community of developers.  
+%
+Rudimentary interoperability is possible between these projects.
+Player contains a ``yarpimage'' driver which can accept images
+from a YARP Network.  A ``stage'' driver has been developed
+for YARP, which gives access to the 2D srobot simulator of that
+name from a YARP Network.
+%
+The driver mechanism in both projects gives a very straightforward way
+to integrate quickly with what would otherwise be incompatible
+middleware.
+
+Both projects are free and open source.  They both have documented
+network protocols.  Both have made an effort to allow different
+transports, and to be portable.  Given all these similarities,
+it is reasonable to wonder whether the projects could be merged.
+%
+From the YARP perspective, there doesn't seem any compelling reason to
+do so right now; individuals who've needed parts of both systems have
+been able to do so through the driver mechanisms.
+%
+From the Player perspective, YARP's dependence on ACE is probably
+undesirable, and YARP uses more C++ features than the C-with-Classes
+style of Player (which is probably a better idea for portability).
+Also, we use different build machinery (autotools versus CMake).
+%
+Due to recent changes in Player, communications could probably be
+adapted.  Devices are different in YARP and Player.  YARP starts
+with just a thin C++ wrapper which permits direct function calls;
+Player devices require message passing (even if the message passing
+is just internal rather than across a network).
+
+
+serialization / message passing
+
+Player's communication model,
+which used to be client/server, has recently been expanded to
+be more flexible, and seems to be getting closer to a peer-to-peer
+mechanism such as YARP.
+
+
+
+Categories from \ref{collett2005player}:
+
+
+((I FORGOT TO MENTION HTTP))
+
+
+Coma

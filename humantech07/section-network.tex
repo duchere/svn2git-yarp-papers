@@ -423,23 +423,29 @@ more control over how this material (called the ``port protocol'') is
 embedded.
 
 
-%% \begin{tabular}{c|c|c}
-%% \hline
-%% 8-byte magic number&protocol&variant \\\hline
-%% `Y' `A' 0x61 0x1E 0 0 `R' `P'&udp&\\\hline
-%% `Y' `A' 0x\-E1 0x1E 0 0 `R' `P'&udp&\\\hline
-%% `Y' `A' 0x62 0x1E 0 0 `R' `P'&mcast&\\\hline
-%% `Y' `A' 0x\-E2 0x1E 0 0 `R' `P'&mcast&\\\hline
-%% `Y' `A' 0x63 0x1E 0 0 `R' `P'&shmem&\\\hline
-%% `Y' `A' 0x\-E3 0x1E 0 0 `R' `P'&shmem&\\\hline
-%% `Y' `A' 0x64 0x1E 0 0 `R' `P'&tcp&without acks \\\hline
-%% `Y' `A' 0x\-E4 0x1E 0 0 `R' `P'&tcp&with acks \\\hline
-%% `C' `O' `N' `N' `E' `C' `T' ` ' &text&without acks \\\hline
-%% `C' `O' `N' `N' `A' `C' `K' ` ' &text&with acks \\\hline
-%% `L' `O' `C' `A' `L' `I' `T' `Y'&local&\\\hline
-%% \end{tabular}
-
-
+\begin{table}
+\begin{center}
+\begin{tabular}{ll}
+\hline
+\hline
+{\bf 8-byte magic number}&{\bf protocol} \\\hline
+`Y' `A' 0xE4 0x1E 0 0 `R' `P'&tcp \\
+`Y' `A' 0x61 0x1E 0 0 `R' `P'&udp\\
+`Y' `A' 0x62 0x1E 0 0 `R' `P'&multicast\\
+`Y' `A' 0x63 0x1E 0 0 `R' `P'&shared memory\\
+`C' `O' `N' `N' `E' `C' `T' `\textvisiblespace' &text \\
+`C' `O' `N' `N' `A' `C' `K' `\textvisiblespace' &text-with-ack \\
+`G' `E' `T' `\textvisiblespace' `/' \ldots &http\\
+  \ldots & \ldots\\\hline\hline
+\end{tabular}
+\end{center}
+\caption{
+%
+The first eight bytes of a connection in YARP specify the
+desired lower-level protocol to use.
+%
+}
+\end{table}
 
 \subsection{YARP without YARP}
 
