@@ -12,18 +12,20 @@ code development. The API comes in the form of a static or dynamic
 library which must be linked in the user code. Unfortunately
 APIs vary a lot even within devices that belong to the same family. 
 Even worse the API of the same hardware may vary on different 
-operating systems or change on future releases. User code becomes 
-dependent on the particular board for which it was initially developed 
+operating systems or change on future releases of the hardware. User 
+code becomes dependent on the particular board for which it was initially developed 
 and bound to the decisions and assumptions of the vendor. For 
 example venodor A might decide to use integers to represent the position 
 of a motor joint, wheras vendor B might decide to use a floating point
-variable. More often even similar devices have different ``initialization'' 
+variable. Often even similar devices have different ``initialization'' 
 procedure. Consider for example a motor control board which has a serial
 interface to the host computer; the API of this board will probably require 
 that some parameters (port number, baud rate, number of data bits, etc) are 
-specified when the device is created. These parameters will be different 
-those required by the API of the version of the board that has a USB 
-interface (see \ref{fig:devices1}). When possible these (and other) 
+specified when the device is created. Suppose now that we obtain a more 
+recente release of the same board that now has a USB interface. In this 
+case the parameters to initialize the board are different and we are forced 
+to rewrite all processes that use it (the situation is 
+represented in Figure (\ref{fig:devices1})). When possible these (and other) 
 differences must be hidden if we want that the same user code can 
 effectively interface to the two devices.
 
@@ -33,13 +35,13 @@ effectively interface to the two devices.
 }
 \caption{Example of code dependency. VA-Board is a 
 motor control board which interface to the robot through serial port. 
-Changes in the board (in the example above the VB-Board uses USB) are 
-propagated to the user code.}\label{fig:devices1}
+Changes in the board (in the example above the VB-Board has s USB 
+interface) are propagated to the user code.}\label{fig:devices1}
 \end{figure}
 
 YARP implements the separation between user and device specific code 
 in three ways: i) definition of interfaces for device families ii) 
-separation of device initialization and creation from the rest of the code and 
+localization and separation of device initialization and creation 
 ii) creation of network wrappers and separation between devices and 
 communication. 
 
@@ -54,21 +56,23 @@ inheritance). All details specific of the hardware
 (vendor's API and library) are handled here and are hidden by its interfaces. 
 The idea is that changes in the hardware are catched by the wrapper class and never 
 propagated to the user code. As a result, if interfaces are well designed,
- the impact on the code due to hardware change is minimized (see 
-\ref{fig:devices2}). 
+ the impact on the code due to hardware change is minimized (see Figure 
+(\ref{fig:devices2})). 
 
-Interfaces to broad families of devices have been defined in YARP. Other families 
-of devices defined in YARP are:
+Interfaces to broad families of devices have been defined in YARP. 
+
+For example this is a partial list of the interfaces that have been defined for 
+devices belonging to the family of frame grabbers:
 
 \begin{itemize}
 
-\item IFrameGrabberRgb, which defines the interface to devices which generate 
+\item \emph{IFrameGrabberRgb}, which defines the interface to devices which generate 
 a stream of color images. Methods in this interface provide access to the most 
 recent frame acquired by the device, and information about its size (number of 
 columns and rows).
 
-\item IFrameGrabberControls, specifies a set of functionalities to control a typical 
-framegrabber device. Methods of this interface allows controlling the 
+\item \emph{IFrameGrabberControls}, specifies a set of functionalities to control 
+a typical framegrabber device. Methods of this interface allows controlling the 
 parameters of acquisition of the device, like shutter speed, brightness and gain.
 
 \end{itemize}
@@ -83,35 +87,35 @@ the control paradigm they implement. Accordingly, YARP defines:
 
 \begin{itemize}
 
-\item IEncoder: group all methods providing access to the motor encoders, like methods
-for reading the current position of velocity of each axis
+\item \emph{IEncoder}: group all methods providing access to the motor encoders, 
+like methods for reading the current position of velocity of each axis
 
-\item IPositionControl: methods to control motion of each axis by specifying its 
-position (usually referred to as ``position control'')
+\item \emph{IPositionControl}: methods to control motion of each axis by specifying 
+its position (usually referred to as ``position control'')
 
-\item IVelocityControl: methods to contorl motion of each axis by specifying its 
-velocity (usually referred to as ``velocity control'')
+\item \emph{IVelocityControl}: methods to contorl motion of each axis by specifying 
+its velocity (usually referred to as ``velocity control'')
 
-\item ITorqueControl: defiens methods to control the amount of force/torque exerted 
-by each axis (usually referred to as ``torque or force control'').
+\item \emph{ITorqueControl}: defiens methods to control the amount of force/torque 
+exerted by each axis (usually referred to as ``torque or force control'').
 
 \end{itemize}
 
 These last interfaces are indipendent of the particular algorithm the control
 board implements to realize the corresponding functionality. These details are 
-delegated to specific interfaces. For example IPidControl includes methods to 
-interface to a PID controller, including methods to read or set the values of the 
-gains.
+delegated to specific interfaces. For example \emph{IPidControl} includes methods to 
+interface to a PID controller, like for example read or set the values of the gains.
 
-All devices in YARP implements the DeviceDriver interface. The latter defines 
-methods to manage the initialization and de-initialization of the device: 
+Finally, all devices in YARP implements the \emph{DeviceDriver} interface. 
+The latter defines methods to manage the initialization and de-initialization of 
+the device: 
 
 \begin{verbatim}
   virtual bool open(yarp::os::Searchable& config)=0;
 \end{verbatim}
 
 This method opens the device. Parameters to the devices are passed to the
-function as a list of key-value entries (a ``Searchable'' object). The latter 
+function as a list of key-value entries (a \emph{Searchable} object). The latter 
 can be specified in a text file (more details later).
 
 \begin{verbatim}
@@ -122,41 +126,53 @@ This method performs all the operations required to close the
 device properly and release all the resources it was using. No
 parameters are required by the function.
 
-The DeviceDriver interface does not seem very useful at first. In practice this 
-interface is never exposed to the user. In YARP to each device corresponds a 
-Factory object, which is responsible for creating the device and returning a 
-pointer to it. This pointer is the only ``access point'' to the device and 
-its interfaces. Other interfaces can be objtained by casting this pointer to the 
-appropriate virtual class (in C++ this can be safely done through dynamic cast). 
-The ``PolyDriver'' object 
-provides an interface to simplify the whole process of device creation, 
-initialization and interface access. The ``Polydriver'' contains a list of devices 
-available in YARP and an instance to the corresponding Factory; normally a
-user asks the ``Polydriver'' to create an instance of the particular device driver
-he wants to use. Device drivers are uniquely identified through a symbolic name; 
-the Polydriver searches the list of device for an entry whose name matches the 
-one that is requested and, if the match is found, it calls the appropriate 
-Factory. If the driver is successfully created the Factory returns a valid pointer 
-which is stored internally to the ``Polydriver''. The lifecycle of the device is
-managed by YARP through the ``Polydriver''; the user can access only to copies of this
-pointer thourgh calls to the ``view'' method. The ``view''' method performs 
-a dynamic cast of the internal pointer to the device driver to expose the requested
-interface before returning it to the user.
+We have seen that forcing access devices only through 
+interface achieve a good level of separation between vendor/device specific APIs and 
+user level code. Interfaces alone, however, do not guarantee a complete level of 
+separation. In practice users must still specify the type of device they 
+want to create and its initialization parameters. Care must be taken to avoid that 
+this introduces device dependent code. A common software engineering practice is to 
+\emph{localize object creation} so to minimize the amount of code that is responsible
+for object creation and initialization. Part of this is realized by the 
+\emph{DeviceDriver} interface, which forces all initialization procedures to be 
+performed inside the \emph{open} method. Device creation is instead delegated to 
+a \emph{factory}. The \emph{factory} of a given device receives from the user 
+the list of initialization parameters, creates the device, and initializes it 
+through the \emph{DeviceDriver} interface. If the process is successfull 
+a valid pointer to the device is returned. This pointer is the only 
+``access point'' to the device and its interfaces. Other interfaces can be 
+obtained by casting this pointer to the appropriate virtual class (in C++ this 
+can be safely done through dynamic cast). 
 
-For example suppose we want to use the ``test\_motor'' device. In YARP this 
+This whole process of creation, initialization and interface access is managed
+by the  \emph{PolyDriver} object. The \emph{Polydriver} contains a list of devices 
+available in YARP and an instance of the corresponding \emph{factory}; normally a
+user asks the \emph{Polydriver} to create an instance of the particular device driver
+he wants to use. Device drivers are uniquely identified through a symbolic name; 
+the \emph{Polydriver} searches the list of device for an entry whose name matches the 
+one that is requested and, if the match is found, it calls the appropriate 
+\emph{factory}. If the driver is successfully created the \emph{factory} returns 
+a valid pointer which is stored inside the \emph{Polydriver}. The lifecycle of the 
+device is managed by YARP through the \emph{Polydriver}; the user can access only to 
+copies of 
+this pointer thourgh calls to the \emph{view} method, which performs 
+a dynamic cast of the internal pointer to the device driver to expose the requested
+interface before returning it.
+
+For example suppose we want to use the \emph{test\_motor} device. In YARP this 
 is a fake device which simulates a control board controlling 4 axes. This device 
-supports the ``IPositionControl'' and ``IVelocity'' interfaces. To begin with, we have 
-to create an instance of the ``Polydriver''. The actual device is create 
-by calling the ``Polydriver::open()'' method specifying the symbolic name of the 
-device (e.g. ``test\_motor''):
+supports the \emph{IPositionControl} and \emph{IVelocity} interfaces. To begin with, 
+we have to create an instance of the \emph{Polydriver}. The actual device is create 
+by calling the \emph{Polydriver::open()} method specifying the symbolic name of the 
+device (e.g. \emph{test\_motor}):
 
 \begin{verbatim}
   Polydriver device;
   device.open(\"test\_motor\");
 \end{verbatim}
 
-Now we can ask interfaces to ``test\_motor'' by calling the ``Polydriver::view()'' 
-method:
+Now we can ask interfaces to \emph{test\_motor} by calling the 
+\emph{Polydriver::view()}method:
 
 \begin{verbatim}
   IPositionControl *ipos=0;
@@ -166,10 +182,10 @@ method:
   device.view(ivel);
 \end{verbatim}
 
-Checking if ivel and ipos are not null assures that ``test\_motor'' really supports
+Checking if ivel and ipos are not null assures that \emph{test\_motor} really supports
 the respective interfaces.
 
-We can now call methods of the ``IPositionControl'' interface to control 
+We can now call methods of the \emph{IPositionControl} interface to control 
 joint $0$ to move to the angular position of $40deg$, with the velocity of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
 
 \begin{verbatim}
@@ -178,7 +194,7 @@ ipos->setRefSpeed(0, 5)
 ipos->positionMove(0, 40);
 \end{verbatim}
 
-Or use the ``IVelocity'' interface to servo joint 1 at the velocity of 
+Or use the \emph{IVelocity} interface to servo joint 1 at the velocity of 
 $5\frac{deg}{s}$ with the acceleration of $100\frac{deg}{s^2}$:
 
 \begin{verbatim}
@@ -198,15 +214,16 @@ initialization parameters are listed in configuration files and are thus
 separated from the code.}\label{fig:devices2}
 \end{figure}
 
-A further level of separation is achieved by supporting device remotization. 
+A final level of separation is achieved by supporting device remotization. 
 This feature is important because flexibility imposes 
 that processes are written so that they can be easily moved across distinct machines 
 if required. Knowledge of whether a process is accessing a given device locally or 
-remotely would clearly limit this flexibility, because would force modification 
+remotely would clearly limit this flexibility, because it would force modification 
 in the code of the process itself. Remotization also facilitate portability 
 across different platforms, as it naturally defines a ``binary'' interface that can 
 be used to make resources available on one platform to processes compiled and running 
-on a different one.
+on a different one. This decouple the compilation, build environment, libraries, 
+operating system and language dependencies of hardware and user software.
 
 The remotization mechanism relies on the communication layer (see \emph{add 
 reference to port section} and on two \emph{Network Wrappers} one acting as a 
@@ -232,9 +249,8 @@ the user code in packets of bytes and send them to the other end of the
 communication, and, in case a reply is expected, waits for data and dispatch 
 it to the calling process. The responsibility of the proxies among the other 
 things is to perform the marshalling and de-marshalling of the information 
-so that it is correctly interpreted by the distinct platforms (e.g. data can 
-be represented using different standards).
-
+so that it is correctly interpreted by the distinct platforms (this is 
+required for systems in which data is represented with different standards).
 
 \begin{figure}[tbp]
 \centerline{
@@ -250,6 +266,15 @@ remote one is in term of performances (the time it takes to execute
 a given function).
 }\label{fig:devices3}
 \end{figure}
+
+The goal of YARP is to support humanoid robotics, in which a broad 
+variety of hardware is often employed. In YARP we try to facilitate code 
+exchange between researchers, especially when this speeds up the time 
+it takes to develop a platform and use it for research. In this sense 
+device-level software development is a very time consuming and tedious 
+task, so the ability to share 
+
+
 
 \begin{itemize}
 
