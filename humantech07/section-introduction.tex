@@ -101,5 +101,16 @@ licensing.
 
 
 
+\subsection*{Devices}
 
+New devices come out all the time -- needs to be easy to connect them
+to existing code.  YARP needs a minimal ``wrapper'' class to match
+vendor-supplied library with relevant interfaces that capture common
+capabilities.  YARP encourages separating configuration from source
+code -- separating the ``plumbing''.  Devices and communications
+remain distinct concerns.  The goal is to allow collaboration between
+groups whose robots have different devices and make device changes
+less painful.  We also want to have the ability to be able to switch
+from remote use of device to local use and vice versa without pain,
+without compromising the efficiency of local access.
 

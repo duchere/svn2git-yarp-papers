@@ -294,34 +294,6 @@ Basic idea: if you view your devices through well thought out
 interfaces, the impact of device change can be minimized.
 
 
-\subsection{A light touch}
-
-New devices come out all the time -- needs to be easy to connect them
-to existing code
-
-YARP needs a minimal ``wrapper'' class to match vendor-supplied
-library with relevant interfaces that capture common capabilities
-
-YARP encourages separating configuration from source code -- separating
-the ``plumbing''
-
-Devices and communications remain distinct concerns
-
-(pictures)
-
-
-\subsection*{Why?}
-
-Allows collaboration between groups whose robots have different devices
-
-Makes device changes less painful
-
-Devices and communications are orthogonal features
-
-Can switch from remote use of device to local use and vice versa without pain
-
-Local use can be very efficient, just an extra virtual method call
-
 
 
 
