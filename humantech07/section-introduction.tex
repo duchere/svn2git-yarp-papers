@@ -1,5 +1,42 @@
 
 
+\begin{figure}
+\centerline{
+\includegraphics[width=8cm]{fig-nethead}
+}
+\caption{
+%
+Basic robot model.  We assume a set of computers, some of which may be
+on the robot, some of which may not be.  We assume that the computers
+are diverse: they may have different devices, operating systems,
+processors, and the programs they run may use different languages,
+libraries, etc.  
+%
+We develop methods for interfacing with devices and communicating
+between modules that are useful on any heterogeneous system.
+%
+We extend our reach by exploiting key Free Software projects
+dealing with and enabling diversity in operating systems, build systems, 
+and programming languages.
+%
+Our contribution, made as Free Software, is a system for dealing
+with and enabling diversity in transport mechanisms and novel devices.
+%
+%We nevertheless require that threads within processes
+%on any of these computers be able to communicate easily with each other.
+%
+%This communication, ideally, should fit well with basic UNIX 
+%tools and concepts (although we do not assume the operating systems
+%in use are UNIX-based).
+%
+We use this software to support our open robot platform, the iCub
+humanoid, whose design will be available under free and open
+licensing.
+%
+}
+\end{figure}
+
+
 \section{Introduction}
 
 %%Hardware defines the environment within which software operates.  
@@ -61,43 +98,6 @@ Robots need an analogue of the operating system of a computer, or the
 nervous system of an animal.  We focus on the key issue of how information
 travels between processors, sensors, and actuators.
 
-
-
-\begin{figure}
-\centerline{
-\includegraphics[width=8cm]{fig-nethead}
-}
-\caption{
-%
-Basic robot model.  We assume a set of computers, some of which may be
-on the robot, some of which may not be.  We assume that the computers
-are diverse: they may have different devices, operating systems,
-processors, and the programs they run may use different languages,
-libraries, etc.  
-%
-We develop methods for interfacing with devices and communicating
-between modules that are useful on any heterogeneous system.
-%
-We extend our reach by exploiting key Free Software projects
-dealing with and enabling diversity in operating systems, build systems, 
-and programming languages.
-%
-Our contribution, made as Free Software, is a system for dealing
-with and enabling diversity in transport mechanisms and novel devices.
-%
-%We nevertheless require that threads within processes
-%on any of these computers be able to communicate easily with each other.
-%
-%This communication, ideally, should fit well with basic UNIX 
-%tools and concepts (although we do not assume the operating systems
-%in use are UNIX-based).
-%
-We use this software to support our open robot platform, the iCub
-humanoid, whose design will be available under free and open
-licensing.
-%
-}
-\end{figure}
 
 
 
