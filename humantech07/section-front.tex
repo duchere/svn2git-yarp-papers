@@ -58,7 +58,19 @@ without compromising our ability to constantly change our
 sensors, actuators, processors, and networks.
 
 We focus on how to organize communication between sensors, processors,
-and actuators such that they remain decoupled and replaceable.
+and actuators so that loose coupling is encouraged, making 
+gradual system evolution much easier.  We develop a model of 
+communication that is transport-neutral, so that data flow
+is decoupled from the details of the underlying network
+(thus allowing those details to change, as they often do).
+%
+We develop a methodology for interfacing with devices (sensors,
+actuators, etc.) that again encourages loose coupling and can make
+changes in devices less disruptive.
+%
+We discuss the problem of incompatible
+middleware, and how we are doing our part to avoid it.
+%
 We emphasize the importance of the Free Software approach to software
 distribution and licensing, and the benefit it brings to small
 communities with idiosyncratic requirements.
@@ -67,15 +79,12 @@ communities with idiosyncratic requirements.
 %Free Software community offers to a research field
 %that could otherwise be isolated.
 %
-We discuss the importance and difficulty of creating 
-repositories of drivers.
 
 
 Of course, it would also be better if humanoid robot software had
 larger number of users with similar hardware, and we're doing our part
 to encourage this by releasing the design of our iCub humanoid under a
 free and open license, and funding development using this platform.
-Among other benefits to individual projects, 
 
 
 %this  community can give
