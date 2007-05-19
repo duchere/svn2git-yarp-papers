@@ -57,13 +57,56 @@ used.  Within this niche it will grow and change and
 perhaps expand to nearby niches.
 %%
 Some niches are very large (for example, commercial PCs), some are
-tiny (a newly developed humanoid).  In this paper, we are concerned
+tiny (a newly developed humanoid). Software evolves pretty quickly 
+as new technologies get proposed and hardware changes; if trapped 
+in a too narrow niche it soon tends to become obsolete and die, 
+together with the efforts of the developers who have contributed 
+to it. In the academia, software written for a robotic 
+project suffer of this plague, because it is rarely written 
+by professional developers, and often not the main goal of the 
+efforts of the people who are working on it. For researchers 
+software development is a time consuming and tedious task that 
+takes away time and efforts that could be better spent doing 
+research. Yet at the same time, software development in 
+robotics is a delicate and crucial task that cannot be easily 
+delegated to non-trained persons. In research laboratories 
+fast changing hardware and lack of human resources too often 
+narrow the niche in which software lives.
+%
+In this paper, we are concerned
 about how robotics researchers can avoid being caught in a tiny
 niche, and how to prevent ``genetic isolation'' from setting in,
 where software development is slow and cut-off from the mainstream.
 We want to find a way to avoid this trap, without sacrificing
 the freedom to radically change our hardware, a freedom that
 will be crucial in ``bleeding-edge'' research for years to come.
+
+The only viable solution to these problems is to facilitate 
+code reuse both in time and between different people or 
+institution. For projects of reasonable size this means following
+a \emph{modular} approach, where software is devided in 
+indipendent modules, that can be developed and maintained 
+by different people so that efforts 
+are shared among groups having distinct competences. A 
+modular software platform is flexible. Obsolete modules are 
+removed and substituted for newer ones without causing 
+catastrophic effects. To take advantage of code written by 
+other people in different contexts code must be as friendly 
+as possible to other libraries avoiding to impose contraints 
+and dependencies at all levels, from the hardware architecture 
+to the development environment and programming language. 
+Dependencies between modules should be 
+minimized also from the point of view of performances; as 
+long as resources are available the addition of new 
+components should not clash with the existing ones. In 
+particular the \emph{timing} of signals should be preserved 
+irrespective of the number of modules that are running 
+at any given moment in the whole system. 
+
+Following the Open Source Software philosophy we make the 
+code of our software available so that other 
+researchers can better understand it and have the freedom 
+to improve and better adapt it to their needs.
 
 Our motivation comes from the condition of humanoid robotics 
 research, but most of this paper is not specific to that field.
@@ -93,7 +136,6 @@ reach of such research groups.
 
 
 %Big companies built on OSS (e.g. Google)
-
 
 New devices come out all the time -- needs to be easy to connect them
 to existing code.  YARP needs a minimal ``wrapper'' class to match

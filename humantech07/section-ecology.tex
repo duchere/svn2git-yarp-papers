@@ -102,6 +102,56 @@ it here.
 
 \subsection{C/C++}
 
+We decided to use C++ as the main language for development. This 
+is motivated by the fact that C++ is an object oriented language
+that is widely used by many developers in the world, is well 
+supported an portable on almost all the available platforms. 
+Perhaps more importantly for robotics, C++ allows writing very 
+efficient code and interfacing with the hardware at the lowest 
+level. 
+
+The drawback is that the compile process varies a lot depending 
+on the platform and development environment. For example Linux 
+and cygwin developers use mostly Makefiles, whereas Windows 
+developers most often prefer Visual Studio project files. 
+Altough C++ has reached a fairly good level 
+of portability which allows, with a reasonable effort, writing 
+applications that compile on all platforms, it is still very 
+common to have to wrestle to port code that was written for 
+a platform to another. On the other hand, following a 
+modular approach, we would like our software to be as flexible 
+as possible and adapt to needs of the user and the platform that 
+he uses. In YARP, when possible, unavoidable dependencies 
+have been made as localized as possible to modules that can be 
+compiled or not depending on the underlying system and user 
+choices. So for example applications that require a GUI gets 
+compiled only when the supporting libraries (mainly GTK+) 
+is installed in the system. Another example is the mathematical
+library which is built on top of the GNU Scientific Library. 
+The idea is that only the modules that only and \emph{all} the 
+modules that can be compiled are actually built.
+
+To avoid asking the user to go through a tedious and long process 
+of manual configuration, a program automatically inspects the 
+system and generates the files necessary to compile YARP 
+on the host system (e.g. make files in Linux systems, or Visual 
+Studio project files in Windows). This simplifies development, 
+because it is no longer required to distribute build files 
+for all possible platforms.
+
+Among the available tools for automatic configuraton of 
+software packages, we decided to use CMake. CMake is 
+cross-platform open-source, make system. It produces 
+build files for the environment of choice (e.g. makefiles
+for Unix, Borland and MinGW and project files for all 
+Microsoft compilers) starting from a language independent 
+description. The language of CMake is powerful enought 
+to support a flexible configuration process based 
+on the packages that are available in the system and 
+the preferences of the user (see figure). Through 
+CMake the build process of YARP is robust, simple and 
+flexible.
+
 very portable (especially C), though lots of details.
 
 but compile process?  varies a lot. autobuild tools

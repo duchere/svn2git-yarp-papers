@@ -1,11 +1,10 @@
 \section{Devices and Drivers}
-
 Code reuse becomes difficult at the level where algorithms 
 communicate with the low-level hardware. The OS layer of YARP tries 
 to minimize dependencies between algorithms and the hardware for 
 which the operating system defines a constant interface (threading, 
 memory, network, filesystem). Unfortunately more specific harware 
-(motor control boards and framegrabbers are just popular 
+(motor control boards and frame grabbers are just popular 
 examples) requires a more sophisticated mechanism. In these 
 cases vendors provide device drivers and a set of API to simplify 
 code development. The API comes in the form of a static or dynamic 
@@ -46,7 +45,6 @@ ii) creation of network wrappers and separation between devices and
 communication. 
 
 \subsection{Device Interfaces}
-
 An interface to a YARP device is the specification of the functionalities
 it provides. In practice in C++ an interface is a virtual base class, whose 
 member functions define the ensamble of the functionalities a device must 
@@ -66,17 +64,13 @@ code. To solve this we have defined a common interface to all devices (the
 \emph{DeviceDriver} interface) which normalizes how devices are initialized
 and un-initialized, and, more importantly, how initialization parameters 
 are passed to them. In particular this interface defines two methods:
-
 \begin{verbatim}
   virtual bool open(yarp::os::Searchable& config)=0;
 \end{verbatim}
-
 and
-
 \begin{verbatim}
   virtual bool close()=0;
 \end{verbatim}
-
 This \emph{open} method initializes the device. Initialization parameters 
 are passed to the function as a list of key-value entries 
 (a \emph{Searchable} object). A \emph{Searchable} can contain all 
@@ -124,7 +118,7 @@ provide access to the most recent frame acquired by the device, and
 information about its size (number of columns and rows).
 
 \item \emph{IFrameGrabberControls}, specifies a set of functionalities 
-to control a typical framegrabber device. Methods of this interface 
+to control a typical frame grabber device. Methods of this interface 
 allows controlling the parameters of acquisition of the device, like 
 shutter speed, brightness and gain.
 
@@ -169,7 +163,6 @@ are used to control the same piece of hardware (the problem described
 in Figure (\ref{fig:devices1}).
 
 \subsection{A factory of devices}
-
 We have seen that forcing access devices only through 
 interface achieve a good level of separation between vendor/device 
 specific APIs and user level code. Interfaces alone, however, do not 
@@ -218,7 +211,7 @@ really needed, consider removing it}).
 devices in YARP in delegated to a \emph{factory} object. Users 
 access devices through instances of the \emph{PolyDriver}. The 
 Figure describes the following situation. Process1 controls a robotic
-head and needs to access to the robot framegrabber (whose symbolic name 
+head and needs to access to the robot frame grabber (whose symbolic name 
 is ``dragonfly'') and to the control board connected to the motors of 
 the head (``mboardA''). Process1 creates \emph{PolyDriver} and opens 
 the device; the symbolic name of the device is passed as a parameter
@@ -233,7 +226,6 @@ to create instances of different devices.}\label{fig:devices4}
 \end{figure}
 
 \subsection{An example: accessing a motor control board}
-
 For example suppose we want to use the \emph{test\_motor} device. In 
 YARP this is a fake device which simulates a control board controlling 
 4 axes. This device supports the \emph{IPositionControl} and 
@@ -280,7 +272,6 @@ ivel->velocityMove(1, 5);
 \end{verbatim}
 
 \subsection{Device Remotization: Binary Interfaces}
-
 A final level of separation is achieved by supporting device remotization. 
 This feature is important because flexibility imposes 
 that processes are written so that they can be easily moved across 
