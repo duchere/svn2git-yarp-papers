@@ -59,6 +59,18 @@ propagated to the user code. As a result, if interfaces are well designed,
  the impact on the code due to hardware change is minimized (see Figure 
 (\ref{fig:devices2})). 
 
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=24cm]{fig-devices2.eps}
+}
+\caption{Interfaces allow code reuse. VA-Board and VB-Boards now implemnt
+the same interfaces (through their respective wrapper classes). The user 
+code access the hardware through these interfaces and is not aware of 
+the details of how the methods are actually implemented. The different 
+initialization parameters are listed in configuration files and are thus 
+separated from the code.}\label{fig:devices2}
+\end{figure}
+
 Interfaces to broad families of devices have been defined in YARP. 
 
 For example this is a partial list of the interfaces that have been defined for 
@@ -227,17 +239,6 @@ ivel->setRefAcceleration(1,100);
 ivel->velocityMove(1, 5);
 \end{verbatim}
 
-\begin{figure}[tbp]
-\centerline{
-\includegraphics[width=24cm]{fig-devices2.eps}
-}
-\caption{Interfaces allow code reuse. VA-Board and VB-Boards now implemnt
-the same interfaces (through their respective wrapper classes). The user 
-code access the hardware through these interfaces and is not aware of 
-the details of how the methods are actually implemented. The different 
-initialization parameters are listed in configuration files and are thus 
-separated from the code.}\label{fig:devices2}
-\end{figure}
 
 A final level of separation is achieved by supporting device remotization. 
 This feature is important because flexibility imposes 
