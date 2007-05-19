@@ -40,7 +40,7 @@ interface) are propagated to the user code.}\label{fig:devices1}
 \end{figure}
 
 YARP implements the separation between user and device specific code 
-in three ways: i) definition of interfaces for device families ii) 
+in three ways: i) definition of interfaces for families of devices ii) 
 localization and separation of device initialization and creation 
 ii) creation of network wrappers and separation between devices and 
 communication. 
@@ -58,14 +58,53 @@ inheritance). All details specific of the hardware
 (vendor's API and library) are handled here and are hidden by its interfaces. 
 The idea is that changes in the hardware are catched by the wrapper class 
 and never propagated to the user code. As a result, if interfaces are 
-well designed, the impact on the code due to hardware change is minimized 
-(see Figure (\ref{fig:devices2})). 
+well designed, the impact on the code due to hardware change is minimized. 
+
+Another aspect that we have pointed out above, is the fact that 
+initialization parameters may introduce annoying dependencies in the user 
+code. To solve this we have defined a common interface to all devices (the 
+\emph{DeviceDriver} interface) which normalizes how devices are initialized
+and un-initialized, and, more importantly, how initialization parameters 
+are passed to them. In particular this interface defines two methods:
+
+\begin{verbatim}
+  virtual bool open(yarp::os::Searchable& config)=0;
+\end{verbatim}
+
+and
+
+\begin{verbatim}
+  virtual bool close()=0;
+\end{verbatim}
+
+This \emph{open} method initializes the device. Initialization parameters 
+are passed to the function as a list of key-value entries 
+(a \emph{Searchable} object). A \emph{Searchable} can contain all 
+possible parameters devices might require for initialization. Initialization 
+parameters for devices 
+are stored in ``.ini'' files (again in the form of a list of key-value 
+entries). A process that wants to open a device reads 
+the file and transfers its content into a \emph{Searchable} object. This 
+object is passed to the device through the \emph{open} function. 
+It is worth stressing that up to now this procedure is totally device 
+independent, because the parameters are just copied and not interpreted 
+by the process. It is only in the implementation of the \emph{open} method 
+(in the wrapper class of the device) where the \emph{Searchable} object 
+is parsed to extract the parameters that will be used to inizialize the 
+device.
+
+The \emph{close} method performs all the operations required to shut down 
+the device properly and release all the resources it was using. No
+parameters are required by this function.
+
+
 
 \begin{figure}[tbp]
 \centerline{
 \includegraphics[width=24cm]{fig-devices2.eps}
 }
-\caption{Interfaces allow code reuse. VA-Board and VB-Boards now implemnt
+\caption{Interfaces allow code reuse. VA-Board and VB-Boards (see 
+Figure (\ref{fig:devices1})) now implement
 the same interfaces (through their respective wrapper classes). The user 
 code access the hardware through these interfaces and is not aware of 
 the details of how the methods are actually implemented. The different 
@@ -79,65 +118,55 @@ for devices belonging to the family of frame grabbers:
 
 \begin{itemize}
 
-\item \emph{IFrameGrabberRgb}, which defines the interface to devices which generate 
-a stream of color images. Methods in this interface provide access to the most 
-recent frame acquired by the device, and information about its size (number of 
-columns and rows).
+\item \emph{IFrameGrabberRgb}, which defines the interface to devices 
+which generate a stream of color images. Methods in this interface 
+provide access to the most recent frame acquired by the device, and 
+information about its size (number of columns and rows).
 
-\item \emph{IFrameGrabberControls}, specifies a set of functionalities to control 
-a typical framegrabber device. Methods of this interface allows controlling the 
-parameters of acquisition of the device, like shutter speed, brightness and gain.
+\item \emph{IFrameGrabberControls}, specifies a set of functionalities 
+to control a typical framegrabber device. Methods of this interface 
+allows controlling the parameters of acquisition of the device, like 
+shutter speed, brightness and gain.
 
 \end{itemize}
 
-Interfaces to motor control devices are more difficult to define. Control boards 
-designed for industrial applications have often a quite stadard interface which 
-provides a PID control algorithm and position or velocity control modes. Things 
-become more complicated when we consider also programmable devices that can 
-implement virtually an infinite type of functionalities and control algorithms. 
-For this reason interface to control boards has been defined on the basis of 
-the control paradigm they implement. Accordingly, YARP defines:
+Interfaces to motor control devices are more difficult to define. Control 
+boards designed for industrial applications have often a quite stadard 
+interface which provides a PID control algorithm and position or velocity 
+control modes. Things become more complicated when we consider also 
+programmable devices that can implement virtually an infinite type of 
+functionalities and control algorithms. 
+For this reason interface to control boards has been defined on the basis 
+of the control paradigm they implement. Accordingly, YARP defines:
 
 \begin{itemize}
 
-\item \emph{IEncoder}: group all methods providing access to the motor encoders, 
-like methods for reading the current position of velocity of each axis
+\item \emph{IEncoder}: group all methods providing access to the motor 
+encoders, like methods for reading the current position of velocity of 
+each axis
 
-\item \emph{IPositionControl}: methods to control motion of each axis by specifying 
-its position (usually referred to as ``position control'')
+\item \emph{IPositionControl}: methods to control motion of each axis 
+by specifying its position (usually referred to as ``position control'')
 
-\item \emph{IVelocityControl}: methods to contorl motion of each axis by specifying 
-its velocity (usually referred to as ``velocity control'')
+\item \emph{IVelocityControl}: methods to contorl motion of each axis 
+by specifying its velocity (usually referred to as ``velocity control'')
 
-\item \emph{ITorqueControl}: defiens methods to control the amount of force/torque 
-exerted by each axis (usually referred to as ``torque or force control'').
+\item \emph{ITorqueControl}: defiens methods to control the amount of 
+force/torque exerted by each axis (usually referred to as ``torque or 
+force control'').
 
 \end{itemize}
 
-These last interfaces are indipendent of the particular algorithm the control
-board implements to realize the corresponding functionality. These details are 
-delegated to specific interfaces. For example \emph{IPidControl} includes 
-methods to interface to a PID controller, like for example read or set the 
-values of the gains.
+These last interfaces are indipendent of the particular algorithm the 
+control board implements to realize the corresponding functionality. 
+These details are delegated to specific interfaces. For example 
+\emph{IPidControl} includes methods to interface to a PID controller, 
+like for example read or set the values of the gains.
 
-Finally, all devices in YARP implements the \emph{DeviceDriver} interface. 
-The latter defines only two methods to manage the initialization and 
-un-initialization of the device: 
-
-\begin{verbatim}
-  virtual bool open(yarp::os::Searchable& config)=0;
-\end{verbatim}
-
-This method opens the device. Parameters to the devices are passed to the
-function as a list of key-value entries (a \emph{Searchable} object). 
-
-\begin{verbatim}
-  virtual bool close()=0;
-\end{verbatim}
-
-This method performs all the operations required to close the 
-device properly and release all the resources it was using. No
-parameters are required by the function.
+As an example Figure (\ref{fig:devices2})) shows how 
+YARP interfaces allows code reuse in cases two different motor boards 
+are used to control the same piece of hardware (the problem described 
+in Figure (\ref{fig:devices1}).
 
 \subsection{A factory of devices}
 
@@ -145,14 +174,14 @@ We have seen that forcing access devices only through
 interface achieve a good level of separation between vendor/device 
 specific APIs and user level code. Interfaces alone, however, do not 
 guarantee a complete level of separation. In practice users must still 
-specify the type of device they want to create and its initialization 
-parameters. Care must be taken to avoid that 
-this introduces device dependent code. A common software engineering 
-practice is to \emph{localize object creation} so to minimize the amount 
-of code that is responsible for object creation and initialization. 
-In YARP part of this is realized by the \emph{DeviceDriver} interface, 
-which forces all initialization procedures to be 
-performed inside the \emph{open} method. Device creation is instead 
+specify the type of device they want to create. Care must be taken to 
+avoid that this introduces device dependent code. A common software 
+engineering practice is to \emph{localize object creation} so to 
+minimize the amount of code that is responsible for object creation 
+and initialization. 
+We have seen that in YARP part of this is realized by the 
+\emph{DeviceDriver} interface, which forces all initialization procedures 
+to be performed inside the \emph{open} method. Device creation is instead 
 delegated to a \emph{factory}. The \emph{factory} contains a list of 
 all devices available in YARP and the corresponding functions to call 
 to create them. It receives from a list of initialization parameters, 
@@ -308,6 +337,7 @@ a given function).
 }\label{fig:devices3}
 \end{figure}
 
+Orphan text:
 
 The goal of YARP is to support humanoid robotics, in which a broad 
 variety of hardware is often employed. In YARP we try to facilitate code 
