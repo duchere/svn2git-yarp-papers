@@ -51,7 +51,7 @@ Communication in YARP generally follows the {\it Observer} design
 pattern. Special port objects deliver messages to any number of
 observers (other ports), in any number of processes, distributed
 across any number of machines, using any of several underlying
-communication protocols. Figure XXX is a very simple network of ports
+communication protocols. Figure~\ref{fig:yarp-network} is a very simple network of ports
 for a visual tracking application.
 
 
@@ -67,6 +67,8 @@ for a visual tracking application.
 \includegraphics[width=10cm]{fig-ports}
 }
 \caption{
+%
+\label{fig:yarp-network}
 %
 Port example.
 Images are transmitted from a camera (``/camera'') port to a viewer
@@ -179,8 +181,9 @@ such as Vector and Image.  Extensive examples are available on how
 to generate data in this form.
 
 The bottle representation is based on a nested structure of certain
-primitive types.  
-Here are some informal examples of bottles, expressed in text form:
+primitive types.  Here are some informal examples of bottles,
+expressed in text form (an equivalent binary form can be used
+interchangeably):
 
 \begin{center}
 \begin{tabular}{lp{6cm}}
@@ -246,9 +249,6 @@ really survive well when different character encodings may be
 in use, but still has uses.
 
 
-
-character encoding issues, not yarp's concern (but clash with shell 
-operation).
 
 
 The structure
@@ -336,11 +336,7 @@ and the message phase.
 
 We begin once the sender has successfully opened a bidirectional
 streaming connection (think: tcp socket) to the receiver.
-
-
-\subsubsection*{Handshake phase}
-
-This phase follows immediately after the connection is established.
+First comes the {\bf handshake phase}:
 
 \begin{itemize} \pflist
 
@@ -369,8 +365,7 @@ other end of the connection.  This can be important for collaboration
 during connection shutdown.
 
 
-\subsubsection*{Message phase}
-
+Next comes the {\bf message phase}.
 After the handshake, the connection is (as far as YARP is concerned)
 quiescent until either the sender decides to send a message across it.
 It is technically possible for the receiver to initiate activity --
@@ -394,9 +389,6 @@ acknowledge transmission in some way.  Carrier-dependent.
 \end{itemize}
 
 The message phase repeats as often as the user wants.
-
-
-\subsubsection*{What isn't carrier-dependent?}
 
 The description so far sounds very loose -- just about every aspect
 of a connection is carrier-dependent.  What does YARP actually
