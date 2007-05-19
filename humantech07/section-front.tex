@@ -23,7 +23,12 @@
 % \address{Address\thanksref{label3}}
 % \thanks[label3]{}
 
-\title{Towards Long-Lived Robot Software}
+
+%% Giorgio wants the title to include hardware somehow
+%%\title{Towards Long-Lived Robot Software}
+
+\title{Towards Long-Lived Robot Genes}
+
 
 % use optional labels to link authors explicitly to addresses:
 % \author[label1,label2]{}
@@ -47,15 +52,20 @@ Viale F. Causa, 13 \\
 \begin{abstract}
 % Text of abstract
 
-Software is unlikely to survive for very long if it is
-tied to uncommon hardware or a small group of users.
+Robot projects are often dead ends, in that the software 
+and hardware they produce disappear without trace.
+This is true for all sorts of projects, but it is
+particularly true in robotics since our work may be
+tied to uncommon hardware and a small group of users.
 Humanoid robotics is currently in exactly this condition,
-leading to a lot of software ``churn''.
-%
+leading to a lot of ``churn''.
+
 In this paper, we explore how best to connect our software with the
 mainstream, so that it can be more stable and long-lasting,
 without compromising our ability to constantly change our
-sensors, actuators, processors, and networks.
+sensors, actuators, processors, and networks.  We also look
+at how to enable propagation of our hardware designs to
+interested parties.
 
 We focus on how to organize communication between sensors, processors,
 and actuators so that loose coupling is encouraged, making 
