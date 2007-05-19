@@ -13,8 +13,8 @@ library which must be linked in the user code. Unfortunately
 APIs vary a lot even within devices that belong to the same family. 
 Even worse the API of the same hardware may vary on different 
 operating systems or change on future releases of the hardware. User 
-code becomes dependent on the particular board for which it was initially developed 
-and bound to the decisions and assumptions of the vendor. For 
+code becomes dependent on the particular board for which it was initially 
+developed and bound to the decisions and assumptions of the vendor. For 
 example venodor A might decide to use integers to represent the position 
 of a motor joint, wheras vendor B might decide to use a floating point
 variable. Often even similar devices have different ``initialization'' 
@@ -103,8 +103,9 @@ exerted by each axis (usually referred to as ``torque or force control'').
 
 These last interfaces are indipendent of the particular algorithm the control
 board implements to realize the corresponding functionality. These details are 
-delegated to specific interfaces. For example \emph{IPidControl} includes methods to 
-interface to a PID controller, like for example read or set the values of the gains.
+delegated to specific interfaces. For example \emph{IPidControl} includes 
+methods to interface to a PID controller, like for example read or set the 
+values of the gains.
 
 Finally, all devices in YARP implements the \emph{DeviceDriver} interface. 
 The latter defines methods to manage the initialization and de-initialization of 
@@ -145,34 +146,58 @@ obtained by casting this pointer to the appropriate virtual class (in C++ this
 can be safely done through dynamic cast). 
 
 This whole process of creation, initialization and interface access is managed
-by the  \emph{PolyDriver} object. The \emph{Polydriver} contains a list of devices 
+by the  \emph{PolyDriver} object. The \emph{PolyDriver} contains a list of devices 
 available in YARP and an instance of the corresponding \emph{factory}; normally a
-user asks the \emph{Polydriver} to create an instance of the particular device driver
+user asks the \emph{PolyDriver} to create an instance of the particular device driver
 he wants to use. Device drivers are uniquely identified through a symbolic name; 
-the \emph{Polydriver} searches the list of device for an entry whose name matches the 
+the \emph{PolyDriver} searches the list of device for an entry whose name matches the 
 one that is requested and, if the match is found, it calls the appropriate 
 \emph{factory}. If the driver is successfully created the \emph{factory} returns 
-a valid pointer which is stored inside the \emph{Polydriver}. The lifecycle of the 
-device is managed by YARP through the \emph{Polydriver}; the user can access only to 
+a valid pointer which is stored inside the \emph{PolyDriver}. The lifecycle of the 
+device is managed by YARP through the \emph{PolyDriver}; the user can access only to 
 copies of 
 this pointer thourgh calls to the \emph{view} method, which performs 
 a dynamic cast of the internal pointer to the device driver to expose the requested
-interface before returning it.
+interface before returning it (this mechniam is sketched in Figure 
+(\ref{fig:devices4} \emph{NOTE: not sure this picture is really needed, 
+consider removing it}).
+
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=20cm]{fig-devices4.eps}
+}
+\caption{Device creation and initialization. Creation of 
+devices in YARP in delegated to a \emph{factory} object. Users 
+access devices through instances of the \emph{PolyDriver}. The 
+Figure describes the following situation. Process1 controls a robotic
+head and needs to access to the robot framegrabber (whose symbolic name 
+is ``dragonfly'') and to the control board connected to the motors of 
+the head (``mboardA''). Process1 creates \emph{PolyDriver} and opens 
+the device; the symbolic name of the device is passed as a parameter
+of the \emph{open} function, together with initialization parameters 
+read from a .ini file. The \emph{PolyDriver} hands over these parameters 
+to the \emph{factory} which creates an instance of the device and returns
+it to the \emph{PolyDriver}. Subsequent calls to the driver are entirely 
+handled by the \emph{PolyDriver} itself. Process1 calls \emph{view} to 
+acquires the appropriate interfaces to the device. A similar procedure 
+is performed by the same process or other processes (Process 2 in Figure) 
+to create instances of different devices.}\label{fig:devices4}
+\end{figure}
 
 For example suppose we want to use the \emph{test\_motor} device. In YARP this 
 is a fake device which simulates a control board controlling 4 axes. This device 
 supports the \emph{IPositionControl} and \emph{IVelocity} interfaces. To begin with, 
-we have to create an instance of the \emph{Polydriver}. The actual device is create 
-by calling the \emph{Polydriver::open()} method specifying the symbolic name of the 
+we have to create an instance of the \emph{PolyDriver}. The actual device is create 
+by calling the \emph{PolyDriver::open()} method specifying the symbolic name of the 
 device (e.g. \emph{test\_motor}):
 
 \begin{verbatim}
-  Polydriver device;
+  PolyDriver device;
   device.open(\"test\_motor\");
 \end{verbatim}
 
 Now we can ask interfaces to \emph{test\_motor} by calling the 
-\emph{Polydriver::view()}method:
+\emph{PolyDriver::view()}method:
 
 \begin{verbatim}
   IPositionControl *ipos=0;
