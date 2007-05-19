@@ -1,3 +1,44 @@
 \section{Introduction}
 Put here the introduction.
+
 %
+Current robot are not nearly as dexterous as humans when using
+their hands to manipulate objects in the environment. Robots only
+work well in very controlled environments such as car factories.
+To illustrate this we can consider the task of picking up an
+object from a surface, moving it and placing it in a different
+surface. To do this task, the details of the object to be picked
+up will be determined. The coordinates of the initial and the
+final position will be determined with high precision. A feeder
+will position the object in a known place with some sort of
+fixture. Once the environment has been modelled, the robot's
+gripper is positioned in the exact position where the object will
+be. The gripper is then closed with a predetermined force, enough
+to hold this specific object. The arm is them moved to the final
+position where the gripper opens and the object is released. If
+the object and the final surface are at the right position the
+whole sequence works well.
+%
+However, a minimal change on the position of the parts will make
+it to fail. The reason is that the robot simply repeats a sequence
+without any sensing and consequently cannot adapt to changes.
+%
+This approach to manipulation is not very well fit to deal with
+unstructured environments such as a house or an office.
+
+Instead, we propose an approach based in dense tactile sensing. We
+consider that obtaining information about the physical interaction
+between the gripper and the object is more relevant to the task of
+manipulation than precisely position the arm using a pre-built
+model as a reference.
+
+We use the task of picking up an object as example to illustrate
+this point. We show that the robot OBRERO is able to effectively
+perform this task by using tactile feedback. The feedback allows
+the robot to position its hand around an unknown object by feeling
+the contact, to determine the force exerted by the fingers to
+avoid slippage, and to detect the contact of the object with the
+surface to safely release it (or insertion).
+%
+This approach shows many parallel with what is known about human
+manipulation. That is (to be continued)

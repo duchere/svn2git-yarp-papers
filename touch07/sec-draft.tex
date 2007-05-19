@@ -163,377 +163,32 @@ table. The robot's response is to move its hand toward the object
 to explore it and grab it. The object can be placed anywhere
 within reach of the robot's hand.
 %
-In the following sections, we describe a few perceptual and motor
-competencies required for the robot to be able to control the body
-in a meaningful and safe manner: this includes a simple attention
-system to spot the objects to be grasped and the ability to
-control the body to reach out for them. At the end of the section
-we describe how these capabilities are integrated in the grasping
-behavior.
+We describe a few perceptual and motor competencies required for
+the robot to be able to control the body in a meaningful and safe
+manner: this includes a simple attention system to spot the
+objects to be grasped and the ability to control the body to reach
+out for them.
 %
-\subsection{Attention System}
-\label{sec:attnsys}
-%
-Motion is a simple yet powerful cue to select points of interest
-in the visual scene; for an active camera system this is still
-true assuming we can estimate the motion of the background and
-account for it. In this thesis, we use the algorithm proposed by
-\cite{kemp-thesis}, which uses a 2D affine model to robustly
-estimate the image motion resulting from the background. In short,
-the algorithm measures the motion of each pixel with a block
-matching procedure, and performs a least square fitting of the
-global affine model. Using the affine model the algorithm predicts
-the motion of each edge, and marks as foreground those edges that
-poorly match this prediction. Under the assumption that the
-majority of the image motion is due to the background, these edges
-can be used to build a saliency map to direct the attention of the
-robot. Figure~\ref{fig:attnsys} shows the implementation of this
-system.
-%
+At the end of the section we describe how these capabilities are
+integrated in the grasping behavior.
 
-\begin{figure}[htbp]
-  \centerline{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/AttentionSystem.eps}
-  }
-  %
-  \caption[Diagram of the attention system]{The position, in
-  retinotopic coordinates $(x_0,y_0)$, of the motion
-  detected(section~\ref{sec:attnsys}) is used to build
-  time distributions during two different time periods (Filter1
-  and Filter2). The output of Filter2 together with a visual tracker
-  are used to orient the head toward the object. The robot can also
-  orient its head toward its hand by using the select input. The
-  output of Filter1 is used to indicate the presence of an object
-  and trigger behaviors as explained in section~\ref{sec:impbehavior}}
-\label{fig:attnsys}
-\end{figure}
+We use motion in our active camera system to select points of
+interest in the visual scene using the algorithm proposed by
+\cite{kemp-thesis}. We use kinematics to position the hand in the
+spot indicated by the camera(table detection). To do the reaching
+we use an approximated inverse kinematics.
 
-\subsection{Eye-hand coordination}
-[this is simple kinematics now]
-
-%We decided to focus on explorative actions rather than precise,
-%goal directed, actions towards the target objects.
-%
-%% This was also
-%%motivated by the fact that the monocular visual system of OBRERO
-%%makes depth estimation very difficult. This situation is actually
-%%quite common in robotics, as depth estimation in real time is a
-%%challenging problem even with stereo vision.
-%However, we cannot hope to program the robot to perform a blind
-%exploration of the entire workspace. A possible solution is to
-%constrain the exploration to the area of the workspace where the
-%object is detected visually. Since the 3D location of the object
-%is not available, reaching is performed in 2D; the exploration
-%procedure allows the robot to find the actual position of the
-%object. The motor skills required for reaching and exploring can
-%be learned from the visual ability to localize the hand and
-%compute the orientation of the arm.
-
-\subsection{Hand Localization}
-[not used at the moment]
-%A visual module detects the hand and computes the orientation of
-%the arm in the image. The initial step of the hand detector
-%consists in running a high frequency filter. All points whose
-%frequency is below a certain threshold (fixed a priori) are
-%discarded. A blob detector is run on the resulting image and the
-%biggest blob is selected as the arm. The orientation of the arm is
-%computed as the orientation of the line passing through the
-%top-most and bottom-most pixels of the arm area. Next, specific
-%features (the small circular black and white potentiometers on the
-%fingers) are searched on the arm area
-%(figures~\ref{fig:expl-directions}.1 and
-%\ref{fig:expl-directions}.2). The hand is identified if more than
-%two of these features are found. The detection just described
-%proved reliable enough for our purposes and was used as a
-%short-cut in place of other, more general, methods
-%\cite{metta03early,natale05from}.
-%
-%The visual feedback of the hand could be used for closed-loop
-%control. However, closed-loop control is not always suitable. This
-%happens for example in presence of occlusions or when the hand is
-%not within the visual field.
-%%
-%Open-loop control is an alternative solution. A possible open-loop
-%control consists of a mapping between the fixation point of the
-%head and the arm end-point \cite{metta00Babybot}. The advantage of
-%this approach is that the mapping can be easily learned if the
-%robot is able to look at the hand. Another approach uses the
-%output of the hand detector to learn a direct mapping between the
-%arm proprioception (encoder feedback) and the position of the hand
-%in the image \cite{natale05from}. The direct (forward) mapping can
-%be inverted locally to control the arm to reach for a visually
-%identified target. The solution we adopt here is similar: in a
-%discovery phase the robot tracks the hand as the arm moves to
-%randomly explore the workspace. This behavior allows the robot to
-%acquire samples in the form:
-%%
-%\begin{center}
-%\begin{math}
-%  \left(\begin{array}{ccccc}
-%    x & y & \alpha &q_{head} &q_{arm} \end{array}\right)_{0,1\dots,k}
-%\end{math}
-%\end{center}
-%%
-%where $x$, $y$ and $\alpha$ are the coordinates of the hand and
-%the orientation of the arm in the image, $q_{head}$ and $q_{arm}$
-%are the position of the head and arm respectively. Given
-%$q_{head}$ it is possible to convert $x$ and $y$ into an
-%egocentric reference frame:
-%%
-%\begin{equation}
-%  \left[
-%  \begin{array}{ccc}
-%    \theta_h & \phi_h
-%    \end{array}\right]^T
-%  = g_{head}
-%  \left(\left[\begin{array}{ccc}
-%    x &
-%    y &
-%    q_{head}
-%    \end{array}\right]^T \right)
-%\label{eq-head-inverse}
-%\end{equation}
-%%
-%$\theta_h$ and $\phi_h$ represents the polar coordinates of the
-%hand in the reference frame centered at the base of the head
-%(azimuth and elevation). Basically $g_{head}$ includes knowledge
-%of the inverse kinematics of the head and the parameters of the
-%camera. The opposite transformation maps polar coordinates into
-%the image plane:
-%\begin{equation}
-%  \left[\begin{array}{cc}
-%    x & y
-%    \end{array}\right]^T
-%  = h_{head}
-%  \left(\left[\begin{array}{ccc}
-%    \theta_h &
-%    \phi_h &
-%    q_{head}
-%    \end{array} \right]^T\right)
-%\label{eq-head-direct}
-%\end{equation}
-%
-%Given these two transformations a neural network can be trained to
-%learn the following mapping:
-%%
-%\begin{equation}
-%  \left[\begin{array}{ccc}
-%    \theta_h & \phi_h & \alpha
-%    \end{array}\right]^T
-%  = f \left(q_{arm}\right)
-%\label{eq-arm-direct}
-%\end{equation}
-%%
-%which links the arm posture $q_{arm}$ to the polar coordinates of
-%the hand $\left[\theta_h, \phi_h\right]^T$ and the orientation of
-%the arm $\alpha$. This mapping was learned online by using the
-%neural network proposed by \cite{schaal98Constructive}.
-%
-%The mapping of equation~\ref{eq-arm-direct} allows computing the
-%polar coordinates of the hand with respect of the robot from the
-%encoders of the arm. Whenever required
-%equation~\ref{eq-head-direct} maps the polar coordinates back onto
-%the image plane.
-%
-\subsection{Reaching}
-\label{sec:reaching}
-
-[Approximated inverse kinematics]
-%
-
-%Suppose we want to move the arm towards a location of the
-%workspace identified visually. Let $\left[\begin{array}{c c} x_t &
-%y_t\end{array}\right]^T$ be such position. Knowing $q_{head}$ from
-%equation \ref{eq-head-inverse} we can convert the target position
-%into the body centered reference frame $\left[\begin{array}{c c}
-%\theta_t  & \phi_t\end{array}\right]^T$. The reaching problem can
-%now be stated as a the minimization of the following cost
-%function:
-%%
-%\begin{equation}
-%  \displaystyle\min_{q_{arm}}\left(C\right)=\displaystyle\min_{q_{arm}}
-%  \left\Vert
-%  \left[
-%  \begin{array}{cc}
-%    \theta_t & \phi_t
-%    \end{array}\right]^T
-%  -
-%  \left[\begin{array}{cc}
-%  \theta_h & \phi_h\end{array}
-%  \right]^T
-%  \right\Vert^2
-%\label{eq-reaching1}
-%\end{equation}
-%%
-%where $\theta_h$ and $\phi_h$ are computed from
-%equation~\ref{eq-arm-direct}.
-%
-%Assuming a stationary target the minimum of
-%equation~\ref{eq-reaching1} can be found by gradient descent. The
-%gradient of $C$ is proportional to the Jacobian transposed of the
-%manipulator, that is:
-%%
-%\begin{equation}
-%  \nabla C=-2\nabla f\left(q_{arm}\right)=-2J^T\left(q_{arm}\right)
-%\label{eq-gradient}
-%\end{equation}
-%%
-%$\nabla f\left(q_{arm}\right)$ was approximated by partial
-% differentiation of equation \ref{eq-arm-direct}. Because
-%the basis functions used by the neural network are gaussians this
-%was easily done analytically (another approach is to perform
-%numerical differentiation).
-%
-%To summarize we have described a method to compute the arm
-%commands required to reach for a visual target. The method employs
-%the forwards kinematics of the arm. The direct kinematics is
-%learned by the robot as described in the previous section. The
-%reaching problem is solved iteratively by using an approximation
-%of the arm Jacobian. The latter is obtained by differentiating the
-%basis functions of the neural network approximating the direct
-%kinematics. This procedure is carried out online without using the
-%real visual feedback of the hand.
-%
-%In the robot, visual information (and hence the mapping of
-%equation~\ref{eq-arm-direct}) is two-dimensional and does not
-%carry any information about distance. The solution found by
-%descending the gradient of the direct kinematics takes care of
-%minimizing the distance between the target and the hand \emph{on
-%the image plane}, and as such, is not concerned with the third
-%dimension $R$ (the distance between the hand and the head, along
-%the optical axis of the camera). In practice however the
-%components of the gradient along $R$ are small compared to the
-%others. The value of $R$ at the end of the reaching movement
-%depends on the initial position of the arm; we chose this value so
-%to keep the hand above the table.
-%%
-%\begin{figure}[tb]
-%  \centerline{
-%    \includegraphics[width=\columnwidth, angle=0 ]{./figures/expl-directions.eps}
-%  }\caption[Hand localization, arm orientation and exploration primitives]
-%  {Left, frames 1 and 2: hand localization and arm
-%    orientation. Right, frame 3: exploration primitives. Primitives $v_1$
-%and $v_2$ are perpendicular and parallel to the arm orientation.
-%$v_3$ is along the null space of the arm Jacobian. For simpler
-%understanding these primitives are here sketched in the cartesian
-%plane, but they are actually computed in the joint space (see
-%Section~\ref{sec:controlling} for more details).}
-%\label{fig:expl-directions}
-%\end{figure}
-%%
-\subsection{Exploration primitives}
-[Based in kinematics]
-%Starting from the direct mapping of the hand position and arm
-%orientation we can identify a set of explorative primitives, that
-%is a set of vectors in joint space that allows the robot to
-%explore the arm workspace. We chose three vectors $v_1$, $v_2$ and
-%$v_3$, as follows (see also Figure~\ref{fig:expl-directions}):
-%
-%$v_1$: moves the hand along the direction perpendicular to the
-%arm. It is computed by planning a reaching movement towards a
-%point a few pixels away from the hand along the line perpendicular
-%to the orientation of the arm.
-%
-%$v_2$: moves the hand along the direction of the arm. It is
-%computed by planning a reaching movement towards a point a few
-%pixels away from the hand along the arm.
-%
-%$v_3\in \ker \left(J\left(q_{arm}\right)\right)$: $v_3$ lays in
-%the null space of the arm Jacobian; in our case the null space of
-%the Jacobian consists of those vector that do not affect either
-%the projection of the hand onto the visual plane or the
-%orientation of the arm. These vectors produce a movement of the
-%hand along the optical axis of the camera, or, in other words,
-%along $R$.
-%
+[Based in kinematics] The exploration primitives are computed
+based on kinematics.
 
 \subsection{Implementation of the robot's behavior}
 \label{sec:impbehavior}
 
-%
-\begin{figure}[htbp]
-  \centerline{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/behaviorsD.eps}
-  }\caption[Diagram of the behavior-based architecture]{We can observe the
-  behaviors \emph{reaching}, \emph{hovering}, \emph{depth}, \emph{grasping}, and \emph{pushing}. We can also
-  observe the modules tactile, arm, and hand that interface with the
-  hardware of the robot. The sensing and actuation modules are repeated in dashed
-  lines for clarity. These modules are also presented in the overall architecture
-  for reference (figure~\ref{fig:ArchOverall} inside the linux nodes). The modules arm and hand provide sensing information
-  (i.e.positions and forces) and receive commands (i.e. positions' setpoints).
-  The tactile module only provides information, it does not receive commands.
-  Each of the behaviors are connected to the sensing and actuation modules as shown
-  by the arrows. The line with double arrows indicates that the behavior can
-  receive sensing information and send commands. The line with one arrow
-  indicates that the behavior only receives sensing information.
-  %
-  The Safe Position module receives the angles of the arm and outputs a binary
-  output that indicates if the arm's position is between the range considered
-  safe or not. The attention system output is the coordinates of
-  an object detected. Details of the attention system are presented
-  in figure~\ref{fig:attnsys}. The \emph{reaching} behavior receives the outputs of the
-  attention system and the safe position module.
-  %
-  The connections represented by lines terminated on a circle
-  represent the capability of enabling or inhibiting a behavior.
-  %hovering
-  In the case of the \emph{hovering} behavior, it has the capability of
-  self-inhibition and it runs when both connections are enabled.
-  }
-\label{fig:behaviors1}
-\end{figure}
-%
 
-
-
-
-\begin{figure}[htbp]
-  \centerline{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/ExpBehavior.eps}
-  }
-  %
-  \caption[Behaviors interaction]{Behaviors interaction. 1. All the behaviors
-  but \emph{reaching} are inhibited as shown by the color of the circles.
-  We assume that the arm is in the safe position. Therefore, the output of the
-  safe position module indicates this condition (colored blue) to the \emph{reaching}
-  behavior.
-  %
-  2. Repetitive motion of an object in
-  front of the robot is detected by the attention system (colored blue) and 2D coordinates of
-  the object are sent to the \emph{reaching} behavior. The \emph{reaching}
-  behavior, knowing that the arm is in a safe position and the
-  goal position, sends commands to the arm to execute this motion
-  (colored blue).
-  %
-  3. The output of the safe position module changes when arm moves.
-  We are assuming that there is no more repetitive motion and that the output of
-  the attention system also changes. When the arm
-  gets to the final position, \emph{reaching} inhibits itself and all the other behaviors become
-  enabled. \emph{hovering} and \emph{depth} are colored blue
-  to indicate that they meet the conditions to send commands. If
-  there is no contact with an object \emph{hovering} and \emph{depth} remain active.
-  There is coordination between these two behaviors (not indicated in the figure) to execute one after
-  another.
-  %
-  4.
-  When the index finger makes contact, the \emph{hovering}
-  behavior inhibits itself. The same condition makes the \emph{pushing} behavior
-  active (colored blue) which moves the arm forward. The \emph{depth} behavior (colored blue)
-  keeps moving the hand down until it makes contact with the table which is indicated
-  by the infrared sensors. As a consequence of the \emph{pushing}
-  behavior being active the palm touches the object. This actives the \emph{grasping} behavior
-   which runs a preprogrammed sequence.
-  %
-  } \label{fig:expbehaviors}
-\end{figure}
-%
 
 In this section, we describe the implementation of a behavior that
-allows the robot to grasp objects. A diagram of this
-implementation is presented in figure~\ref{fig:behaviors1} where
-we can observe the interconnection of five behaviors:
-\emph{reaching}, \emph{depth exploration}, \emph{hovering},
-\emph{pushing}, and \emph{grasping}.
+allows the robot to grasp objects.
+
 
 We will refer to figure~\ref{fig:expbehaviors} to explain the
 interaction between behaviors. It should be noted in the figure
@@ -558,19 +213,11 @@ information is available the arm reaches a region above the object
 behavior} enables the other behaviors
 (figure~\ref{fig:expbehaviors}.3). The robot computes the
 directions $v_1$, $v_2$, and $v_3$ and explores using the
-following three behaviors:
-%
-\begin{itemize}
-%
-\item \emph{depth behavior}, moves the hand ``downwards'' along
-$v_3$;
-%
-\item \emph{hovering behavior}, moves the hand back and forth
-along $v_1$;
-%
-\item \emph{pushing behavior}, moves the hand along $v_2$;
-%
-\end{itemize}
+following three behaviors: \emph{depth behavior}, moves the hand
+``downwards'' vertically $v_3$; \emph{hovering behavior}, moves
+the hand back and forth along $v_1$;\emph{pushing behavior}, moves
+the hand along $v_2$;
+
 
 The \emph{depth behavior} moves the hand along the direction of
 the optical axis of the camera and adjusts the height of the hand
@@ -599,6 +246,8 @@ activated. The \emph{grasping behavior} simply closes the fingers
 to a specific position. The low impedance of the joints allows the
 fingers to adapt to the different objects being grasped.
 
+[Include here the grasping and the lifting] with feedback.
+
 Figure~\ref{fig:sequence} reports an example of the robot grasping
 a porcelain cup. The relation between the behaviors and the
 actions of the robot are presented in figure~\ref{fig:bsteps}. The
@@ -620,31 +269,31 @@ hand. Frames 7 and 8: the robot grasps and lifts the cup.}
 \label{fig:sequence}
 \end{figure*}
 
-
-\begin{figure}[htbp]
-  \centering
-  \subfigure{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep1.eps}}
-    \hfill
-    \subfigure{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep2.eps}}
-        \hfill
-        \subfigure{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep3.eps}}
-        \hfill
-        \subfigure{
-    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep4.eps}}
-
-  %
-  \caption[Behaviors and robot's actions]{From top to bottom, we
-  observe a sequence of the behaviors' activity  and the generated
-  robot's actions. The explanation of the behaviors is presented in
-  figure~\ref{fig:expbehaviors}. 1. The arm is in the safe
-  position. 2. The cup is being shaken and the arm reaches toward
-  the cup. 3. The arm moves side to side and downwards. 4. The arm
-  moves toward the cup.
-  } \label{fig:bsteps}
-\end{figure}
+%
+%\begin{figure}[htbp]
+%  \centering
+%  \subfigure{
+%    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep1.eps}}
+%    \hfill
+%    \subfigure{
+%    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep2.eps}}
+%        \hfill
+%        \subfigure{
+%    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep3.eps}}
+%        \hfill
+%        \subfigure{
+%    \includegraphics[height=\columnwidth, angle=270]{./figures/bstep4.eps}}
+%
+%  %
+%  \caption[Behaviors and robot's actions]{From top to bottom, we
+%  observe a sequence of the behaviors' activity  and the generated
+%  robot's actions. The explanation of the behaviors is presented in
+%  figure~\ref{fig:expbehaviors}. 1. The arm is in the safe
+%  position. 2. The cup is being shaken and the arm reaches toward
+%  the cup. 3. The arm moves side to side and downwards. 4. The arm
+%  moves toward the cup.
+%  } \label{fig:bsteps}
+%\end{figure}
 
 \section{Evaluations}
 \label{sec:results}
@@ -750,7 +399,7 @@ can be efficiently used to grasp unknown objects. In this section,
 we further analyze the tactile data to obtain useful information.
 
 
-\subsection{Sensitivity}
+\subsection{Sensitivity Required}
 
 The tactile sensors used are capable of providing information
 useful for grasping and manipulation in general. We further
@@ -886,20 +535,6 @@ reference the forces acting on the tactile sensors on the hand.}
 \end{figure}
 
 
-\begin{figure}[tbp]
- \centerline{
- \includegraphics[height=\columnwidth, angle=270]{./figures/GrabingData11.eps}
- }\caption[Trajectories followed different grasping sequences of an object]
- {The figure presents the trajectories followed by two
- different grasping sequences of a same object. We can observe that
- the tactile sensors' response capture the variation in the different
- trajectories. The magnitude of the tactile vector plotted is the Z
- component of the vectorial summation of the forces present in each
- tactile sensor, considering the current geometry of the hand.
- The reference used is presented in figure~\ref{fig:tactileref}.
- The vertical line indicates
- the moment that the fingers close.} \label{fig:AnglesPlot}
- \end{figure}
 
 A more detailed plot of the response of the tactile sensors is
 presented in figure~\ref{fig:TactileComp}. In this figure we can
@@ -911,14 +546,6 @@ does not go to zero mainly because the compliant sensors are not
 calibrated. However, we do not rely on this condition to evaluate
 the grasp.
 
-
- \begin{figure}[tbp]
- \centerline{
- \includegraphics[height=\columnwidth, angle=270]{./figures/TactileComp.eps}
- }\caption[Tactile forces on grasping events]{Components and summation of the tactile forces.
- The dimension of the vertical axes are A/D values.
- Two different grasping sequences are shown.} \label{fig:TactileComp}
- \end{figure}
 
 
 Further analysis of this information allows us to detect events
@@ -1018,7 +645,7 @@ off-board. However, the hardware on the sensors have the
 capability of doing this calculation faster.
 
 
-\begin{figure}[tbp]
+\begin{figure}[htbp]
 \centerline{
 \includegraphics[height=\columnwidth, angle=270 ]{./figures/Slippage.eps}
 } \caption[Bottle slipping]{From 1 to 5 we observe the bottle
@@ -1029,13 +656,6 @@ motion towards the front is not linear but circular.}
 
 
 
-\begin{figure}[htbp]
-\centerline{
-\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
-} \caption[Tactile forces when lifting an object]{Tactile forces
-in two different lifting events. For details see
-section~\ref{sec:slippage} } \label{fig:slip}
-\end{figure}
 
 
 
@@ -1048,6 +668,15 @@ opposed to precision grasping. In some cases, an object will come
 in contact with the fingers on spots where the fingers are not
 fully covered with the skin. In that case the slippage detection
 is not possible.
+
+\begin{figure*}[htbp]
+\centerline{
+\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
+} \caption[Tactile forces when lifting an object]{Tactile forces
+in two different lifting events. For details see
+section~\ref{sec:slippage} } \label{fig:slip}
+\end{figure*}
+
 
 \subsection{Applying forces to a held object: placing an object on a surface}
 
@@ -1063,7 +692,7 @@ mouth, etc.
 OBRERO's tactile sensors are capable of measuring changes on the
 forces applied to the object. In order to illustrate the principle
 we present the following example. The robot grabs the bottle used
-in section~\ref{sec:slippage}. Subsequently,it lifts the bottle
+in section~\ref{sec:slippage}. Subsequently, it lifts the bottle
 and then moves it back to the surface. The forces applied to the
 object are monitored using the tactile sensors. When a large
 change on the forces is detected in direction opposite to the
@@ -1073,20 +702,6 @@ this change at any time. For example, if we place our hand under
 the bottle before the robot touches the surface, the robot will
 able to detect this change on the tactile forces. This example is
 presented in figure~\ref{fig:landing}.
-
-%[Include forces of Landing figure]
-
-\begin{figure}[tbp]
-\centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/SeqHandDelivery.eps}
-} \caption[Detection of forces applied to an object held by the
-robot]{This sequence shows the robot detecting forces applied over
-an object when holding it. This is useful to place objects over
-surfaces. In (a) the robot is holding a bottle, in (b) a person is
-touching the bottle from below and the robot detects this force.
-As a consequence, the robot releases the object as shown in (c)}
-\label{fig:landing}
-\end{figure}
 
 
 It is arguable that this detection can also be done by force
@@ -1119,7 +734,21 @@ In order to detect the event of pushing or contacting the table
 setting a threshold is enough, as it is illustrated on the top
 plot of figure~\ref{fig:twotaps}.
 
-\begin{figure}[tbp]
+
+\begin{figure}[htbp]
+\centerline{
+\includegraphics[height=\columnwidth, angle=270 ]{./figures/SeqHandDelivery.eps}
+} \caption[Detection of forces applied to an object held by the
+robot]{This sequence shows the robot detecting forces applied over
+an object when holding it. This is useful to place objects over
+surfaces. In (a) the robot is holding a bottle, in (b) a person is
+touching the bottle from below and the robot detects this force.
+As a consequence, the robot releases the object as shown in (c)}
+\label{fig:landing}
+\end{figure}
+
+
+\begin{figure}[htbp]
 \centerline{
 \includegraphics[height=\columnwidth, angle=270 ]{./figures/2TapsX.eps}
 } \caption[Pushing the bottle upwards twice]{Pushing the bottle
@@ -1135,55 +764,7 @@ object was pushed.} \label{fig:twotaps}
 %integration. Done this way so it is independent of the force
 %required.
 
-\section{Feedback sampling frequency}
-\label{sec:imp:timing}
 
-In table~\ref{tab:feedback}, we observe that the feedback
-information is available at different frequencies. The low level
-motor control receives the information from the encoders and
-potentiometers at 500Hz. This frequency is adequate for force
-control in the series elastic actuator and for the position
-control of the limbs.
-
-The tactile feedback is sent to a daemon in a linux node. The
-information is updated at about 55 Hz. However, the tactile
-sensors can detect events at higher frequencies using its local
-microcontroller. Force and/or position feedback from the hand arm
-and head are sent to the linux nodes from their respective low
-level controllers. However, they are only available at 12.5 Hz to
-the linux nodes because of communication delays.
-
-This information shows that the behaviors implemented are
-constrained in speed by the feedback frequency. Therefore, the
-control architecture works at different speeds that is slow at the
-higher levels controllers and faster at the low levels. This
-structure is considered analog to the control loops in humans. A
-consequence of this structure is that the right sensing has to be
-used for a given task. For example, if we want to detect and avoid
-slippage, the sensing and the reaction have to be executed at the
-right level to work.
-
-
-\begin{table*}[htb]
-  \caption[Feedback sampling frequency]{Feedback sampling frequency}
-  %
-  \label{tab:feedback}
-  %
-  \centering
-  \begin{tabular}{|l|r|r|}
-    \hline
-    Name& Period (s)&Frequency (Hz)\\
-     %       & (s)&(Hz) \\
-    %&Object& W(Kg)&Trials&Fail&Contains \\
-    \hline
-    Low level motor control&0.002&500.00\\
-    High level tactile feedback & 0.018 & 55.55\\
-    High level position feedback &0.080 & 12.50\\
-    High level force feedback &0.080 & 12.50\\
-
-    \hline
-  \end{tabular}
-\end{table*}
 
 
 \section{Limitations of the implementation}
@@ -1273,6 +854,58 @@ relying primarily upon tactile sensory information. We certainly
 believe that future robots will have to take advantage of the
 integration of all sensory modalities.
 
+
+
+
+\section{Extra information}
+\label{sec:imp:timing}
+
+In table~\ref{tab:feedback}, we observe that the feedback
+information is available at different frequencies. The low level
+motor control receives the information from the encoders and
+potentiometers at 500Hz. This frequency is adequate for force
+control in the series elastic actuator and for the position
+control of the limbs.
+
+The tactile feedback is sent to a daemon in a linux node. The
+information is updated at about 55 Hz. However, the tactile
+sensors can detect events at higher frequencies using its local
+microcontroller. Force and/or position feedback from the hand arm
+and head are sent to the linux nodes from their respective low
+level controllers. However, they are only available at 12.5 Hz to
+the linux nodes because of communication delays.
+
+This information shows that the behaviors implemented are
+constrained in speed by the feedback frequency. Therefore, the
+control architecture works at different speeds that is slow at the
+higher levels controllers and faster at the low levels. This
+structure is considered analog to the control loops in humans. A
+consequence of this structure is that the right sensing has to be
+used for a given task. For example, if we want to detect and avoid
+slippage, the sensing and the reaction have to be executed at the
+right level to work.
+
+
+\begin{table}[htb]
+  \caption[Feedback sampling frequency]{Feedback sampling frequency}
+  %
+  \label{tab:feedback}
+  %
+  \centering
+  \begin{tabular}{|l|r|r|}
+    \hline
+    Name& Period (s)&Frequency (Hz)\\
+     %       & (s)&(Hz) \\
+    %&Object& W(Kg)&Trials&Fail&Contains \\
+    \hline
+    Low level motor control&0.002&500.00\\
+    High level tactile feedback & 0.018 & 55.55\\
+    High level position feedback &0.080 & 12.50\\
+    High level force feedback &0.080 & 12.50\\
+
+    \hline
+  \end{tabular}
+\end{table}
 
 %\section{The second part}
 %
