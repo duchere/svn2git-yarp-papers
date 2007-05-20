@@ -110,8 +110,8 @@ all: $(MAIN).dvi
 %.eps: %.pssrc
 ifeq ($(shell uname),Linux)
 	@echo "On linux, so using straightforward eps generation method"
-	ps2eps $<
-#	ps2eps -l -f -C -s a3 -n -c $<
+#	ps2eps $<
+	ps2eps -l -f -C -s a3 -n -c $<
 #	ps2eps -l -f -F -s a3 --rotate=+ $<
 	mv $<.eps $@
 else
