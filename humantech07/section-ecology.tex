@@ -7,6 +7,8 @@
 \includegraphics[height=3.5cm]{fig-swig}
 \caption{
 %
+\label{fig:build}
+%
 With the aid of a set of free and open source tools, 
 a C/C++ based project like YARP can have a very
 wide reach.
@@ -73,16 +75,16 @@ collection of niches world-wide in which software development occurs.
 
 We decided to use C++ as the main language for development. This 
 is motivated by the fact that C++ is an object oriented language
-that is widely used by many developers in the world, is well 
-supported an portable on almost all the available platforms. 
+that is widely used by many developers in the world, and is well 
+supported and portable on almost all the available platforms. 
 Perhaps more importantly for robotics, C++ allows writing very 
 efficient code and interfacing with the hardware at the lowest 
-level. 
+level.
 
 The drawback is that the compile process varies a lot depending 
 on the platform and development environment. For example Linux 
-and cygwin developers use mostly Makefiles, whereas Windows 
-developers most often prefer Visual Studio project files. 
+and Cygwin developers use mostly Makefiles, whereas Microsoft Windows 
+developers may prefer Visual Studio project files. 
 Altough C++ has reached a fairly good level 
 of portability which allows, with a reasonable effort, writing 
 applications that compile on all platforms, it is still very 
@@ -109,51 +111,36 @@ because it is no longer required to distribute build files
 for all possible platforms.
 
 Among the available tools for automatic configuraton of 
-software packages, we decided to use CMake. CMake is 
+software packages, we decided to use CMake
+(see Figure~\ref{fig:build}). CMake is 
 cross-platform open-source, make system. It produces 
 build files for the environment of choice (e.g. makefiles
 for Unix, Borland and MinGW and project files for all 
 Microsoft compilers) starting from a language independent 
-description. The language of CMake is powerful enought 
+description. The language of CMake is powerful enough
 to support a flexible configuration process based 
 on the packages that are available in the system and 
-the preferences of the user (see figure). Through 
+the preferences of the user. Through 
 CMake the build process of YARP is robust, simple and 
 flexible.
-
-very portable (especially C), though lots of details.
-
-but compile process?  varies a lot. autobuild tools
-(autoconf/automake).  and also CMAKE.
-
-CMAKE:
-
-Open-source, deals well with various IDEs and command-line development.
-
-Not as familiar as autoconf/automake/... etc.
-
-Has the excellent property of being simpler than making Makefiles
-or configuring a project, when external libraries are involved.
-
-The big downside is that the language is unfamiliar and a bit ugly.
-It is simple and well-documented, but quirky.  An alternative with
-some similar properties, scons, uses python instead.  The ant system
-uses with java also seems cleaner.  However, it gets the job
-done, and has the huge advantage of not being dependent on an
-external language being installed.
-
+%
+%Has the excellent property of being simpler than making Makefiles
+%or configuring a project, when external libraries are involved.
+%
+%The big downside is that the language is unfamiliar and a bit ugly.
+%It is simple and well-documented, but quirky.  An alternative with
+%some similar properties, scons, uses python instead.  The ant system
+%uses with java also seems cleaner.  However, it gets the job
+%done, and has the huge advantage of not being dependent on an
+%external language being installed.
+%
 CMake is free and open-source, with a healthy community of 
 developers.
 
 
-SWIG:
 
-ACE:
-
-
-\subsection{Repositories}
-
-sourceforge.  debian.
+%%\subsection{Repositories}
+%%sourceforge.  debian.
 
 
 \subsection{Free Software}
@@ -273,15 +260,15 @@ Player devices require message passing (even if the message passing
 is just internal rather than across a network).
 
 
-serialization / message passing
+%%serialization / message passing
 
-Player's communication model,
-which used to be client/server, has recently been expanded to
-be more flexible, and seems to be getting closer to a peer-to-peer
-mechanism such as YARP.
+%%Player's communication model,
+%%which used to be client/server, has recently been expanded to
+%%be more flexible, and seems to be getting closer to a peer-to-peer
+%%mechanism such as YARP.
 
 
 
-Categories from \cite{collett2005player}:
+%%Categories from \cite{collett2005player}:
 
 
