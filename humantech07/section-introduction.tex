@@ -69,9 +69,44 @@ software development is a time consuming and tedious task that
 takes away time and efforts that could be better spent doing 
 research. Yet at the same time, software development in 
 robotics is a delicate and crucial task that cannot be easily 
-delegated to non-trained persons. In research laboratories 
+delegated to untrained persons. In research laboratories 
 fast changing hardware and lack of human resources too often 
 narrow the niche in which software lives.
+
+%
+Research to provide intelligence to these complicated robots, perhaps
+of humanoid shape, also suffers. Accumulating knowledge 
+in the form of working demonstrable systems is plagued by the   
+difficulty of forming teams, on agreeing on standards, and in 
+general by the lack of a critical mass in any existing laboratory no 
+matter the size or funding. The problem of artificial intelligence seems
+to be more baffling than what originally thought \ref{} and the year 2006 
+celebrated the $50^{th}$ anniversary of the workshop at Dartmouth College
+which is unanimously considered the birth of artificial intelligence at 
+least in some modern sense \ref{}. %Turing had previously considered the problem%
+A generation of researchers did not manage to make the progress that was
+certainly hoped for. Significant progress can certainly be made either 
+because of a breakthrough in our understanding of the problem or through 
+a slower accumulation of knowledge. Or it can be due to a combination of 
+these two elements. Recently, the paradigmatic shift toward embodiment 
+seems to require also the realization of appropriate robotic hardware \ref{}. 
+%Rolf's latest book%
+The parallel with the commercial PC is easily made. The success of the PC was
+determined, among other factors, by the definition of hardware standards
+that everybody could understand, copy, and reimplement. From time
+to time new standards were required (e.g. the ISA bus slowly left
+space to PCI slots) but the system flourished. A PC of today is the modern 
+version of the Theseus' ship, everything changed but the PC is still considered
+a PC. Under the hood, the PC is a few orders of magnitude faster and of larger
+storage capacity. On the software side, the benefit of a common architecture, 
+allowed creating operating systems and application software consisting of 
+several millions of lines of code. Without a standard hardware things
+might have been more difficult.
+It is clearly difficult to foresee the future of humanoid robotics. It is
+easier though to imagine a scenario where common standards both in software and
+hardware will find the fertile soil to flourish when isolated breakthroughs 
+will happen.
+
 %
 In this paper, we are concerned
 about how robotics researchers can avoid being caught in a tiny
@@ -84,15 +119,15 @@ will be crucial in ``bleeding-edge'' research for years to come.
 The only viable solution to these problems is to facilitate 
 code reuse both in time and between different people or 
 institution. For projects of reasonable size this means following
-a \emph{modular} approach, where software is devided in 
-indipendent modules, that can be developed and maintained 
+a \emph{modular} approach, where software is divided in 
+independent modules, that can be developed and maintained 
 by different people so that efforts 
 are shared among groups having distinct competences. A 
 modular software platform is flexible. Obsolete modules are 
 removed and substituted for newer ones without causing 
 catastrophic effects. To take advantage of code written by 
 other people in different contexts code must be as friendly 
-as possible to other libraries avoiding to impose contraints 
+as possible to other libraries avoiding to impose constraints 
 and dependencies at all levels, from the hardware architecture 
 to the development environment and programming language. 
 Dependencies between modules should be 
@@ -103,18 +138,29 @@ particular the \emph{timing} of signals should be preserved
 irrespective of the number of modules that are running 
 at any given moment in the whole system. 
 
+%
+The robotic platform can be seen as another factor on the
+equation of code reuse. A common hardware, common protocols,
+electrical standards, sensors, etc. can certainly make the 
+life of the researchers easier. As for software, modularity 
+can play a role in the hardware design too. 
+
 Following the Open Source Software philosophy we make the 
-code of our software available so that other 
+code of our software and hardware available so that other 
 researchers can better understand it and have the freedom 
 to improve and better adapt it to their needs.
 
 Our motivation comes from the condition of humanoid robotics 
 research, but most of this paper is not specific to that field.
+
 %
 We think it is relevant to any small research group, either academic or
 industrial, who wishes to develop novel robots (as opposed to 
-build applications on existing robots).  We want to maximize the 
-reach of such research groups.
+build applications on third party robots).  We want to maximize the 
+reach of such research groups. There is clearly a tension here 
+between providing a consolidated system and giving enough freedom
+to change every single part via upgrades and replacements. We would
+like to be able to do so both in software and hardware.
 
 
 %Robots with unusual hardware can find themselves initially bereft of
@@ -137,6 +183,7 @@ reach of such research groups.
 
 %Big companies built on OSS (e.g. Google)
 
+% this might require a few changes to accomodate for the hardware...
 New devices come out all the time -- needs to be easy to connect them
 to existing code.  YARP needs a minimal ``wrapper'' class to match
 vendor-supplied library with relevant interfaces that capture common
