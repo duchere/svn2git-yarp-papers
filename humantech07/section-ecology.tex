@@ -7,7 +7,26 @@
 \includegraphics[height=3.5cm]{fig-swig}
 \caption{
 %
-Build.  ACE. CMake. Swig.
+With the aid of a set of free and open source tools, 
+a C/C++ based project like YARP can have a very
+wide reach.
+%
+C/C++ source code is quite portable and widely supported, but the
+infrastructure needed to compile such programs varies a great 
+deal.  Tools like autoconf and automake have smoothed over
+the differences for UNIX-like systems. CMake (left) goes
+further and makes projects easy to compile within a
+wide range of integrated development environments
+(including UNIX-like systems, but also Microsoft Visual C++,
+Apple Xcode, Kdevelop, etc).
+%
+For operating-system dependent functions, we use the free
+and open source ACE library.
+%
+SWIG (right) takes C/C++ source code and generates ``wrappers''
+for it, usable from many different languages (including Matlab
+via Java).
+%
 %
 }
 \end{center}
