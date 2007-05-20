@@ -16,40 +16,19 @@ Build.  ACE. CMake. Swig.
 
 \section{A software ecology}
 
-(((THIS SECTION IS CONFUSED.  IT WAS GOING to be a
-semi-review of how free software works, but now
-is probably just going to be a summary of 
-the tools we use...))
 
-
-Research groups that all use a specific robot (Khepera, Pioneer, AIBO,
-...) often form a natural software community.  But each alone is 
-a small subset of robotics.
-
-Groups developing new robots face obstacles.  There are big barriers
-to software collaboration: differences in sensors, actuators, and
-bodies; differences in processors, operating systems, libraries,
-frameworks, languages, compilers.
-
-Computer science and PCs operate in a world that has been at least
-partially commodified; research groups in CS do not have to 
-reinvent the operating system for every project they undertake.
-
-Robot software development is like computer software development,
-only more so.
-
-Software development for humanoid robots is somewhat of a back-water.
-Although it is a topic that excites the public imagination, the
-actual resources devoted worldwide are quite low.  The Japanese
-government and car manufacturers have invested in some high-profile
-projects...
+%Software development for humanoid robots is somewhat of a back-water.
+%Although it is a topic that excites the public imagination, the
+%actual resources devoted worldwide are quite low.  The Japanese
+%government and car manufacturers have invested in some high-profile
+%projects...
 
 
 Many robot projects are ``black holes'', in terms of software.  A lot
 of software gets sucked in, but very little comes out.  Once a piece
 of software has been adapted to a particular robot, it takes a lot
 of work to extricate it again and apply it to another.
-
+%
 Obviously the answer to this problem is modularity.  So there are 
 now many architectures/frameworks/... for modular robot systems.
 The prime concern for any such system should be that it is not
@@ -57,45 +36,16 @@ a ``black hole'' -- that once a piece of software has been adapted
 to a particular framework, it takes a lot of work to extricate it
 again and apply it to another.  That would be a bit self-defeating.
 
-We study YARP from this perspective.  How sticky is resultant user
-code to the robot and to the framework itself?
+So modularity alone is not a solution to software reuse, since 
+different organizing frameworks or architectures may be mutually
+incompatible.  It is import that modules developed can fit
+into a broader ``ecology'' than just the framework/architecture
+of the developers.  By ecology, we mean the messy complicated
+collection of niches world-wide in which software development occurs.
 
+%We study YARP from this perspective.  How sticky is resultant user
+%code to the robot and to the framework itself?
 
-The way parts interact can last longer than the parts themselves.
-Long-lived software is like the Ship of Theseus -- the mast gets replaced,
-the planks get replaced, over time everything may get replaced (``paradox
-of identity'').
-
-
-\subsection{Free and Open Source}
-
-Useful, more malleable.
-
-Has the pragmatic benefit that a user of the software can
-modify and integrate it to their hearts content without the 
-pain of dealing with opaque binaries.
-
-Has the revolutionary benefit that the user is not trapped in the role
-of being a ``consumer'' of software, but can also be a publisher of
-the changes, additions, and integrative work they do in an effective
-form.  This is achieved by explicitly granting far more rights to
-users than they have under the law of most countries, contrasting with
-agreeably with the formerly more common practice of attempting to
-minimize user rights.  These rights are typically granted
-conditionally; a user may only make use of these extended rights if
-(for example) distributed code is always available in its most useful
-original (source) form, with compatible freedoms attached to it.  This
-condition seeks to balance freedoms of individuals versus benefit to
-the group.  The existence of code in usable form with freedoms 
-attached can benefit many people;
-
-The freedom to distribute code in obscure (compiled) forms
-
-
-
-Split between people who emphasize pragmatic concerns and those
-who emphasize freedom.  Just cite the issue, no need to revisit
-it here.
 
 
 
@@ -187,8 +137,41 @@ ACE:
 sourceforge.  debian.
 
 
+\subsection{Free and Open Source}
 
-\section{Player/stage}
+Useful, more malleable.
+
+Has the pragmatic benefit that a user of the software can
+modify and integrate it to their hearts content without the 
+pain of dealing with opaque binaries.
+
+Has the revolutionary benefit that the user is not trapped in the role
+of being a ``consumer'' of software, but can also be a publisher of
+the changes, additions, and integrative work they do in an effective
+form.  This is achieved by explicitly granting far more rights to
+users than they have under the law of most countries, contrasting with
+agreeably with the formerly more common practice of attempting to
+minimize user rights.  These rights are typically granted
+conditionally; a user may only make use of these extended rights if
+(for example) distributed code is always available in its most useful
+original (source) form, with compatible freedoms attached to it.  This
+condition seeks to balance freedoms of individuals versus benefit to
+the group.  The existence of code in usable form with freedoms 
+attached can benefit many people;
+
+The freedom to distribute code in obscure (compiled) forms
+
+
+
+Split between people who emphasize pragmatic concerns and those
+who emphasize freedom.  Just cite the issue, no need to revisit
+it here.
+
+
+
+
+
+\subsection{Interoperating with other architectures/frameworks}
 
 The closest project in spirit to YARP is that of the Player project
 \cite{vaughan2006reusable}.  The Player/Stage software collection is 
