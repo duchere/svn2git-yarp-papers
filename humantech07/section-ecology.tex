@@ -23,7 +23,7 @@ wide range of integrated development environments
 Apple Xcode, Kdevelop, etc).
 %
 For operating-system dependent functions, we use the free
-and open source ACE library.
+and open source ACE library \cite{ACEBook}.
 %
 SWIG (right) takes C/C++ source code and generates ``wrappers''
 for it, usable from many different languages (including Matlab
@@ -111,16 +111,15 @@ because it is no longer required to distribute build files
 for all possible platforms.
 
 Among the available tools for automatic configuraton of 
-software packages, we decided to use CMake
-(see Figure~\ref{fig:build}). CMake is 
-cross-platform open-source, make system. It produces 
-build files for the environment of choice (e.g. makefiles
-for Unix, Borland and MinGW and project files for all 
-Microsoft compilers) starting from a language independent 
+software packages, we decided to use CMake \cite{cmake}. 
+CMake is a cross-platform open-source, make system. It 
+produces build files for the environment of choice (e.g. 
+makefilesfor Unix, Borland and MinGW and project files for 
+all Microsoft compilers) starting from a language independent 
 description. The language of CMake is powerful enough
 to support a flexible configuration process based 
 on the packages that are available in the system and 
-the preferences of the user. Through 
+the preferences of the user (see Figure~\ref{fig:build}). Through 
 CMake the build process of YARP is robust, simple and 
 flexible.
 %
@@ -152,7 +151,7 @@ developers.
 %
 A potted history of YARP.  YARP was born on Kismet~\cite{breazeal01active},
 grew up on Cog~\cite{brooks99cog} and 
-BabyBot~\cite{metta00babybot}, and serves as the
+BabyBot~\cite{natale05linking}, and serves as the
 software architecture for the iCub humanoid \cite{tsagarakis2007icub}.
 %
 Along the way other humanoids have also used the system.
