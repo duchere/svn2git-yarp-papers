@@ -2,11 +2,11 @@
 Code reuse becomes difficult at the level where algorithms 
 communicate with the low-level hardware. The OS layer of YARP tries 
 to minimize dependencies between algorithms and the hardware for 
-which the operating system defines a constant interface (threading, 
-memory, network, filesystem). Unfortunately more specific harware 
+which we define a constant interface (threading, 
+memory, network, filesystem). Unfortunately more specific hardware 
 (motor control boards and frame grabbers are popular 
 examples) requires a more sophisticated mechanism. In these 
-cases vendors provide device drivers and a set of API to simplify 
+cases vendors provide device drivers and a set of APIs to simplify 
 code development. The API comes in the form of a static or dynamic 
 library which is linked in the user code. Unfortunately
 APIs vary a lot even within devices that belong to the same family. 
@@ -17,26 +17,38 @@ developed and bound to the decisions and assumptions of the vendor. For
 example venodor A might decide to use integers to represent the position 
 of a motor joint, wheras vendor B might decide to use a floating point
 variable. Often, even similar devices have different ``initialization'' 
-procedure. Consider for example a motor control board which has a serial
+procedures. Consider for example a motor control board which has a serial
 interface to the host computer; the API of this board will probably require 
 that some parameters (port number, baud rate, number of data bits, etc) are 
 specified when the device is created. Suppose now that we obtain a more 
-recente release of the same board that now has a USB interface. In this 
+recent release of the same board that now has a USB interface. In this 
 case the parameters to initialize the board are different and we are forced 
 to rewrite all processes that use it (the situation is 
-represented in Figure (\ref{fig:devices1})). We call devices which 
+represented in Figure~\ref{fig:devices1}). We call devices which 
 can only be accessed using vendor supplied material ``sticky devices'' 
-because they tend to make the particular set of assumptions made by 
+because they tend to make the particular set of assumptions chosen by 
 the vendor stick to the user's code. A logical step in such a situation 
 is to wrap the functionality supplied by the vendor in a facade, so that 
-source code dependencies are reduced reduced. In YARP wrappers can be 
+source code dependencies are reduced. In YARP wrappers can be 
 made individually, compiled and built separately, and optionally used 
 across the network. This mechanism produces a level of separation between 
 device specific and user's code that is effective for ``quarantining'' the 
-sticky devices. This is achieved in three ways: i) definition of interfaces 
-for families of devices ii) localization and separation of device 
-initialization and creation ii) creation of network wrappers and separation 
+sticky devices. This is achieved in three ways: (i) definition of interfaces 
+for families of devices (ii) localization and separation of device 
+initialization and creation (iii) creation of network wrappers and separation 
 between devices and communication. 
+%
+Note that when we talk about ``interfaces'' here we do not refer to
+the interface description languages used in CORBA and other systems,
+but simply to a consistent API in C++.  Concerns related to
+communication are addressed in point (iii), not (i).  We keep
+communication and device interfaces separate, so that users can
+exploit one and not the other as they wish, and also code written to
+use a device remotely can later be made local with only a cost of a
+single virtual method call over calling the vendor's API directly.
+This is important so that users don't need to go through a painful
+porting process if they discover at some point that remote operation
+is too slow for their application.
 
 \begin{figure}[tbp]
 \centerline{
