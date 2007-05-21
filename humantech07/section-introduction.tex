@@ -195,10 +195,11 @@ come.
 
 From the point of view of software development, the only viable 
 solution to these problems is to facilitate 
-code reuse both in time and between different people or 
-institution. For projects of reasonable size this means following
-a \emph{modular} approach, where software is divided in 
-independent modules, that can be developed and maintained 
+code reuse both in time (from past to future) and space
+(between geographically dispersed people and 
+institutions). For projects of a reasonable size this means following
+a \emph{modular} approach, where software is ideally divided in 
+independent components, that can be developed and maintained 
 by different people so that efforts 
 are shared among groups having distinct competences. A 
 modular software platform is flexible. Obsolete modules are 
@@ -218,41 +219,44 @@ at any given moment in the whole system.
 
 %
 From the hardware development point of view, the robotic platform can 
-be seen as another factor on the
-equation of code reuse. A common hardware, common protocols,
+be seen as another factor in the
+equation of code reuse. Common hardware, common protocols,
 electrical standards, sensors, etc. can certainly make the 
-life of the researchers easier. As for software, modularity 
+life of the researchers easier. As it does for software, modularity 
 can play a role in the hardware design too. 
 
 %%% and now I try to close the introduction:
-In this paper we describe our efforts to tackle these problems. We 
+In this paper we describe our efforts to build a modular
+humanoid robot platform. We 
 describe YARP (\cite{metta2006yarp}), an open source library 
 that we have developed to support software development on humanoid 
 robotics. With YARP we try to facilitate code exchange between researchers, 
 especially when this speeds up the time 
 it takes to develop a platform and use it for research. We here report 
 aspects of YARP that we hope will contribute to longevity and 
-interoperability of software developed for robotics. From the 
-point of view of the hardware, we describe our efforts to create an open 
-robotic platform (\emph{iCub}) that can be shared among several research 
+interoperability of software developed for robotics. Analogously for
+hardware, we describe our efforts to create an open 
+robotic platform, the \emph{iCub} that can be shared among several research 
 groups worldwide.
 
 Following the Open Source philosophy we make the 
 code of our software and hardware available so that other 
 researchers can better understand it and have the freedom 
 to improve and better adapt it to their needs.
-
+%
 %%Our motivation comes from the condition of humanoid robotics 
 %%research, but most of this paper is not specific to that field.
-
+%
 %
 We think it is relevant to any small research group, either academic or
 industrial, who wishes to develop novel robots (as opposed to 
 build applications on third party robots).  We want to maximize the 
-reach of such research groups. There is clearly a tension here 
+reach of such research groups, being mindful of the fundamental tension 
 between providing a consolidated system and giving enough freedom
-to change every single part via upgrades and replacements. We would
-like to be able to do so both in software and hardware.
+to change every single part via upgrades and replacements. 
+%
+%We would
+%like to be able to do so both in software and hardware.
 
 %In this sense 
 %device-level software development is a very time consuming and tedious 
