@@ -184,18 +184,18 @@ force/torque exerted by each axis.
 
 \end{itemize}
 
-These last interfaces are indipendent of the particular algorithm the 
+These last interfaces are independent of the particular algorithm the 
 control board implements to realize the corresponding functionality. 
 These details are delegated to specific interfaces. For example 
 \emph{IPidControl} includes methods to interface to a PID controller, 
-like for example read or set the values of the gains.
+such as for example to read or set the values of the gains.
 
 To summarize, interfaces captures similarities amoung devices and 
 allows separating device dependent from user code. To the 
 extent that user code uses interfaces shared by other devices, 
 another device can be substituted later without change to that part. This 
 includes devices with different initialization procedures, or different
-APIs (see Figure (\ref{fig:devices2})).
+APIs (see Figure~\ref{fig:devices2}).
 
 \subsection{A factory of devices}
 Forcing device access through 
@@ -208,35 +208,59 @@ engineering practice is to \emph{localize object creation} so to
 minimize the amount of code that is responsible for object creation 
 and initialization. 
 We have seen that in YARP part of this is realized by the 
-\emph{DeviceDriver} interface, which forces all initialization procedures 
-to be performed inside the \emph{open} method. Device creation is instead 
+\emph{DeviceDriver} interface, which encourages all initialization procedures 
+to be performed inside a standard \emph{open} method. 
+We then go one step further, and encourage device creation to be
 delegated to a \emph{factory}. The \emph{factory} contains a list of 
 all devices available in YARP and the corresponding functions to call 
 to create them. It receives a list of initialization parameters, 
 creates the device, and initializes it 
-through the \emph{DeviceDriver} interface. If the process is successfull 
+through the \emph{DeviceDriver} interface. If the process is successful
 a valid pointer to the device is returned. This pointer is the only 
-``access point'' to the device and its interfaces. Other interfaces can 
-be obtained by casting this pointer to the appropriate virtual class 
-(in C++ this can be safely done through dynamic cast). 
+``access point'' to the device and (via dynamic casts) its interfaces.
+%
+%Other interfaces can 
+%be obtained by casting this pointer to the appropriate virtual class 
+%(in C++ this can be safely done through dynamic cast). 
+%
+
 
 The whole process of creation, initialization and interface access is 
-managed by the \emph{PolyDriver} object. The user has only direct access 
-to the \emph{PolyDriver}, to which he asks the creation of a particolar 
-device, through the \emph{PolyDriver::open())} method. This request is 
-forwarded to the \emph{factory} which creats an instance of the particular 
+managed by the \emph{PolyDriver} object. 
+Under good ``portable'' usage in YARP, the user accesses devices
+via \emph{PolyDriver}, to which he asks the creation of a particular 
+device, through the \emph{PolyDriver::open())} method. 
+%
+This works just the same as the \emph{open()} method we
+talked about for specific devices, except now our configation
+object (read from file, command line, network, GUI, etc.)
+specifies which device we want and all its options.
+%
+This request is 
+forwarded to the \emph{factory} which creates an instance of the particular 
 device driver the user wants to use. Device drivers are uniquely identified 
 through a symbolic name; the \emph{factory} searches the list of device 
 for an entry whose name matches the one that is requested and, if the match 
 is found, it calls the appropriate constructor. If the driver is successfully 
 created the \emph{factory} returns a valid pointer which is stored inside 
 the \emph{PolyDriver}. The lifecycle of the device is managed by the 
-\emph{PolyDriver}; the user can access only to copies of this pointer 
-thourgh calls to the \emph{PolyDriver::view()} method, which performs 
-a dynamic cast of the internal pointer to the device driver to expose 
-the requested interface before returning it (this mechanism is sketched 
-in Figure (\ref{fig:devices4}) \emph{NOTE: not sure this picture is 
-really needed, consider removing it}).
+\emph{PolyDriver}, and interfaces to the device are acquired via 
+the  \emph{PolyDriver::view()} method (see Figure~\ref{fig:devices4}.
+
+%
+%; the user can access only to copies of this pointer 
+%thourgh calls to the \emph{PolyDriver::view()} method, which performs 
+%a dynamic cast of the internal pointer to the device driver to expose 
+%the requested interface before returning it (this mechniam is sketched 
+%in Figure (\ref{fig:devices4}) \emph{NOTE: not sure this picture is 
+%really needed, consider removing it}).
+%
+%\emph{PolyDriver}; the user can access only to copies of this pointer 
+%thourgh calls to the \emph{PolyDriver::view()} method, which performs 
+%a dynamic cast of the internal pointer to the device driver to expose 
+%the requested interface before returning it (this mechanism is sketched 
+%in Figure (\ref{fig:devices4}) \emph{NOTE: not sure this picture is 
+%really needed, consider removing it}).
 
 \begin{figure}[tbp]
 \centerline{
