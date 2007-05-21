@@ -6,17 +6,20 @@
 }
 \caption{
 %
-Our robot's brain.
+Our robot's ``brain''.
 We assume a set of processors, some of which may
-be on the robot, some of which may not be. 
+be on the robot, some of which may not be. We draw no 
+distinction; for research purposes, it makes sense to
+have off-board processing to do today what robots will
+be able to do on-board tomorrow.
 %
 We assume diversity:
 different devices, operating systems, processors, different languages,
 libraries, etc. (of course, within our own project we have standards,
-but we don't expect the rest of the world to agree).
+but we don't expect everyone using our robot to agree).
 %
-We develop methods for interfacing with devices and communicating
-between modules that are useful on any heterogeneous system.
+%We develop methods for interfacing with devices and communicating
+%between modules that are useful on any heterogeneous system.
 %
 We exploit key Free Software tools for smoothing over differences in
 operating systems, build systems, and programming languages.
@@ -32,7 +35,8 @@ devices details, and libraries relevant to robotics.
 %tools and concepts (although we do not assume the operating systems
 %in use are UNIX-based).
 %
-We release YARP as Free Software and use it to support our open robot
+We release YARP as Free Software
+ and use it to support our open robot
 platform, the iCub humanoid, whose design will be available under free
 and open licensing.
 %
@@ -242,4 +246,15 @@ our libraries usable in as many environments as possible.  We use the
 ACE operating system portability layer (but {\it not} the associated
 implementation of CORBA), the CMake build system, the SWIG wrapper
 generator.
+
+We release our code as free software 
+\protect\footnote{\tt http://yarp0.sourceforge.net}.
+
+We have previously report the basic history of YARP and its 
+motivations~\cite{metta2006yarp}.
+We here report aspects of YARP that we hope will contribute to
+longevity and interoperability.  (((And if we have iCub material,
+expand scope to include that))).
+
+
 
