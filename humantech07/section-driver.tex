@@ -54,10 +54,14 @@ is too slow for their application.
 \centerline{
 \includegraphics[width=24cm]{fig-devices1}
 }
-\caption{Example of code dependency. VA-Board is a 
+\caption{Example of code dependency. A) VABoard is a 
 motor control board which interface to the robot through serial port. 
-Changes in the board (in the example above the VB-Board has s USB 
-interface) are propagated to the user code.}\label{fig:devices1}
+The user's code contains code to initialize the board and control the 
+robot thorugh the API library provided by the vendor. B) A new 
+motor control board is connected to the robot; this new device has a 
+USB interface and a different API. The differences are 
+are inevitably propagated to the user's code which must be 
+rewritten.}\label{fig:devices1}
 \end{figure}
 
 \subsection{Device Interfaces}
@@ -128,13 +132,14 @@ parameters are required by this function.
 \centerline{
 \includegraphics[width=24cm]{fig-devices2}
 }
-\caption{Interfaces allow code reuse. VA-Board and VB-Boards (see 
+\caption{Interfaces allow code reuse. VABoard and VBBoard (see 
 Figure (\ref{fig:devices1})) now implement
-the same interfaces (through their respective wrapper classes). The user 
-code access the hardware through these interfaces and is not aware of 
+the same interfaces (through their respective wrapper classes). The user's 
+code accesses the hardware through these interfaces and is not aware of 
 the details of how the methods are actually implemented. The different 
 initialization parameters are listed in configuration files and are thus 
-separated from the code.}\label{fig:devices2}
+separated. VABoard and VBBoard are now completely interchangable.}
+\label{fig:devices2}
 \end{figure}
 
 YARP defines interfaces to broad families of devices. For 
