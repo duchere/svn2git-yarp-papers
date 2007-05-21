@@ -4,11 +4,11 @@ communicate with the low-level hardware. The OS layer of YARP tries
 to minimize dependencies between algorithms and the hardware for 
 which the operating system defines a constant interface (threading, 
 memory, network, filesystem). Unfortunately more specific harware 
-(motor control boards and frame grabbers are just popular 
+(motor control boards and frame grabbers are popular 
 examples) requires a more sophisticated mechanism. In these 
 cases vendors provide device drivers and a set of API to simplify 
 code development. The API comes in the form of a static or dynamic 
-library which must be linked in the user code. Unfortunately
+library which is linked in the user code. Unfortunately
 APIs vary a lot even within devices that belong to the same family. 
 Even worse the API of the same hardware may vary on different 
 operating systems or change on future releases of the hardware. User 
@@ -16,7 +16,7 @@ code becomes dependent on the particular board for which it was initially
 developed and bound to the decisions and assumptions of the vendor. For 
 example venodor A might decide to use integers to represent the position 
 of a motor joint, wheras vendor B might decide to use a floating point
-variable. Often even similar devices have different ``initialization'' 
+variable. Often, even similar devices have different ``initialization'' 
 procedure. Consider for example a motor control board which has a serial
 interface to the host computer; the API of this board will probably require 
 that some parameters (port number, baud rate, number of data bits, etc) are 
@@ -24,9 +24,19 @@ specified when the device is created. Suppose now that we obtain a more
 recente release of the same board that now has a USB interface. In this 
 case the parameters to initialize the board are different and we are forced 
 to rewrite all processes that use it (the situation is 
-represented in Figure (\ref{fig:devices1})). When possible these (and other) 
-differences must be hidden if we want that the same user code can 
-effectively interface to the two devices.
+represented in Figure (\ref{fig:devices1})). We call devices which 
+can only be accessed using vendor supplied material ``sticky devices'' 
+because they tend to make the particular set of assumptions made by 
+the vendor stick to the user's code. A logical step in such a situation 
+is to wrap the functionality supplied by the vendor in a facade, so that 
+source code dependencies are reduced reduced. In YARP wrappers can be 
+made individually, compiled and built separately, and optionally used 
+across the network. This mechanism produces a level of separation between 
+device specific and user's code that is effective for ``quarantining'' the 
+sticky devices. This is achieved in three ways: i) definition of interfaces 
+for families of devices ii) localization and separation of device 
+initialization and creation ii) creation of network wrappers and separation 
+between devices and communication. 
 
 \begin{figure}[tbp]
 \centerline{
@@ -38,29 +48,24 @@ Changes in the board (in the example above the VB-Board has s USB
 interface) are propagated to the user code.}\label{fig:devices1}
 \end{figure}
 
-YARP implements the separation between user and device specific code 
-in three ways: i) definition of interfaces for families of devices ii) 
-localization and separation of device initialization and creation 
-ii) creation of network wrappers and separation between devices and 
-communication. 
-
 \subsection{Device Interfaces}
 An interface to a YARP device is the specification of the functionalities
 it provides. In practice in C++ an interface is a virtual base class, whose 
 member functions define the ensamble of the functionalities a device must 
-implement to be able to provide that interface. The implementation of a 
-YARP device consists in a ``wrapper'' class which implements all 
-methods specified by the interface. A single device can of course expose 
-more than a single interface (in C++ this is implemented through multiple
-inheritance). All details specific of the hardware 
-(vendor's API and library) are handled here and are hidden by its interfaces. 
+implement to be able to provide that interface.  A YARP device is a 
+``wrapper'' class which implements all methods declared in its interface. 
+A single device can of course expose more than a single interface 
+(in C++ this is implemented through multiple
+inheritance). All details specific to the hardware 
+(vendor's API and library) are handled in the wrapper class and are 
+hidden behind its interfaces. 
 The idea is that changes in the hardware are catched by the wrapper class 
 and never propagated to the user code. As a result, if interfaces are 
 well designed, the impact on the code due to hardware change is minimized. 
 
-Another aspect that we have pointed out above, is the fact that 
-initialization parameters may introduce annoying dependencies in the user 
-code. To solve this we have defined a common interface to all devices (the 
+As discussed previously, initialization parameters may introduce annoying 
+dependencies in the user's code. To solve this we have defined a common 
+interface to all devices (the 
 \emph{DeviceDriver} interface) which normalizes how devices are initialized
 and un-initialized, and, more importantly, how initialization parameters 
 are passed to them. In particular this interface defines two methods:
@@ -91,8 +96,6 @@ The \emph{close} method performs all the operations required to shut down
 the device properly and release all the resources it was using. No
 parameters are required by this function.
 
-
-
 \begin{figure}[tbp]
 \centerline{
 \includegraphics[width=24cm]{fig-devices2}
@@ -106,21 +109,19 @@ initialization parameters are listed in configuration files and are thus
 separated from the code.}\label{fig:devices2}
 \end{figure}
 
-Interfaces to broad families of devices have been defined in YARP. For 
-example this is a partial list of the interfaces that have been defined 
-for devices belonging to the family of frame grabbers:
+YARP defines interfaces to broad families of devices. For 
+example this is a partial list of the interfaces defined for generic 
+devices that generate a stream of color images (frame grabbers):
 
 \begin{itemize}
 
-\item \emph{IFrameGrabberRgb}, which defines the interface to devices 
-which generate a stream of color images. Methods in this interface 
+\item \emph{IFrameGrabberRgb}, methods in this interface 
 provide access to the most recent frame acquired by the device, and 
-information about its size (number of columns and rows).
+information about its size (number of columns and rows);
 
 \item \emph{IFrameGrabberControls}, specifies a set of functionalities 
-to control a typical frame grabber device. Methods of this interface 
-allows controlling the parameters of acquisition of the device, like 
-shutter speed, brightness and gain.
+to control how the device performs the acquisition, like shutter speed, 
+brightness and gain.
 
 \end{itemize}
 
@@ -136,18 +137,17 @@ of the control paradigm they implement. Accordingly, YARP defines:
 \begin{itemize}
 
 \item \emph{IEncoder}: group all methods providing access to the motor 
-encoders, like methods for reading the current position of velocity of 
-each axis
+encoders, like methods for reading the current position and velocity of 
+each axis;
 
-\item \emph{IPositionControl}: methods to control motion of each axis 
-by specifying its position (usually referred to as ``position control'')
+\item \emph{IPositionControl}: methods to control each axis 
+by specifying its position;
 
-\item \emph{IVelocityControl}: methods to contorl motion of each axis 
-by specifying its velocity (usually referred to as ``velocity control'')
+\item \emph{IVelocityControl}: methods to control each axis 
+by specifying its velocity;
 
 \item \emph{ITorqueControl}: defiens methods to control the amount of 
-force/torque exerted by each axis (usually referred to as ``torque or 
-force control'').
+force/torque exerted by each axis.
 
 \end{itemize}
 
@@ -157,13 +157,15 @@ These details are delegated to specific interfaces. For example
 \emph{IPidControl} includes methods to interface to a PID controller, 
 like for example read or set the values of the gains.
 
-As an example Figure (\ref{fig:devices2})) shows how 
-YARP interfaces allows code reuse in cases two different motor boards 
-are used to control the same piece of hardware (the problem described 
-in Figure (\ref{fig:devices1}).
+To summarize, interfaces captures similarities amoung devices and 
+allows separating device dependent from user code. To the 
+extent that user code uses interfaces shared by other devices, 
+another device can be substituted later without change to that part. This 
+includes devices with different initialization procedures, or different
+APIs (see Figure (\ref{fig:devices2})).
 
 \subsection{A factory of devices}
-We have seen that forcing access devices only through 
+Forcing device access through 
 interface achieve a good level of separation between vendor/device 
 specific APIs and user level code. Interfaces alone, however, do not 
 guarantee a complete level of separation. In practice users must still 
@@ -177,7 +179,7 @@ We have seen that in YARP part of this is realized by the
 to be performed inside the \emph{open} method. Device creation is instead 
 delegated to a \emph{factory}. The \emph{factory} contains a list of 
 all devices available in YARP and the corresponding functions to call 
-to create them. It receives from a list of initialization parameters, 
+to create them. It receives a list of initialization parameters, 
 creates the device, and initializes it 
 through the \emph{DeviceDriver} interface. If the process is successfull 
 a valid pointer to the device is returned. This pointer is the only 
