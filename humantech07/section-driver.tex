@@ -45,7 +45,7 @@ communication are addressed in point (iii), not (i).  We keep
 communication and device interfaces separate, so that users can
 exploit one and not the other as they wish, and also code written to
 use a device remotely can later be made local with only a cost of a
-single virtual method call over calling the vendor's API directly.
+single extra virtual method call compared to calling the vendor's API directly.
 This is important so that users don't need to go through a painful
 porting process if they discover at some point that remote operation
 is too slow for their application.
