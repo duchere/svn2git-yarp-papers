@@ -51,20 +51,27 @@ Viale F. Causa, 13 \\
 \begin{abstract}
 % Text of abstract
 
-Robot projects are often dead ends, in that the software 
-and hardware they produce disappear without trace.
-This is true for all sorts of projects, but it is
-particularly true in robotics since our work may be
-tied to uncommon hardware and a small group of users.
-Humanoid robotics is currently in exactly this condition,
-leading to a lot of ``churn''.
+Robot projects are often dead ends, with the software 
+and hardware they produce disappearing without trace afterwards.
+%%
+%%This is true for all sorts of projects, but it is
+%%particularly true in robotics 
+%%
+Possible causes are many, including dependencies
+on uncommon or obsolete devices or libraries, or 
+dispersion of an already small group of users.
+Humanoid robotics is, in our opinion, particularly
+prone to all these causes of ``churn''.
+%%
+Overcoming this wiould be a key technological and social
+advance for humanoid development.
 
 In this paper, we explore how best to connect our software with the
-mainstream, so that it can be more stable and long-lasting,
-without compromising our ability to constantly change our
-sensors, actuators, processors, and networks.  We also look
-at how to enable propagation of our hardware designs to
-interested parties.
+mainstream, so that it can be more stable and long-lasting, without
+compromising our ability to constantly change our sensors, actuators,
+processors, and networks.  We also look at how to enable propagation
+of our hardware designs to interested parties, so that we start to
+build up a ``gene-pool'' of tried and tested designs.
 
 
 Building on robot software architecture YARP~\cite{metta2006yarp},
@@ -72,31 +79,31 @@ we focus on how to organize communication between sensors, processors,
 and actuators so that loose coupling is encouraged, making 
 gradual system evolution much easier.  We develop a model of 
 communication that is transport-neutral, so that data flow
-is decoupled from the details of the underlying network(s) and protocol(s)
-(thus allowing those details to change, as they often do).
+is decoupled from the details of the underlying networks and protocols
+in use (allowing several to be used simultaneously, a key to
+smooth evolution).
 %
 We develop a methodology for interfacing with devices (sensors,
 actuators, etc.) that again encourages loose coupling and can make
 changes in devices less disruptive.
 %
-We discuss the problem of incompatible
-middleware, and how we are doing our part to avoid it.
+We try to avoid becoming ``middleware''; we are concerned with the
+problem of incompatible architectures and frameworks, and discuss how
+we work around this..
 %
-We emphasize the utility of the Free Software approach to software
-distribution and licensing, and specifically the benefit it brings to
-small communities with idiosyncratic requirements.
+
+We emphasize the strategic utility of the Free Software approach to
+software development for small communities with idiosyncratic
+requirements (which, when you zoom in, includes everyone).
 %
 %We enumerate the advantages participation in the
 %Free Software community offers to a research field
 %that could otherwise be isolated.
 %
-
-
-Of course, it would also be better if humanoid robot software had
-larger number of users with similar hardware, and we're doing our part
-to encourage this by releasing the design of our iCub 
-humanoid~\cite{tsagarakis2007icub} under a
-free and open license, and funding development using this platform.
+%
+We also work to expand our community by releasing the design of our
+iCub humanoid~\cite{tsagarakis2007icub} under a free and open license,
+and funding development using this platform.
 
 
 %this  community can give
