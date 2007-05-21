@@ -14,7 +14,7 @@ Even worse the API of the same hardware may vary on different
 operating systems or change on future releases of the hardware. User 
 code becomes dependent on the particular board for which it was initially 
 developed and bound to the decisions and assumptions of the vendor. For 
-example venodor A might decide to use integers to represent the position 
+example vendor A might decide to use integers to represent the position 
 of a motor joint, wheras vendor B might decide to use a floating point
 variable. Often, even similar devices have different ``initialization'' 
 procedures. Consider for example a motor control board which has a serial
@@ -24,8 +24,10 @@ specified when the device is created. Suppose now that we obtain a more
 recent release of the same board that now has a USB interface. In this 
 case the parameters to initialize the board are different and we are forced 
 to rewrite all processes that use it (the situation is 
-represented in Figure~\ref{fig:devices1}). We call devices which 
-can only be accessed using vendor supplied material ``sticky devices'' 
+represented in Figure~\ref{fig:devices1}). 
+
+We call devices which can only be accessed using vendor 
+supplied material ``sticky devices'' 
 because they tend to make the particular set of assumptions chosen by 
 the vendor stick to the user's code. A logical step in such a situation 
 is to wrap the functionality supplied by the vendor in a facade, so that 
@@ -37,7 +39,7 @@ sticky devices. This is achieved in three ways: (i) definition of interfaces
 for families of devices (ii) localization and separation of device 
 initialization and creation (iii) creation of network wrappers and separation 
 between devices and communication. 
-%
+
 Note that when we talk about ``interfaces'' here we do not refer to
 the interface description languages used in CORBA and other systems,
 but simply to a consistent API in C++.  Concerns related to
@@ -203,7 +205,8 @@ interface achieve a good level of separation between vendor/device
 specific APIs and user level code. Interfaces alone, however, do not 
 guarantee a complete level of separation. In practice users must still 
 specify the type of device they want to create. Care must be taken to 
-avoid that this introduces device dependent code. A common software 
+avoid that this introduces unwanted couplng between device specific and 
+user code. A common software 
 engineering practice is to \emph{localize object creation} so to 
 minimize the amount of code that is responsible for object creation 
 and initialization. 
@@ -360,33 +363,39 @@ and running on a different one. This decouple the compilation, build
 environment, libraries, operating system and language dependencies of 
 hardware and user software.
 
-The remotization mechanism relies on the communication layer (see \emph{add 
-reference to port section}) and on two \emph{Network Wrappers} one acting 
-as a \emph{Server} and the other acting as a \emph{Client}. 
-Both \emph{Network Wrappers} are devices implementing the very same set 
-of interfaces as the device they wrap. Both devices act proxies and talk 
-to each other using a predefined protocol, which involves one or more 
+The remotization mechanism relies on the communication layer 
+(\ref{sec:transporting}) and on two \emph{Network Wrapper} devices, 
+one acting as a \emph{Server} and the other acting as a \emph{Client}. 
+Both network devices implement the very same set 
+of interfaces of the device they wrap; the only difference is that they 
+do not connect directly to the hardware but act as network proxies, 
+talking to each other using a predefined protocol, which involves one or more 
 YARP Ports configured for RPC or streaming (see Figure (\ref{fig:devices3}))
 
-The \emph{Server Wrapper} creates an instance of the wrapped device and 
-forwards requests from the incoming connections to the device by calling 
-its interfaces. If the request involves a reply this is sent back to the 
-calling port so that it is received by the remote client. The mechanism 
-used by the \emph{Server Wrapper} to access the local device is the same 
-we have described for the user code; as 
-such the \emph{Server Wrapper} is a total independent entity that can be 
-reused for all devices implementing the same interface(s). 
+The process willing to connect to the remote device, 
+creates an instance of the \emph{Client Wrapper}. The latter exports 
+exactly the same interfaces of the 
+``wrapped'' device so the process is not aware that it is not connected to 
+a real device. The \emph{Client Wrapper} converts calls from 
+the process into packets of bytes, sends them to the other end of the 
+communication link, and, in case a reply is expected, waits for data and 
+dispatches it to the calling process. 
+%
+The \emph{Server Wrapper} waits for incoming connections from the network. 
+In addition it creates an instance of the wrapped 
+device and forwards requests from the network to the device. If requests
+involve a reply theses are sent back to the 
+calling port so that they are received by the remote client. The 
+\emph{Server Wrapper} gains access to the local device through its 
+interfaces; as such the \emph{Server Wrapper} is a total independent 
+entity that can be reused for all devices implementing the same interface(s). 
+%
+The responsibility of the \emph{Network wrapper} devices among 
+the other things is to perform the marshalling and de-marshalling of the 
+information that travels through the network, so that it is correctly 
+interpreted by distinct platforms (this is required for systems in which 
+data is represented with different standards).
 
-The process at the other side of the communication creates the 
-\emph{Client Wrapper}. The latter exports exactly the same interfaces as the 
-device driver it wraps so the process is not aware that it is not talking to 
-a real device. The job of the \emph{Client Wrapper} is to convert calls from 
-the user code in packets of bytes and send them to the other end of the 
-communication, and, in case a reply is expected, waits for data and dispatch 
-it to the calling process. The responsibility of the proxies among the other 
-things is to perform the marshalling and de-marshalling of the information 
-so that it is correctly interpreted by the distinct platforms (this is 
-required for systems in which data is represented with different standards).
 
 \begin{figure}[tbp]
 \centerline{
