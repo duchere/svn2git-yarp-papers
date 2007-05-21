@@ -95,19 +95,30 @@ and
 \end{verbatim}
 This \emph{open} method initializes the device. Initialization parameters 
 are passed to the function as a list of key-value entries 
-(a \emph{Searchable} object). A \emph{Searchable} can contain all 
+(a \emph{Searchable} object),
+A \emph{Searchable} can contain all 
 possible parameters devices might require for initialization. Initialization 
 parameters for devices 
 are stored in ``.ini'' files (again in the form of a list of key-value 
-entries). A process that wants to open a device reads 
-the file and transfers its content into a \emph{Searchable} object. This 
+entries).
+A process that wants to open a device reads 
+the file and transfers its content into a \emph{Searchable} object. 
+The \emph{Property} class supports this, 
+playing a similar role in YARP as the {\em ConfigFile} class in Player/Stage,
+except generalized to also
+extracting parameters expressed as command line arguments, or
+passed across the network, or created in a GUI, etc. -- we abstract
+across all the possible sources of configuration settings.
+The configuration
 object is passed to the device through the \emph{open} function. 
 It is worth stressing that up to now this procedure is totally device 
 independent, because the parameters are just copied and not interpreted 
 by the process. It is only in the implementation of the \emph{open} method 
 (in the wrapper class of the device) where the \emph{Searchable} object 
 is parsed to extract the parameters that will be used to inizialize the 
-device.
+device.  The \emph{Searchable} object is designed so that it can
+collect information about how it is used, yielding some basic
+documentation about the parameters relevant to a given device.
 
 The \emph{close} method performs all the operations required to shut down 
 the device properly and release all the resources it was using. No
