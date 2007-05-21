@@ -71,9 +71,14 @@ A single device can of course expose more than a single interface
 inheritance). All details specific to the hardware 
 (vendor's API and library) are handled in the wrapper class and are 
 hidden behind its interfaces. 
-The idea is that changes in the hardware are catched by the wrapper class 
+The idea is that changes in the hardware are caught by the wrapper class 
 and never propagated to the user code. As a result, if interfaces are 
 well designed, the impact on the code due to hardware change is minimized. 
+%
+Of course, unique features of a device can be exposed in a new interface,
+but without much benefit over using the vendor's code directly for that
+specific feature.  And any code written using that novel interface will
+need to be reworked if another device is substituted.
 
 As discussed previously, initialization parameters may introduce annoying 
 dependencies in the user's code. To solve this we have defined a common 
