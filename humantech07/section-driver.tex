@@ -385,16 +385,15 @@ dispatches it to the calling process.
 The \emph{Server Network Wrapper} waits for incoming connections from 
 the network. 
 In addition it creates an instance of the wrapped 
-device and forwards requests from the network to the device. If requests
+device to which it forwards requests from the network. If requests
 involve a reply theses are sent back to the 
 calling port so that they are received by the remote client. The 
 \emph{Server Network Wrapper} gains access to the local device through its 
 interfaces; as such it is a total independent 
-entity that can be reused for all devices implementing the same 
-interface(s). 
+entity that can be reused for devices of the same family.
 %
-The responsibility of the \emph{Network wrapper} devices among 
-the other things is to perform the marshalling and de-marshalling of the 
+Among the other things, the responsibility of the \emph{Network wrappers} 
+is to perform the marshalling and de-marshalling of the 
 information that travels through the network, so that it is correctly 
 interpreted by distinct platforms (this is required for systems in which 
 data is represented with different standards).
