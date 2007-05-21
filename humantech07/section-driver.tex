@@ -234,7 +234,7 @@ the \emph{PolyDriver}. The lifecycle of the device is managed by the
 \emph{PolyDriver}; the user can access only to copies of this pointer 
 thourgh calls to the \emph{PolyDriver::view()} method, which performs 
 a dynamic cast of the internal pointer to the device driver to expose 
-the requested interface before returning it (this mechniam is sketched 
+the requested interface before returning it (this mechanism is sketched 
 in Figure (\ref{fig:devices4}) \emph{NOTE: not sure this picture is 
 really needed, consider removing it}).
 
@@ -248,14 +248,15 @@ access devices through instances of the \emph{PolyDriver}. The
 Figure describes the following situation. Process1 controls a robotic
 head and needs to access to the robot frame grabber (whose symbolic name 
 is ``dragonfly'') and to the control board connected to the motors of 
-the head (``mboardA''). Process1 creates \emph{PolyDriver} and opens 
+the head (``mboardA''). Process1 creates an instance of 
+\emph{PolyDriver} and opens 
 the device; the symbolic name of the device is passed as a parameter
 of the \emph{open} function, together with initialization parameters 
 read from a .ini file. The \emph{PolyDriver} hands over these parameters 
 to the \emph{factory} which creates an instance of the device and returns
 it to the \emph{PolyDriver}. Subsequent calls to the driver are entirely 
 handled by the \emph{PolyDriver} itself. Process1 calls \emph{view} to 
-acquires the appropriate interfaces to the device. A similar procedure 
+acquire the appropriate interfaces to the device. A similar procedure 
 is performed by the same process or other processes (Process 2 in Figure) 
 to create instances of different devices.}\label{fig:devices4}
 \end{figure}
@@ -271,7 +272,7 @@ name of the device (e.g. \emph{test\_motor}):
 
 \begin{verbatim}
   PolyDriver device;
-  device.open(\"test\_motor\");
+  device.open("test\_motor");
 \end{verbatim}
 
 Now we can ask interfaces to \emph{test\_motor} by calling the 
@@ -321,12 +322,12 @@ environment, libraries, operating system and language dependencies of
 hardware and user software.
 
 The remotization mechanism relies on the communication layer (see \emph{add 
-reference to port section} and on two \emph{Network Wrappers} one acting 
+reference to port section}) and on two \emph{Network Wrappers} one acting 
 as a \emph{Server} and the other acting as a \emph{Client}. 
 Both \emph{Network Wrappers} are devices implementing the very same set 
 of interfaces as the device they wrap. Both devices act proxies and talk 
 to each other using a predefined protocol, which involves one or more 
-YARP Ports configured for RPC or streaming (see \ref{fig:devices3})
+YARP Ports configured for RPC or streaming (see Figure (\ref{fig:devices3}))
 
 The \emph{Server Wrapper} creates an instance of the wrapped device and 
 forwards requests from the incoming connections to the device by calling 
@@ -353,12 +354,13 @@ required for systems in which data is represented with different standards).
 \includegraphics[width=24cm]{fig-devices3}
 }
 \caption{Network wrappers allow device remotization. A generic Network 
-wrapper exports the YARP interfaces so that they can be accessed remotely 
-by another machine through an RPC mechanism. At the other side of the 
+wrapper exports the YARP interfaces of VABoard so that they can be 
+accessed remotely by another machine through an RPC mechanism. At the 
+other side of the 
 communication the client wrapper exports the network interface back 
 to the YARP interfaces from which the device is transparently accessed 
-by the client code. The only difference between a local device and a 
-remote one is in term of performances (the time it takes to execute 
+by the client code. The only difference between a local and a 
+remote device is in term of performances (the time it takes to execute 
 a given function).
 }\label{fig:devices3}
 \end{figure}
