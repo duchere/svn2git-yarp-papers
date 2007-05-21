@@ -73,7 +73,8 @@ production files (e.g. Gerber files for the PCBs).
 
 For RobotCub, we decided to license all the hardware sources as FDL which seems
 appropriate given the nature of the CAD and drawings files. These are made 
-available through the usual source code channels (e.g. repositories, websites).
+available through the usual source code distribution channels (e.g. repositories, 
+websites).
 
 \subsection{The design process}
 The design process of RobotCub has been a distributed effort as for many open
@@ -109,8 +110,8 @@ release of the ICub will be consolidated after this final fabrication stage.
 
 The actual design of the robot had to incorporate manipulation by providing 
 sophisticated hands, a flexible oculomotor system, and a reasonable bi-manual 
-workspace. On top of this, the robot had support, global body movements such as 
-crawling, sitting, etc. These many constraints had to be considered in preparing 
+workspace. On top of this, the robot has to support, global body movements such as 
+crawling, sitting, etc. These many constraints were considered in preparing 
 the specifications of the robot and later on during the whole design process.
 
 The behaviors we set forward for representing the robot's skills generate two 
@@ -150,28 +151,39 @@ provided data for starting the design of the robot.
 At a more general level we had then to evaluate the available technology, compared 
 to the experience of the RobotCub consortium and the targeted size of the robot: 
 it was decided that electric motors represent the most suitable technology for 
-the ICub, given also that the it has to be ready according to the very 
+the ICub, given also that it has to be ready according to a very 
 tight schedule in the span of the RobotCub project. Other technologies 
 (e.g. hydraulic) are left for a ``technology watch'' activity and they were 
 not considered further.
 
+In addition, given the size of the robot, and given the power density available, 
+considerations of speed for certain joints lack of significance: i.e. given the 
+power and the torques required, speed is a consequence rather than a design 
+parameter. In certain cases, in comparing to human data, clearly also the power 
+density is much lower than desired (e.g. the wrists cannot possibly stand the weight 
+of the robot).
 
-%In addition, given the size of the robot, and given the power density available, considerations of speed for certain joints lack of significance: i.e. given the power and the torques required, speed is a consequence rather than a design parameter. In certain cases, in comparing to human data, clearly also the power density is much lower than desired (e.g. the wrists cannot possibly stand the weight of the robot).
-%Finally, the ICub is not only about motors, sensors are equally important. Also in this case, we have to deal with and exploit at best the available technology. The robot will have vision, audition, joint sensors, force sensors, tactile sensors - where possible - and temperature sensors in many of the motors. The robot will also be able to provide feedback to humans through a speaker. ICub will thus include:
-%-	Cameras
-%-	Microphones
-%-	Gyroscopes
-%-	Linear accelerometers
-%-	Encoders (or other positional sensors)
-%-	Temperature sensors, current consumption sensors
-%-	Various tension, force/torque sensors
-%-	Tactile sensors
-%The choice of these components is clearly related to the robot specifications.
-%To recapitulate, the constraint of size and available technology determines a good part of the design choices - i.e. our freedom is deciding which components to use. In parallel, we simulated some of the robot's behaviors to determine the required joint torques. These two pieces of information were then used in selecting the best available motors compatible in size, torque, and strength. As we mentioned earlier, speed is a consequence rather than a design parameters here, although, in simulation we examined the dependency of speed to torque for crawling.
-%Other design choices are related to the embedded electronics and the structure of the software. The ICub will have many sensors and actuators working in parallel. We would like to exploit this parallelism also at the computational level and, consequently, the ICub API will be multi-process and will be amenable to be run on multiple machines with full-blown parallelism.
-%The remainder of this paper is organized as follows: section 2.1 describes the kinematic constraints and design choices; section 2.2 deals with dynamics and section 3 wraps this up into the current design choices and result of the CAD design activity. Section 3.1 describes the elements of the controlling electronics required to drive the robot and acquire its sensors; the list of sensors currently included into the design is reported in section 3.2 and, finally, section 3.3 deals with the software architecture that is being planned for the ICub. A concluding section summarizes the content of the paper and points to future directions.
+Finally, the ICub is not only about motors, sensors are equally important. 
+Also in this case, we had to deal with and exploit at best the available technology. 
+The robot has vision, audition, joint sensors, force sensors, tactile 
+sensors - where possible - and temperature sensors in many of the motors. The robot 
+can give feedback through a speaker. ICub will thus include a plethora of sensors as
+cameras, microphones, gyroscopes, linear accelerometers, encoders (or other positional
+sensors), temperature and current consumption sensors, force/torque, and tactile
+sensors. The choice of these components is clearly related to the robot specifications.
 
+To recapitulate, the constraint of size and available technology determines a good 
+part of the design choices - i.e. our freedom in deciding which components to use. 
+In parallel, we simulated some of the robot's behaviors to determine the required 
+joint torques. These two pieces of information were then used in selecting the best 
+available motors compatible in size, torque, and strength. As we mentioned earlier, 
+speed is a consequence rather than a design parameters here, although, in simulation we 
+examined the dependency of speed to torque for crawling.
 
+Other design choices are related to the embedded electronics and the structure of 
+the software. The ICub will have many sensors and actuators working in parallel. We 
+would like to exploit this parallelism also at the computational level and, consequently, 
+the ICub API was mapped one-to-one onto YARP.
 
 \subsection{Modularity}
 
