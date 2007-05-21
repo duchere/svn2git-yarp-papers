@@ -47,9 +47,7 @@ Communication in YARP generally follows the {\it Observer} design
 pattern. Special port objects deliver messages to any number of
 observers (other ports), in any number of processes, distributed
 across any number of machines, using any of several underlying
-communication protocols. Figure~\ref{fig:yarp-network} is a very simple network of ports
-for a visual tracking application.
-
+communication protocols. 
 
 
 
@@ -119,6 +117,9 @@ reception of a message.  UDP can be faster than TCP, but without
 guarantees.  Multicast is efficient for distributing the same
 information to large numbers of targets.  Shared memory can be
 employed for local connections.
+Figure~\ref{fig:yarp-network} is a very simple network of ports
+for a visual tracking application.
+
 
 %% The YARP name server is a server that tracks information about
 %% ports. It indexes this information by name, playing a role analogous
