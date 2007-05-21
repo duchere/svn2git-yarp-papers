@@ -6,21 +6,24 @@
 }
 \caption{
 %
-Basic robot model.  We assume a set of processors, some of which may be
-on the robot, some of which may not be.  We assume that the computers
-are diverse: they may have different devices, operating systems,
-processors, and the programs they run may use different languages,
-libraries, etc.  
+Our robot's brain.
+We assume a set of processors, some of which may
+be on the robot, some of which may not be. 
+%
+We assume diversity:
+different devices, operating systems, processors, different languages,
+libraries, etc. (of course, within our own project we have standards,
+but we don't expect the rest of the world to agree).
 %
 We develop methods for interfacing with devices and communicating
 between modules that are useful on any heterogeneous system.
 %
-We extend our reach by exploiting key Free Software projects
-dealing with and enabling diversity in operating systems, build systems, 
-and programming languages.
+We exploit key Free Software tools for smoothing over differences in
+operating systems, build systems, and programming languages.
 %
-Our contribution, made as Free Software, is a system for dealing
-with and enabling diversity in transport mechanisms and novel devices.
+We develop YARP, for smoothing over differences in networking,
+devices details, and libraries relevant to robotics.
+%
 %
 %We nevertheless require that threads within processes
 %on any of these computers be able to communicate easily with each other.
@@ -29,9 +32,9 @@ with and enabling diversity in transport mechanisms and novel devices.
 %tools and concepts (although we do not assume the operating systems
 %in use are UNIX-based).
 %
-We use this software to support our open robot platform, the iCub
-humanoid, whose design will be available under free and open
-licensing.
+We release YARP as Free Software and use it to support our open robot
+platform, the iCub humanoid, whose design will be available under free
+and open licensing.
 %
 }
 \end{figure}
