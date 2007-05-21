@@ -1,7 +1,178 @@
 
 \section{RobotCub and iCub}
+RobotCub is a collaborative project funded by the European Commission under 
+the Framework 6 program and it is part of the Cognitive Systems effort 
+coordinated by the Unit E5 \cite{}. % cite website %
+One of the goals of RobotCub is that of creating an open platform where
+many other projects could thrive by exploiting a common hardware and software
+infrastructure. RobotCub has also the goal of making the {\em iCub} (this is 
+the name of the robot) the platform of choice for several other research
+groups worldwide and, simultaneously, to advance our knowledge of natural and
+artificial cognitive systems.
+
+One of the tenets of the RobotCub stance on cognition is that manipulation 
+plays a key role in the development of cognitive capability. Consequently, 
+the design is aimed at maximizing the number of degrees of freedom of the upper 
+part of the body (head, torso, arms, and hands). The lower body (legs) is made 
+to support crawling on the four limbs and sitting on the ground in a stable 
+position with smooth autonomous transition from crawling to sitting. This  
+allows exploration of the environment, grasping and manipulation of objects 
+laying on the floor. The total height is estimated to be around 105cm. The 
+total number of degrees of freedom (DOF) is 53 of which 41 in the upper body 
+(7 for each arm, 9 for each hand, 6 for the head and 3 for the torso and spine). 
+Each leg consists of six additional degrees of freedom. The sensory system will 
+include binocular vision and haptic, cutaneous, aural, and vestibular sensors. 
+Functionally, the system should be able to coordinate the movement of the eyes 
+and hands, grasp and manipulate lightweight objects of reasonable size and 
+appearance, crawl using its arms and legs, and sit up. This allows the system 
+to explore and interact with the environment not only by manipulating objects 
+but also through locomotion.
+
+The philosophy adopted by RobotCub is that of
+the free software by adopting one or more of the General Public Licenses. 
+In particular, it was chosen GPL for the sources and FDL for documentation
+and drawings. While it is certainly clear how to apply these licensing
+schemes to source code (e.g. C++), it requires a bit of clarification 
+with respect to hardware. 
+
+\subsection{Open Source hardware}
+The word ``Open Source hardware'' might sound strange but in fact it is a 
+plain transfer of the open source philosophy to the entire process of 
+design of the RobotCub platform. The process of design of the robot consists
+of the preparation of specifications (e.g. estimation of torque, speed, etc.),
+a design which is typically done in CAD, and eventually in the preparation
+of the executive files which can be used to fabricate parts. Clearly, without
+a good documentation it is very complicated to build and assemble a full robot.
+This means that documentation (as for software) is particularly important.
+
+The CAD files, in some sense, can be seen as the source code. They get ``compiled''
+into 2D drawings which represent the executive drawings that can be used by any
+professional machine shop either to program CNC machines or to manually prepare
+the mechanical parts. This compilation process is not fully automated and requires
+a good part of human intervention. There is a clear dependency though from 3D CAD
+to 2D drawings. To guarantee the same type of virtuous development cycle of 
+software, the 3D CAD is required, changes happen in 3D first and get propagated
+to 2D later. In addition, assembly diagrams, part lists, and all the material 
+produced during the design stage should be included to guarantee that the same
+information is available to new developers.
+
+One simplification with the hardware design is that there is very little interoperability
+between design tools. The equivalent of an approximately portable language like C++ 
+does not exist in this case. While this might not be seen as an advantage in practice
+eases the preparation of the standards. In RobotCub we were forced to choose a specific 
+set of tools for mechanical and electronic CAD and future upgrades will clearly strictly 
+follow these standards. Due to the absence of open source professional design tools, RobotCub
+uses commercial products. These are somewhat expensive but in our view this should not limit
+the openness of the system. Educational discounts or educational releases are typically 
+available that can read and change the RobotCub files. Free of charge viewers are also
+available for all file types in question. The duplication of the RobotCub parts does not
+require the use of any of these tools since we provide all executive drawings and 
+production files (e.g. Gerber files for the PCBs).
+
+For RobotCub, we decided to license all the hardware sources as FDL which seems
+appropriate given the nature of the CAD and drawings files. These are made 
+available through the usual source code channels (e.g. repositories, websites).
+
+\subsection{The design process}
+The design process of RobotCub has been a distributed effort as for many open
+source projects. Various groups developed various subcomponents and contributed in
+different ways to the design of the robot including mechanics, electronics, sensors, 
+etc. In particular, a whole design cycle was carried out for the subparts (e.g.
+head, hand, legs) and prototypes built and debugged. The final CAD and 2D drawings 
+were discussed and then moved to the integration stage. Clearly, communication
+was crucial at the initial design stage to guarantee a uniform design and a
+global optimization.
+
+The distributed design broke down at the integration stage where the industrial 
+partner\footnote{Telerobot Srl, Genoa} stepped in to carry out integration, 
+verification and consistency checks. The design and fabrication of the control 
+electronics was also subcontracted to a specialized company.
+It is important to stress the collaboration with industry for a project of this
+size and with these goals and requirements. For many reasons building a complete 
+platform involves techniques and management that is better executed by applying 
+industrial standards. One example that applies to RobotCub is the standardization 
+of the documentation.
+
+A further strategy used in RobotCub is that of building early. Each subsystem
+was built as soon as possible and copied also as soon as possible. In several cases
+debugging happened because the copies of the robot did not work as expected or
+easy to fix problems were spotted. Sometimes the documentation had to be improved.
+Unfortunately, this strategy was applied less extensively to some of the subparts 
+which are or were still under design and debugging. 
+
+The design stage will be completed by the realization of ten copies of the iCub.
+This will further test the documentation and in general the reliability of the
+overall platform including software, debugging tools, electronics, etc. The first
+release of the iCub will be consolidated after this final fabrication stage.
+
+The actual design of the robot had to incorporate manipulation by providing 
+sophisticated hands, a flexible oculomotor system, and a reasonable bi-manual 
+workspace. On top of this, the robot had support, global body movements such as 
+crawling, sitting, etc. These many constraints had to be considered in preparing 
+the specifications of the robot and later on during the whole design process.
+
+The behaviors we set forward for representing the robot's skills generate two 
+types of constraints:
+\begin{itemize}
+	\item kinematics: about the geometrical construction of the robot;
+	\item dynamics: about the forces and torques we require from the robot.
+\end{itemize}
+
+The possibility of achieving certain tasks is favored by a suitable kinematics, 
+and in particular this translates into the determination of the range of movement 
+and the number of controllable joints (where clearly replicating the human body 
+in detail is impossible with current technology). Kinematics is also 
+influenced by the overall size of the robot. We decided {\em a priori} to target the 
+size of a three and a half year old child (approximately $1m$ tall). Actual 
+dimensions were taken from studies in ergonomics and x-ray images \cite{}. 
+This size can be achieved with current technology. QRIO \cite{} is an example 
+of a robot similar in size although with less degrees of freedom. In particular, 
+our specifications had to consider hands and moving eyes. Also, we wanted to 
+consider the workspace and dexterity of the arms and thus a three degree of 
+freedom shoulder was a requirement. 
+
+%Later, we will elaborate these considerations into a proper list of joints, 
+%ranges, and sensory requirements at the joint level.
+
+Considering dynamics, the most demanding requirements appear in the 
+interaction with the environment. Impact forces, for instance, had to be 
+considered for the crawling behavior, but also and more importantly, developing 
+cognitive behaviors such as manipulation might require exploring the environment 
+erratically. As a consequence, it is likely that impacts will occur with
+various parts of the robot structure. These turns out to require strong 
+joints, gearboxes, and more in general powerful actuators. In order to evaluate 
+the scale (order of magnitude) of the required forces we ran simulations 
+of various behaviors in a reasonable model of the robot. These dynamic simulations 
+provided data for starting the design of the robot.
+
+At a more general level we had then to evaluate the available technology, compared 
+to the experience of the RobotCub consortium and the targeted size of the robot: 
+it was decided that electric motors represent the most suitable technology for 
+the iCub, given also that the it has to be ready according to the very 
+tight schedule in the span of the RobotCub project. Other technologies 
+(e.g. hydraulic) are left for a ``technology watch'' activity and they were 
+not considered further.
+
+
+%In addition, given the size of the robot, and given the power density available, considerations of speed for certain joints lack of significance: i.e. given the power and the torques required, speed is a consequence rather than a design parameter. In certain cases, in comparing to human data, clearly also the power density is much lower than desired (e.g. the wrists cannot possibly stand the weight of the robot).
+%Finally, the iCub is not only about motors, sensors are equally important. Also in this case, we have to deal with and exploit at best the available technology. The robot will have vision, audition, joint sensors, force sensors, tactile sensors - where possible - and temperature sensors in many of the motors. The robot will also be able to provide feedback to humans through a speaker. iCub will thus include:
+%-	Cameras
+%-	Microphones
+%-	Gyroscopes
+%-	Linear accelerometers
+%-	Encoders (or other positional sensors)
+%-	Temperature sensors, current consumption sensors
+%-	Various tension, force/torque sensors
+%-	Tactile sensors
+%The choice of these components is clearly related to the robot specifications.
+%To recapitulate, the constraint of size and available technology determines a good part of the design choices - i.e. our freedom is deciding which components to use. In parallel, we simulated some of the robot's behaviors to determine the required joint torques. These two pieces of information were then used in selecting the best available motors compatible in size, torque, and strength. As we mentioned earlier, speed is a consequence rather than a design parameters here, although, in simulation we examined the dependency of speed to torque for crawling.
+%Other design choices are related to the embedded electronics and the structure of the software. The iCub will have many sensors and actuators working in parallel. We would like to exploit this parallelism also at the computational level and, consequently, the iCub API will be multi-process and will be amenable to be run on multiple machines with full-blown parallelism.
+%The remainder of this paper is organized as follows: section 2.1 describes the kinematic constraints and design choices; section 2.2 deals with dynamics and section 3 wraps this up into the current design choices and result of the CAD design activity. Section 3.1 describes the elements of the controlling electronics required to drive the robot and acquire its sensors; the list of sensors currently included into the design is reported in section 3.2 and, finally, section 3.3 deals with the software architecture that is being planned for the iCub. A concluding section summarizes the content of the paper and points to future directions.
 
 
 
-a placeholder.
+\subsection{Modularity}
+
+
+
 
