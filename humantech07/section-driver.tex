@@ -367,15 +367,15 @@ The remotization mechanism relies on the communication layer
 (see Section (\ref{sec:transporting})) and on two 
 \emph{Network Wrapper} devices, 
 one acting as a \emph{Server} and the other acting as a \emph{Client}. 
-Both network devices implement the very same set 
-of interfaces of the device they wrap; the only difference is that they 
+Both network devices implement the very same interface of the device 
+they wrap: the only difference is that they 
 do not connect directly to the hardware but act as network proxies, 
 talking to each other using a predefined protocol, which involves one or more 
 YARP Ports configured for RPC or streaming (see Figure (\ref{fig:devices3}))
 
 The process willing to connect to the remote device, 
 creates an instance of the \emph{Client Network Wrapper}. The latter exports 
-exactly the same interfaces of the 
+exactly the same interface of the 
 ``wrapped'' device so the process is not aware that it is not connected to 
 a real device. The \emph{Client Network Wrapper} converts calls from 
 the process into packets of bytes, sends them to the other end of the 
@@ -389,7 +389,7 @@ device to which it forwards requests from the network. If requests
 involve a reply theses are sent back to the 
 calling port so that they are received by the remote client. The 
 \emph{Server Network Wrapper} gains access to the local device through its 
-interfaces; as such it is a total independent 
+interface; as such it is a total independent 
 entity that can be reused for devices of the same family.
 %
 Among the other things, the responsibility of the \emph{Network wrappers} 
@@ -403,15 +403,15 @@ data is represented with different standards).
 \centerline{
 \includegraphics[width=24cm]{fig-devices3}
 }
-\caption{Network wrappers allow device remotization. A generic Network 
-wrapper exports the YARP interfaces of VABoard so that they can be 
-accessed remotely by another machine through an RPC mechanism. At the 
+\caption{Network wrappers allow device remotization. A generic 
+\emph{Server Network Wrapper} exports the YARP interface of VABoard so 
+that it can be accessed remotely by another machine. At the 
 other side of the 
-communication the client wrapper exports the network interface back 
-to the YARP interfaces from which the device is transparently accessed 
-by the client code. The only difference between a local and a 
-remote device is in term of performances (the time it takes to execute 
-a given function).
+communication link the \emph{Client Network Wrapper} exports the same 
+interface of the remote device so that it can be transparently accessed 
+by the client code. The local device and the \emph{Client Network Wrapper}
+ are totaly interchangable, the only difference between the two is in 
+term of performances (the time it takes to execute a function).
 }\label{fig:devices3}
 \end{figure}
 
