@@ -157,6 +157,52 @@ strong coupling of timing between processes.
 %% changed without affecting programs.  Better chance that your code can
 %% be used by others (even just within your group).
 
+For our implementation, we have broken ports down into 
+several logically separable parts:
+
+\begin{itemize} \pflist
+
+\item The carrier factory (called ``Carriers'').  This maintains
+a list of managers for different kinds of connection.  The user
+can extend this list with their own custom types of connection
+(for example, for a kind of network we've never considered,
+or a different implementation of an existing carrier).
+
+
+\item The core communications module (called ``Port'').  This
+will manage connect requests, disconnects, reading, writing,
+and various administrative details.  It defers to the carrier
+factory to create specific connections and knows very little
+about their nature.
+
+\item Reader and writer buffers (called ``PortReaderBuffer'' and
+``PortWriterBuffer'').  In order for communication to be efficient and
+avoid unnecessary copies, objects being transmitted need to be left
+untouched.  With the variety of possible connections and options
+possible, the details of this can become complicated.  YARP implements
+a certain set of policies we think are good in the reader/writer
+buffer classes.  These are wrapped around the Port class to provide a
+BufferedPort class that gives both a simple interface and efficient
+implementation, while keeping buffering and communication separable
+for those with strong opinions about how one or the other should be
+done.
+
+\item The YARP network interface (called ``Network'').  Provides
+methods for manipulating parts of the network, such as
+creating or removing connections between ports.
+
+\end{itemize}
+
+The YARP name server, which was once a specially written server with
+its own protocol, is now written using a single ordinary port as its
+input.
+
+%The flexibility of ports to maintain diverse kinds of connections
+%simultaneously is 
+
+%hidden from the user unless they want
+%to do something very particular.  
+
 
 
 \subsection{Human readable/writable communication}
@@ -559,7 +605,8 @@ r & do \\
 
 
 The ``do'' is just like ``d'', to inform the recipient that user data
-follows.  The ``o'' part means that replies are not expected by the
+follows (as opposed to an administrative message).  
+The ``o'' part means that replies are not expected by the
 sender, and should not be sent.  This seems like a small detail,
 but in fact when replies are not expected the performance of 
 streaming to multiple targets can be greatly improved in general,
