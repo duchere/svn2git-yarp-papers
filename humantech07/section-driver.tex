@@ -287,9 +287,9 @@ to create instances of different devices.}\label{fig:devices4}
 
 \subsection{An example: accessing a motor control board}
 For example suppose we want to use the \emph{test\_motor} device. In 
-YARP this is a fake device which simulates a control board controlling 
-4 axes. This device supports the \emph{IPositionControl} and 
-\emph{IVelocity} interfaces. To begin with, we first create an 
+YARP this is a fake device which simulates a control board for
+testing purposes. This device supports the \emph{IPositionControl} and 
+\emph{IVelocityControl} interfaces. To begin with, we first create an 
 instance of the \emph{PolyDriver}. The actual device is create by 
 calling the \emph{PolyDriver::open()} method specifying the symbolic 
 name of the device (e.g. \emph{test\_motor}):
@@ -299,22 +299,30 @@ name of the device (e.g. \emph{test\_motor}):
   device.open("test_motor");
 \end{verbatim}
 
-Now we can ask interfaces to \emph{test\_motor} by calling the 
-\emph{PolyDriver::view()}method:
+We could also be more specific and pass in configuration options,
+but we keep things simple here.
+Now we can get the interfaces we want from our \emph{test\_motor} 
+by calling the \emph{PolyDriver::view()}method:
 
 \begin{verbatim}
-  IPositionControl *ipos=0;
+  IPositionControl *ipos=NULL;
   device.view(ipos);
 
-  IVelocityControl *ivel=0;
+  IVelocityControl *ivel=NULL;
   device.view(ivel);
 \end{verbatim}
 
-Checking if ivel and ipos are not null assures that \emph{test\_motor} 
-really supports the respective interfaces.
+Checking if {\tt ivel} and {\tt ipos} are non-NULL assures that 
+\emph{test\_motor} really supports the respective interfaces.
+This is reminiscent of the treatment of interfaces
+in something like DCOM, but is grossly simplified,
+implemented directly with the C++ type system so
+that we can be just one virtual call away from
+the native device API.
 
-We can now call methods of the \emph{IPositionControl} interface to control 
-joint $0$ to move to the angular position of $40deg$, with the velocity 
+We can now call methods of the \emph{IPositionControl} interface to 
+for example, move 
+joint number $0$ to the angular position of $40deg$, with the velocity 
 of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
 
 \begin{verbatim}
@@ -323,13 +331,20 @@ ipos->setRefSpeed(0, 5)
 ipos->positionMove(0, 40);
 \end{verbatim}
 
-Or use the \emph{IVelocity} interface to servo joint 1 at the velocity 
-of $5\frac{deg}{s}$ with the acceleration of $100\frac{deg}{s^2}$:
+%
+(The use of degrees rather than radians in YARP interfaces
+is part of a bias towards keeping all data as human-readable
+as possible.)
+%
+Or we could use the \emph{IVelocityControl} interface to move axis 1
+at a smooth velocity of $5\frac{deg}{s}$, accelerating to
+that velocity at $100\frac{deg}{s^2}$:
 
 \begin{verbatim}
 ivel->setRefAcceleration(1,100);
 ivel->velocityMove(1, 5);
 \end{verbatim}
+
 
 \subsection{Device Remotization: Binary Interfaces}
 A final level of separation is achieved by supporting device remotization. 
