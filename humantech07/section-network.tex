@@ -10,7 +10,8 @@ A very basic problem that keeps cropping up in robotics projects is
 simply how to move data around between sensors, processors,
 and actuators.  There's a universe of ``middleware'' solutions
 in existence for communication (see the survey in \cite{kramer2007development}
-and the related work review in \cite{collett2005player}).
+and the related-work review in \cite{collett2005player}).
+%
 %
 %
 Our own preferred solution
@@ -38,6 +39,7 @@ or vice versa.
 
 \item The model of communication is not intertwined with our
 ideas about how devices work or how processes should be started/stopped.
+Thus users can ``cherry-pick'' the parts that work for them.
 
 \end{itemize}
 
@@ -83,37 +85,48 @@ For the purposes of YARP, communication takes place through
 ``connections'' between named entities called ``ports''. These form a
 directed graph, the ``YARP Network'', where ports are the nodes, and
 connections are the edges.
-
+%
 Each port is assigned a unique name, such as
 ``/icub/camera/left''. Every port is registered by name with a ``name
 server''. The goal is to ensure that if you know the name of a port,
 that is all you need in order to be able to communicate with it from
-any machine.
+any machine.  The YARP name server (YNS) is a generalization of DNS
+name service on the public internet for converting from domain names
+to IP addresses, since it is not concerned just with machines but all
+the details necessary to make a connection with a specific resource.
+Unlike location services in CORBA, the record returned by the yarp
+name server is designed to be easily used by clients who are not
+themselves using the YARP libraries or executables.  We return to this
+topic later.
 
 The purpose of ports is to move data from one thread to another (or
 several others) across process and machine boundaries. The flow of
 data can be manipulated and monitored externally (e.g. from the
-command-line) at run-time. In other words, the edges in the YARP
-Network are entirely mutable.
+command-line) at run-time.  It can also be interacted with without
+using the YARP libraries or executables, since the relevant protocols
+are documented.  If messages follow YARP guidelines, then they can be
+automatically converted to and from a ``text mode'' connection, 
+enabling human monitoring and intervention in the system,
+and providing an easy way to experiment with integration with
+non-YARP modules.
 
 A port can send data to any number of other ports. A port can receive
 data from any number of other ports. Connections between ports can be
 freely added or removed, and may use different underlying transports.
- The use of several different protocol allows us to exploit
-their best characteristics.
-TCP is reliable, it can be used to guarantee the reception of a message.
-UDP can be faster than TCP, but without guarantees.
-Multicast is efficient for distributing the same information to large
-numbers of targets.
-Shared memory can be employed for local connections.
+The use of several different protocol allows us to exploit their best
+characteristics.  TCP is reliable, it can be used to guarantee the
+reception of a message.  UDP can be faster than TCP, but without
+guarantees.  Multicast is efficient for distributing the same
+information to large numbers of targets.  Shared memory can be
+employed for local connections.
 
-The YARP name server is a server that tracks information about
-ports. It indexes this information by name, playing a role analogous
-to DNS on the internet. To communicate with a port, the properties of
-that port need to be known (the machine it is running on, the socket
-it is listening on, the carriers it supports). The YARP name server
-offers a convenient place to store these properties, so that only the
-name of the port is needed to recover them.
+%% The YARP name server is a server that tracks information about
+%% ports. It indexes this information by name, playing a role analogous
+%% to DNS on the internet. To communicate with a port, the properties of
+%% that port need to be known (the machine it is running on, the socket
+%% it is listening on, the carriers it supports). The YARP name server
+%% offers a convenient place to store these properties, so that only the
+%% name of the port is needed to recover them.
 
 
 %% Upon creation, by default every port communicates with a server and is
@@ -127,11 +140,6 @@ name of the port is needed to recover them.
 
 %%\subsection{Port abstraction}
 
-
-If messages follow YARP guidelines, then they can be
-automatically converted to and from a ``text mode'' connection, for easy
-human monitoring and intervention in the system.
-
 Connections between ports in YARP can carry replies if desired,
 so conventional ``RPC'' (remote procedure call) style synchronous
 operation is possible.  This is a trade-off though, because this
@@ -142,12 +150,12 @@ strong coupling of timing between processes.
 %%Ports belong to processes.
 %%Processes can be on different machines/OS.
 
-We've separated out most of the plumbing.  We get to change it
-dynamically (handy).  More importantly, we have better modularity.
-Programs can be moved around as load and OS/device/library
-dependencies dictate.  Fundamental protocol for communication can be
-changed without affecting programs.  Better chance that your code can
-be used by others (even just within your group).
+%% We've separated out most of the plumbing.  We get to change it
+%% dynamically (handy).  More importantly, we have better modularity.
+%% Programs can be moved around as load and OS/device/library
+%% dependencies dictate.  Fundamental protocol for communication can be
+%% changed without affecting programs.  Better chance that your code can
+%% be used by others (even just within your group).
 
 
 
@@ -156,7 +164,9 @@ be used by others (even just within your group).
 There is a constant tension between using binary formats and
 human-readable formats.  Binary formats can be much more efficient,
 but text mode formats can be much easier to work with and learn about
-experimentally without extensive study.
+experimentally without extensive study.  The value of text formats and
+protocols has been seen time and time again in the short history of
+computing (postscript, http, html, xml, etc.).
 
 The YARP communications system is written in two parts.  There
 are a set of ``carriers'' which do the work of providing
@@ -433,11 +443,16 @@ embedded.
 \end{center}
 \caption{
 %
-The first eight bytes of a connection in YARP specify the
-desired lower-level protocol to use.
+Partial list of YARP connection ``magic numbers'' -- the eight initial
+bytes of a connection in YARP specify the desired protocol to use from
+that point on.  Magic numbers are commonly used in all sorts of file
+formats intended for interchange.
+YARP's rather strange magic numbers for binary formats (``YAnnnnRP'')
+evolved in order to be compatible with earlier versions of itself.
 %
 }
 \end{table}
+
 
 \subsection{YARP without YARP}
 
