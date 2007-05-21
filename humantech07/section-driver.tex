@@ -374,22 +374,24 @@ talking to each other using a predefined protocol, which involves one or more
 YARP Ports configured for RPC or streaming (see Figure (\ref{fig:devices3}))
 
 The process willing to connect to the remote device, 
-creates an instance of the \emph{Client Wrapper}. The latter exports 
+creates an instance of the \emph{Client Network Wrapper}. The latter exports 
 exactly the same interfaces of the 
 ``wrapped'' device so the process is not aware that it is not connected to 
-a real device. The \emph{Client Wrapper} converts calls from 
+a real device. The \emph{Client Network Wrapper} converts calls from 
 the process into packets of bytes, sends them to the other end of the 
 communication link, and, in case a reply is expected, waits for data and 
 dispatches it to the calling process. 
 %
-The \emph{Server Wrapper} waits for incoming connections from the network. 
+The \emph{Server Network Wrapper} waits for incoming connections from 
+the network. 
 In addition it creates an instance of the wrapped 
 device and forwards requests from the network to the device. If requests
 involve a reply theses are sent back to the 
 calling port so that they are received by the remote client. The 
-\emph{Server Wrapper} gains access to the local device through its 
-interfaces; as such the \emph{Server Wrapper} is a total independent 
-entity that can be reused for all devices implementing the same interface(s). 
+\emph{Server Network Wrapper} gains access to the local device through its 
+interfaces; as such it is a total independent 
+entity that can be reused for all devices implementing the same 
+interface(s). 
 %
 The responsibility of the \emph{Network wrapper} devices among 
 the other things is to perform the marshalling and de-marshalling of the 
