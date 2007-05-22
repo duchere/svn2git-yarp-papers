@@ -40,14 +40,14 @@ available are inadequate for robotics tasks: they are only
 sensitive to forces coming from a specific angle of incidence,
 rigid and almost frictionless.
 
-OBRERO \cite{obrero}, described in chapter~\ref{chap:OBRERO}, was
-designed to overcome these limitations. It is equipped with series
-elastic actuators, which provide intrinsic elasticity and force
-feedback at each joint. The hand is equipped with tactile sensors
-(chapter~\ref{chap:TactileSensors}) which provide a deformable and
+OBRERO \cite{obrero}, described in paper, was designed to overcome
+these limitations. It is equipped with series elastic actuators,
+which provide intrinsic elasticity and force feedback at each
+joint. The hand is equipped with tactile sensors
+(Section~\ref{chap:TactileSensors}) which provide a deformable and
 sensitive interface between the fingers and the objects.
 
-In this chapter, we report a series of experiments where OBRERO
+In this paper, we report a series of experiments where OBRERO
 exploits its sensing capabilities to grasp a number of objects
 individually placed on a table. No prior information about the
 objects is available to the robot. The use of visual feedback was
@@ -64,20 +64,6 @@ robot during grasping carries information about the shape of the
 objects. Further analysis of the tactile data allows us to detect
 slippage and sense forces applied over the object being held by
 the robot.
-
-This chapter is organized as follows. Section~\ref{sec:background}
-briefly reviews the importance of haptic feedback for manipulation
-in infants and adults. Section~\ref{sec:controlling} provides some
-implementation details and describes the grasping behavior. The
-latter is evaluated in Section~\ref{sec:results}. Additional
-analysis of the data provided by tactile feedback is presented in
-sections~\ref{sec:imp:analysis}~and~\ref{sec:imp:timing}. The
-limitations of the implementation are presented in
-section~\ref{sec:imp:limitations}. In
-section~\ref{sec:imp:comparison}, we compare the current
-implementation with the observations presented in
-chapter~\ref{chap:HumanExp}. Finally, section
-~\ref{sec:conclusions} draws the conclusions of this work.
 
 \section{Haptic feedback, perception and action}
 \label{sec:background}
@@ -148,114 +134,36 @@ review).
 \section{Grasping and lifting an unknown object}
 \label{sec:controlling}
 %
-
-In this section we describe the implementation of a grasping
-behavior in the robot OBRERO. The grasping is implemented using
-our approach, that is sensitive manipulation.
+\subsection{Experiment setup} In this implementation we assume that
+OBRERO has a table in front of it where objects will be presented
+by a person. The table is reachable by the robot's hand. The robot
+does not have a model of the objects presented.
 %
-In this implementation we assume that OBRERO has a table in front
-of it where objects will be presented by a person. The table is
-reachable by the robot's hand. The robot does not have a model of
-the objects presented.
+[Added] The robot initially detect the presence of the table and
+its height.
 %
 The robot's attention is captured by moving an object in the
 table. The robot's response is to move its hand toward the object
 to explore it and grab it. The object can be placed anywhere
 within reach of the robot's hand.
 %
-We describe a few perceptual and motor competencies required for
-the robot to be able to control the body in a meaningful and safe
-manner: this includes a simple attention system to spot the
-objects to be grasped and the ability to control the body to reach
-out for them.
+We implemented a few perceptual and motor competencies required
+for the robot to be able to control the body in a meaningful and
+safe manner.
 %
-At the end of the section we describe how these capabilities are
-integrated in the grasping behavior.
-
 We use motion in our active camera system to select points of
 interest in the visual scene using the algorithm proposed by
 \cite{kemp-thesis}. We use kinematics to position the hand in the
 spot indicated by the camera(table detection). To do the reaching
-we use an approximated inverse kinematics.
+we use an approximated inverse kinematics. [Based in
+kinematics]The exploration primitives are computed based on
+kinematics.
+%
+These capabilities are integrated in generate a grasping behavior.
+\section{Robot and Tactile feedback}
 
-[Based in kinematics] The exploration primitives are computed
-based on kinematics.
-
-\subsection{Implementation of the robot's behavior}
+\subsection{Grasping the object}
 \label{sec:impbehavior}
-
-
-
-In this section, we describe the implementation of a behavior that
-allows the robot to grasp objects.
-
-
-We will refer to figure~\ref{fig:expbehaviors} to explain the
-interaction between behaviors. It should be noted in the figure
-that a behavior can be inhibited or enabled. When a behavior is
-inhibited, it will not send commands. When a behavior is enabled,
-the behavior can be either active or inactive. When, it is active,
-it is sending commands because the programmed conditions have been
-meet.
-
-In figure~\ref{fig:expbehaviors}.1, the robot's arm is in a safe
-position. A safe position above the table is defined for this
-implementation. We start by describing the \emph{reaching
-behavior}. The attention system, previously described, detects
-when a experimenter waves an object in front of the robot. The
-head tracks the object until it remains stationary within the
-workspace of the arm. If the arm is in a safe position, the robot
-moves the arm towards the object
-(figure~\ref{fig:expbehaviors}.2). Reaching is not accurate enough
-to guarantee a correct grasp. Since no three dimensional
-information is available the arm reaches a region above the object
-(see Section~\ref{sec:reaching}). At this point the \emph{reaching
-behavior} enables the other behaviors
-(figure~\ref{fig:expbehaviors}.3). The robot computes the
-directions $v_1$, $v_2$, and $v_3$ and explores using the
-following three behaviors: \emph{depth behavior}, moves the hand
-``downwards'' vertically $v_3$; \emph{hovering behavior}, moves
-the hand back and forth along $v_1$;\emph{pushing behavior}, moves
-the hand along $v_2$;
-
-
-The \emph{depth behavior} moves the hand along the direction of
-the optical axis of the camera and adjusts the height of the hand
-with respect to the object/table. To avoid crashing the hand into
-the table this behavior is inhibited when the infrared proximity
-sensor detects an obstacle (usually this happens close to the
-table). The \emph{hovering behavior} and the \emph{depth behavior}
-are activated at the beginning of the exploration. The goal of
-this initial phase is to adjust the position of the hand until the
-index finger touches the object. This allows adjusting the
-position of the hand along the directions $v_1$ and $v_3$. During
-the exploration the arm stops when the hand detects the object, to
-avoid pushing it away or knocking it over; if no contact is
-detected, the amplitude of the exploration is extended (this
-increases the probability to touch the object in case the reaching
-error is large). The exploration terminates when the contact with
-the object is detected by any of the tactile sensors placed on the
-index finger. At this point the \emph{hovering behavior} is
-suspended and the \emph{pushing behavior} activated
-(figure~\ref{fig:expbehaviors}.4). The ``pushing'' movement along
-$v_2$ brings the palm in contact with the object while the
-\emph{depth behavior} takes care of maintaining the correct
-distance with the table. When the robot detects contact on the
-palm the exploration stops and the \emph{grasping behavior} is
-activated. The \emph{grasping behavior} simply closes the fingers
-to a specific position. The low impedance of the joints allows the
-fingers to adapt to the different objects being grasped.
-
-[Include here the grasping and the lifting] with feedback.
-
-Figure~\ref{fig:sequence} reports an example of the robot grasping
-a porcelain cup. The relation between the behaviors and the
-actions of the robot are presented in figure~\ref{fig:bsteps}. The
-\emph{grasping} behavior proved to be quite reliable, as several
-repeated tests show in Section~ \ref{sec:results}
-
-
-
 
 \begin{figure*}[htbp]
 \centerline{
@@ -268,6 +176,246 @@ tactile feedback to find the object and adjust the position of the
 hand. Frames 7 and 8: the robot grasps and lifts the cup.}
 \label{fig:sequence}
 \end{figure*}
+
+[ADDED] We assume that the robot starts at a position above the
+table. When a person waves the object in front of the robot, the
+robot moves its hand towards the object using the 2D information
+of the camera and the kinematics information from the head and the
+arm. The third dimension is given by the height of the table that
+the arm originally detected. The hand starts in the configuration
+X.
+
+After the reaching motion and if not contact has been detected, an
+exploration around this position is performed. The direction of
+the exploration is computed using the kinematics of the arm.[More
+details].
+
+If contact with the hand is detected, the exploration is stopped
+and the thumb is moved to oppose the index finger. Then, the hand
+will be repositioned depending where the contact occurred.[Explain
+more].
+%
+If there is not contact with the palm, the arm will be moved in
+the direction of the forearm until contact occurs.
+%
+Once in contact with the palm, the fingers will be closed ...
+%
+
+
+
+(If the operation fails a time out will cancel things)
+
+\subsection{Lifting the objects}
+We detect the slippage
+
+\subsection{Slippage}
+
+Although controlling slippage can be useful in several
+manipulation tasks, we focus on avoiding slippage when lifting.
+
+Sensing slippage is not an straight-forward task since the
+phenomena is not quite understood. If we observe humans, our skin
+has innervations that respond to fast motions on the surface.
+These innervations are the Meissner's corpuscles. They are
+specialized on detecting vibrations. Those vibrations are, in
+principle, related to the catch and release effect caused by an
+object sliding on the surface of the skin. This has inspired other
+researchers to build tactile sensors with the capability of
+detecting vibrations using accelerometers\cite{howe89sensing}.
+
+In our case we do not rely on this principle. Instead, we measure
+the change of the force applied on the direction of the lifting.
+
+We illustrate this principle on the following experiment. We use
+the the cylindrical bottle ($mass=0.179 Kg$, $diameter=92 mm$,
+$height=216 mm$) shown in figure~\ref{fig:slipseq}. The robot
+approaches the bottle by the side, touches it and subsequently
+rotates the thumb to grab the object. Since it is the first time
+it works with the bottle, it closes its thumb and index finger
+gently until contact with the object is detected. At this point,
+it closes the fingers more to deflect the sensors. This is
+necessary in order to obtain reliable readings from forces applied
+in directions parallel to the base of the sensors. In
+figure~\ref{fig:tactileref} we can observe the direction of the
+forces on the tactile sensors. In this experiment, we use only the
+tactile sensors on the distal phalanges of the fingers. The force
+normal to the tactile sensor surface is in the X direction, and
+the ones parallel are in the plane Y-Z.
+
+When the fingers are closed on the object, the forces in X
+increase. The forces in Z (on the direction of gravity) and the
+forces in Y also change due to the deformation of the sensors.
+This deformation depends, at this point, on the angle of incident
+between the tactile sensor and the surface of the object and not
+on the weight.
+
+When the robot starts moving its hand upwards, that is indicated
+by the increment of elbow angle figure~\ref{fig:slip}, the force
+in Z increases in magnitude because the weight of the object pulls
+the sensors down. Assuming that the motion is linearly upwards and
+that the object does not rotate, the force should remain somewhat
+stable. The exception is at the beginning of the lifting where the
+dynamics of the motion are noticeable. The event just described is
+illustrated on the right side of figure~\ref{fig:slip}.
+
+On the left side of figure~\ref{fig:slip}, we see that the
+behavior is different. The total force goes back to zero while the
+fingers are still closed. This is because the object slipped from
+the hand. A sequence of images of the slippage is shown in
+figure~\ref{fig:slipseq}. It is important to notice in this figure
+that the bottle moves downwards but also towards the front. That
+is, the bottle rotates on the finger tips of the hand.
+
+If we now return to figure~\ref{fig:slip}, we can see the dynamics
+of the sensors/object interaction. After the point B, in the
+figure, the total force becomes negative because the friction with
+the object pulls the sensors down. This event is indicated by an
+increment on the elbow angle. While the total force is negative,
+there is a slight positive slope on the force that indicates some
+slippage. But more importantly, the angle between forces Z and Y
+in the thumb changes smoothly showing the rotational slippage.
+Subsequently, the object stops pulling down the tactile sensors
+when it touches the table. At point C in figure~\ref{fig:slip},
+the fingers are opened.
+
+
+In order to detect slippage, we observe the total tactile force
+while the fingers are closed and the arm moves upwards. If we
+detect a positive slope, we conclude that there is slippage. We
+can observe this in figure~\ref{fig:slip}. From point B to C there
+is a large positive slope. The slope is presented on the top plot
+for reference. From points E to F, there is a slight slip that
+stops and the grasp stabilizes.
+
+The response time of this slip detector is not as fast as it would
+be required to adjust the force instantly. Instead, a new attempt
+to lift the object is done if slippage has been detected.
+
+[The current limitation of these sensors is that computation is
+done off-board. However, the hardware on the sensors have the
+capability of doing this calculation faster.]
+
+
+\begin{figure}[htbp]
+\centerline{
+\includegraphics[height=\columnwidth, angle=270 ]{./figures/Slippage.eps}
+} \caption[Bottle slipping]{From 1 to 5 we observe the bottle
+slipping. The bottle moves downwards and towards the front. The
+motion towards the front is not linear but circular.}
+\label{fig:slipseq}
+\end{figure}
+
+
+It is important to remember that the data comes from a controlled
+experiment where the lifting is done only with the thumb and the
+index finger. Neither the palm nor the middle finger are used. In
+general, this robot is designed to do whole body grasping as
+opposed to precision grasping. In some cases, an object will come
+in contact with the fingers on spots where the fingers are not
+fully covered with the skin. In that case the slippage detection
+is not possible.
+
+\begin{figure*}[htbp]
+\centerline{
+\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
+} \caption[Tactile forces when lifting an object]{Tactile forces
+in two different lifting events. For details see
+section~\ref{sec:slippage} } \label{fig:slip}
+\end{figure*}
+
+\subsection{Placing and object}
+After the object has been lifted and moved to a different location
+it is useful to place it in a different location. In this case, we
+need to detect when the object touches a surface.
+
+\subsection{Applying forces to a held object: placing an object on a surface}
+
+Once the robot has an object in its hand, in order to interact
+with the environment it is important to detect changes of forces
+applied to the object. For instance, if the robot is holding an
+object and wants to place it on a flat surface, like a table, it
+is important to detect when they come in contact so an action can
+be taken. Other examples where detecting external contact with a
+held object include: using a hand tool, moving a cup towards our
+mouth, etc.
+
+OBRERO's tactile sensors are capable of measuring changes on the
+forces applied to the object. In order to illustrate the principle
+we present the following example. The robot grabs the bottle used
+in section~\ref{sec:slippage}. Subsequently, it lifts the bottle
+and then moves it back to the surface. The forces applied to the
+object are monitored using the tactile sensors. When a large
+change on the forces is detected in direction opposite to the
+motion, the robot assumes that the object came in contact with a
+surface and releases its grip. The robot is capable of detecting
+this change at any time. For example, if we place our hand under
+the bottle before the robot touches the surface, the robot will
+able to detect this change on the tactile forces. This example is
+presented in figure~\ref{fig:landing}.
+
+
+It is arguable that this detection can also be done by force
+sensors on the joints of the robot. However, this is generally
+less sensitive because the effect of the change on forces needs to
+be reflected on the joint. More importantly, a detailed model of
+the forces acting on the joints needs to be implemented in order
+to filter out the changes produced by other factors. Tactile
+sensors are closer to the hand/object interaction making them more
+sensitive and less complex at the moment of extracting the
+information.
+
+Figure~\ref{fig:twotaps} shows the response of the tactile sensors
+to external forces on the object held. In this case, the robot is
+holding an object and a person pushes the object from the bottom.
+In order to see the response, we program the robot so that it does
+not release the object. The plot on the top of
+figure~\ref{fig:twotaps} shows the changes on the forces in the
+direction of gravity.  We do not work with the absolute force but
+with the differences because we are interested in the changes on
+the force. The values showed have been filtered using a moving
+average filter of size 8 and the sampling period is 100ms. The
+bottom plot on figure~\ref{fig:twotaps} is the integration of the
+data on the top plot, and it gives an idea of the time evolution
+of the force applied. We can clearly observe that the force
+increased because the object was pushed twice and the forces
+applied had different intensity.
+
+In order to detect the event of pushing or contacting the table
+setting a threshold is enough, as it is illustrated on the top
+plot of figure~\ref{fig:twotaps}.
+
+
+\begin{figure}[htbp]
+\centerline{
+\includegraphics[height=\columnwidth, angle=270 ]{./figures/SeqHandDelivery.eps}
+} \caption[Detection of forces applied to an object held by the
+robot]{This sequence shows the robot detecting forces applied over
+an object when holding it. This is useful to place objects over
+surfaces. In (a) the robot is holding a bottle, in (b) a person is
+touching the bottle from below and the robot detects this force.
+As a consequence, the robot releases the object as shown in (c)}
+\label{fig:landing}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\centerline{
+\includegraphics[height=\columnwidth, angle=270 ]{./figures/2TapsX.eps}
+} \caption[Pushing the bottle upwards twice]{Pushing the bottle
+upwards twice. Top: Temporal difference of the total force in
+direction on the gravity when the hand is holding an object. See
+figure~\ref{fig:tactileref} for reference. Bottom: Integration of
+the data on the top plot. It shows the changes on force when the
+object was pushed.} \label{fig:twotaps}
+\end{figure}
+
+
+
+
+
+
+
+
 
 %
 %\begin{figure}[htbp]
@@ -392,20 +540,13 @@ physical properties of the objects (i.e. their shape).
 
 
 \section{Analysis of tactile data}
-\label{sec:imp:analysis}
-
-In the previous sections, we showed how simple tactile feedback
-can be efficiently used to grasp unknown objects. In this section,
-we further analyze the tactile data to obtain useful information.
 
 
 \subsection{Sensitivity Required}
 
-The tactile sensors used are capable of providing information
-useful for grasping and manipulation in general. We further
-analyze these data in this section. But first we would like to
-emphasize the difference between compliant sensors and state of
-the art tactile sensors by presenting a couple of evaluations.
+But first we would like to emphasize the difference between
+compliant sensors and state of the art tactile sensors by
+presenting a couple of evaluations.
 
 In figure~\ref{fig:TouchEgg}, we observe an example of the
 compliant sensors working. In this case, the fingers of the hand
@@ -503,261 +644,133 @@ consequence they crush the object.} \label{fig:PaperNoGentle}
 \end{figure}
 
 
-\subsection{Interaction}
-
-We now turn our attention to the data produced by the compliant
-tactile sensors when interacting with an object. We can observe a
-sample of this in figure~\ref{fig:AnglesPlot}. In this figure we
-observe the trajectory followed by the arm in two different
-grasping sequences. The trajectory is represented by the angles of
-the elbow, wrist, and shoulder. The angle of the shoulder shown is
-the one that moves the arm up.
-
-These differences between the trajectories are reflected in the
-tactile sensors' readings as shown in the top plot of
-figure~\ref{fig:AnglesPlot}. In this plot, the magnitude of the
-tactile vector is the vectorial summation of the forces exerted in
-each tactile sensor considering the current geometry of the hand.
-
-We can see that the magnitude increases when the fingers are
-closed around the object. In the first trial, the magnitude
-remains quite constant while in the second there is a greater
-change due to the different trajectory of the elbow and the
-shoulder.
-
-\begin{figure}[tbp]
-\centerline{
-%\includegraphics[width=2.0in, angle=270 ]{./figures/tactref.eps}
-\includegraphics[width=2.0in, angle=270 ]{./figures/refaxis.eps}
-} \caption[Axis of reference for tactile sensors]{Axis used to
-reference the forces acting on the tactile sensors on the hand.}
-\label{fig:tactileref}
-\end{figure}
 
 
 
-A more detailed plot of the response of the tactile sensors is
-presented in figure~\ref{fig:TactileComp}. In this figure we can
-observe that the Z and the Y components change as the arm follows
-a trajectory. The Z component of the second trial (in green)is
-smaller than the first because the object is in contact with the
-hand in regions with no tactile sensors. Finally, the X component
-does not go to zero mainly because the compliant sensors are not
-calibrated. However, we do not rely on this condition to evaluate
-the grasp.
+%\subsection{Slippage}
+%\label{sec:slippage}
+%
+%In this section we present our implementation of slippage
+%detection using the compliant sensors. Although controlling
+%slippage can be useful in several manipulation tasks, we focus on
+%avoiding slippage when lifting.
+%
+%
+%Sensing slippage is not an straight-forward task since the
+%phenomena is not quite understood. If we observe humans, our skin
+%has innervations that respond to fast motions on the surface.
+%These innervations are the Meissner's corpuscles. They are
+%specialized on detecting vibrations. Those vibrations are, in
+%principle, related to the catch and release effect caused by an
+%object sliding on the surface of the skin. This has inspired other
+%researchers to build tactile sensors with the capability of
+%detecting vibrations using accelerometers\cite{howe89sensing}.
+%
+%In our case we do not rely on this principle. Instead, we measure
+%the change of the force applied on the direction of the lifting.
+%
+%We illustrate this principle on the following experiment. We use
+%the the cylindrical bottle ($mass=0.179 Kg$, $diameter=92 mm$,
+%$height=216 mm$) shown in figure~\ref{fig:slipseq}. The robot
+%approaches the bottle by the side, touches it and subsequently
+%rotates the thumb to grab the object. Since it is the first time
+%it works with the bottle, it closes its thumb and index finger
+%gently until contact with the object is detected. At this point,
+%it closes the fingers more to deflect the sensors. This is
+%necessary in order to obtain reliable readings from forces applied
+%in directions parallel to the base of the sensors. In
+%figure~\ref{fig:tactileref} we can observe the direction of the
+%forces on the tactile sensors. In this experiment, we use only the
+%tactile sensors on the distal phalanges of the fingers. The force
+%normal to the tactile sensor surface is in the X direction, and
+%the ones parallel are in the plane Y-Z.
+%
+%When the fingers are closed on the object, the forces in X
+%increase. The forces in Z (on the direction of gravity) and the
+%forces in Y also change due to the deformation of the sensors.
+%This deformation depends, at this point, on the angle of incident
+%between the tactile sensor and the surface of the object and not
+%on the weight.
+%
+%When the robot starts moving its hand upwards, that is indicated
+%by the increment of elbow angle figure~\ref{fig:slip}, the force
+%in Z increases in magnitude because the weight of the object pulls
+%the sensors down. Assuming that the motion is linearly upwards and
+%that the object does not rotate, the force should remain somewhat
+%stable. The exception is at the beginning of the lifting where the
+%dynamics of the motion are noticeable. The event just described is
+%illustrated on the right side of figure~\ref{fig:slip}.
+%
+%On the left side of figure~\ref{fig:slip}, we see that the
+%behavior is different. The total force goes back to zero while the
+%fingers are still closed. This is because the object slipped from
+%the hand. A sequence of images of the slippage is shown in
+%figure~\ref{fig:slipseq}. It is important to notice in this figure
+%that the bottle moves downwards but also towards the front. That
+%is, the bottle rotates on the finger tips of the hand.
+%
+%If we now return to figure~\ref{fig:slip}, we can see the dynamics
+%of the sensors/object interaction. After the point B, in the
+%figure, the total force becomes negative because the friction with
+%the object pulls the sensors down. This event is indicated by an
+%increment on the elbow angle. While the total force is negative,
+%there is a slight positive slope on the force that indicates some
+%slippage. But more importantly, the angle between forces Z and Y
+%in the thumb changes smoothly showing the rotational slippage.
+%Subsequently, the object stops pulling down the tactile sensors
+%when it touches the table. At point C in figure~\ref{fig:slip},
+%the fingers are opened.
+%
+%
+%In order to detect slippage, we observe the total tactile force
+%while the fingers are closed and the arm moves upwards. If we
+%detect a positive slope, we conclude that there is slippage. We
+%can observe this in figure~\ref{fig:slip}. From point B to C there
+%is a large positive slope. The slope is presented on the top plot
+%for reference. From points E to F, there is a slight slip that
+%stops and the grasp stabilizes.
+%
+%The response time of this slip detector is not as fast as it woudl
+%be required to adjust the force instantly. Instead, a new attempt
+%to lift the object is done if slippage has been detected. The
+%current limitation of these sensors is that computation is done
+%off-board. However, the hardware on the sensors have the
+%capability of doing this calculation faster.
+%
+%
+%\begin{figure}[htbp]
+%\centerline{
+%\includegraphics[height=\columnwidth, angle=270 ]{./figures/Slippage.eps}
+%} \caption[Bottle slipping]{From 1 to 5 we observe the bottle
+%slipping. The bottle moves downwards and towards the front. The
+%motion towards the front is not linear but circular.}
+%\label{fig:slipseq}
+%\end{figure}
+%
+%
+%
+%
+%
+%
+%
+%It is important to remember that the data comes from a controlled
+%experiment where the lifting is done only with the thumb and the
+%index finger. Neither the palm nor the middle finger are used. In
+%general, this robot is designed to do whole body grasping as
+%opposed to precision grasping. In some cases, an object will come
+%in contact with the fingers on spots where the fingers are not
+%fully covered with the skin. In that case the slippage detection
+%is not possible.
+%
+%\begin{figure*}[htbp]
+%\centerline{
+%\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
+%} \caption[Tactile forces when lifting an object]{Tactile forces
+%in two different lifting events. For details see
+%section~\ref{sec:slippage} } \label{fig:slip}
+%\end{figure*}
+%
 
-
-
-Further analysis of this information allows us to detect events
-such as slippage or contact of the object with an external
-element.
-
-
-
-\subsection{Slippage}
-\label{sec:slippage}
-
-In this section we present our implementation of slippage
-detection using the compliant sensors. Although controlling
-slippage can be useful in several manipulation tasks, we focus on
-avoiding slippage when lifting.
-
-
-Sensing slippage is not an straight-forward task since the
-phenomena is not quite understood. If we observe humans, our skin
-has innervations that respond to fast motions on the surface.
-These innervations are the Meissner's corpuscles. They are
-specialized on detecting vibrations. Those vibrations are, in
-principle, related to the catch and release effect caused by an
-object sliding on the surface of the skin. This has inspired other
-researchers to build tactile sensors with the capability of
-detecting vibrations using accelerometers\cite{howe89sensing}.
-
-In our case we do not rely on this principle. Instead, we measure
-the change of the force applied on the direction of the lifting.
-
-We illustrate this principle on the following experiment. We use
-the the cylindrical bottle ($mass=0.179 Kg$, $diameter=92 mm$,
-$height=216 mm$) shown in figure~\ref{fig:slipseq}. The robot
-approaches the bottle by the side, touches it and subsequently
-rotates the thumb to grab the object. Since it is the first time
-it works with the bottle, it closes its thumb and index finger
-gently until contact with the object is detected. At this point,
-it closes the fingers more to deflect the sensors. This is
-necessary in order to obtain reliable readings from forces applied
-in directions parallel to the base of the sensors. In
-figure~\ref{fig:tactileref} we can observe the direction of the
-forces on the tactile sensors. In this experiment, we use only the
-tactile sensors on the distal phalanges of the fingers. The force
-normal to the tactile sensor surface is in the X direction, and
-the ones parallel are in the plane Y-Z.
-
-When the fingers are closed on the object, the forces in X
-increase. The forces in Z (on the direction of gravity) and the
-forces in Y also change due to the deformation of the sensors.
-This deformation depends, at this point, on the angle of incident
-between the tactile sensor and the surface of the object and not
-on the weight.
-
-When the robot starts moving its hand upwards, that is indicated
-by the increment of elbow angle figure~\ref{fig:slip}, the force
-in Z increases in magnitude because the weight of the object pulls
-the sensors down. Assuming that the motion is linearly upwards and
-that the object does not rotate, the force should remain somewhat
-stable. The exception is at the beginning of the lifting where the
-dynamics of the motion are noticeable. The event just described is
-illustrated on the right side of figure~\ref{fig:slip}.
-
-On the left side of figure~\ref{fig:slip}, we see that the
-behavior is different. The total force goes back to zero while the
-fingers are still closed. This is because the object slipped from
-the hand. A sequence of images of the slippage is shown in
-figure~\ref{fig:slipseq}. It is important to notice in this figure
-that the bottle moves downwards but also towards the front. That
-is, the bottle rotates on the finger tips of the hand.
-
-If we now return to figure~\ref{fig:slip}, we can see the dynamics
-of the sensors/object interaction. After the point B, in the
-figure, the total force becomes negative because the friction with
-the object pulls the sensors down. This event is indicated by an
-increment on the elbow angle. While the total force is negative,
-there is a slight positive slope on the force that indicates some
-slippage. But more importantly, the angle between forces Z and Y
-in the thumb changes smoothly showing the rotational slippage.
-Subsequently, the object stops pulling down the tactile sensors
-when it touches the table. At point C in figure~\ref{fig:slip},
-the fingers are opened.
-
-
-In order to detect slippage, we observe the total tactile force
-while the fingers are closed and the arm moves upwards. If we
-detect a positive slope, we conclude that there is slippage. We
-can observe this in figure~\ref{fig:slip}. From point B to C there
-is a large positive slope. The slope is presented on the top plot
-for reference. From points E to F, there is a slight slip that
-stops and the grasp stabilizes.
-
-The response time of this slip detector is not as fast as it woudl
-be required to adjust the force instantly. Instead, a new attempt
-to lift the object is done if slippage has been detected. The
-current limitation of these sensors is that computation is done
-off-board. However, the hardware on the sensors have the
-capability of doing this calculation faster.
-
-
-\begin{figure}[htbp]
-\centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/Slippage.eps}
-} \caption[Bottle slipping]{From 1 to 5 we observe the bottle
-slipping. The bottle moves downwards and towards the front. The
-motion towards the front is not linear but circular.}
-\label{fig:slipseq}
-\end{figure}
-
-
-
-
-
-
-
-It is important to remember that the data comes from a controlled
-experiment where the lifting is done only with the thumb and the
-index finger. Neither the palm nor the middle finger are used. In
-general, this robot is designed to do whole body grasping as
-opposed to precision grasping. In some cases, an object will come
-in contact with the fingers on spots where the fingers are not
-fully covered with the skin. In that case the slippage detection
-is not possible.
-
-\begin{figure*}[htbp]
-\centerline{
-\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
-} \caption[Tactile forces when lifting an object]{Tactile forces
-in two different lifting events. For details see
-section~\ref{sec:slippage} } \label{fig:slip}
-\end{figure*}
-
-
-\subsection{Applying forces to a held object: placing an object on a surface}
-
-Once the robot has an object in its hand, in order to interact
-with the environment it is important to detect changes of forces
-applied to the object. For instance, if the robot is holding an
-object and wants to place it on a flat surface, like a table, it
-is important to detect when they come in contact so an action can
-be taken. Other examples where detecting external contact with a
-held object include: using a hand tool, moving a cup towards our
-mouth, etc.
-
-OBRERO's tactile sensors are capable of measuring changes on the
-forces applied to the object. In order to illustrate the principle
-we present the following example. The robot grabs the bottle used
-in section~\ref{sec:slippage}. Subsequently, it lifts the bottle
-and then moves it back to the surface. The forces applied to the
-object are monitored using the tactile sensors. When a large
-change on the forces is detected in direction opposite to the
-motion, the robot assumes that the object came in contact with a
-surface and releases its grip. The robot is capable of detecting
-this change at any time. For example, if we place our hand under
-the bottle before the robot touches the surface, the robot will
-able to detect this change on the tactile forces. This example is
-presented in figure~\ref{fig:landing}.
-
-
-It is arguable that this detection can also be done by force
-sensors on the joints of the robot. However, this is generally
-less sensitive because the effect of the change on forces needs to
-be reflected on the joint. More importantly, a detailed model of
-the forces acting on the joints needs to be implemented in order
-to filter out the changes produced by other factors. Tactile
-sensors are closer to the hand/object interaction making them more
-sensitive and less complex at the moment of extracting the
-information.
-
-Figure~\ref{fig:twotaps} shows the response of the tactile sensors
-to external forces on the object held. In this case, the robot is
-holding an object and a person pushes the object from the bottom.
-In order to see the response, we program the robot so that it does
-not release the object. The plot on the top of
-figure~\ref{fig:twotaps} shows the changes on the forces in the
-direction of gravity.  We do not work with the absolute force but
-with the differences because we are interested in the changes on
-the force. The values showed have been filtered using a moving
-average filter of size 8 and the sampling period is 100ms. The
-bottom plot on figure~\ref{fig:twotaps} is the integration of the
-data on the top plot, and it gives an idea of the time evolution
-of the force applied. We can clearly observe that the force
-increased because the object was pushed twice and the forces
-applied had different intensity.
-
-In order to detect the event of pushing or contacting the table
-setting a threshold is enough, as it is illustrated on the top
-plot of figure~\ref{fig:twotaps}.
-
-
-\begin{figure}[htbp]
-\centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/SeqHandDelivery.eps}
-} \caption[Detection of forces applied to an object held by the
-robot]{This sequence shows the robot detecting forces applied over
-an object when holding it. This is useful to place objects over
-surfaces. In (a) the robot is holding a bottle, in (b) a person is
-touching the bottle from below and the robot detects this force.
-As a consequence, the robot releases the object as shown in (c)}
-\label{fig:landing}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/2TapsX.eps}
-} \caption[Pushing the bottle upwards twice]{Pushing the bottle
-upwards twice. Top: Temporal difference of the total force in
-direction on the gravity when the hand is holding an object. See
-figure~\ref{fig:tactileref} for reference. Bottom: Integration of
-the data on the top plot. It shows the changes on force when the
-object was pushed.} \label{fig:twotaps}
-\end{figure}
 
 %Pushing the bottle upwards twice. Sample time 100 ms. Compute
 %delta. Filtered in 8 tap average filter. The second plot is
@@ -855,7 +868,7 @@ believe that future robots will have to take advantage of the
 integration of all sensory modalities.
 
 
-
+\newpage
 
 \section{Extra information}
 \label{sec:imp:timing}
@@ -906,6 +919,126 @@ right level to work.
     \hline
   \end{tabular}
 \end{table}
+
+
+\subsection{Old Implementation}
+
+
+We describe the implementation of a behavior that allows the robot
+to grasp objects.
+
+We will refer to figure~\ref{fig:expbehaviors} to explain the
+interaction between behaviors. It should be noted in the figure
+that a behavior can be inhibited or enabled. When a behavior is
+inhibited, it will not send commands. When a behavior is enabled,
+the behavior can be either active or inactive. When, it is active,
+it is sending commands because the programmed conditions have been
+meet.
+
+In figure~\ref{fig:expbehaviors}.1, the robot's arm is in a safe
+position. A safe position above the table is defined for this
+implementation. We start by describing the \emph{reaching
+behavior}. The attention system, previously described, detects
+when a experimenter waves an object in front of the robot. The
+head tracks the object until it remains stationary within the
+workspace of the arm. If the arm is in a safe position, the robot
+moves the arm towards the object
+(figure~\ref{fig:expbehaviors}.2). Reaching is not accurate enough
+to guarantee a correct grasp. Since no three dimensional
+information is available the arm reaches a region above the object
+(see Section~\ref{sec:reaching}). At this point the \emph{reaching
+behavior} enables the other behaviors
+(figure~\ref{fig:expbehaviors}.3). The robot computes the
+directions $v_1$, $v_2$, and $v_3$ and explores using the
+following three behaviors: \emph{depth behavior}, moves the hand
+``downwards'' vertically $v_3$; \emph{hovering behavior}, moves
+the hand back and forth along $v_1$;\emph{pushing behavior}, moves
+the hand along $v_2$;
+
+
+The \emph{depth behavior} moves the hand along the direction of
+the optical axis of the camera and adjusts the height of the hand
+with respect to the object/table. To avoid crashing the hand into
+the table this behavior is inhibited when the infrared proximity
+sensor detects an obstacle (usually this happens close to the
+table). The \emph{hovering behavior} and the \emph{depth behavior}
+are activated at the beginning of the exploration. The goal of
+this initial phase is to adjust the position of the hand until the
+index finger touches the object. This allows adjusting the
+position of the hand along the directions $v_1$ and $v_3$. During
+the exploration the arm stops when the hand detects the object, to
+avoid pushing it away or knocking it over; if no contact is
+detected, the amplitude of the exploration is extended (this
+increases the probability to touch the object in case the reaching
+error is large). The exploration terminates when the contact with
+the object is detected by any of the tactile sensors placed on the
+index finger. At this point the \emph{hovering behavior} is
+suspended and the \emph{pushing behavior} activated
+(figure~\ref{fig:expbehaviors}.4). The ``pushing'' movement along
+$v_2$ brings the palm in contact with the object while the
+\emph{depth behavior} takes care of maintaining the correct
+distance with the table. When the robot detects contact on the
+palm the exploration stops and the \emph{grasping behavior} is
+activated. The \emph{grasping behavior} simply closes the fingers
+to a specific position. The low impedance of the joints allows the
+fingers to adapt to the different objects being grasped.
+
+[Include here the grasping and the lifting] with feedback.
+
+Figure~\ref{fig:sequence} reports an example of the robot grasping
+a porcelain cup. The relation between the behaviors and the
+actions of the robot are presented in figure~\ref{fig:bsteps}. The
+\emph{grasping} behavior proved to be quite reliable, as several
+repeated tests show in Section~ \ref{sec:results}
+
+\subsection{Interaction}
+
+We now turn our attention to the data produced by the compliant
+tactile sensors when interacting with an object. We can observe a
+sample of this in figure~\ref{fig:AnglesPlot}. In this figure we
+observe the trajectory followed by the arm in two different
+grasping sequences. The trajectory is represented by the angles of
+the elbow, wrist, and shoulder. The angle of the shoulder shown is
+the one that moves the arm up.
+
+These differences between the trajectories are reflected in the
+tactile sensors' readings as shown in the top plot of
+figure~\ref{fig:AnglesPlot}. In this plot, the magnitude of the
+tactile vector is the vectorial summation of the forces exerted in
+each tactile sensor considering the current geometry of the hand.
+
+We can see that the magnitude increases when the fingers are
+closed around the object. In the first trial, the magnitude
+remains quite constant while in the second there is a greater
+change due to the different trajectory of the elbow and the
+shoulder.
+
+\begin{figure}[tbp]
+\centerline{
+%\includegraphics[width=2.0in, angle=270 ]{./figures/tactref.eps}
+\includegraphics[width=2.0in, angle=270 ]{./figures/refaxis.eps}
+} \caption[Axis of reference for tactile sensors]{Axis used to
+reference the forces acting on the tactile sensors on the hand.}
+\label{fig:tactileref}
+\end{figure}
+
+
+
+A more detailed plot of the response of the tactile sensors is
+presented in figure~\ref{fig:TactileComp}. In this figure we can
+observe that the Z and the Y components change as the arm follows
+a trajectory. The Z component of the second trial (in green)is
+smaller than the first because the object is in contact with the
+hand in regions with no tactile sensors. Finally, the X component
+does not go to zero mainly because the compliant sensors are not
+calibrated. However, we do not rely on this condition to evaluate
+the grasp.
+
+
+
+Further analysis of this information allows us to detect events
+such as slippage or contact of the object with an external
+element.
 
 %\section{The second part}
 %
