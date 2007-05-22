@@ -51,17 +51,18 @@ of software has been adapted to a particular robot, it takes a lot
 of work to extricate it again and apply it to another.
 %
 Obviously the answer to this problem is modularity.  So there are 
-now many architectures/frameworks/... for modular robot systems.
-The prime concern for any such system should be that it is not
-a ``black hole'' -- that once a piece of software has been adapted
-to a particular framework, it takes a lot of work to extricate it
-again and apply it to another.  That would be a bit self-defeating.
-
+now several architectures/middleware/frameworks for modular robot systems.
+The major concern for any such middleware should be that it not 
+also become
+in turn a ``black hole''~-- the
+danger is that once a piece of software has been adapted
+to a particular architecture/middleware/framework, it may take a lot of work to extricate it
+again and apply it to another.  That would be a bit somewhat self-defeating.
+%
 So modularity alone is not a solution to software reuse, since 
-different organizing frameworks or architectures may be mutually
-incompatible.  It is import that modules developed can fit
-into a broader ``ecology'' than just the framework/architecture
-of the developers.  By ecology, we mean the messy complicated
+different organizing architectures, middleware, or frameworks may be mutually
+incompatible.  It is important that modules developed can fit
+into a broader ``ecology'': the  complicated, sometimes messy
 collection of niches world-wide in which software development occurs.
 
 %We study YARP from this perspective.  How sticky is resultant user
@@ -80,7 +81,7 @@ supported and portable on almost all the available platforms.
 Perhaps more importantly for robotics, C++ allows writing very 
 efficient code and interfacing with the hardware at the lowest 
 level.
-
+%
 The drawback is that the compile process varies a lot depending 
 on the platform and development environment. For example Linux 
 and Cygwin developers use mostly Makefiles, whereas Microsoft Windows 
@@ -89,32 +90,41 @@ Altough C++ has reached a fairly good level
 of portability which allows, with a reasonable effort, writing 
 applications that compile on all platforms, it is still very 
 common to have to wrestle to port code that was written for 
-a platform to another. On the other hand, following a 
+one platform onto another. On the other hand, following a 
 modular approach, we would like our software to be as flexible 
-as possible and adapt to needs of the user and the platform that 
-he uses. In YARP, when possible, unavoidable dependencies 
+as possible and be adaptable to the needs of users and the platform that 
+they work on. In YARP, unavoidable dependencies 
 have been made as localized as possible to modules that can be 
 compiled or not depending on the underlying system and user 
-choices. So for example applications that require a GUI gets 
-compiled only when the supporting libraries (mainly GTK+) 
-is installed in the system. Another example is the mathematical
-library which is built on top of the GNU Scientific Library. 
-The idea is that only the modules that only and \emph{all} the 
-modules that can be compiled are actually built.
-
-To avoid asking the user to go through a tedious and long process 
-of manual configuration, a program automatically inspects the 
-system and generates the files necessary to compile YARP 
-on the host system (e.g. make files in Linux systems, or Visual 
-Studio project files in Windows). This simplifies development, 
-because it is no longer required to distribute build files 
-for all possible platforms.
+choices. So for example applications that require a GUI get
+compiled only when the supporting libraries
+%
+% (mainly GTK+) 
+%
+are installed on the system, and all the essential operations
+of YARP are independent of GUIs.
+%
+%Another example is the mathematical
+%library which is built on top of the GNU Scientific Library. 
+%The idea is that only the modules that only and \emph{all} the 
+%modules that can be compiled are actually built.
+%
+We take similar care for dependencies on mathematical and 
+image processing libraries.
+%
+%To avoid asking the user to go through a tedious and long process 
+%of manual configuration, a program automatically inspects the 
+%system and generates the files necessary to compile YARP 
+%on the host system (e.g. make files in Linux systems, or Visual 
+%Studio project files in Windows). This simplifies development, 
+%because it is no longer required to distribute build files 
+%for all possible platforms.
 
 Among the available tools for automatic configuraton of 
-software packages, we decided to use CMake~\cite{cmake}. 
-CMake is a cross-platform open-source, make system. It 
+software packages, we decided to use CMake~\cite{cmake}.
+CMake is a cross-platform, open-source build system. It 
 produces build files for the environment of choice (e.g. 
-makefilesfor Unix, Borland and MinGW and project files for 
+makefiles for Unix, Borland and MinGW and project files for 
 all Microsoft compilers) starting from a language independent 
 description. The language of CMake is powerful enough
 to support a flexible configuration process based 
@@ -135,8 +145,12 @@ flexible.
 %
 CMake is free and open-source, with a healthy community of 
 developers.
-
-
+%
+We use another free and open-source tool called SWIG to make
+YARP easy to use from many different languages.
+%
+In all these choices, we are following the practices of
+large successful open-source projects.
 
 %%\subsection{Repositories}
 %%sourceforge.  debian.
@@ -149,7 +163,7 @@ developers.
 %
 \label{fig:family}
 %
-A potted history of YARP.  YARP was born on Kismet~\cite{breazeal01active},
+A potted history of YARP (for more details, see \cite{metta2006yarp}).  YARP was born on Kismet~\cite{breazeal01active},
 grew up on Cog~\cite{brooks99cog} and 
 BabyBot~\cite{natale05linking}, and serves as the
 software architecture for the iCub humanoid \cite{tsagarakis2007icub}.
