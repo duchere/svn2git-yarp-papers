@@ -279,10 +279,10 @@ the  \emph{PolyDriver::view()} method (see Figure~\ref{fig:devices4}).
 \includegraphics[width=20cm]{fig-devices4}
 }
 \caption{Device creation and initialization. Creation of 
-devices in YARP in delegated to a \emph{factory} object. Users 
+devices in YARP is delegated to a \emph{factory} object. Users 
 access devices through instances of the \emph{PolyDriver}. The 
 Figure describes the following situation. Process1 controls a robotic
-head and needs to access to the robot frame grabber (whose symbolic name 
+head and needs to access the robot frame grabber (whose symbolic name 
 is ``dragonfly'') and to the control board connected to the motors of 
 the head (``mboardA''). Process1 creates an instance of 
 \emph{PolyDriver} and opens 
@@ -294,17 +294,21 @@ it to the \emph{PolyDriver}. Subsequent calls to the driver are entirely
 handled by the \emph{PolyDriver} itself. Process1 calls \emph{view} to 
 acquire the appropriate interfaces to the device. A similar procedure 
 is performed by the same process or other processes (Process 2 in Figure) 
-to create instances of different devices.}\label{fig:devices4}
+to create instances of different devices.
+The important point is that calls to the YARP API for 
+each specific device from the processes can be just one 
+level of indirection away from vendor-supplied code.
+}\label{fig:devices4}
 \end{figure}
 
 \subsection{An example: accessing a motor control board}
-For example suppose we want to use the \emph{test\_motor} device. In 
+For example suppose we want to use the {\tt test\_motor} device. In 
 YARP this is a fake device which simulates a control board for
 testing purposes. This device supports the \emph{IPositionControl} and 
 \emph{IVelocityControl} interfaces. To begin with, we first create an 
 instance of the \emph{PolyDriver}. The actual device is create by 
 calling the \emph{PolyDriver::open()} method specifying the symbolic 
-name of the device (e.g. \emph{test\_motor}):
+name of the device ({\tt test\_motor}):
 
 \begin{verbatim}
   PolyDriver device;
@@ -313,8 +317,8 @@ name of the device (e.g. \emph{test\_motor}):
 
 We could also be more specific and pass in configuration options,
 but we keep things simple here.
-Now we can get the interfaces we want from our \emph{test\_motor} 
-by calling the \emph{PolyDriver::view()}method:
+Now we can get the interfaces we want from our {\tt test\_motor} 
+by calling the \emph{PolyDriver::view()} method:
 
 \begin{verbatim}
   IPositionControl *ipos=NULL;
@@ -324,16 +328,16 @@ by calling the \emph{PolyDriver::view()}method:
   device.view(ivel);
 \end{verbatim}
 
-Checking if {\tt ivel} and {\tt ipos} are non-NULL assures that 
-\emph{test\_motor} really supports the respective interfaces.
+Checking if {\tt ivel} and {\tt ipos} are non-NULL assures us that 
+{\tt test\_motor} really supports the respective interfaces.
 This is reminiscent of the treatment of interfaces
 in something like DCOM, but is grossly simplified,
 implemented directly with the C++ type system so
 that we can be just one virtual call away from
 the native device API.
-
+%
 We can now call methods of the \emph{IPositionControl} interface to 
-for example, move 
+(for example) move 
 joint number $0$ to the angular position of $40deg$, with the velocity 
 of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
 
@@ -356,6 +360,11 @@ that velocity at $100\frac{deg}{s^2}$:
 ivel->setRefAcceleration(1,100);
 ivel->velocityMove(1, 5);
 \end{verbatim}
+
+
+The same code would do something for all of the motor devices we
+have that implement these interfaces.  The details might vary
+a bit but in principle the overall behavior should be consistent.
 
 
 \subsection{Device Remotization: Network Interfaces}
