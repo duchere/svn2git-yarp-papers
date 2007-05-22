@@ -28,6 +28,18 @@ appearance, crawl using its arms and legs, and sit up. This allows the system
 to explore and interact with the environment not only by manipulating objects 
 but also through locomotion.
 
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=15cm]{fig-icub}
+}
+\caption{The ICub at various stages of construction. Panel A) shows the head
+of the robot with part of the embedded electronics and sensors; in B) the upper
+torso showing also the left hand; C) shows a first realization of the legs (now
+improved); D) a tentative assembly of the entire robot.} 
+\label{fig:icub}
+\end{figure}
+
+
 The philosophy adopted by RobotCub is that of
 the free software by adopting one or more of the General Public Licenses. 
 On the software side, the RobotCub project adopted YARP and contributed
@@ -40,30 +52,31 @@ with respect to hardware.
 \subsection{Open Source hardware}
 The word ``Open Source hardware'' might sound strange but in fact it is a 
 plain transfer of the open source philosophy to the entire process of 
-design of the RobotCub platform. The process of design of the robot consists
-of the preparation of specifications (e.g. estimation of torque, speed, etc.),
-a design which is typically done in CAD, and eventually in the preparation
-of the executive files which can be used to fabricate parts. Clearly, without
-a good documentation it is very complicated to build and assemble a full robot.
-This means that documentation (as for software) is particularly important.
+design of the RobotCub platform. The design of the robot started from 
+the preparation of specifications (e.g. estimation of torque, speed, etc.),
+a typical 3D CAD modeling, and eventually in the preparation
+of the executive files which are used to fabricate parts and for assembly. 
+Without a good documentation it is very complicated to build and assemble 
+a full robot. This means that documentation (as for software) is particularly 
+important.
 
 The CAD files, in some sense, can be seen as the source code. They get ``compiled''
 into 2D drawings which represent the executive drawings that can be used by any
-professional machine shop either to program CNC machines or to manually prepare
-the mechanical parts. This compilation process is not fully automated and requires
-a good part of human intervention. There is a clear dependency though from 3D CAD
-to 2D drawings. To guarantee the same type of virtuous development cycle of 
-software, the 3D CAD is required, changes happen in 3D first and get propagated
-to 2D later. In addition, assembly diagrams, part lists, and all the material 
-produced during the design stage should be included to guarantee that the same
-information is available to new developers.
+professional and reasonably well equipped machine shop either to program CNC machines 
+or to manually prepare the mechanical parts. This compilation process is not fully 
+automated and requires a substantial human intervention. There is a clear dependency 
+of the 2D drawings from the 3D CAD model. To guarantee the same type of virtuous 
+development cycle of open source software, the 3D CAD is required, changes happen 
+in 3D first and get propagated to 2D later. In addition, assembly diagrams, part 
+lists, and all the material produced during the design stage should be included 
+to guarantee that the same information is available to new developers.
 
 One simplification with the hardware design is that there is very little interoperability
 between design tools. The equivalent of an approximately portable language like C++ 
 does not exist in this case. While this might not be seen as an advantage in practice
-eases the preparation of the standards. In RobotCub we were forced to choose a specific 
-set of tools for mechanical and electronic CAD and future upgrades will clearly strictly 
-follow these standards. Due to the absence of open source professional design tools, RobotCub
+it eases the preparation of the standards. In RobotCub we were forced to choose a specific 
+set of tools for mechanical and electronic CAD and future upgrades will have to strictly 
+adhere to these standards. Due to the absence of open source professional design tools, RobotCub
 uses commercial products. These are somewhat expensive but in our view this should not limit
 the openness of the system. Educational discounts or educational releases are typically 
 available that can read and change the RobotCub files. Free of charge viewers are also
@@ -143,7 +156,8 @@ considered for the crawling behavior, but also and more importantly, developing
 cognitive behaviors such as manipulation might require exploring the environment 
 erratically. As a consequence, it is likely that impacts will occur with
 various parts of the robot structure. These turns out to require strong 
-joints, gearboxes, and more in general powerful actuators. In order to evaluate 
+joints, gearboxes, and more in general powerful actuators or as alternative
+passive compliance and soft materials. In order to evaluate 
 the scale (order of magnitude) of the required forces we ran simulations 
 of various behaviors in a reasonable model of the robot. These dynamic simulations 
 provided data for starting the design of the robot.
@@ -196,9 +210,10 @@ The major consideration about the hardware modularity reflects clearly a balance
 between the necessity of a global optimization and the advantages of modular and 
 dependable design. The current design probably reflects more the desire
 to achieve certain functionalities, a given size, in a constrained setting of three 
-years rather than the search for the quality and maintainability of the robot in
-the long term. In essence, the ICub is and will remain a research platform. It cannot
-be considered akin the AIBO, nor a more industrial realization like the HRP2.
+years dedicated to design rather than the search for the quality and maintainability 
+of the robot in the long term. In essence, the ICub is and will remain a research 
+platform. It cannot be considered akin the AIBO, nor a more industrial realization 
+like the HRP2.
 
 In spite of these stringent requirements the ICub shows modularity and macro-subgroups
 can be identified in the hand plus forearm, in the arm (entire arm), in the head, the torso,
@@ -218,34 +233,43 @@ and effort.
 \centerline{
 \includegraphics[width=15cm]{layers}
 }
-\caption{The layered structure of the ICub. \label{fig:layers}}
+\caption{The layered structure of the ICub. The lowest level is the DSP layer which 
+directly connects to the motors and/or sensors. The next hardware level is represented
+by the PC104 HUB which interfaces on one side to all data sources and controllers and
+on the other to the GBit Ethernet network. The next layer is a distributed computation
+engine made of a set of standard PCs which communicate through YARP. On top of this
+the RobotCub partners will develop a cognitive architecture. Communication is defined by
+protocols as for example, from the DSP to the motors, from the PC104 to the DSP, and from
+the YARP processes to the PC104. Standardization at this level favors reusability and
+dependability of the system.} 
+\label{fig:layers}
 \end{figure}
 
 At the controller level, modularity is described by at least three layers:
 \begin{itemize}
 	\item the DSP-controller level;
-	\item the HUB-coordination level;
-	\item the interface level;
+	\item the HUB-coordination level (interface);
 	\item the control architecture.
 \end{itemize}
 The DSP level consists of a set of controller cards that can drive the motors
 directly but also by virtue of programmability enable the preparation of local
-sophisticated control algorithm. These controller cards were specifically 
+sophisticated control algorithms. These controller cards were specifically 
 designed for the ICub. They communicate through a set of four CAN bus backbones
-to a Pentium-based HUB card which can do both synchronization and run simple
-control loops which might need to be local to the hardware. The Pentium, a PC104
-format CPU card, is interfaced to YARP processes through a Gbit Ethernet cable.
+to a Pentium-based HUB card which can do both synchronization of sensorial and
+motoric data and run simple control loops in case they are needed to be local 
+to the hardware (read fast loops). The Pentium, a PC104 format CPU card, is 
+interfaced to YARP processes through a Gbit Ethernet cable.
 The interface at this level is fully YARP-compatible and specified at the level
 of ports or device drivers. The YARP processes form the control architecture 
-and can implement complex cognitive behaviors (as indicated in figure \ref{fig:layers}.
+and can implement complex cognitive behaviors (as indicated in figure \ref{fig:layers}).
 
 Protocols are specified at each level. Electrical between the controllers and the
 motors (determined by the motor specifications), software and electrical (CAN) 
 between the DSP and the PC104 HUB, also software at the level of the YARP 
-packets, and clearly software between the modules of the cognitive architecture. 
+packets that travel on the GBit Ethernet cable, and clearly software between 
+the modules of the cognitive architecture. 
 Replacement of components, as long as the protocols remain unchanged, are likely
 to require only the redesign of the appropriate layer. For example, the obsolescence 
 of the DSP microcontroller currently in use may lead to a new version that can 
 be made compatible with the current CAN bus specification. 
 
-[NOTE: I STILL NEED TO ADD A PHOTO AND CAD OF THE ICUB]
