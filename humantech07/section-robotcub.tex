@@ -165,7 +165,7 @@ release of the ICub will be consolidated after this final fabrication stage.
 
 The actual design of the robot had to incorporate manipulation by providing 
 sophisticated hands, a flexible oculomotor system, and a reasonable bi-manual 
-workspace. On top of this, the robot has to support, global body movements such as 
+workspace. On top of this, the robot has to support global body movements such as 
 crawling, sitting, etc. These many constraints were considered in preparing 
 the specifications of the robot and later on during the whole design process.
 
@@ -197,8 +197,8 @@ interaction with the environment. Impact forces, for instance, had to be
 considered for the crawling behavior, but also and more importantly, developing 
 cognitive behaviors such as manipulation might require exploring the environment 
 erratically. As a consequence, it is likely that impacts will occur with
-various parts of the robot structure. These turns out to require strong 
-joints, gearboxes, and more in general powerful actuators or as alternative
+various parts of the robot structure. This turns out to require strong 
+joints, gearboxes, and powerful actuators or alternatively
 passive compliance and soft materials. In order to evaluate 
 the scale (order of magnitude) of the required forces we ran simulations 
 of various behaviors in a reasonable model of the robot. These dynamic simulations 
@@ -213,14 +213,14 @@ tight schedule in the span of the RobotCub project. Other technologies
 not considered further.
 
 In addition, given the size of the robot, and given the power density available, 
-considerations of speed for certain joints lack of significance: i.e. given the 
+considerations of speed for certain joints lack significance: i.e. given the 
 power and the torques required, speed is a consequence rather than a design 
 parameter. In certain cases, in comparing to human data, clearly also the power 
-density is much lower than desired (e.g. the wrists cannot possibly stand the weight 
+density is much lower than desired (e.g. the wrists cannot possibly support the weight 
 of the robot).
 
 Finally, the ICub is not only about motors, sensors are equally important. 
-Also in this case, we had to deal with and exploit at best the available technology. 
+Also in this case, we had to deal with and exploit  the available technology as best we could. 
 The robot has vision, audition, joint sensors, force sensors, tactile 
 sensors - where possible - and temperature sensors in many of the motors. The robot 
 can give feedback through a speaker. ICub will thus include a plethora of sensors as
@@ -228,7 +228,7 @@ cameras, microphones, gyroscopes, linear accelerometers, encoders (or other posi
 sensors), temperature and current consumption sensors, force/torque, and tactile
 sensors. The choice of these components is clearly related to the robot specifications.
 
-To recapitulate, the constraint of size and available technology determines a good 
+To recapitulate, the constraints of size and available technology determine a good 
 part of the design choices - i.e. our freedom in deciding which components to use. 
 In parallel, we simulated some of the robot's behaviors to determine the required 
 joint torques. These two pieces of information were then used in selecting the best 
@@ -248,13 +248,13 @@ which allows for improvements without a full-blown redesign activity. The contro
 is modular in the sense that it is made of several layers. Each layer can be replaced
 with a different technology and/or implementation without much suffering.
 
-The major consideration about the hardware modularity reflects clearly a balance
-between the necessity of a global optimization and the advantages of modular and 
+When we consider hardware modularity, we need to strike a balance
+between the desirability of a global optimization and the advantages of modular and 
 dependable design. The current design probably reflects more the desire
-to achieve certain functionalities, a given size, in a constrained setting of three 
+to achieve certain functionalities, within a given size, in a constrained setting of three 
 years dedicated to design rather than the search for the quality and maintainability 
 of the robot in the long term. In essence, the ICub is and will remain a research 
-platform. It cannot be considered akin the AIBO, nor a more industrial realization 
+platform. It cannot be considered akin to the AIBO, nor a more industrial realization 
 like the HRP2.
 
 In spite of these stringent requirements the ICub shows modularity and macro-subgroups
@@ -299,18 +299,18 @@ sophisticated control algorithms. These controller cards were specifically
 designed for the ICub. They communicate through a set of four CAN bus backbones
 to a Pentium-based HUB card which can do both synchronization of sensorial and
 motoric data and run simple control loops in case they are needed to be local 
-to the hardware (read fast loops). The Pentium, a PC104 format CPU card, is 
+to the hardware (for very tight timing). The Pentium, a PC104 format CPU card, is 
 interfaced to YARP processes through a Gbit Ethernet cable.
 The interface at this level is fully YARP-compatible and specified at the level
 of ports or device drivers. The YARP processes form the control architecture 
-and can implement complex cognitive behaviors (as indicated in figure \ref{fig:layers}).
+and can implement complex cognitive behaviors (as indicated in Figure \ref{fig:layers}).
 
 Protocols are specified at each level. Electrical between the controllers and the
 motors (determined by the motor specifications), software and electrical (CAN) 
 between the DSP and the PC104 HUB, also software at the level of the YARP 
 packets that travel on the GBit Ethernet cable, and clearly software between 
 the modules of the cognitive architecture. 
-Replacement of components, as long as the protocols remain unchanged, are likely
+Replacement of components, as long as the protocols remain unchanged, is likely
 to require only the redesign of the appropriate layer. For example, the obsolescence 
 of the DSP microcontroller currently in use may lead to a new version that can 
 be made compatible with the current CAN bus specification. 
