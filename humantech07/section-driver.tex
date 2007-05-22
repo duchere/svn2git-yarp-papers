@@ -99,9 +99,6 @@ and un-initialized, and, more importantly, how initialization parameters
 are passed to them. In particular this interface defines two methods:
 \begin{verbatim}
   virtual bool open(yarp::os::Searchable& config)=0;
-\end{verbatim}
-and
-\begin{verbatim}
   virtual bool close()=0;
 \end{verbatim}
 This \emph{open} method initializes the device. Initialization parameters 
