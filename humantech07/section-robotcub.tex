@@ -2,7 +2,7 @@
 \section{RobotCub and ICub}
 RobotCub is a collaborative project funded by the European Commission under 
 the Framework 6 program and it is part of the Cognitive Systems effort 
-coordinated by the Unit E5 \cite{}. % cite website %
+coordinated by the Unit E5 \cite{e5-cognition}.
 One of the goals of RobotCub is that of creating an open platform where
 many other projects could thrive by exploiting a common hardware and software
 infrastructure. RobotCub has also the goal of making the {\em ICub} (this is 
@@ -127,8 +127,8 @@ and the number of controllable joints (where clearly replicating the human body
 in detail is impossible with current technology). Kinematics is also 
 influenced by the overall size of the robot. We decided {\em a priori} to target the 
 size of a three and a half year old child (approximately $1m$ tall). Actual 
-dimensions were taken from studies in ergonomics and x-ray images \cite{}. 
-This size can be achieved with current technology. QRIO \cite{} is an example 
+dimensions were taken from studies in ergonomics and x-ray images \cite{tilley01measure}. 
+This size can be achieved with current technology. QRIO \cite{sony-qrio} is an example 
 of a robot similar in size although with less degrees of freedom. In particular, 
 our specifications had to consider hands and moving eyes. Also, we wanted to 
 consider the workspace and dexterity of the arms and thus a three degree of 
@@ -186,7 +186,66 @@ would like to exploit this parallelism also at the computational level and, cons
 the ICub API was mapped one-to-one onto YARP.
 
 \subsection{Modularity}
+The ICub design is modular across two dimensions, namely, the mechanical hardware
+and the control structure. Mechanically, the robot has a certain degree of modularity
+which allows for improvements without a full-blown redesign activity. The controller
+is modular in the sense that it is made of several layers. Each layer can be replaced
+with a different technology and/or implementation without much suffering.
 
+The major consideration about the hardware modularity reflects clearly a balance
+between the necessity of a global optimization and the advantages of modular and 
+dependable design. The current design probably reflects more the desire
+to achieve certain functionalities, a given size, in a constrained setting of three 
+years rather than the search for the quality and maintainability of the robot in
+the long term. In essence, the ICub is and will remain a research platform. It cannot
+be considered akin the AIBO, nor a more industrial realization like the HRP2.
 
+In spite of these stringent requirements the ICub shows modularity and macro-subgroups
+can be identified in the hand plus forearm, in the arm (entire arm), in the head, the torso,
+and the legs. These parts can be built and maintained, developed, and assembled 
+separately. Finer grained modularity is not possible because of the placement of the
+motors and the routing of the tendons. The electronics represent another element of
+complication since the control cards for certain groups are not localized within the 
+groups (e.g. the hand controllers are in the upper arm section).
 
+Assembly techniques have been considered for mechanical parts and details have been
+optimized to favor mechanical realization (e.g. tendon routing has been considered and
+the assembly sequence optimized whenever possible). Nonetheless the realization 
+of the hands (the most complicated parts of the robot) requires considerable time 
+and effort.
 
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=5cm]{layers}
+}
+\caption{The layered structure of the ICub. \label{fig:layers}}
+\end{figure}
+
+At the controller level, modularity is described by at least three layers:
+\begin{itemize}
+	\item the DSP-controller level;
+	\item the HUB-coordination level;
+	\item the interface level;
+	\item the control architecture.
+\end{itemize}
+The DSP level consists of a set of controller cards that can drive the motors
+directly but also by virtue of programmability enable the preparation of local
+sophisticated control algorithm. These controller cards were specifically 
+designed for the ICub. They communicate through a set of four CAN bus backbones
+to a Pentium-based HUB card which can do both synchronization and run simple
+control loops which might need to be local to the hardware. The Pentium, a PC104
+format CPU card, is interfaced to YARP processes through a Gbit Ethernet cable.
+The interface at this level is fully YARP-compatible and specified at the level
+of ports or device drivers. The YARP processes form the control architecture 
+and can implement complex cognitive behaviors (as indicated in figure \ref{fig:layers}.
+
+Protocols are specified at each level. Electrical between the controllers and the
+motors (determined by the motor specifications), software and electrical (CAN) 
+between the DSP and the PC104 HUB, also software at the level of the YARP 
+packets, and clearly software between the modules of the cognitive architecture. 
+Replacement of components, as long as the protocols remain unchanged, are likely
+to require only the redesign of the appropriate layer. For example, the obsolescence 
+of the DSP microcontroller currently in use may lead to a new version that can 
+be made compatible with the current CAN bus specification. 
+
+[NOTE: I STILL NEED TO ADD A PHOTO AND CAD OF THE ICUB]
