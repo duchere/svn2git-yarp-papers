@@ -1,49 +1,3 @@
-
-
-\begin{figure}
-\centerline{
-\includegraphics[width=8cm]{fig-nethead}
-}
-\caption{
-%
-Our model of a humanoid robot's ``brain''.
-We assume a set of processors, some of which may
-be on the robot, some of which may not be. We draw no 
-distinction; for research purposes, it makes sense to
-have off-board processing to do today what robots will
-be able to do on-board tomorrow.
-%
-We assume diversity:
-different devices, operating systems, processors, different languages,
-libraries, etc. (of course, within our own project we have standards,
-but we don't expect everyone using our robot to agree).
-%
-%We develop methods for interfacing with devices and communicating
-%between modules that are useful on any heterogeneous system.
-%
-We exploit key Free Software tools for smoothing over differences in
-operating systems, build systems, and programming languages.
-%
-We develop YARP, for smoothing over differences in networking,
-devices details, and libraries relevant to robotics.
-%
-%
-%We nevertheless require that threads within processes
-%on any of these computers be able to communicate easily with each other.
-%
-%This communication, ideally, should fit well with basic UNIX 
-%tools and concepts (although we do not assume the operating systems
-%in use are UNIX-based).
-%
-We release YARP as Free Software
- and use it to support our open robot
-platform, the ICub humanoid, whose design will be available under free
-and open licensing.
-%
-}
-\end{figure}
-
-
 \section{Introduction}
 
 %%Hardware defines the environment within which software operates.  
@@ -96,10 +50,10 @@ Also, often the development of a robotic platform is not the main goal
 of the efforts of the people who are working on it but
 simply a means to an end.
 For such researchers hardware and software development are time 
-consuming and tedious tasks that take away time and efforts that 
+consuming and tedious tasks that take away time and energy that 
 could be better spent doing research. Yet at the same time, the 
 design of a robotic platform is a delicate and crucial task that 
-cannot be easily delegated to untrained persons. In research 
+cannot be easily delegated to untrained personnel. In research 
 laboratories fast changing hardware and lack of human resources 
 too often narrow the niche in which robotic platforms live.
 
@@ -212,6 +166,56 @@ the freedom to radically change hardware and software, a freedom
 that will be crucial in ``bleeding-edge'' research for years to 
 come.
 
+
+
+
+\begin{figure}
+\centerline{
+\includegraphics[width=8cm]{fig-nethead}
+}
+\caption{
+%
+\label{fig:brain}
+%
+Our model of a humanoid robot's ``brain''.
+We assume a set of processors, some of which may
+be on the robot, some of which may not be. We draw no 
+distinction; for research purposes, it makes sense to
+have off-board processing to do today what robots will
+be able to do on-board tomorrow.
+%
+We assume diversity:
+different devices, operating systems, processors, different languages,
+libraries, etc. (of course, within our own project we have standards,
+but we don't expect everyone using our robot to agree).
+%
+%We develop methods for interfacing with devices and communicating
+%between modules that are useful on any heterogeneous system.
+%
+We exploit key Free Software tools for smoothing over differences in
+operating systems, build systems, and programming languages.
+%
+We develop YARP, for smoothing over differences in networking,
+devices details, and libraries relevant to robotics.
+%
+%
+%We nevertheless require that threads within processes
+%on any of these computers be able to communicate easily with each other.
+%
+%This communication, ideally, should fit well with basic UNIX 
+%tools and concepts (although we do not assume the operating systems
+%in use are UNIX-based).
+%
+We release YARP as Free Software
+ and use it to support our open robot
+platform, the ICub humanoid, whose design will be available under free
+and open licensing.
+%
+}
+\end{figure}
+
+
+
 From the point of view of software development, the only viable 
 solution to these problems is to facilitate 
 code reuse both in time (from past to future) and space
@@ -222,31 +226,39 @@ independent components, that can be developed and maintained
 by different people so that efforts 
 are shared among groups having distinct competences. A 
 modular software platform is flexible. Obsolete modules are 
-removed and substituted for newer ones without causing 
-catastrophic effects. To take advantage of code written by 
-other people in different contexts code must be as friendly 
-as possible to other libraries avoiding to impose constraints 
+removed and substituted for newer ones without 
+catastrophic effects. It is difficult to take advantage of code written by 
+other people in different contexts unless that code
+avoids extraneous constraints 
 and dependencies at all levels, from the hardware architecture 
 to the development environment and programming language. 
-Dependencies between modules should be 
-minimized also from the point of view of performances; as 
+In robotics, dependencies between modules need to be 
+minimized also from the point of view of run-time performance; as 
 long as resources are available the addition of new 
-components should not clash with the existing ones. In 
-particular the \emph{timing} of signals should be preserved 
-irrespective of the number of modules that are running 
-at any given moment in the whole system. 
-
+components should not clash with the 
+overall behavior of
+existing ones (in terms of throughput, latency, etc).
 %
-From the hardware development point of view, the robotic platform can 
+%In 
+%particular it should be possible to
+%preserve the \emph{timing} of signals 
+%irrespective of the number of modules that are running 
+%at any given moment in the whole system. 
+%
+% this would take a while to explain well...
+%
+%
+And from the hardware development point of view, the robotic platform can 
 be seen as another factor in the
 equation of code reuse. Common hardware, common protocols,
 electrical standards, sensors, etc. can certainly make the 
-life of the researchers easier. As it does for software, modularity 
+our life easier. As it does for software, modularity 
 can play a role in the hardware design too. 
 
 %%% and now I try to close the introduction:
 In this paper we describe our efforts to build a modular
-humanoid robot platform. We 
+humanoid robot platform (see Figure~\ref{fig:brain}). 
+We 
 describe YARP \cite{metta2006yarp}, an open source library 
 that we have developed to support software development on humanoid 
 robotics. With YARP we try to facilitate code exchange between researchers, 
