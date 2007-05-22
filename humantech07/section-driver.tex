@@ -349,7 +349,7 @@ ivel->velocityMove(1, 5);
 \end{verbatim}
 
 
-\subsection{Device Remotization: Binary Interfaces}
+\subsection{Device Remotization: Network Interfaces}
 A final level of separation is achieved by supporting device remotization. 
 This feature is important because flexibility imposes 
 that processes are written so that they can be easily moved across 
@@ -357,7 +357,7 @@ distinct machines, if needed. Knowledge of whether a process is accessing
 a given device locally or remotely would clearly limit this flexibility, 
 because it would force modification in the code of the process itself. 
 Remotization also facilitate portability across different platforms, as 
-it naturally defines a ``binary'' interface that can 
+it naturally defines a network interface that can 
 be used to make resources available on one platform to processes compiled 
 and running on a different one. This decouple the compilation, build 
 environment, libraries, operating system and language dependencies of 
