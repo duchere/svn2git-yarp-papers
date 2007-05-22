@@ -142,24 +142,24 @@ for a visual tracking application.
 
 %%\subsection{Port abstraction}
 
-Connections between ports in YARP can carry replies if desired,
-so conventional ``RPC'' (remote procedure call) style synchronous
-operation is possible.  This is a trade-off though, because this
-model of communication can mske a network brittle by introducing
-strong coupling of timing between processes.
-
+Connections between ports in YARP can carry replies if desired, so
+conventional ``RPC'' (remote procedure call) style synchronous
+operation is possible.  We encourage streaming rather than RPC
+whenever possible, because RPC can make a network brittle by
+introducing strong coupling of timing between processes.
+%
 %%Connections can use different protocols.
 %%Ports belong to processes.
 %%Processes can be on different machines/OS.
-
+%
 %% We've separated out most of the plumbing.  We get to change it
 %% dynamically (handy).  More importantly, we have better modularity.
 %% Programs can be moved around as load and OS/device/library
 %% dependencies dictate.  Fundamental protocol for communication can be
 %% changed without affecting programs.  Better chance that your code can
 %% be used by others (even just within your group).
-
-For our implementation, we have broken ports down into 
+%
+For our implementation of ports, we have broken them down into 
 several logically separable parts:
 
 \begin{itemize} \pflist
@@ -216,50 +216,59 @@ experimentally without extensive study.  The value of text formats and
 protocols has been seen time and time again in the short history of
 computing (postscript, http, html, xml, etc.).
 
-The YARP communications system is written in two parts.  There
-are a set of ``carriers'' which do the work of providing
+The YARP communications system is written in two parts.  The 
+first part is  a set of ``carriers'' which do the work of providing
 connections between ports, so that data can be faithfully 
 transmitted from a source to a destination byte-for-byte.
 There is no marshalling process at this stage.
-
+%
 The second part of the communication system is a standard data format.
-This standard is not enforced, so that the carriers could be reused by
+This standard is specified separately 
+from the carriers, so that the carriers could be reused by
 someone with different opinions about data representation, but helper
 functions and classes make it easy to meet.  This format is called the
-``bottle'' format for historical reasons.  There is a general-purpose
+``bottle'' format for historical reasons\footnote{
+From YARP's online documentation:
+{\it The name of this class comes from the idea of throwing a "message in a
+bottle" into the network and hoping it will eventually wash ashore
+somewhere else. In the very early days of YARP, that is what
+communication felt like.}
+}.  
+There is a general-purpose
 helper class in YARP called ``Bottle'' that reads and writes data in
 this format, but the format is also used by special purpose classes
 such as Vector and Image.  Extensive examples are available on how
 to generate data in this form.
-
-The bottle representation is based on a nested structure of certain
-primitive types.  Here are some informal examples of bottles,
-expressed in text form (an equivalent binary form can be used
-interchangeably):
-
-\begin{center}
-\begin{tabular}{lp{6cm}}
-\hline\hline
-{\bf text-form bottle} & {\bf interpretation} \\
-\hline
-10 20 30 & a list of three integers \\
-10.0 20.5 31.4159 & a list of three floating point numbers \\
-action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers \\
-{[set] [pos] 1 30.3} & a list of two vocabs, an integer, and a floating
-point number -- perhaps to set the position of a specific axis. \\
-\hline\hline
-\end{tabular}
-\end{center}
-
-The structure is basically that of an s-expression
-\cite{rivest1997sexp}, except that the outermost parentheses are
-omitted.  This makes the important and common case of messages without
-any nesting easier to write for those unfamiliar with s-expressions.
-The drawback is that this means that a bottle must always be a list,
-rather than any of the other primitive types, and (depending on the
-input mechanism) it may also need to be non-empty.
-
-The primitives types available are lists, integers, floating point
+%
+%% The bottle representation is based on a nested structure of certain
+%% primitive types.  Here are some informal examples of bottles,
+%% expressed in text form (an equivalent binary form can be used
+%% interchangeably):
+%
+%% \begin{center}
+%% \begin{tabular}{lp{6cm}}
+%% \hline\hline
+%% {\bf text-form bottle} & {\bf interpretation} \\
+%% \hline
+%% 10 20 30 & a list of three integers \\
+%% 10.0 20.5 31.4159 & a list of three floating point numbers \\
+%% action "go left" (10 20 30) & a list of two strings (``action'' and ``go left''), and a nested list of integers \\
+%% {[set] [pos] 1 30.3} & a list of two vocabs, an integer, and a floating
+%% point number -- perhaps to set the position of a specific axis. \\
+%% \hline\hline
+%% \end{tabular}
+%% \end{center}
+%
+%% The structure is basically that of an s-expression
+%% \cite{rivest1997sexp}, except that the outermost parentheses are
+%% omitted.  This makes the important and common case of messages without
+%% any nesting easier to write for those unfamiliar with s-expressions.
+%% The drawback is that this means that a bottle must always be a list,
+%% rather than any of the other primitive types, and (depending on the
+%% input mechanism) it may also need to be non-empty.
+%
+The primitives types are simple and familiar:
+ lists, integers, floating point
 numbers, strings, blobs (uninterpreted sequence of bytes), and
 ``vocabs''.  The vocab type is the one unfamiliar type in this list.
 It is motivated by the dual requirements of efficiency of machine
@@ -270,14 +279,14 @@ in binary mode rather than a piece of variable-length text.
 Vocabs are represented as simple integers in binary, and short
 (up to four ASCII character) strings in text, with a one-to-one
 mapping between the characters and bytes in the integer.  
-
-
+%
+%
 The important point is that under normal operation, ports can be
 sending fixed size messages to each other, but then when a human
 eavesdrops on that data or tries to insert a message, they can still
 understand and generate the identifiers being used.
-
-
+%
+%
 The basic constraints on the design of this format were as follows:
 
 \begin{itemize} \pflist
@@ -301,9 +310,7 @@ really survive well when different character encodings may be
 in use, but still has uses.
 
 
-
-
-The structure
+Bottle-style messages
 can be expressed in several interchangeable representations:
 binary, text, command-line options, configuration
 files etc.  
@@ -389,7 +396,7 @@ time, as a connection protocol of last resort.
 This is the protocol used for a single connection from an output port
 to an input port. It has two main phases, the handshake phase,
 and the message phase.
-
+%
 We begin once the sender has successfully opened a bidirectional
 streaming connection (think: tcp socket) to the receiver.
 First comes the {\bf handshake phase}:
@@ -445,7 +452,7 @@ acknowledge transmission in some way.  Carrier-dependent.
 \end{itemize}
 
 The message phase repeats as often as the user wants.
-
+%
 The description so far sounds very loose -- just about every aspect
 of a connection is carrier-dependent.  What does YARP actually
 expect of connections, in order to build on them?
@@ -465,16 +472,16 @@ connection -- these details are taken care of at the carrier level).
 
 \end{itemize}
 
-Before sending each message, YARP also expects the endpoint to know
-whether the connection can be ``escaped'' -- that is, it can accept
-port-to-port administrative communication that is not passed on as
-normal user data.  The only time escaping is not desired on a carrier
-is in text-mode, when the bytes transmitted should follow the user
-data as slavishly as possible.  In all other cases, some
-administrative data is currently packaged by YARP with user data and
-then extracted at the other end.  In future carriers will be given
-more control over how this material (called the ``port protocol'') is
-embedded.
+%% Before sending each message, YARP also expects the endpoint to know
+%% whether the connection can be ``escaped'' -- that is, it can accept
+%% port-to-port administrative communication that is not passed on as
+%% normal user data.  The only time escaping is not desired on a carrier
+%% is in text-mode, when the bytes transmitted should follow the user
+%% data as slavishly as possible.  In all other cases, some
+%% administrative data is currently packaged by YARP with user data and
+%% then extracted at the other end.  In future carriers will be given
+%% more control over how this material (called the ``port protocol'') is
+%% embedded.
 
 
 \begin{table}
@@ -505,12 +512,20 @@ evolved in order to be compatible with earlier versions of itself.
 }
 \end{table}
 
+The important point about the communication protocol is that
+is {\em polymorphic} and allows {\em heterogeneous} use --
+the protocol on each connection between two ports can be 
+controlled independently.  This allows for system evolution,
+where new protocols are introduced, potentially mapping onto
+radically different physical networks, virtual networks,
+or external middleware.
+
 
 \subsection{YARP without YARP}
 
 Suppose some YARP programs are running and we want to send or
 receive data from them.
-
+%
 For example, suppose there is a YARP system running, with a 
 port called ``/motors'' which will accept commands to move a
 motor.  For concreteness, let's imagine we have started the
@@ -525,7 +540,7 @@ yarpdev --device test_motor --axes 2 --single_port --name /motors
 The ``yarpdev'' program here creates a port called ``/motors'' that can
 accept command to a fake set of motors (2 axes or degrees of freedom),
 and report on their state.
-
+%
 Normally we would interact with the motor through a code
 interface that deals with communication.  But if for 
 some reason we can't use the YARP codebase, what can
@@ -536,7 +551,7 @@ new connections for input or output.  Suppose we can discover that
 ``/motors'' is listening on port 10022 of our current machine (we could
 discover that using netstat on Linux, or by querying the YARP server
 as we'll see shortly).
-
+%
 We can then connect manually to the port as follows:
 
 \begin{center}
@@ -555,7 +570,7 @@ help & {\it (an explanation of available commands)} \\
 Everything so far would be basically the same for any YARP port.
 For people who have used MUDs, IRC, or serial interfaces to hardware,
 it should all seem vaguely familiar.
-
+%
 So far all our communications have been ``administrative'' --
 we have communicated with the port but not really with the 
 program that owns it.  To do that, we send payload data.  For the
@@ -626,38 +641,41 @@ but logically it is all the same thing.
 
 One part we skipped at the start was how to discover how to 
 access ports in ths first place.  If we know the port we want
-is called ``/motors'', how do we discover where it is?
+is called ``/motors'', how do we discover where it is?  We can
+in fact talk to the yarp name server using exactly the same 
+protocol that we have described here.
 
-To do that, we need to talk to the ``yarp server'', which is analogous
-to a standard DNS name server.  If we're using YARP, our program would
-be able to discover where the server is by itself (by checking
-standard configuration files if available or sending broadcast
-messages if necessary).  Or, if we don't want to use yarp at all, we
-can simply make a note of what machine and port number it is running
-on.  Suppose it is on 127.0.0.1 listening to port number 10000.
-We can communicate with the name server exactly as with any regular
-port.
-
-
-\begin{center}
-\begin{tabular}{lp{8cm}}
-\hline\hline
-{\bf user types} & {\bf system responds} \\
-\hline
-{\bf \$} telnet 127.0.0.1 10000 & {\it (telnet startup message)} \\
-CONNECT foo & Welcome foo \\
- d & {\it (no response, waiting for data)} \\
- help & {\it (a list of available name server commands)} \\
- d & {\it (no response, waiting for data)} \\
- {query /motors} &  registration name /motors ip 127.0.0.1 port 10022 type tcp \\
-\hline\hline
-\end{tabular}
-\end{center}
+%% To do that, we need to talk to the ``yarp server'', which is analogous
+%% to a standard DNS name server.  If we're using YARP, our program would
+%% be able to discover where the server is by itself (by checking
+%% standard configuration files if available or sending broadcast
+%% messages if necessary).  Or, if we don't want to use yarp at all, we
+%% can simply make a note of what machine and port number it is running
+%% on.  Suppose it is on 127.0.0.1 listening to port number 10000.
+%% We can communicate with the name server exactly as with any regular
+%% port.
 
 
-So we now know how to reach /motors (tcp connection to 127.0.0.1 port 10022).
+%% \begin{center}
+%% \begin{tabular}{lp{8cm}}
+%% \hline\hline
+%% {\bf user types} & {\bf system responds} \\
+%% \hline
+%% {\bf \$} telnet 127.0.0.1 10000 & {\it (telnet startup message)} \\
+%% CONNECT foo & Welcome foo \\
+%%  d & {\it (no response, waiting for data)} \\
+%%  help & {\it (a list of available name server commands)} \\
+%%  d & {\it (no response, waiting for data)} \\
+%%  {query /motors} &  registration name /motors ip 127.0.0.1 port 10022 type tcp \\
+%% \hline\hline
+%% \end{tabular}
+%% \end{center}
+
+
+%% So we now know how to reach /motors (tcp connection to 127.0.0.1 port 10022).
 %
-So, with a running YARP system, we have seen how to discover
+
+So, with a running YARP system, we can to discover
 and communicate with running programs, sending commands and reading
 data, without using any YARP libraries or executables.  All the steps
 we've gone through are trivial in any language with a basic socket
@@ -666,7 +684,12 @@ for demonstration purposes).  It is important to remember, though,
 that while we've been communicating with the ``/motors'' port using
 text across tcp, at the same time the same port could be communicating
 with other programs via binary messages over udp or multicast etc.
-
+%
+We believe the existence of the bottle format for communicating
+with YARP processes makes it much easier to experiment with and build
+bridges to in text-mode (like http for the web), while gracefully
+supporting switching to binary-mode communication when the 
+situation demands it.
 
 %What if we wanted to make a port ourselves?  To make a full-featured
 %port supporting all the carriers that YARP does would be quite a lot
