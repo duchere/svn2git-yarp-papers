@@ -367,14 +367,54 @@ have that implement these interfaces.  The details might vary
 a bit but in principle the overall behavior should be consistent.
 
 
+\begin{figure}[tbp]
+\centerline{
+\includegraphics[width=24cm]{fig-devices3}
+}
+\caption{Network wrappers allow device remotization. A generic 
+\emph{Server Network Wrapper} exports the YARP interface of VABoard so 
+that it can be accessed remotely by another machine. At the 
+other side of the 
+communication link the \emph{Client Network Wrapper} exports the same 
+interface of the remote device so that it can be transparently accessed 
+by the client code. The local device and the \emph{Client Network Wrapper}
+ are totally interchangable, the only difference between the two is in 
+term of performance (the time it takes to execute a function) and
+initial configuration.
+}\label{fig:devices3}
+\end{figure}
+
+
 \subsection{Device Remotization: Network Interfaces}
-A final level of separation is achieved by supporting device remotization. 
-This feature is important because flexibility imposes 
-that processes are written so that they can be easily moved across 
-distinct machines, if needed. Knowledge of whether a process is accessing 
-a given device locally or remotely would clearly limit this flexibility, 
-because it would force modification in the code of the process itself. 
-Remotization also facilitate portability across different platforms, as 
+%
+A final level of separation is achieved by supporting device remotization,
+or operation across the network via proxies.
+This feature is desirable for many reasons. It 
+allows separate compilation and
+execution of different parts of the system, to avoid (for example)
+ the existence of motor control libraries on just a single OS
+constraining you to also do image processing on that same OS.
+It makes distributed processing easier, letting you shift
+processing to extra machines when the load becomes high.
+%
+Remotization is in practice one of the major benefits of offered by
+YARP and Player.  They achieve that goal is somewhat different ways.
+In Player, devices are responsible for producing their own messages
+(represented as a C structure, with the Player library responsible for
+marshalling/de-marshalling).
+%
+In YARP, message production is done at the level of device {\it families}.
+%
+The use of standard YARP APIs for families of devices
+makes it straightforward to substitute in a proxy
+instead of a local device.
+%
+% Knowledge of whether a process is accessing 
+%a given device locally or remotely would clearly limit this flexibility, 
+%because it would force modification in the code of the process itself. 
+%
+By using YARP ports for communication, with their defined protocols,
+remotization also gives us portability across different platforms, as 
 it naturally defines a network interface that can 
 be used to make resources available on one platform to processes compiled 
 and running on a different one. This decouple the compilation, build 
@@ -389,14 +429,20 @@ Both network devices implement the very same interface of the device
 they wrap: the only difference is that they 
 do not connect directly to the hardware but act as network proxies, 
 talking to each other using a predefined protocol, which involves one or more 
-YARP Ports configured for RPC or streaming (see Figure~\ref{fig:devices3})
+YARP Ports configured for RPC and/or streaming
+as the nature of the device dictates (see Figure~\ref{fig:devices3}).
 
-The process willing to connect to the remote device, 
-creates an instance of the \emph{Client Network Wrapper}. The latter exports 
+A process that wishes to connect to the remote device using
+the YARP code-base
+creates an instance of the \emph{Client Network Wrapper}
+(the YARP code-base could be avoided by working with the network
+protocol directly, as described in Section~\ref{sec:transporting}).
+%
+This wrapper exports 
 exactly the same interface of the 
-``wrapped'' device so the process is not aware that it is not connected to 
+``wrapped'' device so the process can pretent that it is connected to 
 a real device. The \emph{Client Network Wrapper} converts calls from 
-the process into packets of bytes, sends them to the other end of the 
+the process into messages, sends them to the other end of the 
 communication link, and, in case a reply is expected, waits for data and 
 dispatches it to the calling process. 
 %
@@ -410,28 +456,12 @@ calling port so that they are received by the remote client. The
 interface; as such it is a total independent 
 entity that can be reused for devices of the same family.
 %
-Among the other things, the responsibility of the \emph{Network wrappers} 
-is to perform the marshalling and de-marshalling of the 
-information that travels through the network, so that it is correctly 
-interpreted by distinct platforms (this is required for systems in which 
-data is represented with different standards).
+%The responsibility of the \emph{Network wrappers} 
+%is to perform the marshalling and de-marshalling of the 
+%information that travels through the network, so that it is correctly 
+%interpreted by distinct platforms (this is required for systems in which 
+%data is represented with different standards).
 
-
-\begin{figure}[tbp]
-\centerline{
-\includegraphics[width=24cm]{fig-devices3}
-}
-\caption{Network wrappers allow device remotization. A generic 
-\emph{Server Network Wrapper} exports the YARP interface of VABoard so 
-that it can be accessed remotely by another machine. At the 
-other side of the 
-communication link the \emph{Client Network Wrapper} exports the same 
-interface of the remote device so that it can be transparently accessed 
-by the client code. The local device and the \emph{Client Network Wrapper}
- are totaly interchangable, the only difference between the two is in 
-term of performances (the time it takes to execute a function).
-}\label{fig:devices3}
-\end{figure}
 
 
 %%% SOME UNUSED TEXT moved to section-scrapyard.tex

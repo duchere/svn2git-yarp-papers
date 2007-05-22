@@ -27,7 +27,7 @@ transport-neutral and peer-to-peer.
 between peers can be selected independently.  Choices such as network
 versus shared memory, tcp versus udp, unicast versus multicast, text
 versus binary, which of several networks to transmit on, etc can be
-made based on a case by case basis.  We encourage such details to be
+made on a case by case basis.  We encourage such details to be
 external configuration choices rather than properties embedded in
 programs.
 
@@ -45,10 +45,14 @@ Thus users can ``cherry-pick'' the parts that work for them.
 \end{itemize}
 
 Communication in YARP generally follows the {\it Observer} design
-pattern. Special port objects deliver messages to any number of
+pattern. Special port\footnote{
+Don't confuse YARP ports with TCP/IP socket port numbers.
+We use the word 
+``port'' to refer to the former and ``port number'' to refer to the latter.
+} objects deliver messages to any number of
 observers (other ports), in any number of processes, distributed
 across any number of machines, using any of several underlying
-communication protocols. 
+communication protocols.
 
 
 
