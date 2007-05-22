@@ -304,32 +304,35 @@ in use, but still has uses.
 
 
 The structure
-can be expressed in several representations.  For messaging there are:
+can be expressed in several interchangeable representations:
+binary, text, command-line options, configuration
+files etc.  
+%
+We find that under various conditions sometimes we want the same kind
+of data coming from file, command line options, or across the network,
+so is convenient to have all the various representions mapping to a
+homogeneous structure.
+%% For messaging there are:
 
-\begin{itemize} \pflist
+%% \begin{itemize} \pflist
 
-\item Binary form -- used for efficient messaging that is
-easily machine readable/writable.
+%% \item Binary form -- used for efficient messaging that is
+%% easily machine readable/writable.
 
-\item Text form -- used for messaging that is easily human
-readable/writable (but less efficient for large messages).
+%% \item Text form -- used for messaging that is easily human
+%% readable/writable (but less efficient for large messages).
 
-\end{itemize}
+%% \end{itemize}
 
-It is also convenient to add two extra representations:
+%% It is also convenient to add two extra representations:
 
-\begin{itemize} \pflist
+%% \begin{itemize} \pflist
 
-\item Command-line form -- arguments to a program.
+%% \item Command-line form -- arguments to a program.
 
-\item Configuration form -- groups and lines in a configuration file.
+%% \item Configuration form -- groups and lines in a configuration file.
 
-\end{itemize}
-
-This is useful when dealing with configuration of devices; since
-information could come from file, command line options, or across the
-network, it is convenient to have all the various represenations
-mapping to a homogeneous structure.
+%% \end{itemize}
 
 %% \subsection{Examples}
 
@@ -351,25 +354,25 @@ mapping to a homogeneous structure.
 
 %%\subsection{Fiddling with the format}
 
-For robotics applications that are confined to a 
-local area network with all source code available,
-changes to the data format are possible.
+%For robotics applications that are confined to a 
+%local area network with all source code available,
+%changes to the data format are possible.
 
-The default binary representation for integers on
-the wire for YARP is little-endian.  Conversions
-happen for non big-endian systems (e.g. MAC PPC).
-For a network that is all big-endian,  the 
-binary representation can be flipped. 
+%% The default binary representation for integers on
+%% the wire for YARP is little-endian.  Conversions
+%% happen for non big-endian systems (e.g. MAC PPC).
+%% For a network that is all big-endian,  the 
+%% binary representation can be flipped. 
 
-This could also be desired for XDR compatibility.
-The string and blob representations also would
-need to be updated to do padding which YARP does
-not do.  These changes would be very narrowly
-localized.
+%% This could also be desired for XDR compatibility.
+%% The string and blob representations also would
+%% need to be updated to do padding which YARP does
+%% not do.  These changes would be very narrowly
+%% localized.
 
-Such a modified system would lose binary-mode compatibility with any
-modules using the standard YARP binary format, but connections could
-still be made in text mode.
+%% Such a modified system would lose binary-mode compatibility with any
+%% modules using the standard YARP binary format, but connections could
+%% still be made in text mode.
 
 In principle, evolution of the communication protocol in YARP can be
 relatively painless.  Since new ``carriers'' can be added,
@@ -377,7 +380,8 @@ modifications could be placed within a new carrier, while support for
 older carriers is continued for a generation or two.  Ideally,
 something like today's text mode format should be honored for a long
 time, as a connection protocol of last resort.
-(NOTE: this is about more than just the bottle format; reorder).
+
+%%(NOTE: this is about more than just the bottle format; reorder).
 
 
 \subsection{Connection protocol}
