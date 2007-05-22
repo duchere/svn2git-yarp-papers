@@ -1,118 +1,5 @@
 
 
-%
-\section{Introduction}
-%
-Recent work in developmental robotics has emphasized the role of
-action for perception and learning
-\cite{metta03early,natale04learning,natale05from}. Developmental
-psychology, on the other hand, recognizes that motor activity is
-of paramount importance for the correct emergence of cognition and
-intelligent behavior
-\cite{gibson88explore,streri93Seeing,bushnell93motor,hofsten04motor}.
-All embodied agents, either artificial or natural, have numerous
-ways to exploit the physical interaction with the environment to
-their advantage.
-
-In robotics, actions like pushing, prodding, and tapping have been
-used for visual and auditory perception respectively
-\cite{metta03early,etorresjara05tapping}. More articulated
-explorative actions or grasping might increase these benefits, as
-they give direct access to physical properties of objects like
-shape, volume and weight.
-%
-Unfortunately, all these aspects have not been extensively
-investigated yet. One of the reasons for this is that controlling
-the interaction between the robot and the environment is a
-difficult problem \cite{volpe90real}, especially in the absence of
-accurate models of either the robot or the environment (as it is
-often the case in non-engineered environments).
-%
-The design of the robot can ease these problems. We know for
-example that having a certain degree of elasticity in the limbs
-helps to ``smooth''  and control the forces that originate upon
-contact. Another approach is to enhance the perceptual abilities
-of the robot. Traditional robotic systems in fact have perceptual
-systems that do not seem adequate for grasping. Haptic feedback in
-particular is often quite limited or completely absent. This is
-because, unfortunately, most of the tactile sensors commercially
-available are inadequate for robotics tasks: they are only
-sensitive to forces coming from a specific angle of incidence,
-rigid and almost frictionless.
-
-OBRERO \cite{obrero}, described in paper, was designed to overcome
-these limitations. It is equipped with series elastic actuators,
-which provide intrinsic elasticity and force feedback at each
-joint. The hand is equipped with tactile sensors
-(Section~\ref{chap:TactileSensors}) which provide a deformable and
-sensitive interface between the fingers and the objects.
-
-In this paper, we report a series of experiments where OBRERO
-exploits its sensing capabilities to grasp a number of objects
-individually placed on a table. No prior information about the
-objects is available to the robot. The use of visual feedback was
-voluntarily limited. Vision is used at the beginning of the task
-to direct the attention of the robot and to give a rough
-estimation of the position of the object. Next, the robot moves
-its limb towards the object and explores with the hand the area
-around it. During exploration, the robot exploits tactile feedback
-to find the actual position of the object and grasp it. The
-mechanical compliance of the robot and the control facilitate the
-exploration by allowing a smooth and safe interaction with the
-object. Results show that the haptic information acquired by the
-robot during grasping carries information about the shape of the
-objects. Further analysis of the tactile data allows us to detect
-slippage and sense forces applied over the object being held by
-the robot.
-
-\section{Haptic feedback, perception and action}
-\label{sec:background}
-
-In adults, several studies have revealed the importance of
-somatosensory input. For example Johansson and Westling
-\cite{Johansson90Tactile} have studied in detail what feedback is
-provided by the skin during object lifting tasks and how it is
-used to control the movements of the fingers. The results of these
-experiments proved the importance of somatosensory feedback: they
-showed that human subjects had difficulties avoiding object
-slipping when they had their fingertips anesthetized, even with
-full vision \cite{johansson91how}.
-
-Haptic feedback has an important role for object perception as
-well. Lederman and Klatzky \cite{lederman87hand} identified and
-described a set of motor strategies named \emph{exploratory
-procedures} used by humans to determine properties of objects such
-as shape, texture, weight or volume.
-
-Little is known concerning how infants use tactile sensing for
-manipulation \cite{streri93Seeing}.
-%Tactile sensing in neonates is very poorly known
-%in contrast to the visual mechanism\cite{streri93Seeing}.
-%However, tactile sensing provides information to children since
-%his time in the wound.
-In some circumstances children exploit tactile feedback to learn
-about objects \cite{streri86Habituation}. Streri and P\^{e}cheux
-measured the habituation time of newborns (2 months and 5 months
-old) during tactile exploration of objects placed in their hands.
-In this experiment children spent more time exploring novel rather
-than familiar objects, even when they did not make visual contact
-with the hand. %This experiment was repeated with visual feedback
-%showing the same behavior.
-
-Motor abilities of children are quite limited during the first
-months of development. This does not prevent infants from using
-their hand to engage interaction with the world. The importance of
-motor activity for perceptual development has been emphasized in
-developmental psychology \cite{hofsten04motor,gibson88explore}.
-Researchers agree on the fact that motor development determines
-the timing of perceptual development. In other words the ability
-of infants to explore the environment would determine their
-capacity to perceive certain properties. Accordingly, perception
-of object features like temperature, size and hardness is likely
-to occur relatively early in development, whereas properties
-requiring more dexterous actions like texture or three dimensional
-shape would emerge only later on (see \cite{bushnell93motor} for a
-review).
 
 %% Later on in development the integration between visual and tactile
 %% modalities during reaching tasks has been found. Tactile
@@ -131,38 +18,30 @@ review).
 %% conditions. X]}
 %
 
-\section{Grasping and lifting an unknown object}
+\section{Grasping, lifting and placing an unknown object}
 \label{sec:controlling}
 %
-\subsection{Experiment setup} In this implementation we assume that
-OBRERO has a table in front of it where objects will be presented
-by a person. The table is reachable by the robot's hand. The robot
-does not have a model of the objects presented.
+\subsection{Experiment setup} In this implementation we have a
+table(flat and horizontal) in front of the robot OBRERO. The table
+is reachable by the robot's hand. Objects are presented by a
+person on this table. The robot does not have a model of the
+objects presented.
 %
-[Added] The robot initially detect the presence of the table and
-its height.
+The robot initially detect the presence of the table and determine
+its height. (low friction)
 %
 The robot's attention is captured by moving an object in the
-table. The robot's response is to move its hand toward the object
-to explore it and grab it. The object can be placed anywhere
-within reach of the robot's hand.
+table. The robot's response is to move its hand toward the object,
+grab it, lift it and placed in an surface.
 %
-We implemented a few perceptual and motor competencies required
-for the robot to be able to control the body in a meaningful and
-safe manner.
+The object can be placed anywhere within reach of the robot's
+hand.
 %
-We use motion in our active camera system to select points of
-interest in the visual scene using the algorithm proposed by
-\cite{kemp-thesis}. We use kinematics to position the hand in the
-spot indicated by the camera(table detection). To do the reaching
-we use an approximated inverse kinematics. [Based in
-kinematics]The exploration primitives are computed based on
-kinematics.
-%
-These capabilities are integrated in generate a grasping behavior.
-\section{Robot and Tactile feedback}
 
-\subsection{Grasping the object}
+
+%\section{Robot and Tactile feedback}
+
+\subsection{Grasping an object}
 \label{sec:impbehavior}
 
 \begin{figure*}[htbp]
@@ -177,41 +56,41 @@ hand. Frames 7 and 8: the robot grasps and lifts the cup.}
 \label{fig:sequence}
 \end{figure*}
 
-[ADDED] We assume that the robot starts at a position above the
-table. When a person waves the object in front of the robot, the
-robot moves its hand towards the object using the 2D information
-of the camera and the kinematics information from the head and the
-arm. The third dimension is given by the height of the table that
-the arm originally detected. The hand starts in the configuration
-X.
+We assume that the robot's arm starts at a position above the
+table. The hand has its thumb up and the index and middle fingers
+extended. When a person waves an object(motion
+detection\cite{kemp-thesis}) in front of the robot, the robot
+moves its hand towards the object using the 2D information of the
+camera and the kinematics information from the head and the arm.
+The third dimension is given by the height of the table that the
+arm originally detected.
 
 After the reaching motion and if not contact has been detected, an
-exploration around this position is performed. The direction of
-the exploration is computed using the kinematics of the arm.[More
-details].
+exploration around this position is performed. The hand is moved
+to the side and to the front parallel to the table. These
+directions are computed using the kinematics of the arm.
 
 If contact with the hand is detected, the exploration is stopped
-and the thumb is moved to oppose the index finger. Then, the hand
-will be repositioned depending where the contact occurred.[Explain
-more].
+and the thumb is rotated to oppose the index finger. Then, the
+hand is repositioned depending on where the contact occurred.(*)
+If only the index finger is in contact with the object, the hand
+is moved down until contact with the table.
 %
 If there is not contact with the palm, the arm will be moved in
 the direction of the forearm until contact occurs.
 %
 Once in contact with the palm, the fingers will be closed ...
 %
+If the operation fails a the arm will be returned to the initial
+position.
 
+\subsection{Lifting an object and slippage detection}
+%\subsection{Slippage}
+In order to apply enough force to lift an object, we detect if it
+slips.
 
-
-(If the operation fails a time out will cancel things)
-
-\subsection{Lifting the objects}
-We detect the slippage
-
-\subsection{Slippage}
-
-Although controlling slippage can be useful in several
-manipulation tasks, we focus on avoiding slippage when lifting.
+%Although controlling slippage can be useful in several
+%manipulation tasks, we focus on avoiding slippage when lifting.
 
 Sensing slippage is not an straight-forward task since the
 phenomena is not quite understood. If we observe humans, our skin
@@ -323,12 +202,7 @@ in two different lifting events. For details see
 section~\ref{sec:slippage} } \label{fig:slip}
 \end{figure*}
 
-\subsection{Placing and object}
-After the object has been lifted and moved to a different location
-it is useful to place it in a different location. In this case, we
-need to detect when the object touches a surface.
-
-\subsection{Applying forces to a held object: placing an object on a surface}
+\subsection{Placing an object on a surface: applying forces to a held object}
 
 Once the robot has an object in its hand, in order to interact
 with the environment it is important to detect changes of forces
@@ -496,16 +370,15 @@ similar shape in the area where they were grasped.}
 %% the current geometry of the hand.} \label{fig:TactileComp}
 %% \end{figure}
 
-The \emph{grasping} behavior described in
-Section~\ref{sec:controlling} was evaluated by presenting
-different objects to the robot and by counting the number of
-successful grasps. We chose objects of different size and shape: a
-plastic bottle, a plastic rectangular box, a porcelain cup and a
-plastic cup (see figure~\ref{fig:Objects}). Some of the objects
-were partially filled, so that the weight was roughly uniform
-among all objects (about 220-250 grams, see
-Table~\ref{tab:objects}). The robot had no prior knowledge about
-these objects.
+The grasping described in Section~\ref{sec:controlling} was
+evaluated by presenting different objects to the robot and by
+counting the number of successful grasps. We chose objects of
+different size and shape: a plastic bottle, a plastic rectangular
+box, a porcelain cup and a plastic cup (see
+figure~\ref{fig:Objects}). Some of the objects were partially
+filled, so that the weight was roughly uniform among all objects
+(about 220-250 grams, see Table~\ref{tab:objects}). The robot had
+no prior knowledge about these objects.
 
 Each object was presented to the robot more than 20 times and
 randomly placed on the table. Overall the number of grasping
@@ -870,7 +743,12 @@ integration of all sensory modalities.
 
 \newpage
 
+
 \section{Extra information}
+
+
+
+
 \label{sec:imp:timing}
 
 In table~\ref{tab:feedback}, we observe that the feedback
@@ -1148,3 +1026,116 @@ element.
 %obtain fine details of an image. The vision system will try to
 %take advantage of natural cues present in the environment such as
 %shadows \cite{fitzpatrick04power}.
+%
+\section{Introduction}
+%
+Recent work in developmental robotics has emphasized the role of
+action for perception and learning
+\cite{metta03early,natale04learning,natale05from}. Developmental
+psychology, on the other hand, recognizes that motor activity is
+of paramount importance for the correct emergence of cognition and
+intelligent behavior
+\cite{gibson88explore,streri93Seeing,bushnell93motor,hofsten04motor}.
+All embodied agents, either artificial or natural, have numerous
+ways to exploit the physical interaction with the environment to
+their advantage.
+
+In robotics, actions like pushing, prodding, and tapping have been
+used for visual and auditory perception respectively
+\cite{metta03early,etorresjara05tapping}. More articulated
+explorative actions or grasping might increase these benefits, as
+they give direct access to physical properties of objects like
+shape, volume and weight.
+%
+Unfortunately, all these aspects have not been extensively
+investigated yet. One of the reasons for this is that controlling
+the interaction between the robot and the environment is a
+difficult problem \cite{volpe90real}, especially in the absence of
+accurate models of either the robot or the environment (as it is
+often the case in non-engineered environments).
+%
+The design of the robot can ease these problems. We know for
+example that having a certain degree of elasticity in the limbs
+helps to ``smooth''  and control the forces that originate upon
+contact. Another approach is to enhance the perceptual abilities
+of the robot. Traditional robotic systems in fact have perceptual
+systems that do not seem adequate for grasping. Haptic feedback in
+particular is often quite limited or completely absent. This is
+because, unfortunately, most of the tactile sensors commercially
+available are inadequate for robotics tasks: they are only
+sensitive to forces coming from a specific angle of incidence,
+rigid and almost frictionless.
+
+OBRERO \cite{obrero}, described in paper, was designed to overcome
+these limitations. It is equipped with series elastic actuators,
+which provide intrinsic elasticity and force feedback at each
+joint. The hand is equipped with tactile sensors
+(Section~\ref{chap:TactileSensors}) which provide a deformable and
+sensitive interface between the fingers and the objects.
+
+In this paper, we report a series of experiments where OBRERO
+exploits its sensing capabilities to grasp a number of objects
+individually placed on a table. No prior information about the
+objects is available to the robot. The use of visual feedback was
+voluntarily limited. Vision is used at the beginning of the task
+to direct the attention of the robot and to give a rough
+estimation of the position of the object. Next, the robot moves
+its limb towards the object and explores with the hand the area
+around it. During exploration, the robot exploits tactile feedback
+to find the actual position of the object and grasp it. The
+mechanical compliance of the robot and the control facilitate the
+exploration by allowing a smooth and safe interaction with the
+object. Results show that the haptic information acquired by the
+robot during grasping carries information about the shape of the
+objects. Further analysis of the tactile data allows us to detect
+slippage and sense forces applied over the object being held by
+the robot.
+
+\section{Haptic feedback, perception and action}
+\label{sec:background}
+
+In adults, several studies have revealed the importance of
+somatosensory input. For example Johansson and Westling
+\cite{Johansson90Tactile} have studied in detail what feedback is
+provided by the skin during object lifting tasks and how it is
+used to control the movements of the fingers. The results of these
+experiments proved the importance of somatosensory feedback: they
+showed that human subjects had difficulties avoiding object
+slipping when they had their fingertips anesthetized, even with
+full vision \cite{johansson91how}.
+
+Haptic feedback has an important role for object perception as
+well. Lederman and Klatzky \cite{lederman87hand} identified and
+described a set of motor strategies named \emph{exploratory
+procedures} used by humans to determine properties of objects such
+as shape, texture, weight or volume.
+
+Little is known concerning how infants use tactile sensing for
+manipulation \cite{streri93Seeing}.
+%Tactile sensing in neonates is very poorly known
+%in contrast to the visual mechanism\cite{streri93Seeing}.
+%However, tactile sensing provides information to children since
+%his time in the wound.
+In some circumstances children exploit tactile feedback to learn
+about objects \cite{streri86Habituation}. Streri and P\^{e}cheux
+measured the habituation time of newborns (2 months and 5 months
+old) during tactile exploration of objects placed in their hands.
+In this experiment children spent more time exploring novel rather
+than familiar objects, even when they did not make visual contact
+with the hand. %This experiment was repeated with visual feedback
+%showing the same behavior.
+
+Motor abilities of children are quite limited during the first
+months of development. This does not prevent infants from using
+their hand to engage interaction with the world. The importance of
+motor activity for perceptual development has been emphasized in
+developmental psychology \cite{hofsten04motor,gibson88explore}.
+Researchers agree on the fact that motor development determines
+the timing of perceptual development. In other words the ability
+of infants to explore the environment would determine their
+capacity to perceive certain properties. Accordingly, perception
+of object features like temperature, size and hardness is likely
+to occur relatively early in development, whereas properties
+requiring more dexterous actions like texture or three dimensional
+shape would emerge only later on (see \cite{bushnell93motor} for a
+review).
