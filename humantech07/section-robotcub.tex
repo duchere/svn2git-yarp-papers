@@ -17,7 +17,7 @@ part of the body (head, torso, arms, and hands). The lower body (legs) is made
 to support crawling on the four limbs and sitting on the ground in a stable 
 position with smooth autonomous transition from crawling to sitting. This  
 allows exploration of the environment, grasping and manipulation of objects 
-laying on the floor. The total height is estimated to be around 105cm. The 
+lying on the floor. The total height is estimated to be around 105cm. The 
 total number of degrees of freedom (DOF) is 53 of which 41 in the upper body 
 (7 for each arm, 9 for each hand, 6 for the head and 3 for the torso and spine). 
 Each leg consists of six additional degrees of freedom. The sensory system will 
@@ -41,52 +41,94 @@ improved); D) a tentative assembly of the entire robot.}
 
 
 The philosophy adopted by RobotCub is that of
-the free software by adopting one or more of the General Public Licenses. 
+the free software movement,
+as codified by the General Public License (GPL). 
 On the software side, the RobotCub project adopted YARP and contributed
-to the development of some new specific features. For the hardware, it 
-was chosen GPL for the sources and FDL for documentation
-and drawings. While it is certainly clear how to apply these licensing
-schemes to source code (e.g. C++), it requires a bit of clarification 
-with respect to hardware. 
+to the development of some new specific features. For the hardware, we
+selected the GPL license for the sources and FDL for documentation
+and drawings. While it is clear how to apply these licensing
+schemes to source code (e.g. C++), we need to clarify how to
+apply them also to hardware designs.
 
 \subsection{Open Source hardware}
-The word ``Open Source hardware'' might sound strange but in fact it is a 
-plain transfer of the open source philosophy to the entire process of 
-design of the RobotCub platform. The design of the robot started from 
+The word ``Open Source hardware'' might sound strange,
+ but in fact it is a 
+plain transfer of the open source philosophy to the entire
+design of the RobotCub platform.
+%
+%
+The design of the robot started from 
 the preparation of specifications (e.g. estimation of torque, speed, etc.),
 a typical 3D CAD modeling, and eventually in the preparation
 of the executive files which are used to fabricate parts and for assembly. 
-Without a good documentation it is very complicated to build and assemble 
+Without good documentation it is very complicated to build and assemble 
 a full robot. This means that documentation (as for software) is particularly 
 important.
 
-The CAD files, in some sense, can be seen as the source code. They get ``compiled''
+The CAD files, in some sense, can be seen as the source code, since
+they are the ``preferred form of the work for making modifications
+to it'', in the language of the GPL.
+%
+They get ``compiled''
 into 2D drawings which represent the executive drawings that can be used by any
-professional and reasonably well equipped machine shop either to program CNC machines 
+professional and reasonably well-equipped machine shop either to program CNC machines 
 or to manually prepare the mechanical parts. This compilation process is not fully 
-automated and requires a substantial human intervention. There is a clear dependency 
-of the 2D drawings from the 3D CAD model. To guarantee the same type of virtuous 
-development cycle of open source software, the 3D CAD is required, changes happen 
+automated and requires substantial human intervention. There is a clear dependency 
+of the 2D drawings on the original 3D CAD model. To enable the same type of virtuous 
+development cycle as occurs in open source software, the 3D CAD is required, since changes happen 
 in 3D first and get propagated to 2D later. In addition, assembly diagrams, part 
 lists, and all the material produced during the design stage should be included 
 to guarantee that the same information is available to new developers.
 
-One simplification with the hardware design is that there is very little interoperability
-between design tools. The equivalent of an approximately portable language like C++ 
-does not exist in this case. While this might not be seen as an advantage in practice
-it eases the preparation of the standards. In RobotCub we were forced to choose a specific 
+
+One difference between software and the hardware design is that there are
+currently no effective formats for interchange of 3D models.
+%
+Proprietary systems such as SolidWorks and Pro/E can import and export
+a range of formats, but going from one to another is lossy, destroying
+information needed for production and leaving just the basic geometrical
+shape.
+%
+So in practice, designs are tied to tools produced by a particular
+vendor, and interoperability
+between hardware design tools is limited.
+%
+% The equivalent of an approximately portable language like C++ 
+%does not exist in this case. 
+%
+%While this might not be seen as an advantage in practice
+%it eases the preparation of the standards. 
+%
+In RobotCub we were forced to choose a specific 
 set of tools for mechanical and electronic CAD and future upgrades will have to strictly 
-adhere to these standards. Due to the absence of open source professional design tools, RobotCub
-uses commercial products. These are somewhat expensive but in our view this should not limit
-the openness of the system. Educational discounts or educational releases are typically 
-available that can read and change the RobotCub files. Free of charge viewers are also
-available for all file types in question. The duplication of the RobotCub parts does not
+adhere to these standards. 
+%
+Due to the absence of open source professional design tools, RobotCub
+uses proprietary products. 
+%
+This is an unfortunate situation, but there is no practical
+alternative at the moment.  The ``C++'' and ``gcc'' of 
+CAD do not yet exist.
+%
+
+As a practical matter, the simple duplication of RobotCub parts does not
 require the use of any of these tools since we provide all executive drawings and 
 production files (e.g. Gerber files for the PCBs).
+%
+%
+%Due to the absence of open source professional design tools, RobotCub
+%uses proprietary products. 
+%
+For modification, the design tools are somewhat expensive
+(educational discounts or educational releases exist).
+Free of charge {\em viewers} are
+currently available for all file types in question. 
+%
 
-For RobotCub, we decided to license all the hardware sources as FDL which seems
-appropriate given the nature of the CAD and drawings files. These are made 
-available through the usual source code distribution channels (e.g. repositories, 
+For RobotCub, we decided to license all the CAD sources under the GPL
+which seems appropriate given their nature.  Associated documentation
+will be licensed under the FDL.  These will be made available through
+the usual source code distribution channels (e.g. repositories,
 websites).
 
 \subsection{The design process}
