@@ -1,4 +1,40 @@
 
+\section{A software ecology}
+
+
+%Software development for humanoid robots is somewhat of a back-water.
+%Although it is a topic that excites the public imagination, the
+%actual resources devoted worldwide are quite low.  The Japanese
+%government and car manufacturers have invested in some high-profile
+%projects...
+
+
+Many robot projects are ``black holes'', in terms of software.  A lot
+of software gets sucked in, but very little comes out.  Once a piece
+of software has been adapted to a particular robot, it takes a lot
+of work to extricate it again and apply it to another.
+%
+Obviously the answer to this problem is modularity.  So there are 
+now several architectures/middleware/frameworks for modular robot systems.
+The major concern for any such middleware should be that it not 
+also become
+in turn a ``black hole''~-- the
+danger is that once a piece of software has been adapted
+to a particular architecture/middleware/framework, it may take a lot of work to extricate it
+again and apply it to another.  That would be a bit somewhat self-defeating.
+%
+So modularity alone is not a solution to software reuse, since 
+different organizing architectures, middleware, or frameworks may be mutually
+incompatible.  It is important that modules developed can fit
+into a broader ``ecology'': the  complicated, sometimes messy
+collection of niches world-wide in which software development occurs.
+
+%We study YARP from this perspective.  How sticky is resultant user
+%code to the robot and to the framework itself?
+
+
+
+
 
 \begin{figure}[t]
 \begin{center}
@@ -33,41 +69,6 @@ via Java).
 }
 \end{center}
 \end{figure}
-
-
-\section{A software ecology}
-
-
-%Software development for humanoid robots is somewhat of a back-water.
-%Although it is a topic that excites the public imagination, the
-%actual resources devoted worldwide are quite low.  The Japanese
-%government and car manufacturers have invested in some high-profile
-%projects...
-
-
-Many robot projects are ``black holes'', in terms of software.  A lot
-of software gets sucked in, but very little comes out.  Once a piece
-of software has been adapted to a particular robot, it takes a lot
-of work to extricate it again and apply it to another.
-%
-Obviously the answer to this problem is modularity.  So there are 
-now several architectures/middleware/frameworks for modular robot systems.
-The major concern for any such middleware should be that it not 
-also become
-in turn a ``black hole''~-- the
-danger is that once a piece of software has been adapted
-to a particular architecture/middleware/framework, it may take a lot of work to extricate it
-again and apply it to another.  That would be a bit somewhat self-defeating.
-%
-So modularity alone is not a solution to software reuse, since 
-different organizing architectures, middleware, or frameworks may be mutually
-incompatible.  It is important that modules developed can fit
-into a broader ``ecology'': the  complicated, sometimes messy
-collection of niches world-wide in which software development occurs.
-
-%We study YARP from this perspective.  How sticky is resultant user
-%code to the robot and to the framework itself?
-
 
 
 
@@ -235,7 +236,11 @@ a large and growing market that overlaps
 with robotics, spurred by the existence
 of embedded Linux \cite{henkel2006selective}.
 %
-We release all our work under free and open licenses.
+We release all our work under free and open licenses, in order to
+encourage their use as building blocks.  Historically, our ``YARP''
+software grew and developed this way, principally through a
+collaboration between robotics groups at MIT and the University of
+Genoa~\ref{fig:family}.
 
 
 
