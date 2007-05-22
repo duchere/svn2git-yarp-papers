@@ -69,7 +69,7 @@ communication protocols.
 %
 \label{fig:yarp-network}
 %
-Port example.
+Example of a network of ports.
 Images are transmitted from a camera (``/camera'') port to a viewer
 (``/viewer1'') port and the input of a visual tracker
 (``/tracker/image''). The tracker annotates the image, for example by
@@ -77,9 +77,10 @@ placing a marker on a tracked point, and transmits that to another
 viewer (``/viewer2''). The tracker also sends just the tracked position
 from a position output port (``/tracker/position'') to a input
 controlling head position (``/motor/position''). Every port belongs to a
-process. They do not need to belong to the same process. Every
-connection can take place using a different protocol and/or physical
-network.
+process. They do not need to belong to the same process or 
+be on the same machine as each other.  Every individual
+connection can take place using a different protocol or physical
+network~-- in the figure multicast, udp, and tcp are shown.
 %
 }
 \end{figure}
@@ -95,17 +96,16 @@ server''. The goal is to ensure that if you know the name of a port,
 that is all you need in order to be able to communicate with it from
 any machine.  The YARP name server (YNS) is a generalization of DNS
 name service on the public internet for converting from domain names
-to IP addresses, since it is not concerned just with machines but all
+to IP addresses.  It is not concerned just with machines but all
 the details necessary to make a connection with a specific resource.
-Unlike location services in CORBA, the record returned by the yarp
+The YARP
 name server is designed to be easily used by clients who are not
-themselves using the YARP libraries or executables.  We return to this
-topic later.
+themselves using the YARP libraries or executables.  
 
 The purpose of ports is to move data from one thread to another (or
 several others) across process and machine boundaries. The flow of
 data can be manipulated and monitored externally (e.g. from the
-command-line) at run-time.  It can also be interacted with without
+command-line) at run-time.  It can also be accessed without
 using the YARP libraries or executables, since the relevant protocols
 are documented.  If messages follow YARP guidelines, then they can be
 automatically converted to and from a ``text mode'' connection, 
@@ -116,13 +116,16 @@ non-YARP modules.
 A port can send data to any number of other ports. A port can receive
 data from any number of other ports. Connections between ports can be
 freely added or removed, and may use different underlying transports.
-The use of several different protocol allows us to exploit their best
+The use of several different transports
+and protocols allows us to exploit their best
 characteristics.  TCP is reliable, it can be used to guarantee the
 reception of a message.  UDP can be faster than TCP, but without
 guarantees.  Multicast is efficient for distributing the same
 information to large numbers of targets.  Shared memory can be
-employed for local connections.
-Figure~\ref{fig:yarp-network} is a very simple network of ports
+employed for local connections.  Text-mode operation is much
+more human-friendly, and a good place to get started with
+external integration.
+Figure~\ref{fig:yarp-network} shows a very simple network of ports
 for a visual tracking application.
 
 
@@ -146,7 +149,8 @@ for a visual tracking application.
 
 %%\subsection{Port abstraction}
 
-Connections between ports in YARP can carry replies if desired, so
+Connections between ports in YARP can carry replies if desired
+(and if the underlying protocol supports that), so
 conventional ``RPC'' (remote procedure call) style synchronous
 operation is possible.  We encourage streaming rather than RPC
 whenever possible, because RPC can make a network brittle by
@@ -168,7 +172,10 @@ several logically separable parts:
 
 \begin{itemize} \pflist
 
-\item The carrier factory (called ``Carriers'').  This maintains
+\item The carrier factory (called ``Carriers'');
+carrier is our generic name for any different transport or
+protocol that can carry a connection.
+  This factory maintains
 a list of managers for different kinds of connection.  The user
 can extend this list with their own custom types of connection
 (for example, for a kind of network we've never considered,
@@ -183,15 +190,15 @@ about their nature.
 
 \item Reader and writer buffers (called ``PortReaderBuffer'' and
 ``PortWriterBuffer'').  In order for communication to be efficient and
-avoid unnecessary copies, objects being transmitted need to be left
-untouched.  With the variety of possible connections and options
-possible, the details of this can become complicated.  YARP implements
-a certain set of policies we think are good in the reader/writer
-buffer classes.  These are wrapped around the Port class to provide a
-BufferedPort class that gives both a simple interface and efficient
-implementation, while keeping buffering and communication separable
-for those with strong opinions about how one or the other should be
-done.
+avoid unnecessary copies, objects being transmitted generally need to
+be left untouched until communication is complete.  With the variety
+of possible connections and options possible, the details of this can
+become complicated.  YARP implements a certain set of policies we
+think are good in the reader/writer buffer classes.  These are wrapped
+around the Port class to provide a BufferedPort class that gives both
+a simple interface and efficient implementation, while keeping
+buffering and communication separable for those with strong opinions
+about how one or the other should be done.
 
 \item The YARP network interface (called ``Network'').  Provides
 methods for manipulating parts of the network, such as
@@ -199,9 +206,15 @@ creating or removing connections between ports.
 
 \end{itemize}
 
-The YARP name server, which was once a specially written server with
-its own protocol, is now written using a single ordinary port as its
-input.
+The YARP name server is a simple program using a single ordinary
+port as its input; it used to have its own special protocol but
+now it is just like any other YARP program.  This is possible 
+because ports can operate without access to a name server if
+desired; it is another separable component.
+
+%, which was once a specially written server with
+%its own protocol, is now written using a single ordinary port as its
+%input.
 
 %The flexibility of ports to maintain diverse kinds of connections
 %simultaneously is 
