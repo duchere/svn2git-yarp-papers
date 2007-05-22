@@ -264,42 +264,54 @@ from a YARP Network.  A ``stage'' driver has been developed
 for YARP, which gives access to the 2D robot simulator of that
 name from a YARP Network.
 %
-The driver mechanism in both projects gives a very straightforward way
-to integrate quickly with what would otherwise be incompatible
-middleware.
-
-Both projects are free and open source.  They both have documented
-network protocols.  Both have made an effort to allow different
-transports, and to be portable.  So a determined individual
-will probably be able to make them work together on any given
-task.  It is an interesting question whether a higher level
-convergence is possible.
-%
-%
-From the YARP perspective, there doesn't seem any compelling reason to
-do so right now; individuals who've needed parts of both systems have
-been able to do so through the driver mechanisms.
-%
-From the Player perspective, YARP's dependence on ACE is probably
-undesirable, and YARP uses some C++ features considered
-undesirable in the C-with-Classes
-style of Player (which is probably a better idea for portability).
-Also, we use different build machinery (autotools versus CMake).
-%
-Due to recent changes in Player, communications could probably be
-adapted with some work.  Devices have some similarity in structure
-between YARP and Player, but have the crucial different that YARP
-starts with just a thin C++ wrapper which permits direct function
-calls while Player devices are forced into a message passing framework
-(even if the message passing is just internal rather than across a
-network).
+In fact devices have some similarity in structure between YARP and
+Player, but have the crucial difference (at least to our eyes) that
+YARP starts with just a thin C++ wrapper which permits direct function
+calls while Player devices must operate through a message passing
+framework (although that message passing can now be internal rather
+than across a network).
 %
 In principle, YARP devices should be easy to wrap up systematically
 and efficiently for Player (since no assumptions are made about the
-communication model), but the converse is not necessarily true.
+communication model), but the other direction is not so easy.
 %
-In the next section, we look more closely at YARP's device model.
+
+The driver mechanism in both projects gives a very straightforward way
+to integrate quickly with what could otherwise be incompatible
+middleware.
 %
+At a higher level of potential interoperation, both projects are free
+and open source, they both have documented network protocols, both have
+made an effort to allow different transports, and to be portable.  So
+a determined individual will probably be able to make them work
+together on any given task.
+%
+Neither YARP nor Player is aimed at users unwilling or unable to
+program.  Such users benefit from these projects indirectly, through
+for example the ICub platform, which is being built using YARP to
+support users from different disciplines including neuroscience
+and experimental psychology.
+
+
+%% It is an interesting question whether a higher level
+%% convergence is possible.
+%% %
+%% %
+%% From the YARP perspective, there doesn't seem any compelling reason to
+%% do so right now; individuals who've needed parts of both systems have
+%% been able to do so through the driver mechanisms.
+%% %
+%% From the Player perspective, YARP's dependence on ACE is probably
+%% undesirable, and YARP uses some C++ features considered
+%% undesirable in the C-with-Classes
+%% style of Player (which is probably a better idea for portability).
+%% Also, we use different build machinery (autotools versus CMake).
+%% %
+%% Due to recent changes in Player, communications could probably be
+%% adapted with some work.  
+%% %
+%% In the next section, we look more closely at YARP's device model.
+%% %
 
 
 %%serialization / message passing
