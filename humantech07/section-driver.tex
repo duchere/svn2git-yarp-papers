@@ -364,14 +364,14 @@ environment, libraries, operating system and language dependencies of
 hardware and user software.
 
 The remotization mechanism relies on the communication layer 
-(see Section (\ref{sec:transporting})) and on two 
+(see Section~\ref{sec:transporting}) and on two 
 \emph{Network Wrapper} devices, 
 one acting as a \emph{Server} and the other acting as a \emph{Client}. 
 Both network devices implement the very same interface of the device 
 they wrap: the only difference is that they 
 do not connect directly to the hardware but act as network proxies, 
 talking to each other using a predefined protocol, which involves one or more 
-YARP Ports configured for RPC or streaming (see Figure (\ref{fig:devices3}))
+YARP Ports configured for RPC or streaming (see Figure~\ref{fig:devices3})
 
 The process willing to connect to the remote device, 
 creates an instance of the \emph{Client Network Wrapper}. The latter exports 
