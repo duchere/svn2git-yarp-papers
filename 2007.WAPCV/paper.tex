@@ -1003,7 +1003,9 @@ that are not passing across the central pixel. On the other hand we want to lear
 
 %In our case
 %we want to use unlabeled data to demonstrate that it is possible to
-%learn from raw images and, as mentioned earlier, we do not want to consider only the relative orientations, but rather a different field for each %orientation.
+%learn from raw images and, as mentioned earlier, we do not want to
+%consider only the relative orientations, but rather a different field for each
+%orientation.
 
 We believe that this is the same problem that Prod\"ohl \etal \cite{Prodohl01} experienced using static images: the learned fields supported collinearity in the horizontal and vertical orientations but hardly in the oblique ones. They solved this problem using motion to implicitly tag only the important edges inside each patch.
 
@@ -1050,34 +1052,43 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 \section{Results}
 \label{sec:ass_res}
 We tested the modified procedure on the database of natural images and also
-on random images (results not shown), to verify that the results were not an artifact due to the
-method.
+on random images (results not shown), to verify that the results were not an
+artifact due to the method.
 
-In Figures \ref{fig:field1_e1_new}, \ref{fig:field1_l1l2_new} there are respectively the main orientations, their strengths (eigenvalues) and the strengths in the orthogonal directions of the mean
-estimated tensors for the orientation of 0 degrees of the central pixel. Same for Figures \ref{fig:field2_e1_new} and \ref{fig:field2_l1l2_new} for 67.5 degrees. The structure of the obtained association field closely resembles the fields  proposed by others based on collinearity and co-circularity.
- We note that the size of the long-range connection far exceeds the size of the classical receptive field. We note also that the noisier regions in the orientation corresponds to very small eigenvalues so they do not influence very much the final result.
+In Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} there are the
+main orientations and their strengths (eigenvalues) of the mean estimated
+tensors for the orientation of $0$ and $67.5$ degrees of the central pixel.
+The structure of the obtained association field closely resembles the fields
+proposed by others based on collinearity and co-circularity.
+We note that the size of the long-range connection far exceeds the size of the
+classical receptive field. We note also that the noisier regions in the
+orientation corresponds to very small eigenvalues so they do not influence very
+much the final result.
 
-While all the fields have the same trend, there is a clear difference in the decay of the strength of the fields.
-To see this we have considered only the values along the direction of the orientation in the center, normalizing the maximum values to one. Figure \ref{fig:conf} $(a)$ shows this decay.
-It is clear that fields for horizontal and vertical edges have a wider support, confirming the results of Sigman \etal \cite{Sigman01}.
+While all the fields have the same trend, there is a clear difference in the
+decay of the strength of the fields. To see this we have considered only the
+values along the direction of the orientation in the center, normalizing the
+maximum values to one. Figure \ref{fig:conf} $(a)$ shows this decay.
+It is clear that fields for horizontal and vertical edges have a wider support,
+confirming the results of Sigman \etal \cite{Sigman01}.
 
-
-
-
-%\begin{figure}[]
-%	\begin{center}
-%		\includegraphics[width=0.8\linewidth]{./figs/af/im_pg}
-%	\end{center}
-%  \caption{Test image contours using tensor voting with the learned fields.
-%   Notice the differences with the image \ref{fig:im_oe}: the contours are
-%   linker together and the gaps are reduced. Especially on the contour of back of
-%   the tiger the differences are evident.}
-%	\label{fig:im_pg}
-%\end{figure}
-
-The obtained fields can be used with any existing model of contour enhancement, but to test them
-we have used the tensor voting scheme proposed by Guy and Medioni \etal \cite{Guy96}. The choice is somewhat logical considering to the fact that the obtained fields are already tensors. In the tensor voting framework points communicate with each other in order to refine and derive the most preferred orientation information. Differently to the original tensor voting algorithm we don't have to choose the right scale of the fields \cite{LeeM99} since it is implicitly in the learnt fields.
-We compared the performances of the tensor voting algorithm using the learned fields versus the simple output of the complex cell layer, using the Berkeley Segmentation Database and the methodology proposed by Martin \etal \cite{MartinFM04,MartinFTM01}. We can see the results in Figure \ref{fig:conf} $(b)$: there is a clear improvement using the tensor voting and the learned association fields instead of just using the simulated outputs of the complex cells alone. An example of the results on the test image in \ref{fig:exampleimg} $(a)$, after the non-maximum suppression procedure, are shown in Figure \ref{fig:im_oe_pg}.
+The obtained fields can be used with any existing model of contour enhancement,
+but to test them we have used the tensor voting scheme proposed by
+Guy and Medioni \etal \cite{Guy96}. The choice is somewhat logical considering
+to the fact that the obtained fields are already tensors. In the tensor voting
+framework points communicate with each other in order to refine and derive the
+most preferred orientation information. Differently to the original tensor
+voting algorithm we don't have to choose the right scale of the fields
+\cite{LeeM99} since it is implicitly in the learnt fields.
+We compared the performances of the tensor voting algorithm using the learned
+fields versus the simple output of the complex cell layer, using the Berkeley
+Segmentation Database and the methodology proposed by Martin \etal
+\cite{MartinFM04,MartinFTM01}. We can see the results in Figure
+\ref{fig:conf} $(b)$: there is a clear improvement using the tensor voting and
+the learned association fields instead of just using the simulated outputs of
+the complex cells alone. An example of the results on the test image in
+\ref{fig:exampleimg} $(a)$, after the non-maximum suppression procedure, are
+shown in Figure \ref{fig:im_oe_pg}.
 
 %\begin{figure}[]
 %	\begin{center}
@@ -1095,7 +1106,7 @@ We compared the performances of the tensor voting algorithm using the learned fi
 		\end{tabular}	
 	\end{center}
   \caption{Main directions for the association field for orientation of 0 $(a)$ and 67.5 degrees $(b)$, with the modified approach.}
-	\label{fig:field2_e1_new}
+	\label{fig:field1_e1_new}
 \end{figure}
 
 \begin{figure}[]
