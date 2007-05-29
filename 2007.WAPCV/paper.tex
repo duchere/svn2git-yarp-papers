@@ -46,13 +46,13 @@
 \begin{abstract}
 One of the first
 steps of any visual system is that of
-locating suitable interest points, ``salient regions'', in
+locating suitable interest points, `salient regions', in
 the scene, to detect events, and eventually to direct
 gaze toward these locations. In the last few years,
 object-based visual attention models have received an
 increasing interest in the literature, the problem, in
 this case, being that of creating a model of
-``objecthood'' that eventually guides a saliency
+`objecthood' that eventually guides a saliency
 mechanism. We present here an object-based model of
 visual attention and show its instantiation on a
 humanoid robot. The robot employs action to learn
@@ -61,16 +61,16 @@ and define its own concept of objecthood.
 
 \section{Visual Attention\label{attention}}
 
-Spatial attention is often considered as a sort of ``filter''
-of the incoming information, as a ``spotlight'',
-an internal eye or a sort of ``zoom lens''. In particular attention is
+Spatial attention is often considered as a sort of `filter'
+of the incoming information, as a `spotlight',
+an internal eye or a sort of `zoom lens'. In particular attention is
 believed to be deployed as a spatial gradient, centered on a particular location.
 %The experiments of Posner \etal \cite{PosnerSD80} and Downing and Pinker
 %\cite{DowningP85} suggest that
 %attention is deployed as a spatial gradient, centered on
 %a particular location.
 Even if supported by numerous findings, maybe this view does not
-stress enough the \emph{aim} of the attentional system.
+stress enough the \emph{aim} of the attentional system in an agent with a body.
 
 The external world is sensed
 continuously instead of maintaining and updating some
@@ -127,7 +127,7 @@ not just with disembodied spatial locations.
 
 But how can we attend to objects before they are recognized?
 To solve this contradiction Rensink \cite{RensinkORC97,Rensink00a}
-introduced the notion of ``proto-objects'', that are volatile units
+introduced the notion of `proto-objects', that are volatile units
 of visual information that can be bound into a coherent and
 stable object when accessed by focused attention and
 subsequently validated as actual objects.
@@ -208,13 +208,14 @@ experimental results and we draw some conclusions.
 \section{Computational models of visual attention}
 \label{sec:att_comp_models}
 
-A dominant tradition in space-based theories of visual attention was initiated with a seminal paper by
-Treisman and Gelade \cite{TreismanG80}. They argued that some primary visual properties
-allow a search in parallel across large displays of target objects. In such cases the target appears
-to `pop out' of the display. For example there is no problem in searching for a
-red item amongst distractor items colored green, blue or yellow, while
-searching for green cross is much more difficult when distractors include red crosses and green circles
-(`feature conjunction').
+A dominant tradition in space-based theories of visual attention was initiated
+with a seminal paper by Treisman and Gelade \cite{TreismanG80}. They argued
+that some primary visual properties allow a search in parallel across large
+displays of target objects. In such cases the target appears to `pop out' of
+the display. For example there is no problem in searching for a red item
+amongst distractor items colored green, blue or yellow, while searching for
+green cross is much more difficult when distractors include red crosses and
+green circles (`feature conjunction').
 Treisman and Gelade argued that in the pop-out tasks preattentional mechanisms
 permit a rapid target detection, in contrast to the conjunction task, which was held
 to require a serial deployment of attention over each item in turn.
@@ -255,11 +256,11 @@ Vision though does not only represent visual features
 but also the \emph{things} that such features characterize. In
 order to segment a scene in items, objects, that is to
 group parts of the visual field as coherent wholes, the
-concept of ``object'' must be known to the system.
+concept of `object' must be known to the system.
 In particular, there is an intriguing discussion underway
 in vision science about reference to entities that have
-come to be known as ``proto-objects'' or ``pre-attentive
-objects'' \cite{RensinkORC97,Rensink00a,Pylyshyn01}, since they need not to correspond
+come to be known as `proto-objects' or `pre-attentive
+objects' \cite{RensinkORC97,Rensink00a,Pylyshyn01}, since they need not to correspond
 exactly with conceptual or recognizable objects.
 These are a step above the mere localized
 features, possessing some but not all of the
@@ -409,7 +410,7 @@ example, a red input in the center of a particular RF
 increases the response of the channel $R^+G^-$ , while a
 green one in the surrounding will decrease its
 response. The spatial response profile of the two sub-regions
-of the RF, ``center'' and ``surround'', is expressed by a Gaussian,
+of the RF, `center' and `surround', is expressed by a Gaussian,
 hence resulting in a Difference-of-Gaussians (DoG).
 A response is computed as there was a RF centered on
 each pixel of the input image, thus generating an
@@ -497,7 +498,7 @@ surrounding. However the size of the spot or focus of attention
 should not be constant: it should change depending on the size of the
 objects in the scene. To account for this fact the greater
 part of the visual attention models in literature uses a
-multi-scale approach filtering with some type of ``blob''
+multi-scale approach filtering with some type of `blob'
 detector (typically a DoG filter) at
 various scales \cite{IttiK01}. We reasoned that this approach
 lacks continuity in the choice of the size of the focus of
@@ -587,7 +588,7 @@ saccade.
 In order to avoid being redirected immediately to a
 previously attended location, a local inhibition is
 transiently activated in the saliency map. This is called
-``inhibition of return'' (IOR) and it has been
+`inhibition of return' (IOR) and it has been
 demonstrated in human visual psychophysics.
 %Posner and Cohen \cite{PosnerC84}, for example,
 %demonstrated that the IOR does not seem to work
@@ -688,7 +689,7 @@ cropped to a square and transformed to the log-polar
 format (see Figure \ref{fig:itti_ex}.1 and Figure \ref{fig:itti_ex}.2
 for the cartesian remapped images). To simulate the
 presence of a static camera, the images are presented to
-the system continuously and, after five ``virtual''
+the system continuously and, after five `virtual'
 frames, the bottom-up saliency map is confronted with
 the mask. In $49\%$ of the images a point inside the
 emergency triangle is selected as the most salient
@@ -701,7 +702,7 @@ saccade the log-polar image changes a lot.
 State of the art models of visual attention are usually used as
 sort of filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
 In such systems the attention model and the object recognition one
-live in two different ``worlds'', that is, they work on two
+live in two different `worlds', that is, they work on two
 different representations of the input images and few or none
 of the computation done by the first stage is used by the
 second one. A proof of concept on how to build an object
@@ -744,13 +745,13 @@ system were also used to guide the grasping action of the robot.
 
 As said above, object-based theories of attention stress the importance
 of a sort of segmentation of the visual input in coherent regions.
-On the other hand the term ``grouping'' (or ``segmentation'')
+On the other hand the term `grouping' (or `segmentation')
 is a common concept in the long research history of perceptual grouping
 by the Gestalt psychologists.
 Back at the beginning of the last century they
 described, among other things, the ability of the human
 visual system to organize parts of the retinal stimulus
-into ``Gestalten'', that is, into organized structures.
+into `Gestalten', that is, into organized structures.
 A number of so-called Gestalt laws 
 (proximity, common fate, good continuation, closure, \etc) were
 formulated that are believed to govern our perception.
@@ -1049,13 +1050,13 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 %\end{figure}
 
 
-\section{Results}
+\section{Discussion}
 \label{sec:ass_res}
 We tested the modified procedure on the database of natural images and also
 on random images (results not shown), to verify that the results were not an
 artifact due to the method.
 
-In Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} there are the
+In Figure \ref{fig:field1_e1_new} there are the
 main orientations and their strengths (eigenvalues) of the mean estimated
 tensors for the orientation of $0$ and $67.5$ degrees of the central pixel.
 The structure of the obtained association field closely resembles the fields
@@ -1101,11 +1102,15 @@ shown in Figure \ref{fig:im_oe_pg}.
 \begin{figure}[]
 	\begin{center}
 		\begin{tabular}{cc}
-			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_e1_4}} &
-			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_e1_1}} \\
+			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_e1_1}} &
+			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_e1_4}} \\
+			$(a)$ & $(b)$
+			%\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_l1l2_1}} &
+			%\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_l1l2_4}} \\
+			%$(c)$ & $(d)$
 		\end{tabular}	
 	\end{center}
-  \caption{Main directions for the association field for orientation of 0 $(a)$ and 67.5 degrees $(b)$, with the modified approach.}
+  \caption{Main directions for the association field for orientation of $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$, with the modified approach.}
 	\label{fig:field1_e1_new}
 \end{figure}
 
@@ -1133,14 +1138,14 @@ shown in Figure \ref{fig:im_oe_pg}.
 \begin{figure}[]
 	\begin{center}
 		\begin{tabular}{cc}
-			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/confronto}} &
-			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/pr_gray_011_012}} \\
+			\fbox{\includegraphics[height=0.4\linewidth]{./figs/af/confronto}} &
+			\fbox{\includegraphics[height=0.4\linewidth]{./figs/af/pr_gray_011_012}} \\
 			$(a)$ & $(b)$
 		\end{tabular}
 	\end{center}
   \caption{$(a)$ Comparison of the decay for the various orientations.
    On the y axis there are the first eigenvalues normalized to a
-   maximum of 1, on the x axis is the distance from the reference
+   maximum of $1$, on the x axis is the distance from the reference
    point along the main field direction.
    $(b)$ Comparison between tensor voting with learned fields (PG label) and the complex cell layer alone (OE label).}
 	\label{fig:conf}
