@@ -34,7 +34,7 @@
 
 \mainmatter
 
-\title{Non lo so ancora\thanks{This work was supported by EU project RobotCub (IST-
+\title{Proto-Object Based Visual Attention Model\thanks{This work was supported by EU project RobotCub (IST-
 2004-004370) and CONTACT (NEST-5010).}}
 
 \author{Francesco Orabona\inst{1} \and Giorgio Metta\inst{1,2} \and Giulio Sandini\inst{2}}
@@ -63,7 +63,6 @@ better proto-objects.
 \end{abstract}
 
 \section{Visual Attention\label{attention}}
-
 Spatial attention is often considered as a sort of `filter'
 of the incoming information, as a `spotlight',
 an internal eye or a sort of `zoom lens'. In particular attention is
@@ -209,7 +208,6 @@ we draw some conclusions.
 
 \section{Computational models of visual attention}
 \label{sec:att_comp_models}
-
 A dominant tradition in space-based theories of visual attention was initiated
 with a seminal paper by Treisman and Gelade \cite{TreismanG80}. They argued
 that some primary visual properties allow a search in parallel across large
@@ -244,8 +242,7 @@ be not available in the preattentive stage, that is before
 the objects in the image are recognized.
 
 
-\subsection{A proto-object based model of visual attention}
-
+\subsection{Proto-objects and visual attention}
 It is known that the human visual
 system extracts basic information from the retinal
 image in terms of lines, edges, local orientation etc.
@@ -341,12 +338,12 @@ described as a logarithmic-polar (log-polar) mapping \cite{SandiniT80}.
 Figure \ref{fig:logpolar_ex} shows an example image and its
 log-polar counterpart.
 
-One advantage of log-polar sensors is related to the small
+One advantage of log-polar images is related to the small
 number of pixels and the comparatively large field of view.
 In fact the lower resolution of the periphery reduces the
 images' size and thus the computational load of any
-processing, while the high resolution center can still be
-used for standard algorithms.
+processing, while standard algorithms can still be used on the high resolution
+center.
 
 %From the mathematical point of view the log-polar
 %mapping can be expressed as a transformation between
@@ -514,9 +511,9 @@ as in \cite{ViolaJ04}.
 The bottom-up saliency is thus computed as:
 \begin{eqnarray}
 	S_{bottom-up}=\sqrt{\Delta RG^2 + \Delta GR^2+ \Delta BY^2} \\
-	\Delta RG={\langle R^+G^- \rangle}_{blob} - {\langle R^+G^- \rangle}_{surround} \\
-	\Delta GR={\langle G^+R^- \rangle}_{blob} - {\langle G^+R^- \rangle}_{surround} \\
-	\Delta BY={\langle B^+Y^- \rangle}_{blob} - {\langle B^+Y^- \rangle}_{surround}
+	\Delta RG={\langle R^+G^- \rangle}_{blob} - {\langle R^+G^- \rangle}_{surround} \nonumber \\
+	\Delta GR={\langle G^+R^- \rangle}_{blob} - {\langle G^+R^- \rangle}_{surround} \nonumber\\
+	\Delta BY={\langle B^+Y^- \rangle}_{blob} - {\langle B^+Y^- \rangle}_{surround} \nonumber
 	\label{eq:s_bu}
 \end{eqnarray}
 \noindent where $\langle \rangle$ indicates the average of the image values
@@ -720,12 +717,10 @@ saccade the log-polar image changes considerably.
 
 \section{A better definition of proto-objects}
 \label{sec:ass_fields}
-
 %As said in the introduction, it is important to stress the fact
 %that visual attention is not just a stand-alone module existing
 %in our brains, but a part of a complex interconnected system
 %that allows us complex action in our environment.
-
 As said above, object-based theories of attention stress the importance
 of a sort of segmentation of the visual input in coherent regions.
 On the other hand the term `grouping' (or `segmentation')
@@ -766,13 +761,11 @@ to build the proto-objects \cite{PalmerR94}.
 %different preferred orientation, in particular to
 %link together and enhance contours, and in the end to create our
 %perception of proto-objects.
-
 % We used static
 %natural images as training set and the tensor notation
 %to express the learned fields. Finally we tested these
 %association fields in a computer model to measure their
 %performance.
-
 %This chapter is organized as follows: section \ref{sec:ass_gestalt}
 %introduces the idea of the link between the Gestalt laws and the
 %statistics of the world. Section \ref{sec:ass_learning}
@@ -784,8 +777,6 @@ to build the proto-objects \cite{PalmerR94}.
 %\ref{sec:ass_using} and \ref{sec:ass_disc} we show the performance
 %of the fields in edge detection on a database of natural images and
 %we draw some conclusions.
-
-
 %\section{Gestalt laws, statistics and neurons}
 %\label{sec:ass_gestalt}
 %The goal of perceptual grouping in computer vision is
@@ -802,16 +793,13 @@ to build the proto-objects \cite{PalmerR94}.
 %(proximity, common fate, good continuation, closure, \etc)
 %that are believed to govern our perception. It is logical
 %to ask if these laws are present in the statistics of the world.
-
 %On the other hand it has been long hypothesized that the early visual system is adapted to the input statistics \cite{Barlow61}. Such an adaptation is thought to be the result of the joint work of evolution and learning during development. Neurons, acting as coincidence detectors, can discover and use regularities in the incoming flow of sensory information, which eventually represent the Gestalt laws. It has been proposed that, for example, the mechanism that link together the elements of a contour is rooted in our biology, with neurons with lateral and feedback connections implementing these laws.
-
 %There is a large body of literature about computational modeling
 %of various parts of the visual cortex, starting from the assumption that
 %certain principles guide the neural code (\cite{SimoncelliO01} for a review).
 %In spite of this, there is very little literature on learning an entire
 %hierarchy of features, that is not only the first layer, and possibly
 %starting from these initial receptive fields.
-
 A first step in the implementation of the Gestalt laws are the `association fields'
 \cite{FieldHH93}. These fields are supposed to resemble the pattern of
 excitatory and inhibitory lateral connection between different orientation
@@ -1023,7 +1011,7 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 			\fbox{\includegraphics[width=0.4\linewidth]{./figs/af/or_ns_e1_4}} \\
 			$(a)$ & $(b)$
 		\end{tabular}
-    \caption{Main directions for the association field for the orientation of 0 $(a)$ and 67.5 $(b)$ degrees in the central pixel.}
+    \caption{Main directions for the association fields for the orientations of $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$ in the central pixel.}
 	  \label{fig:field1}
 	\end{center}
 \end{figure}
@@ -1046,13 +1034,13 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 %artifact due to the method.
 In Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} there are the
 main orientations and their strengths (eigenvalues) of the mean estimated
-tensors for the orientation of $0$ and $67.5$ degrees of the central pixel,
+tensors for the orientations of $0$ and $67.5$ degrees of the central pixel,
 obtained with the modified procedure.
-The structure of the obtained association field closely resembles the fields
+The structure of the obtained association fields closely resembles the fields
 proposed by others based on collinearity and co-circularity.
 It is clear that the size of the long-range connection far exceeds the size of the
 classical receptive field. Note that the noisier regions in the
-orientation map corresponds to very small eigenvalues so they do not influence very
+orientations maps corresponds to very small eigenvalues so they do not influence very
 much the final result.
 
 While all the fields have the same trend, there is a clear difference in the
@@ -1168,7 +1156,6 @@ shown in Figure \ref{fig:im_oe_pg}.
 
 \section{Conclusion}
 \label{sec:conclusion}
-
 We have presented the general implementation of a visual
 attention system employing both top-down and
 bottom-up information. It runs in real time on a
