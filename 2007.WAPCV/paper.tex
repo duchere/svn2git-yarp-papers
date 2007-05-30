@@ -87,7 +87,7 @@ changes in the world seem to be easily detectable, it
 is cheaper to store in memory a rough representation of
 the external world, directly accessing to it when a
 detailed information is needed and to keep track of the changes.
-Moreover, it has no sense to talk about perception without
+Moreover, it has no much sense to talk about perception without
 talking about action, so it is logical to
 think that our perception is biased versus a representation
 that is useful to act on physical objects.
@@ -224,25 +224,22 @@ to require a serial deployment of attention over each item in turn.
 They suggested the division of the attention in two stages: a first `preattentive' one that is traditionally thought to be
 automatic, parallel, and to extract relatively simple stimulus properties, and second stage
 `attentive' serial, slow, with limited processing capacity, able to extract more complex features.
-Treisman and Gelade proposed a model called Feature Integration Theory (FIT) \cite{TreismanG80},
-to justify their findings. The preattentive stage is
-modeled by a set of low-level feature maps extracted
-in parallel on the entire input image, that are than combined
+They proposed a model called Feature Integration Theory (FIT) \cite{TreismanG80},
+in which a set of low-level feature maps extracted
+in parallel on the entire input image (preattentive stage), then combined
 together by a spatial attention window operating on a
-master saliency map.
+master saliency map (attentive stage).
 
 In the literature a number of attention models that
-follow this hypothesis have been proposed \cite{MilaneseGP95,IttiKN98}
+follow this hypothesis have been proposed, \ie \cite{MilaneseGP95,IttiKN98}
 (for a complete review on this topic see \cite{IttiK01}).
-The model proposed by Itti \etal \cite{IttiKN98} is currently considered
-the state of the art.
 An important alternative model is
 given by Sun and Fisher \cite{SunF03}, which propose an
-combination of object-and feature-based theories. Presented
+combination of object- and feature-based theories. Presented
 with a manually segmented input image, their model is able to
 replicate human viewing behavior for artificial and natural
-scenes. The limit of the model is the human segmentation of the images:
-it supposes the use of information that could
+scenes. The limit of the model is the use of human segmentation of the images:
+in this way it supposes the use of information that could
 be not available in the preattentive stage, that is before
 the objects in the image are recognized.
 
@@ -292,7 +289,6 @@ beyond proto-objects, discovering the physical objects \cite{MettaF03,Orabona07}
 %will show how the top-down influence can be used to
 %direct the attention of the robot to spot a specific object
 %among other similar items lying on a table.
-
 The proposed object-based model of visual
 attention integrates bottom-up and top-down cues;
 in particular, top-down information works as a priming
@@ -336,21 +332,21 @@ periphery.
 This distribution influences the
 scanpaths during a visual search task \cite{WolfeG96} and so it has to
 be taken into account to better model overt visual
-attention. The log-polar mapping are in fact a model of the topological
+attention. The log-polar mapping is in fact a model of the topological
 transformation of the primate visual pathways from the
-cartesian image coming from the retina to the visual cortex, taking also into
-consideration the space-variant resolution of the retinal images.
+cartesian image coming from the retina to the visual cortex, that takes also into
+account the space-variant resolution of the retinal images.
 This transformation that can be well
 described as a logarithmic-polar (log-polar) mapping \cite{SandiniT80}.
-Figure \ref{fig:logpolar_ex} shows an example Cartesian image and its
+Figure \ref{fig:logpolar_ex} shows an example image and its
 log-polar counterpart.
 
-The main advantage of log-polar sensors is related to the small
+One advantage of log-polar sensors is related to the small
 number of pixels and the comparatively large field of view.
 In fact the lower resolution of the periphery reduces the
-images' size and thus reduces the computational load of the
-visual processing, while the high resolution center can be
-used for standard visual algorithms.
+images' size and thus the computational load of any
+processing, while the high resolution center can still be
+used for standard algorithms.
 
 %From the mathematical point of view the log-polar
 %mapping can be expressed as a transformation between
@@ -382,7 +378,7 @@ used for standard visual algorithms.
 
 \begin{figure}[]
 	\begin{center}
-		\includegraphics[width=0.8\linewidth]{./figs/attention/logpolarmapping2}
+		\includegraphics[width=0.77\linewidth]{./figs/attention/logpolarmapping2}
     \caption{Log-polar transform of an image.
     It is worth noting that the flower's petals, that have a polar structure,
     are mapped vertically in the log-polar image. Circles, on the other
@@ -646,11 +642,11 @@ and two microphones for visual and auditory feedback.
 More details about the Babybot can be found in \cite{Natale04}.
 
 Two examples of the saliency map are shown in
-Figure \ref{fig:out_ex}: in \ref{fig:out_ex} $(d)$ there is a purely bottom-up ($k_{td}=0$,
+Figure \ref{fig:out_ex}: in $(d)$ there is a purely bottom-up ($k_{td}=0$,
 $k_{bu}=1$ in Equation (7)) map which is the result of the
-processing of the scene in \ref{fig:out_ex} $(a)$; in \ref{fig:out_ex} $(e)$ and $(f)$ there are purely
+processing of the scene in $(a)$; in $(e)$ and $(f)$ there are purely
 top-down ($k_{td}=1$, $k_{bu}=0$) maps outputs after the
-processing of \ref{fig:out_ex} $(b)$ and $(c)$.
+processing of $(b)$ and $(c)$.
 %After a saccade on the
 %object and a successfully recognition the figure-ground
 %segmentation is shown in Figure \ref{fig:out_ex}.6.
@@ -679,7 +675,7 @@ processing of \ref{fig:out_ex} $(b)$ and $(c)$.
 %\end{table*}
 
 In order to compare the performance of the system
-with the state of the art model of Itti, we
+with the state of the art model of Itti \cite{IttiKN98}, we
 have done a comparison test of the bottom-up attention
 using the database of images by Itti and Koch \cite{IttiK01b} (color
 images with an emergency triangle and relative binary
@@ -687,30 +683,18 @@ segmentation masks of the triangle), which is freely
 available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 30/05/2007.}.
 First, the original images and segmentation masks are
 cropped to a square and transformed to the log-polar
-format (see Figure \ref{fig:itti_ex}.1 and Figure \ref{fig:itti_ex}.2
+format (see $(a)$ and $(b)$ in Figure \ref{fig:itti_ex}
 for the cartesian remapped images). To simulate the
 presence of a static camera, the images are presented to
 the system continuously and, after five `virtual'
 frames, the bottom-up saliency map is confronted with
 the mask. In $49\%$ of the images a point inside the
 emergency triangle is selected as the most salient
-(see an example in Figure \ref{fig:itti_ex}.3). It is worth noting that a
+(see an example in Figure \ref{fig:itti_ex} $(c)$). It is worth noting that a
 direct comparison with the results of Itti and Koch in \cite{IttiK01b}, by
 counting the number of false detection before the
 target object is found, is not possible since after each
-saccade the log-polar image changes a lot.
-
-Often models of visual attention are usually used as
-sort of filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
-In such systems the attention model and the object recognition one
-live in two different `worlds': they work on two
-different representations of the input images and few or none
-of the computation done by the first stage is used by the
-second one. A proof of concept on how to build an object
-recognition system on the same basis of the visual attention,
-that is on the concept of proto-objects was presented in
-\cite{Orabona07}. The visual attention system and the object recognition
-system were also used to guide the grasping action of the robot.
+saccade the log-polar image changes considerably.
 
 
 \begin{figure}[!h]
@@ -725,10 +709,10 @@ system were also used to guide the grasping action of the robot.
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[width=0.9\linewidth]{./figs/attention/itti}
+    \includegraphics[width=0.9\linewidth]{./figs/attention/itti_numbers}
     \caption{Result on a sample image taken from \cite{IttiK01b}.
-     (1) is the log-polar input image and (2) the corresponding taget binary mask.
-     (3) is the bottom-up saliency map.}
+     $(a)$ is the log-polar input image and $(b)$ the corresponding taget binary mask.
+     $(c)$ is the bottom-up saliency map.}
     \label{fig:itti_ex}
   \end{center}
 \end{figure}
@@ -764,7 +748,7 @@ In particular these properties work because they reflect characteristics of
 the real world. 
 In this sense it should be possible to learn these heuristic
 properties and hence to learn from the images better rules
-to build the proto-objects.
+to build the proto-objects \cite{PalmerR94}.
 
 
 \subsection{Learning the association fields}
@@ -821,14 +805,14 @@ to build the proto-objects.
 
 %On the other hand it has been long hypothesized that the early visual system is adapted to the input statistics \cite{Barlow61}. Such an adaptation is thought to be the result of the joint work of evolution and learning during development. Neurons, acting as coincidence detectors, can discover and use regularities in the incoming flow of sensory information, which eventually represent the Gestalt laws. It has been proposed that, for example, the mechanism that link together the elements of a contour is rooted in our biology, with neurons with lateral and feedback connections implementing these laws.
 
-There is a large body of literature about computational modeling
-of various parts of the visual cortex, starting from the assumption that
-certain principles guide the neural code (\cite{SimoncelliO01} for a review).
-In spite of this, there is very little literature on learning an entire
-hierarchy of features, that is not only the first layer, and possibly
-starting from these initial receptive fields.
+%There is a large body of literature about computational modeling
+%of various parts of the visual cortex, starting from the assumption that
+%certain principles guide the neural code (\cite{SimoncelliO01} for a review).
+%In spite of this, there is very little literature on learning an entire
+%hierarchy of features, that is not only the first layer, and possibly
+%starting from these initial receptive fields.
 
-A first step in the implementation of these laws are the `association fields'
+A first step in the implementation of the Gestalt laws are the `association fields'
 \cite{FieldHH93}. These fields are supposed to resemble the pattern of
 excitatory and inhibitory lateral connection between different orientation
 detector neurons as found, for instance, by Schmidt \etal \cite{SchmidtGLS97}.
@@ -843,7 +827,11 @@ contour integration. Models typically consider variations of the co-circular
 approach \cite{Grossberg85,Guy96,Li98}, which states that two oriented elements are
 very likely part of the same curve if they are tangent to the same circle.
 Our approach is instead to try to to learn these
-association fields directly from natural images, without any prior assumption.
+association fields directly from natural images. 
+Starting from the output of a simulated layer of complex cells,
+without any prior assumption, we want to estimate the mean
+activity around points with a given orientation.
+
 
 %One of the first publication addressing second order relations
 %of edge-like structures in images is from Kr{\"u}ger \cite{Kruger98}.
@@ -867,23 +855,16 @@ association fields directly from natural images, without any prior assumption.
 %\section{Learning from natural images}
 %\label{sec:ass_learning}
 
-We assume the existence of a first layer that
-simulates the behavior of the complex cells; in this
-article we do not address the issue on how to learn
-them since we are interested in the next level of the hierarchy.
-Using the output of this layer we want to estimate the mean
-activity around points with a given orientation.
+%We assume the existence of a first layer that
+%simulates the behavior of the complex cells; in this
+%article we do not address the issue on how to learn
+%them since we are interested in the next level of the hierarchy.
+%Using the output of this layer we want to estimate the mean
+%activity around points with a given orientation.
 
 To have a precise representation of the orientations and at the same time
 something mathematically convenient, we have chosen to use the tensor notation.
-Second order symmetric tensors can capture the information about the first
-order differential geometry of an image. Each tensor describes both the
-orientation of an edge and its confidence for each point. The tensor can be
-visualized as an ellipse, whose major axis represents the estimated tangential
-direction and the difference between the major and minor axis the confidence
-of this estimate. Hence a point on a line will be associated with a thin
-ellipse while a corner with a circle.
-Consequently given the orientation of a reference pixel, we estimate the mean
+Given the orientation of a reference pixel, we estimate the mean
 tensors associated with the surrounding pixels. The use of the tensor notation
 give us the possibility to exactly estimate the preferred orientation in each
 point of the field and also to quantify its strength and confidence.
@@ -960,7 +941,7 @@ representation.
 
 
 
-\subsection{Tensors}
+%\subsection{Tensors}
 
 %\begin{equation} \label{eqn:tensdef}
 %{\mathcal T}=\left[
@@ -970,7 +951,14 @@ representation.
 %\right]
 %\end{equation}
 
-In practice a second order tensor is denoted by a $2$x$2$ symmetric matrix.
+Second order symmetric tensors can capture the information about the first
+order differential geometry of an image. Each tensor describes both the
+orientation of an edge and its confidence for each point.
+In practice a second order tensor is denoted by a $2$x$2$ symmetric matrix
+and can be visualized as an ellipse, whose major axis represents the estimated tangential
+direction and the difference between the major and minor axis the confidence
+of this estimate. Hence a point on a line will be associated with a thin
+ellipse while a corner with a circle.
 It is constructed by direct summation of three quadrature filter pair output magnitudes as in \cite{Knutsson89}:
 \begin{equation} \label{eqn:sumquad}
 T=\sum^3_{k=1}E_{\theta_k}\left(\frac{4}{3}\hat{n}_k^T \hat{n}_k-\frac{1}{3}I\right)
@@ -1058,7 +1046,8 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 %artifact due to the method.
 In Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} there are the
 main orientations and their strengths (eigenvalues) of the mean estimated
-tensors for the orientation of $0$ and $67.5$ degrees of the central pixel.
+tensors for the orientation of $0$ and $67.5$ degrees of the central pixel,
+obtained with the modified procedure.
 The structure of the obtained association field closely resembles the fields
 proposed by others based on collinearity and co-circularity.
 It is clear that the size of the long-range connection far exceeds the size of the
@@ -1197,16 +1186,26 @@ information about objects through active exploration
 and uses it in the attention system as a top-down
 primer to control the visual search of that object. The
 model directs the attention on the proto-object's or
-segmented object's center of mass (see Section \ref{sec:att_protoobj} and
+center of mass (see Section \ref{sec:att_protoobj} and
 Section \ref{sec:att_results}), similarly to the behavior observed in
 humans. In fact it has been observed that the first
 fixation to a simple shape that appears in the periphery
 tends to land on its center of gravity \cite{MelcherK99}.
 When the camera moves, a new blob will appear in
-the image center. This active behavior simplifies the
-segmentation and the recognition task since there will
-always be a blob in the center that will be segmented
-from the background.
+the image center.
+
+Often models of visual attention are usually used as
+sort of filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
+In such systems the attention model and the object recognition one
+live in two different `worlds': they work on two
+different representations of the input images and few or none
+of the computation done by the first stage is used by the
+second one. A proof of concept on how to build an object
+recognition system on the same basis of the visual attention,
+that is on the concept of proto-objects was presented in
+\cite{Orabona07}. The visual attention system and the object recognition
+system were also used to guide the grasping action of the robot.
+
 A similar approach has been taken by Sun and
 Fisher \cite{SunF03} but the main difference with this work is that
 they have assumed that a hierarchical set of perceptual
@@ -1228,7 +1227,8 @@ watershed transform to additional dimensions in feature
 space (e.g. local orientation) thus providing new ways
 of both segmenting and recognizing objects.
 As future work we want to integrate the associative fields
-learnt from natural images to obtain better proto-objects.
+learnt from natural images with the proposed visual attention
+model.
 
 
 
