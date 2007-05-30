@@ -316,12 +316,12 @@ We will describe in details in the following each block.
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=0.6\linewidth]{./figs/attention/schema}
+    \caption{Block diagram of the model. The input image is first separated in
+     the three color opponency maps, then edges are extracted. A watershed transform
+     creates the proto-objects on which the saliency is calculated,
+     taking into account top-down biases.}
+     \label{fig:model_diagram}
   \end{center}
-  \caption{Block diagram of the model. The input image is first separated in
-   the three color opponency maps, then edges are extracted. A watershed transform
-   creates the proto-objects on which the saliency is calculated,
-   taking into account top-down biases.}
-  \label{fig:model_diagram}
 \end{figure}
 
 \subsection{Log-polar images}
@@ -383,14 +383,14 @@ used for standard visual algorithms.
 \begin{figure}[]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{./figs/attention/logpolarmapping2}
+    \caption{Log-polar transform of an image.
+    It is worth noting that the flower's petals, that have a polar structure,
+    are mapped vertically in the log-polar image. Circles, on the other
+    hand, are mapped horizontally. Furthermore, the stamens that lie in the
+    center of the image of the flower, occupy about half of the
+    corresponding log-polar image.}
+  	\label{fig:logpolar_ex}
 	\end{center}
-  \caption{Log-polar transform of an image.
-  It is worth noting that the flower's petals, that have a polar structure,
-  are mapped vertically in the log-polar image. Circles, on the other
-  hand, are mapped horizontally. Furthermore, the stamens that lie in the
-  center of the image of the flower, occupy about half of the
-  corresponding log-polar image.}
-	\label{fig:logpolar_ex}
 \end{figure}
 
 \subsection{Feature extraction}
@@ -568,12 +568,12 @@ saccade.
        \includegraphics[width=0.37\textwidth]{figs/attention/dog1} &
        \includegraphics[width=0.37\textwidth]{figs/attention/dog2}
     \end{tabular}
+    \caption{\label{fig:multiscale}Filtering the image on the left
+     with a Difference-of-Gaussians, with the size of positive lobe
+     equal to the circle in the middle, we obtain the
+     image on the right. Smaller blobs will be depressed while larger
+     ones will be depressed in their centers.}
   \end{center}
-  \caption{\label{fig:multiscale}Filtering the image on the left
-    with a Difference-of-Gaussians, with the size of positive lobe
-    equal to the circle in the middle, we obtain the
-    image on the right. Smaller blobs will be depressed while larger
-    ones will be depressed in their centers.}
 \end{figure}
 
 %\begin{figure}[t]
@@ -715,24 +715,24 @@ system were also used to guide the grasping action of the robot.
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=0.9\linewidth]{./figs/attention/a3}
+    \caption{Example saliency maps. In (4) there is the 
+     bottom-up saliency map of the image (1). In (5) the top-down
+	   saliency map of (2), while searching for the blue
+	   toy airplane. Image (6) is the figure-ground
+	   segmentation of the image in (3).}
+    \label{fig:out_ex}
   \end{center}
-  \caption{Example saliency maps. In (4) there is the 
-   bottom-up saliency map of the image (1). In (5) the top-down
-	 saliency map of (2), while searching for the blue
-	 toy airplane. Image (6) is the figure-ground
-	 segmentation of the image in (3).}
-  \label{fig:out_ex}
 \end{figure}
 
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=0.9\linewidth]{./figs/attention/itti}
+    \caption{Result on a static example image taken from \cite{IttiK01b}.
+     Image (1) is the log-polar input image; image (2) is the binary mask used for to verify
+     the correct localization of the target object and (3) is the saliency map generated
+     by the system.}
+    \label{fig:itti_ex}
   \end{center}
-  \caption{Result on a static example image taken from \cite{IttiK01b}.
-   Image (1) is the log-polar input image; image (2) is the binary mask used for to verify
-   the correct localization of the target object and (3) is the saliency map generated
-   by the system.}
-  \label{fig:itti_ex}
 \end{figure}
 
 
@@ -929,11 +929,11 @@ example image from the dataset is shown in Figure \ref{fig:exampleimg} $(a)$.
 			\includegraphics[width=0.45\linewidth]{./figs/af/esempio_fil} \\
 			$(a)$ & $(b)$
 		\end{tabular}
+    \caption{$(a)$ Sample input image from the Berkeley Segmentation Database.
+     All the images were converted to grayscale before using the proposed method.
+     $(b)$ Complex cells output to the image in $(a)$ for $0^\circ$ filter of formula (\ref{eqn:nrgmod}).}
+    \label{fig:exampleimg}
 	\end{center}
-  \caption{$(a)$ Sample input image from the Berkeley Segmentation Database.
-    All the images were converted to grayscale before using the proposed method.
-    $(b)$ Complex cells output to the image in $(a)$ for $0^\circ$ filter of formula (\ref{eqn:nrgmod}).}
-	\label{fig:exampleimg}
 \end{figure}
 
 
@@ -1034,9 +1034,9 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 			\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_ns_e1_4}} \\
 			$(a)$ & $(b)$
 		\end{tabular}
+    \caption{Main directions for the association field for the orientation of 0 $(a)$ and 67.5 $(b)$ degrees in the central pixel.}
+	  \label{fig:field1}
 	\end{center}
-  \caption{Main directions for the association field for the orientation of 0 $(a)$ and 67.5 $(b)$ degrees in the central pixel.}
-	\label{fig:field1}
 \end{figure}
 
 %\begin{figure}[]
@@ -1109,9 +1109,9 @@ shown in Figure \ref{fig:im_oe_pg}.
 			%\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_l1l2_4}} \\
 			%$(c)$ & $(d)$
 		\end{tabular}	
+    \caption{Main directions for the association field for orientation of $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$, with the modified approach.}
+	  \label{fig:field1_e1_new}
 	\end{center}
-  \caption{Main directions for the association field for orientation of $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$, with the modified approach.}
-	\label{fig:field1_e1_new}
 \end{figure}
 
 \begin{figure}[]
@@ -1142,13 +1142,13 @@ shown in Figure \ref{fig:im_oe_pg}.
 			\fbox{\includegraphics[height=0.4\linewidth]{./figs/af/pr_gray_011_012}} \\
 			$(a)$ & $(b)$
 		\end{tabular}
+	  \caption{$(a)$ Comparison of the decay for the various orientations.
+  	 On the y axis there are the first eigenvalues normalized to a
+   	 maximum of $1$, on the x axis is the distance from the reference
+     point along the main field direction.
+     $(b)$ Comparison between tensor voting with learned fields (PG label) and the complex cell layer alone (OE label).}
+	   \label{fig:conf}
 	\end{center}
-  \caption{$(a)$ Comparison of the decay for the various orientations.
-   On the y axis there are the first eigenvalues normalized to a
-   maximum of $1$, on the x axis is the distance from the reference
-   point along the main field direction.
-   $(b)$ Comparison between tensor voting with learned fields (PG label) and the complex cell layer alone (OE label).}
-	\label{fig:conf}
 \end{figure}
 
 %\begin{figure}[]
@@ -1166,13 +1166,13 @@ shown in Figure \ref{fig:im_oe_pg}.
 			\includegraphics[width=0.45\linewidth]{./figs/af/im_pg} \\
 			$(a)$ & $(b)$
 		\end{tabular}
+    \caption{$(a)$ Test image contours using the complex cell layer alone.
+     $(b)$ Test image contours using tensor voting with the learned fields.
+     Notice the differences with the $(a)$: the contours are
+     linker together and the gaps are reduced. Especially on the contour of back of
+     the tiger the differences are evident.}
+	   \label{fig:im_oe_pg}
 	\end{center}
-  \caption{$(a)$ Test image contours using the complex cell layer alone.
-  $(b)$ Test image contours using tensor voting with the learned fields.
-   Notice the differences with the $(a)$: the contours are
-   linker together and the gaps are reduced. Especially on the contour of back of
-   the tiger the differences are evident.}
-	\label{fig:im_oe_pg}
 \end{figure}
 
 
