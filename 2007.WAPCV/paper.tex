@@ -54,10 +54,12 @@ object-based visual attention models have received an
 increasing interest in the literature, the problem, in
 this case, being that of creating a model of
 `objecthood' that eventually guides a saliency
-mechanism. We present here an object-based model of
-visual attention and show its instantiation on a
-humanoid robot. The robot employs action to learn
-and define its own concept of objecthood.
+mechanism. We present here an model of
+visual attention based of the proposed concept of
+`proto-objects' and show its instantiation on a
+humanoid robot. Moreover we propose a biological plausible
+way to learn the Gestalt rules, that are used to have
+better proto-objects.
 \end{abstract}
 
 \section{Visual Attention\label{attention}}
@@ -219,7 +221,6 @@ green circles (`feature conjunction').
 Treisman and Gelade proposed that in the pop-out tasks preattentional mechanisms
 permit a rapid target detection, in contrast to the conjunction task, which was held
 to require a serial deployment of attention over each item in turn.
-
 They suggested the division of the attention in two stages: a first `preattentive' one that is traditionally thought to be
 automatic, parallel, and to extract relatively simple stimulus properties, and second stage
 `attentive' serial, slow, with limited processing capacity, able to extract more complex features.
@@ -645,12 +646,11 @@ and two microphones for visual and auditory feedback.
 More details about the Babybot can be found in \cite{Natale04}.
 
 Two examples of the saliency map are shown in
-Figure \ref{fig:out_ex}: in \ref{fig:out_ex}.4 there is a purely bottom-up ($k_{td}=0$,
+Figure \ref{fig:out_ex}: in \ref{fig:out_ex} $(d)$ there is a purely bottom-up ($k_{td}=0$,
 $k_{bu}=1$ in Equation (7)) map which is the result of the
-processing of the scene in \ref{fig:out_ex}.1; in \ref{fig:out_ex}.5 there is a purely
-top-down ($k_{td}=1$, $k_{bu}=0$) map output after the
-processing of \ref{fig:out_ex}.2. In the latter the robot was instructed
-to search for the toy airplane.
+processing of the scene in \ref{fig:out_ex} $(a)$; in \ref{fig:out_ex} $(e)$ and $(f)$ there are purely
+top-down ($k_{td}=1$, $k_{bu}=0$) maps outputs after the
+processing of \ref{fig:out_ex} $(b)$ and $(c)$.
 %After a saccade on the
 %object and a successfully recognition the figure-ground
 %segmentation is shown in Figure \ref{fig:out_ex}.6.
@@ -715,11 +715,10 @@ system were also used to guide the grasping action of the robot.
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[width=0.9\linewidth]{./figs/attention/a3}
-    \caption{Example saliency maps. $(c)$ is the 
-     bottom-up saliency map of the image $(a)$. $(d)$ is the top-down
-	   saliency map of $(b)$, while searching for the blue
-	   toy airplane.}
+    \includegraphics[width=0.9\linewidth]{./figs/attention/a4}
+    \caption{Example saliency maps. $(d)$ is the 
+     bottom-up saliency map of the image $(a)$. $(e)$ and $(f)$ are the top-down
+	   saliency maps of $(b)$ and $(c)$, while searching for the blue airplane and the yellow toy car.}
     \label{fig:out_ex}
   \end{center}
 \end{figure}
