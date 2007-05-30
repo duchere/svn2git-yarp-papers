@@ -683,7 +683,7 @@ have done a comparison test of the bottom-up attention
 using the database of images by Itti and Koch \cite{IttiK01b} (color
 images with an emergency triangle and relative binary
 segmentation masks of the triangle), which is freely
-available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 19/02/2007.}.
+available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 30/05/2007.}.
 First, the original images and segmentation masks are
 cropped to a square and transformed to the log-polar
 format (see Figure \ref{fig:itti_ex}.1 and Figure \ref{fig:itti_ex}.2
@@ -914,7 +914,7 @@ discretization and thus we obtain a precise representation of the association fi
 
 Images used for the experiments were taken from the
 publicly available database (Berkeley Segmentation
-Database\footnote{\url{http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/segbench/}, last access 19/02/2007.}
+Database\footnote{\url{http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/segbench/}, last access 30/05/2007.}
 \cite{MartinFTM01}) which consists of $300$
 color images of $321$x$481$ and $481$x$321$ pixels;
 $200$ of them were converted to black and white and used
@@ -1025,7 +1025,7 @@ With this procedure we remove the influence of horizontal and vertical edges tha
 that are not removed by the process of averaging. On the other hand, we are losing some information, for example about parallel lines, that in any case should not be useful for the enhancement of contours.
 Note that this method is completely parameter free; we are not selecting the curves following some specific criterion, instead we are just pruning the training set from some kind of noise.
 It is important to note that this method will learn the bias present in natural images versus horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be biased to learn \emph{only} these statistics, as in Prod\"ohl \etal \cite{Prodohl01} when using static images.
-A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edges of a target object from the other of the environment.
+A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edges of a target object from the other of the environment, using self-caused motion.
 
 \begin{figure}[]
 	\begin{center}
@@ -1056,7 +1056,7 @@ We tested the modified procedure on the database of natural images and also
 on random images (results not shown), to verify that the results were not an
 artifact due to the method.
 
-In Figure \ref{fig:field1_e1_new} there are the
+In Figures \ref{fig:field1_e1_new} and \ref{{fig:field1_l1l2_new}} there are the
 main orientations and their strengths (eigenvalues) of the mean estimated
 tensors for the orientation of $0$ and $67.5$ degrees of the central pixel.
 The structure of the obtained association field closely resembles the fields
@@ -1085,7 +1085,7 @@ We compared the performances of the tensor voting algorithm using the learned
 fields versus the simple output of the complex cell layer, using the Berkeley
 Segmentation Database and the methodology proposed by Martin \etal
 \cite{MartinFM04,MartinFTM01}. We can see the results in Figure
-\ref{fig:conf} $(b)$: there is a clear improvement using the tensor voting and
+\ref{fig:conf} $(b)$: there is always an improvement using the tensor voting and
 the learned association fields instead of just using the simulated outputs of
 the complex cells alone. An example of the results on the test image in
 \ref{fig:exampleimg} $(a)$, after the non-maximum suppression procedure, are
@@ -1211,10 +1211,10 @@ they have assumed that a hierarchical set of perceptual
 groupings is provided to the attention system by some
 other means and considered only covert attention.
 
-In this sense we have tried to address to problem directly presenting a method to learn
-precise association field from natural images. A bio-inspired procedure
+In this sense we have tried to address this problem directly presenting a method to learn
+precise association fields from natural images. A bio-inspired procedure
 to get rid of the non-uniform distribution of orientations
-is used, without the need of a tagged database of images \cite{ElderG02},
+is used, without the need of a tagged database of images \cite{ElderG02} nor
 the use of motion \cite{Prodohl01}.
 The learned fields were used in a computer model, using the tensor voting method,
 and the results were compared using a database of human tagged images which helps
