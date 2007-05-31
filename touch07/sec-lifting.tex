@@ -88,16 +88,51 @@ to lift the object is done if slippage has been detected.
 done off-board. However, the hardware on the sensors have the
 capability of doing this calculation faster.]
 
-
 \begin{figure}[htbp]
 \centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/Slippage.eps}
-} \caption[Bottle slipping]{From 1 to 5 we observe the bottle
-slipping. The bottle moves downwards and towards the front. The
-motion towards the front is not linear but circular.}
-\label{fig:slipseq}
+\includegraphics[height=\columnwidth, angle=270
+]{./figures/Slippage.eps}} \caption[Tactile forces when lifting an
+object]{Tactile forces in two different lifting events. For
+details see section~\ref{sec:slippage} } \label{fig:slip}
 \end{figure}
 
+
+
+%\begin{figure*}[htbp]
+%\centering
+%\subfigure[Slip]{
+%\includegraphics[height=1in, angle=270 ]{./figures/ObSlippage.eps}
+%%\includegraphics{./figures/ObSlippage.eps}
+%\label{fig:slipseq}}
+%
+%%\hspace*{0.1in}
+%\qquad
+%
+%\subfigure[Placing]{
+%\includegraphics[height=1in, angle=270 ]{./figures/ObPlacing.eps}
+%%\includegraphics{./figures/ObPlacing.eps}
+%\label{fig:twotaps}}
+%%
+%\caption[Pushing the bottle upwards twice]{Pushing the bottle
+%upwards twice. Top: Temporal difference of the total force in
+%direction on the gravity when the hand is holding an object. See
+%figure~\ref{fig:tactileref} for reference. Bottom: Integration of
+%the data on the top plot. It shows the changes on force when the
+%object was pushed.}
+%\end{figure*}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[height=\textwidth, angle=270 ]{./figures/ObTest00.eps}
+\label{fig:slipseq}
+%
+\caption[Pushing the bottle upwards twice]{Pushing the bottle
+upwards twice. Top: Temporal difference of the total force in
+direction on the gravity when the hand is holding an object. See
+figure~\ref{fig:tactileref} for reference. Bottom: Integration of
+the data on the top plot. It shows the changes on force when the
+object was pushed.}
+\end{figure*}
 
 It is important to remember that the data comes from a controlled
 experiment where the lifting is done only with the thumb and the
@@ -108,13 +143,22 @@ in contact with the fingers on spots where the fingers are not
 fully covered with the skin. In that case the slippage detection
 is not possible.
 
-\begin{figure*}[htbp]
-\centerline{
-\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
-} \caption[Tactile forces when lifting an object]{Tactile forces
-in two different lifting events. For details see
-section~\ref{sec:slippage} } \label{fig:slip}
-\end{figure*}
+%\begin{figure*}[htbp]
+%\centerline{
+%\includegraphics[height=\textwidth, angle=270 ]{./figures/ThesisSlipX.eps}
+%} \caption[Tactile forces when lifting an object]{Tactile forces
+%in two different lifting events. For details see
+%section~\ref{sec:slippage} } \label{fig:slip}
+%\end{figure*}
+
+
+%\begin{figure}[htbp]
+%\centerline{
+%\includegraphics[height=\columnwidth, angle=270 ]{./figures/ObSlippage.eps}
+%} \caption[Tactile forces when lifting an object]{Tactile forces
+%in two different lifting events. For details see
+%section~\ref{sec:slippage} } \label{fig:slip}
+%\end{figure}
 
 
 
@@ -174,26 +218,25 @@ In order to detect the event of pushing or contacting the table
 setting a threshold is enough, as it is illustrated on the top
 plot of figure~\ref{fig:twotaps}.
 
-\begin{figure}[htbp]
-\centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/SeqHandDelivery.eps}
-} \caption[Detection of forces applied to an object held by the
-robot]{This sequence shows the robot detecting forces applied over
-an object when holding it. This is useful to place objects over
-surfaces. In (a) the robot is holding a bottle, in (b) a person is
-touching the bottle from below and the robot detects this force.
-As a consequence, the robot releases the object as shown in (c)}
-\label{fig:landing}
-\end{figure}
-
-\begin{figure}[htbp]
-\centerline{
-\includegraphics[height=\columnwidth, angle=270 ]{./figures/2TapsX.eps}
-} \caption[Pushing the bottle upwards twice]{Pushing the bottle
-upwards twice. Top: Temporal difference of the total force in
-direction on the gravity when the hand is holding an object. See
-figure~\ref{fig:tactileref} for reference. Bottom: Integration of
-the data on the top plot. It shows the changes on force when the
-object was pushed.} \label{fig:twotaps}
-\end{figure}
-
+%\begin{figure}[htbp]
+%\centerline{
+%\includegraphics[height=\columnwidth, angle=270 ]{./figures/SeqHandDelivery.eps}
+%} \caption[Detection of forces applied to an object held by the
+%robot]{This sequence shows the robot detecting forces applied over
+%an object when holding it. This is useful to place objects over
+%surfaces. In (a) the robot is holding a bottle, in (b) a person is
+%touching the bottle from below and the robot detects this force.
+%As a consequence, the robot releases the object as shown in (c)}
+%\label{fig:landing}
+%\end{figure}
+%
+%\begin{figure}[htbp]
+%\centerline{
+%\includegraphics[height=\columnwidth, angle=270 ]{./figures/2TapsX.eps}
+%} \caption[Pushing the bottle upwards twice]{Pushing the bottle
+%upwards twice. Top: Temporal difference of the total force in
+%direction on the gravity when the hand is holding an object. See
+%figure~\ref{fig:tactileref} for reference. Bottom: Integration of
+%the data on the top plot. It shows the changes on force when the
+%object was pushed.} \label{fig:twotaps}
+%\end{figure}
