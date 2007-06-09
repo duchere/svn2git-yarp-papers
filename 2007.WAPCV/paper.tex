@@ -34,13 +34,13 @@
 
 \mainmatter
 
-\title{Proto-Object Based Visual Attention Model\thanks{This work was supported by EU project RobotCub (IST-
+\title{A Proto-Object Based Visual Attention Model\thanks{This work was supported by EU project RobotCub (IST-
 2004-004370) and CONTACT (NEST-5010).}}
 
 \author{Francesco Orabona\inst{1} \and Giorgio Metta\inst{1,2} \and Giulio Sandini\inst{2}}
 
-\institute{University of Genoa, DIST, Genoa 16145, Italy
-\and Italian Institute of Technology, Genoa 16163, Italy}
+\institute{DIST, University of Genoa, Viale Causa, 13 - Genoa 16145, Italy
+\and Italian Institute of Technology, Via Morego, 30 - Genoa 16163, Italy}
 
 \maketitle
 
@@ -51,57 +51,78 @@ locating suitable interest points, `salient regions', in
 the scene, to detect events, and eventually to direct
 gaze toward these locations. In the last few years,
 object-based visual attention models have received an
-increasing interest in the literature, the problem, in
+increasing interest in computational neuroscience and
+in computer vision, the problem, in
 this case, being that of creating a model of
 `objecthood' that eventually guides a saliency
 mechanism. We present here an model of
-visual attention based of the proposed concept of
+visual attention based on the definition of 
 `proto-objects' and show its instantiation on a
 humanoid robot. Moreover we propose a biological plausible
-way to learn the Gestalt rules, that are used to have
-better proto-objects.
+way to learn certain Gestalt rules that can lead to 
+proto-objects.
 \end{abstract}
 
 \section{Visual Attention\label{attention}}
-Spatial attention is often considered as a sort of `filter'
-of the incoming information, as a `spotlight',
+Spatial attention is often considered a sort of `filter'
+of the incoming information, a `spotlight',
 an internal eye or a sort of `zoom lens'. In particular attention is
 believed to be deployed as a spatial gradient, centered on a particular location.
 %The experiments of Posner \etal \cite{PosnerSD80} and Downing and Pinker
 %\cite{DowningP85} suggest that
 %attention is deployed as a spatial gradient, centered on
 %a particular location.
-Even if supported by numerous findings, maybe this view does not
-stress enough the \emph{aim} of the attentional system in an agent with a body.
+Even if supported by numerous findings \cite{}, this view does not
+stress enough the \emph{functional role} of the attentional system in an 
+agent with a body.
 
-The external world is sensed
-continuously instead of maintaining and updating some
-complicated internal model.
-This idea has been summarized by O'Regan as:
-``The world as an outside memory'' \cite{ORegan92}.
-The sentence remarks the fact that it is important
+The external world is sensed continuously and it is not necessarily 
+mapped into some complicated internal model (although it is also clear
+that internal models are required to predict the future course of
+actions or to compensate specific dynamic effects of movement \cite{kawato-99}).
+This idea has been summarized by O'Regan's idea of:
+
+\begin{center}
+\emph{The world as an outside memory} \cite{ORegan92}.
+\end{center}
+
+This sentence remarks the fact that it is important
 to consider the problem of vision, and perception in general,
-deeply rooted in the physical world. Given that, for example,
+deeply rooted in the physical world. Given that
 changes in the world seem to be easily detectable, it
-is cheaper to store in memory a rough representation of
-the external world, directly accessing to it when a
-detailed information is needed and to keep track of the changes.
-Moreover, it has no much sense to talk about perception without
-talking about action, so it is logical to
-think that our perception is biased versus a representation
-that is useful to act on physical objects.
-In the case of visual attention this corresponds to ask
-if the attention is deployed on objects (`object-based') or
-on space locations (`space-based').
-This idea is supported by the discovery in monkeys of a
-class of neurons (\emph{mirror neurons}) which not only
+would cheaper to memorize, for example, only a rough representation of
+the external world updating it when changes happen and directly 
+accessing the sensory data when detailed information is needed.
+Moreover, it is not possible to model perception without
+simultaneously considering also action, so it is logical to
+think that perception is biased toward representations
+that are useful to act on the environment.
+
+To an extreme, Maturana and Varela \cite{maturana-varela-80} and the proponents of some of
+the dynamical approaches to the modeling of cognitive systems \cite{vangelder-port-95},
+define cognition as \emph{effective action}. That is, cognition is
+the actions taken by the agent to preserve its coupling with the 
+environment, where clearly, if action is not effective then it is likely
+that the agent dies (which ends the coupling with the environment).
+
+In the specific instance of visual attention this corresponds to ask
+whether attention is deployed at the level of objects (`object-based') or
+at space locations (`space-based'). Object-based attention is equivalent 
+to thinking that attention is geared to the use of the objects,
+that depends on the internal plan of the agents, its current status,
+and very importantly of its overall goal. On the contrary, it seems 
+difficult to ascribe any particular role with respect to the agent goals to 
+generic spatial locations (space-based attention).
+
+The idea of object-based attention is supported by the discovery in 
+monkeys of a class of neurons (\emph{mirror neurons}) which not only
 fire when the animal performs an action directed to an
 object, but also when it sees another monkey or human performing the
 same action on the same object \cite{FadigaFGR00}.
 Indeed, this tight coupling of perception and action is present in
 in visual attention too. In fact, it has been shown in \cite{FischerH04}
-that more object-based attention is present during a grasping action, than
-space-based one.
+that more object-based attention is present during a grasping action.
+%, than space-based one.
 
 %On the other hand there is a recent literature on the
 %object-based visual attention, that represents
@@ -113,7 +134,7 @@ space-based one.
 Object-based attention theories
 argue that attention is directed to an object or a group
 of objects, to process specific properties of the selection,
-rather than regions of space. There is a
+rather than generic regions of space. There is a
 growing evidence both from behavioral and from
 neurophysiological studies that shows, in fact, that
 selective attention frequently operates on an object based
@@ -136,10 +157,9 @@ In fact, it is generally assumed that the task of grouping pixels
 into regions is performed before selective attention is involved
 by perceptual organization and Gestalt grouping principles \cite{PalmerR94}.
 
-Guided by these considerations we propose a general proto-object based
-visual attention model and we also propose a biological motivated
-method to make the system learn the how to pre-segment the images
-in proto-objects.
+Guided by these considerations we developed a general proto-object based
+visual attention model and designed a biological motivated
+method to learn how to pre-segment images into proto-objects.
 
 
 %For example, attention to one part of an object confers
@@ -196,13 +216,13 @@ in proto-objects.
 %within a certain spatial window. Attention in this case could be directed to a region of
 %space, even in absence of a real target. 
 
-This aricle is organized as follows:
+This article is organized as follows:
 section \ref{sec:att_comp_models} contains an introduction on the modeling of
 human visual attention. Section \ref{sec:att_model}
 details the robot's visual system and the
 proposed model, and in section \ref{sec:att_results} some results are shown.
 In section \ref{sec:ass_fields} a new method to build better proto-objects is described,
-with a numerical validation in in section \ref{sec:ass_res}. Finally in \ref{sec:conclusion}
+with numerical validation in section \ref{sec:ass_res}. Finally in \ref{sec:conclusion}
 we draw some conclusions.
 
 
@@ -214,17 +234,18 @@ that some primary visual properties allow a search in parallel across large
 displays of target objects. In such cases the target appears to `pop out' of
 the display. For example there is no problem in searching for a red item
 amongst distractor items colored green, blue or yellow, while searching for
-green cross is much more difficult when distractors include red crosses and
+a green cross is much more difficult when distractors include red crosses and
 green circles (`feature conjunction').
 Treisman and Gelade proposed that in the pop-out tasks preattentional mechanisms
 permit a rapid target detection, in contrast to the conjunction task, which was held
 to require a serial deployment of attention over each item in turn.
-They suggested the division of the attention in two stages: a first `preattentive' one that is traditionally thought to be
+They suggested the division of the attention in two stages: 
+a first `preattentive' one that is traditionally thought to be
 automatic, parallel, and to extract relatively simple stimulus properties, and second stage
 `attentive' serial, slow, with limited processing capacity, able to extract more complex features.
 They proposed a model called Feature Integration Theory (FIT) \cite{TreismanG80},
 in which a set of low-level feature maps extracted
-in parallel on the entire input image (preattentive stage), then combined
+in parallel on the entire input image (preattentive stage) are then combined
 together by a spatial attention window operating on a
 master saliency map (attentive stage).
 
@@ -236,9 +257,9 @@ given by Sun and Fisher \cite{SunF03}, which propose an
 combination of object- and feature-based theories. Presented
 with a manually segmented input image, their model is able to
 replicate human viewing behavior for artificial and natural
-scenes. The limit of the model is the use of human segmentation of the images:
-in this way it supposes the use of information that could
-be not available in the preattentive stage, that is before
+scenes. The limit of the model is the use of human segmentation of the images, 
+in practice, it employs information that is not
+available in the preattentive stage, that is before
 the objects in the image are recognized.
 
 
@@ -264,17 +285,18 @@ system's segmentation of current visual input into candidate objects (\ie groupi
 together those parts of the retinal input which are likely to correspond to parts of the
 same object in the real world, separately from those which are likely to belong to
 other objects).
-Hence the objects which we will be concerned with are segmented perceptual units.
+Hence the ``objects'' which we will be concerned with are segmented perceptual units.
 
-The visual attention model proposed considers
+The visual attention model we propose simply considers
 these first stages of the human visual processing, and
 employs a concept of salience based on proto-objects
 defined as blobs of uniform color in the
 image. Since we are considering an embodied system
-we will use the output of an instantiation of the model
-to control the fixation point of a robotic head.
+we will use the output of the model, implemented for 
+real-time operation, to control the fixation point of a robotic head.
 Then, through action, the attention system can go
-beyond proto-objects, discovering the physical objects \cite{MettaF03,Orabona07}.
+beyond proto-objects, discovering ``true'' physical objects \cite{MettaF03,Orabona07}.
+
 %In fact, once an object is
 %grasped, the robot can move and rotate it to build a
 %statistical model of the features belonging to it,
@@ -331,9 +353,9 @@ scanpaths during a visual search task \cite{WolfeG96} and so it has to
 be taken into account to better model overt visual
 attention. The log-polar mapping is in fact a model of the topological
 transformation of the primate visual pathways from the
-cartesian image coming from the retina to the visual cortex, that takes also into
+Cartesian image coming from the retina to the visual cortex, that takes also into
 account the space-variant resolution of the retinal images.
-This transformation that can be well
+This transformation can be well
 described as a logarithmic-polar (log-polar) mapping \cite{SandiniT80}.
 Figure \ref{fig:logpolar_ex} shows an example image and its
 log-polar counterpart.
@@ -341,9 +363,9 @@ log-polar counterpart.
 One advantage of log-polar images is related to the small
 number of pixels and the comparatively large field of view.
 In fact the lower resolution of the periphery reduces the
-images' size and thus the computational load of any
+number of pixels and consequently the computational load of any
 processing, while standard algorithms can still be used on the high resolution
-center.
+central part (the fovea).
 
 %From the mathematical point of view the log-polar
 %mapping can be expressed as a transformation between
@@ -404,7 +426,7 @@ increases the response of the channel $R^+G^-$ , while a
 green one in the surrounding will decrease its
 response. The spatial response profile of the two sub-regions
 of the RF, `center' and `surround', is expressed by a Gaussian,
-hence resulting in a Difference-of-Gaussians (DoG).
+resulting in a Difference-of-Gaussians (DoG) response.
 A response is computed as there was a RF centered on
 each pixel of the input image, thus generating an
 output image of the same size of the input. This
@@ -419,7 +441,7 @@ balanced: the ratio $\beta / \alpha$ is chosen equal to $1.5$,
 consistent with the study of Smirnakis \etal \cite{SmirnakisBWBM97}. The
 unbalanced ratio preserves the achromatic information:
 that is, the response of the channels to a uniform gray
-area is not zero. Hence the model does not need to
+area is not zero. The model does not need to
 process achromatic information explicitly since it is
 implicitly encoded, similarly to what happens in the
 human retina's P-cells \cite{Billock95}. The ratio $\sigma_s / \sigma_c$, the
@@ -427,12 +449,12 @@ standard deviation of the two Gaussian functions, is
 chosen equal to 3. To be noted that by filtering a log-polar
 image with a standard space-invariant filter leads
 to a space-variant filtered image of the original
-cartesian image \cite{MallotSG90}.
+Cartesian image \cite{MallotSG90}.
 Edges are then extracted on the three channels
 separately using a generalization of the Sobel filter due
 to \cite{LiYYY03}, obtaining $E_{RG}(x,y)$, $E_{GR}(x,y)$ and $E_{BY}(x,y)$. A
 single edge map is generated combining the tree
-outputs with a point-wise $\max(\cdot)$ operator:
+outputs with a pixel-wise $\max(\cdot)$ operator:
 \begin{equation}
 	E(x,y)=\max\left\{\left|E_{RG}(x,y)\right|,\left|E_{GR}(x,y)\right|,\left|E_{BY}(x,y)\right|\right\}
 	\label{eq:edge_map}
@@ -467,18 +489,21 @@ tagged as blobs and the method does not require
 complex membership functions either. Moreover the
 result does not depend on the order in which the points
 are examined like in standard region growing \cite{WanH03}. As
-a result, the image is segmented into blobs with either
-uniform or uniform gradient of color. Hence from the choice
-of the feature maps comes our definition of proto-objects
-as closed areas of uniform color of the image.
+a result, the image is segmented into blobs which are
+either uniform or with a uniform gradient of color. 
+
+The definition
+of proto-objects is directly derived from the choice
+of the feature maps: i.e. closed areas of the image uniform in color.
+
 A color quantized image is formed averaging the color inside
 each blob. The result is blurred with a
 Gaussian filter and stored: this will be used to perform
-a time-smoothing by simple averaging with the frame
+temporal smoothing by simply averaging with the frame
 at time $t+1$ to reduce the effect of noise and increase
 the temporal stability of the blobs. After an initial
 startup time of about five frames, the number of blobs
-and their shape stabilize. If any motion is detected in
+and their shape stabilize. If movement is detected in
 the image then the smoothing procedure is halted and the
 bottom-up saliency map becomes the motion image.
 
@@ -487,9 +512,9 @@ catches the attention if it differs from its
 immediate surrounding. To replicate this phenomenon in the system
 we compute a measure of bottom-up salience as the Euclidean distance in the
 color opponent space between each blob and its
-surrounding. However the size of the spot or focus of attention
-should not be constant: it should change depending on the size of the
-objects in the scene. To account for this fact the greater
+surrounding. However a constant size of the spot or focus of attention
+would not be very practical and rather it should change depending 
+on the size of the objects in the scene. To account for this fact the greater
 part of the visual attention models in literature uses a
 multi-scale approach filtering with some type of `blob'
 detector (typically a DoG filter) at
@@ -681,7 +706,7 @@ available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last acces
 First, the original images and segmentation masks are
 cropped to a square and transformed to the log-polar
 format (see $(a)$ and $(b)$ in Figure \ref{fig:itti_ex}
-for the cartesian remapped images). To simulate the
+for the Cartesian remapped images). To simulate the
 presence of a static camera, the images are presented to
 the system continuously and, after five `virtual'
 frames, the bottom-up saliency map is confronted with
@@ -714,6 +739,17 @@ saccade the log-polar image changes considerably.
   \end{center}
 \end{figure}
 
+\section{A complete experiment}
+%FRA: perche' non facciamo un esempio (senza spiegare tantissimo) dell'uso del 
+%sistema per segmentare gli oggetti. Lo so che non e' tanto bello pero' se lo mettiamo
+%solo come esempio si puo' giusto far vedere e spiegare la sequenza di immagini.
+%Non mi piacerebbe che dicessero che l'implementazione non e' spiegata (e tanti altri
+%risultati non ci sono).
+%
+%
+\begin{center}
+Visual search experiment goes here.
+\end{center}
 
 \section{A better definition of proto-objects}
 \label{sec:ass_fields}
@@ -722,8 +758,8 @@ saccade the log-polar image changes considerably.
 %in our brains, but a part of a complex interconnected system
 %that allows us complex action in our environment.
 As said above, object-based theories of attention stress the importance
-of a sort of segmentation of the visual input in coherent regions.
-On the other hand the term `grouping' (or `segmentation')
+of the segmentation of the visual input in coherent regions.
+The term `grouping' (or `segmentation')
 is a common concept in the long research history of perceptual grouping
 by the Gestalt psychologists.
 Back at the beginning of the last century they
@@ -804,9 +840,9 @@ A first step in the implementation of the Gestalt laws are the `association fiel
 \cite{FieldHH93}. These fields are supposed to resemble the pattern of
 excitatory and inhibitory lateral connection between different orientation
 detector neurons as found, for instance, by Schmidt \etal \cite{SchmidtGLS97}.
-In fact, Schmidt has shown that cells with an orientation preference in area
-17 of the cat are preferentially linked to iso-oriented cells. Furthermore,
-the coupling strength decrease with the difference in the preferred
+Schmidt has shown that cells with an orientation preference in area
+17 of the cat are preferentially linked to iso-oriented cells. The coupling 
+strength decrease with the difference in the preferred
 orientation of pre- and post-synaptic cell.
 
 In the literature, association fields are often hand-coded and employed in
@@ -814,7 +850,7 @@ many different models with the aim to reproduce the human performance in
 contour integration. Models typically consider variations of the co-circular
 approach \cite{Grossberg85,Guy96,Li98}, which states that two oriented elements are
 very likely part of the same curve if they are tangent to the same circle.
-Our approach is instead to try to to learn these
+Our approach is instead to try to learn these
 association fields directly from natural images. 
 Starting from the output of a simulated layer of complex cells,
 without any prior assumption, we want to estimate the mean
@@ -850,12 +886,13 @@ activity around points with a given orientation.
 %Using the output of this layer we want to estimate the mean
 %activity around points with a given orientation.
 
-To have a precise representation of the orientations and at the same time
-something mathematically convenient, we have chosen to use the tensor notation.
-Given the orientation of a reference pixel, we estimate the mean
-tensors associated with the surrounding pixels. The use of the tensor notation
-give us the possibility to exactly estimate the preferred orientation in each
-point of the field and also to quantify its strength and confidence.
+For mathematical convenience and to represent orientation precisely, 
+we have chosen to use a tensor notation. Given the orientation of a 
+reference pixel, we estimate the mean tensors associated with the 
+surrounding pixels. The use of the tensor notation gives us the possibility 
+to exactly estimate the preferred orientation at each
+point of the image and to quantify the confidence that a line passes
+at that point (rather than being, for example, a corner).
 
 %We have chosen to learn a separate association field for each possible
 %orientation.
@@ -876,7 +913,7 @@ orientation. The extension of the fields is chosen to be of $41$x$41$ pixels
 taken around each point.
 Even if we quantized the orientation of the (central)
 reference pixel to classify the different fields, the information about the remaining
-pixels in the neighbor were not quantized, differently other approaches, \ie \cite{Sigman01}.
+pixels in the neighbor were not quantized, differently from other approaches, \ie \cite{Sigman01}.
 There is neither a threshold nor a pre-specified number of bins for
 discretization and thus we obtain a precise representation of the association fields.
 
@@ -947,7 +984,7 @@ and can be visualized as an ellipse, whose major axis represents the estimated t
 direction and the difference between the major and minor axis the confidence
 of this estimate. Hence a point on a line will be associated with a thin
 ellipse while a corner with a circle.
-It is constructed by direct summation of three quadrature filter pair output magnitudes as in \cite{Knutsson89}:
+The tensor at each point is constructed by direct summation of three quadrature filter pair output magnitudes as in \cite{Knutsson89}:
 \begin{equation} \label{eqn:sumquad}
 T=\sum^3_{k=1}E_{\theta_k}\left(\frac{4}{3}\hat{n}_k^T \hat{n}_k-\frac{1}{3}I\right)
 \end{equation}
@@ -987,22 +1024,22 @@ that are not passing across the central pixel. On the other hand we want to lear
 We believe that this is the same problem that Prod\"ohl \etal \cite{Prodohl01} experienced using static images: the learned fields supported collinearity in the horizontal and vertical orientations but hardly in the oblique ones. They solved this problem using motion to implicitly tag only the important edges inside each patch.
 
 Once again the neural way to solve this problem can be the synchrony of the
-firing between nearby neurons (see Section \ref{sec:att_protoobj})
-Inspired by this we considered in each patch only pixels that belong to any
-curve that goes through the central pixel. In this way the gathered data will
-contain only information about curves connected to the central pixel.
+firing between nearby neurons (see Section \ref{sec:att_protoobj}).
+We considered for each image patch only pixels that belong to any
+curve that goes through the central pixel. In this way the dataset 
+contains only information about curves connected to the central pixel.
 Note that we select curves inside each patch, not inside the entire image.
-The simple algorithm used to select the pixels in each patch is the following:
+The simple algorithm used to select the pixels is the following:
 \begin{enumerate}
 	\item put central pixel of the patch in a list;
-	\item tag first pixel in the list and remove it from the list. Put surrounding pixels that are active (non-zero) in the list;
+	\item tag the first pixel in the list and remove it from the list. Put surrounding pixels that are active (non-zero) in the list;
 	\item if the list is empty quit otherwise go to $2$.
 \end{enumerate}
 With this procedure we remove the influence of horizontal and vertical edges that are more present in the images and
 that are not removed by the process of averaging. On the other hand, we are losing some information, for example about parallel lines, that in any case should not be useful for the enhancement of contours.
-Note that this method is completely parameter free; we are not selecting the curves following some specific criterion, instead we are just pruning the training set from some kind of noise.
-It is important to note that this method will learn the bias present in natural images versus horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be biased to learn \emph{only} these statistics, as in Prod\"ohl \etal \cite{Prodohl01} when using static images.
-A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edges of a target object from the other of the environment, using self-caused motion.
+Note that this method is completely ``parameter free''; we are not selecting the curves following some specific criterion, instead we are just pruning the training set from noisy or biased inputs.
+It is important to note that this method will learn the natural image bias toward horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be biased to learn these statistics \emph{only}, as in Prod\"ohl \etal \cite{Prodohl01} when using static images.
+A similar approach that uses self-caused motion has been developed by \cite{Fitzpatrick03} to disambiguate the edges of a target object from those in the background.
 
 \begin{figure}[h]
 	\begin{center}
@@ -1032,16 +1069,16 @@ A similar approach has been used by \cite{Fitzpatrick03} to disambiguate the edg
 %We tested the modified procedure on the database of natural images and also
 %on random images (results not shown), to verify that the results were not an
 %artifact due to the method.
-In Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} there are the
-main orientations and their strengths (eigenvalues) of the mean estimated
+Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} show the
+main orientations and strengths (eigenvalues) of the mean estimated
 tensors for the orientations of $0$ and $67.5$ degrees of the central pixel,
-obtained with the modified procedure.
+obtained with the modified procedure described in section \ref{sec:ass_pre_res}.
 The structure of the obtained association fields closely resembles the fields
 proposed by others based on collinearity and co-circularity.
-It is clear that the size of the long-range connection far exceeds the size of the
-classical receptive field. Note that the noisier regions in the
-orientations maps corresponds to very small eigenvalues so they do not influence very
-much the final result.
+%It is clear that the size of the long-range connection far exceeds the size of the
+%classical receptive field. 
+Note that the noisier regions in the orientations maps corresponds to very small 
+eigenvalues so they do not influence very much the final result.
 
 While all the fields have the same trend, there is a clear difference in the
 decay of the strength of the fields. To see this we have considered only the
@@ -1160,12 +1197,16 @@ We have presented the general implementation of a visual
 attention system employing both top-down and
 bottom-up information. It runs in real time on a
 standard Pentium class processor and it is used to
-control the overt attention mechanism of a humanoid
-robot. This eventually gives rise to a different sort of
-problems compared to the more typical
-implementations that only generate scan paths on static
-images.
-The algorithm divides the visual scene in color
+control the overt attention system of a humanoid
+robot. Running an attention system on a robotic platform
+generates a set of problems which are not apparent when
+only generating scan paths on static images. Although not
+discussed in details in this paper, the robot implementation
+requires for example a complex management of the inhibition of return
+together with a body-centered coordinate system (for representing 
+object locations).
+
+Our algorithm divides the visual scene in color
 blobs; each blob is assigned a bottom-up saliency value
 depending on the contrast between its color and the
 color of the surrounding area. The robot acquires
@@ -1179,17 +1220,18 @@ humans (see Sections \ref{sec:att_protoobj} and
 fixation to a simple shape that appears in the periphery
 tends to land on its center of gravity \cite{MelcherK99}.
 
-Often models of visual attention are usually used as
-sort of filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
-In such systems the attention model and the object recognition one
+Very often models of visual attention are used as
+filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
+In such systems the attention model and object recognition
 live in two different `worlds': they work on two
 different representations of the input images and few or none
-of the computation done by the first stage is used by the
-second one. A proof of concept on how to build an object
-recognition system on the same basis of the visual attention,
-that is on the concept of proto-objects was presented in
-\cite{Orabona07}. The visual attention system and the object recognition
-system were also used to guide the grasping action of the robot.
+of the computation carried out by attention is then used for recognition. 
+%A proof of concept on how to build an object
+%recognition system on the same basis of visual attention that
+%employs the concept of proto-objects was presented in.
+The visual attention system and the object recognition
+system were also used to guide the grasping action of the 
+humanoid robot \cite{Orabona07}.
 
 A similar approach has been taken by Sun and
 Fisher \cite{SunF03} but the main difference with this work is that
@@ -1213,7 +1255,9 @@ space (e.g. local orientation) thus providing new ways
 of both segmenting and recognizing objects.
 As future work we want to integrate the associative fields
 learnt from natural images with the proposed visual attention
-model.
+model. We are also looking to an extension of the associative
+fields to a hierarchical organization to develop even more
+complex features to be used for object recognition.
 
 
 
