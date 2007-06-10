@@ -118,7 +118,7 @@ fire when the animal performs an action directed to an
 object, but also when it sees another monkey or human performing the
 same action on the same object \cite{FadigaFGR00}.
 Indeed, this tight coupling of perception and action is present in
-in visual attention too. In fact, it has been shown in \cite{FischerH04}
+in visual attention too: it has been shown in \cite{FischerH04}
 that more object-based attention is present during a grasping action.
 %, than space-based one.
 
@@ -309,7 +309,7 @@ The proposed object-based model of visual
 attention integrates bottom-up and top-down cues;
 in particular, top-down information works as a priming
 mechanism for certain regions in the visual search task
-(\ie when the robot seeks for a known object in the environment).
+%(\ie when the robot seeks for a known object in the environment).
 
 
 %\begin{figure}[]
@@ -325,22 +325,22 @@ mechanism for certain regions in the visual search task
 In Figure \ref{fig:model_diagram} there is the block diagram of the model.
 We will describe in details in the following each block.
 
-\begin{figure}[t]
-  \begin{center}
-    \includegraphics[width=0.6\linewidth]{./figs/attention/schema}
-    \caption{Block diagram of the model. The input image is first separated in
-     the three color opponency maps, then edges are extracted. A watershed transform
-     creates the proto-objects on which the saliency is calculated,
-     taking into account top-down biases.}
-     \label{fig:model_diagram}
-  \end{center}
-\end{figure}
+%\begin{figure}[t]
+%  \begin{center}
+%    \includegraphics[width=0.6\linewidth]{./figs/attention/schema}
+%    \caption{Block diagram of the model. The input image is first separated in
+%     the three color opponency maps, then edges are extracted. A watershed transform
+%     creates the proto-objects on which the saliency is calculated,
+%     taking into account top-down biases.}
+%     \label{fig:model_diagram}
+%  \end{center}
+%\end{figure}
 
-\subsection{Log-polar images}
+%\subsection{Log-polar images}
 The input is a sequence of color log-polar images \cite{SandiniT80}.
 The use of log-polar images comes from the
 observation that the distribution of the cones, \ie the
-photoreceptors of the retina involved in diurnal vision,
+retinal photoreceptors involved in diurnal vision,
 is not uniform. Cones have a higher density
 in the central region called fovea (approximately $2^\circ$ of
 the visual field), while they are sparser in the
@@ -391,6 +391,17 @@ central part (the fovea).
 %\right.
 %\label{eq:lp2}
 %\end{equation}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{./figs/attention/schema}
+    \caption{Block diagram of the model. The input image is first separated in
+     the three color opponency maps, then edges are extracted. A watershed transform
+     creates the proto-objects on which the saliency is calculated,
+     taking into account top-down biases.}
+     \label{fig:model_diagram}
+  \end{center}
+\end{figure}
 
 \begin{figure}[t]
 	\begin{center}
@@ -1173,7 +1184,7 @@ shown in Figure \ref{fig:im_oe_pg}.
 %\end{figure}
 
 
-\begin{figure}[t]
+\begin{figure}[h]
 	\begin{center}
 		\begin{tabular}{cc}
 			\fbox{\includegraphics[height=0.35\linewidth]{./figs/af/confronto}} &
@@ -1197,7 +1208,7 @@ shown in Figure \ref{fig:im_oe_pg}.
 %	\label{fig:comp_oe_pg}
 %\end{figure}
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\begin{center}
 		\begin{tabular}{cccc}
 			\includegraphics[width=0.4\linewidth]{./figs/af/im_oe} &
@@ -1256,7 +1267,7 @@ humans (see Sections \ref{sec:att_protoobj} and
 %A proof of concept on how to build an object
 %recognition system on the same basis of visual attention that
 %employs the concept of proto-objects was presented in.
-In \cite{NataleOBMS05,Orabona07} the visual attention system was also used to
+In \cite{NataleOBMS05,Orabona07} the proposed visual attention system was also used to
 guide the grasping action of a humanoid robot.
 
 A similar approach has been taken by Sun and
@@ -1265,11 +1276,11 @@ they have assumed that a hierarchical set of perceptual
 groupings is provided to the attention system by some
 other means and considered only covert attention.
 In this sense we have tried to address this problem directly presenting a method to learn
-precise association fields from natural images. A bio-inspired procedure
+precise association fields from natural images. An unsupervised bio-inspired procedure
 to get rid of the non-uniform distribution of orientations
-is used, without the need of a tagged database of images \cite{ElderG02} nor
-the use of motion \cite{Prodohl01}.
-The learned fields were used in a computer model, using the tensor voting method,
+is used, without the need of the use of motion \cite{Prodohl01}.
+The learned fields were used in a computer model
+%, using the tensor voting method,
 and the results were compared using a database of human tagged images which helps
 in providing clear numerical results.
 
