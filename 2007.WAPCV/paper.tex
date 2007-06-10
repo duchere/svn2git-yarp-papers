@@ -66,13 +66,13 @@ proto-objects.
 \section{Visual Attention\label{attention}}
 Spatial attention is often considered a sort of `filter'
 of the incoming information, a `spotlight',
-an internal eye or a sort of `zoom lens'. In particular attention is
+an internal eye or a sort of `zoom lens'. In particular it is
 believed to be deployed as a spatial gradient, centered on a particular location.
 %The experiments of Posner \etal \cite{PosnerSD80} and Downing and Pinker
 %\cite{DowningP85} suggest that
 %attention is deployed as a spatial gradient, centered on
 %a particular location.
-Even if supported by numerous findings \cite{}, this view does not
+Even if supported by numerous findings (a review in \cite{CaveB99}), this view does not
 stress enough the \emph{functional role} of the attentional system in an 
 agent with a body.
 
@@ -81,11 +81,9 @@ mapped into some complicated internal model (although it is also clear
 that internal models are required to predict the future course of
 actions or to compensate specific dynamic effects of movement \cite{kawato-99}).
 This idea has been summarized by O'Regan's idea of:
-
 \begin{center}
 \emph{The world as an outside memory} \cite{ORegan92}.
 \end{center}
-
 This sentence remarks the fact that it is important
 to consider the problem of vision, and perception in general,
 deeply rooted in the physical world. Given that
@@ -97,7 +95,6 @@ Moreover, it is not possible to model perception without
 simultaneously considering also action, so it is logical to
 think that perception is biased toward representations
 that are useful to act on the environment.
-
 To an extreme, Maturana and Varela \cite{maturana-varela-80} and the proponents of some of
 the dynamical approaches to the modeling of cognitive systems \cite{vangelder-port-95},
 define cognition as \emph{effective action}. That is, cognition is
@@ -107,14 +104,14 @@ that the agent dies (which ends the coupling with the environment).
 
 In the specific instance of visual attention this corresponds to ask
 whether attention is deployed at the level of objects (`object-based') or
-at space locations (`space-based'). Object-based attention is equivalent 
-to thinking that attention is geared to the use of the objects,
-that depends on the internal plan of the agents, its current status,
-and very importantly of its overall goal. On the contrary, it seems 
-difficult to ascribe any particular role with respect to the agent goals to 
-generic spatial locations (space-based attention).
-
-The idea of object-based attention is supported by the discovery in 
+at space locations (`space-based').
+%Object-based attention is equivalent 
+%to thinking that attention is geared to the use of the objects,
+%that depends on the internal plan of the agents, its current status,
+%and very importantly of its overall goal. On the contrary, it seems 
+%difficult to ascribe any particular role with respect to the agent goals to 
+%generic spatial locations (space-based attention).
+The idea of object-based attention is also supported by the discovery in 
 monkeys of a class of neurons (\emph{mirror neurons}) which not only
 fire when the animal performs an action directed to an
 object, but also when it sees another monkey or human performing the
@@ -217,12 +214,12 @@ method to learn how to pre-segment images into proto-objects.
 %space, even in absence of a real target. 
 
 This article is organized as follows:
-section \ref{sec:att_comp_models} contains an introduction on the modeling of
+Section \ref{sec:att_comp_models} contains an introduction on the modeling of
 human visual attention. Section \ref{sec:att_model}
 details the robot's visual system and the
-proposed model, and in section \ref{sec:att_results} some results are shown.
-In section \ref{sec:ass_fields} a new method to build better proto-objects is described,
-with numerical validation in section \ref{sec:ass_res}. Finally in \ref{sec:conclusion}
+proposed model, and in Section \ref{sec:att_results} some results are shown.
+In Section \ref{sec:ass_fields} a new method to build better proto-objects is described,
+with numerical validation in Section \ref{sec:ass_res}. Finally in \ref{sec:conclusion}
 we draw some conclusions.
 
 
@@ -250,7 +247,7 @@ together by a spatial attention window operating on a
 master saliency map (attentive stage).
 
 In the literature a number of attention models that
-follow this hypothesis have been proposed, \ie \cite{MilaneseGP95,IttiKN98}
+follow this hypothesis have been proposed, \eg \cite{MilaneseGP95,IttiKN98}
 (for a complete review on this topic see \cite{IttiK01}).
 An important alternative model is
 given by Sun and Fisher \cite{SunF03}, which propose an
@@ -296,7 +293,6 @@ we will use the output of the model, implemented for
 real-time operation, to control the fixation point of a robotic head.
 Then, through action, the attention system can go
 beyond proto-objects, discovering ``true'' physical objects \cite{MettaF03,Orabona07}.
-
 %In fact, once an object is
 %grasped, the robot can move and rotate it to build a
 %statistical model of the features belonging to it,
@@ -328,7 +324,7 @@ mechanism for certain regions in the visual search task
 In Figure \ref{fig:model_diagram} there is the block diagram of the model.
 We will describe in details in the following each block.
 
-\begin{figure}[]
+\begin{figure}[t]
   \begin{center}
     \includegraphics[width=0.6\linewidth]{./figs/attention/schema}
     \caption{Block diagram of the model. The input image is first separated in
@@ -340,7 +336,7 @@ We will describe in details in the following each block.
 \end{figure}
 
 \subsection{Log-polar images}
-The input is a sequence of color log-polar images \cite{SandiniT80,SandiniQSM00}.
+The input is a sequence of color log-polar images \cite{SandiniT80}.
 The use of log-polar images comes from the
 observation that the distribution of the cones, \ie the
 photoreceptors of the retina involved in diurnal vision,
@@ -395,9 +391,9 @@ central part (the fovea).
 %\label{eq:lp2}
 %\end{equation}
 
-\begin{figure}[]
+\begin{figure}[t]
 	\begin{center}
-		\includegraphics[width=0.77\linewidth]{./figs/attention/logpolarmapping2}
+		\includegraphics[width=0.7\linewidth]{./figs/attention/logpolarmapping2}
     \caption{Log-polar transform of an image.
     It is worth noting that the flower's petals, that have a polar structure,
     are mapped vertically in the log-polar image. Circles, on the other
@@ -573,7 +569,9 @@ contributions:
 	\label{eq:s_tot}
 \end{equation}
 The center of mass of the most salient blob is selected for the next
-saccade.
+saccade, in fact it has been observed that the first
+fixation to a simple shape that appears in the periphery
+tends to land on its center of gravity \cite{MelcherK99}.
 
 %An example of the intermediate and final
 %maps of bottom-up salience is shown in Figure \ref{fig:maps_ex}.
@@ -584,8 +582,8 @@ saccade.
 \begin{figure}[]
   \begin{center}
     \begin{tabular}{cc}
-       \includegraphics[width=0.35\textwidth]{figs/attention/dog1} &
-       \includegraphics[width=0.35\textwidth]{figs/attention/dog2}
+       \includegraphics[width=0.32\textwidth]{figs/attention/dog1} &
+       \includegraphics[width=0.32\textwidth]{figs/attention/dog2}
     \end{tabular}
     \caption{\label{fig:multiscale}Filtering the image on the left
      with a Difference-of-Gaussians, with the size of positive lobe
@@ -629,7 +627,7 @@ objects as they move; in other words this process seems
 to be coded in an object-based reference frame.
 
 Our system implements a simple object-based IOR.
-A list of the last five positions visited is
+A list of the last $5$ positions visited is
 maintained in a head-centered coordinate system and
 updated with a FIFO (First In First Out) policy. The
 position of the tagged blob is stored together with the
@@ -654,21 +652,54 @@ becomes available for fixation again.
 
 \section{Results on sample images}
 \label{sec:att_results}
-The experiments reported here were carried out
-on a robotic platform called Babybot. This is a
+In order to compare the performance of the system
+with the state of the art model of Itti \cite{IttiKN98}, we
+have done a comparison test of the bottom-up attention
+using the database of images by Itti and Koch \cite{IttiK01b} (64 color
+images with an emergency triangle and relative binary
+segmentation masks of the triangle), which is freely
+available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 30/05/2007.}.
+First, the original images and segmentation masks are
+cropped to a square and transformed to the log-polar
+format (see $(a)$ and $(b)$ in Figure \ref{fig:itti_ex}
+for the Cartesian remapped images). To simulate the
+presence of a static camera, the images are presented to
+the system continuously and, after five `virtual'
+frames, the bottom-up saliency map is confronted with
+the mask. In this way we measure the ability of the system to spot
+the salient object in the images, simulating the pop-out phenomenology.
+The obtained result is that in $49\%$ of the images a point inside the
+emergency triangle is selected as the most salient
+(see an example in Figure \ref{fig:itti_ex} $(c)$). A
+direct comparison with the results of Itti and Koch in \cite{IttiK01b}, by
+counting the number of false detection before the
+target object is found, is not possible since after each
+saccade the log-polar image changes considerably.
+
+Other experiments were carried out
+on a robotic platform called Babybot \cite{NataleOBMS05}. This is a
 humanoid upper torso which consists of a head, an arm
 and a hand. 
 From the point of view of the sensors, the head is
-equipped with two space-variant cameras \cite{SandiniQSM00}
+equipped with two log-polar cameras
 and two microphones for visual and auditory feedback.
-More details about the Babybot can be found in \cite{Natale04}.
-
-Two examples of the saliency map are shown in
+%More details about the Babybot can be found in \cite{Natale04}.
+The attentional system were used to guide the object recognition system
+and to guide the robot in manipulation tasks \cite{NataleOBMS05,Orabona07}.
+Two examples of saliency maps from the input images of the robot are shown in
 Figure \ref{fig:out_ex}: in $(d)$ there is a purely bottom-up ($k_{td}=0$,
 $k_{bu}=1$ in Equation (7)) map which is the result of the
 processing of the scene in $(a)$; in $(e)$ and $(f)$ there are purely
 top-down ($k_{td}=1$, $k_{bu}=0$) maps outputs after the
 processing of $(b)$ and $(c)$.
+
+Moreover using any learning procedure it is possible to estimate which
+proto-objects compose a particular object and use this information to attempt
+a figure-ground segmentation \cite{Orabona07}. An example of these
+segmentations is shown in Figure \ref{fig:segment_ex}. Note that even if the
+result is not visually perfect, it has all the information to guide a
+manipulation task.
+
 %After a saccade on the
 %object and a successfully recognition the figure-ground
 %segmentation is shown in Figure \ref{fig:out_ex}.6.
@@ -696,42 +727,9 @@ processing of $(b)$ and $(c)$.
 %\label{table:att_ris}
 %\end{table*}
 
-In order to compare the performance of the system
-with the state of the art model of Itti \cite{IttiKN98}, we
-have done a comparison test of the bottom-up attention
-using the database of images by Itti and Koch \cite{IttiK01b} (color
-images with an emergency triangle and relative binary
-segmentation masks of the triangle), which is freely
-available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 30/05/2007.}.
-First, the original images and segmentation masks are
-cropped to a square and transformed to the log-polar
-format (see $(a)$ and $(b)$ in Figure \ref{fig:itti_ex}
-for the Cartesian remapped images). To simulate the
-presence of a static camera, the images are presented to
-the system continuously and, after five `virtual'
-frames, the bottom-up saliency map is confronted with
-the mask. In $49\%$ of the images a point inside the
-emergency triangle is selected as the most salient
-(see an example in Figure \ref{fig:itti_ex} $(c)$). It is worth noting that a
-direct comparison with the results of Itti and Koch in \cite{IttiK01b}, by
-counting the number of false detection before the
-target object is found, is not possible since after each
-saccade the log-polar image changes considerably.
-
-
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
-    \includegraphics[width=0.9\linewidth]{./figs/attention/a4}
-    \caption{Example saliency maps. $(d)$ is the 
-     bottom-up saliency map of the image $(a)$. $(e)$ and $(f)$ are the top-down
-	   saliency maps of $(b)$ and $(c)$, while searching for the blue airplane and the yellow toy car.}
-    \label{fig:out_ex}
-  \end{center}
-\end{figure}
-
-\begin{figure}[!h]
-  \begin{center}
-    \includegraphics[width=0.9\linewidth]{./figs/attention/itti_numbers}
+    \includegraphics[width=0.85\linewidth]{./figs/attention/itti_numbers}
     \caption{Result on a sample image taken from \cite{IttiK01b}.
      $(a)$ is the log-polar input image and $(b)$ the corresponding taget binary mask.
      $(c)$ is the bottom-up saliency map.}
@@ -739,17 +737,26 @@ saccade the log-polar image changes considerably.
   \end{center}
 \end{figure}
 
-\section{A complete experiment}
-%FRA: perche' non facciamo un esempio (senza spiegare tantissimo) dell'uso del 
-%sistema per segmentare gli oggetti. Lo so che non e' tanto bello pero' se lo mettiamo
-%solo come esempio si puo' giusto far vedere e spiegare la sequenza di immagini.
-%Non mi piacerebbe che dicessero che l'implementazione non e' spiegata (e tanti altri
-%risultati non ci sono).
-%
-%
-\begin{center}
-Visual search experiment goes here.
-\end{center}
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.85\linewidth]{./figs/attention/a4}
+    \caption{Example saliency maps. $(d)$ is the 
+     bottom-up saliency map of the image $(a)$. $(e)$ and $(f)$ are the top-down
+	   saliency maps of $(b)$ and $(c)$, while searching for the blue airplane and the yellow toy car.}
+    \label{fig:out_ex}
+  \end{center}
+\end{figure}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{./figs/attention/segmentazioni}
+    \caption{Example segmentations of objects guided by the attentional system. $(b)$ and $(d)$ are
+     examples of the segmentations of the objects in the center of $(a)$ and $(c)$,
+     that can be obtained using the proto-objects that are estimated to belong to the target objects.}
+     \label{fig:segment_ex}
+  \end{center}
+\end{figure}
+
 
 \section{A better definition of proto-objects}
 \label{sec:ass_fields}
@@ -766,17 +773,16 @@ Back at the beginning of the last century they
 described, among other things, the ability of the human
 visual system to organize parts of the retinal stimulus
 into `Gestalten', that is, into organized structures.
-A number of so-called Gestalt laws 
-(proximity, common fate, good continuation, closure, \etc) were
-formulated that are believed to govern our perception.
+They also formulated the so-called Gestalt laws 
+(proximity, common fate, good continuation, closure, \etc)
+that are believed to govern our perception.
 
 Nowadays the more typical view of such grouping
-demonstrations would be that they reflect non-arbitrary properties within the stimuli
-(similarity, common motion, \etc), which the visual system
-exploits heuristically because these properties
+demonstrations would be that they reflect non-arbitrary properties within the stimuli,
+which the visual system exploits heuristically because these properties
 are likely to reflect divisions into distinct objects in the real world.
-In particular these properties work because they reflect characteristics of
-the real world. 
+%In particular these properties work because they reflect characteristics of
+%the real world. 
 In this sense it should be possible to learn these heuristic
 properties and hence to learn from the images better rules
 to build the proto-objects \cite{PalmerR94}.
@@ -919,15 +925,15 @@ discretization and thus we obtain a precise representation of the association fi
 
 Images used for the experiments were taken from the
 publicly available database (Berkeley Segmentation
-Database\footnote{\url{http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/segbench/}, last access 30/05/2007.}
+Database
+%\footnote{\url{http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/segbench/}, last access 30/05/2007.}
 \cite{MartinFTM01}) which consists of $300$
-color images of $321$x$481$ and $481$x$321$ pixels;
+color images of $321$x$481$ and $481$x$321$ pixels
+(see Figure \ref{fig:exampleimg} $(a)$ for an example);
 $200$ of them were converted to black and white and used
-to learn the fields; an
-example image from the dataset is shown in Figure \ref{fig:exampleimg} $(a)$.
+to learn the fields.
 
-
-\begin{figure}[]
+\begin{figure}[t]
 	\begin{center}
 		\begin{tabular}{cc}
 			\includegraphics[width=0.4\linewidth]{./figs/af/esempio} &
@@ -940,7 +946,6 @@ example image from the dataset is shown in Figure \ref{fig:exampleimg} $(a)$.
     \label{fig:exampleimg}
 	\end{center}
 \end{figure}
-
 
 \subsection{Feature extraction stage}
 \label{sec:ass_feature}
@@ -955,8 +960,7 @@ odd-symmetric filters at orientation $\theta$. Our even-symmetric filter is
 a Gaussian second-derivative, and the corresponding odd-symmetric is its
 Hilbert transform.
 In Figure \ref{fig:exampleimg} $(b)$ there is an example of the output of the
-complex cells model for the $0$ degrees orientation.
-
+complex cells model for the $0^\circ$ orientation.
 Then the edges are thinned using a standard non-maximum
 suppression algorithm.
 %This is equivalent to finding edges with a Laplacian
@@ -990,14 +994,24 @@ T=\sum^3_{k=1}E_{\theta_k}\left(\frac{4}{3}\hat{n}_k^T \hat{n}_k-\frac{1}{3}I\ri
 \end{equation}
 where $E_{\theta_k}$ is the filter output as calculated in (\ref{eqn:nrgmod}), $I$ is the 2x2 identity matrix and the filter directions $\hat{n}_k$ are:
 \begin{equation} \label{eqn:fildir}
-\begin{array}{lll}
-\hat{n}_1=\left(1,0\right) \\
-\hat{n}_2=\left(1/2,\sqrt{3}/2\right) \\
+\begin{array}{ccccc}
+\hat{n}_1=\left(1,0\right), &  &
+\hat{n}_2=\left(1/2,\sqrt{3}/2\right), &  &
 \hat{n}_3=\left(-1/2,\sqrt{3}/2\right)
 %\hat{n}_2=\left(\frac{1}{2},\frac{\sqrt{3}}{2}\right) \\
 %\hat{n}_3=\left(-\frac{1}{2},\frac{\sqrt{3}}{2}\right)
 \end{array}
 \end{equation}
+
+%\begin{equation} \label{eqn:fildir}
+%\begin{array}{lll}
+%\hat{n}_1=\left(1,0\right) \\
+%\hat{n}_2=\left(1/2,\sqrt{3}/2\right) \\
+%\hat{n}_3=\left(-1/2,\sqrt{3}/2\right)
+%%\hat{n}_2=\left(\frac{1}{2},\frac{\sqrt{3}}{2}\right) \\
+%%\hat{n}_3=\left(-\frac{1}{2},\frac{\sqrt{3}}{2}\right)
+%\end{array}
+%\end{equation}
 
 The greatest eigenvalue $\lambda_1$ and its corresponding eigenvector $e_1$ of a tensor associated to a pixel represent respectively the strength and the direction of the main orientation. The second eigenvalue $\lambda_1$ and its eigenvector $e_1$ have the same meaning for the orthogonal orientation. The difference $\lambda_1-\lambda_2$ is proportional to the likelihood that a pixel contains a distinct orientation.
 
@@ -1014,7 +1028,7 @@ that are not passing across the central pixel. On the other hand we want to lear
 %certain orientation relative to the reference point.
 %On the other hand, Sigman \etal \cite{Sigman01} using only
 %relative orientation and not absolute ones, could not have seen this problem.
-
+%
 %In our case
 %we want to use unlabeled data to demonstrate that it is possible to
 %learn from raw images and, as mentioned earlier, we do not want to
@@ -1041,7 +1055,7 @@ Note that this method is completely ``parameter free''; we are not selecting the
 It is important to note that this method will learn the natural image bias toward horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be biased to learn these statistics \emph{only}, as in Prod\"ohl \etal \cite{Prodohl01} when using static images.
 A similar approach that uses self-caused motion has been developed by \cite{Fitzpatrick03} to disambiguate the edges of a target object from those in the background.
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\begin{center}
 		\begin{tabular}{cc}
 			\fbox{\includegraphics[width=0.4\linewidth]{./figs/af/or_ns_e1_1}} &
@@ -1071,14 +1085,14 @@ A similar approach that uses self-caused motion has been developed by \cite{Fitz
 %artifact due to the method.
 Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} show the
 main orientations and strengths (eigenvalues) of the mean estimated
-tensors for the orientations of $0$ and $67.5$ degrees of the central pixel,
-obtained with the modified procedure described in section \ref{sec:ass_pre_res}.
+tensors for the orientations of $0^\circ$ and $67.5^\circ$ of the central pixel,
+obtained with the modified procedure described in Section \ref{sec:ass_pre_res}.
 The structure of the obtained association fields closely resembles the fields
 proposed by others based on collinearity and co-circularity.
 %It is clear that the size of the long-range connection far exceeds the size of the
 %classical receptive field. 
-Note that the noisier regions in the orientations maps corresponds to very small 
-eigenvalues so they do not influence very much the final result.
+%Note that the noisier regions in the orientations maps corresponds to very small 
+%eigenvalues so they do not influence very much the final result.
 
 While all the fields have the same trend, there is a clear difference in the
 decay of the strength of the fields. To see this we have considered only the
@@ -1096,11 +1110,16 @@ most preferred orientation information.
 %Differently to the original tensor
 %voting algorithm we don't have to choose the right scale of the fields
 %\cite{LeeM99} since it is implicitly in the learnt fields.
+
 We compared the performances of the tensor voting algorithm using the learned
 fields versus the simple output of the complex cell layer, using the Berkeley
 Segmentation Database and the methodology proposed by Martin \etal
-\cite{MartinFM04,MartinFTM01}. We can see the results in Figure
-\ref{fig:conf} $(b)$: there is always an improvement using the tensor voting and
+\cite{MartinFM04,MartinFTM01}. In the databes for each image a number of
+different human segmentations is available. The methodology proposed by Martin \etal
+aim at measuring with ROC-like graphs the distance between the human segmentations
+and the artificial ones. We can see the results in Figure
+\ref{fig:conf} $(b)$, better result are associated with curves that are located higher in the graph.
+We can see that there is always an improvement using the tensor voting and
 the learned association fields instead of just using the outputs of
 the complex cells alone. An example of the results on the test image in
 \ref{fig:exampleimg} $(a)$, after the non-maximum suppression procedure, are
@@ -1114,7 +1133,7 @@ shown in Figure \ref{fig:im_oe_pg}.
 %	\label{fig:field1_e1_new}
 %\end{figure}
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\begin{center}
 		\begin{tabular}{cc}
 			\fbox{\includegraphics[width=0.4\linewidth]{./figs/af/or_e1_1}} &
@@ -1124,21 +1143,23 @@ shown in Figure \ref{fig:im_oe_pg}.
 			%\fbox{\includegraphics[width=0.45\linewidth]{./figs/af/or_l1l2_4}} \\
 			%$(c)$ & $(d)$
 		\end{tabular}	
-    \caption{Main directions for the association field for orientation of $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$, with the modified approach.}
+    \caption{Main directions for the association field for orientation of
+     $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$, with the modified approach.
+     Compare them with the results in Figure \ref{fig:field1}}
 	  \label{fig:field1_e1_new}
 	\end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\begin{center}
 		\begin{tabular}{cc}
 			\fbox{\includegraphics[width=0.4\linewidth]{./figs/af/or_l1l2_1}} &
 			\fbox{\includegraphics[width=0.4\linewidth]{./figs/af/or_l1l2_4}} \\
 			$(a)$ & $(b)$
 		\end{tabular}
+    \caption{Difference between the two eigenvalues of the association fields of Figure \ref{fig:field1_e1_new}.}
+	  \label{fig:field1_l1l2_new}
 	\end{center}
-  \caption{Difference between the two eigenvalues of the association fields of Figure \ref{fig:field1_e1_new}.}
-	\label{fig:field1_l1l2_new}
 \end{figure}
 
 %\begin{figure}[]
@@ -1150,7 +1171,7 @@ shown in Figure \ref{fig:im_oe_pg}.
 %\end{figure}
 
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\begin{center}
 		\begin{tabular}{cc}
 			\fbox{\includegraphics[height=0.35\linewidth]{./figs/af/confronto}} &
@@ -1176,16 +1197,23 @@ shown in Figure \ref{fig:im_oe_pg}.
 
 \begin{figure}[h]
 	\begin{center}
-		\begin{tabular}{cc}
+		\begin{tabular}{cccc}
 			\includegraphics[width=0.4\linewidth]{./figs/af/im_oe} &
 			\includegraphics[width=0.4\linewidth]{./figs/af/im_pg} \\
+			\includegraphics[width=0.19\linewidth]{./figs/af/zoom_oe} &
+			\includegraphics[width=0.19\linewidth]{./figs/af/zoom_pg} \\
 			$(a)$ & $(b)$
+			%\includegraphics[width=0.3\linewidth]{./figs/af/im_oe} &
+			%\includegraphics[width=0.15\linewidth]{./figs/af/zoom_oe} &
+			%\includegraphics[width=0.3\linewidth]{./figs/af/im_pg} &
+			%\includegraphics[width=0.15\linewidth]{./figs/af/zoom_pg} \\
+			%$(a)$ & $(b)$ & $(c)$ & $(d)$
 		\end{tabular}
     \caption{$(a)$ Test image contours using the complex cell layer alone.
      $(b)$ Test image contours using tensor voting with the learned fields.
      Notice the differences with the $(a)$: the contours are
      linker together and the gaps are reduced. Especially on the contour of back of
-     the tiger the differences are evident.}
+     the tiger the differences are evident (bottom images).}
 	   \label{fig:im_oe_pg}
 	\end{center}
 \end{figure}
@@ -1201,8 +1229,8 @@ control the overt attention system of a humanoid
 robot. Running an attention system on a robotic platform
 generates a set of problems which are not apparent when
 only generating scan paths on static images. Although not
-discussed in details in this paper, the robot implementation
-requires for example a complex management of the inhibition of return
+discussed in details here, the robot implementation
+requires for example a complex management of the IOR
 together with a body-centered coordinate system (for representing 
 object locations).
 
@@ -1216,29 +1244,24 @@ primer to control the visual search of that object. The
 model directs the attention on the proto-object's or
 center of mass, similarly to the behavior observed in
 humans (see Sections \ref{sec:att_protoobj} and
-\ref{sec:att_results}). In fact it has been observed that the first
-fixation to a simple shape that appears in the periphery
-tends to land on its center of gravity \cite{MelcherK99}.
-
-Very often models of visual attention are used as
-filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
-In such systems the attention model and object recognition
-live in two different `worlds': they work on two
-different representations of the input images and few or none
-of the computation carried out by attention is then used for recognition. 
+\ref{sec:att_results}).
+%Very often models of visual attention are used as
+%filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
+%In such systems the attention model and object recognition
+%live in two different `worlds': they work on two
+%different representations of the input images and few or none
+%of the computation carried out by attention is then used for recognition. 
 %A proof of concept on how to build an object
 %recognition system on the same basis of visual attention that
 %employs the concept of proto-objects was presented in.
-The visual attention system and the object recognition
-system were also used to guide the grasping action of the 
-humanoid robot \cite{Orabona07}.
+In \cite{NataleOBMS05,Orabona07} the visual attention system was also used to
+guide the grasping action of a humanoid robot.
 
 A similar approach has been taken by Sun and
 Fisher \cite{SunF03} but the main difference with this work is that
 they have assumed that a hierarchical set of perceptual
 groupings is provided to the attention system by some
 other means and considered only covert attention.
-
 In this sense we have tried to address this problem directly presenting a method to learn
 precise association fields from natural images. A bio-inspired procedure
 to get rid of the non-uniform distribution of orientations
@@ -1257,7 +1280,8 @@ As future work we want to integrate the associative fields
 learnt from natural images with the proposed visual attention
 model. We are also looking to an extension of the associative
 fields to a hierarchical organization to develop even more
-complex features to be used for object recognition.
+complex features.
+% to be used for object recognition.
 
 
 
