@@ -64,15 +64,15 @@ proto-objects.
 \end{abstract}
 
 \section{Visual Attention\label{attention}}
-Spatial attention is often considered a sort of `filter'
+Spatial attention is often assimilated to a sort of `filter'
 of the incoming information, a `spotlight',
-an internal eye or a sort of `zoom lens'. In particular it is
+an internal eye or a `zoom lens'. In particular it is
 believed to be deployed as a spatial gradient, centered on a particular location.
 %The experiments of Posner \etal \cite{PosnerSD80} and Downing and Pinker
 %\cite{DowningP85} suggest that
 %attention is deployed as a spatial gradient, centered on
 %a particular location.
-Even if supported by numerous findings (a review in \cite{CaveB99}), this view does not
+Even if supported by numerous findings (see \cite{CaveB99} for a review), this view does not
 stress enough the \emph{functional role} of the attentional system in an 
 agent with a body.
 
@@ -80,7 +80,7 @@ The external world is sensed continuously and it is not necessarily
 mapped into some complicated internal model (although it is also clear
 that internal models are required to predict the future course of
 actions or to compensate specific dynamic effects of movement \cite{kawato-99}).
-This idea has been summarized by O'Regan's idea of:
+This idea has been summarized by O'Regan in the following statement:
 \begin{center}
 \emph{The world as an outside memory} \cite{ORegan92}.
 \end{center}
@@ -88,7 +88,7 @@ This sentence remarks the fact that it is important
 to consider the problem of vision, and perception in general,
 deeply rooted in the physical world. Given that
 changes in the world seem to be easily detectable, it
-would cheaper to memorize, for example, only a rough representation of
+would be cheaper to memorize, for example, only a rough representation of
 the external world updating it when changes happen and directly 
 accessing the sensory data when detailed information is needed.
 Moreover, it is not possible to model perception without
@@ -105,14 +105,15 @@ that the agent dies (which ends the coupling with the environment).
 In the specific instance of visual attention this corresponds to ask
 whether attention is deployed at the level of objects (`object-based') or
 at space locations (`space-based').
-%Object-based attention is equivalent 
-%to thinking that attention is geared to the use of the objects,
-%that depends on the internal plan of the agents, its current status,
-%and very importantly of its overall goal. On the contrary, it seems 
+Object-based attention is equivalent 
+to thinking that attention is geared to the use of the objects,
+that depends on the internal plan of the agents, its current status,
+and very importantly of its overall goal \cite{craighero-99}. 
+%On the contrary, it seems 
 %difficult to ascribe any particular role with respect to the agent goals to 
 %generic spatial locations (space-based attention).
-The idea of object-based attention is also supported by the discovery in 
-monkeys of a class of neurons (\emph{mirror neurons}) which not only
+The idea of object-based attention is also supported by the discovery in the
+monkey of a class of neurons (\emph{mirror neurons}) which not only
 fire when the animal performs an action directed to an
 object, but also when it sees another monkey or human performing the
 same action on the same object \cite{FadigaFGR00}.
@@ -220,7 +221,7 @@ details the robot's visual system and the
 proposed model, and in Section \ref{sec:att_results} some results are shown.
 In Section \ref{sec:ass_fields} a new method to build better proto-objects is described,
 with numerical validation in Section \ref{sec:ass_res}. Finally in \ref{sec:conclusion}
-we draw some conclusions.
+we draw some conclusions and future work.
 
 
 \section{Computational models of visual attention}
@@ -250,7 +251,7 @@ In the literature a number of attention models that
 follow this hypothesis have been proposed, \eg \cite{MilaneseGP95,IttiKN98}
 (for a complete review on this topic see \cite{IttiK01}).
 An important alternative model is
-given by Sun and Fisher \cite{SunF03}, which propose an
+given by Sun and Fisher \cite{SunF03}, which propose a
 combination of object- and feature-based theories. Presented
 with a manually segmented input image, their model is able to
 replicate human viewing behavior for artificial and natural
@@ -435,7 +436,7 @@ is expressed by:
 The two Gaussian functions, $g_c$ and $g_s$, are not
 balanced: the ratio $\beta / \alpha$ is chosen equal to $1.5$,
 consistent with the study of Smirnakis \etal \cite{SmirnakisBWBM97}. The
-unbalanced ratio preserves the achromatic information:
+unbalanced ratio preserves achromatic information:
 that is, the response of the channels to a uniform gray
 area is not zero. The model does not need to
 process achromatic information explicitly since it is
@@ -476,7 +477,7 @@ proto-objects.
 The intuitive idea underlying the watershed transform comes from
 geography: a topographic relief is flooded by water,
 watershed are the divide lines of the domains of
-attraction of rain falling over the region. In our view
+attraction of rain falling over the region. In our model
 the watershed transform simulates the parallel spread
 of the activation on the image, until this procedure fills
 all the spaces between edges. Differently from other
@@ -519,7 +520,7 @@ lacks continuity in the choice of the size of the focus of
 attention (see for example Figure \ref{fig:multiscale}).
 We propose instead to dynamically vary the
 region of interest depending on the size of the blobs.
-That is the salience of each blob is calculated in
+That is, the salience of each blob is calculated in
 relation to a neighborhood proportional to its size. In
 our implementation we consider a rectangular region 3
 times the size of the bounding box of the blob as
@@ -698,7 +699,7 @@ proto-objects compose a particular object and use this information to attempt
 a figure-ground segmentation \cite{Orabona07}. An example of these
 segmentations is shown in Figure \ref{fig:segment_ex}. Note that even if the
 result is not visually perfect, it has all the information to guide a
-manipulation task.
+manipulation task \cite{NataleOBMS05}.
 
 %After a saccade on the
 %object and a successfully recognition the figure-ground
@@ -784,7 +785,7 @@ are likely to reflect divisions into distinct objects in the real world.
 %In particular these properties work because they reflect characteristics of
 %the real world. 
 In this sense it should be possible to learn these heuristic
-properties and hence to learn from the images better rules
+properties and hence to learn from the image statistics better rules
 to build the proto-objects \cite{PalmerR94}.
 
 
@@ -1013,7 +1014,7 @@ where $E_{\theta_k}$ is the filter output as calculated in (\ref{eqn:nrgmod}), $
 %\end{array}
 %\end{equation}
 
-The greatest eigenvalue $\lambda_1$ and its corresponding eigenvector $e_1$ of a tensor associated to a pixel represent respectively the strength and the direction of the main orientation. The second eigenvalue $\lambda_1$ and its eigenvector $e_1$ have the same meaning for the orthogonal orientation. The difference $\lambda_1-\lambda_2$ is proportional to the likelihood that a pixel contains a distinct orientation.
+The greatest eigenvalue $\lambda_1$ and its corresponding eigenvector $e_1$ of a tensor associated to a pixel represent respectively the strength and the direction of the main orientation. The second eigenvalue $\lambda_2$ and its eigenvector $e_2$ have the same meaning for the orthogonal orientation. The difference $\lambda_1-\lambda_2$ is proportional to the likelihood that a pixel contains a distinct orientation.
 
 \subsection{The path across a pixel}
 \label{sec:ass_pre_res}
@@ -1049,7 +1050,7 @@ The simple algorithm used to select the pixels is the following:
 	\item tag the first pixel in the list and remove it from the list. Put surrounding pixels that are active (non-zero) in the list;
 	\item if the list is empty quit otherwise go to $2$.
 \end{enumerate}
-With this procedure we remove the influence of horizontal and vertical edges that are more present in the images and
+This procedure removes the influence of horizontal and vertical edges that are more present in the images and
 that are not removed by the process of averaging. On the other hand, we are losing some information, for example about parallel lines, that in any case should not be useful for the enhancement of contours.
 Note that this method is completely ``parameter free''; we are not selecting the curves following some specific criterion, instead we are just pruning the training set from noisy or biased inputs.
 It is important to note that this method will learn the natural image bias toward horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be biased to learn these statistics \emph{only}, as in Prod\"ohl \etal \cite{Prodohl01} when using static images.
@@ -1231,7 +1232,7 @@ robot. Running an attention system on a robotic platform
 generates a set of problems which are not apparent when
 only generating scan paths on static images. Although not
 discussed in details here, the robot implementation
-requires for example a complex management of the IOR
+requires, for example, a complex management of the IOR
 together with a body-centered coordinate system (for representing 
 object locations).
 
@@ -1281,7 +1282,7 @@ As future work we want to integrate the associative fields
 learnt from natural images with the proposed visual attention
 model. We are also looking to an extension of the associative
 fields to a hierarchical organization to develop even more
-complex features.
+complex image features.
 % to be used for object recognition.
 
 
