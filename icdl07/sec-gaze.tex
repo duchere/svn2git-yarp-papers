@@ -4,18 +4,6 @@
 %In this section we describe how we control the gaze of the robot to
 %fixate a visual target.
 %
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=8cm]{Figure/hand.eps}
-%\includegraphics[width=25mm]{Figure/LeftImage.eps} \hspace{1cm}
-%\includegraphics[width=25mm]{Figure/RightImage.eps}
-\caption{Two typical images taken from the cameras mounted on the 
-eyes of the robot (resolution 320$\times$240).
-The coordinates of the target (the blue ball) on the image planes
-will be denoted $u_l$, $v_l$, and $u_r$, $v_r$ (respectively left 
-and right cameras).}
-\label{Fig:ImagePlane}
-\end{figure}
 % 
 The crucial aspect in the control of gaze concerns the redundancy of the 
 head. Let $u_r$ and $v_r$ be the coordinates of the target on the 
@@ -77,3 +65,16 @@ of the head, also guaranteeing a straight gaze
 %$K_p$, $K_y$, $K_t$ and $K_r$ it is possible to achieve an asymptotic 
 %behavior with the eyes moving rapidly on the target and the neck following 
 %the eye movement with a slower movement.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=8cm]{Figure/hand.eps}
+%\includegraphics[width=25mm]{Figure/LeftImage.eps} \hspace{1cm}
+%\includegraphics[width=25mm]{Figure/RightImage.eps}
+\caption{Two typical images taken from the cameras mounted on the 
+eyes of the robot (resolution 320$\times$240).
+The coordinates of the target (the blue ball) on the image planes
+will be denoted $u_l$, $v_l$, and $u_r$, $v_r$ (respectively left 
+and right cameras).}
+\label{Fig:ImagePlane}
+\end{figure}
