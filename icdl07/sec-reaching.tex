@@ -111,7 +111,8 @@ phase the robot tracked the hand, and collected samples of the form: $
 %
  A neural network was then trained to learn the relation:
 %
-\begin{equation} 
+\begin{equation}
+  \label{eq:openloop}
   \xhand=\hat{f}_{arm}\left(\qarm \right),
 \end{equation}
 %
@@ -196,7 +197,7 @@ can rewrite equation (\ref{eq:jacobian1}) as:
 %
 
 Moreover, after the preliminary open loop reaching movement, we know
-that $\xtarget = \hat f(\qarm)$ so that  Eq.
+that $\xtarget = f_{arm}(\qarm)$ so that  Eq.
 (\ref{eq:jacobian2}) can be further simplified to:
 %
 \begin{equation} 
@@ -206,9 +207,10 @@ that $\xtarget = \hat f(\qarm)$ so that  Eq.
   \deltaqarm,\qquad \jacobian \in \mathbb R^{3\times4}
 \end{equation}
 %
-where $\jacobian$ depends only on the arm joint configuration $\qarm$.
+where $\jacobian$ depends only on the arm joint configuration $\qarm$. 
 
-Suppose now that the robot has to reach for an object, whose visual position is 
+Suppose now that the robot has to reach for an object, whose visual 
+position is 
 represented by $\utarget$. To solve this problem 
 the controller of the arm needs to compute the arm command which minimizes 
 the error $e=\left\|\uhand-\utarget\right\|^2$.
@@ -225,9 +227,15 @@ to the minimum joint speeds, that is:
 \qquad \jacobian^\# \in \mathbb R^{4 \times 3},
 \end{equation}
 %
-where $\jacobian^\#$ is the Moore-Penrose pseudo-inverse of $\jacobian$. 
-The next section describes a procedure by which the robot can 
-autonomously acquire $\jacobian$ and $\jacobian^\#$.
+where $\jacobian^\#$ is the Moore-Penrose pseudo-inverse of $\jacobian$.
+In practice $\xtarget = f_{arm}(\qarm)$ is estimated through 
+Eq. \ref{eq:openloop}, so only an approximated value 
+$\hat{\jacobian}^\#$ will be available. Convergence is guaranteed 
+if $\hat{\jacobian}^\#\cdot\jacobian>0$ \cite{samson91robot}.
+
+
+%The next section describes a procedure by which the robot can 
+%autonomously acquire $\jacobian$ and $\jacobian^\#$.
 
 \subsection{Learning the Arm Jacobian}
 \begin{figure}
@@ -296,6 +304,6 @@ training step, we evaluated the performance of the network by computing
 \emph{MSE} on the remaining $N_{test}=52$ elements 
 (test set). At the 
 end of the training the error on the test set was 
-$\emph{MSE}=2~\frac{deg^2}{pixels^2}$ 
-($\emph{STD}=7.1~\frac{deg^2}{pixels^2}$). Figure \ref{Fig:learningerrors} reports the plot of the error during learning.
+$\emph{MSE}=2~\frac{pixels^2}{deg^2}$ 
+($\emph{STD}=7.1~\frac{pixels^2}{deg^2}$). Figure \ref{Fig:learningerrors} reports the plot of the error during learning.
 %
