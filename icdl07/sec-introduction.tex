@@ -22,40 +22,53 @@ the robot and the environment is difficult especially when precise models are
 not available. Experiments with robots have thus focused on situations
 in which the interaction with objects is relatively simple. For these reasons
 the investigation of perceptual development in robots requires addressing 
-the problem of motor development first and improving how robots interact
-with the world.
+the problem of motor development first.
+% and improving how robots interact with the world.
 
 In this context we focus on reaching, which is a clear prerequisite for 
-grasping. If vision of the hand and target were available then this problem 
-would be easily solved by employing a visual servoing approach (see 
-\cite{hutchinson96tutorial} for a review) which is typically based on 
-the use of the visuo-motor Jacobian of the arm. The eye-to-hand Jacobian 
-transformation is a function of the arm and head joints and includes knowledge 
-of the camera parameters; its estimation is in practice a difficult task.
-The fundamental advantage of this approach is that even an inaccurate 
-estimation 
-of the Jacobian allows reducing the error of the task to zero. But the visual 
-servoing approach is not necessarily the best solution: it requires continous 
-visual feedback from the hand and target, while delays in the control loop 
-pose limitations on the speed of the arm.
-Reaching can also be performed open-loop by directly relating the joint angles 
-of the head with those of the arm 
-\cite{blackburn94learning,metta99developmental}. 
-The drawback of this approach is that errors because of modeling inaccuracies 
-and noise in the sensors, calculations and actuation, cannot be made 
-arbitrarily small as in the visual servoing case.
+manipulation. Reaching can be solved either by visual servoing \cite{hutchinson96tutorial} 
+or by a model-based open loop \cite{blackburn94learning,metta99developmental} approach. 
+Visual servoing requires the simultaneous view of the hand and of the target
+and it is limited by the rate of measurement of these two quantities from images. 
+Visual servoing \emph{en force} of the feedback loop is robust to noise and errors 
+guaranteeing convergence to the target even in the presence of rough estimates
+of the controller parameters (typically a visuo-arm Jacobian). On the contrary,
+an open loop controller can be as fast as the motors can be at the price of precision
+which is bound to the modeling inaccuracies or sensor noise.
+
+%In this context we focus on reaching, which is a clear prerequisite for 
+%manipulation. If vision of the hand and target were available then this problem 
+%would be easily solved by employing a visual servoing approach (see 
+%\cite{hutchinson96tutorial} for a review) which is typically based on 
+%the use of the visuo-motor Jacobian of the arm. The eye-to-hand Jacobian 
+%transformation is a function of the arm and head joints and includes knowledge 
+%of the camera parameters; its estimation is in practice a difficult task.
+%The fundamental advantage of this approach is that even an inaccurate 
+%estimation 
+%of the Jacobian allows a convergent controller. The visual
+%servoing approach is not necessarily the best solution: it requires continuous 
+%visual feedback from the hand and target, while delays in the control loop 
+%pose limitations on the speed of the arm.
+%Reaching can also be performed open-loop by directly relating the joint angles 
+%of the head with those of the arm 
+%\cite{blackburn94learning,metta99developmental}. 
+%The drawback of this approach is that errors because of modeling inaccuracies 
+%and noise in the sensors, calculations and actuation, cannot be made 
+%arbitrarily small as in the visual servoing case.
+
+%reducing the error of the task to zero.  
 
 Results in developmental psychology suggest that both solutions might be
 adopted by the brain. Clifton et al. \cite{clifton93isvisually} 
 tested whether infants require vision of their hand when reaching; they 
 found that infants' ability to touch (and grasp) objects is independent 
-of whether sight of the hand is available or not. On the other hand 
-other experiments \cite{ashmead93visual} show that later on in development 
+of whether sight of the hand is available or not. Another set of 
+experiments \cite{ashmead93visual} show that later on in development 
 there is an increase of visual guidance in reaching. Together these results 
 suggest the hypothesis that there are two ``distinct'' reaching mechanism: 
 one that relies on ``proprioceptive'' information alone and one that uses 
-``visual feedback'' to compensate for errors in the visual domain. Further,
-there are studies that show the link of the control of the gaze in relation
+``visual feedback'' to compensate for errors in the visual domain. 
+There are studies that show the link of the control of the gaze in relation
 to the precision of reaching \cite{flanders-daghestani-berthoz-1999}. 
 In this paper we integrate the two modes of control with an approach based on
 the hypothesis that the target object is fixated. We use the open loop
