@@ -20,19 +20,18 @@ is a function of the head configuration $\mathbf q_{head} =
 \begin{bmatrix} \theta_y & \theta_p & \theta_r & \alpha_v^d & \alpha_v^c & \alpha_t^c \end{bmatrix}^\top \in \mathbb R^6$.
 However, the representation of the target position, 
 $\tilde {\mathbf x}_{target}$, in terms of the full head configuration, 
-$\mathbf q_{head}$, is clearly redundant.
+$\mathbf q_{head}$, is redundant.
 Specifically, the same target position can be represented by different 
 head configurations. To obtain a one to one mapping between the target 
 position and the head configuration we have to analyze the 
 gaze controller. The latter maintains $\theta_r$ stationary 
 ($\theta_r^d = 0$) and poses additional constraints on the head joints. 
-In particular we know from section \ref{Sec:gazecontrol} that the 
-controller minimizes $\alpha_t^c$ and $\alpha^c_v$ (see equation 
-(\ref{Eq:HeadEyeControl})) so that they asymptotically
-converge to zero ($\alpha_t^c \rightarrow 0$ and 
-$\alpha_v^c \rightarrow 0$). Ideally, after 
-fixation is achieved, we have $
-\mathbf {q}_{head}=
+In particular the controller minimizes 
+$\alpha_t^c$ and $\alpha^c_v$ (see equation 
+(\ref{Eq:HeadEyeControl})) so that they converge to zero 
+($\alpha_t^c \rightarrow 0$ and 
+$\alpha_v^c \rightarrow 0$). Ideally, after fixation is achieved, we have 
+$\mathbf {q}_{head}=
 \begin{bmatrix} \theta_y & \theta_p & 0 & \alpha_v^d & 0 & 0 \end{bmatrix}^\top \in \mathbb R^6.
 $
 %
@@ -46,8 +45,8 @@ $
 %
 This new variable $\mathbf x_{target} \in \mathbb R^3$ uniquely codes the 
 spatial position of the target in a way that resembles a three dimensional 
-polar representation. In particular $\theta_y$ and $\theta_p$ code 
-respectively \emph{azimuth} and \emph{elevation}, while \emph{distance} is 
+polar representation. In particular $\theta_y$ and $\theta_p$ code  
+\emph{azimuth} and \emph{elevation}, while \emph{distance} is 
 substituted with $\alpha_v$ (the \emph{vergence} angle). 
 
 If the robot tracks the hand, the same subset of the head joint space 
@@ -57,7 +56,7 @@ can be used to code the spatial location of the hand: $
 $
 %
 Under these assumptions, the \emph{forward mapping} 
-$f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3$
+$f_{arm}$
 relates the arm configuration $\qarm$ with the position of the hand 
 $\xhand$:
 %
@@ -65,8 +64,8 @@ $\xhand$:
 \label{Eq:forward}
 \mathbf x_{hand}=f_{arm}(\mathbf q_{arm}), \qquad f_{arm} : \mathbb R^4 \longrightarrow \mathbb R^3.\end{equation}
 %
-In the next section we show how a neural network could be trained to approximate
-the arm forward mapping (Eq. \ref{Eq:forward}).
+In the next section we show how a neural network could be trained to 
+approximate $f_{arm}$.% (Eq. \ref{Eq:forward}).
 
 Suppose now that the robot is fixating a target and that we want to control 
 the robot to reach for it. Formally the problem can be formulated 
@@ -81,10 +80,10 @@ following optimization problem:
 %
 where $\mathbf x_{target}$ is measured from the encoders of the head, while 
 $\mathbf x_{hand}$ is computed from $\qarm$ through Eq. (\ref{Eq:forward}).
-Given the redundancy of the arm kinematics the minimization 
-(\ref{Eq:reaching1}) has infinite solutions. We constrained the problem by 
-forcing one of the joints, for example joint number 2 (one of the shoulder joints), to remain as close 
-as possible to a predefined value $q_{20}$:
+Given the redundancy of the arm kinematics this minimization has infinite 
+solutions. We constrained the problem by 
+forcing one of the joints, for example joint number 2 (one of the shoulder 
+joints), to remain as close as possible to a predefined value $q_{20}$:
 %
 \begin{equation} 
 \label{Eq:reaching2}
@@ -96,8 +95,8 @@ as possible to a predefined value $q_{20}$:
 
 The optimization of (\ref{Eq:reaching2}) can be performed numerically using 
 various algorithms. In our implementation, we used 
-the downhill simplex method \cite{ne:Computer:65} as implemented in 
-\cite{mo:Press:90}.
+the downhill simplex method \cite{ne:Computer:65}. 
+% as implemented in \cite{mo:Press:90}.
 
 \subsection{Learning the open loop reaching}
 \label{sec:learning-open-loop}
@@ -129,13 +128,15 @@ sample is presented to the network. All samples in the training set were shown
 to the network in a random order. After each training step the 
 performance of the network was validated on the whole test set, by computing
 the Mean Squared Error (\emph{MSE}) between each sample in the test set, 
-$\xhand^i$, and the corresponding network output, 
-$\mathbf{\hat{x}}_{hand}^i$:
+%$$\xhand^i$,
+and the corresponding network output.
+%$\mathbf{\hat{x}}_{hand}^i$:
 %
-\begin{equation}
-\emph{MSE}=\frac{1}{N_{test}}\sum_{i=0}^{N_{test}-1}\|\xhand^i- \hat{\mathbf{x}}_{hand}^i\|^2
-\end{equation}
+%\begin{equation}
+%\emph{MSE}=\frac{1}{N_{test}}\sum_{i=0}^{N_{test}-1}\|\xhand^i- \hat{\mathbf{x}}_{hand}^i\|^2
+%\end{equation}
 %
+
 The plot in figure \ref{Fig:learningerrors}
 shows the trend of the error on the test set during learning. At the end of
 the training the network reached the performance of $\emph{MSE}=5.7~deg^2$ 
@@ -152,12 +153,13 @@ same approach to an online implementation.
 \subsection{Closed Loop Reaching} \label{Eq:ClosedLoop}
 %
 If the robot could visually measure the distance
-between the hand and the target, then reaching could also be solved
-visually, by implementing a closed control loop. The underlying idea 
+between the hand and the target, reaching could also be solved
+visually by implementing a closed control loop. This 
 consists in performing a preliminary (open loop) reaching movement and 
 then refining the action by visually correcting any residual error. 
 
-We know that the Jacobian matrix relates arm velocities $\dot {\mathbf q}_{arm}$
+We know that the Jacobian matrix relates arm velocities 
+$\dot {\mathbf q}_{arm}$
 with hand velocities in the image plane $\dot {\mathbf u}_{hand} = \left[ 
 \begin{array}{ccc}
   \dot u_r & \dot u_l & \dot v_{l}
@@ -178,7 +180,7 @@ approximation:
   \tilde{\mathbf J}\left(\mathbf q_{arm}, \mathbf q_{head}\right)
   \deltaqarm,
 \end{equation}
-where $\deltauhand$ = $[ \Delta u_r$, $\Delta u_l$, $\Delta v_{l}]^\top$
+where $\deltauhand$%= $[ \Delta u_r$, $\Delta u_l$, $\Delta v_{l}]^\top$ 
 is the image plane displacement resulting from the arm movement $\deltaqarm$. 
 Due to the additional constraints posed by the head tracker, we showed
 that only a subset of $\qhead$, $\xtarget$, is 
@@ -209,11 +211,8 @@ where $\jacobian$ depends only on the arm joint configuration $\qarm$.
 Suppose now that the robot has to reach for an object, whose visual position is 
 represented by $\utarget$. To solve this problem 
 the controller of the arm needs to compute the arm command which minimizes 
-the error:
+the error $e=\left\|\uhand-\utarget\right\|^2$.
 %
-\begin{equation}
-  e=\left\|\uhand-\utarget\right\|^2.
-\end{equation}
 %
 When the head tracker has achieved convergence on the object, 
 $\utarget \approx 0 $ and $e$ $\approx \left\|\uhand\right\|^2$.
@@ -226,26 +225,42 @@ to the minimum joint speeds, that is:
 \qquad \jacobian^\# \in \mathbb R^{4 \times 3},
 \end{equation}
 %
-where $\jacobian^\#$ is the Moore-Penrose pseudo-inverse of $\jacobian$.
-
-\subsection{Learning the Arm Jacobian}
-%
-In the previous section we used the Jacobian of the manipulator
-$\jacobian$ (actually its pseudo-inverse $\jacobian^\#$) to 
-control the arm to reach for a visually identified object. In 
-this section we describe a procedure by which the robot can 
+where $\jacobian^\#$ is the Moore-Penrose pseudo-inverse of $\jacobian$. 
+The next section describes a procedure by which the robot can 
 autonomously acquire $\jacobian$ and $\jacobian^\#$.
 
+\subsection{Learning the Arm Jacobian}
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \begin{center}
+	\begin{tabular}{ccc}
+	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/reachingError1.eps}}  & \hspace{.1cm} &
+	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/jacobian-error.eps}}
+  \end{tabular}
+\end{center}
+\caption{Left: learning of the arm forward function. Right: learning the 
+arm jacobian. The plots represent the \emph{MSE} on 
+the test set during learning. See text for more details}\label{Fig:learningerrors}
+\end{figure}
+%
+%
+%In the previous section we used the Jacobian of the manipulator
+%$\jacobian$ (actually its pseudo-inverse $\jacobian^\#$) to 
+%control the arm to reach for a visually identified object. In 
+%this section we describe a procedure by which the robot can 
+%autonomously acquire $\jacobian$ and $\jacobian^\#$.
+%
 As described in Section \ref{sec:learning-open-loop}, the robot 
 moves the arm randomly, while maintaining gaze on the hand. At 
 the end of each movement $j$ the arm is in a configuration 
 $\qarm^j$,  while the eyes are fixating the hand 
-($\uhand \approx 0$) with a straight gaze
-(the head tracker has reached convergence). Each 
-arm configuration corresponds to a different value of 
+($\uhand \approx 0$). %with a straight gaze
+%(the head tracker has reached convergence).%
+Each arm configuration corresponds to a different value of 
 $\jacobian_j=\jacobian\left(\qarm^j\right)$. 
 Now the robot inhibits the head tracker and performs a sequence $m$
-of small arm movements $\deltaqarm^k$ which perturb $\uhand$ of small amounts $\deltauhand^k$:$
+of small arm movements $\deltaqarm^k$ which perturb $\uhand$ of small 
+amounts $\deltauhand^k$:$
   \left(\begin{array}{cc}
     \deltauhand^k , 
 	\deltaqarm^k \end{array}
@@ -257,8 +272,8 @@ observations we can derive a least squares estimation of $\jacobian_j$ from
 which, in turn, we can compute the pseudo-inverse $\jacobian_j^\#$. 
 
 Re-iterating this procedure leads to the collection of a series of examples:
-$  \left(\begin{array}{cc}
-    \qarm^j , \jacobian_j^\# \end{array}\right)_{j = 0,1\dots}$.
+$\left(\begin{array}{cc}
+\qarm^j , \jacobian_j^\# \end{array}\right)_{j = 0,1\dots}$.
 An approximation $\hat{\jacobian}^\#$ of $\jacobian^\#$ is finally
 obtained by training a neural network:
 %
@@ -284,16 +299,3 @@ end of the training the error on the test set was
 $\emph{MSE}=2~\frac{deg^2}{pixels^2}$ 
 ($\emph{STD}=7.1~\frac{deg^2}{pixels^2}$). Figure \ref{Fig:learningerrors} reports the plot of the error during learning.
 %
-\begin{figure}
-  % Requires \usepackage{graphicx}
-  \begin{center}
-	\begin{tabular}{ccc}
-	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/reachingError1.eps}}  & \hspace{.1cm} &
-	  \parbox{30mm}{\includegraphics[width=35mm]{./Figure/jacobian-error.eps}}
-  \end{tabular}
-\end{center}
-\caption{Left: learning of the arm forward function. Right: learning the 
-arm jacobian. The plots represent the \emph{MSE} on 
-the test set during learning. See text for more details}\label{Fig:learningerrors}
-\end{figure}
-

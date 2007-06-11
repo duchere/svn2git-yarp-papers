@@ -1,12 +1,11 @@
 %!PS-Adobe-2.0 EPSF-1.2
 %%Creator: MATLAB, The Mathworks, Inc.
 %%Title: D:\dev\Papers\icdl07\Figure\jacobian-error.eps
-%%CreationDate: 04/02/2007  17:59:47
+%%CreationDate: 06/11/2007  17:54:29
 %%DocumentNeededFonts: Helvetica
 %%DocumentProcessColors: Cyan Magenta Yellow Black
-%%Extensions: CMYK
 %%Pages: 1
-%%BoundingBox:    29   184   557   599
+%%BoundingBox:    33   185   555   597
 %%EndComments
 
 %%BeginProlog
@@ -144,14 +143,12 @@ ISOLatin1Encoding WindowsLatin1Encoding copy pop
   smat stri tri_to_matrix tmat2 concatmatrix } bdef
 /ds {stri astore pop} bdef
 /dt {dtri astore pop} bdef
-/db {2 copy /cols xdef /rows xdef mul dup 3 mul string
+/db {2 copy /cols xdef /rows xdef mul dup string
   currentfile exch readhexstring pop
-  dup 0 3 index getinterval /rbmap xdef
-  dup 2 index dup getinterval /gbmap xdef
-  1 index dup 2 mul exch getinterval /bbmap xdef pop pop}bdef
+  /bmap xdef pop pop} bdef
 /it {gs np dtri aload pop moveto lineto lineto cp c
   cols rows 8 compute_transform 
-  rbmap gbmap bbmap true 3 colorimage gr}bdef
+  {bmap} image gr}bdef
 /il {newpath moveto lineto stroke}bdef
 currentdict end def
 %%EndProlog
@@ -166,7 +163,7 @@ end
 
 %%Page: 1 1
 %%BeginPageSetup
-%%PageBoundingBox:    29   184   557   599
+%%PageBoundingBox:    33   185   555   597
 MathWorks begin
 bpage
 %%EndPageSetup
@@ -177,7 +174,7 @@ bplot
 /dpi2point 12 def
 portraitMode 0204 7344 csm
 
-  145   153  6339  4983 MR c np
+  197   174  6267  4949 MR c np
 85 dict begin %Colortable dictionary
 /c0 { 0 0 0 sr} bdef
 /c1 { 1 1 1 sr} bdef
@@ -209,36 +206,36 @@ SO
  899 4614 mt  899 4560 L
  899  389 mt  899  442 L
 %%IncludeResource: font Helvetica
-/Helvetica /WindowsLatin1Encoding 216 FMSR
+/Helvetica /WindowsLatin1Encoding 192 FMSR
 
- 839 4849 mt 
+ 846 4826 mt 
 (0) s
 2238 4614 mt 2238 4560 L
 2238  389 mt 2238  442 L
-2118 4849 mt 
+2132 4826 mt 
 (40) s
 3577 4614 mt 3577 4560 L
 3577  389 mt 3577  442 L
-3457 4849 mt 
+3471 4826 mt 
 (80) s
 4916 4614 mt 4916 4560 L
 4916  389 mt 4916  442 L
-4736 4849 mt 
+4756 4826 mt 
 (120) s
 6255 4614 mt 6255 4560 L
 6255  389 mt 6255  442 L
-6075 4849 mt 
+6095 4826 mt 
 (160) s
  899 4614 mt  925 4614 L
 6255 4614 mt 6228 4614 L
  899 4614 mt  952 4614 L
 6255 4614 mt 6201 4614 L
- 544 4694 mt 
+ 580 4685 mt 
 (10) s
 %%IncludeResource: font Helvetica
-/Helvetica /WindowsLatin1Encoding 144 FMSR
+/Helvetica /WindowsLatin1Encoding 128 FMSR
 
- 784 4560 mt 
+ 793 4566 mt 
 (0) s
  899 3342 mt  925 3342 L
 6255 3342 mt 6228 3342 L
@@ -261,14 +258,14 @@ SO
  899  389 mt  952  389 L
 6255  389 mt 6201  389 L
 %%IncludeResource: font Helvetica
-/Helvetica /WindowsLatin1Encoding 216 FMSR
+/Helvetica /WindowsLatin1Encoding 192 FMSR
 
- 544  469 mt 
+ 580  460 mt 
 (10) s
 %%IncludeResource: font Helvetica
-/Helvetica /WindowsLatin1Encoding 144 FMSR
+/Helvetica /WindowsLatin1Encoding 128 FMSR
 
- 784  335 mt 
+ 793  341 mt 
 (1) s
  899  389 mt 6255  389 L
  899 4614 mt 6255 4614 L
@@ -305,10 +302,34 @@ DA
 %%IncludeResource: font Helvetica
 /Helvetica /WindowsLatin1Encoding 216 FMSR
 
-3175 5063 mt 
+3169 5050 mt 
 (samples) s
- 371 2656 mt  -90 rotate
-(MSE) s
+ 486 3422 mt  -90 rotate
+(MSE [deg) s
+90 rotate
+%%IncludeResource: font Helvetica
+/Helvetica /WindowsLatin1Encoding 168 FMSR
+
+ 378 2474 mt  -90 rotate
+(2) s
+90 rotate
+%%IncludeResource: font Helvetica
+/Helvetica /WindowsLatin1Encoding 216 FMSR
+
+ 486 2381 mt  -90 rotate
+(/pixels) s
+90 rotate
+%%IncludeResource: font Helvetica
+/Helvetica /WindowsLatin1Encoding 168 FMSR
+
+ 378 1776 mt  -90 rotate
+(2) s
+90 rotate
+%%IncludeResource: font Helvetica
+/Helvetica /WindowsLatin1Encoding 216 FMSR
+
+ 486 1683 mt  -90 rotate
+(]) s
 90 rotate
 SO
 6 w
