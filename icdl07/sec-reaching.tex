@@ -75,7 +75,7 @@ following optimization problem:
 %
 \begin{equation} 
 \label{Eq:reaching1}
-  \displaystyle\min_{\qarm} \left(J\right)=\displaystyle\min_{\qarm}
+  \displaystyle\min_{\qarm}
   \left\|\mathbf x_{hand} - \mathbf x_{target}\right\|^2,
 \end{equation}
 %
@@ -88,7 +88,7 @@ as possible to a predefined value $q_{20}$:
 %
 \begin{equation} 
 \label{Eq:reaching2}
-  \displaystyle\min_{\qarm}\left(J_c\right)=\displaystyle\min_{\qarm}
+  \displaystyle\min_{\qarm}
   \left[
   \left\|\mathbf x_{hand} - \mathbf x_{target}\right\|^2 + \left(q_{arm,2}-q_{20}\right)^2
   \right].
@@ -138,13 +138,14 @@ $\mathbf{\hat{x}}_{hand}^i$:
 %
 The plot in figure \ref{Fig:learningerrors}
 shows the trend of the error on the test set during learning. At the end of
-the training the network reached the performance of $\emph{MSE}=5.7$ 
-(with $\emph{STD}=10.4$).
+the training the network reached the performance of $\emph{MSE}=5.7~deg^2$ 
+(with $\emph{STD}=10.4~deg^2$).
 
 In the experiment reported in this paper the network was trained offline. 
-This was done to simplify the analysis of the results and to perform cross-validation 
-on a predefined test set. However, the learning algorithm we used is purely 
-incremental (each sample was shown to the network only once and immediately 
+This was done to simplify the analysis of the results and to perform 
+cross-validation on a predefined test set. However, the learning algorithm 
+we used is purely incremental (each sample was shown to the network only 
+once and immediately 
 discarded), so in this regard it would be straightforward to convert the 
 same approach to an online implementation.
 
@@ -152,9 +153,9 @@ same approach to an online implementation.
 %
 If the robot could visually measure the distance
 between the hand and the target, then reaching could also be solved
-visually, by implementing a closed control loop. The underlying idea consists in
-performing a preliminary (open loop) reaching movement and then refining the action
-by visually correcting any residual error. 
+visually, by implementing a closed control loop. The underlying idea 
+consists in performing a preliminary (open loop) reaching movement and 
+then refining the action by visually correcting any residual error. 
 
 We know that the Jacobian matrix relates arm velocities $\dot {\mathbf q}_{arm}$
 with hand velocities in the image plane $\dot {\mathbf u}_{hand} = \left[ 
@@ -279,9 +280,9 @@ sample was shown to the network only once and then discarded. Following each
 training step, we evaluated the performance of the network by computing 
 \emph{MSE} on the remaining $N_{test}=52$ elements 
 (test set). At the 
-end of the training the error on the test set was $\emph{MSE}=2$ 
-($\emph{STD}=7.1$). Figure \ref{Fig:learningerrors} reports the plot of 
-the error during learning.
+end of the training the error on the test set was 
+$\emph{MSE}=2~\frac{deg^2}{pixels^2}$ 
+($\emph{STD}=7.1~\frac{deg^2}{pixels^2}$). Figure \ref{Fig:learningerrors} reports the plot of the error during learning.
 %
 \begin{figure}
   % Requires \usepackage{graphicx}

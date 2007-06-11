@@ -8,22 +8,21 @@ target we first need to fixate it, i.e. $\utarget = 0$. Using the available sens
 {\uhand} \longrightarrow 0$. Clearly, the image plane distance $\| \uhand - \utarget \|$ can be used as a rough estimate of the reaching precision, i.e. of the Cartesian distance between the target to be reached and the position of the hand. Specifically, assuming infinite resolution of the camera sensor, if $\| \uhand - \utarget\| = 0$ then the hand has exactly reached the target.
 
 \subsection{Open Loop}
-The first attempt to reach the target consists in using (\ref{Eq:reaching2})
+The first attempt to reach the target consists of using (\ref{Eq:reaching2})
 to choose the arm configuration $\q_{arm}$ which brings the hand to the center 
 of the image planes. Clearly, if the forward 
 kinematic function (\ref{Eq:forward}) were perfectly represented and if the target were reachable, then we would have $\mathbf x_{hand} =  \mathbf x_{target}$, which implies that the target-hand Cartesian distance 
  is zero (see Section \ref{sec:reaching} for details). Therefore, in this ideal case, the open loop 
  strategy already results in $\| \uhand - \utarget \| = 0$. In practice, the model 
- (\ref{Eq:forward}) cannot exactly represent the system's kinematic\footnote{Part of the representational 
+ (\ref{Eq:forward}) cannot exactly represent the system's kinematics\footnote{Part of the representational 
  errors are related to the representation of the kinematic function, in this case the
- so called Receptive Field Weighted Regression model. Part are due to the mechanical plays and backlash of the
- mechanical structure.}. Therefore, even tough we can find $\q_{arm}$ such that $\mathbf x_{hand}=
+ so called Receptive Field Weighted Regression model. Part are due to the mechanical backlash of the structure.}. Therefore, even though we can find $\q_{arm}$ such that $\mathbf x_{hand}=
  \hat f_{arm}(\mathbf q_{arm})$ it is not guaranteed that after the movement execution 
  $\| \uhand - \utarget \| = 0$. Figure \ref{Fig:ImagePlaneOpenLoopErrors}
  shows the image plane errors after the execution of the open loop movement. The plot has been obtained
  by fixating a target and performing a series of open loop movements. Each open loop
  movement was different because (\ref{Eq:reaching2}) was solved 
- by choosing a different value $q_{20}$. different value $q_{20}$. 
+ by choosing a different value $q_{20}$.
 
 
 \begin{figure}
@@ -38,11 +37,12 @@ kinematic function (\ref{Eq:forward}) were perfectly represented and if the targ
 	  %	Top view & & Lateral view
   \end{tabular}
 \end{center}
-\caption{Open loop image plane errors $\uhand$ for different
-choices of the redundant variable $q_{20}$. On the horizontal axis 
-$u_r$ and $u_l$; vertical axis $v_r$ and $v_l$ (always in pixels).
+\caption{Open loop performance, for different choices of the redundant 
+variable $q_{20}$ (image plane errors $\uhand$, in pixels). On the horizontal 
+axis $u_r$ and $u_l$; vertical axis $v_r$ and $v_l$ (always in pixels).
 The hand position in the image plane is represented 
-by the small circles.  Each circle corresponds to a different open loop movement, i.e. a different value of $q_{20}$.
+by the small circles.  Each circle corresponds to a different open loop 
+movement, i.e. a different value of $q_{20}$.
 }\label{Fig:ImagePlaneOpenLoopErrors}
  \end{figure}
 

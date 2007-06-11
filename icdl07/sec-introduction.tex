@@ -25,24 +25,25 @@ the investigation of perceptual development in robots requires addressing
 the problem of motor development first and improving how robots interact
 with the world.
 
-In this context we focus on reaching, which is clear prerequisite for 
+In this context we focus on reaching, which is a clear prerequisite for 
 grasping. If vision of the hand and target were available then this problem 
 would be easily solved by employing a visual servoing approach (see 
 \cite{hutchinson96tutorial} for a review) which is typically based on 
 the use of the visuo-motor Jacobian of the arm. The eye-to-hand Jacobian 
 transformation is a function of the arm and head joints and includes knowledge 
 of the camera parameters; its estimation is in practice a difficult task.
-The fundamental advantage of this approach is that even an inaccurate estimation 
+The fundamental advantage of this approach is that even an inaccurate 
+estimation 
 of the Jacobian allows reducing the error of the task to zero. But the visual 
-servoing approach is not necessarily the best solution. On one hand delays in 
-the control loop pose limitations on the speed of the arm, while on the other 
-hand it requires that the hand and target are continuously visible for the 
-duration of the movement. 
-Reaching can also be performed open-loop by directly relating the joint angles of 
-the head with those of the arm \cite{blackburn94learning,metta99developmental}. 
-The drawback of this approach is that errors because of modeling inaccuracies and 
-noise in the sensors, calculations, actuation, cannot be made arbitrarily small 
-as in the visual servoing case.
+servoing approach is not necessarily the best solution: it requires continous 
+visual feedback from the hand and target, while delays in the control loop 
+pose limitations on the speed of the arm.
+Reaching can also be performed open-loop by directly relating the joint angles 
+of the head with those of the arm 
+\cite{blackburn94learning,metta99developmental}. 
+The drawback of this approach is that errors because of modeling inaccuracies 
+and noise in the sensors, calculations and actuation, cannot be made 
+arbitrarily small as in the visual servoing case.
 
 Results in developmental psychology suggest that both solutions might be
 adopted by the brain. Clifton et al. \cite{clifton93isvisually} 
@@ -61,7 +62,7 @@ the hypothesis that the target object is fixated. We use the open loop
 controller to bring the hand close to the target. The closed loop controller 
 is activated when visual feedback from the hand is available. In practice,
 we show that the error could be made arbitrarily small. The problem of 
-redundancy in solved in the first case by imposing additional constraints to 
+redundancy is solved in the first case by imposing additional constraints on 
 the task. Finally, we describe the procedure by which the robot learns all 
 the transformations required by the controllers (the open-loop mapping and 
 the arm visual Jacobian).
