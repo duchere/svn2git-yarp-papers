@@ -92,15 +92,17 @@ between exact and approximate methods
 on this task.
 Notice that for the standard SVM the training is not online.
 
-The algorithm was trained incrementally on three sequences from IDOL2,
+As in the experimental setup of \cite{luo:icra07},
+the algorithm was trained incrementally on three sequences from IDOL2,
 acquired under similar illumination conditions with the same robot
-platform; the fourth sequence was used for testing. In order to test
+platform; the fourth sequence was used for testing.
+In order to test
 the various properties of interest of the incremental algorithms, we
-need a reasonable number of incremental steps.  Thus, every sequence
+need a reasonable number of incremental steps. Thus, every sequence
 was split into $5$ subsequences, so that each subset contained one
 of the five images acquired by the robot every second (image sequences
 were acquired at a rate of 5fps). Since during acquisition the
-camera's viewpoint continuously changes \cite{luo:idol2}, the
+camera's viewpoint continuously changes \cite{luo:icra07}, the
 subsequences could be considered as recorded separately in a static
 environment but for varying pose.  This setup allows us to examine how
 the algorithms perform on data with less variations. In order to get a
@@ -109,9 +111,8 @@ row of Fig. \ref{fig:idol} shows some sample images acquired within a
 time span of 1.6 sec. As a result, training
 on each sequence was performed in 5 steps, using one subsequence at a
 time, resulting in 15 steps in total. Overall, we considered 36
-different permutations of training and test sequences for the
-exponential $\chi^2$ kernel and 36 permutations for the matching
-kernel; here we report average results with standard
+different permutations of training and test sequences for
+both the exponential $\chi^2$ and matching kernels; here we report average results with standard
 deviation. Fig. \ref{fig:exp:idol}, left, shows the recognition rates
 of the exponential $\chi^2$ kernel (top) and matching kernel (bottom)
 experiments obtained at each step using OISVM, the fixed-partition
