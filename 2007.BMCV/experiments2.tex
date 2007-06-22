@@ -147,13 +147,13 @@ training points are orthogonal, or almost orthogonal, to each other
 (notice that, as the kernel is not a Mercer one, the geometric
 interpretation might not be valid). Anyway, given enough training
 points, the machine will always reach a maximum size and will stop
-growing \cite{engel2004}.Other tests on a set of standard databases commonly used in the
+growing \cite{engel2004}. Other tests on a set of standard databases commonly used in the
 machine learning community, as well as more details about OISVM can be
 found in \cite{Orabona07}.
 
 It is worth noting that, even if the solution is kept small and the
-number of support vectors will be finite in any case, the algorithm
-must store all the training samples that it receives. This can be a
+number of support vectors will be finite in any case, 
+all the received training samples must be stored. This can be a
 problem in an online setting, but it could be solved using, for
 example, some kind of forgetting strategy. Another strategy can be the
 use out-of-core storage of the data (i.e., storage on the hard disk)
@@ -170,7 +170,6 @@ in order to be able to deal with big training sets.
   \multicolumn{2}{c}{(b)~Number of support vectors and classification rate obtained at each incremental step using local kernel.} \\
   \end{tabular}
 \caption{Average results obtained for experiment performed on the IDOL2 database, using
-         OISVM with three different values of $\eta$, the fixed-partition and the standard SVM.
-         These figures are best viewed in color.}
+         OISVM with three different values of $\eta$, the fixed-partition and the standard SVM.}
 \label{fig:exp:idol}
 \end{figure*}
