@@ -459,7 +459,7 @@ As previously said, in our case there are additional constraints that rule out t
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=45mm, angle=90]{image/Neck2DSpring.pdf} 
-\caption{Two dimensional scheme of an actuation system similar to james's neck.}
+\caption{Two dimensional scheme of an actuation system similar to James's neck.}
 \label{Fig:HeadAct2D}
 \end{figure}
 
@@ -474,7 +474,7 @@ As previously said, in our case there are additional constraints that rule out t
 
 \section{Control of the neck} \label{Sec:NeckControl}
 
-The peculiar structure of the neck has required the design of an original control technique. The final design makes use of the 3-axis orientation tracker positioned on top of the robot neck. Though the given sensor is capable of measuring its absolute rotation along three orthogonal axes, in the given application we used only part of the available information. In particular, we used the measurements corresponding to the head pitch and roll rotations, denoted $\theta_p$ and $\theta_r$ respectively; these rotations corresponds to the degrees of freedom actuated by the three motors at the base of the neck. The third sensor measurement, the yaw rotation $\theta_y$ (a rotation around an axis orthogonal to the ``neck top'' as indicated in Figure \ref{Fig:HeadAct}), will not be used for two reasons: first, it is not influenced by the first three motor positions; second, it can be better measured using the encoder mounted directly on the shaft of the fourth motor.
+The peculiar structure of the neck has required the design of an original control technique. The final design makes use of the 3-axis orientation tracker positioned on top of the robot head. Though the given sensor is capable of measuring its absolute rotation along three orthogonal axes, in the given application we used only part of the available information. In particular, we used the measurements corresponding to the head pitch and roll rotations, denoted $\theta_p$ and $\theta_r$ respectively; these rotations correspond to the degrees of freedom actuated by the three motors at the base of the neck. The third sensor measurement, the yaw rotation $\theta_y$ (a rotation around an axis orthogonal to the ``neck top'' as indicated in Figure \ref{Fig:HeadAct}), will not be used for two reasons: first, it is not influenced by the first three motor positions; second, it can be better measured using the encoder mounted directly on the shaft of the fourth motor.
 
 \subsection{Neck control in details} \label{Sec:NeckControlInDetails}
 
@@ -535,7 +535,7 @@ In order to improve the positioning errors shown in Figure \ref{Fig:ErrorModel} 
 \begin{equation} \label{Eq:JacobianControl}
 \dot{\q} = - J_R(\q) (\x - \x_d),
 \end{equation}
-where $J(\q) \in \mathbb R^{2 \times 3}$ is the jacobian of (\ref{Eq:Fwd_model_neck}), and $A_R \in \mathbb R^{n \times m}$ denotes a right inverse of a matrix $A \in \mathbb R^{m \times n}$, i.e. $A A_R = I$. In our case, we do not have direct access to $J$ since we do not have an analytical expression for the function $f$ in (\ref{Eq:Fwd_model_neck}). All we have is $f_{inv}$ whose jacobian $J_{inv}$ is somehow related to $J$. Specifically, it can be shown that:
+where $J(\q) \in \mathbb R^{2 \times 3}$ is the Jacobian of (\ref{Eq:Fwd_model_neck}), and $A_R \in \mathbb R^{n \times m}$ denotes a right inverse of a matrix $A \in \mathbb R^{m \times n}$, i.e. $A A_R = I$. In our case, we do not have direct access to $J$ since we do not have an analytical expression for the function $f$ in (\ref{Eq:Fwd_model_neck}). All we have is $f_{inv}$ whose Jacobian $J_{inv}$ is somehow related to $J$. Specifically, it can be shown that:
 \begin{equation} \label{Eq:JacobianInv}
 J(f_{inv}(\x)) J_{inv} (\x) = I \qquad \forall \x \in \mathbb R^2,
 \end{equation}
