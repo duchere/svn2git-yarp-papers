@@ -320,9 +320,8 @@ The ability to subsequently detect the hand of the robot, firstly presupposes th
 %
 %																			localization - Assumptions
 %
-\subsubsection{Assumptions}\label{method:localization:assumptions}
+\subsection{Assumptions}\label{method:localization:assumptions}
 % -----------------------------------------------------------------------------------------------
-
 Proprioceptive feedback allows us a lot of information to exploit for various tasks. As soon as James generates motion with its arm as sort of self-exploratory motion generation it will cause changes in the visual and sensory perception. The robot senses a moving arm part which again indicates him to be attentive on visual feedback. \textit{Feeling} changes, means that there is the possibility to \textit{see} some changes which will then be correlated to the self-caused action behavior. At the current stage of development of this algorithm a few assumptions have to be set. The single arm joint motion
 \begin{enumerate}
 	\item produces enough net displacement in the plane parallel to the camera's CCD,
@@ -342,35 +341,42 @@ We do not always receive stabilized images, even if the neck, head and eye actua
 %
 \subsection{Localization}\label{method:localization}
 % -----------------------------------------------------------------------------------------------
-According to the approach, the attention system waits for a significant visual change in the scene. Due to the robot's ignorance of understanding the scene, any motion will be considered important that is greater than a certain amount. For a human being it is easy to make out and distinguish coherent and relevant regions. The following steps propose a possibility for the robot to do so as well.
+According to the approach, the attention system waits for a significant visual change in the scene. Due to the robot's ignorance of understanding the scene, any motion will be considered important that is greater than a certain amount. For a human being it is easy to make out and distinguish coherent and relevant regions. The following steps propose a possibility for the robot to do so as well.\\ \newline
 %
 % -----------------------------------------------------------------------------------------------
 %
-\subsubsection{Classification of the optical flow}\label{method:localization:classification}
+%\subsubsection{Classification of the optical flow}\label{method:localization:classification}
+%\textbf{1) Classification of the optical flow}\newline%\label{method:localization:classification}
+\textit{1) Classification of the optical flow}\\ \newline
 % -----------------------------------------------------------------------------------------------
-In order to localize regions that belong together, in sense of motion, we must first classify these regions and segment the global motion in the scene. Smaller regions that move together \textbf{within a larger neighbourhood } will later be put together into unique identifiable patches that contain several neighboured locations in the image moving equally and in the same direction.
+In order to localize regions that belong together, in sense of motion, we must first classify these regions and segment the global motion in the scene. Smaller regions that move together \textbf{within a larger neighbourhood } will later be put together into unique identifiable patches that contain several neighboured locations in the image moving equally and in the same direction.\\ \newline
 %
 % -----------------------------------------------------------------------------------------------
 % 1
-%\paragraph{Step 1: Feature selection}\label{method:localization:classification:step1}
-\newline\textit{Step 1: Feature selection:}\label{method:localization:classification:step1}
+\textit{1.1: Motion computation}
 % -----------------------------------------------------------------------------------------------
-\textit{Determination of a fixed number of good features to track for each image}.\newline 
-J. Shi and C. Tomasi proposed a feature selection that is \textit{optimal by construction} for which tracking produces good results not only for translational but also for affine motion \cite{GFT94-06}. Using this technique assures a reliable choice for each type of motion. We pick a high number of good features, e.g.\ $n=1000$, to track and calculate for this selected number \textit{n} of features their position in the next image. 
+Between two consecutive time frames the motion is computed in a classical way where motion is computed by first selecting traceable points in the scene and then the displacement is calculated.
+\begin{enumerate}
+	\item \textit{Feature selection: } We pick a high number of good features, e.g.\ $n=1000$, to track and calculate for the selected number \textit{n} of features their position in the next image with the following step. A feature selection that is \textit{optimal by construction} for which tracking produces good results %not only for translational but also for affine motion 
+	is the one proposed by J. Shi et. al\ \cite{GFT94-06}. %Using this technique assures a reliable choice for each type of motion.
+	\item \textit{Feature tracking :} The pyramidal Lucas Kanade feature tracker searches in the image $I_t$ all features that were previously found \cite{PILKFT99} %. The Lukas Kanade tracker 
+	and can be seen as a function that returns for each given feature in image $I_{t-1}$ the location in $I_{t}$ and receive $n$ displacement vectors; information that is describing the behaviour of the scene in the image.%\\ \newline
+\end{enumerate}
 %
 % -----------------------------------------------------------------------------------------------
-% 2
-\paragraph{Step 2: Feature tracking} %\label{method:localization:classification:step2}
+% 3
+\textit{1.3: Representative patch displacement} \\ \newline
 % -----------------------------------------------------------------------------------------------
-\textit{Computation of optical flow in the scene}.\newline
-The pyramidal Lucas Kanade feature tracker searches in the image $I_t$ all features that were previously found \cite{PILKFT99}. The Lukas Kanade tracker can be seen as a function that returns for each given feature in image $I_{t-1}$ the location in $I_{t}$ and receive $n$ displacement vectors; information that is describing the behaviour of the scene in the image. 
+As long as step 1.5 is unmet, the image is divided into a grid (step 1.3a)\ ) of equilateral patches where each optical flow is inserted and we start the classification process of the optic flow and decide on the regions belonging together. An object wandering through a scene projects in the image plane an area with an equivalent motion, thus this region is likely to own many optical flow vectors with similar or even equal values pointing to the same direction. Dividing the object's projection in the image plane into image patches must also divide the flow vectors into patches. These, into patches, summarized features are subregions that must still be moving like the corresponding object. \newline
+On the other hand, if patches have already been initialized, the optical flow is placed in its corresponding patch (step 1.3b)\ ). \newline
 %
 % -----------------------------------------------------------------------------------------------
 % 3a
-\paragraph{Step 3a): Initialization of the patches}\label{method:localization:classification:step3a}
+%\paragraph{Step 3a): Initialization of the patches}\label{method:localization:classification:step3a}
+\textit{a): Abstraction, initialization of the patches} \newline
 % -----------------------------------------------------------------------------------------------
-At this point we start the classification process of the optic flow and decide on the regions belonging together. The idea was that an object wandering through a scene projects in the image plane an area with an equivalent motion, thus this region is likely to own many optical flow vectors with similar or even equal values pointing to the same direction. Dividing the object's projection in the image plane into image patches must also divide the flow vectors into patches. These, into patches, summarized features are subregions that must still be moving like the corresponding object. 
-With the result from the upper step the current image is first divided into a grid with $n_w \times n_h$ 2D patches where $n_w = \lfloor \frac{w}{N} \rfloor$, analogous for the height $n_h$, because $\vert \Lambda \vert = N \times N$ and the image size: $\vert I_{x,y} \vert = w \times h$. %Grid cells that eventually do not span the size of an ordinary patch are generously omitted, what means a maximal loss of the last $w \times (N-1)$ pixels in the height and the last $h \times (N-1)$ pixels in the width. Overall it does not make a big difference about the information content of the image. 
+The result from the upper step 2) the current image is first divided into a grid with $n_w \times n_h$ 2D patches where $n_w = \lfloor \frac{w}{N} \rfloor$, analogous for the height $n_h$, because $\vert \Lambda \vert = N \times N$ and the image size: $\vert I_{x,y} \vert = w \times h$. \newline
+%Grid cells that eventually do not span the size of an ordinary patch are generously omitted, what means a maximal loss of the last $w \times (N-1)$ pixels in the height and the last $h \times (N-1)$ pixels in the width. Overall it does not make a big difference about the information content of the image. 
 %Every patch $\Lambda_{F_k}$ covers in the initialization image cell \textit{i}, where the center of the patch \textit{(i,j)} is defined by:
 %\begin{equation}
 %\label{centering}
@@ -379,64 +385,36 @@ With the result from the upper step the current image is first divided into a gr
 %
 % -----------------------------------------------------------------------------------------------
 % 3b
-\paragraph{Step 3b): Assigning features (patching the flow):}\label{method:localization:classification:step3b}
+%\paragraph{Step 3b): Assigning features (patching the flow):}\label{method:localization:classification:step3b}
+\textit{1.3b): Assigning features' flow to its patch} \newline
 % -----------------------------------------------------------------------------------------------
-Each feature is dropped into the cell according to its position. Consequently a patch $\Lambda_{F_k}$ absorbs all the displacement vectors that lie in the interval:
-\begin{equation}
-\forall k = 1\ldots n: \quad center \left( \vec{d}_k \right)  =  center \left( \Lambda_{F_i}  \right),  \quad \mbox{where } \vec{u}_k \in \begin{bmatrix} c_x \pm \frac{N}{2} \\ c_y \pm \frac{N}{2} \end{bmatrix} \enspace .
-\end{equation}
-%
+Each feature is dropped into the cell according to its position. Consequently a patch $\Lambda_{F_k}$ absorbs all the displacement vectors that lie in the fixed patch size at the current position.
+%:
+%\begin{equation}
+%\forall k = 1\ldots n: \quad center \left( \vec{d}_k \right)  =  center \left( \Lambda_{F_i}  \right),  \quad \mbox{where } \vec{u}_k \in \begin{bmatrix} c_x \pm \frac{N}{2} \\ c_y \pm \frac{N}{2} \end{bmatrix} \enspace .
+%\end{equation}
+%%
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/method/step1to4.pdf}
+		\includegraphics[width=3in]{imgs/method/step1to4.pdf}
 		\caption[Patching the flow. ]{Patching the flow. Top left schematically shows an image extract with feature points and their displacements. As long as step 5 is not yet fulfilled, the image is subdivided into a grid of patches (top middle). Each cell in the grid assimilates all optical flow that is situated on its area (top right), however, if step 5 was satisfied and the tracking process is afoot, only relevant patches assimilate optical flow from newly determined features. The lower row illustrates step 4. }
 		\label{fig:abstraction}
 	\end{center}
 \end{figure}
 %
-With this step the most important abstraction in the localization and detection process has been performed. Locations in the image array are decoupled from their original domain, the grey-level values (consult figure \ref{fig:abstraction} for the abstraction process). Our new informative system is a grid structure where each cell contains the correspondent set of displacement vectors $ \vec{d_i} \in \Lambda_k $ which are all centralized to the cell's center in respect to their start point. A set of loose values is not really classifying a small $ N \times N $ regions, much less larger regions. Likewise completely different displacement directions and amounts fall into the same $ \Lambda $ because the grid is placed over the image in a fix way, regardless the relationships in the scene.
+With this step the most important abstraction in the localization and detection process has been performed. Locations in the image array are decoupled from their original domain, the grey-level values (consult figure \ref{fig:abstraction} for the abstraction process). Our new informative system is a grid structure where each cell contains the correspondent set of displacement vectors $ \vec{d_i} \in \Lambda_k $ which are all centralized to the cell's center in respect to their start point. A set of loose values is not really classifying a small $ N \times N $ regions, much less larger regions. Likewise completely different displacement directions and amounts fall into the same $ \Lambda $ because the grid is placed over the image in a fix way, regardless the relationships in the scene.\\ \newline
 %
-
+% -----------------------------------------------------------------------------------------------
+% 4
+\textit{1.4: Representative patch displacement} \\ \newline
+% -----------------------------------------------------------------------------------------------
+After inserting all vectors in the patched image, for each patch the representative displacement is calculated. Each patch that has more than a certain amount of vectors greater than zero (that means traceable motion) are taken into account.
 \begin{enumerate}
-	\item \textit{Feature selection}: .
-	% 3
-	\item \textit{Abstraction}: Each optical flow vector, resulting from pLK, falls into a patch of the image, corresponding to 						its original position.
-				\begin{enumerate}
-					\item As long as step 5 is unmet, the image is divided into a grid of equilateral patches where each optical flow is 								inserted.
-					\item In the other case where patches have already been initialized, the optical flow is placed in its 															corresponding patch.
-				\end{enumerate}
-	% 4
-	\item \textit{Representative patch displacement}: After inserting all vectors in the patched image, for each patch the 							representative displacement is calculated. Each patch that has more than a certain amount of vectors greater than 						zero (that means traceable motion) are taken into account.
-				\begin{enumerate}
-					\item \textit{Average angle}: In order to discard outliers in noisy regions and to tell the effective main 													direction of the patch, the angles must pass a corresponding confidence interval of the normal standard 											deviation of its comembers' values.
-					\item \textit{General displacement vector}: Building the resultant (adding up the components) of the selected 												vectors leads to the common direction displacement of the patch.
-				\end{enumerate}
-	% 5
-	\item \textit{Classification}: If steps 1 to 4 have been performed the first time or as long as this step did not succeed in 					a satisfying manner this classification step must be executed. \\
-				For every patch $i$ with an angular value its eight neighbours are inspected to decide if the patch shall be 									marked for tracking. 
-	% 6
-	\item \textit{Tracking}: By the time classification provides one or several flocks marked as important regions in the scene, 					the tracking process launches. At every point in time the displacement of each identifiable patch is recorded, where 					steps 1 to 4 supply the tracker with the needed information. But as we later want to close the action-perception 						loop, we also have record the yet independent body sensory information, the encoder values. By the time tracking 							started the procedure lasts over a time window $\tau_{tracking}$, e.g.\ 200 frames.
-	% 7
-	\item \textit{Localization}: At this point the most important step, the conclusion of all previous steps takes place. The 						robot differentiates between the experience of its body movements and other moving entities in the environment, see 				\cite{FLSAUEL03-02}. The step from \textit{confusion} to level 1 of self-awareness, \textit{differentiation}, is 							taken by correlating the visually gained information with the bodily experience. Technically, the set of tracked  						patches are confronted with the encoder values. Each patch trajectory that highly correlates with the joint 									trajectory is now qualified to be part of the robot and denotes a region in the image plane where the hand stays, from where in the segmentation part the hand will be extracted from its environment.
-	% 8
-	\item \textit{Segmentation}: During tracking we temporary saved the images and use them to retrieve the background with the method described earlier in \ref{methods:bics}. From image $I_{loc}=I_{ready + \tau_{tracking}}$, where the hand had been localized, the background  is subtracted to retrieve the foreground from the region of interest found by step 7.
+	\item \textit{Average angle}: In order to discard outliers in noisy regions and to tell the effective main direction of the patch, the angles must pass a corresponding confidence interval of the normal standard deviation of its comembers' values.
+	\item \textit{General displacement vector}: Building the resultant (adding up the components) of the selected vectors leads to the common direction displacement of the patch.
 \end{enumerate}
 %
-The algorithm, seen as a complete entity, is a surveillance of the visual scene over a certain period of time with a simultaneous processing of visual and proprioceptive information. It can be described as model consisting of a 3D array $V_{x,y,t}=I_x\ \times\ I_y\ \times\ I_t$ of visual information\footnote{where $I_x,I_y,I_t$ denote sets of indices, analogous the upcoming notation for the arm joints} (practically a video sequence), a 2D array $S_{q,t} = J_k \times J_t$ of motor sensory feedback and set of functions. 
-
-The visual basis for each timestamp is a grayscale image $I$ described by a 2D set of pixel values, where $I(\vec{x})=I(x,y)$ defines the grayscale value at the location $\vec{x}=\left[x\ y\right]^T$. The image has a size of $w \times h$ pixels. 
-For each point in time $t$ the joints vector $\vec{q} = \left[ q_{0}\ q_1\ \ldots\ q_{K-1} \right]^T$ represents the relative angle position (displacement in degree angles) of the $k$ arm encoders in respect to the time before. %, where $q_k$ denotes one of $K$ joints. %In case of James the cardinality $\left|\vec{q}\right|= 15$, resulting from 7 arm and 8 hand joints.
-
-For further proceedings a 2D structure called image patch $\Lambda$ takes up an important role. In our case a 2D patch is actually a 3D array with a \textit{single temporal} index and denotes a \textit{spatial} $N \times N$ neighbour\-hood of pixels: $\Lambda_t = \left\{I_x\ \times\ I_y\right\}\ \times\ \left\{t\right\} = \left(\Lambda, t\right)$.
-
-
-
-%**********************************************
-
-\paragraph{Step 4: Representative patch displacement:} 
-\label{halose:halo:algorithm:step2e}
-%
-Each patch has its own amount of displacement vectors. A reliable feature to classify the motion properties of the tracked image locations yields the direction component without building dependencies among the different $ \vec{v}_k = \vec{u}_k + \vec{d}_k $. Considering direction plus the velocity were building a strong unfoldable dependency for detecting these large regions. Apart from this fact, features sticking tight on a region that is spanning many patches, means an equivalent speed. So the velocity only differs in patches that lie on boarder regions of the object where there is anyway existing rumor. The amount of the velocity is in neither of both directional classification cases an information with a qualitative statement, however, for the average displacement it matters. Additionally, due to the ratio between image size and patch size, where a single patch makes out at most approximately one per cent\footnote{In our set up $ percentage \left(  \Lambda, I \right) = \frac{N^2}{w*h}$ , where images have size 320 by 240 and $n < 20$ } of the whole image, the $ \vec{d}_k $ are assumed to be independently distributed  (in respect to their angle) at this point of time. We use the Gaussian distribution in order to determine a 90-percent confidence interval on the standard deviation of the angular values respective to the average angle of all $\vec{d}_k $ to eliminate the gross outliers. In figure \ref{fig:abstraction} we schematically sketched the building process of the representative displacement vector $\overline{\vec{d}_k}$ of patch $k$. Let us denote a set $\mathcal{A}$ that accommodates all $\vec{d}_i \in \Lambda_k$ that pass the 90-percent interval in equation \ref{confint}. 
+A reliable feature to classify the motion properties of the tracked image locations yields the direction component without building dependencies among the different $ \vec{v}_k = \vec{u}_k + \vec{d}_k $. Considering direction plus the velocity were building a strong unfoldable dependency for detecting these large regions. Apart from this fact, features sticking tight on a region that is spanning many patches, means an equivalent speed. So the velocity only differs in patches that lie on boarder regions of the object where there is anyway existing rumor. The amount of the velocity is in neither of both directional classification cases an information with a qualitative statement, however, for the average displacement it matters. Additionally, due to the ratio between image size and patch size, where a single patch makes out at most approximately one per cent\footnote{In our set up $ percentage \left(  \Lambda, I \right) = \frac{N^2}{w*h}$ , where images have size 320 by 240 and $n < 20$ } of the whole image, the $ \vec{d}_k $ are assumed to be independently distributed  (in respect to their angle) at this point of time. We use the Gaussian distribution in order to determine a 90-percent confidence interval on the standard deviation of the angular values respective to the average angle of all $\vec{d}_k $ to eliminate the gross outliers. In figure \ref{fig:abstraction} we schematically sketched the building process of the representative displacement vector $\overline{\vec{d}_k}$ of patch $k$. Let us denote a set $\mathcal{A}$ that accommodates all $\vec{d}_i \in \Lambda_k$ that pass the 90-percent interval in equation \ref{confint}. 
 Noisy regions are likely to be disqualified already here, otherwise at the next steps. Patches without any displacement logically go into the discard. 
 \begin{equation}
 	\alpha_{d_i} = \arctan{ \left( \frac{d_{i,y} }{d_{i,x} } \right)}, \quad \mbox{where } \forall \vec{d}_i \in \Lambda_{k} , i=0 \ldots n_{d_k} \enspace .
@@ -468,13 +446,17 @@ Finally all $|\mathcal{A}|$ displacement vectors whose angles passed the 90-perc
 \label{representative}
 \overline{ \vec{d_k }} =  \sum_{j \in \mathcal{A}}{\frac{\vec{d}_j}{|\mathcal{A}|} } \enspace .
 \end{equation}
+\\ \newline
 %
-\paragraph{Step 5: Classification - Flocking:} 
-\label{halose:halo:algorithm:step2f}
-%
+% -----------------------------------------------------------------------------------------------
+% 5
+\textit{1.5: Classification - Flocking / Classification of the patches and building flocks} \\ \newline
+% -----------------------------------------------------------------------------------------------
+ \textit{Classification}: If steps 1 to 4 have been performed the first time or as long as this step did not succeed in a satisfying manner this classification step must be executed. \\
+				For every patch $i$ with an angular value its eight neighbours are inspected to decide if the patch shall be marked for tracking. 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/method/selection.pdf}
+		\includegraphics[width=2.5in]{imgs/method/selection.pdf}
 		\caption[Feature patch grouping. ]{Feature patch grouping. For each patch in the grid the neighbours are contemplated. If a patch has more neighbours than a minimal threshold $\rho_{MIN\_NEIGHBOURS}$ fulfilling that their direction in motion is lying between $\pm \beta_{range}$, it is marked as a relevant patch. As this process continues in the end we have flocks of patches that cover a bigger region moving in the same way, what can be seen as visual grouping according to \cite{ULGII23} }
 		\label{fig:flocking}
 	\end{center}
@@ -518,13 +500,18 @@ As long as this threshold is not fulfilled the whole procedure (all steps of 2) 
 %	\end{center}
 %\end{figure}
 %
-\subsubsection{Tracking}
-\label{halose:halo:algorithm:tracking}
+\\ \newline
+%
+% -----------------------------------------------------------------------------------------------
+%
+\textit{2) Tracking}\\ \newline
+% -----------------------------------------------------------------------------------------------
+% 6
+By the time the classification provides one or several flocks marked as important regions in the scene, the tracking process launches. At each point in time the displacement of each identifiable patch is recorded, where steps 1 to 4 supply the tracker with the needed information. But as we later want to close the action-perception loop, we also have record the yet independent body sensory information, the encoder values. By the time tracking started the procedure lasts over a time window $\tau_{tracking}$, e.g.\ 200 frames.
 %
 As this localization problem cannot be solved by pure vision, the motor encoder values are tracked as well as the patches that have been qualified for tracking in the previous steps. Therefore tracking consists of ``tracking'' two different perception inputs.
 %
 \paragraph{Step 6: Tracking visual information:}
-\label{halose:halo:algorithm:step8vis}
 %
 Let us assume that the initialization phase completed at $t_{ready} -1$ and tracking can be started. Set $Q$ contains a fixed number of patches that are qualified for tracking and each patch has an own identification (ID). Identification is a basic need in order to decide which of the tracked patches, are the patches lying on the hand in the last step of the localization process (step 7). All good features to track chosen for at $t-1$ and their optical flow tell where these features are to find in the current image. The newly achieved displacement vectors do either fall into one of the patches $\in Q$ or are lost in the irrelevant space. Patches are then treated as in steps 3b and 4 from where the next displacement vector results. The patches from $t-1$ break out of their grid structure, perform their first step and move to their new position according to the displacement. From point in time $t=t_{ready}$, the essential part of the algorithm starts and tracks all $\Lambda_{k \in Q} $ for a time window $\tau_{tracking}$. As long as the time window has not been interrupted, due to the restrictive condition $C_t$, or terminated, steps 1 to 4 are repeatedly performed. The new center of a patch at $t$ is:
 %
@@ -576,6 +563,38 @@ Motor joint trajectories are built according to:
 %
 %
 %\newpage
+
+	
+	
+% -----------------------------------------------------------------------------------------------
+%
+\textit{1) Tracking}\\ \newline
+% -----------------------------------------------------------------------------------------------
+	% 7
+\textit{Localization}: At this point the most important step, the conclusion of all previous steps takes place. The 						robot differentiates between the experience of its body movements and other moving entities in the environment, see 				\cite{FLSAUEL03-02}. The step from \textit{confusion} to level 1 of self-awareness, \textit{differentiation}, is 							taken by correlating the visually gained information with the bodily experience. Technically, the set of tracked  						patches are confronted with the encoder values. Each patch trajectory that highly correlates with the joint 									trajectory is now qualified to be part of the robot and denotes a region in the image plane where the hand stays, from where in the segmentation part the hand will be extracted from its environment.
+\\ \newline
+%
+%
+% -----------------------------------------------------------------------------------------------
+%
+%																						detection
+%
+\subsection{Detection}\label{method:detection}
+% -----------------------------------------------------------------------------------------------
+% 8
+\textit{Segmentation}: During tracking we temporary saved the images and use them to retrieve the background with the method described earlier in \ref{methods:bics}. From image $I_{loc}=I_{ready + \tau_{tracking}}$, where the hand had been localized, the background  is subtracted to retrieve the foreground from the region of interest found by step 7.
+
+%
+The algorithm, seen as a complete entity, is a surveillance of the visual scene over a certain period of time with a simultaneous processing of visual and proprioceptive information. It can be described as model consisting of a 3D array $V_{x,y,t}=I_x\ \times\ I_y\ \times\ I_t$ of visual information\footnote{where $I_x,I_y,I_t$ denote sets of indices, analogous the upcoming notation for the arm joints} (practically a video sequence), a 2D array $S_{q,t} = J_k \times J_t$ of motor sensory feedback and set of functions. 
+
+The visual basis for each timestamp is a grayscale image $I$ described by a 2D set of pixel values, where $I(\vec{x})=I(x,y)$ defines the grayscale value at the location $\vec{x}=\left[x\ y\right]^T$. The image has a size of $w \times h$ pixels. 
+For each point in time $t$ the joints vector $\vec{q} = \left[ q_{0}\ q_1\ \ldots\ q_{K-1} \right]^T$ represents the relative angle position (displacement in degree angles) of the $k$ arm encoders in respect to the time before. %, where $q_k$ denotes one of $K$ joints. %In case of James the cardinality $\left|\vec{q}\right|= 15$, resulting from 7 arm and 8 hand joints.
+
+For further proceedings a 2D structure called image patch $\Lambda$ takes up an important role. In our case a 2D patch is actually a 3D array with a \textit{single temporal} index and denotes a \textit{spatial} $N \times N$ neighbour\-hood of pixels: $\Lambda_t = \left\{I_x\ \times\ I_y\right\}\ \times\ \left\{t\right\} = \left(\Lambda, t\right)$.
+
+
+
+%**********************************************
 \subsubsection{Localization - Mapping and Identification}
 \label{halose:halo:algorithm:localization}
 %
