@@ -146,24 +146,24 @@
 % use a multiple column layout for up to three different
 % affiliations
 \author{\authorblockN{Michael C. Bucko}
-\authorblockA{Italian Institute of Technology\\
-Genova, Italy 16163\\
+\authorblockA{LIRA-Lab, DIST, University of Genoa\\
+viale Causa 13, 16145, Genova, Italy\\
 Email: bucko@liralab.it}
 \and
 \authorblockN{Lorenzo Natale}
 \authorblockA{Italian Institute of Technology\\
-Genova, Italy 16163\\
+via Morego 30, 16163, Genova, Italy\\
 Email: nat@liralab.it}
 \and
 \authorblockN{Giorgio Metta}
-\authorblockA{Italian Institute of Technology\\
-Genova, Italy 16163\\
-Email: pasa@liralab.it}
+\authorblockA{University of Genoa and Italian Institute of Technology\\
+via Morego 30, 16163, Genova\\
+Email: giorgio.metta@liralab.it}
 \and
-\authorblockN{Prof. Giulio Sandini}
+\authorblockN{Giulio Sandini}
 \authorblockA{Italian Institute of Technology\\
-Genova, Italy 16163\\
-Email: sandini@iit.it}
+via Morego 30, 16163, Genova\\
+Email: giulio.sandini@iit.it}
 }
 
 
@@ -275,17 +275,44 @@ Email: sandini@iit.it}
 %
 \section{intro}\label{intro}
 % ***********************************************************************************************
-The localization and detection of the hand of a humanoid robot takes place as an interplay between perceived visual and motor (somato-) sensory information. In order to get a visual model of the hand this work proposes a way to do it without having a body map or kinematic model, but using only its sensorization. After the introduction it is the moment to understand how to close the missing link between the ignorance of having a hand and how it looks like. \textit{Look like} means that the robot will be able to find and recognize its own hand in the visual field, what again means that the robot must gain precise visual information about its hand. Here a visual model of the hand is not a specific type of model, e.g.\ CAD model; it is rather having a collection of visual information about the object hand and its visual structure. %The goal of the work is also not to talk about learning nor about making a kinematic model or similar tasks, but it is a proposal to robustly and autonomously detect the hand. \newline
+A great amount of research in robotics has been devoted to the problem of 
+controlling and planning reaching and grasping under visual guidance. Most 
+of these works assume that visual feedback from the robot 
+end-effector/hand is available. The visual problem is often solved by 
+placing markers on the robot to simplify its detection and 
+segmentation. Unfortuately these solutions are not general and in most cases 
+too simple to be applied in realistic 
+scenarios (the most common solutions use 
+color segmentation which is extremely sensitive to illumination changes).
+
+It would be much better if robots were able to autonomously acquire and tune 
+a visual representation of their own body. Visual identification of the body 
+could be seen as parts of the general problem of machine vision; after all the 
+hand or the arm of the robot are just objects in the environment and could be 
+treated as such. But even if the robot was able to identify objects in the 
+environment that looks like its body, would not be possible to discriminate 
+among them and detect exactly those objects that indeed ``are'' its own body?
+
+We believe that the localization of the body is not purely visual but is 
+rather an interplay between perceived visual and motor (somato-) sensory information. 
+Indeed, among all entities in the enviroment the body has unique properties 
+that the robot can exploit to simplify the problem of self detection, mainly:
+- the robot has direct control on the body
+- the robot has access to proprioceptive information, related with where the body
+is and how it moves in the environment
+
+%In this work we proposes a way to do it without having a body map or kinematic model, but using only its sensorization. After the introduction it is the moment to understand%
+%But how it is possible to close the missing link between the ignorance of having a hand and how it looks like. \textit{Look like} means that the robot will be able to find and recognize its own hand in the visual field, what again means that the robot must gain precise visual information about its hand. Here a visual model of the hand is not a specific type of model, e.g.\ CAD model; it is rather having a collection of visual information about the object hand and its visual structure. %The goal of the work is also not to talk about learning nor about making a kinematic model or similar tasks, but it is a proposal to robustly and autonomously detect the hand. \newline
 %Contemplating and understanding a scene is a simple task for us human beings. For an artificial system it is by far more difficult to understand a visual scene due to limits in processing images and its information. \textsc{If we want to create intelligent agents, i.e. humanoid and or anthropomorphic robots we somehow have to find ways to process information in a way that is maybe similar to the way human beings.} For grasping an object, without a kinematic model, the robot must be able to exactly locate the hand in the scene. \newline
-But how does the robot get the possibility to get to know its hand and maybe parts of the arm? %The robot is going to move his arm in front of his face. At this stage of development of this algorithm, James is not meant to move more than one joint nor to move its head. Additionally we ensured that the arm is for sure generating motion in the visual field of James. In later works maybe all these constraints can be eliminated or at least incrementally eliminated. \newline%But let us agree to have these constraints being the single ones for this master's thesis. 
-The idea behind this localization and detection algorithm, is that the robot firstly has to localize moving regions before it is able to classify them as a part of its body. %a moving region in the visual space as its own body part. 
-Visual detection of whatever object is only possible if you know where to find it and how to distinguish that from the rest of the scene. So, localization is a minimum requirement for detection. This however turns up to be a new problem: "How can I localize my hand as long as I don't know:
-\begin{itemize}
-	\item what I have to look for?,
-	\item how it looks like?,
-	\item how is it making itself remarkable?"
-\end{itemize}
-The last question is the first to be answered. A possibility to localize an object in an unstructured and unknown environment, is to mark it. For instance by placing a unambiguous, unique sign on that object, e.g. a point of a specific colour or similar helpers. %That would be a nice idea, but the fact is that our system is a one without any prior knowledge and besides this does not know what to look for (see above the $1^{st}$ question). So marking objects is not really supporting and neither does coincide with our philosophy about autonomous development of artificial systems. 
+%But how does the robot get the possibility to get to know its hand and maybe parts of the arm? %The robot is going to move his arm in front of his face. At this stage of development of this algorithm, James is not meant to move more than one joint nor to move its head. Additionally we ensured that the arm is for sure generating motion in the visual field of James. In later works maybe all these constraints can be eliminated or at least incrementally eliminated. \newline%But let us agree to have these constraints being the single ones for this master's thesis. 
+%The idea we propose is that the robot firstly has to localize moving regions before it is able to classify them as a part of its body. %a moving region in the visual space as its own body part. 
+%Visual detection of whatever object is only possible if you know where to find it and how to distinguish that from the rest of the scene. So, localization is a minimum requirement for detection. This however turns up to be a new problem: "How can I localize my hand as long as I don't know:
+%\begin{itemize}
+%	\item what I have to look for?,
+%	\item how it looks like?,
+%	\item how is it making itself remarkable?"
+%\end{itemize}
+%The last question is the first to be answered. A possibility to localize an object in an unstructured and unknown environment, is to mark it. For instance by placing a unambiguous, unique sign on that object, e.g. a point of a specific colour or similar helpers. %That would be a nice idea, but the fact is that our system is a one without any prior knowledge and besides this does not know what to look for (see above the $1^{st}$ question). So marking objects is not really supporting and neither does coincide with our philosophy about autonomous development of artificial systems. 
 One way to omit markers or other helpers that unambiguously identify the target, is to move it. Generating movement attracts an attention system that is stimulated by motion and is a hint where to look for something interesting. Let us assume that the robot classified all the different moving objects in the visual scene and that one of these objects is the hand. So among some other objects there is the hand and therefore the visual information is already present. At latest by this time the first question turns up again. As already seen in chapter \ref{intro:ds} where we have learned more about embodiment/developmental science and know that an intelligent self conscious (biological) system firstly has to get first-person experience \cite{ADAP03} and firstly need to build a sense for its own body \cite{DERBS04-02} before being able to explore the environment. Mapping causal relation in the visive field with proprioceptive body-sensory information helps to eliminate all the other objects that caused some behaviour in the field of attention.
 %We reflect, our main goal and result of this work is that a humanoid robot is able to discover its hand on its own. 
 As for an embodied system exploration of its environment and itself for self-exploration is important to grow in development and self-awareness \ref{intro:ds}, such a system needs some instrument supporting this exploration. A possible path to learn what a robot can control or manipulate in order to perform self-exploration (level 1 of self-awareness in section \cite{FLSAUEL03-02}) is to differentiate itself from its environment by intermodal linking of seen movements with perception of body proprioception to understand a situated self. P. Rochat sees the proof of level 2 self-awareness in the demonstration where about 4 months old infants systematically reach for objects they see. In this ``touch all'' stage of infancy children express a selective and systematic hand-eye coordination. This means that children do not only have a sense of being something different in the environment, but also have a sense of situation in relation to actions that can be performed in the environment. 
@@ -302,7 +329,7 @@ how\\
 
 \begin{figure}
 \centering
-\includegraphics[width=2in]{imgs/james.pdf}
+\includegraphics[width=2in]{imgs/james.ps}
 \caption{James}
 \label{figJames}
 \end{figure}
@@ -396,7 +423,7 @@ Each feature is dropped into the cell according to its position. Consequently a 
 %%
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=3in]{imgs/method/step1to4.pdf}
+		\includegraphics[width=3in]{imgs/method/step1to4.ps}
 		\caption[Patching the flow. ]{\textbf{\textit{Patching the flow. Top left schematically shows an image extract with feature points and their displacements. As long as step 5 is not yet fulfilled, the image is subdivided into a grid of patches (top middle). Each cell in the grid assimilates all optical flow that is situated on its area (top right), however, if step 5 was satisfied and the tracking process is afoot, only relevant patches assimilate optical flow from newly determined features. The lower row illustrates step 4. }}}
 		\label{fig:abstraction}
 	\end{center}
@@ -455,7 +482,7 @@ Finally all $|\mathcal{A}|$ displacement vectors whose angles passed the 90-perc
 As long as this step did not succeed in a satisfying manner or is performed the first time the following classification step must be executed. For each patch $i$ with an angular value its eight neighbours are inspected to decide if the patch shall be marked for tracking. 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=2in]{imgs/method/selection.pdf}
+		\includegraphics[width=2in]{imgs/method/selection.ps}
 		\caption[Feature patch grouping. ]{Feature patch grouping. For each patch in the grid the neighbours are contemplated. If a patch has more neighbours than a minimal threshold $\rho_{MIN\_NEIGHBOURS}$ fulfilling that their direction in motion is lying between $\pm \beta_{range}$, it is marked as a relevant patch. As this process continues in the end we have flocks of patches that cover a bigger region moving in the same way, what can be seen as visual grouping according to \cite{ULGII23} }
 		\label{fig:flocking}
 	\end{center}
@@ -624,7 +651,7 @@ The correlation qualifies every patch that responded in a cooperative manner big
 %
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/method/correlation.pdf}
+		\includegraphics[width=3.5in]{imgs/method/correlation.ps}
 		\caption[Trajectories correlating with the behaviour of the arm. ]{Trajectories correlating with the behaviour of the arm. All tracking trajectories of the qualified patches over time are red unless they do not match with the green motor joint trajectory and become yellow. On the left hand side we see an example with a positive result, on the right hand side obviously a negative.}
 		\label{fig:corr}
 	\end{center}
@@ -662,7 +689,7 @@ The perfect way to extract all (moving) objects in front of a stationary scenery
 %
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/method/perfsegm.pdf}
+		\includegraphics[width=3.5in]{imgs/method/perfsegm.ps}
 	\end{center}
 		\caption[Segmented hand. ]{Segmented hand. A nearly perfect segmentation of the hand extract gained by image $I_{t_{ready}+\tau_{tracking}}$ and the background gained with BICS, see page \pageref{methods:bics}.}
 		\label{fig:perfsegm}
@@ -675,7 +702,7 @@ At time $t_{ready}+ \tau_{tracking}$ we localized the hand. On the basis of the 
 %
 \begin{figure}[ht]
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/method/segmentation.pdf}
+		\includegraphics[width=3.5in]{imgs/method/segmentation.ps}
 	\end{center}
 		\caption[Detection procedure. ]{Detection procedure. At point in time $t_{ready}+ \tau_{tracking}$ we extract the bounding boxes from all images we the hand was localized. With the BICS algorithm the background is recovered. Finally the background is subtracted from the original image where the hand lies. Decision on the pixel differences is made on binarizing the values.}
 		\label{fig:segmentation}
@@ -719,7 +746,7 @@ Besides the original online test results, co-results had to be gained by re-exec
 %
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/results/impactofcorr.pdf}
+		\includegraphics[width=3.5in]{imgs/results/impactofcorr.ps}
 			\caption[Varying the correlation threshold.]{ This figure is illustrating how the correlation has an impact on the number of the correlating patches. From left to right: correlation 0.0, 0.6 and 0.94. }
 			\label{fig:impactofcorr}
 	\end{center}
@@ -737,7 +764,7 @@ Depending on the correlation threshold patches can be chosen that do actually no
 %
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/results/diag.pdf}
+		\includegraphics[width=3.5in]{imgs/results/diag.ps}
 			\caption[True and false positive rates of the 10 main test sets. ]{True and false positive rates of the 10 main test sets. The 10 test sets are displayed again with different correlation coefficient thresholds. The average ``learning'' over 10 sets show high reliability and very few FPs. Increasing the threshold from 0.91 to 0.97 effects an increase of the number of test sets without FP from four to 8 test sets.}
 			\label{fig:result:diag}
 	\end{center}
@@ -751,7 +778,7 @@ The ROC space illustrates the trade-off between true (y-axis) and false positive
 %
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=3.5in]{imgs/results/roc.pdf}
+		\includegraphics[width=3.5in]{imgs/results/roc.ps}
 			\caption[Receiver-Operating-Characteristics graph for the 10 main test sets. ]{Receiver-Operating-Characteristics graph for the 10 main test sets. The ROC has been created with the 10 raw data sets of the online tests and correlation from 0.0 to 1.0. Our ROC is nearly perfect. As a consequence, this objective ROC testimonies us an algorithm that is highly reliable finding the correct patches of the hand and this under different circumstances and environments. Already from very low correlation coefficients we can see that FPs are below 0.5. }
 			\label{fig:result:roc}
 	\end{center}
