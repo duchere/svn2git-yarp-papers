@@ -1,5 +1,5 @@
 \section{Method}\label{method}
-As described in the itroduction the ability to detect the hand of the robot, 
+As described in the introduction the ability to detect the hand of the robot, 
 firstly presupposes the localization of regions that show alike and causal 
 movement within the scene. For that we start by tracking all possible flocks 
 of candidate regions in the image. Candidate regions are image patches of 
@@ -8,6 +8,18 @@ features define a clear and unambiguous common direction. Concurrently to
 the tracking, the relative motion of the arm joints is recorded in order 
 to have a base for comparing the visual information in the decisive step 
 where all the visually gained trajectories are correlated with the arm joint. 
+
+% ***********************************************************************************************
+The ability to subsequently detect the hand of the robot, firstly presupposes the localization of regions that show alike and causal movement within the scene, as already introduced in section \ref{intro}. For that we start by tracking all possible flocks of candidate regions in order to determine which of the moving regions could be a part of the robot. Candidate regions are image patches of size $N \times N$ pixels that can be tracked well and where its containing features define a clear and unambiguous common direction. Concurrently to the tracking, the relative motion of the moving arm joint is recorded in order to have a base for comparing the visual information in the decisive step where all the visually gained trajectories are correlated with the single arm joint behaviour. 
+%
+%
+
+% -----------------------------------------------------------------------------------------------
+%
+%																			localization - Assumptions
+%
+\subsection{Assumptions}\label{method:localization:assumptions}
+% -----------------------------------------------------------------------------------------------
 
 Proprioceptive feedback allows us a lot of information to exploit for various 
 tasks. As soon as James generates motion with its arm as sort of 
