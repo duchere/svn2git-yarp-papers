@@ -3,10 +3,27 @@
 Some work in this field has already been done by other researchers.
 Kemp and Edsinger \cite{WCIC06new} use mutual information to 
 identify the tip of the manipulator given the arm proprioceptive feedback.
-Gold and Scassellati \cite{}exploit the causual relationship between 
-a motor command and the resulting motion in the visual field. They 
+Gold and Scassellati \cite{LAWC06} exploit the causual relationship between 
+a motor command and the resulting motion in the visual field. They propose
+a way to learn a possible time interval in which the response of a performed
+action can take place. In contrast to these techniques 
+in \cite{DIMMRBS03-03} a movile robot keeps the arms stationary while it moves 
+randomly in the environment; the arms are extracted by detecting invarinces
+in the visual world. A somewhat opposite approach is followed in 
+\cite{HRDAG04} and \cite{LAOTA03} where motion of the arm is esplicitly 
+used to facilitate self-identification. Repetitive self-generated motion of 
+the hand is used to produce visual motion in the scene; the robot detects 
+the hand by correlating the visual motion with the proprioceptive signals.
+In these cases periodicity further simplifies the detection because it produces
+highly redundant information. Although periodic motion is very useful 
+to improve the detection, it also forces the robot to produce patterns of 
+movements that are specifically generated for self-identification but are not 
+goal directed. In this work we follow a similar approach to \cite{HRDAG04} 
+and \cite{LAOTA03}; in this case however, the robot detects the hand during
+movements that are not periodic. This detection procedure seems more suitable
+to be used during the robot's normal operation.
 
+%Besides these quite opposite ways of recognizing self-caused actions through perception, methods for visual hand detection have been proposed by many more researchers, e.g. L. Natale in \cite{HRDAG04} used image differencing for periodic motion detection of a known frequency that is caused by the hand. Another similar approach using image difference for ballistic motion detection and optic-flow for periodic motion detection was proposed by P. Fitzpatrick and G. Metta in \cite{LAOTA03}. However, in this approach we want to use hand motion that is not necessarily periodic, but connect spatial \textit{and} temporal relationship for \textit{correlating} self-caused actions with visual perceived actions.\newline
 
 %propose a developmental perceptual 
 %system for a humanoid robot to autonomously detect its hand trough mutual information of how the arm influences and effects visual clusters in selected image regions and interaction with persons. In contrast to their work we do not focus our method only on spatial relationship of salient visual categories that can be predicted as robot influenced regions, but also as a relationship of time. In \cite{LAWC06}, K. Gold and B. Scassellati explored self-recognition as temporal contingency for causal and contingent relationship to detect motion relating to a robot's body. They propose a way to learn a possible time interval in which a response of a performed action can take place. In contrast to the techniques that correlate perceived motion in vision with the body-sensory information Yoshikawa et al.\ chose a completely different approach \cite{DIMMRBS03-03}. The body scheme or representation is gained as well by motion, but in this approach a rigid part of the robot's body takes up a remaining invariant posture, whilst the body is performing random movement. In respect to its environment the robot then learns by using the multi-modal information the only invariance and correlates it with its body.
-Besides these quite opposite ways of recognizing self-caused actions through perception, methods for visual hand detection have been proposed by many more researchers, e.g. L. Natale in \cite{HRDAG04} used image differencing for periodic motion detection of a known frequency that is caused by the hand. Another similar approach using image difference for ballistic motion detection and optic-flow for periodic motion detection was proposed by P. Fitzpatrick and G. Metta in \cite{LAOTA03}. However, in this approach we want to use hand motion that is not necessarily periodic, but connect spatial \textit{and} temporal relationship for \textit{correlating} self-caused actions with visual perceived actions.\newline
