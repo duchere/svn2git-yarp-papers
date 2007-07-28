@@ -73,7 +73,7 @@ Between two consecutive time frames the motion is computed in a classical way wh
 %
 % -----------------------------------------------------------------------------------------------
 % 2
-\textit{1.2: Representative patch displacement} \\ \newline
+\textit{1.2: Patching the flow} \\ \newline
 % -----------------------------------------------------------------------------------------------
 As long as step 1.4 is unmet, the image is divided into a grid (step 1.2a)\ ) of equilateral patches where each optical flow is inserted and we start the classification process of the optic flow and decide on the regions belonging together. An object wandering through a scene projects in the image plane an area with an equivalent motion, thus this region is likely to own many optical flow vectors with similar or even equal values pointing to the same direction. Dividing the object's projection in the image plane into image patches must also divide the flow vectors into patches. These, into patches, summarized features are subregions that must still be moving like the corresponding object. \newline
 On the other hand, if patches have already been initialized, the optical flow is placed in its corresponding patch (step 1.2b)\ ). \newline
@@ -113,8 +113,8 @@ Each feature is dropped into the cell according to its position. Consequently a 
 With this step the most important abstraction in the localization and detection process has been performed. Locations in the image array are decoupled from their original domain, the grey-level values (consult figure \ref{fig:abstraction} for the abstraction process). Our new informative system is a grid structure where each cell contains the correspondent set of displacement vectors $ \vec{d_i} \in \Lambda_k $ which are all centralized to the cell's center in respect to their start point. A set of loose values is not really classifying a small $ N \times N $ regions, much less larger regions. Likewise completely different displacement directions and amounts fall into the same $ \Lambda $ because the grid is placed over the image in a fix way, regardless the relationships in the scene.\\ \newline
 %
 % -----------------------------------------------------------------------------------------------
-% 4
-\textit{1.4: Representative patch displacement} \\ \newline
+% 3
+\textit{1.3: Representative patch displacement} \\ \newline
 % -----------------------------------------------------------------------------------------------
 After inserting all vectors in the patched image, for each patch the representative displacement is calculated. Each patch that has more than a certain amount of vectors greater than zero (that means traceable motion) are taken into account.
 \begin{enumerate}
@@ -124,22 +124,22 @@ After inserting all vectors in the patched image, for each patch the representat
 %
 A reliable feature to classify the motion properties of the tracked image locations yields the direction component without building dependencies among the different $ \vec{v}_k = \vec{u}_k + \vec{d}_k $. Considering direction plus the velocity were building a strong unfoldable dependency for detecting these large regions. Apart from this fact, features sticking tight on a region that is spanning many patches, means an equivalent speed. So the velocity only differs in patches that lie on boarder regions of the object where there is anyway existing noise. The amount of the velocity is in neither of both directional classification cases an information with a qualitative statement, however, for the average displacement it matters. Additionally, due to the ratio between image size and patch size, where a single patch makes out at most approximately one per cent\footnote{In our set up $ percentage \left(  \Lambda, I \right) = \frac{N^2}{w*h}$ , where images have size 320 by 240 and $n < 20$ } of the whole image, the $ \vec{d}_k $ are assumed to be independently distributed  (in respect to their angle) at this point of time. We use the Gaussian distribution in order to determine a 90-percent confidence interval on the standard deviation of the angular values respective to the average angle of all $\vec{d}_k $ to eliminate the gross outliers. In figure \ref{fig:abstraction} we schematically sketched the representative displacement vector $\overline{\vec{d}_k}$ of patch $k$. Let us denote a set $\mathcal{A}$ that accommodates all $\vec{d}_i \in \Lambda_k$ that pass the 90-percent interval.% in equation \ref{confint}. 
 Noisy regions are likely to be disqualified already here, otherwise at the next steps. Patches without any displacement logically go into the discard. 
-\begin{equation}
-	\alpha_{d_i} = \arctan{ \left( \frac{d_{i,y} }{d_{i,x} } \right)}, \quad \mbox{where } \forall \vec{d}_i \in \Lambda_{k} , i=0 \ldots n_{d_k} \enspace .
-\end{equation} 
-
-Building the average and standard deviation on the angles:
-\begin{equation}
-\label{alg:avg}
-\overline{\alpha}_{d_k} = \overline{ \alpha } \left( \Lambda_k \right)  = \frac{1}{n_{d_k}} \sum_{i=0}^{n_{d_k}-1} \alpha_{d_i} \enspace .
-\end{equation}
+%\begin{equation}
+%	\alpha_{d_i} = \arctan{ \left( \frac{d_{i,y} }{d_{i,x} } \right)}, \quad \mbox{where } \forall \vec{d}_i \in \Lambda_{k} , i=0 \ldots n_{d_k} \enspace .
+%\end{equation} 
+%\begin{equation}
+%\label{alg:avg}
+%\overline{\alpha}_{d_k} = \overline{ \alpha } \left( \Lambda_k \right)  = \frac{1}{n_{d_k}} \sum_{i=0}^{n_{d_k}-1} \alpha_{d_i} \enspace .
+%\end{equation}
+%%
+%\begin{equation}
+%\label{alg:std}
+%\sigma_{d_k} \approx \sqrt{ \frac{1}{n_{d_k} - 1} \sum_{d_i \in \Lambda_k} \left[ \left( \alpha_{d_i} - \overline{ \alpha}_{d_k} \right) ^2\right] } \enspace .
+%\end{equation}
 %
-\begin{equation}
-\label{alg:std}
-\sigma_{d_k} \approx \sqrt{ \frac{1}{n_{d_k} - 1} \sum_{d_i \in \Lambda_k} \left[ \left( \alpha_{d_i} - \overline{ \alpha}_{d_k} \right) ^2\right] } \enspace .
-\end{equation}
+%Building the average and standard deviation on :
 %
-With equation \ref{alg:avg} and \ref{alg:std} the 90-percent confidence interval and t as the $95^{th}$ percentile of the Gaussian distribution, where $\Pr\left(-t<A<t\right)=0.9$, is defined as follows:
+By first building the average and the standard deviation on the the angles $\alpha_{d_i}$, the 90-percent confidence interval and its $t$ as the $95^{th}$ percentile of the Gaussian distribution, where $\Pr\left(-t<A<t\right)=0.9$, can be defined as:
 %
 \begin{equation}
 \label{confint}
@@ -158,7 +158,7 @@ Finally all $|\mathcal{A}|$ displacement vectors whose angles passed the 90-perc
 %
 % -----------------------------------------------------------------------------------------------
 % 4
-\textit{1.4: Classification - Flocking / Classification of the patches and building flocks} \\ \newline
+\textit{1.4: Clustering the patches} \\ \newline
 % -----------------------------------------------------------------------------------------------
 As long as this step did not succeed in a satisfying manner or is performed the first time the following classification step must be executed. For each patch $i$ with an angular value its eight neighbours are inspected to decide if the patch shall be marked for tracking. 
 \begin{figure}
@@ -214,25 +214,22 @@ As long as this threshold is not fulfilled the whole procedure `%(all steps of 2
 %
 % -----------------------------------------------------------------------------------------------
 %
-\textit{2) Tracking}\\ \newline
-% -----------------------------------------------------------------------------------------------
-% 6
-By the time the classification provides one or several flocks marked as important regions in the scene, the tracking process launches. At each point in time the displacement of each identifiable patch is recorded, where steps 1 to 4 supply the tracker with the needed information. But as we later want to close the action-perception loop, we also have record the yet independent body sensory information, the encoder values. By the time tracking started the procedure lasts over a time window $\tau_{tracking}$, e.g.\ 200 frames.
-%
-As this localization problem cannot be solved by pure vision, the motor encoder values are tracked as well as the patches that have been qualified for tracking in the previous steps. Therefore tracking consists of ``tracking'' two different perception inputs.
+\textit{2) Tracking and Correlation}\\ \newline
 % -----------------------------------------------------------------------------------------------
 % 2
-\textit{2.1: Classification - Flocking / Classification of the patches and building flocks} \\ \newline
+By the time the classification provides one or several flocks marked as important regions in the scene, the tracking process launches. At each point in time the displacement of each identifiable patch is recorded, where steps 1 to 4 supply the tracker with the needed information. But as we later want to close the action-perception loop, we also have record the yet independent body sensory information, the encoder values. By the time tracking started the procedure lasts over a time window $\tau_{tracking}$, e.g.\ 200 frames.\\
+As this localization problem cannot be solved by pure vision, the motor encoder values are tracked as well as the patches that have been qualified for tracking in the previous steps. Therefore tracking consists of ``tracking'' two different perception inputs.
+%
 % -----------------------------------------------------------------------------------------------
-
-\paragraph{Step 6: Tracking visual information:}
-%
-Let us assume that the initialization phase completed at $t_{ready} -1$ and tracking can be started. Set $Q$ contains a fixed number of patches that are qualified for tracking and each patch has an own identification (ID). Identification is a basic need in order to decide which of the tracked patches, are the patches lying on the hand in the last step of the localization process (step 7). All good features to track chosen for at $t-1$ and their optical flow tell where these features are to find in the current image. The newly achieved displacement vectors do either fall into one of the patches $\in Q$ or are lost in the irrelevant space. Patches are then treated as in steps 3b and 4 from where the next displacement vector results. The patches from $t-1$ break out of their grid structure, perform their first step and move to their new position according to the displacement. From point in time $t=t_{ready}$, the essential part of the algorithm starts and tracks all $\Lambda_{k \in Q} $ for a time window $\tau_{tracking}$. As long as the time window has not been interrupted, due to the restrictive condition $C_t$, or terminated, steps 1 to 4 are repeatedly performed. The new center of a patch at $t$ is:
-%
-\begin{equation}\label{newpos1}
-	\vec{c}_k\left( t \right) = \vec{c}_k \left( t -1 \right) + \vec{d}_k\left( t -1, t\right) \enspace .
-\end{equation}
-
+% 2
+\textit{2.1: Tracking visual information} \\ \newline
+% -----------------------------------------------------------------------------------------------
+A fixed number of patches that are qualified for tracking by the previous steps has an own identification (ID). Identification is a basic need in order to decide which of the tracked patches, are the patches lying on the hand in the last step of the localization process (step 2.3). At each point in time the motion is updated by using steps 1.1, 1.2. The newly achieved displacement vectors do either fall into one of the patches $\in Q$ or are lost in the irrelevant space. The next displacement vector results when applying step 1.3 over all tracking patches. \\
+At the time the tracking procedure starts the patches break out of their grid structure, perform their first step and move to their new position according to the displacement. From point in time $t=t_{ready}$, the essential part of the algorithm starts and tracks all $\Lambda_{k \in Q} $ for a time window $\tau_{tracking}$. As long as the time window has not been interrupted, steps 1.1, 1.2 and 1.3 are repeatedly performed. %A new center of a patch at $t$ is:
+%%
+%\begin{equation}\label{newpos1}
+%	\vec{c}_k\left( t \right) = \vec{c}_k \left( t -1 \right) + \vec{d}_k\left( t -1, t\right) \enspace .
+%\end{equation}
 For the duration of tracking, each position of a patch in the image is the resultant of all the past $c_k$s. Building at each time step the length of the difference vector between the start position of a patch and the current position, we generate a motion graph - the trajectory. Please see figure \ref{fig:tracking} where tracking is shown for one possible sequence.
 Basic idea is that the feature-populated hand shifts in the image plane also causes to shift the features lying on the hand. As the displacement is not infinitively big, but rather small and due to the fact that patches follow textured region, it is likely that new features fall again into those patches. But as tracking by this method is an averaging method over a certain piece of the image and its feature, it is possible that a $\Lambda_{ID\left( k \right) } \in Q$ is not fast enough to follow the ``object'' it originally was attached to. For instance, if a border region loses one feature after another until it stops, unless not being picked up again. As our aim is to track the hand, we assume that the hand will never be hidden or occluded by another object, otherwise continuous trajectories can not be reasonably built and avoid as much as possible previous cases.  The patches would be drawn away, because features are independently chosen from its predecessor features for every frame with which we ensure that features remain independent and always contemplate only important - textured - regions (that are easy to track). In the end the trajectories of some patches that did not stick on the hand and will not be correlating with the hand. On the other hand, if there have been chosen features on the robot's hand, they will likely been chosen in the next frame, consequently remain on the hand. We can also show and ensure that this method is robust to behaviour where the object is resting and producing no (visible) action. This is how the markerless tracking works, in section \ref{results} we will show the results, where different windows sizes and different environments show that this algorithm is reliable under difficult circumstances. 
 
