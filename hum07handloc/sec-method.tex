@@ -222,7 +222,7 @@ By the time the classification provides one or several flocks marked as importan
 As this localization problem cannot be solved by pure vision, the motor encoder values are tracked as well as the patches that have been qualified for tracking in the previous steps. Therefore tracking consists of ``tracking'' two different perception inputs with which we can later close the action-perception loop.
 %
 % -----------------------------------------------------------------------------------------------
-% 2
+% 2.1
 \textit{2.1: Tracking visual information} \\ \newline
 % -----------------------------------------------------------------------------------------------
 A fixed number of patches that are qualified for tracking by the previous steps has an own identification (ID). Identification is a basic need in order to decide which of the tracked patches, are the patches lying on the hand in the last step of the localization process (step 2.3). At the time the tracking procedure starts the patches break out of their grid structure, perform their first step and move to their new position according to the displacement. From point in time $t=t_{ready}$, the essential part of the algorithm starts and tracks all $\Lambda_{k \in Q} $ for a time window $\tau_{tracking}$. At each point in time the global motion is updated by computing it newly as seen in step 1.1. The newly achieved displacement vectors do either fall into one of the patches $\in Q$ or are lost in the irrelevant space and set as a consequence the new position of the patch. \\
@@ -251,10 +251,12 @@ $\mbox{and } \quad \Phi_{\Lambda_i , x,y} \left( 0 \right) = \vec{c}_{\Lambda_i}
 %\end{figure}
 %
 %
-\paragraph{Step 6: Tracking encoder values:}
-\label{halose:halo:algorithm:step8enc}
 %
-The changes of the encoder values - motor-sensory perception - contain same temporal displacement information like the visual trajectories, if they caused the change. The relative changes of the actuated joint are recorded similar to the patch motion.  Encoder trajectories are built by the difference of the relative angular value in respect to its angular value at the start $t_0 = t_{ready}-1$, see green trajectory e.g. in figure \ref{fig:corr}. Our assumptions, that the effected changes are visible and only one joint is moving, ensure that there exist visual and joint trajectories with a very similar behaviour. O%f course, a quanyative statement about absolute elongation or the absolute direction is not possible - just about the (relative) behaviour. 
+% -----------------------------------------------------------------------------------------------
+% 2.2
+\textit{2.2: Tracking encoder values} \\ \newline
+% -----------------------------------------------------------------------------------------------
+The changes of the encoder values - motor-sensory perception - contain same temporal displacement information like the visual trajectories, if they caused the change and if they were caused in the visual field as assumed. The relative changes of the actuated joint are recorded similar to the patch motion.  Encoder trajectories are built by the difference of the relative angular value in respect to its angular value at the start $t_0 = t_{ready}-1$, see green trajectory e.g. in figure \ref{fig:corr}. Our assumptions, that the effected changes are visible and only one joint is moving, ensure that there exist visual and joint trajectories with a very similar behaviour. O%f course, a quanyative statement about absolute elongation or the absolute direction is not possible - just about the (relative) behaviour. 
 Motor joint trajectories are built according to: 
 \begin{equation}
 \label{jointtrajectory}
