@@ -1,0 +1,144 @@
+% - Introduction:
+%   . motivation of importance of life long learning for cognitive systems
+%   . concrete application examples, related to the actual experiments we will make
+%   . what are the current recipes from the machine learning community w.r.t. these needs?
+%   . our statement: what we do, why it is relevant for cognitive systems, how does it differ from previous
+%         work, why it is to  be considered an advancement in the state of the art
+%   . summary of contributions of the paper
+%   . plan of the paper
+% - Related Work
+%   . w.r.t. cognitive systems
+%   . w.r.t. machine learning
+% - Theory
+%   . background (SVM)
+%   . OISVM
+%   . Comparison with previous work (here very special attention to methods referred to by the
+%         reviewers, detailed discussion)
+% - Experiments
+%   . experiments on machine learning algorithms
+%   . experiments on robot navigation (IDOL2 db)
+%   . experiments on learning by imitation
+% - Conclusions
+
+\documentclass[journal]{IEEEtran}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{url}
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+\def\RR{\mathbb{R}}
+\def\NN{\mathbb{N}}
+\def\xx{\mathbf{x}}
+\def\ww{\mathbf{w}}
+\def\aa{\boldsymbol{\alpha}}
+\def\bb{\boldsymbol{\beta}}
+\def\ee{\mathbf{e}}
+\def\dd{\mathbf{d}}
+\def\mdd{\tilde{\dd}}
+\def\b{\mathcal{B}}
+\def\d{\mathcal{D}}
+
+\begin{document}
+
+\title{Life-Long Learning for Cognitive Systems:\\
+Online Incremental Support Vector Machines}
+
+\author{Francesco~Orabona, Claudio~Castellini, Barbara~Caputo, Jie~Luo, Giulio~Sandini
+\thanks{
+  F. Orabona, B. Caputo and J. Luo are with the IDIAP Research Institute,
+  rue du Simplon 4, P.O. Box 592 --- CH-1920 Martigny, Switzerland.
+  e-mail: \{forabona,bcaputo,jiel\}@idiap.ch.}%
+\thanks{C. Castellini is with the LIRA-Lab, University of Genova,
+  viale F. Causa, 13, 16145 Genova, Italy.
+  e-mail: claudio.castellini@unige.it.}%
+\thanks{G. Sandini is with the Italian Institute of Technology,
+  via Morego, 30, 16100 Genova, Italy.
+  e-mail: giulio.sandini@iit.it.}%
+}
+
+\maketitle
+
+\begin{abstract}
+  \input{paper_abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+keywords
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+\label{sec:introduction}
+\input{paper_introduction}
+
+\section{Related Work}
+\label{sec:related-work}
+\input{paper_related-work}
+
+\section{Background Theory}
+
+\subsection{Support Vector Machines}
+\label{subsec:SVM}
+\input{paper_SVM}
+
+\subsection{OISVM}
+\label{subsec:OISVM}
+\input{paper_OISVM}
+
+\subsection{Comparison with Existing Approaches}
+\label{subsec:comparison}
+\input{paper_comparison}
+
+\section{Experimental Evaluation}
+\label{sec:exp}
+\input{paper_exp}
+
+\subsection{Standard Benchmarks}
+\label{sec:exp1}
+\input{paper_exp1}
+
+\subsection{Robot Navigation}
+\label{sec:exp2}
+\input{paper_exp2}
+
+\subsection{Learning by Imitation}
+\label{sec:exp3}
+\input{paper_exp3}
+
+\section{Conclusions}
+\label{sec:conclusions}
+\input{paper_conclusions}
+
+\section*{Acknowledgments}
+
+{\small
+\bibliographystyle{IEEEtran}
+\bibliography{paper}
+}
+
+%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Francesco Orabona}
+%% biography
+%% \end{IEEEbiography}
+
+%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Claudio Castellini}
+%% biography
+%% \end{IEEEbiography}
+
+%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Barbara Caputo}
+%% biography
+%% \end{IEEEbiography}
+
+%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Jie Luo}
+%% biography
+%% \end{IEEEbiography}
+
+%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Giulio Sandini}
+%% biography
+%% \end{IEEEbiography}
+
+\end{document}
