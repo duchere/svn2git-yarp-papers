@@ -4,8 +4,6 @@
 %\usepackage[psamsfonts]{amssymb}
 \usepackage{url}
 \usepackage{xspace}
-%\usepackage{authordate1-4}
-%\usepackage{makeidx}
 
 
 % Per includere immagini postscript e bmp:
@@ -68,10 +66,6 @@ Spatial attention is often assimilated to a sort of `filter'
 of the incoming information, a `spotlight',
 an internal eye or a `zoom lens'. In particular it is
 believed to be deployed as a spatial gradient, centered on a particular location.
-%The experiments of Posner \etal \cite{PosnerSD80} and Downing and Pinker
-%\cite{DowningP85} suggest that
-%attention is deployed as a spatial gradient, centered on
-%a particular location.
 Even if supported by numerous findings (see \cite{CaveB99} for a review), this view does not
 stress enough the \emph{functional role} of the attentional system in an 
 agent with a body.
@@ -109,9 +103,6 @@ Object-based attention is equivalent
 to thinking that attention is geared to the use of the objects,
 that depends on the internal plan of the agents, its current status,
 and very importantly of its overall goal \cite{craighero-99}. 
-%On the contrary, it seems 
-%difficult to ascribe any particular role with respect to the agent goals to 
-%generic spatial locations (space-based attention).
 The idea of object-based attention is also supported by the discovery in the
 monkey of a class of neurons (\emph{mirror neurons}) which not only
 fire when the animal performs an action directed to an
@@ -120,14 +111,6 @@ same action on the same object \cite{FadigaFGR00}.
 Indeed, this tight coupling of perception and action is present in
 in visual attention too: it has been shown in \cite{FischerH04}
 that more object-based attention is present during a grasping action.
-%, than space-based one.
-
-%On the other hand there is a recent literature on the
-%object-based visual attention, that represents
-%the result of a fertile new cross-talk between two
-%traditionally separate research fields, one concerning
-%visual segmentation and grouping processes, and the
-%other concerning selective attention.
 
 Object-based attention theories
 argue that attention is directed to an object or a group
@@ -158,61 +141,6 @@ by perceptual organization and Gestalt grouping principles \cite{PalmerR94}.
 Guided by these considerations we developed a general proto-object based
 visual attention model and designed a biological motivated
 method to learn how to pre-segment images into proto-objects.
-
-
-%For example, attention to one part of an object confers
-%an attentional advantage to other parts of that object
-%\cite{EglyDR94}. Similarly, attention to one aspect of an
-%object (\eg its shape) enhances the cortical response to
-%other aspects of that object (\eg its color or motion);
-%thus, all the attributes of an attended object seem to
-%be bound together into a single entity. This concept
-%holds even when the attended and ignored objects are
-%spatially superimposed.
-%O'Craven \etal \cite{OCravenDK99}
-%have observed the effects of object-based attention using
-%fMRI. In this study, observers looked at a display containing
-%a sequence of semitransparent images of
-%spatially superimposed faces and houses. At any given
-%moment, either the house or the face moved with an oscillatory
-%motion. Observers were asked to decide whether the currently
-%visible house (or face) matched the one immediately preceding
-%it; this required them to attend closely to the relevant
-%object type. A spatial 'spotlight of attention' could not select
-%one of the two superimposed objects; it would necessarily select
-%both or neither. The researchers found that activity in face and house
-%selective cortical regions mirrored the subject's state of
-%attention (despite the fact that both a house and a face
-%were present in the scene at all times), indicating that
-%object-based selection was possible in this task. As predicted by an object-based
-%account, all of the features of the attended object
-%were selected, and the features of the
-%ignored object were (relatively) suppressed.
-
-%Finally, another classification can be made
-%depending on which cues are actually used in
-%modulating attention. Bottom-up information, which
-%comes only from the input image, includes basic
-%features such as color, orientation, motion, depth, and
-%their conjunction thereof. A feature or a stimulus
-%catches attention if it differs from its immediate
-%surrounding in some dimensions and the surround is
-%reasonably homogeneous in those same dimensions.
-%However, in attention, higher-level mechanisms are
-%involved as well. A bottom-up stimulus, for example,
-%may be ignored if attention is already focused
-%elsewhere \cite{Yantis98}. In this case attention is also influenced
-%by top-down information relevant to the particular task
-%at hand which is not necessarily available in the image \cite{Yarbus67}.
-
-
-
-
-%The Treisman and Gelade's model is a representative of a
-%class of models (space-based theories) that holds that attention is allocated
-%to a region of space, with processing carried out only
-%within a certain spatial window. Attention in this case could be directed to a region of
-%space, even in absence of a real target. 
 
 This article is organized as follows:
 Section \ref{sec:att_comp_models} contains an introduction on the modeling of
@@ -294,49 +222,17 @@ we will use the output of the model, implemented for
 real-time operation, to control the fixation point of a robotic head.
 Then, through action, the attention system can go
 beyond proto-objects, discovering ``true'' physical objects \cite{MettaF03,Orabona07}.
-%In fact, once an object is
-%grasped, the robot can move and rotate it to build a
-%statistical model of the features belonging to it,
-%constructing a representation as a collection of proto-objects
-%and their relative spatial locations.
-%This internal
-%representation then generates a top-down signal that
-%bias attention toward known objects; as an example we
-%will show how the top-down influence can be used to
-%direct the attention of the robot to spot a specific object
-%among other similar items lying on a table.
 The proposed object-based model of visual
 attention integrates bottom-up and top-down cues;
 in particular, top-down information works as a priming
-mechanism for certain regions in the visual search task
-%(\ie when the robot seeks for a known object in the environment).
+mechanism for certain regions in the visual search task.
 
-
-%\begin{figure}[]
-%	\begin{center}
-%		\includegraphics[width=0.5\linewidth]{./figs/attention/robotComplete}
-%	\end{center}
-%  \caption{The robotic setup, Babybot.}
-%	\label{fig:babybot}
-%\end{figure}
 
 \section{The model}
 \label{sec:att_model}
 In Figure \ref{fig:model_diagram} there is the block diagram of the model.
 We will describe in details in the following each block.
 
-%\begin{figure}[t]
-%  \begin{center}
-%    \includegraphics[width=0.6\linewidth]{./figs/attention/schema}
-%    \caption{Block diagram of the model. The input image is first separated in
-%     the three color opponency maps, then edges are extracted. A watershed transform
-%     creates the proto-objects on which the saliency is calculated,
-%     taking into account top-down biases.}
-%     \label{fig:model_diagram}
-%  \end{center}
-%\end{figure}
-
-%\subsection{Log-polar images}
 The input is a sequence of color log-polar images \cite{SandiniT80}.
 The use of log-polar images comes from the
 observation that the distribution of the cones, \ie the
@@ -363,34 +259,6 @@ In fact the lower resolution of the periphery reduces the
 number of pixels and consequently the computational load of any
 processing, while standard algorithms can still be used on the high resolution
 central part (the fovea).
-
-%From the mathematical point of view the log-polar
-%mapping can be expressed as a transformation between
-%the polar plane $(\rho,\theta)$ (retinal plane) and the log-polar
-%plane $(\eta,\xi)$ (cortical plane) as follows \cite{SandiniT80}:
-%\begin{equation}
-%\left\{ 
-%\begin{array}{l}
-%	\eta=q\cdot\theta\\
-%	\xi=log_a \frac{\rho}{\rho_0}
-%\end{array}
-%\label{eq:lp1}
-%\right.
-%\end{equation}
-%\noindent where $\rho_0$ is the radius of the innermost circle, $1/q$ is the
-%minimum angular resolution of the log-polar layout
-%and $(\rho,\theta)$ are the polar co-ordinates.
-%These are related
-%to the conventional Cartesian reference system by:
-%\begin{equation}
-%\left\{ 
-%\begin{array}{l}
-%	x=\rho\cdot cos \theta\\
-%	x=\rho\cdot sin \theta
-%\end{array}
-%\right.
-%\label{eq:lp2}
-%\end{equation}
 
 \begin{figure}[t]
   \begin{center}
@@ -467,11 +335,6 @@ outputs with a pixel-wise $\max(\cdot)$ operator:
 	E(x,y)=\max\left\{\left|E_{RG}(x,y)\right|,\left|E_{GR}(x,y)\right|,\left|E_{BY}(x,y)\right|\right\}
 	\label{eq:edge_map}
 \end{equation}
-%The log-polar transform has the side effect of
-%sharpening the edges near the fovea due to the
-%magnification factor of the mapping; this is
-%compensated multiplying each pixel by a factor which
-%is exponential on the eccentricity.
 
 \subsection{Proto-objects}
 \label{sec:att_protoobj}
@@ -560,14 +423,6 @@ saliency map, $S_{top-down}$, is computed as the Euclidean distance in
 the color opponent space, between each blob's average
 color and the average color of the target, with a formula
 similar to (\ref{eq:s_bu}).
-%\begin{eqnarray}
-%	S_{top-down}=\sqrt{\Delta RG^2 + \Delta GR^2+ \Delta BY^2} \\
-%	\Delta RG={\langle R^+G^- \rangle}_{blob} - {\langle R^+G^- \rangle}_{object} \\
-%	\Delta GR={\langle G^+R^- \rangle}_{blob} - {\langle G^+R^- \rangle}_{object} \\
-%	\Delta BY={\langle B^+Y^- \rangle}_{blob} - {\langle B^+Y^- \rangle}_{object}
-%	\label{eq:s_td}
-%\end{eqnarray}
-%\noindent with a notation similar to the one above.
 Blobs that are too small or too big in relation to the
 size of the images are discarded from the
 computation of salience with two thresholds. The blob in
@@ -585,33 +440,17 @@ saccade, in fact it has been observed that the first
 fixation to a simple shape that appears in the periphery
 tends to land on its center of gravity \cite{MelcherK99}.
 
-%An example of the intermediate and final
-%maps of bottom-up salience is shown in Figure \ref{fig:maps_ex}.
-%All the computations are done on log-polar images, but
-%input and output images are shown remapped to
-%cartesian for clarity.
-
 \begin{figure}[]
   \begin{center}
     \begin{tabular}{cc}
        \includegraphics[width=0.32\textwidth]{figs/attention/dog1} &
        \includegraphics[width=0.32\textwidth]{figs/attention/dog2}
     \end{tabular}
-    \caption{\label{fig:multiscale}Filtering the image on the left
-     with a Difference-of-Gaussians, with the size of positive lobe
-     equal to the circle in the middle, we obtain the
-     image on the right. Smaller blobs will be depressed while larger
-     ones will be depressed in their centers.}
+    \caption{\label{fig:multiscale}The effect of a fixed size Difference-of-Gaussians filter.
+     Blobs smaller of the positive lobe of the filter are depressed while larger
+     ones are depressed in their centers.}
   \end{center}
 \end{figure}
-
-%\begin{figure}[t]
-%\begin{center}
-%	\includegraphics[width=0.8\linewidth]{./figs/attention/schema_imm4}
-%\end{center}
-%  \caption{Example of model maps.}
-%\label{fig:maps_ex}
-%\end{figure}
 
 \subsection{Inhibition of return}
 In order to avoid being redirected immediately to a
@@ -619,21 +458,8 @@ previously attended location, a local inhibition is
 transiently activated in the saliency map. This is called
 `inhibition of return' (IOR) and it has been
 demonstrated in human visual psychophysics.
-%Posner and Cohen \cite{PosnerC84}, for example,
-%demonstrated that the IOR does not seem to work
-%in retinal coordinates but it is instead represented
-%in an allocentric reference frame. Together with Klein
-%\cite{Klein88}, they proposed that the IOR is required
-%to allow an efficient visual search by discouraging
-%shifting the attention toward locations that have
-%already been inspected. Static scenes, however, are
-%seldom encountered in real life: objects move and a
-%``tagging system'' that merely inhibited environmental
-%locations would be almost useless in any real situation.
 In particular Tipper \cite{Tipper91} was among the firsts to
 demonstrate that the IOR could be attached to moving objects.
-%and this finding has been replicated and extended ever
-%since \cite{AbramsD94,GibsonE94,Tipper94}.
 Hence the IOR works by anchoring tags to
 objects as they move; in other words this process seems
 to be coded in an object-based reference frame.
@@ -651,29 +477,17 @@ the same color seen earlier: so in case an inhibited
 object moves or its color changes, the location
 becomes available for fixation again.
 
-%\begin{figure}[]
-%  \begin{center}
-%    \includegraphics[width=0.8\linewidth]{./figs/attention/schema_fasi}
-%  \end{center}
-%  \caption{The flow chart of the visual search of an object
-%   (the toy airplane). The saliency
-%   map is generated using the information about the color blue of
-%   the toy.}
-%  \label{fig:flow_chart}
-%\end{figure}
 
 \section{Results on sample images}
 \label{sec:att_results}
-In order to compare the performance of the system
-with the state of the art model of Itti \cite{IttiKN98}, we
-have done a comparison test of the bottom-up attention
-using the database of images by Itti and Koch \cite{IttiK01b} (64 color
+Even if our model is inherently built not to work on static images,
+we have tried a comparison with the model of Itti \etal \cite{IttiKN98},
+using the same database of images they use \cite{IttiK01b}. It consists of 64 color
 images with an emergency triangle and relative binary
-segmentation masks of the triangle), which is freely
-available on the Internet\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 30/05/2007.}.
+segmentation masks of the triangle\footnote{\url{http://ilab.usc.edu/imgdbs/}, last access 30/05/2007.}.
 First, the original images and segmentation masks are
 cropped to a square and transformed to the log-polar
-format (see $(a)$ and $(b)$ in Figure \ref{fig:itti_ex}
+format (see Figure \ref{fig:itti_ex} $(a)$ and $(b)$
 for the Cartesian remapped images). To simulate the
 presence of a static camera, the images are presented to
 the system continuously and, after five `virtual'
@@ -682,7 +496,7 @@ the mask. In this way we measure the ability of the system to spot
 the salient object in the images, simulating the pop-out phenomenology.
 The obtained result is that in $49\%$ of the images a point inside the
 emergency triangle is selected as the most salient
-(see an example in Figure \ref{fig:itti_ex} $(c)$). A
+(see an example in Figure \ref{fig:itti_ex} $(c)$). However a
 direct comparison with the results of Itti and Koch in \cite{IttiK01b}, by
 counting the number of false detection before the
 target object is found, is not possible since after each
@@ -690,8 +504,7 @@ saccade the log-polar image changes considerably.
 
 Other experiments were carried out
 on a robotic platform called Babybot \cite{NataleOBMS05}. This is a
-humanoid upper torso which consists of a head, an arm
-and a hand. 
+humanoid upper torso which consists of a head, an arm and a hand. 
 From the point of view of the sensors, the head is
 equipped with two log-polar cameras
 and two microphones for visual and auditory feedback.
@@ -699,11 +512,12 @@ and two microphones for visual and auditory feedback.
 The attentional system were used to guide the object recognition system
 and to guide the robot in manipulation tasks \cite{NataleOBMS05,Orabona07}.
 Two examples of saliency maps from the input images of the robot are shown in
-Figure \ref{fig:out_ex}: in $(d)$ there is a purely bottom-up ($k_{td}=0$,
+Figure \ref{fig:out_ex}: in $(b)$ there is a purely bottom-up ($k_{td}=0$,
 $k_{bu}=1$ in Equation (7)) map which is the result of the
-processing of the scene in $(a)$; in $(e)$ and $(f)$ there are purely
-top-down ($k_{td}=1$, $k_{bu}=0$) maps outputs after the
-processing of $(b)$ and $(c)$.
+processing of the scene in $(a)$; in $(d)$ there is a purely
+top-down ($k_{td}=1$, $k_{bu}=0$) map output after the
+processing of $(c)$. In Figure \ref{fig:out_ex2} there are the saliency maps of
+two images with different settings of $k_{td}$ and $k_{bu}$.
 
 Moreover using any learning procedure it is possible to estimate which
 proto-objects compose a particular object and use this information to attempt
@@ -712,36 +526,9 @@ segmentations is shown in Figure \ref{fig:segment_ex}. Note that even if the
 result is not visually perfect, it has all the information to guide a
 manipulation task \cite{NataleOBMS05}.
 
-%After a saccade on the
-%object and a successfully recognition the figure-ground
-%segmentation is shown in Figure \ref{fig:out_ex}.6.
-
-%We have tested the attention system while guiding
-%the recognition and grasping of objects in the Babybot.
-%In table \ref{table:att_ris}, results are shown when using a toy car and
-%a toy airplane as target objects; 50 training/visual search sessions
-%were performed for each object. The first column shows
-%the recognition rate, the second the average number
-%of saccades (mean $\pm$ standard deviation) it takes the
-%robot to locate the target in case of successful recognition.
-
-%\begin{table*}
-%\caption{Performance of the recognition system measured from a set of 50 trials.}
-%\begin{center}
-%\begin{tabular}[!h]{|l|c|c|}
-%\hline
-%  Object      & Recognition & Number of saccades \\
-%              & rate        & when recognized    \\ \hline
-%  Toy car     & $94\%$      & $3.19\pm2.17$      \\
-%  Toy airplane & $88\%$      & $3.02\pm2.84$      \\ \hline
-%\end{tabular}
-%\end{center}
-%\label{table:att_ris}
-%\end{table*}
-
 \begin{figure}[t]
   \begin{center}
-    \includegraphics[width=0.85\linewidth]{./figs/attention/itti_numbers}
+    \includegraphics[width=0.67\linewidth]{./figs/attention/itti_numbers}
     \caption{Result on a sample image taken from \cite{IttiK01b}.
      $(a)$ is the log-polar input image and $(b)$ the corresponding taget binary mask.
      $(c)$ is the bottom-up saliency map.}
@@ -751,20 +538,31 @@ manipulation task \cite{NataleOBMS05}.
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics[width=0.85\linewidth]{./figs/attention/a4}
-    \caption{Example saliency maps. $(d)$ is the 
-     bottom-up saliency map of the image $(a)$. $(e)$ and $(f)$ are the top-down
-	   saliency maps of $(b)$ and $(c)$, while searching for the blue airplane and the yellow toy car.}
+    \includegraphics[width=0.9\linewidth]{./figs/attention/a6}
+    \caption{Example saliency maps. $(b)$ is the 
+     bottom-up saliency map of the image $(a)$. $(d)$ is the top-down
+	   saliency map of $(c)$ while searching for the blue airplane.}
     \label{fig:out_ex}
   \end{center}
 \end{figure}
 
 \begin{figure}[t]
   \begin{center}
+    \includegraphics[width=0.9\linewidth]{./figs/attention/topdown_bottomup}
+    \caption{Combining top-down and bottom-up maps. $(b)$ and $(f)$ are the 
+     bottom-up saliency maps of $(a)$ and $(e)$. $(c)$ and $(g)$ are the top-down
+	   ones, while searching respectively for the yellow ball and the blue airplane.
+	   In $(d)$ and $(h)$ the bottom-up and top-down contributions are
+	   equally weighted; this can result in clearer maps.}
+    \label{fig:out_ex2}
+  \end{center}
+\end{figure}
+
+\begin{figure}[t]
+  \begin{center}
     \includegraphics[width=0.9\linewidth]{./figs/attention/segmentazioni}
-    \caption{Example segmentations of objects guided by the attentional system. $(b)$ and $(d)$ are
-     examples of the segmentations of the objects in the center of $(a)$ and $(c)$,
-     that can be obtained using the proto-objects that are estimated to belong to the target objects.}
+    \caption{Example segmentations of objects.
+     $(b)$ and $(d)$ are obtained from $(a)$ and $(c)$ using the proto-objects that are estimated to belong to the target objects.}
      \label{fig:segment_ex}
   \end{center}
 \end{figure}
@@ -772,10 +570,6 @@ manipulation task \cite{NataleOBMS05}.
 
 \section{A better definition of proto-objects}
 \label{sec:ass_fields}
-%As said in the introduction, it is important to stress the fact
-%that visual attention is not just a stand-alone module existing
-%in our brains, but a part of a complex interconnected system
-%that allows us complex action in our environment.
 As said above, object-based theories of attention stress the importance
 of the segmentation of the visual input in coherent regions.
 The term `grouping' (or `segmentation')
@@ -793,67 +587,12 @@ Nowadays the more typical view of such grouping
 demonstrations would be that they reflect non-arbitrary properties within the stimuli,
 which the visual system exploits heuristically because these properties
 are likely to reflect divisions into distinct objects in the real world.
-%In particular these properties work because they reflect characteristics of
-%the real world. 
 In this sense it should be possible to learn these heuristic
 properties and hence to learn from the image statistics better rules
 to build the proto-objects \cite{PalmerR94}.
 
 
 \subsection{Learning the association fields}
-%Previous studies have shown that it is possible to learn
-%certain properties of the responses of the neurons of the
-%visual cortex, as for example the receptive fields of
-%complex and simple cells, through the analysis of the
-%statistics of natural images and by employing principles
-%of efficient signal encoding from information theory, \eg \cite{Bell97}.
-%Here we want to go further and consider how the output
-%signals of `complex cells' are correlated and which
-%information is likely to be grouped together.
-%We want to learn `association fields', which are a
-%mechanism to integrate the output of filters with
-%different preferred orientation, in particular to
-%link together and enhance contours, and in the end to create our
-%perception of proto-objects.
-% We used static
-%natural images as training set and the tensor notation
-%to express the learned fields. Finally we tested these
-%association fields in a computer model to measure their
-%performance.
-%This chapter is organized as follows: section \ref{sec:ass_gestalt}
-%introduces the idea of the link between the Gestalt laws and the
-%statistics of the world. Section \ref{sec:ass_learning}
-%contains a description of the method, and section \ref{sec:ass_pre_res}
-%describes a first set of experimental results and a method to
-%overcome problems due to the non-uniform distribution of the
-%image statistics. In section \ref{sec:ass_res} we show the fields
-%computed with this last modification and finally in sections
-%\ref{sec:ass_using} and \ref{sec:ass_disc} we show the performance
-%of the fields in edge detection on a database of natural images and
-%we draw some conclusions.
-%\section{Gestalt laws, statistics and neurons}
-%\label{sec:ass_gestalt}
-%The goal of perceptual grouping in computer vision is
-%to organize visual primitives into higher-level primitives
-%thus explicitly representing the structure contained in
-%the data.
-%The idea of perceptual grouping for computer
-%vision has its roots in the well-known work of the Gestalt
-%psychologists back at the beginning of the last century
-%who described, among other things, the ability of the human
-%visual system to organize parts of the retinal stimulus
-%into ``Gestalten'', that is, into organized structures.
-%They formulated a number of so-called Gestalt laws
-%(proximity, common fate, good continuation, closure, \etc)
-%that are believed to govern our perception. It is logical
-%to ask if these laws are present in the statistics of the world.
-%On the other hand it has been long hypothesized that the early visual system is adapted to the input statistics \cite{Barlow61}. Such an adaptation is thought to be the result of the joint work of evolution and learning during development. Neurons, acting as coincidence detectors, can discover and use regularities in the incoming flow of sensory information, which eventually represent the Gestalt laws. It has been proposed that, for example, the mechanism that link together the elements of a contour is rooted in our biology, with neurons with lateral and feedback connections implementing these laws.
-%There is a large body of literature about computational modeling
-%of various parts of the visual cortex, starting from the assumption that
-%certain principles guide the neural code (\cite{SimoncelliO01} for a review).
-%In spite of this, there is very little literature on learning an entire
-%hierarchy of features, that is not only the first layer, and possibly
-%starting from these initial receptive fields.
 A first step in the implementation of the Gestalt laws are the `association fields'
 \cite{FieldHH93}. These fields are supposed to resemble the pattern of
 excitatory and inhibitory lateral connection between different orientation
@@ -872,78 +611,28 @@ Our approach is instead to try to learn these
 association fields directly from natural images. 
 Starting from the output of a simulated layer of complex cells,
 without any prior assumption, we want to estimate the mean
-activity around points with a given orientation.
+activity around points with given orientations.
 
-
-%One of the first publication addressing second order relations
-%of edge-like structures in images is from Kr{\"u}ger \cite{Kruger98}.
-%Then different authors have used different approaches to try to ``learn'' this fields: using a database of tagged images \cite{ElderG02,Geisler01}, %using motion as an implicit tagger \cite{Prodohl01} or hypothesizing certain coding properties of the cortical layer \cite{Hoyer02}.
-
-%Our approach is similar to to one of Sigman \etal \cite{Sigman01},
-%which uses images as the sole input. Further, we aim to obtain
-%precise association fields, useful to link contours in a computer model.
-
-%\begin{figure}[]
-%	\begin{center}
-%		\includegraphics[width=0.8\linewidth]{./figs/af/esempio}
-%	\end{center}
-%  \caption{Sample input image from the Berkeley Segmentation Database.
-%    All the images were converted to grayscale before using the proposed method.}
-%	\label{fig:exampleimg}
-%\end{figure}
-
-
-
-%\section{Learning from natural images}
-%\label{sec:ass_learning}
-
-%We assume the existence of a first layer that
-%simulates the behavior of the complex cells; in this
-%article we do not address the issue on how to learn
-%them since we are interested in the next level of the hierarchy.
-%Using the output of this layer we want to estimate the mean
-%activity around points with a given orientation.
-
-For mathematical convenience and to represent orientation precisely, 
-we have chosen to use a tensor notation. Given the orientation of a 
-reference pixel, we estimate the mean tensors associated with the 
-surrounding pixels. The use of the tensor notation gives us the possibility 
-to exactly estimate the preferred orientation at each
-point of the image and to quantify the confidence that a line passes
-at that point (rather than being, for example, a corner).
-
-%We have chosen to learn a separate association field for each possible
-%orientation.
-%This is done for two main reasons:
-%\begin{itemize}
-%	\item It is possible to find differences between the association fields.
-%	For example, it is possible to verify that the association field for the orientation of 0 degrees is
-%	stronger than that of 45 degrees.
-%	\item For applications of computer vision, considering the discrete nature of digital images,
-%	it is better to separate the masks for each orientation, instead of combining the data in a single mask
-%	that has to be rotated leading to sampling problems. The rotation can be done safely
-%	only if there is a mathematical formula that represents the field, while on the other hand we are inferring the
-%	field numerically.
-%\end{itemize}
-
+The extension of the fields is chosen to be of $41$x$41$ pixels
+taken around each point, and the central pixel of the field is the reference pixel.
 We have chosen to learn $8$ association fields, one for each discretized
-orientation. The extension of the fields is chosen to be of $41$x$41$ pixels
-taken around each point.
-Even if we quantized the orientation of the (central)
-reference pixel to classify the different fields, the information about the remaining
-pixels in the neighbor were not quantized, differently from other approaches, \ie \cite{Sigman01}.
+orientation of the reference pixel.
+Despite this quantization, to cluster the different fields, the information
+about the remaining pixels in the neighbor is not quantized, differently from
+other approaches, \ie \cite{Sigman01}.
 There is neither a threshold nor a pre-specified number of bins for
 discretization and thus we obtain a precise representation of the association fields.
+In the experiments we have used the images of the Berkeley Segmentation
+Database \cite{MartinFTM01}, that consists of $300$
+images of $321$x$481$ and $481$x$321$ pixels
+(see Figure \ref{fig:exampleimg} $(a)$ for an example).
 
-Images used for the experiments were taken from the
-publicly available database (Berkeley Segmentation
-Database
-%\footnote{\url{http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/segbench/}, last access 30/05/2007.}
-\cite{MartinFTM01}) which consists of $300$
-color images of $321$x$481$ and $481$x$321$ pixels
-(see Figure \ref{fig:exampleimg} $(a)$ for an example);
-$200$ of them were converted to black and white and used
-to learn the fields.
+For mathematical convenience and to represent orientation precisely, 
+we have chosen to use a tensor notation. Hence for each orientation of the
+reference pixel, we calculate the mean tensors associated with the 
+surrounding pixels, from the $41$x$41$ patches densely collected from $200$
+images of the database.
+These mean tensors will represent our association fields.
 
 \begin{figure}[t]
 	\begin{center}
@@ -953,7 +642,6 @@ to learn the fields.
 			$(a)$ & $(b)$
 		\end{tabular}
     \caption{$(a)$ Sample input image from the Berkeley Segmentation Database.
-     All the images were converted to grayscale before using the proposed method.
      $(b)$ Complex cells output to the image in $(a)$ for $0^\circ$ filter of formula (\ref{eqn:nrgmod}).}
     \label{fig:exampleimg}
 	\end{center}
@@ -963,34 +651,21 @@ to learn the fields.
 \label{sec:ass_feature}
 There are several models of the complex cells of V1, but we have chosen to
 use the classic energy model \cite{Morrone88}.
-The response is calculated as:
+The response at orientation $\theta$ is calculated as the sum a quadrature pair
+of even- and odd-symmetric filters:
 \begin{equation} \label{eqn:nrgmod}
 E_\theta=\sqrt{\left(I*f^{e}_\theta \right)^2+\left(I*f^{o}_\theta \right)^2}
 \end{equation}
-where $f^{e}_\theta$ and $f^{o}_\theta$ are a quadrature pair of even- and
-odd-symmetric filters at orientation $\theta$. Our even-symmetric filter is
-a Gaussian second-derivative, and the corresponding odd-symmetric is its
+
+Our even-symmetric filter is
+a Gaussian second-derivative, the corresponding odd-symmetric is its
 Hilbert transform.
 In Figure \ref{fig:exampleimg} $(b)$ there is an example of the output of the
 complex cells model for the $0^\circ$ orientation.
 Then the edges are thinned using a standard non-maximum
 suppression algorithm.
-%This is equivalent to finding edges with a Laplacian
-%of Gaussian and zero crossing.
 The outputs of these filters are used to construct our local tensor
 representation.
-
-
-
-%\subsection{Tensors}
-
-%\begin{equation} \label{eqn:tensdef}
-%{\mathcal T}=\left[
-%\begin{array}{cc}
-%a_{11} & a_{12} \\ a_{21} & a_{22}
-%\end{array}
-%\right]
-%\end{equation}
 
 Second order symmetric tensors can capture the information about the first
 order differential geometry of an image. Each tensor describes both the
@@ -1004,7 +679,9 @@ The tensor at each point is constructed by direct summation of three quadrature 
 \begin{equation} \label{eqn:sumquad}
 T=\sum^3_{k=1}E_{\theta_k}\left(\frac{4}{3}\hat{n}_k^T \hat{n}_k-\frac{1}{3}I\right)
 \end{equation}
-where $E_{\theta_k}$ is the filter output as calculated in (\ref{eqn:nrgmod}), $I$ is the 2x2 identity matrix and the filter directions $\hat{n}_k$ are:
+where $I$ is the $2$x$2$ identity matrix, $E_{\theta_k}$ is the filter output
+as calculated in (\ref{eqn:nrgmod}) with $\theta_k$  corresponding to the
+direction of $\hat{n}_k$:
 \begin{equation} \label{eqn:fildir}
 \begin{array}{ccccc}
 \hat{n}_1=\left(1,0\right), &  &
@@ -1015,39 +692,30 @@ where $E_{\theta_k}$ is the filter output as calculated in (\ref{eqn:nrgmod}), $
 \end{array}
 \end{equation}
 
-%\begin{equation} \label{eqn:fildir}
-%\begin{array}{lll}
-%\hat{n}_1=\left(1,0\right) \\
-%\hat{n}_2=\left(1/2,\sqrt{3}/2\right) \\
-%\hat{n}_3=\left(-1/2,\sqrt{3}/2\right)
-%%\hat{n}_2=\left(\frac{1}{2},\frac{\sqrt{3}}{2}\right) \\
-%%\hat{n}_3=\left(-\frac{1}{2},\frac{\sqrt{3}}{2}\right)
-%\end{array}
-%\end{equation}
-
-The greatest eigenvalue $\lambda_1$ and its corresponding eigenvector $e_1$ of a tensor associated to a pixel represent respectively the strength and the direction of the main orientation. The second eigenvalue $\lambda_2$ and its eigenvector $e_2$ have the same meaning for the orthogonal orientation. The difference $\lambda_1-\lambda_2$ is proportional to the likelihood that a pixel contains a distinct orientation.
+The greatest eigenvalue $\lambda_1$ and its corresponding eigenvector $e_1$ of
+a tensor associated to a pixel represent respectively the strength and the
+direction of the main orientation. The second eigenvalue $\lambda_2$ and its
+eigenvector $e_2$ have the same meaning for the orthogonal orientation.
+The difference $\lambda_1-\lambda_2$ is proportional to the likelihood that a
+pixel contains a distinct orientation.
 
 \subsection{The path across a pixel}
 \label{sec:ass_pre_res}
-We have run our test only for a single scale, choosing the $\sigma$ of the Gaussian filters
-equal to $2$, since preliminary tests have shown that a similar version of the fields is obtained with other scales as well.
-Two of the obtained fields are in Figure \ref{fig:field1}. It is clear that they are somewhat corrupted by the presence of horizontal and vertical orientations in any of the considered neighbors and by the fact that
-in each image patch there are edges
-that are not passing across the central pixel. On the other hand we want to learn association field for curves that do pass through the central pixel.
+We have run our test only for a single scale, choosing the $\sigma$ of the
+Gaussian filters equal to $2$, since preliminary tests have shown that a
+similar version of the fields is obtained with other scales as well.
+Two of the obtained fields are in Figure \ref{fig:field1}. It is clear that
+they are somewhat corrupted by the presence of horizontal and vertical
+orientations in any of the considered neighbors and by the fact that
+in each image patch there are edges that are not passing across the central
+pixel. On the other hand we want to learn association field for curves that \emph{do}
+pass through the central pixel.
 
-%Geisler \etal \cite{Geisler01} used a human labeled database
-%of images to infer the likelihood of finding edges with a
-%certain orientation relative to the reference point.
-%On the other hand, Sigman \etal \cite{Sigman01} using only
-%relative orientation and not absolute ones, could not have seen this problem.
-%
-%In our case
-%we want to use unlabeled data to demonstrate that it is possible to
-%learn from raw images and, as mentioned earlier, we do not want to
-%consider only the relative orientations, but rather a different field for each
-%orientation.
-
-We believe that this is the same problem that Prod\"ohl \etal \cite{Prodohl01} experienced using static images: the learned fields supported collinearity in the horizontal and vertical orientations but hardly in the oblique ones. They solved this problem using motion to implicitly tag only the important edges inside each patch.
+We believe that this is the same problem that Prod\"ohl \etal \cite{Prodohl01}
+experienced using static images: the learned fields supported collinearity in
+the horizontal and vertical orientations but hardly in the oblique ones. They
+solved this problem using motion to implicitly tag only the important edges
+inside each patch.
 
 Once again the neural way to solve this problem can be the synchrony of the
 firing between nearby neurons (see Section \ref{sec:att_protoobj}).
@@ -1061,11 +729,21 @@ The simple algorithm used to select the pixels is the following:
 	\item tag the first pixel in the list and remove it from the list. Put surrounding pixels that are active (non-zero) in the list;
 	\item if the list is empty quit otherwise go to $2$.
 \end{enumerate}
-This procedure removes the influence of horizontal and vertical edges that are more present in the images and
-that are not removed by the process of averaging. On the other hand, we are losing some information, for example about parallel lines, that in any case should not be useful for the enhancement of contours.
-Note that this method is completely ``parameter free''; we are not selecting the curves following some specific criterion, instead we are just pruning the training set from noisy or biased inputs.
-It is important to note that this method will learn the natural image bias toward horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be biased to learn these statistics \emph{only}, as in Prod\"ohl \etal \cite{Prodohl01} when using static images.
-A similar approach that uses self-caused motion has been developed by \cite{Fitzpatrick03} to disambiguate the edges of a target object from those in the background.
+This procedure removes the influence of horizontal and vertical edges that are
+more present in the images and that are not removed by the process of
+averaging. On the other hand, we are losing some information, for example about
+parallel lines, that in any case are not useful for the enhancement of
+contours.
+Note that this method is completely ``parameter free''; we are not selecting
+the curves following some specific criterion, instead we are just pruning the
+training set from noisy or biased inputs.
+It is important to note that this method will learn the natural image bias
+toward horizontal and vertical edges \cite{CoppolaPMP98}, but it will not be
+biased to learn these statistics \emph{only}, as in Prod\"ohl \etal
+\cite{Prodohl01} when using static images.
+A similar approach that uses self-caused motion has been developed in
+\cite{Fitzpatrick03} to disambiguate the edges of a target object from those in
+the background.
 
 \begin{figure}[t]
 	\begin{center}
@@ -1079,33 +757,15 @@ A similar approach that uses self-caused motion has been developed by \cite{Fitz
 	\end{center}
 \end{figure}
 
-%\begin{figure}[]
-%	\begin{center}
-%		\fbox{
-%			\includegraphics[width=0.8\linewidth]{./figs/af/or_ns_e1_4}
-%		}
-%	\end{center}
-%  \caption{Main directions for the association field for the orientation of 67.5 degrees in the central pixel.}
-%	\label{fig:field2}
-%\end{figure}
-
 
 \section{Validating the association fields}
 \label{sec:ass_res}
-%We tested the modified procedure on the database of natural images and also
-%on random images (results not shown), to verify that the results were not an
-%artifact due to the method.
 Figures \ref{fig:field1_e1_new} and \ref{fig:field1_l1l2_new} show the
 main orientations and strengths (eigenvalues) of the mean estimated
 tensors for the orientations of $0^\circ$ and $67.5^\circ$ of the central pixel,
 obtained with the modified procedure described in Section \ref{sec:ass_pre_res}.
 The structure of the obtained association fields closely resembles the fields
 proposed by others based on collinearity and co-circularity.
-%It is clear that the size of the long-range connection far exceeds the size of the
-%classical receptive field. 
-%Note that the noisier regions in the orientations maps corresponds to very small 
-%eigenvalues so they do not influence very much the final result.
-
 While all the fields have the same trend, there is a clear difference in the
 decay of the strength of the fields. To see this we have considered only the
 values along the direction of the orientation in the center, normalizing the
@@ -1119,10 +779,6 @@ Guy and Medioni \etal \cite{Guy96}. The choice is somewhat logical considering
 to the fact that the obtained fields are already tensors. In the tensor voting
 framework points communicate with each other in order to refine and derive the
 most preferred orientation information.
-%Differently to the original tensor
-%voting algorithm we don't have to choose the right scale of the fields
-%\cite{LeeM99} since it is implicitly in the learnt fields.
-
 We compared the performances of the tensor voting algorithm using the learned
 fields versus the simple output of the complex cell layer, using the Berkeley
 Segmentation Database and the methodology proposed by Martin \etal
@@ -1134,17 +790,9 @@ relatives human segmentations in Figure
 \ref{fig:conf} $(b)$, better result are associated with curves that are located higher in the graph.
 We can see that there is always an improvement using the tensor voting and
 the learned association fields instead of just using the outputs of
-the complex cells alone. An example of the results on the test image in
+the complex cells alone. An example of the results on the test image in Figure
 \ref{fig:exampleimg} $(a)$, after the non-maximum suppression procedure, are
 shown in Figure \ref{fig:im_oe_pg}.
-
-%\begin{figure}[]
-%	\begin{center}
-%		\fbox{\includegraphics[width=0.8\linewidth]{./figs/af/or_e1_1}}
-%	\end{center}
-%  \caption{Main directions for the association field for the orientation of 0 degrees in the central pixel, with the modified approach.}
-%	\label{fig:field1_e1_new}
-%\end{figure}
 
 \begin{figure}[t]
 	\begin{center}
@@ -1158,7 +806,7 @@ shown in Figure \ref{fig:im_oe_pg}.
 		\end{tabular}	
     \caption{Main directions for the association field for orientation of
      $0^\circ$ $(a)$ and $67.5^\circ$ $(b)$, with the modified approach.
-     Compare them with the results in Figure \ref{fig:field1}}
+     Compare them with the results in Figure \ref{fig:field1}.}
 	  \label{fig:field1_e1_new}
 	\end{center}
 \end{figure}
@@ -1175,15 +823,6 @@ shown in Figure \ref{fig:im_oe_pg}.
 	\end{center}
 \end{figure}
 
-%\begin{figure}[]
-%	\begin{center}
-%		\fbox{\includegraphics[width=0.8\linewidth]{./figs/af/or_l1l2_4}}
-%	\end{center}
-%  \caption{Difference between the two eigenvalues of the association field of figure \ref{fig:field2_e1_new}.}
-%	\label{fig:field2_l1l2_new}
-%\end{figure}
-
-
 \begin{figure}[h]
 	\begin{center}
 		\begin{tabular}{cc}
@@ -1199,14 +838,6 @@ shown in Figure \ref{fig:im_oe_pg}.
 	   \label{fig:conf}
 	\end{center}
 \end{figure}
-
-%\begin{figure}[]
-%	\begin{center}
-%		\fbox{\includegraphics[width=0.8\linewidth]{./figs/af/pr_gray_011_012}}
-%	\end{center}
-%  \caption{Comparison between tensor voting with learned fields (PG label) and the complex cell layer alone (OE label).}
-%	\label{fig:comp_oe_pg}
-%\end{figure}
 
 \begin{figure}[t]
 	\begin{center}
@@ -1258,15 +889,6 @@ model directs the attention on the proto-object's or
 center of mass, similarly to the behavior observed in
 humans (see Sections \ref{sec:att_protoobj} and
 \ref{sec:att_results}).
-%Very often models of visual attention are used as
-%filters for object recognition systems, as in, \eg, \cite{WaltherK06}.
-%In such systems the attention model and object recognition
-%live in two different `worlds': they work on two
-%different representations of the input images and few or none
-%of the computation carried out by attention is then used for recognition. 
-%A proof of concept on how to build an object
-%recognition system on the same basis of visual attention that
-%employs the concept of proto-objects was presented in.
 In \cite{NataleOBMS05,Orabona07} the proposed visual attention system was also used to
 guide the grasping action of a humanoid robot.
 
@@ -1280,7 +902,6 @@ precise association fields from natural images. An unsupervised bio-inspired pro
 to get rid of the non-uniform distribution of orientations
 is used, without the need of the use of motion \cite{Prodohl01}.
 The learned fields were used in a computer model
-%, using the tensor voting method,
 and the results were compared using a database of human tagged images which helps
 in providing clear numerical results.
 
@@ -1294,15 +915,6 @@ learnt from natural images with the proposed visual attention
 model. We are also looking to an extension of the associative
 fields to a hierarchical organization to develop even more
 complex image features.
-% to be used for object recognition.
-
-
-
-%The main result from these studies is that these responses are not
-%independent and they are highly correlated when they are arranged
-%collinearly or on a common circle.
-
-
 
 \bibliographystyle{splncs}
 \bibliography{bibliografia}
