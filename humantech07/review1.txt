@@ -6,6 +6,8 @@ authors describe in a fairly detailed manner a distributed software
 architecture for robot control called YARP designed and licensed to facilitate
 code reuse across projects in the way of Open Source development. 
 
+ * [reviewer is summarizing software part]
+
 In addition, the authors give an overview of their attempt to design and
 manufacture hardware in a manner similar to the Open Source development
 methodology for software. They describe how they did so, and where the process
@@ -15,6 +17,8 @@ conventional manufacturing). The hardware development as described is in an
 early developmental phase with (as far as the paper describes it) still few
 results in the form of a complete, integrated system.
 
+ * [reviewer is summarizing hardware part]
+
 The strength of this paper is that it brings up a problem common to much
 applied science, that of reuse of experimental resources that are expensive in
 time or funds to create, and shows how one way of handling this can work in
@@ -23,13 +27,34 @@ design; they are sharing the idea of sharing such resources in a way that can
 make it usable for other researchers in the field. I can not stress enough
 how important this is.
 
+ * Agreed.
 
 So I find it rather puzzling why the authors have gone ahead to build their
 own framework at all. They argue convincingly for the need to work in an open
 environment and let people build on each others' work rather than reinvent the
 wheel as it where, but they have chosen to build their own software
 architecture (YARP) rather than extend the work on an equally open, already
-existing architecture (Player) with an active developer base. They acknowledge
+existing architecture (Player) with an active developer base. 
+
+ * Short answer: Player and YARP both evolved at around the same time,
+ entirely independently.
+
+ * Longer answer: YARP and Player are as interoperable as anyone so
+ far has needed them to be.  Section 2.3 (Interoperating) attempted to
+ argue this.
+
+ * The free software ecology contains many cases of long term side-by-side
+ projects with somewhat different cultures and goals.  For example, Linux
+ and BSD, Gnome and KDE, etc.  Unlike proprietary software, this is not
+ such a bad thing, since the software "genes" flow back and forth if 
+ source-code licenses are compatible.
+
+ * We believe we have some important technical advantages over Player,
+ and there are currently some important cultural differences.  Developers
+ are free to pick and choose what they like.
+
+
+They acknowledge
 the similarity of the projects but give little reason why a separate project
 is preferable to building on an existing one. There are of course any number
 of robotics system projects like this, but most of them are only for internal
@@ -38,6 +63,15 @@ from the real-time control of hardware (like Ikaros at Lund University). As
 the authors acknowledge, Player is different in that it occupies almost
 exactly the same niche as YARP, both from a problem domain and methodological
 perspective. 
+
+ * Again, the history is that Player did not exist as a open-source project
+ when YARP started, or vice versa.
+
+ * In fact the niches are distinct: humanoid robots versus mobile robots.
+ The first few versions of either YARP or Player would have been useless
+ in the other's domain.  Only after YARP underwent a complete redesign
+ to YARP2 and Player to Player 2.0 are they becoming truly comparable.
+
 
 I would suggest that giving a fuller motivation of why a separate project is
 overall better for the community than building on Player would be the most
@@ -57,6 +91,8 @@ parameters and particularly the detailed specification of message packets and
 communication protocols are perhaps better left for a user manual rather than
 an overview like this.
 
+ * Acknowledged (should work on this)
+
 The hardware section is shorter and less detailed; in part that is undoubtedly
 because that area seems to be less further along than the software, but also,
 of course, since the area is more complex and less amenable to a short
@@ -70,5 +106,8 @@ to open beer and Cola recipes). An acknowledgment of the possible issues
 around applying a license like GPL, meant for software, onto other forms of
 expression like CAD files (and by extension the hardware built from them)
 would also be welcome.
+
+ * We should expand the hardware section quite a bit, I think there's a lot
+ more to say.
 
 
