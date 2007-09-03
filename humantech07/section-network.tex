@@ -510,6 +510,7 @@ connection -- these details are taken care of at the carrier level).
 %% more control over how this material (called the ``port protocol'') is
 %% embedded.
 
+\ifverbose
 
 \begin{table}
 \begin{center}
@@ -538,6 +539,8 @@ evolved in order to be compatible with earlier versions of itself.
 %
 }
 \end{table}
+
+\fi
 
 The important point about the communication protocol is that
 is {\em polymorphic} and allows {\em heterogeneous} use --
@@ -607,9 +610,11 @@ So far all our communications have been ``administrative'' --
 we have communicated with the port but not really with the 
 program that owns it.  To do that, we send payload data.  For the
 text-mode carrier we've chosen (determined by the 8 initial
-bytes we sent, ``CONNECT\textvisiblespace'' in this case), 
+bytes we sent, ``CONNECT\textvisiblespace'' in this case~-- a 
+different ``magic number'' would give multicast, UDP, TCP-binary,
+shared memory, etc.), 
 this is done by typing
-``d'', hitting return, then writing a text-mode representation of
+``d'', hitting return, and then writing a text-mode representation of
 the data we want to send.  Let's try it:
 
 \begin{center}
