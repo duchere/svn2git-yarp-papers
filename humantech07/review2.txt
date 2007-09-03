@@ -1,0 +1,70 @@
+
+
+Reviewer #2: Relevance to the Special Issue - Good
+Originality - Fair
+Technical soundness - Fair
+Clarity of the presentation - Good
+Overall - Fair/Good
+____________________________________________________________________
+Main Contribution of the Paper:
+
+The main contribution of this paper is to describe the realization of
+an open humanoid platform. This concern the software part called YARP
+and the hardware called ICub. The latter one is sayed to be open
+because all the blueprints are available through the web-page of the
+project. This project is funded by the european community and is
+spanned over 5 years. It aims at providing 10 research platforms to be
+freely distributed in the european community. The author also stress
+that their architecture deals with incompatible architectures and
+frameworks.
+
+This is realized through an abstraction of the hardware, and a loose
+communication architecture.
+____________________________________________________________________
+Specific Comments to Authors:
+
+The quality and the scale of this open project is highly remarquable,
+and the effort provided by the authors is consequent. It is specially
+true for the hardware part, which should be more detailled. You should
+give more details for instance regarding the position of the sensors
+you plan to put on the robot. Regarding the scientific aspect, you
+should stress more the relationship between the structure of your
+system and the cognitive aspect of the research. They are strong
+constraint related with highly dynamic system such as humanoid and
+their software architecture. Most notably the low-level motor-control
+loop. This will call for specific application structure which sadly do
+not appear here.
+
+The presentation of YARP stay painfully at the computer science level
+without having a nice leverage. The cited paper of the authors is much
+better than this presentation. The position of YARP related to the
+others robotic systems is much better. The two parts put forward in
+the present paper are the use of generic device object and network
+communication. The notion of Hardware Abstract Layer is pretty old,
+and it is not clear what is the advantage of YARP over the other
+systems which implements also a HAL systme such as MARIE. The second
+point related to network communication might be usefull for teaching
+purposes, but as stated by the authors in [11] CORBA based solutions
+are much more powerful. The description of the network protocole is
+really not at its place, what is the point? In the other hand iCub
+could have been more described. Why don't you describe the modules
+already avaible or planned with YARP allowing the emergence of
+cognitive capabilities, and which makes YARP unique.
+
+For instance, you use ACE p.4, but not TAO from the same group. Why
+don't you justify this choice ? Real-time corba such as ORBIX are now
+used in humanoids robots such as HRP-2. They are also other highly
+efficient CORBA implementation which are very suited to soft real-time
+such as omniorb and which are free. Such kind of technology is used in
+desktop environment such as gnome and kde.
+
+In the overall, this paper give the impression that it could be improved.
+____________________________________________________________________
+Confidential Comments for Editors:
+____________________________________________________________________
+Recommendation to Editors:
+
+Overall rating - Fair/Good
+Your decision Major revisions
+
+
