@@ -53,7 +53,7 @@ The presentation of YARP stay painfully at the computer science level
 without having a nice leverage. 
 
  * It is not clear what the term leverage means in this case; the
- overall point is well taken.
+   overall point is well taken.
 
 The cited paper of the authors is much
 better than this presentation. The position of YARP related to the
@@ -65,34 +65,35 @@ The notion of Hardware Abstract Layer is pretty old,
 and it is not clear what is the advantage of YARP over the other
 systems which implements also a HAL systme such as MARIE. 
 
- * We agree that the idea of a hardware abstraction layer has
- been around for almost as long as computer science.  It is a
- good idea.  It can be done well or badly.
+ * We agree that the idea of a hardware abstraction layer has been
+   around for almost as long as computer science.  It is a good idea.
+   It can be done well or badly.
 
 The second
 point related to network communication might be usefull for teaching
 purposes, but as stated by the authors in [11] CORBA based solutions
 are much more powerful. 
 
- * CORBA based solutions introduce a level of complexity which we 
- choose to avoid.  It can be difficult to intregrate CORBA solutions
- with other middleware.
+ * CORBA based solutions introduce a level of complexity and
+   cumbersomeness which we choose to avoid.  It can be difficult to
+   intregrate CORBA solutions with other middleware.
 
 The description of the network protocole is
 really not at its place, what is the point? 
 
  * Network protocols done well facilitate progress.  Done poorly they
- impede progress.  A key differentiating point between YARP and other
- systems is that data can be successfully sent or received to YARP
- modules from non-YARP modules with almost trivial simplicity.
- This is entirely a function of careful design of the network 
- protocol.
+   impede progress.  A key differentiating point between YARP and
+   other systems is that data can be successfully sent or received to
+   YARP modules from non-YARP modules with almost trivial simplicity.
+   This is entirely a function of careful design of the network
+   protocol.
 
 In the other hand iCub
 could have been more described. Why don't you describe the modules
 already avaible or planned with YARP allowing the emergence of
 cognitive capabilities, and which makes YARP unique.
 
+ * [We should do this]
 
 For instance, you use ACE p.4, but not TAO from the same group. Why
 don't you justify this choice ? Real-time corba such as ORBIX are now
@@ -104,6 +105,24 @@ They are also other highly
 efficient CORBA implementation which are very suited to soft real-time
 such as omniorb and which are free. Such kind of technology is used in
 desktop environment such as gnome and kde.
+
+ * To repeat, CORBA has problems.  It is often the first thing people
+   try, and then give up over time.  KDE and GNOME have both backed
+   off from CORBA.  KDE replaced CORBA with OpenParts (for components)
+   and DCOP (for inter process communication).  Now KDE is switching
+   to D-Bus, and GNOME too.  See e.g:
+
+     http://dbus.freedesktop.org/doc/dbus-faq.html#corba
+     http://www.ibm.com/developerworks/linux/library/l-dbus.html
+
+ * The point in the dbus faq that an "IPC system API should not leak
+   all over a program; it should come into play only just before data
+   goes over the wire" is a key problem with CORBA.  That kind of 
+   requirement does not play well with multiple middleware, which you
+   have to allow the user to have.
+
+ * CORBA tries to do to many things.  It is best for a tool to do one 
+   thing and do it well.
 
 In the overall, this paper give the impression that it could be improved.
 ____________________________________________________________________
