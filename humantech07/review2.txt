@@ -40,20 +40,48 @@ without having a nice leverage. The cited paper of the authors is much
 better than this presentation. The position of YARP related to the
 others robotic systems is much better. The two parts put forward in
 the present paper are the use of generic device object and network
-communication. The notion of Hardware Abstract Layer is pretty old,
+communication. 
+
+The notion of Hardware Abstract Layer is pretty old,
 and it is not clear what is the advantage of YARP over the other
-systems which implements also a HAL systme such as MARIE. The second
+systems which implements also a HAL systme such as MARIE. 
+
+ * We agree that the idea of a hardware abstraction layer has
+ been around for almost as long as computer science.  It is a
+ good idea.  It can be done well or badly.
+
+The second
 point related to network communication might be usefull for teaching
 purposes, but as stated by the authors in [11] CORBA based solutions
-are much more powerful. The description of the network protocole is
-really not at its place, what is the point? In the other hand iCub
+are much more powerful. 
+
+ * CORBA based solutions introduce a level of complexity which we 
+ choose to avoid.  It can be difficult to intregrate CORBA solutions
+ with other middleware.
+
+The description of the network protocole is
+really not at its place, what is the point? 
+
+ * Network protocols done well facilitate progress.  Done poorly they
+ impede progress.  A key differentiating point between YARP and other
+ systems is that data can be successfully sent or received to YARP
+ modules from non-YARP modules with almost trivial simplicity.
+ This is entirely a function of careful design of the network 
+ protocol.
+
+In the other hand iCub
 could have been more described. Why don't you describe the modules
 already avaible or planned with YARP allowing the emergence of
 cognitive capabilities, and which makes YARP unique.
 
+
 For instance, you use ACE p.4, but not TAO from the same group. Why
 don't you justify this choice ? Real-time corba such as ORBIX are now
-used in humanoids robots such as HRP-2. They are also other highly
+used in humanoids robots such as HRP-2. 
+
+ * [We should add a critique of CORBA etc]
+
+They are also other highly
 efficient CORBA implementation which are very suited to soft real-time
 such as omniorb and which are free. Such kind of technology is used in
 desktop environment such as gnome and kde.
