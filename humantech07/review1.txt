@@ -92,15 +92,22 @@ parameters and particularly the detailed specification of message packets and
 communication protocols are perhaps better left for a user manual rather than
 an overview like this.
 
+ * In retrospect, we agree entirely with the reviewer about this.
+
  * Removed table of "magic numbers" (Table 1) -- absolutely more suited to
- a reference manual, in retrospect.
+ a reference manual.
+
+ * Removed what was Section 4.3 ("Connection protocol") -- it doesn't
+ add to the message of the paper.
 
  * We would claim that the nature of the communication protocols is key
  to open development.  Some protocols are a nightmare to work with, some
  a joy.  The difference comes down to, usually, how many pages you need
- to read in other to send and receive.
-
- * [will add link to an edited section when done -pf]
+ to read in other to send and receive.  For this reason, we have 
+ retained what was Section 4.4 ("YARP without YARP").  Although 
+ somewhat technical, it shows in a very concrete way how to get
+ data into and out of a YARP system without using any of
+ our implementation.
 
 
 The hardware section is shorter and less detailed; in part that is undoubtedly

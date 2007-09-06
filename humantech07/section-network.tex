@@ -415,6 +415,7 @@ time, as a connection protocol of last resort.
 
 %%(NOTE: this is about more than just the bottle format; reorder).
 
+\ifverbose
 
 \subsection{Connection protocol}
 
@@ -498,6 +499,8 @@ many logical connections can be serviced with a single active
 connection -- these details are taken care of at the carrier level).
 
 \end{itemize}
+
+\fi
 
 %% Before sending each message, YARP also expects the endpoint to know
 %% whether the connection can be ``escaped'' -- that is, it can accept
