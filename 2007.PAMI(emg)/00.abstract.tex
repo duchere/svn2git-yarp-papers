@@ -1,2 +1,28 @@
-abstract
-\cite{v-edbed-82}
+In the framework of robotics for prosthetics, and specifically
+prosthetic hands, a general sense of frustration impends, as far as
+control is concerned. How is an amputee supposed to command the
+prosthesis what to do (i.e., how to grasp an object) and with what
+force (i.e., grasping a hammer or lifting an egg)? So far, in
+literature, the most interesting results have been achieved by
+applying machine learning to forearm surface electromyography (EMG) to
+\emph{classify} hand postures; but this approach lacks, in general,
+the possibility of quantitatively determining the force applied during
+the grasping act.
+
+In this paper we address the issue by applying machine learning to the
+problem of \emph{regression} from the EMG signal to the force a human
+subject is applying to a force sensor. A detailed comparative analysis
+among three different machine learning approaches (neural networks,
+Support Vector Machines and Locally Weighted Projection Regression)
+reveals that, at best, a simple one-hidden-layer neural network can
+reconstruct the type of grasp with an accuracy of up to \textbf{XX\%},
+and the applied force with an error of \textbf{XX} Newtons over a
+range of about \textbf{$70$N}. The other approaches yield slightly
+worse results, but are anyway usable, which seems to indicate that
+machine learning as a whole is a viable approach.
+
+Notwithstanding the well-known bad conditioning of the surface EMG
+signal then, this looks highly encouraging in applying machine
+learning to enable amputees gain a fine control over advanced
+prosthetic hands, also since a surface EMG setup can be cheaply and
+easily realised and it is totally non-invasive.

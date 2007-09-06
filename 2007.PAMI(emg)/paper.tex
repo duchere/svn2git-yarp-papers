@@ -1,3 +1,8 @@
+% Surface EMG for Force Control of Mechanical Hands
+% Castellini, van der Smagt, Sandini
+% A submission to IEEE Trans. on Pattern Analysis and Machine Intelligence
+% A shorter version of this is submitted to ICRA 2008.
+
 \documentclass[journal]{IEEEtran}
 
 \usepackage{times}
@@ -8,7 +13,23 @@
 \usepackage{url}
 \usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
 
+% ------------ useful mathematical definitions
+
+\def\RR{\mathbb{R}}
+\def\NN{\mathbb{N}}
+\def\xx{\mathbf{x}}
+\def\ww{\mathbf{w}}
+\def\aa{\boldsymbol{\alpha}}
+\def\bb{\boldsymbol{\beta}}
+\def\ee{\mathbf{e}}
+\def\dd{\mathbf{d}}
+\def\mdd{\tilde{\dd}}
+\def\b{\mathcal{B}}
+\def\d{\mathcal{D}}
+
 \begin{document}
+
+% ------------ frontmatter
 
 \title{Surface EMG for Force Control of\\Mechanical Hands}
 
@@ -37,6 +58,8 @@ advanced prosthetics, machine learning, EMG, force control, mechanical hands
 
 \IEEEpeerreviewmaketitle
 
+% ------------ sections
+
 \section{Introduction}
 \label{sec:introduction}
 \input{10.intro}
@@ -44,8 +67,6 @@ advanced prosthetics, machine learning, EMG, force control, mechanical hands
 \subsection{Related Work}
 \label{subsec:relatedwork}
 \input{11.relwork}
-
-\textbf{[[Patrick?]}
 
 \section{Materials and Methods}
 \label{sec:m&ms}
@@ -64,19 +85,34 @@ and analyse them.
 
 \section{Experimental Evaluation}
 \label{sec:exp}
-\input{30.exp}
+
+In this Section we describe the results obtained from the experimental
+evaluation of our data. In particular, we first describe the general
+strategy devised to train our machines; we then show a detailed
+comparison of the three approaches selected, first on the
+classification problem, and then on the regression problem.
+
+\subsection{Training strategy}
+\label{subsec:strategy}
+\input{31.strategy}
 
 \subsection{Grasp Classification}
 \label{subsec:classification}
-\input{31.class}
+\input{32.class}
 
 \subsection{EMG to Force Regression}
 \label{subsec:regression}
-\input{32.regr}
+\input{33.regr}
+
+\section{Discussion}
+\label{sec:discussion}
+\input{40.disc}
 
 \section{Conclusions}
 \label{sec:conclusions}
-\input{40.concl}
+\input{50.concl}
+
+% ------------ acks, biblio, biographies
 
 \section*{Acknowledgments}
 

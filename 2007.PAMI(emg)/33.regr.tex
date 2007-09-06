@@ -1,0 +1,100 @@
+The most interesting part of our research was how to predict the
+amount of force applied by the subject by looking at the EMG
+signal. To do this, we have repeated once again the analysis done in
+Subsection \ref{subsec:strategy} for the three approaches selected,
+and found out that the four sessions involved in the best models were:
+$6,12,3,12$ for SVMs, $4,11,3,12$ for NNs and $6,13,3,4$ for LWPR.
+
+For regression, we have considered three indicators of performance:
+
+\begin{enumerate}
+
+  \item the Mean Squared Error (MSE) in its standard definition;
+
+  \item the Normalised Root MSE (NRMSE), ratio of the square root of
+    the MSE and the range of the target values, expressed as a
+    percentage; and
+
+  \item the Squared Correlation Coefficient (SCC) between the
+    predicted target and the real target.
+
+\end{enumerate}
+
+\begin{figure*}[!ht] \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{figs/fig_err_regr_resCrossBestOnDay1} &
+    \includegraphics[width=0.45\textwidth]{figs/fig_err_regr_resCrossBestOnDay2} \\
+     SVM: $11.84\% \pm 2.64\%$ &  SVM: $10.54\% \pm 3.18\%$ \\
+      NN: $10.54\% \pm 1.41\%$ &   NN: $10.01\% \pm 1.93\%$ \\
+    LWPR: $11.98\% \pm 1.31\%$ & LWPR: $11.13\% \pm 1.32\%$ \\
+    \includegraphics[width=0.45\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1} &
+    \includegraphics[width=0.45\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay2} \\
+     SVM: $7.86 \pm 3.35$ &  SVM: $5.44 \pm 2.79$ \\
+      NN: $6.27 \pm 2.36$ &   NN: $4.76 \pm 1.52$ \\
+    LWPR: $7.79 \pm 1.83$ & LWPR: $6.03 \pm 2.07$ \\
+    \includegraphics[width=0.45\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1} &
+    \includegraphics[width=0.45\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay2} \\
+     SVM: $0.77 \pm 0.09$ &  SVM: $0.78 \pm 0.11$ \\
+      NN: $0.83 \pm 0.04$ &   NN: $0.83 \pm 0.04$ \\
+    LWPR: $0.78 \pm 0.05$ & LWPR: $0.77 \pm 0.04$ \\
+  \end{tabular}
+  \caption{Regression accuracy of best models, day $1$ (left panes)
+    and day $2$ (right panes). First row: Mean Squared Error; second
+    row: Normalised Root MSE; third row, Squared Correlation Coefficient.}
+  \label{fig:best_regr}
+\end{figure*}
+
+Figure \ref{fig:best_regr} shows the results; left panes are for day
+$1$ and right panes for day $2$. Consider the first row, plotting the
+NRMSE for each session: as it is apparent, as it was for
+classification, there is no clear advantage of one approach over
+another. NNs perform slightly better as far as the NRMSE is concerned,
+which is probably the most interesting measure of performance, when
+moving to a real setting. Their overall accuracy is on average
+$10.54\% \pm 1.41\%$ and $10.01\% \pm 1.93\%$. But as well, both LWPR
+and SVM perform quite well, their average errors being from $10.54\%$
+to $11.98\%$.
+
+Consider now the second and third rows of the Figure. First of all it
+is there is a clear inverse correlation between the MSE and the SCC,
+as it is expected: for both days and for all approaches, a larger MSE
+corresponds to a lower SCC. Secondly, it is once again clear that the
+generalisation performance strongly depends on which data we have used
+to train the machines: consider for instance the MSE attained by SVM
+on day $1$ (Figure \ref{fig:best_regr}, second row, left pane, blue
+curve): the best model was trained upon data coming from sessions $6$
+and $12$, although uniformised, and not surprisingly those are the
+sessions for which the MSE is minimum; the same effect is present for
+the other approaches.
+
+Lastly, in practical terms: the best average MSE obtained by NNs
+($6.27\cdot 10^4 \pm 2.36\cdot 10^4$ and $4.76\cdot 10^4 \pm 1.52\cdot
+10^4$) corresponds to, in turn, an average error of $5N$ and
+$4.36N$. Figure \ref{fig:regression} shows some samples of the force
+values obtained from the OFTS, along with the corresponding values
+predicted by the best approach, that is, NNs. As one can see, despite
+the non perfect correspondence of the two curves, the NN definitely
+follows the real target to a remarkable degree of accuracy, for a wide
+range of frequencies of the pressing/releasing action. The Figure
+shows data taken from three different sessions, in decreasing order of
+performance.
+
+\begin{figure*}[!ht] \centering
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.30\textwidth]{figs/fig_regression1} &
+    \includegraphics[width=0.30\textwidth]{figs/fig_regression2} &
+    \includegraphics[width=0.30\textwidth]{figs/fig_regression3} \\
+    session $6$, day $1$ & session $10$, day $2$ & session $7$, day $1$ \\
+    MSE: $4.85\cdot 10^4$ & MSE: $5.48\cdot 10^4$ & MSE: $10.21\cdot 10^4$ \\
+  \end{tabular}
+  \caption{Examples of the force target value, as guessed by our
+    Neural Network.}
+  \label{fig:regression}
+\end{figure*}
+
+A remarkable point in the Figure is the presence of a ``plateau''
+effect, especially in the test with the worst performance, namely
+session $7$ of day $1$ (third pane). As is apparent, the predicted
+target are mostly wrong in amplitude, being systematically
+\emph{lower} than the correct values. Again, this is most likely due
+to insufficient sampling in the region of interest.

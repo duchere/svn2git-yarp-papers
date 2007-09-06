@@ -1,0 +1,54 @@
+The results presented above are, to the best of our knowledge, totally
+novel. Surprinsingly, regression from the forearm surcafe EMG signal
+to the force applied by the hand had never been attempted
+before. Given the good performance obtained by our models, we claim
+that the relationship between the EMG signal and the force has been
+captured by the models, under variable conditions of muscle fatigue
+(within one session) and electrode displacement (within sessions
+belonging to different groups).
+
+One remarkable point, to be further investigated, is the
+\emph{correct} sampling of the EMG signal. The signal presents, as
+already said, a wide variance due to a number of factors. Our work
+shows clearly that, if the relevant data only is gathered, a
+remarkable accuracy, both in classification and regression, can be
+achieved. So far, this has been done using $(a)$ the uniformisation
+procedure to \emph{reduce} the training sets, that is, to eliminate
+form the training sets irrelevant data; and $(b)$ a careful
+a-posteriori selection of the models which had performed best on a
+thorough cross-sessions analysis.
+
+Both procedures, actually, can be seen as the need to sample the
+relevant portion of the input space in a uniform way. One can think of
+an online version of the uniformisation procedure, in which new
+samples deemed irrelevant (according to a suitable inter-sample
+distance measure, such as the Mahalanobis distance) are rejected and
+never used for training. The same procedure would, when presented with
+samples sufficiently distant from the current training set, decide to
+actually use them. This could possibly lead to an incrementally
+growing training set, which would eventually reach a plateau, when all
+relevant portions of the input space have been explored by the user.
+
+The current setup and analysis can be improved in a number of ways,
+among which:
+
+\begin{enumerate}
+
+  \item a better way of gathering the force at the finger joints, not
+    only via the force/torque sensor which is unable to detect the
+    onset of finger movements, but also using torque sensors applied
+    at the finger joints directly;
+
+  \item subsampling, pre- and post-filtering, which would probably
+    lead to a better conditioned signal in input, and a more suitable
+    control signal in output;
+
+  \item sampling in different positions of the arm (not only the
+    forearm), and/or while the arm is moving, as it happens in the
+    real life of a disabled person wearing the prosthesis. This would
+    heavily involve a good sampling strategy.
+
+\end{enumerate}
+
+As far as driving a prosthesis is concerned, \textbf{[[PATRICK will
+you say something here???]}
