@@ -37,21 +37,16 @@ architecture (YARP) rather than extend the work on an equally open, already
 existing architecture (Player) with an active developer base. 
 
  * Short answer: Player and YARP both evolved at around the same time,
- entirely independently.
+ entirely independently.  We believe we have some important technical
+ advantages over Player.  Also, in the free software ecology it is
+ common to have parallel, overlapping, projects (see Linux/FreeBSD,
+ Gnome/KDE, bash/tcsh, etc. etc.), and we would claim that the
+ diversity is basically healthy.  There's less need to choose the
+ One True System when mixing is technically, legally, and 
+ economically possible.
 
- * Longer answer: YARP and Player are as interoperable as anyone so
- far has needed them to be.  Section 2.3 (Interoperating) attempted to
- argue this.
-
- * The free software ecology contains many cases of long term side-by-side
- projects with somewhat different cultures and goals.  For example, Linux
- and BSD, Gnome and KDE, etc.  Unlike proprietary software, this is not
- such a bad thing, since the software "genes" flow back and forth if 
- source-code licenses are compatible.
-
- * We believe we have some important technical advantages over Player,
- and there are currently some important cultural differences.  Developers
- are free to pick and choose what they like.
+ * Section 2.3 (Interoperating) has been edited extensively to 
+ better address this question.
 
 
 They acknowledge
@@ -64,15 +59,18 @@ the authors acknowledge, Player is different in that it occupies almost
 exactly the same niche as YARP, both from a problem domain and methodological
 perspective. 
 
- * Again, the history is that Player did not exist as a open-source project
- when YARP started, or vice versa.
+ * We would claim that the niches are distinct: humanoid robots versus
+ mobile robots.  The cultures and concerns are historically very
+ different.  After years of extraction and at least one major redesign
+ per project, and growth in each field, we would agree that there is
+ now much more methodological clarity and overlap, and we can now treat
+ both niches as subsets of a larger universe.  But YARP version 0
+ and Player version 0 had almost no overlap in concerns.  
 
- * In fact the niches are distinct: humanoid robots versus mobile robots.
- The first few versions of either YARP or Player would have been useless
- in the other's domain.  Only after YARP underwent a complete redesign
- to YARP2 and Player to Player 2.0 are they becoming truly comparable.
+ * Section 2.3 (Interoperating) has been edited extensively to 
+ better address this question.
 
-
+ 
 I would suggest that giving a fuller motivation of why a separate project is
 overall better for the community than building on Player would be the most
 significant addition needed for this paper. And considering the focus on open
@@ -83,6 +81,9 @@ favour of cooperation. As the authors have practical experience on this I
 believe a discussion on this would be a most significant addition to the
 discussion.
 
+ * Section 2.3 (Interoperating) has been edited extensively to 
+ better address this question.
+
 The discussion of the framework itself does sometimes veer into a perhaps too
 detailed look at the practical mechanisms. As the take-home message here is
 all about long-lived reusable systems certainly encapsulation of hardware and
@@ -91,10 +92,16 @@ parameters and particularly the detailed specification of message packets and
 communication protocols are perhaps better left for a user manual rather than
 an overview like this.
 
- * Acknowledged (should work on this)
-
  * Removed table of "magic numbers" (Table 1) -- absolutely more suited to
  a reference manual, in retrospect.
+
+ * We would claim that the nature of the communication protocols is key
+ to open development.  Some protocols are a nightmare to work with, some
+ a joy.  The difference comes down to, usually, how many pages you need
+ to read in other to send and receive.
+
+ * [will add link to an edited section when done -pf]
+
 
 The hardware section is shorter and less detailed; in part that is undoubtedly
 because that area seems to be less further along than the software, but also,

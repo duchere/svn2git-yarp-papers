@@ -277,47 +277,182 @@ Genoa~\ref{fig:family}.
 \subsection{Interoperating}
 
 The closest project in spirit to YARP is that of the Player project
-\cite{vaughan2006reusable}, and we take it as an example here of
-how YARP can interoperate with other architectures/frameworks.
+\cite{vaughan2006reusable}.  
+%
+%We take the Player project as an example here of
+%how YARP can interoperate with other architectures/frameworks.
+%
 The Player/Stage software collection is 
 widely used in the field of mobile robotics, and is the nucleus of
 a healthy, pragmatic community of developers.  
 %
-Rudimentary interoperability is possible between these projects
-at the device level.
-Player contains a ``yarpimage'' driver which can accept images
-from a YARP Network.  A ``stage'' driver has been developed
-for YARP, which gives access to the 2D robot simulator of that
-name from a YARP Network.
+YARP and Player were developed
+independently in different robotics communities (humanoids and mobile
+robots respectively) over a similar time period.  Both over time
+became open source projects; Player was registered on sourceforge (a
+commonly used repository for open software) in 2001, and YARP in 2002.
+Initially there was little overlap or mutual awareness between the
+projects.  In 2005, YARP began refactoring its device API, influenced 
+by a Player paper on this topic \cite{vaughan2003device}.
+At about the same time, Player's networking was refactored to be
+more flexible (``Player 2.0'', see \cite{collett2005player}) in 
+order to break out of a client/server communication model and
+allow a more flexible network and transport choices -- an area where 
+YARP has historically been strong.  
+
+Culturally, Player is biased towards mobile (wheeled) robots, with
+sensing and algorithms for navigation being of central importance,
+while YARP is biased towards humanoid robots, where there are many
+loosely coupled behaviors involving different sets of sensors and
+actuators.
 %
-In fact devices have some similarity in structure between YARP and
-Player, but have the crucial difference (at least to our eyes) that
-YARP starts with just a thin C++ wrapper which permits direct function
-calls while Player devices must operate through a message passing
-framework (although that message passing can now be internal rather
-than across a network).
+In our opinion (speaking of course just for ourselves, and not the
+Player developers), both projects are now at a state where if either
+project had existed in mature form before the other was started, the
+other could most certainly have been built by extension rather than 
+separate development.
 %
-In principle, YARP devices should be easy to wrap up systematically
-and efficiently for Player (since no assumptions are made about the
-communication model), but the other direction is not so easy.
+To make YARP, Player would need to have its device and networking
+model decoupled further, its networking model and transport interface
+generalized yet again, and have some new drivers developed; to make
+Player, YARP would need to have many new devices developed, its use of
+ACE and some C++ features excised, and many localization and mapping
+related algorithms added.
+%
+The extensions would be quite a bit of work, but
+certainly less than beginning from zero.
+%
+So what should we say to a new researcher starting a project and not
+sure which to use?
+%
+How bad is it to be faced with a choice of systems rather than
+a single coherent one?
+
+%
+%This is an interesting case to consider for interoperability.  YARP
+%and Player are two open-source projects with relative strengths and
+%weaknesses; what happens
 %
 
-The driver mechanism in both projects gives a very straightforward way
-to integrate quickly with what could otherwise be incompatible
-middleware.
+The free software ecology contains many cases of long term
+side-by-side projects with somewhat different cultures and goals.  We
+see diversity at every level: the operating system (GNU/Linux,
+FreeBSD, etc.), the desktop environment (Gnome, KDE), the command-line
+shell (bash, tcsh, etc.), and so on.  When licensing permits it, code
+flows quite freely from project to project.  In any case, the projects
+are mutually visible, in terms of source code, mailing lists,
+documentation etc.  There is duplication of effort, but in the long
+run there is a growing consensus that this diversity is proving
+healthy.  Since choice and change at every level is expected,
+individual parts tend to be more modular and robust than they would
+otherwise be in a ``monoculture.''
+
+Ideally, with free and open software, the software ``genes'' (abstract
+programmer interfaces, protocols, actual implementation code, etc.)
+in different projects can flow back and forth or be aggregated.
+Useful genes will tend to be picked up, less useful genes will tend to
+languish.  Software trapped behind proprietary or otherwise-awkward
+licenses is unlikely to survive the death of the organization it
+belongs to.
+
+It is instructive to look at two instances of YARP/Player aggregation:
+
+\begin{itemize}
+
+\item
+Since 2006, Player contains a ``yarpimage'' driver which can accept
+images from a YARP Network (driver written by Radu Bogdan Rusu).
+The motivation for the driver was that YARP can transmit
+data using multicast, a transport not implemented in Player. 
+This driver let Player treat YARP as a camera, just like
+any of the other more regular cameras it already had drivers 
+for.
+
+\item
+Since 2007, YARP contains a ``stage'' driver which gives access to 
+a 2D robot simulator associated with the Player project 
+from a YARP Network.  This driver let YARP treat Player/Stage as
+a motor control system, just like any of the other more regular 
+control boards it already had drivers for.
+
+\end{itemize}
+
+These instances have the property that they ``scratched an itch'' --
+they met a need that a particular developer had.
+They also have the property that the impact each system
+has on the other is well-localized, to a single module.
+This is possible because
+Much deeper integration would be possible, but already
+just by being free and open source the projects can get along
+for any developer who needs something from both.
+
+In the redesign of YARP's device approach, active steps were
+taken to reduce the coupling between devices and networking.
 %
-At a higher level of potential interoperation, both projects are free
-and open source, they both have documented network protocols, both have
-made an effort to allow different transports, and both 
-are reasonably portable.  So
-a determined individual will probably be able to make them work
-together on any given task.
+This was motivated by general concerns of modularity, and also
+to make it simpler to take YARP devices, rip them out
+of the YARP library, and use them in other projects.
 %
-Neither YARP nor Player is aimed at users unwilling or unable to
-program.  Such users benefit from these projects indirectly, through
-for example the ICub platform, which is being built using YARP to
-support users from different disciplines including neuroscience
-and experimental psychology.
+%Rudimentary interoperability is possible between these projects
+%at the device level.
+%
+%In fact devices have some similarity in structure between YARP and
+%Player, but have the crucial difference (at least to our eyes) that
+%
+YARP mandates a very thin C++ wrapper which permits direct function
+calls, rather than forcing operation through a message passing
+framework.  The value added by YARP's wrapper is to simplify the
+externalization of device configuration (Player has an equivalent of
+this) and to factor the device into interfaces corresponding to
+different device families (which is just good software engineering,
+shared by any good implementation of a hardware abstraction layer).
+%
+The key extra value added by YARP is to stop precisely there.
+%
+When writing a driver for a particular device, we make no assumptions
+about how it will be communicated with (this is an area in which YARP
+differs from Player).  There is no mention of message queues, 
+buffering, etc., unless the device already has such things internally.
+
+It seems strange to claim that {\em not} doing something adds value.
+But this is the fundamental point of modularity, to refrain from 
+making a dependency if you can avoid it.
+
+The reason why one might want to intertwine devices and networking
+is to achieve the important ability to control and monitor a device 
+remotely.  For YARP, this ability is implemented at the 
+{\em device family} level rather than the level of individual devices.
+We provide proxy devices that can wrap any devices belonging to
+a given family (such as cameras or motor control boards) and make 
+them accessible remotely.  These proxies use YARP networking, but
+there's nothing to stop someone else writing Player proxies, or 
+proxies for standard RPC-based systems.
+
+% (although that message passing can now be internal rather
+%than across a network).
+%
+%In principle, YARP devices should be easy to wrap up systematically
+%and efficiently for Player (since no assumptions are made about the
+%communication model), but the other direction is not so easy.
+%
+
+
+%% The driver mechanism in both projects gives a very straightforward way
+%% to integrate quickly with what could otherwise be incompatible
+%% middleware.
+%% %
+%% At a higher level of potential interoperation, both projects are free
+%% and open source, they both have documented network protocols, both have
+%% made an effort to allow different transports, and both 
+%% are reasonably portable.  So
+%% a determined individual will probably be able to make them work
+%% together on any given task.
+%% %
+%% Neither YARP nor Player is aimed at users unwilling or unable to
+%% program.  Such users benefit from these projects indirectly, through
+%% for example the ICub platform, which is being built using YARP to
+%% support users from different disciplines including neuroscience
+%% and experimental psychology.
 
 
 %% It is an interesting question whether a higher level
