@@ -64,7 +64,7 @@ communication and device interfaces separate, so that users can
 exploit one and not the other as they wish, and also code written to
 use a device remotely can later be made local with only a cost of a
 single extra virtual method call compared to calling the vendor's API directly.
-This is important so that users don't need to go through a painful
+This is important so that users do not need to go through a painful
 porting process if they discover at some point that remote operation
 is too slow for their application~-- for example, an implementation
 of the vestibular-ocular reflex might require a very tight loop
@@ -146,61 +146,73 @@ separated. VABoard and VBBoard are now completely interchangable.}
 \label{fig:devices2}
 \end{figure}
 
-YARP defines interfaces to broad families of devices. For 
-example this is a partial list of the interfaces defined for generic 
-devices that generate a stream of color images (frame grabbers):
+%%% new paragraph
+YARP also defines interfaces to board families of devices, like 
+frame grabbers or motion control boards. Overall interfaces 
+captures similarities among devices and allows separating device 
+dependent code from user code. To the extent that user code uses 
+interfaces shared by other devices, another device can be substituted 
+later without change to that part. This includes devices with different 
+initialization procedures, or different APIs (see Figure~\ref{fig:devices2}).  
+Devices can also be nested or assembled into composite structures if necessary.
 
-\begin{itemize}
+%%% the above paragraph now subst the following 
+%% YARP defines interfaces to broad families of devices. For example this 
+%% is a partial list of the interfaces defined for generic devices that 
+%% generate a stream of color images (frame grabbers):
 
-\item \emph{IFrameGrabberRgb}, methods in this interface 
-provide access to the most recent frame acquired by the device, and 
-information about its size (number of columns and rows);
+%% \begin{itemize}
 
-\item \emph{IFrameGrabberControls}, specifies a set of functionalities 
-to control how the device performs the acquisition, like shutter speed, 
-brightness and gain.
+%% \item \emph{IFrameGrabberRgb}, methods in this interface 
+%% provide access to the most recent frame acquired by the device, and 
+%% information about its size (number of columns and rows);
 
-\end{itemize}
+%% \item \emph{IFrameGrabberControls}, specifies a set of functionalities 
+%% to control how the device performs the acquisition, like shutter speed, 
+%% brightness and gain.
 
-Interfaces to motor control devices are more difficult to define. Control 
-boards designed for industrial applications have often a quite standard 
-interface which provides a PID control algorithm and position or velocity 
-control modes. Things become more complicated when we consider also 
-programmable devices that can implement virtually an infinite set of 
-functionalities and control algorithms. 
-For this reason interfaces to control boards have been defined on the basis 
-of the control paradigm they implement. Accordingly, YARP defines:
+%% \end{itemize}
 
-\begin{itemize}
+%% Interfaces to motor control devices are more difficult to define. 
+%% Control 
+%% boards designed for industrial applications have often a quite standard 
+%% interface which provides a PID control algorithm and position or velocity 
+%% control modes. Things become more complicated when we consider also 
+%% programmable devices that can implement virtually an infinite set of 
+%% functionalities and control algorithms. 
+%% For this reason interfaces to control boards have been defined on the basis 
+%% of the control paradigm they implement. Accordingly, YARP defines:
 
-\item \emph{IEncoder}: group all methods providing access to the motor 
-encoders, like methods for reading the current position and velocity of 
-each axis;
+%% \begin{itemize}
 
-\item \emph{IPositionControl}: methods to control each axis 
-by specifying its position;
+%% \item \emph{IEncoder}: group all methods providing access to the motor 
+%% encoders, like methods for reading the current position and velocity of 
+%% each axis;
 
-\item \emph{IVelocityControl}: methods to control each axis 
-by specifying its velocity;
+%% \item \emph{IPositionControl}: methods to control each axis 
+%% by specifying its position;
 
-\item \emph{ITorqueControl}: methods to control the amount of 
-force/torque exerted by each axis.
+%% \item \emph{IVelocityControl}: methods to control each axis 
+%% by specifying its velocity;
 
-\end{itemize}
+%% \item \emph{ITorqueControl}: methods to control the amount of 
+%% force/torque exerted by each axis.
 
-These last interfaces are independent of the particular algorithm the 
-control board implements to realize the corresponding functionality. 
-These details are delegated to specific interfaces. For example 
-\emph{IPidControl} includes methods to interface to a PID controller, 
-such as for example to read or set the values of the gains.
+%% \end{itemize}
 
-To summarize, interfaces captures similarities among devices and 
-allows separating device dependent code from user code. To the 
-extent that user code uses interfaces shared by other devices, 
-another device can be substituted later without change to that part. This 
-includes devices with different initialization procedures, or different
-APIs (see Figure~\ref{fig:devices2}).  Devices can
-also be nested or assembled into composite structures if necessary.
+%% These last interfaces are independent of the particular algorithm the 
+%% control board implements to realize the corresponding functionality. 
+%% These details are delegated to specific interfaces. For example 
+%% \emph{IPidControl} includes methods to interface to a PID controller, 
+%% such as for example to read or set the values of the gains.
+
+%% To summarize, interfaces captures similarities among devices and 
+%% allows separating device dependent code from user code. To the 
+%% extent that user code uses interfaces shared by other devices, 
+%% another device can be substituted later without change to that part. This 
+%% includes devices with different initialization procedures, or different
+%% APIs (see Figure~\ref{fig:devices2}).  Devices can
+%% also be nested or assembled into composite structures if necessary.
 
 \subsection{A factory of devices}
 Encouraging device access through 
@@ -289,79 +301,81 @@ read from a .ini file. The \emph{PolyDriver} hands over these parameters
 to the \emph{factory} which creates an instance of the device and returns
 it to the \emph{PolyDriver}. Subsequent calls to the driver are entirely 
 handled by the \emph{PolyDriver} itself. Process1 calls \emph{view} to 
-acquire the appropriate interfaces to the device. A similar procedure 
+acquire the appropriate interfaces to the device (called here 
+\emph{IFrameGrabberRgb}). A similar procedure 
 is performed by the same process or other processes (Process 2 in Figure) 
-to create instances of different devices.
+to create instances of different devices, and interfaces to them (in this 
+example \emph{IPositionControl} and \emph{IVelocityControl}).
 The important point is that calls to the YARP API for 
 each specific device from the processes can be just one 
 level of indirection away from vendor-supplied code.
 }\label{fig:devices4}
 \end{figure}
 
-\subsection{An example: accessing a motor control board}
-For example suppose we want to use the {\tt test\_motor} device. In 
-YARP this is a fake device which simulates a control board for
-testing purposes. This device supports the \emph{IPositionControl} and 
-\emph{IVelocityControl} interfaces. To begin with, we first create an 
-instance of the \emph{PolyDriver}. The actual device is create by 
-calling the \emph{PolyDriver::open()} method specifying the symbolic 
-name of the device ({\tt test\_motor}):
+%% \subsection{An example: accessing a motor control board}
+%% For example suppose we want to use the {\tt test\_motor} device. In 
+%% YARP this is a fake device which simulates a control board for
+%% testing purposes. This device supports the \emph{IPositionControl} and 
+%% \emph{IVelocityControl} interfaces. To begin with, we first create an 
+%% instance of the \emph{PolyDriver}. The actual device is create by 
+%% calling the \emph{PolyDriver::open()} method specifying the symbolic 
+%% name of the device ({\tt test\_motor}):
 
-\begin{verbatim}
-  PolyDriver device;
-  device.open("test_motor");
-\end{verbatim}
+%% \begin{verbatim}
+%%   PolyDriver device;
+%%   device.open("test_motor");
+%% \end{verbatim}
 
-We could also be more specific and pass in configuration options,
-but we keep things simple here.
-Now we can get the interfaces we want from our {\tt test\_motor} 
-by calling the \emph{PolyDriver::view()} method:
+%% We could also be more specific and pass in configuration options,
+%% but we keep things simple here.
+%% Now we can get the interfaces we want from our {\tt test\_motor} 
+%% by calling the \emph{PolyDriver::view()} method:
 
-\begin{verbatim}
-  IPositionControl *ipos=NULL;
-  device.view(ipos);
+%% \begin{verbatim}
+%%   IPositionControl *ipos=NULL;
+%%   device.view(ipos);
 
-  IVelocityControl *ivel=NULL;
-  device.view(ivel);
-\end{verbatim}
+%%   IVelocityControl *ivel=NULL;
+%%   device.view(ivel);
+%% \end{verbatim}
 
-Checking if {\tt ivel} and {\tt ipos} are non-NULL assures us that 
-{\tt test\_motor} really supports the respective interfaces.
-This is reminiscent of the treatment of interfaces
-in something like DCOM, but is grossly simplified,
-implemented directly with the C++ type system so
-that we can be just one virtual call away from
-the native device API.
-%
-We can now call methods of the \emph{IPositionControl} interface to 
-(for example) move 
-joint number $0$ to the angular position of $40deg$, with the velocity 
-of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
+%% Checking if {\tt ivel} and {\tt ipos} are non-NULL assures us that 
+%% {\tt test\_motor} really supports the respective interfaces.
+%% This is reminiscent of the treatment of interfaces
+%% in something like DCOM, but is grossly simplified,
+%% implemented directly with the C++ type system so
+%% that we can be just one virtual call away from
+%% the native device API.
+%% %
+%% We can now call methods of the \emph{IPositionControl} interface to 
+%% (for example) move 
+%% joint number $0$ to the angular position of $40deg$, with the velocity 
+%% of $5\frac{deg}{s}$ and acceleration of $100\frac{deg}{s^2}$:
 
-\begin{verbatim}
-ipos->setRefAcceleration(0, 100);
-ipos->setRefSpeed(0, 5)
-ipos->positionMove(0, 40);
-\end{verbatim}
+%% \begin{verbatim}
+%% ipos->setRefAcceleration(0, 100);
+%% ipos->setRefSpeed(0, 5)
+%% ipos->positionMove(0, 40);
+%% \end{verbatim}
 
-%
-(The use of degrees rather than radians in YARP interfaces
-is part of a bias towards keeping all data as human-readable
-as possible.)
-%
-Or we could use the \emph{IVelocityControl} interface to move axis 1
-at a smooth velocity of $5\frac{deg}{s}$, accelerating to
-that velocity at $100\frac{deg}{s^2}$:
+%% %
+%% (The use of degrees rather than radians in YARP interfaces
+%% is part of a bias towards keeping all data as human-readable
+%% as possible.)
+%% %
+%% Or we could use the \emph{IVelocityControl} interface to move axis 1
+%% at a smooth velocity of $5\frac{deg}{s}$, accelerating to
+%% that velocity at $100\frac{deg}{s^2}$:
 
-\begin{verbatim}
-ivel->setRefAcceleration(1,100);
-ivel->velocityMove(1, 5);
-\end{verbatim}
+%% \begin{verbatim}
+%% ivel->setRefAcceleration(1,100);
+%% ivel->velocityMove(1, 5);
+%% \end{verbatim}
 
 
-The same code would do something for all of the motor devices we
-have that implement these interfaces.  The details might vary
-a bit but in principle the overall behavior should be consistent.
+%% The same code would do something for all of the motor devices we
+%% have that implement these interfaces.  The details might vary
+%% a bit but in principle the overall behavior should be consistent.
 
 
 \begin{figure}[tbp]
@@ -394,8 +408,8 @@ constraining you to also do image processing on that same OS.
 It makes distributed processing easier, letting you shift
 processing to extra machines when the load becomes high.
 %
-Remotization is in practice one of the major benefits of offered by
-YARP and Player.  They achieve that goal is somewhat different ways.
+Remotization is in practice one of the major benefits offered by
+YARP and Player.  They achieve that goal in somewhat different ways.
 In Player, devices are responsible for producing their own messages
 (represented as a C structure, with the Player library responsible for
 marshalling/de-marshalling).
@@ -437,7 +451,7 @@ protocol directly, as described in Section~\ref{sec:transporting}).
 %
 This wrapper exports 
 exactly the same interface of the 
-``wrapped'' device so the process can pretent that it is connected to 
+``wrapped'' device so the process can pretend that it is connected to 
 a real device. The \emph{Client Network Wrapper} converts calls from 
 the process into messages, sends them to the other end of the 
 communication link, and, in case a reply is expected, waits for data and 

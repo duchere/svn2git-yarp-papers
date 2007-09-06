@@ -54,6 +54,8 @@ without having a nice leverage.
 
  * It is not clear what the term leverage means in this case; the
    overall point is well taken.
+ * removed Section 3.3 and some text in Section 3 to reduce the level 
+   of detail of the software section
 
 The cited paper of the authors is much
 better than this presentation. The position of YARP related to the
@@ -68,6 +70,11 @@ systems which implements also a HAL systme such as MARIE.
  * We agree that the idea of a hardware abstraction layer has been
    around for almost as long as computer science.  It is a good idea.
    It can be done well or badly.
+ * Interface to device driver is rarely uniform at the user code level, 
+   and, as we explain in the paper, it is what makes code reuse so 
+   difficult in robotic projects. Although not completely novel, the 
+   solutions we propose are effective in dealing with this 
+   problem and are hence a critical part of YARP.
 
 The second
 point related to network communication might be usefull for teaching
