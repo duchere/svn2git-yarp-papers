@@ -244,29 +244,33 @@ a valid pointer to the device is returned. This pointer is the only
 %(in C++ this can be safely done through dynamic cast). 
 %
 
-The whole process of creation, initialization and interface access is 
-managed by the \emph{PolyDriver} object. 
-Under good ``portable'' usage in YARP, the user accesses devices
-via \emph{PolyDriver}, asking for their
-creation through the \emph{PolyDriver::open())} method. 
+%% -- removed to address reviewers' comments
+%%The whole process of creation, initialization and interface access is 
+%%managed by the \emph{PolyDriver} object. 
+%%Under good ``portable'' usage in YARP, the user accesses devices
+%%via \emph{PolyDriver}, asking for their
+%%creation through the \emph{PolyDriver::open())} method. 
+%%
+%%
+%%This works just the same as the \emph{open()} method we
+%%talked about for specific devices, except now our configation
+%%object (read from file, command line, network, GUI, etc.)
+%%specifies which device we want as well as all its options.
 %
-This works just the same as the \emph{open()} method we
-talked about for specific devices, except now our configation
-object (read from file, command line, network, GUI, etc.)
-specifies which device we want as well as all its options.
 %
-%This request is 
+%
 %forwarded to the \emph{factory} which creates an instance of the particular 
 %device driver the user wants to use. Device drivers are uniquely identified 
 %through a symbolic name; the \emph{factory} searches the list of device 
 %for an entry whose name matches the one that is requested and, if the match 
 %is found, it calls the appropriate constructor. 
 %
-If the driver is successfully 
-created the \emph{factory} returns a valid pointer which is stored inside 
-the \emph{PolyDriver}. The lifecycle of the device is managed by the 
-\emph{PolyDriver}, and interfaces to the device are acquired via 
-the  \emph{PolyDriver::view()} method (see Figure~\ref{fig:devices4}).
+% --removed to address rev comments
+%%If the driver is successfully 
+%%created the \emph{factory} returns a valid pointer which is stored inside 
+%%the \emph{PolyDriver}. The lifecycle of the device is managed by the 
+%%\emph{PolyDriver}, and interfaces to the device are acquired via 
+%%the  \emph{PolyDriver::view()} method (see Figure~\ref{fig:devices4}).
 
 %
 %; the user can access only to copies of this pointer 
@@ -283,34 +287,35 @@ the  \emph{PolyDriver::view()} method (see Figure~\ref{fig:devices4}).
 %in Figure (\ref{fig:devices4}) \emph{NOTE: not sure this picture is 
 %really needed, consider removing it}).
 
-\begin{figure}[tbp]
-\centerline{
-\includegraphics[width=20cm]{fig-devices4}
-}
-\caption{Device creation and initialization. Creation of 
-devices in YARP is delegated to a \emph{factory} object. Users 
-access devices through instances of the \emph{PolyDriver}. The 
-Figure describes the following situation. Process1 controls a robotic
-head and needs to access the robot frame grabber (whose symbolic name 
-is ``dragonfly'') and to the control board connected to the motors of 
-the head (``mboardA''). Process1 creates an instance of 
-\emph{PolyDriver} and opens 
-the device; the symbolic name of the device is passed as a parameter
-of the \emph{open} function, together with initialization parameters 
-read from a .ini file. The \emph{PolyDriver} hands over these parameters 
-to the \emph{factory} which creates an instance of the device and returns
-it to the \emph{PolyDriver}. Subsequent calls to the driver are entirely 
-handled by the \emph{PolyDriver} itself. Process1 calls \emph{view} to 
-acquire the appropriate interfaces to the device (called here 
-\emph{IFrameGrabberRgb}). A similar procedure 
-is performed by the same process or other processes (Process 2 in Figure) 
-to create instances of different devices, and interfaces to them (in this 
-example \emph{IPositionControl} and \emph{IVelocityControl}).
-The important point is that calls to the YARP API for 
-each specific device from the processes can be just one 
-level of indirection away from vendor-supplied code.
-}\label{fig:devices4}
-\end{figure}
+%% --removed to address rev comments
+%% \begin{figure}[tbp]
+%% \centerline{
+%% \includegraphics[width=20cm]{fig-devices4}
+%% }
+%% \caption{Device creation and initialization. Creation of 
+%% devices in YARP is delegated to a \emph{factory} object. Users 
+%% access devices through instances of the \emph{PolyDriver}. The 
+%% Figure describes the following situation. Process1 controls a robotic
+%% head and needs to access the robot frame grabber (whose symbolic name 
+%% is ``dragonfly'') and to the control board connected to the motors of 
+%% the head (``mboardA''). Process1 creates an instance of 
+%% \emph{PolyDriver} and opens 
+%% the device; the symbolic name of the device is passed as a parameter
+%% of the \emph{open} function, together with initialization parameters 
+%% read from a .ini file. The \emph{PolyDriver} hands over these parameters 
+%% to the \emph{factory} which creates an instance of the device and returns
+%% it to the \emph{PolyDriver}. Subsequent calls to the driver are entirely 
+%% handled by the \emph{PolyDriver} itself. Process1 calls \emph{view} to 
+%% acquire the appropriate interfaces to the device (called here 
+%% \emph{IFrameGrabberRgb}). A similar procedure 
+%% is performed by the same process or other processes (Process 2 in Figure) 
+%% to create instances of different devices, and interfaces to them (in this 
+%% example \emph{IPositionControl} and \emph{IVelocityControl}).
+%% The important point is that calls to the YARP API for 
+%% each specific device from the processes can be just one 
+%% level of indirection away from vendor-supplied code.
+%% }\label{fig:devices4}
+%% \end{figure}
 
 %% \subsection{An example: accessing a motor control board}
 %% For example suppose we want to use the {\tt test\_motor} device. In 
