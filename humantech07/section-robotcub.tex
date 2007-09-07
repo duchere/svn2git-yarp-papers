@@ -342,6 +342,26 @@ view from the non-dominant camera; the robot arm hitting
 a table, causing the blue ball to roll off.
 %
 See the acknowledgements section for simulator author credits.
+%
+The two simulators and the actual robot have the same interface either
+when viewed via the device API or across network, and so
+are all more or less interchangeable from a user perspective.
+%
+%So it is possible to control any of the robots from a program using the
+%same device or network interfaces.  
+%
+There are of course
+differences in the detailed behavior of all three, which we hope to
+reduce over time.
+%
 } 
 \label{fig:simulators}
 \end{figure}
+
+%% It is also possible to control the robots
+%% without using any YARP or ICub code, just elementary TCP and text
+%% messages.  To read images from the cameras, it would be more
+%% efficient to do a little extra study to understand binary mode
+%% operation, since the bandwidth is large enough to make the extra cost
+%% of text-mode operation non-negligible.  Of course we expect YARP and
+%% ICub libraries to be used (that's why we're writing them)
