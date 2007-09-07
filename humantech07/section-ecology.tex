@@ -244,7 +244,7 @@ We release all our work under free and open licenses, in order to
 encourage their use as building blocks.  Historically, our ``YARP''
 software grew and developed this way, principally through a
 collaboration between robotics groups at MIT and the University of
-Genoa~\ref{fig:family}.
+Genoa (Figure~\ref{fig:family}).
 
 
 
@@ -361,7 +361,8 @@ It is instructive to look at two instances of YARP/Player aggregation:
 
 \item
 Since 2006, Player contains a ``yarpimage'' driver which can accept
-images from a YARP Network (driver written by Radu Bogdan Rusu).
+images from a YARP Network (see \cite{}).
+%(driver written by Radu Bogdan Rusu BETTER ADD A CITATION HERE TO A WEBPAGE PERHAPS).
 The motivation for the driver was that YARP can transmit
 data using multicast, a transport not implemented in Player. 
 This driver let Player treat YARP as a camera, just like
@@ -381,7 +382,7 @@ These instances have the property that they ``scratched an itch'' --
 they met a need that a particular developer had.
 They also have the property that the impact each system
 has on the other is well-localized, to a single module.
-This is possible because
+%This is possible because
 Much deeper integration would be possible, but already
 just by being free and open source the projects can get along
 for any developer who needs something from both.
@@ -399,7 +400,7 @@ of the YARP library, and use them in other projects.
 %In fact devices have some similarity in structure between YARP and
 %Player, but have the crucial difference (at least to our eyes) that
 %
-YARP mandates a very thin C++ wrapper which permits direct function
+YARP device framework mandates a very thin C++ wrapper which permits direct function
 calls, rather than forcing operation through a message passing
 framework.  The value added by YARP's wrapper is to simplify the
 externalization of device configuration (Player has an equivalent of
