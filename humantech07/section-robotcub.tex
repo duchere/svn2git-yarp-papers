@@ -329,9 +329,19 @@ be made compatible with the current CAN bus specification.
 \includegraphics[width=3.5cm]{sim-ode-knock}
 }
 \caption{
-Two simulators.
-One Webots.  One ODE.
-Same basic interface as each other and as the robot.
+%
+The ICub robot has two simulators.
+One uses the (propietary) Webots package, and the other uses
+the Open Dynamics Engine (ODE) library directly.
+The Webots interface is shown in the top image, and is currently
+the most complete simulation.  The ODE simulation (lower row)
+is currently of the robot's upper torso.  Shown from left to
+right: the ICub simulation tracking its hand visually;
+the view from the ``dominant'' camera used for tracking; the
+view from the non-dominant camera; the robot arm hitting
+a table, causing the blue ball to roll off.
+%
+See acknowledgements section for simulator author credits.
 } 
 \label{fig:simulators}
 \end{figure}
