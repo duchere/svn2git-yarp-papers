@@ -57,18 +57,23 @@ and hardware they produce disappearing without trace afterwards.
 %%This is true for all sorts of projects, but it is
 %%particularly true in robotics 
 %%
-Common causes include dependencies
-on uncommon or obsolete devices or libraries, and
-dispersion of an already small group of users.
-In humanoid robotics, a small field with an avid appetite
+%Common causes include dependencies
+%on uncommon or obsolete devices or libraries, and
+%dispersion of an already small group of users.
+%In humanoid robotics, a small field with an avid appetite
+%
 for novel devices, we experience a great deal of ``churn'' of 
 this nature.
 %%
 %Overcoming this would be a important technological and social
 %advance for humanoid development.
 %
-In this paper, we explore how best to connect our software with the
-mainstream, so that it can be more stable and long-lasting, without
+In this paper, we explore how best to make our projects
+%
+% connect our software with the
+%mainstream, so that it can be more 
+%
+stable and long-lasting, without
 compromising our ability to constantly change our sensors, actuators,
 processors, and networks.  We also look at how to encourage
 the propagation and evolution
@@ -76,23 +81,69 @@ of hardware designs, so that we can start to
 build up a ``gene-pool'' of material to draw upon for new projects.
 
 We advance on two fronts, software and hardware.
-Building on our robot software architecture YARP~\cite{metta2006yarp},
-we focus on how to organize communication between sensors, processors,
+%
+%On the software front, we focus on modularity.
+%We are concerned not only with how to 
+%minimize the dependencies between modules, but also 
+%with the more subtle problem of how to minimize
+%the dependencies between modules and the middleware 
+%that lies between them.
+%
+For some time,
+we have been developing and using 
+the YARP robot software architecture~\cite{metta2006yarp},
+which helps organize communication between sensors, processors,
 and actuators so that loose coupling is encouraged, making 
-gradual system evolution much easier.  We develop a model of 
+gradual system evolution much easier.  YARP includes a model of 
 communication that is transport-neutral, so that data flow
 is decoupled from the details of the underlying networks and protocols
-in use (allowing several to be used simultaneously, key to
-smooth evolution).
+in use.
 %
-We develop a methodology for interfacing with devices (sensors,
-actuators, etc.) that again encourages loose coupling and can make
-changes in devices less disruptive.
+%allowing several to be used simultaneously, key to
+%smooth evolution).
 %
-At the same time, we are concerned with the
-problem of incompatible architectures and frameworks, and discuss how
-we work around this.
+%It encourages loose coupling with devices (sensors, actuators, etc.) 
+%and can make changes in devices less
+%disruptive.
 %
+Importantly for the long term, YARP is designed to play well with
+other architectures.  
+%
+%It is not meant to take over your system.  
+%
+Device drivers
+written for YARP can be ripped out and used without any
+``middleware.''  On the network, basic interoperation is possible by a 
+simple plain-text representation across TCP/IP sockets.
+%
+Maximally efficient interoperation with YARP for demanding scenarios 
+can be achieved through documented protocols.
+%
+While typical users of YARP need know nothing of this,
+their work benefits by being automatically easier 
+to access by a wider audience.
+%
+%Maintaining this ability to change transport choices depending on
+%the relative importance of simplicity and efficiency is a key part
+%of YARP's design.
+
+%But when we look at the broader world of robotics, we see many
+%architectures, with different priorities and concerns.  
+
+%But developing a flexible architecture is 
+%
+%
+%Historically, the answer to this problem has been standardization
+%for protocols and APIs
+%
+%So we adopt a conscious strategy of making YARP 
+%
+%We therefore restrain YARP to being a library, and avoid any
+%
+%
+%We take advantage of the distributed, multi-transport nature of
+%YARP to make reading and writing data to YARP modules extremely
+%simple
 
 We emphasize the strategic utility of the Free Software
 social contract \cite{perens1999open} to
