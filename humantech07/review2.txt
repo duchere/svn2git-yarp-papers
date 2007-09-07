@@ -49,6 +49,9 @@ their software architecture. Most notably the low-level motor-control
 loop. This will call for specific application structure which sadly do
 not appear here.
 
+ * there's potentially a short discussion here: dynamics, cognition and
+   hardware design of the robot.
+
 The presentation of YARP stay painfully at the computer science level
 without having a nice leverage. 
 
@@ -100,6 +103,10 @@ really not at its place, what is the point?
    This is entirely a function of careful design of the network
    protocol.
 
+ * We restructured this part quite extensively. We still have a description
+   of certain aspects of the protocol that might be relevant to justify
+   YARP vs. CORBA or YARP vs. Player.
+
 In the other hand iCub
 could have been more described. Why don't you describe the modules
 already avaible or planned with YARP allowing the emergence of
@@ -112,6 +119,13 @@ don't you justify this choice ? Real-time corba such as ORBIX are now
 used in humanoids robots such as HRP-2. 
 
  * [We should add a critique of CORBA etc]
+ 
+ * CORBA tries to do everything. YARP has modules (separate) for:
+	- direct OS interface, delegated to ACE (ACE only without TAO).
+	- Network communication: YARP OS core.
+	- Device drivers: HAL in YARP DEV library.
+	- Ideally YARP should improve this separation between modules which
+	  allows replacing parts without too much suffering.
 
 They are also other highly
 efficient CORBA implementation which are very suited to soft real-time
@@ -133,7 +147,7 @@ desktop environment such as gnome and kde.
    requirement does not play well with multiple middleware, which you
    have to allow the user to have.
 
- * CORBA tries to do to many things.  It is best for a tool to do one 
+ * CORBA tries to do too many things.  It is best for a tool to do one 
    thing and do it well.
 
  * [points like this should be put in the paper perhaps]
