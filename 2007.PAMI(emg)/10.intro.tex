@@ -2,16 +2,16 @@ In the framework of robotics for prosthetics, it is nowadays possible
 to build mechanically advanced prostheses such as, e.g., mechanical
 hands able to replicate a fair amount of the movements required by the
 disabled to carry on living in a decent way. Attempts in this sense
-include, e.g., the CyberHand porject \cite{...}, the i-LIMB hand by
-Touch Bionics \cite{...} and the \textbf{[[XXX by the DLR!!]]}. Still,
-a general sense of frustration impends, as far as control is
-concerned. How is an amputee supposed to command the prosthesis what
-to do (i.e., how to grasp an object) and with what force (i.e.,
-grasping a hammer or lifting an egg)?
+include, e.g., the CyberHand project \cite{cyberhand}, the i-LIMB hand
+by Touch Bionics \cite{ilimb} and the \textbf{[[PATRICK: XXX by the
+DLR!!]]}. Still, a general sense of frustration impends, as far as
+control is concerned. How is an amputee supposed to command the
+prosthesis what to do (i.e., how to grasp an object) and with what
+force (i.e., grasping a hammer or lifting an egg)?
 
 To this end, two types of interfaces between the patient and the
-prosthesis have been developed or are being studied: \emph{invasive} and
-\emph{non-invasive}. The former involve control based upon signals
+prosthesis have been developed or are being studied: \emph{invasive}
+and \emph{non-invasive}. The former involve control based upon signals
 gathered directly from the user's nervous system, either via brain
 implants or surgical use of electrodes. Invasive interfaces are
 supposed to guarantee a higher signal quality as far as control is
@@ -20,15 +20,14 @@ on the other hand, they involve surgery, plus a lot of work for the
 implantation and to ensure medium- and long-term
 sterility. Non-invasive interfaces are easier to handle, manufacture
 and implant, but require a much better signal conditioning, since they
-usually work with surface (skin) signals or vision and gaze
-tracking.
+usually work with surface (skin) signals or vision and gaze tracking.
 
 In the context of non-invasive interfaces for controlling mechanical
 hands, a concrete possibility arises from \emph{forearm surface
-electromyography (EMG)}, a technique by which muscle activation
-potentials are gathered by electrodes placed on the patient's forearm
-skin; these potentials can be used to track what muscles the patient
-is activating, and with how much force.
+electromyography (EMG)} \cite{zecca}, a technique by which muscle
+activation potentials are gathered by electrodes placed on the
+patient's forearm skin; these potentials can be used to track what
+muscles the patient is activating, and with how much force.
 
 Surface EMG is therefore, in principle, a cheap and easy way of
 detecting what the patient wants the prosthesis to do. Still, the EMG
@@ -36,13 +35,14 @@ signal suffers from a number of problems, among which the placement of
 the electrodes (which cannot be supposed to be always precisely in the
 same place), signal drifting and change due to sweat formation and
 muscular fatigue and cross-talking among deep and superficial
-muscles. Therefore, willing to build a \emph{map} relating EMG
+muscles. See \cite{deluca} for an overview of the problems posed by
+this signal. Therefore, willing to build a \emph{map} relating EMG
 activation potentials and muscle force (and therefore hand finger
 movements), one must resort to advanced mathematical techniques.
 
 In this paper, we pursue the approach based upon \emph{machine
 learning} techniques already attempted in, e.g.,
-\cite{...,smagt}. Machine learning methods aim at approximating a map
+\cite{dunlop,fukuda,smagt}. Therefore we seek to approximate a map
 such as the one described above by choosing a function in a suitable
 functional space, based upon a number of example known values of the
 map, i.e., values gathered during an experimental phase called
@@ -51,11 +51,19 @@ corresponding to further points in the input space (in this case, EMG
 potential values) can be predicted on-line (\emph{testing} phase), and
 the patient's intention to move a muscle can be reconstructed.
 
+We focus here upon the initial task of building such a map for an
+able-bodied subject, and in particularly controlled conditions. In a
+subsequent phase, it is hoped that it will be possible to use this
+method to actually drive a mechanical hand implanted on an
+amputee. There are concrete possibilities to do this, since a
+remarkable muscular and nerve activity can still be present in hand
+amputees forearms, also years after the amputation has taken place.
+
 So far, in literature, machine learning applied to surface EMG has
 been able to \emph{classify} different postures of the hand. For
 example, the surface EMG signal can be used ot detect whether the
 patient is attempting a cylindric grasp or a two-finger grip
-\cite{...}; but no indication about the amount of force involved in
+\cite{ekvall}; but no indication about the amount of force involved in
 the grasping act is detected, so that it is impossible to distinguish
 between, e.g., a power grasp and a precision grip. Note that this is
 crucial in everyday life, since applying the same amount of force
@@ -63,11 +71,10 @@ while grasping a hammer or an egg would result in slippage of the
 hammer, or breaking the egg.
 
 We show here a detailed comparative analysis of what machine learning
-can do when applied to such a problem. We have so far concentrated on
-an able-bodied subject; and, over two days, we have gathered forearm
-surface EMG data while the subject was gripping in four distinct ways
-a force sensor; we have then trained three different machine learning
-systems to guess, from the EMG signal,
+can do when applied to such a problem. Over two days, we have gathered
+forearm surface EMG data while the subject was gripping in four
+distinct ways a force sensor; we have then trained three different
+machine learning systems to guess, from the EMG signal,
 
 \begin{enumerate}
 
@@ -87,10 +94,10 @@ solve problem $2$.
 The three approaches we have experimented with are: $(a)$ a simple
 feed-forward neural network with one hidden layer, $(b)$ a Support
 Vector Machine with radial basis function kernel \cite{BGV92}, $(c)$
-Locally Weighted Projection Regression \cite{...}. All approaches were
-trained on a massive amount of data, but bearing in mind the following
-important point: in a real setting, that is, when a patient is
-required to train the prosthesis, training must eventually stop and
+Locally Weighted Projection Regression \cite{lwpr}. All approaches
+were trained on a massive amount of data, but bearing in mind the
+following important point: in a real setting, that is, when a patient
+is required to train the prosthesis, training must eventually stop and
 the model so obtained must give good prediction results for a long
 time --- picture the ideal scenario in which training happens in the
 first day of use, and then the prosthesis must be used in the
@@ -103,14 +110,11 @@ be found. We are not yet in the position of drawing rigorous
 conclusions about this, but it seems that a sensible way ahead has
 been found.
 
-Our numerical results indicate that, at best, a simple
-one-hidden-layer neural network can reconstruct the type of grasp with
-an accuracy of up to \textbf{XX\%}, and the applied force with an
-error of, at best, \textbf{XX} Newtons over a range of about
-\textbf{$70$N}. The other approaches yield slightly worse results, but
-are anyway usable, which seems to indicate that machine learning as a
-whole is a viable approach.  All in all, this looks highly encouraging
-in applying machine learning to enable amputees gain a fine control
-over their prosthesis, also since it is well-known \cite{...} that a
-remarkable amount of muscle plasticity is still available in an arm
-stump, also several years after the amputation.
+Our numerical results indicate that, in such a scenario, the type of
+grasp can be reconstructed with an average accuracy of $90\%$, and the
+applied force can be predicted with an average percentage error of
+$10\%$, meaning about $5$N over a range $50$N. None of the tested
+approaches clearly outperforms the others, which seems to indicate
+that machine learning as a whole is a viable approach. All in all,
+this looks highly encouraging in applying machine learning to enable
+amputees gain a fine control over their prostheses.

@@ -5,7 +5,7 @@ subject, $(b)$ the force applied by the subject while grasping.
 \subsubsection{General setup description}
 
 The experiment consisted of freely, repeatedly grasping a SpaceControl
-OFTS force/torque sensor \cite{...} orthogonally to its large face
+OFTS force/torque sensor \cite{ofts} orthogonally to its large face
 (see Figure \ref{fig:setup} $(a)$). Four different ways of pressing
 were allowed: opposing the thumb and index, the thumb and middle, the
 thumb and ring or the thumb and all other fingers, at different speeds
@@ -35,18 +35,19 @@ in order to gather information about the muscle activation. Figure
   \label{fig:setup}
 \end{figure*}
 
-Numerical data from the EMG and FSRs were gathered at a sampling rate
-of $256$Hz using a National Instruments DAQ PCI-6023E analogic/digital
-conversion card \cite{...}, mounted on a fast PC equipped with Windows
-XP. Data coming from the OFTS sensors was gathered via the serial port
-at about $80$KHz. The data were subsequently synchronised and saved.
+Numerical data from the EMG electrodes and FSRs were gathered at a
+sampling rate of $256$Hz using a National Instruments DAQ PCI-6023E
+analogic/digital conversion card \cite{nidaq}, mounted on a fast PC
+equipped with Windows XP. Data coming from the OFTS sensors was
+gathered via the serial port at about $80$KHz. The data were
+subsequently synchronised and saved.
 
 \subsubsection{EMG signal and electrode placement}
 
 The $10$ EMG electrodes were applied to the subject's right forearm,
 held in place by elastic bands. The electrodes were
-double-differential Otto Bock 13E200=50 models \cite{...}, each one
-gifted with an amplification gauge ranging from $2000$ to $100000$
+double-differential Otto Bock 13E200=50 models \cite{ottobock}, each
+one gifted with an amplification gauge ranging from $2000$ to $100000$
 times. Initial qualitative experiments revealed that a safe setting
 for the amplification gauge was in the middle of the range,
 corresponding to about $14000$ times. This is in agreement with the
@@ -54,14 +55,13 @@ EMG signal amplitude predicted in the related literature (see, e.g.,
 \cite{deluca}), that is about $100 \mu V$ on average: the voltages our
 DAQ card read ranged from slightly more than $0V$ to $3V$.
 
-Six of the electrodes were placed in pairs along the lower face
-of the forearm, whereas four of them were applied in pairs on the
-upper face. The initial positioning of the electrodes was chosen
-following an anatomical guideline \cite{...} in order for them to lie
-approximately on top of the muscles which elicit finger movements. As
-well, we were inspired by the placement description in \cite{smagt},
-which proved to be optimal for Support Vector Machine classification
-of hand postures.
+Six of the electrodes were placed in pairs along the lower face of the
+forearm, whereas four of them were applied in pairs on the upper
+face. The initial positioning of the electrodes was chosen in order
+for them to lie approximately on top of the muscles which elicit
+finger movements; the precise placement was done following the
+description in \cite{smagt}, which proved to be optimal for Support
+Vector Machine classification of hand postures.
 
 As far as the EMG signal is concerned, it must be remarked that it is
 subject to remarkable changes depending on, at least, four orders of
