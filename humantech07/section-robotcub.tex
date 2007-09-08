@@ -25,7 +25,9 @@ include binocular vision and haptic, cutaneous, aural, and vestibular sensors.
 We cared particularly in placing the sensors as in the human body and consequently 
 there are two moving eyes with cameras, two microphones surrounded by pinnae, the
 inertial sensing is located in the head and tactile sensors are planned to cover 
-as much as possible of the robot body.
+as much as possible of the robot body. Each joint is also equipped with position
+and temperature sensors (for safety of operation). There are plans for adding 
+joint-level torque measurement and eventually implement force/impendance control.
 Functionally, the system should be able to coordinate the movement of the eyes 
 and hands, grasp and manipulate lightweight objects of reasonable size and 
 appearance, crawl using its arms and legs, and sit up. This allows the system 
@@ -134,6 +136,16 @@ which seems appropriate given their nature.  Associated documentation
 will be licensed under the FDL.  These will be made available through
 the usual source code distribution channels (e.g. repositories,
 websites).
+
+Another difference with respect to GPL on software is that the cost
+of duplication is significant and variable. Copying and duplicating 
+software has a negligible cost and the copy is as functional as the 
+original. To copy the hardware requires access to a well-equipped
+machine shop and the process of assembling the parts is also non-trivial
+with possibly additional use of special tools and machining. 
+Copying software is almost error-free, hardware incurs in additional 
+cost related to mistakes and parts that needs to be brought within 
+specs.
 
 \subsection{The design process}
 The design process of RobotCub has been a distributed effort as for many open
