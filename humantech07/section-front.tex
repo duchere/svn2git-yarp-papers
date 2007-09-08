@@ -113,15 +113,30 @@ other architectures.
 %
 Device drivers
 written for YARP can be ripped out and used without any
-``middleware.''  On the network, basic interoperation is possible by a 
-simple plain-text representation across TCP/IP sockets.
+``middleware.''  On the network, basic interoperation is possible
+with a few lines of code in any language with a socket library, 
+and 
 %
-Maximally efficient interoperation with YARP for demanding scenarios 
-can be achieved through documented protocols.
+% by a 
+%simple plain-text representation across TCP/IP sockets.
 %
-While typical users of YARP need know nothing of this,
-their work benefits by being automatically easier 
-to access by a wider audience.
+maximally efficient interoperation
+%
+% with YARP for demanding scenarios 
+%
+can be achieved by following documented protocols.
+%
+These features are not normally the first things that end-users
+look for when starting a project, but they are crucial for longevity.
+
+
+
+% may not know or care about interoperability,
+
+
+%their is never automatically benefits by being easier 
+%to access by a wider audience.
+%
 %
 %Maintaining this ability to change transport choices depending on
 %the relative importance of simplicity and efficiency is a key part
