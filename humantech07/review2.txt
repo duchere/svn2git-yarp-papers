@@ -127,6 +127,18 @@ used in humanoids robots such as HRP-2.
 	- Ideally YARP should improve this separation between modules which
 	  allows replacing parts without too much suffering.
 
+ * We haven't mentioned too explicitely that YARP doesn't try to do everything 
+   and can coexhist nicely with many other libraries:
+	- GSL
+	- GTK/mm, glade
+	- ODE
+	- OpenCV
+	- Qt
+	- IPL
+	- Boost
+	- mpeg
+   this directly in C++. There's more using SWIG (e.g. Java -> Matlab).
+
 They are also other highly
 efficient CORBA implementation which are very suited to soft real-time
 such as omniorb and which are free. Such kind of technology is used in
