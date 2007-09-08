@@ -6,8 +6,6 @@ authors describe in a fairly detailed manner a distributed software
 architecture for robot control called YARP designed and licensed to facilitate
 code reuse across projects in the way of Open Source development. 
 
- * [reviewer is summarizing software part]
-
 In addition, the authors give an overview of their attempt to design and
 manufacture hardware in a manner similar to the Open Source development
 methodology for software. They describe how they did so, and where the process
@@ -16,8 +14,6 @@ tools for hardware design, and the actual hardware realization needs
 conventional manufacturing). The hardware development as described is in an
 early developmental phase with (as far as the paper describes it) still few
 results in the form of a complete, integrated system.
-
- * [reviewer is summarizing hardware part]
 
 The strength of this paper is that it brings up a problem common to much
 applied science, that of reuse of experimental resources that are expensive in
@@ -67,8 +63,8 @@ perspective.
  both niches as subsets of a larger universe.  But YARP version 0
  and Player version 0 had almost no overlap in concerns.  
 
- * Section 2.3 (Interoperating) has been edited extensively to 
- better address this question.
+ * Section 2.3 (Interoperating) and the abstract have been edited
+ to better address this question.
 
  
 I would suggest that giving a fuller motivation of why a separate project is
@@ -81,8 +77,8 @@ favour of cooperation. As the authors have practical experience on this I
 believe a discussion on this would be a most significant addition to the
 discussion.
 
- * Section 2.3 (Interoperating) has been edited extensively to 
- better address this question.
+ * Section 2.3 (Interoperating) has been edited to better address this
+ question.
 
 The discussion of the framework itself does sometimes veer into a perhaps too
 detailed look at the practical mechanisms. As the take-home message here is
@@ -92,22 +88,20 @@ parameters and particularly the detailed specification of message packets and
 communication protocols are perhaps better left for a user manual rather than
 an overview like this.
 
- * In retrospect, we agree entirely with the reviewer about this.
-
  * Removed table of "magic numbers" (Table 1) -- absolutely more suited to
- a reference manual.
+   a reference manual.
  
  * Removed what was Section 4.3 ("Connection protocol") -- it doesn't
- add to the message of the paper.
+   add to the message of the paper.
 
- * We would claim that the nature of the communication protocols is key
- to open development.  Some protocols are a nightmare to work with, some
- a joy.  The difference comes down to, usually, how many pages you need
- to read in other to send and receive.  For this reason, we have 
- retained what was Section 4.4 ("YARP without YARP").  Although 
- somewhat technical, it shows in a very concrete way how to get
- data into and out of a YARP system without using any of
- our implementation.
+ * We would claim that the nature of the communication protocols is
+   key to open development.  Some protocols are a nightmare to work
+   with, some a joy.  The difference comes down to, usually, how many
+   pages you need to read in other to send and receive.  For this
+   reason, we have retained what was Section 4.4 ("YARP without
+   YARP").  Although somewhat technical, it shows in a very concrete
+   way how to get data into and out of a YARP system without using any
+   of our implementation.
 
  * Section 3 ("Devices and Drivers") has been shortened, in particular
    we removed what were Section 3.3 ("An example: accessing a motor
@@ -122,9 +116,6 @@ treatment. In many ways, though, the hardware section feels better organized,
 with the technical descriptions at a level that doesn't obscure the central
 message about the development methodology. 
 
- * We should expand the hardware section quite a bit, I think there's a lot
- more to say.
-
 I would perhaps have wanted to see
 a mention of the existence of other open source hardware (there
 are numerous, from the SPARC processor design released by Sun, to single-board
@@ -134,7 +125,7 @@ around applying a license like GPL, meant for software, onto other forms of
 expression like CAD files (and by extension the hardware built from them)
 would also be welcome.
 
- * Ok, checked other open source hw projects. There is a possible discussion
-   but we don't know yet about the potential success of RobotCub. We can discuss
-   the issues.
+ * Ok, checked other open source hw projects. There is a possible
+   discussion but we don't know yet about the potential success of
+   RobotCub. We can discuss the issues.
 

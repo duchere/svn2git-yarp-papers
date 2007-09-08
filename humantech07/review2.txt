@@ -15,11 +15,11 @@ because all the blueprints are available through the web-page of the
 project. 
 
  * In fact, the claim is stronger; we claim the platform is free and
- open source not only because the designs are available publically,
- but because those designs are available under a free and open
- license that permit, for example, redistribution of modified forms,
- and commercial exploitation of any form that preserves the granted
- freedoms.
+   open source not only because the designs are available publically,
+   but because those designs are available under a free and open
+   license that permit, for example, redistribution of modified forms,
+   and commercial exploitation of any form that preserves the granted
+   freedoms.
 
 This project is funded by the european community and is
 spanned over 5 years. It aims at providing 10 research platforms to be
@@ -38,8 +38,8 @@ true for the hardware part, which should be more detailled. You should
 give more details for instance regarding the position of the sensors
 you plan to put on the robot. 
 
- * For that we prefer to use a citation, rather than insert all
- those details in this paper.
+ * For that we prefer to use a citation, rather than insert all those
+   details in this paper.
 
 Regarding the scientific aspect, you
 should stress more the relationship between the structure of your
@@ -77,7 +77,8 @@ systems which implements also a HAL system such as MARIE.
 
  * We agree that the idea of a hardware abstraction layer has been
    around for almost as long as computer science.  It is a good idea.
-   It can be done well or badly.
+   It can be done well or badly.  
+
  * Interface to device driver is rarely uniform at the user code level, 
    and, as we explain in the paper, it is what makes code reuse so 
    difficult in robotic projects. Although not completely novel, the 
@@ -112,14 +113,13 @@ could have been more described. Why don't you describe the modules
 already avaible or planned with YARP allowing the emergence of
 cognitive capabilities, and which makes YARP unique.
 
- * [not within scope of paper really]
+ * This would take us quite far from the scope of the paper, as
+   described in the abstract.
 
 For instance, you use ACE p.4, but not TAO from the same group. Why
 don't you justify this choice ? Real-time corba such as ORBIX are now
 used in humanoids robots such as HRP-2. 
 
- * [We should add a critique of CORBA etc]
- 
  * CORBA tries to do everything. YARP has modules (separate) for:
 	- direct OS interface, delegated to ACE (ACE only without TAO).
 	- Network communication: YARP OS core.
