@@ -295,7 +295,9 @@ became open source projects; Player was registered on sourceforge (a
 commonly used repository for open software) in 2001, and YARP in 2002.
 Initially there was little overlap or mutual awareness between the
 projects.  In 2005, YARP began refactoring its device API, influenced 
-by a Player paper on this topic \cite{vaughan2003device}.
+by a Player paper on this topic \cite{vaughan2003device}. In particular,
+the existing ``thin wrapper'' of the hardware was augmented with
+a factory and remotization of the devices.
 At about the same time, Player's networking was refactored to be
 more flexible (``Player 2.0'', see \cite{collett2005player}) in 
 order to break out of a client/server communication model and
