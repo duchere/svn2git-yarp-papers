@@ -57,8 +57,13 @@ initialization and creation (iii) creation of network wrappers and separation
 between devices and communication. 
 
 Note that when we talk about ``interfaces'' here we do not refer to
-the interface description languages used in CORBA and other systems,
-but simply to a consistent API in C++.  Concerns related to
+the interface description languages (IDLs) used in CORBA and other systems,
+but simply to a consistent API in C++.  
+%
+We avoid using IDLs because they impose extra constraints on the user's
+toolchain.
+%
+Concerns related to
 communication are addressed in point (iii), not (i).  We keep
 communication and device interfaces separate, so that users can
 exploit one and not the other as they wish, and also code written to

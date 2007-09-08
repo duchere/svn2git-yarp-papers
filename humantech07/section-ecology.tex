@@ -433,6 +433,23 @@ them accessible remotely.  These proxies use YARP networking, but
 there's nothing to stop someone else writing Player proxies, or 
 proxies for standard RPC-based systems.
 
+We are often asked why we do not use CORBA for communication.
+Certainly, it would be possible.  But we believe CORBA is a very good
+example of a middleware that has over-reached.  Using CORBA imposes a
+cost in terms of complexity and learning-curve that is hard to justify
+or pay for in an open-source project.  KDE and GNOME, two major
+desktop environments, began with ambitions to use CORBA, but eventually
+backed away from it to simpler, more specialized libraries.
+One of those is called D-Bus, 
+an interprocess communication library for desktop environments.
+Responding to the ``why not use CORBA'' in their FAQ  \cite{dbus},
+they answer that an
+``IPC system API should not leak all over a program; it should come
+into play only just before data goes over the wire.''  
+We whole-heartedly agree.
+
+
+
 % (although that message passing can now be internal rather
 %than across a network).
 %
