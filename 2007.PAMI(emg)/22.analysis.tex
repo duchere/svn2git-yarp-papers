@@ -7,11 +7,11 @@ set of $l$ points in the input space is available, for which the
 target (label or force value) is known; this set will be denoted by
 $\{\xx_i,y_i\}_{i=1}^l$ and called \emph{training set}. As well, for
 each experiment, a separate set of points, for which the targets are
-not known, is assumed to be available, and this will be called the
-\emph{testing set}. In general, the performance of a machine is tested
-by training it on a training set and then testing it on a testing set,
-possibly employing standard measures of the generalisation error, such
-as cross-validation.
+not used for training, is assumed to be available, and this will be
+called the \emph{testing set}. In general, the performance of a
+machine is evaluated by training it on a training set and then testing
+it on a testing set, possibly employing standard measures of the
+generalisation error, such as cross-validation.
 
 Taking into account the considerations of the previous Section, we set
 the input space to be $\RR^{10}$, that is, one coordinate for each EMG
@@ -35,34 +35,39 @@ classification and regression. An ANN is a directed graph in which,
 for every node, the weighted sum of the input values is evaluated;
 this sum is then used as the argument of an \emph{activation function}
 to determine the output of the node. The nodes fed the input values to
-the network are called \emph{input layer}, and the nodes whose output
-is taken as the output of the network are called \emph{output
+the network form the \emph{input layer}, and the nodes whose output is
+taken as the output of the network are called \emph{output
 layer}. Besides this, in general, an ANN can further have an arbitrary
 number of nodes organised in \emph{hidden layers}, gifted with an
-arbitrary edge topology.
+arbitrary connection topology.
 
 An ANN is initialised with random weights; then, for every sample in
 the training set, the network output is evaluated and its error with
-respect to the target is considered. In order to reduce the error
-then, a minimisation algorithm is then employed to change the weights
-of the network, until the desired precision is reached. If the
-generalisation error has been kept small, the network will then be
-able to \emph{predict} the targets of the testing samples with a
-reasonable accuracy.
+respect to the target is considered. In order to reduce the average
+error on the training set, a minimisation algorithm is then employed
+to change the weights of the network, until the desired precision is
+reached. Normally, a separate testing set is used to evaluate the
+generalisation error (average error on the testing set) and to check
+that it does not increase (overfitting) as the training error
+decreases. If the generalisation error has been kept small, the
+network will then be able to \emph{predict} the targets of the testing
+samples with a reasonable accuracy.
 
 For our experiment we strived to keep the ANN as simple as possible.
-We then chose a basic feed-forward NN with $10$ units for the input
-layer; one hidden layer with $10$ units with sigmoidal arcotangent
-activation function; $5$ units in the output layer for classification,
-each unit representing one category, and one unit in the output layer
-for regression, the unit representing the target force value. The
-network was trained via the \textbf{BOH} algorithm and learning
-function \textbf{BOHBOH}; the mean-square error (MSE) was used as a
-measure of performance. The training phase was stopped arbitrarily
-after $30$ epochs. For each experiment, we repeated the training phase
-$10$ times, in order to overcome the well-known problem of local
-minima, and then gathered the best model found. No measure of
-generalisation error was taken into account.
+We then chose a feed-forward neural network with $10$ units in the
+input layer; one hidden layer with $10$ units with hyperbolic tangent
+(sigmoidal) activation function; $5$ units in the output layer for
+classification, each unit representing one category, and one unit in
+the output layer for regression, the unit representing the target
+force value. The network was trained using the gradient descent
+learning function; backpropagation was enforced via the the
+quasi-Newton algorithm (for classification) and the
+Levenberg-Marquardt algorithm (for regression). The Mean Square Error
+(MSE) was used as a measure of performance. The training phase was
+stopped arbitrarily after $30$ epochs. For each experiment, we
+repeated the training phase $10$ times and then gathered the best
+model found, in order to overcome the well-known problem of local
+minima. No measure of generalisation error was taken into account.
 
 The network was implemented in Matlab, Windows version $7.1.0.246$
 (R14) Service Pack 3, running on a bi-processor $1.8$GHz machine with
@@ -75,7 +80,7 @@ Support Vector Machines (SVMs; see, e.g.,
 \cite{BGV92,Burges98,Cristianini00}) are a machine learning method
 able to determine the best candidate function for a classification or
 regression problem, drawn from a functional space induced by the
-choice of a binary function between points in the sample space,
+choice of a binary function between points in the input space,
 $K(\xx_1,\xx_2)$, with $\xx_1, \xx_2 \in \RR^{10}$ in this case. $K$
 is called \emph{kernel}. In the most general setting, the function
 found is
@@ -89,7 +94,8 @@ Lagrangian coefficients obtained by solving a minimisation problem
 whose cost functional is guaranteed to be convex. Because of this,
 SVMs do not suffer from the problem of local minima; but their
 training time is cubic in the number of samples in the training set,
-as opposed to ANNs, for which it is \textbf{BOHBOH}.
+as opposed to ANNs, for which it is \textbf{[[PATRICK, can we say
+something here? I guess anyway it is not strictly necessary.]]}.
 
 In order to overcome this problem, which would have made our
 experiment unfeasible, we have decided to use a \emph{uniformisation}
@@ -113,9 +119,9 @@ distance.
 
 In order to take into account the different variances of the EMG
 electrode values, we have decided to adopt Mahalanobis's distance as
-the inter-sample distance \cite{...}. Let $\xx_1, \xx_2 \in \RR^{10}$;
-then the Mahalanobis distance between $\xx_1$ and $\xx_2$ is defined
-as follows:
+the inter-sample distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the
+Mahalanobis distance between $\xx_1$ and $\xx_2$ is defined as
+follows:
 
 $$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
 
@@ -133,10 +139,11 @@ time with respect to the number of samples, which was unfeasible, we
 adopted an approximated method which was able to remove most, but not
 all, samples with an insufficient Mahalanobis distance from any other
 sample. After a few initial experiments we set the threshold distance
-at $1$. All our experiments with SVMs were then performed on
-uniformised training sets, using $5$-fold cross-validation and grid
-search to find the optimal values of the standard Gaussian kernel
-hyperparameters, $C$ and $\sigma$.
+at $1$. We also decided to employ the Gaussian kernel. All our
+experiments with SVMs were then performed on uniformised training
+sets, using $5$-fold cross-validation and grid search to find the
+optimal values of the standard Gaussian kernel hyperparameters, $C$
+and $\sigma$.
 
 On the other hand, notice that no \emph{testing} set was uniformised,
 since it would probably be unfeasible to apply the same procedure in
@@ -145,9 +152,22 @@ resulted in training sets which were considerably smaller than the
 original ones, up to about $100$ times smaller.
 
 Lastly, we employed a well-known freely available SVM package,
-\emph{libsvm} v2.83 \cite{...}, in the Matlab wrapped flavour.
+\emph{libsvm} v2.83 \cite{ChangL01}, in the Matlab wrapped flavour.
 
 \subsubsection{Locally Weighted Projection Regression}
 
-\textbf{LWPR - prendi qualcosa dalla rete. spiega gs e cv.}
+Locally Weighted Projection Regression (LWPR --- see \cite{lwpr}) is a
+regression method especially targeted for high-dimensional
+spaces with redundant and irrelevant input dimensions. It employs
+locally linear models, each of which performs univariate regressions
+in selected directions in the input space. It has a computational
+complexity that is linear in the number of inputs, but due to its
+incrementality it can take long time to train (as we verified it was
+the case). Therefore we used it for regression only, and trained it
+with the uniformisation procedure.
 
+We used the latest stable C version of LWPR, kindly made available by
+Stefan Klanke, wrapped in a Matlab command interface. We chose to use
+the Radial Basis Function kernel and meta-learning, and then
+performed $5$-fold cross-validation and found the initial values of
+the distance metric for receptive fields by grid search.

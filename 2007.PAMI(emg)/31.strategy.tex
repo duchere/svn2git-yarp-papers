@@ -29,12 +29,14 @@ uniformisation procedure (see Section \ref{subsec:strategy}) would be
 effective in reducing the training set, at the same time without
 losing relevant information.
 
-Therefore, we trained a SVM over each single session, both on the
-first and second day, and both with full and uniformised traning
-set. With a slight abuse of language, we will call the model obtained
-by training a machine on session $i$, \emph{model $i$}. Moreover, in
-the remainder of this Subsection, if the training set of a model was
-uniformised, we will call the model \emph{uniform}.
+Therefore, we trained a SVM over each single session, both for the
+first and second day, and both with full and uniformised training
+sets. The session were numbered chronologically during the day,
+sessions $1,2,3$ forming group $1$, sessions $4,5,6$ forming group
+$2$, and so on. With a slight abuse of language, we will call the
+model obtained by training a machine on session $i$, \emph{model
+$i$}. Moreover, in the remainder of this Subsection, if the training
+set of a model was uniformised, we will call the model \emph{uniform}.
 
 We then tested each model on all sessions of the same day, obtaining
 therefore an \emph{accuracy matrix} $A$ in which $A_{ij}$ would be a
@@ -72,23 +74,23 @@ for the full models and $95.52\% \pm 1.21\%$ for the uniform
 models. This is intuitively sensible since, in the case of full
 models, we are testing on the same data used for training, whereas in
 the case of uniform models, the training data are a strict subset of
-the testing data, and a quite smaller subset. But as well, if we
-consider the remaining elements of the matrices, it is clear that the
-uniform models attain a better accuracy \emph{overall}, if compared to
-the full models. In fact, the accuracies are $73.23\% \pm 14.29\%$ for
-the full models, and $74.53\% \pm 13.70\%$ for the uniform ones.
+the testing data, and a quite smaller subset indeed. But as well, if
+we consider the remaining elements of the matrices, it is clear that
+the uniform models attain a better accuracy \emph{overall}, if
+compared to the full models. In fact, the accuracies are $73.23\% \pm
+14.29\%$ for the full models, and $74.53\% \pm 13.70\%$ for the
+uniform ones.
 
 The same analysis for day $2$ yields analogous results (consider the
 above Figure, panes $(c)$ and $(d)$).
 
 From this we conclude that the uniformisation procedure is effective
 in reducing the training set size, without actually degrading the
-performance of models obtained by training on the uniformised
-sets. This is apparent from the fact that uniform models are more
-accurate on test sets which are disjoint from the training sets. In
-fact, one should always ensure that this is the case, aiming for a
-better generalisation error. We can say that uniform modles generalise
-better, at least in this case.
+performance. This is apparent from the fact that uniform models are
+more accurate on testing sets which are disjoint from the training
+sets. In fact, one should always ensure that this is the case, aiming
+for a better generalisation error. We can say that uniform models
+generalise better, at least in this case.
 
 Therefore, from now on, all models we will be using, in the case of
 SVMs and LWPR, will be the uniform ones.
@@ -104,20 +106,27 @@ accuracy'' is obviously present: in each matrix, good accuracy values
 are obtained on 3x3 submatrices located on the diagonals,
 corresponding to cross-session accuracy for sessions \emph{belonging
 to the same group}, that is, where the elastic bands were not removed
-or, also, where electrode displacement is not present.
+and no electrode displacement was present.
 
 More in detail, as far as the first day is concerned (same Figure,
 pane $(b)$), one can see that the first six models (trained on the
 first two groups) obtain a quite good accuracy on the first six
-sessions (first two groups) whereas their accuracy rapidaly degrades
-(first six rows of the matrix) as more sessions are tested for. This
-is probably due to the first two groups haveing been gathered in
-similar conditions, very similar electrode positions and/or similar
-movements performed by the subject. On the other hand, sessions in the
-last group (columns $13$, $14$ and $15$ of the matrix) are
-particularly hard, except when tested by models obtained from the last
-group itself. Analogous considerations can be made by inspecting the
-accuracy matrix of the second day, pane $(d)$ of the Figure.
+sessions (first two groups) whereas their accuracy rapidly degrades as
+more sessions are tested for. This is probably due to the first two
+groups having been gathered in similar conditions, very similar
+electrode positions and/or similar movements performed by the
+subject. On the other hand, sessions in the last group (columns $13$,
+$14$ and $15$ of the matrix) are particularly hard, except when tested
+by models obtained from the last group itself --- here the effect is
+probably motivated by the opposite reason: during those sessions, the
+subject must have explored more relevant parts of the input
+space. This is corroborated by the fact that models $13,14,15$ perform
+rather well on \emph{all} sessions, if compared to other models (check
+rows $13,14,15$ of the matrix). In other words, sessions $13,14,15$
+contain more relevant information than the others.
+
+Analogous considerations can be made by inspecting the accuracy matrix
+of the second day, pane $(d)$ of the Figure.
 
 From this we can confirm that \emph{electrode displacement plays a
 determinant role} in the classification accuracy. Notice that muscle
@@ -132,37 +141,50 @@ performance is due to the problem of electrode displacement. This is
 experimentally confirmed by the strong degradation in classification
 accuracy among different groups. In other words, the SVM does not
 generalise well when trained on a session belonging to group and
-tested on a session belonging to a different group. In machine
-learning in general, poor generalisation is often due to the samples
-in the training and testing sets being drawn from two different
-probability distributions or, which is the same, drawn from two
-essentially different zones of the input space.
+tested on a session belonging to a different group.
 
-We claim that this is the case. In particular, we hypothesise that the
-electrode displacement present between groups (but not among sessions
-belonging to the same group) causes the samples in a group to be
-``shifted'' in the input space, so that testing on a different group
-results in poor generalisation performance. To substantiate this
-claim, we have verified that the average minimum inter-sample distance
-within a group is smaller than that between different groups. More in
-detail, let $S_i$ denote the training set for session $i$; we have
-built a distance cross-session matrix $D$ in which
+Poor generalisation is often due to the samples in the training and
+testing sets being drawn from two different probability distributions
+or from two essentially different zones of the input space. We claim
+that this is the case. \textbf{[[PATRICK: I know this sounds quite
+wobbly. can you say it in a more precise way, possibly with
+citations?]]}
+
+In particular, we hypothesise that the electrode displacement present
+between groups (but not within a group) causes the samples in a group
+to be ``shifted'' in the input space, so that testing on a different
+group results in poor generalisation performance. To substantiate this
+claim, we have verified that the cross-session accuracy is highly
+correlated to the \emph{average minimum inter-sample distance} between
+sessions. More in detail, let $S_i$ denote the training set for
+session $i$; we have built a distance cross-session matrix $D$ in
+which
 
 $$ D_{ij} = \frac{1}{|S_j|} \sum_{s_j \in S_j}{\min_{s_i \in S_i}{ ||s_j-s_i||^2 } } $$
 
-The Pearson cross-correlation coefficient of $D$ and the cross-session
-accuracy matrix is $-0.61$ \emph{both} for the first and the second
-day, indicating a strong negative correlation. Further experiments
-have revealed that this happens for Neural Networks too
-(cross-correlation $-0.40$ for day $1$ and $-0.51$ for day $2$); and
-also, that $d$ is strongly \emph{positively} correlated to the MSE in
-regression, for all the studied approaches: $0.62/0.78$ (day $1$/day
-$2$) for SVMs, $0.64/0.72$ for NNs and $0.77/0.81$ for LWPR.
+Essentially, $D_{ij}$ denotes how far away in the input space the
+samples in $S_j$ are from the samples in $S_i$. Note that $D$ is in
+general not symmetric, since we consider the \emph{average} of the
+\emph{minimum} distance of each sample in $S_j$ from those in $S_i$.
 
-In other words, the larger the average minimum inter-sample distance
-between sessions $i$ and $j$, the worse the performance of model $i$
-tested on session $j$. ``Samples far away from the training samples will
-be predicted badly.''
+The cross-correlation coefficient evaluated between the values of $D$
+and the accuracy values of the cross-session accuracy matrix is
+$-0.61$ \emph{both} for the first and the second day, indicating a
+strong negative correlation. Further experiments have revealed that
+this happens for Neural Networks too (cross-correlation $-0.40$ for
+day $1$ and $-0.51$ for day $2$); and also, that $D$ is strongly
+\emph{positively} correlated to the MSE in regression, for all the
+studied approaches: $0.62/0.78$ (day $1$/day $2$) for SVMs,
+$0.64/0.72$ for NNs and $0.77/0.81$ for LWPR.
+
+In other words, the larger the distance of $S_i$ and $S_j$, the worse
+the performance of model $i$ tested on session $j$, both in
+classification and in regression. This tells us that $(a)$ samples of
+the same group are closer to each other than sample from different
+groups, therefore electrode displacement causes displacement in the
+input space too; and $(b)$ that this causes bad inter-group
+performance. ``Samples far away from the training set will be
+predicted badly.''
 
 In order to further sustain this claim we have checked, for each day,
 that models obtained by adjoining $4$ of the $5$ groups would perform
@@ -195,16 +217,16 @@ was already determined to be very hard (compare Figure
 
 On the other hand, this analysis proves that if we train upon the
 ``right'' data, the accuracy becomes acceptable. Model $1$ of day $1$,
-for instance, was trained on group $5$ of day $1$ too, and it actually
-performs well on that group, too. From this we first conclude that the
-uniformisation procedure is not eliminating any useful information
-from the training sets; and, secondly, that if the right training data
-can be found, there are good chances of building a good model.
+for instance, performs uniformly very well. From this we first
+conclude that the uniformisation procedure is not eliminating any
+useful information from the training sets; and, secondly, that if the
+right training data can be found, there are good chances of building a
+good model.
 
 \subsubsection{Best models}
 
-Lastly, we have considered how to collect relevant information
-\emph{only} from the gathered data, that is, how to sensibly reduce
+Lastly, we have considered how to collect \emph{only} relevant
+information from the gathered data, that is, how to sensibly reduce
 the training set. To do this, we have collected the two best models
 for each day and joined them together. For instance, consider Figure
 \ref{fig:cross_initial} again, pane $(b)$. It is apparent that model
