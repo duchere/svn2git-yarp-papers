@@ -422,10 +422,12 @@ It makes distributed processing easier, letting you shift
 processing to extra machines when the load becomes high.
 %
 Remotization is in practice one of the major benefits offered by
-YARP and Player.  They achieve that goal in somewhat different ways.
-In Player, devices are responsible for producing their own messages
-(represented as a C structure, with the Player library responsible for
-marshalling/de-marshalling).
+YARP and Player.  
+%
+%They achieve that goal in somewhat different ways.
+%In Player, devices are responsible for producing their own messages
+%(represented as a C structure, with the Player library responsible for
+%marshalling/de-marshalling).
 %
 In YARP, message production is done at the level of device {\it families}.
 %
