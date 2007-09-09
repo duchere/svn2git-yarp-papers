@@ -20,12 +20,14 @@ of work to extricate it again and apply it to another.
 Obviously the answer to this problem is modularity.  So there are 
 now several architectures/middleware/frameworks for modular robot systems,
 YARP being one of them.
-The major concern for any such middleware (including YARP) should be that it not 
-also become
+A major concern for any such middleware (including YARP) should be that it 
+not also become
 in turn a ``black hole''~-- the
 danger is that once a piece of software has been adapted
 to a particular architecture/middleware/framework, it may take a lot of work to extricate it
-again and apply it to another.  That would be a bit somewhat self-defeating.
+again and apply it to another.  That would be somewhat self-defeating
+in the long-run, since reuse would only be practical as long as the
+same middleware was in use.
 %
 So modularity alone is not a solution to software reuse, since 
 different organizing architectures, middleware, or frameworks may be mutually
@@ -91,7 +93,7 @@ The drawback is that the compile process varies a lot depending
 on the platform and development environment. For example Linux 
 and Cygwin developers use mostly Makefiles, whereas Microsoft Windows 
 developers may prefer Visual Studio project files. 
-Altough C++ has reached a fairly good level 
+Although C++ has reached a fairly good level 
 of portability which allows, with a reasonable effort, writing 
 applications that compile on all platforms, it is still very 
 common to have to wrestle to port code that was written for 
@@ -125,7 +127,7 @@ image processing libraries.
 %because it is no longer required to distribute build files 
 %for all possible platforms.
 
-Among the available tools for automatic configuraton of 
+Among the tools available for automatic configuraton of 
 software packages, we decided to use CMake~\cite{cmake}.
 CMake is a cross-platform, open-source build system. It 
 produces build files for the environment of choice (e.g. 
@@ -150,6 +152,9 @@ flexible.
 %
 CMake is free and open-source, with a healthy community of 
 developers.
+%
+We also maintain an autoconf build procedure for those UNIX users
+who prefer not to use CMake.
 %
 We use another free and open-source tool called SWIG to make
 YARP easy to use from many different languages.
@@ -218,17 +223,16 @@ balance between creator and integrator.  It proposes a set of standard
 freedoms which should be granted with software. Taken together 
 these freedoms make
 the software actually useful as building blocks without excessive
-social/legal/commercial complexity.  The freedoms are enforced using
+social, legal, or commercial complexity.  The freedoms are enforced using
 copyright law principles that apply to most of the world.
 
 The Free Software model says nothing about the cost of software,
 although it does tend to contribute to commoditization, driving the
-cost of infrastructure-related software such as webservers and
+cost of infrastructure-related software such as web-servers and
 operating systems down.  Free software should not be confused with
 ``freeware''.  Freeware software is available without charge but may
-have complex social/legal/commercial terms attached, and may
-or may not grant the freedoms associated with free software
-(usually not).
+have complex social, legal, and commercial terms attached, and may
+or usually will not grant the freedoms associated with free software.
 
 The effectiveness of free and open software is 
 becoming better understood from a business
@@ -297,7 +301,7 @@ Initially there was little overlap or mutual awareness between the
 projects.  In 2005, YARP began refactoring its device API, influenced 
 by a Player paper on this topic \cite{vaughan2003device}. In particular,
 the existing ``thin wrapper'' of the hardware was augmented with
-a factory and remotization of the devices.
+a factory and remotization procedure.
 At about the same time, Player's networking was refactored to be
 more flexible (``Player 2.0'', see \cite{collett2005player}) in 
 order to break out of a client/server communication model and
@@ -314,7 +318,7 @@ In our opinion (speaking of course just for ourselves, and not the
 Player developers), both projects are now at a state where if either
 project had existed in mature form before the other was started, the
 other could most certainly have been built by extension rather than 
-separate development.
+as a separate development.
 %
 To make YARP, Player would need to have its device and networking
 model decoupled further, its networking model and transport interface
@@ -370,15 +374,15 @@ images from a YARP Network (see acknowledgements section for credits).
 The motivation for the driver was that YARP can transmit
 data using multicast, a transport not implemented in Player. 
 This driver let Player treat YARP as a camera, just like
-any of the other more regular cameras it already had drivers 
-for.
+any of the other more regular cameras for which
+Player already had drivers.
 
 \item
 Since 2007, YARP contains a ``stage'' driver which gives access to 
 a 2D robot simulator associated with the Player project 
-from a YARP Network.  This driver let YARP treat Player/Stage as
+from a YARP Network.  This driver lets YARP treat Player/Stage as
 a motor control system, just like any of the other more regular 
-control boards it already had drivers for.
+control boards for which YARP already had drivers.
 
 \end{itemize}
 
@@ -404,10 +408,11 @@ of the YARP library, and use them in other projects.
 %In fact devices have some similarity in structure between YARP and
 %Player, but have the crucial difference (at least to our eyes) that
 %
-YARP device framework mandates a very thin C++ wrapper which permits direct function
+The YARP device framework mandates a very thin C++ wrapper 
+which permits direct function
 calls, rather than forcing operation through a message passing
 framework.  The value added by YARP's wrapper is to simplify the
-externalization of device configuration (Player has an equivalent of
+externalization of device configuration (Player also has an equivalent of
 this) and to factor the device into interfaces corresponding to
 different device families (which is just good software engineering,
 shared by any good implementation of a hardware abstraction layer).
@@ -422,7 +427,7 @@ buffering, etc., unless the device already has such things internally.
 It seems strange to claim that {\em not} doing something adds value.
 But this is the fundamental point of modularity, to refrain from 
 making a dependency if you can avoid it.
-
+%
 The reason why one might want to intertwine devices and networking
 is to achieve the important ability to control and monitor a device 
 remotely.  For YARP, this ability is implemented at the 
@@ -442,11 +447,12 @@ desktop environments, began with ambitions to use CORBA, but eventually
 backed away from it to simpler, more specialized libraries.
 One of those is called D-Bus, 
 an interprocess communication library for desktop environments.
-Responding to the ``why not use CORBA'' in their FAQ  \cite{dbus},
+Responding to the ``why not use CORBA'' question
+in their FAQ  \cite{dbus},
 they answer that an
 ``IPC system API should not leak all over a program; it should come
 into play only just before data goes over the wire.''  
-We whole-heartedly agree.
+We agree with this ideal.
 
 
 
