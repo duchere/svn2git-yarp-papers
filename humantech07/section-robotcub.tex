@@ -261,6 +261,31 @@ the software. The ICub will have many sensors and actuators working in parallel.
 would like to exploit this parallelism also at the computational level and, consequently, 
 the ICub API was mapped one-to-one onto YARP.
 
+% It's somewhat difficult to explain this in such a short text.
+There is a more profound and somewhat philosophical consideration to be factored in 
+about the design of a robotic platform, especially when the claim is that it is 
+designed to support investigation on the development of cognitive behaviors.
+The core of the question is whether a given structure of the body and corresponding 
+dynamics can support certain cognitive skills: e.g. can a robot with limited manipulation 
+abilities learn certain properties of objects? Does the lack of certain skills 
+prevent learning certain concepts about the environment? What type of dynamics can 
+favor behavioral and energy efficiency?  
+This relates to the question of discovering the {\em affordances} of the environment 
+given the agent's body. A full discussion of these issues is clearly outside 
+the scope of this paper: for an extended treatment the reader is referred to
+\cite{YARB}.
+
+In theory, understanding the dynamics of cognition should be eventually reflected into
+the design of the robot. In practice, this is a full research program in itself. 
+Mindful of this potential problem, the ICub has been designed following the more 
+traditional approach discussed earlier. The truth is that there is no formalism and not
+to mention understanding of cognition that could support such a ``complete'' design
+process. What we propose though is that the ICub is the starting point, which supported
+by the open source approach, can become part of the virtuous development cycle 
+that created Linux and support an ever growing repository of open software (e.g. 
+sourceforge.net with more than $150.000$ registered projects).
+
+
 \subsection{Modularity}
 The ICub design is modular across two dimensions, namely, the mechanical hardware
 and the control structure. Mechanically, the robot has a certain degree of modularity
