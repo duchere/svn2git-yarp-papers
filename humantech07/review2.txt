@@ -38,11 +38,11 @@ true for the hardware part, which should be more detailled. You should
 give more details for instance regarding the position of the sensors
 you plan to put on the robot. 
 
- * For that we prefer to use a citation, rather than insert all those
-   details in this paper.
-
  * Added a few additional details (two paragraphs) on the placement of
    the sensors.
+
+ * There is a citation to a hardware paper for more details.
+
 
 Regarding the scientific aspect, you
 should stress more the relationship between the structure of your
@@ -57,6 +57,7 @@ not appear here.
    of the paper. Also, nobody has the answer, we say the ICub is just
    the starting point and we hope this enters in the same virtuous
    development cycle as happened to Linux.
+
 
 The presentation of YARP stay painfully at the computer science level
 without having a nice leverage. 
@@ -91,6 +92,7 @@ systems which implements also a HAL system such as MARIE.
    solutions we propose are effective in dealing with this 
    problem and are hence a critical part of YARP.
 
+
 The second
 point related to network communication might be usefull for teaching
 purposes, but as stated by the authors in [11] CORBA based solutions
@@ -99,6 +101,7 @@ are much more powerful.
  * CORBA based solutions introduce a level of complexity and
    cumbersomeness which we choose to avoid.  It can be difficult to
    intregrate CORBA solutions with other middleware.
+
 
 The description of the network protocole is
 really not at its place, what is the point? 
@@ -114,6 +117,7 @@ really not at its place, what is the point?
    of certain aspects of the protocol that might be relevant to justify
    YARP vs. CORBA or YARP vs. Player.
 
+
 In the other hand iCub
 could have been more described. Why don't you describe the modules
 already avaible or planned with YARP allowing the emergence of
@@ -121,6 +125,7 @@ cognitive capabilities, and which makes YARP unique.
 
  * This would take us quite far from the scope of the paper, as
    described in the abstract.
+
 
 For instance, you use ACE p.4, but not TAO from the same group. Why
 don't you justify this choice ? Real-time corba such as ORBIX are now
@@ -133,7 +138,7 @@ used in humanoids robots such as HRP-2.
 	- Ideally YARP should improve this separation between modules which
 	  allows replacing parts without too much suffering.
 
- * We haven't mentioned too explicitely that YARP doesn't try to do everything 
+ * We haven't mentioned too explicitly that YARP doesn't try to do everything 
    and can coexhist nicely with many other libraries:
 	- GSL
 	- GTK/mm, glade
@@ -144,6 +149,7 @@ used in humanoids robots such as HRP-2.
 	- Boost
 	- mpeg
    this directly in C++. There's more using SWIG (e.g. Java -> Matlab).
+
 
 They are also other highly
 efficient CORBA implementation which are very suited to soft real-time
