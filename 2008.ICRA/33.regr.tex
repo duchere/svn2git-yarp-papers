@@ -26,44 +26,42 @@ For regression, we have considered three indicators of performance:
     \includegraphics[width=0.4\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1} \\
     \includegraphics[width=0.4\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1} \\
   \end{tabular}
-  \caption{Regression accuracy of best models, day $1$. First row: Mean Squared Error; second
-    row: Normalised Root MSE; third row, Squared Correlation Coefficient.}
+  \caption{Regression accuracy of best models, day $1$. First pane: Mean Squared Error; second
+    pane: Normalised Root MSE; third pane, Squared Correlation Coefficient.}
   \label{fig:best_regr}
 \end{figure}
 
-Figure \ref{fig:best_regr} shows the results for day $1$. Consider
-the first row, plotting the NRMSE for each session: as it is
-apparent, as it was for classification, there is no clear
-advantage of one approach over another. NNs perform slightly
-better as far as the NRMSE is concerned, which is probably the
-most interesting measure of performance, when moving to a real
-setting. Their error is on average $10.54\% \pm 1.41\%$ and
-$10.01\% \pm 1.93\%$. But as well, both LWPR and SVM perform quite
-well, their average errors ranging from $10.54\%$ to $11.98\%$.
+Figure \ref{fig:best_regr} shows the results for day $1$. Consider the
+first pane, plotting the NRMSE for each session: as it is apparent, as
+it was for classification, there is no clear advantage of one approach
+over another. NNs perform slightly better as far as the NRMSE is
+concerned, which is probably the most interesting measure of
+performance, when moving to a real setting. Their error is on average
+$10.54\% \pm 1.41\%$ and $10.01\% \pm 1.93\%$. But as well, both LWPR
+and SVM perform quite well, their average errors ranging from
+$10.54\%$ to $11.98\%$.
 
-Consider now the second and third rows of the Figure. First of all
-it is there is a clear inverse correlation between the MSE and the
-SCC, as it is expected: for both days and for all approaches, a
-larger MSE corresponds to a lower SCC. Secondly, it is once again
-clear that the generalisation performance strongly depends on
-which data we have used to train the machines: consider for
-instance the MSE attained by SVM on day $1$ (Figure
+Consider now the second and third panes of the Figure. First of all
+there is a clear inverse correlation between the MSE and the SCC, as
+it is expected: for both days and for all approaches, a larger MSE
+corresponds to a lower SCC. Secondly, it is once again clear that the
+generalisation performance strongly depends on which data we have used
+to train the machines: consider for instance the MSE attained by SVM
+on day $1$ (Figure
 \ref{fig:best_regr}, second row): the best model was trained upon
-data coming from sessions $6$ and $12$, although uniformised, and
-not surprisingly those are the sessions for which the MSE is
-minimum; the same effect is present for the other approaches.
+data coming from sessions $6$ and $12$, although uniformised, and not
+surprisingly those are the sessions for which the MSE is minimum; the
+same effect is present for the other approaches.
 
 Lastly, in practical terms: the best average MSE obtained by NNs
-($6.27\cdot 10^4 \pm 2.36\cdot 10^4$ and $4.76\cdot 10^4 \pm
-1.52\cdot 10^4$) corresponds to, in turn, an average error of 5N
-and $4.36$N. Figure \ref{fig:regression} shows some samples of the
-force values obtained from the OFTS, along with the corresponding
-values predicted by the best approach, that is, NNs. As one can
-see, despite the non perfect correspondence of the two curves, the
-NN definitely follows the real target to a remarkable degree of
-accuracy, for a wide range of frequencies of the
-pressing/releasing action. The Figure shows data taken from three
-different sessions, in decreasing order of performance.
+($6.27\cdot 10^4 \pm 2.36\cdot 10^4$ and $4.76\cdot 10^4 \pm 1.52\cdot
+10^4$) corresponds to, in turn, an average error of 5N and
+$4.36$N. Figure \ref{fig:regression} shows some samples of the force
+values obtained from the OFTS, along with the corresponding values
+predicted by the best approach, that is, NNs. As one can see, despite
+the non perfect correspondence of the two curves, the NN definitely
+follows the real target to a remarkable degree of accuracy, for a wide
+range of frequencies of the pressing/releasing action.
 
 \begin{figure}\centering
   \begin{tabular}{c}

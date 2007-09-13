@@ -13,19 +13,19 @@
 %it on a testing set, possibly employing standard measures of the
 %generalisation error, such as cross-validation.
 
-Taking into account the considerations of the previous Section, we
-set the input space to be $\RR^{10}$, that is, one coordinate for
-each EMG electrode; therefore, $\xx_i \in \RR^{10},
-i=1,2,\ldots,l$. In the case of classification, each category
-representing a grasping type would be represented as an integer
-value, that is, $y_i \in \{0,1,\ldots,4\} \subset \NN,
-i=1,2,\ldots,l$. In the case of regression, the force value would
-be directly encoded as a real number, that is, $y_i \in \RR,
-i=1,2,\ldots,l$. Before any analysis, all samples were normalised,
-as is customary, by subtracting the mean values and dividing by
-the standard deviation, for each input space dimension. No
-filtering whatsoever was applied to the input signals, in order to
-have a more realistic, delay-free result.
+Let $\{\xx_i,y_i\}_{i=1}^l$ denote the \emph{training set}, that is,
+the set of samples gathered for training a machine learning system.
+Taking into account the considerations of the previous Section, we set
+the input space to be $\RR^{10}$, that is, one coordinate for each EMG
+electrode; therefore, $\xx_i \in \RR^{10}$. In the case of
+classification, each category representing a grasping type would be
+represented as an integer value, that is, $y_i \in
+\{0,1,\ldots,4\}$. In the case of regression, the force value would be
+directly encoded as a real number, that is, $y_i \in \RR$. Before any
+analysis, all samples were normalised, as is customary, by subtracting
+the mean values and dividing by the standard deviation, for each input
+space dimension. No filtering whatsoever was applied to the input
+signals, in order to have a more realistic, delay-free result.
 
 \subsubsection{Neural Networks}
 
@@ -68,7 +68,6 @@ Levenberg-Marquardt.
 
 \subsubsection{Support Vector Machines}
 
-
 %Support Vector Machines (SVMs; see, e.g.,
 %\cite{BGV92,Burges98,Cristianini00}) are a machine learning method
 %able to determine the best candidate function for a classification
@@ -107,57 +106,50 @@ Levenberg-Marquardt.
 %an approach such as SVMs to sample the input space in a non-uniform
 %way such as that described above.
 
-The data sets used in the SVMs were uniformised before training.
-This uniformisation procedure consists of removing, from a
-training set, those samples which are too close to each other,
-according to a suitable notion of inter-sample distance, using
-Mahalanobis's distance as the inter-sample distance. Let $\xx_1,
-\xx_2 \in \RR^{10}$; then the Mahalanobis distance between $\xx_1$
-and $\xx_2$ is defined as
+The data sets used in the SVMs were uniformised before training.  The
+uniformisation procedure consists of removing from a training set
+those samples which are too close to each other, according to the
+Mahalanobis distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the
+Mahalanobis distance between $\xx_1$ and $\xx_2$ is defined as
+
 $$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
-where $\Sigma$ is the $10\times10$ covariance matrix, evaluated on
+
+\noindent where $\Sigma$ is the $10\times10$ covariance matrix, evaluated on
 the training set. $MD(\xx_1,\xx_2)$ is a distance in which each
 summand is weighted inversely with respect to the variance of the
 samples along that dimension of the input space: it is therefore a
 measure of distance independent of the variance of the single
-electrodes. Notice that if $\Sigma$ is replaced by the identity
-matrix, $MD(\xx_1,\xx_2)$ is reduced to the usual notion of
-Euclidean distance.
+electrodes.
 
-Since checking the inter-sample distance obviously takes a quadratic
-time with respect to the number of samples, which was unfeasible, we
-adopted an approximated method which was able to remove most, but not
-all, samples with an insufficient Mahalanobis distance from any other
-sample. After a few initial experiments we set the threshold distance
-at $1$. We also decided to employ the Gaussian kernel. All our
-experiments with SVMs were then performed on uniformised training
-sets, using $5$-fold cross-validation and grid search to find the
-optimal values of the standard Gaussian kernel hyperparameters, $C$
-and $\sigma$.
-
-On the other hand, notice that no \emph{testing} set was uniformised,
-since it would probably be unfeasible to apply the same procedure in
-an on-line setting. Notice, further, that applying uniformisation
-resulted in training sets which were considerably smaller than the
-original ones, up to about $100$ times smaller.
-
-Lastly, we employed a well-known freely available SVM package,
+Since checking the inter-sample distance takes a quadratic time with
+respect to the number of samples, which was unfeasible, we adopted an
+approximated method which was able to remove most, but not all,
+samples too close to any other sample. After a few initial experiments
+we set the threshold distance at $1$. We also decided to employ the
+Gaussian kernel. All our experiments with SVMs were then performed on
+uniformised training sets, using $5$-fold cross-validation and grid
+search to find the optimal values of the standard Gaussian kernel
+hyperparameters, $C$ and $\sigma$. On the other hand, notice that no
+\emph{testing} set was uniformised, since it would probably be
+unfeasible to apply the same procedure in an on-line setting. Notice,
+further, that applying uniformisation resulted in training sets which
+were considerably smaller than the original ones, up to about $100$
+times smaller. We employed a well-known freely available SVM package,
 \emph{libsvm} v2.83 \cite{ChangL01}, in the Matlab wrapped flavour.
 
 \subsubsection{Locally Weighted Projection Regression}
 
 Locally Weighted Projection Regression (LWPR \cite{lwpr}) is a
-regression method especially targeted for high-dimensional spaces
-with redundant and irrelevant input dimensions. It employs locally
-linear models, each of which performs univariate regressions in
-selected directions in the input space. It has a computational
-complexity that is linear in the number of inputs, but due to its
-incrementality it can take long time to train (as we verified it
-was the case). Therefore we used it for regression only, and
-trained it with the uniformisation procedure.
+regression method especially targeted for high-dimensional spaces with
+redundant and irrelevant input dimensions. It employs locally linear
+models, each of which performs univariate regressions in selected
+directions in the input space. It has a computational complexity that
+is linear in the number of inputs, but due to its incrementality it
+can take long time to train (as we verified). Therefore we used it for
+regression only, and trained it with the uniformisation procedure.
 
 We used the latest stable C version of LWPR, kindly made available by
 Stefan Klanke, wrapped in a Matlab command interface. We chose to use
-the Radial Basis Function kernel and meta-learning, and then
-performed $5$-fold cross-validation and found the initial values of
-the distance metric for receptive fields by grid search.
+the Radial Basis Function kernel and meta-learning, and then performed
+$5$-fold cross-validation and found the initial values of the distance
+metric for receptive fields by grid search.

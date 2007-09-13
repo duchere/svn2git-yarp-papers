@@ -4,18 +4,18 @@ subject, $(b)$ the force applied by the subject while grasping.
 
 \subsubsection{General setup description}
 
-The experiment consisted of freely, repeatedly grasping a
-SpaceControl OFTS force/torque sensor \cite{ofts} orthogonally to
-its large face. Four different ways of pressing were allowed:
-opposing the thumb and index, the thumb and middle, the thumb and
-ring or the thumb and all other fingers, at different speeds and
-with varying force. Four force sensing resistors (FSRs) were
-applied on the subject's hand fingertips (thumb, index, middle and
-ring), in order to be able to detect which grasp type was used at
-each instant of time. At the same time, $10$ forearm surface EMG
-electrodes were applied to the subject's forearm, held in place by
-elastic bands, in order to gather information about the muscle
-activation. Figure \ref{fig:setup} shows some parts of the setup.
+The experiment consisted of freely, repeatedly grasping a SpaceControl
+OFTS force/torque sensor \cite{ofts} orthogonally to its large
+face. Four different ways of pressing were allowed: opposing the thumb
+and index, the thumb and middle, the thumb and ring or the thumb and
+all other fingers, at different speeds and with varying force. Four
+force sensing resistors (FSRs) were applied on the subject's hand
+fingertips (thumb, index, middle and ring), in order to be able to
+detect which grasp type was used at each instant of time. At the same
+time, $10$ forearm surface EMG electrodes were applied to the
+subject's forearm, held in place by elastic bands, in order to gather
+information about the muscle activation. Figure \ref{fig:setup} shows
+some parts of the setup.
 
 \begin{figure} \centering
   \begin{tabular}{cc}
@@ -32,41 +32,40 @@ activation. Figure \ref{fig:setup} shows some parts of the setup.
 \end{figure}
 
 Numerical data from the EMG electrodes and FSRs were gathered at a
-sampling rate of $256$Hz using a National Instruments DAQ
-PCI-6023E analogic/digital conversion card \cite{nidaq}, mounted
-on a fast PC equipped with Windows XP. Data coming from the OFTS
-sensors was gathered via the serial port at about $80$KHz. The
-data were subsequently synchronised.
+sampling rate of $256$Hz using a National Instruments DAQ PCI-6023E
+analogic/digital conversion card \cite{nidaq}, mounted on a fast PC
+equipped with Windows XP. Data coming from the OFTS sensors was
+gathered via the serial port at about $80$KHz. The data were
+subsequently synchronised.
 
 \subsubsection{EMG signal and electrode placement}
 
-The $10$ EMG electrodes were applied to the subject's right
-forearm, held in place by elastic bands. The electrodes were
-double-differential Otto Bock 13E200=50 models \cite{ottobock},
-used at an amplification factor of about $14,000$. Six of the
-electrodes were placed in pairs along the lower face of the
-forearm, whereas four of them were applied in pairs on the upper
-face. Placement was done following the description in
-\cite{smagt}, which proved to be optimal for Support Vector
-Machine classification of hand postures.
+The $10$ EMG electrodes were applied to the subject's right forearm,
+held in place by elastic bands. The electrodes were
+double-differential Otto Bock 13E200=50 models \cite{ottobock}, used
+at an amplification factor of about $14,000$. Six of the electrodes
+were placed in pairs along the lower face of the forearm, whereas four
+of them were applied in pairs on the upper face. Placement was done
+following the description in \cite{smagt}, which proved to be optimal
+for Support Vector Machine classification of hand postures.
 
-As far as the EMG signal is concerned, it must be remarked that it
-is subject to remarkable changes depending on, at least, four
-orders of factors: (1)~the subject, (2)~the arm posture,
-(3)~electrode placement, and (4)~muscle fatigue. As far as the
-first problem is concerned, since in a real setting one person
-only is expected to train and wear the prosthesis, we have not
-investigated multi-subject feasibility of the approach,
-concentrating on one subject only, male, aged $35$ and fully
-able-bodied. In subsequent work, independent multi-subject
-analysis will have to be carried on.
+As far as the EMG signal is concerned, it must be remarked that it is
+subject to remarkable changes depending on, at least, four orders of
+factors: (1)~the subject, (2)~the arm posture, (3)~electrode
+placement, and (4)~muscle fatigue. As far as the first problem is
+concerned, since in a real setting one person only is expected to
+train and wear the prosthesis, we have not investigated multi-subject
+feasibility of the approach, concentrating on one subject only, male,
+aged $35$ and fully able-bodied. In subsequent work, independent
+multi-subject analysis will have to be carried on.
 
-In order to overcome the second problem, we instructed the subject
-to keep the arm still and relaxed on a table in a comfortable
-position, with the palm orthogonal to the plane of the table.
-Again, a deeper investigation is required in a real setting, since
-the prosthesis is supposed to be worn all day long in all possible
-tasks of everyday life.
+In order to overcome the second problem, we instructed the subject to
+keep the arm still and relaxed on a table in a comfortable position,
+with the palm orthogonal to the plane of the table. Again, a deeper
+investigation is required in a real setting, since the prosthesis is
+supposed to be worn all day long in all possible tasks of everyday
+life.
+
 %
 %Lastly, as far as muscle fatigue and electrode displacement are
 %concerned: in general, electrodes \emph{cannot} be expected to exactly
@@ -80,7 +79,7 @@ tasks of everyday life.
 
 We then organised the experiment as follows: the subject was
 instructed to continually grasp the sensor over a period of time of
-three to four minutes; then he was allowed to rest for about two
+$3$ to $4$ minutes; then he was allowed to rest for about two
 minutes. This was called a \emph{session}. It was expected that muscle
 fatigue would appear already during one session.
 

@@ -1,13 +1,13 @@
-In the framework of robotics for prosthetics, it is nowadays
-possible to build mechanically advanced prostheses, such as
-mechanical hands able to replicate a fair amount of the movements
-required by the disabled to carry on living in a decent way.
-Attempts in this sense include, e.g., the DLR prosthetic hand
-\cite{Hua2006}, the CyberHand project \cite{cyberhand}, and the
-i-LIMB hand by Touch Bionics \cite{ilimb}. Still, a general sense
-of frustration impends, as far as control is concerned. How is an
-amputee supposed to command the prosthesis what to do (i.e., how
-to grasp an object) and with what force.
+In the framework of robotics for prosthetics, it is nowadays possible
+to build mechanically advanced prostheses, such as mechanical hands
+able to replicate a fair amount of the movements required by the
+disabled to carry on living in a decent way.  Attempts in this sense
+include, e.g., the DLR prosthetic hand (\cite{Hua2006} --- see Figure
+\ref{fig:DLRHandII}), the CyberHand project \cite{cyberhand}, and the
+i-LIMB hand by Touch Bionics \cite{ilimb}. Still, a general sense of
+frustration impends, as far as control is concerned. How is an amputee
+supposed to command the prosthesis what to do (i.e., how to grasp an
+object) and with what force?
 
 \begin{figure}
   \begin{tabular}{cc}
@@ -17,31 +17,31 @@ to grasp an object) and with what force.
   \caption{(left) The DLR Hand II. (right) The DLR prosthetic hand.}
   \label{fig:DLRHandII}
 \end{figure}
+
 To this end, two types of interfaces between the patient and the
 prosthesis have been developed or are being studied:
 \emph{invasive} and \emph{non-invasive}. The former involve
-control based upon signals gathered directly from the user's
-nervous system, either via brain implants or surgical use of
+control based upon signals gathered directly from the user's nervous
+system, either via brain implants or surgical use of
 electrodes. Invasive interfaces are supposed to guarantee a higher
 signal quality as far as control is concerned, but involve
-surgery. Non-invasive interfaces are easier to handle, manufacture
-and implant, but require a much better signal conditioning, since
-they usually work with surface (skin) signals or vision and gaze
-tracking.
+surgery. Non-invasive interfaces are easier to handle, manufacture and
+implant, but require a much better signal conditioning, since they
+usually work with surface (skin) signals or vision and gaze tracking.
 
-In the context of non-invasive interfaces for controlling
-mechanical hands, a concrete possibility arises from \emph{forearm
-surface electromyography (EMG)} \cite{zecca}, a technique by which
-muscle activation potentials are gathered by electrodes placed on
-the patient's forearm skin; these potentials can be used to track
-what muscles the patient is activating, and with which force.
-Still, the EMG signal suffers from a number of problems, among
-which the placement of the electrodes, signal drifting and change
-due to sweat formation and muscular fatigue and cross-talking
-among deep and superficial muscles. See \cite{deluca} for an
-overview of the problems posed by this signal. In this paper, we
-pursue the approach based upon \emph{machine learning} techniques
-already attempted in, e.g., \cite{dunlop,fukuda,smagt}.
+In the context of non-invasive interfaces for controlling mechanical
+hands, a concrete possibility arises from \emph{forearm surface
+electromyography (EMG)} \cite{zecca}, a technique by which muscle
+activation potentials are gathered by electrodes placed on the
+patient's forearm skin; these potentials can be used to track what
+muscles the patient is activating, and with what force.  Still, the
+EMG signal suffers from a number of problems, among which the
+placement of the electrodes, signal drifting and change due to sweat
+formation and muscular fatigue and cross-talking among deep and
+superficial muscles. See \cite{deluca} for an overview of the problems
+posed by this signal. In this paper, we pursue the approach based upon
+\emph{machine learning} techniques already attempted in, e.g.,
+\cite{dunlop,fukuda,smagt}.
 % Therefore
 %we seek to approximate a map such as the one described above by
 %choosing a function in a suitable functional space, based upon a
@@ -68,12 +68,13 @@ analysis of what machine learning can do when applied to such a
 problem. Over two days, we have gathered forearm surface EMG data
 while holding a force sensor with different finger combinations.
 We have then trained three different machine learning systems to
-compute, from the EMG signal, the finger movement and the finger
+compute, from the EMG signal, the finger movements and the finger
 force. The three approaches we have experimented with are: $(a)$ a
 simple feed-forward neural network with one hidden layer, $(b)$ a
 Support Vector Machine with radial basis function kernel
 \cite{BGV92}, $(c)$ Locally Weighted Projection Regression
 \cite{lwpr}.
+
 % All approaches were trained on a massive amount of
 %data, but bearing in mind the following important point: in a real
 %setting, that is, when a patient is required to train the

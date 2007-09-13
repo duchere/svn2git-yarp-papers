@@ -25,7 +25,7 @@ experimentation. We decided to use SVMs for classification. We then
 decided to test whether data obtained during one session could be used
 to build a model able to generalise over other sessions during the
 same day. At the same time, we wanted to check whether the
-uniformisation procedure (see Section \ref{subsec:strategy}) would be
+uniformisation procedure (see Section \ref{subsec:analysis}) would be
 effective in reducing the training set, at the same time without
 losing relevant information.
 
@@ -39,10 +39,10 @@ $i$}. Moreover, in the remainder of this Subsection, if the training
 set of a model was uniformised, we will call the model \emph{uniform}.
 
 We then tested each model on all sessions of the same day, obtaining
-therefore an \emph{accuracy matrix} $A$ in which $A_{ij}$ would be a
-percentage denoting the correctly guessed labels when testing model
-$i$ (standard or uniform) on session $j$. Notice once again that, in
-the case of uniform models, the test is carried out on the \emph{full}
+an \emph{accuracy matrix} $A$ in which $A_{ij}$ would be a percentage
+denoting the correctly guessed labels when testing model $i$ (standard
+or uniform) on session $j$. Notice once again that, in the case of
+uniform models, the test is carried out on the \emph{full}
 session. This is what we would call a \emph{cross-session analysis}.
 The result is visible in Figure \ref{fig:cross_initial}.
 
@@ -76,8 +76,7 @@ testing data, and a quite smaller subset indeed. But as well, if
 we consider the remaining elements of the matrices, it is clear
 that the uniform models attain a better accuracy \emph{overall},
 if compared to the full models. The same analysis for day $2$
-yields analogous results (consider the above Figure, panes $(c)$
-and $(d)$).
+(same Figure, $(c)$ and $(d)$) yields analogous results.
 
 From this we conclude that the uniformisation procedure is effective
 in reducing the training set size, without actually degrading the
@@ -106,20 +105,19 @@ electrode displacement was present.
 More in detail, as far as the first day is concerned (same Figure,
 pane $(b)$), one can see that the first six models (trained on the
 first two groups) obtain a quite good accuracy on the first six
-sessions (first two groups) whereas their accuracy rapidly
-degrades as more sessions are tested for. This is probably due to
-the first two groups having been gathered in similar conditions,
-very similar electrode positions and/or similar movements
-performed by the subject. On the other hand, sessions in the last
-group (columns $13$, $14$ and $15$ of the matrix) are particularly
-hard, except when tested by models obtained from the last group
-itself---here the effect is probably motivated by the opposite
-reason: during those sessions, the subject must have explored more
-relevant parts of the input space. This is corroborated by the
-fact that models $13,14,15$ perform rather well on \emph{all}
-sessions, if compared to other models (check rows $13,14,15$ of
-the matrix). In other words, sessions $13,14,15$ contain more
-relevant information than the others.
+sessions (first two groups) whereas their accuracy rapidly degrades as
+more sessions are tested for. This is probably due to the first two
+groups having been gathered in similar conditions, very similar
+electrode positions and/or similar movements performed by the
+subject. On the other hand, sessions in the last group (columns $13$,
+$14$ and $15$ of the matrix) are particularly hard, except when tested
+by models obtained from the last group itself---here the effect is
+motivated by the opposite reason: during those sessions, the subject
+must have explored more relevant parts of the input space. This is
+corroborated by the fact that models $13,14,15$ perform rather well on
+\emph{all} sessions, if compared to other models (check rows
+$13,14,15$ of the matrix). In other words, sessions $13,14,15$ contain
+more relevant information than the others.
 
 Analogous considerations can be made by inspecting the accuracy matrix
 of the second day, pane $(d)$ of the Figure.
