@@ -1,54 +1,64 @@
-As far as regression is concerned, the results presented above are, to
-the best of our knowledge, totally novel. Surprinsingly, regression
-from the forearm surcafe EMG signal to the force applied by the hand
-had never been attempted before. Given the good performance obtained
-by our models, we claim that the relationship between the EMG signal
-and the force has been captured by the models, under variable
+Our experimental results, performed on a large data set of about
+$153000$ samples, clearly show that the Online Uniformisation
+procedure can be used uniformly to obtain dramatically smaller
+training sets with no \emph{qualitative} loss of information; in other
+words, as more of the input space is sampled, OU keeps the training
+set up-to-date and small. OU sets will result in fast and accurate
+models of the sought-for EMG-to-hand map. Remarkably, OU works fine
+for both grasp classification and force regression, and with all three
+different machine learning approaches. Moreover, OU is extremely
+simple, being nothing more than an online check of Euclidean distance
+in the input space. This check is done so far by considering the new
+sample's distance from all samples in the current training set, and
+therefore could become unfeasibly heavy as the set grows; but the same
+check can be done in constant time using an algorithmic optimisation,
+such a hash table.
+
+We believe this is the first step toward the real application of
+machine learning to an EMG-driven adaptive, dexterous hand
+prosthesis. Let us consider the problems outlined in Subsection
+\ref{subsubsec:electrodes}: in this paper we have solved problems
+$3$ and $4$. Now, since OU lets us obtain good accuracy with extremely
+small training sets, it is not too far-fetched to say that the
+solution of problem $2$ is at hand --- in principle, the changing arm
+posture can be taken into account simply by sampling more of the input
+space. Problem $1$ is, really, of lesser interest, since one patient
+only is supposed to ever wear a prosthesis.
+
+As far as force regression is concerned, the results presented above
+are, to the best of our knowledge, totally novel. Surprinsingly,
+regression from the forearm surcafe EMG signal to the force applied by
+the hand had never been attempted before. Given the good performance
+obtained by our models, we claim that the relationship between the EMG
+signal and the force has been captured by the models, under variable
 conditions of muscle fatigue (within one session) and electrode
 displacement (within sessions belonging to different groups).
 
-One remarkable point, to be further investigated, is the
-\emph{correct} sampling of the EMG signal. The signal presents, as
-already said, a wide variance due to a number of factors. Our work
-shows clearly that, if the relevant data only is gathered, a
-remarkable accuracy, both in classification and regression, can be
-achieved. So far, this has been done using $(a)$ the uniformisation
-procedure to \emph{reduce} the training sets, that is, to eliminate
-form the training sets irrelevant data; and $(b)$ a careful
-a-posteriori selection of the models which had performed best on a
-thorough cross-sessions analysis.
+All in all, in this paper we have presented a machine learning
+approach to joint classification of grasping and regression on the
+applied force, using forearm surface electromyography. The approach is
+totally non-invasive, easy to set up and use and it can be applied
+from scratch with no previous knowledge of the problem. The Online
+Uniformisation procedure can be used to incrementally build a training
+set which will result in small and accurate models of the problem.
 
-Both procedures, actually, can be seen as the need to sample the
-relevant portion of the input space in a uniform way. One can think of
-an online version of the uniformisation procedure, in which new
-samples deemed irrelevant (according to a suitable inter-sample
-distance measure, such as the Mahalanobis distance) are rejected and
-never used for training. The same procedure would, when presented with
-samples sufficiently distant from the current training set, decide to
-actually use them. This could possibly lead to an incrementally
-growing training set, which would eventually reach a plateau, when all
-relevant portions of the input space have been explored by the user.
+Our experiments, carried out using a Support Vector Machine with
+Gaussian kernel, a Neural Network with sigmoidal activation function
+and Locally Weighted Projection Regression, indicate that the approach
+achieves, using a training set of about $1800$ samples on a total of
+$153000$ (for $d=021$), an average accuracy of around $90\%$ in
+classification of grasp types and a normalised root MSE of $7.89\%$ in
+prediciton of the force applied during the grasp. Of the tested
+approaches, SVM is marginally better than the others, especially when
+larger training sets are used. The OU procedure is able to find as
+small a training set as $77.4$ samples on average (out of $153000$),
+which will still result in a SVM having an NRMSE of $12.12\%$.
 
-The current setup and analysis can be improved in a number of ways,
-among which:
-
-\begin{enumerate}
-
-  \item a better way of gathering the force at the finger joints, not
-    only via the force/torque sensor which is unable to detect the
-    onset of finger movements, but also using torque sensors applied
-    at the finger joints directly;
-
-  \item subsampling, pre- and post-filtering, which would probably
-    lead to a better conditioned signal in input, and a more suitable
-    control signal in output;
-
-  \item sampling in different positions of the arm (not only the
-    forearm), and/or while the arm is moving, as it happens in the
-    real life of a disabled person wearing the prosthesis. This would
-    heavily involve a good sampling strategy.
-
-\end{enumerate}
-
-As far as driving a prosthesis is concerned, \textbf{[[PATRICK will
-you say something here???]}
+Future work can be divided in three steps: firstly, problem $2$ of 
+\ref{subsubsec:electrodes} must be taken into account by gathering
+more samples, possibly with a more sophisticated EMG/force sensing
+setup. Secondly, once a stable model has been built, the actual
+position/force control of a mechanical hand must be realised. And
+thirdly, in the medium-to-long term, we plan to implant the hand on a
+disabled person with extensive experiments to test the real usability
+of the proposed approach.

@@ -35,14 +35,13 @@ in order to gather information about the muscle activation. Figure
   \label{fig:setup}
 \end{figure*}
 
-Numerical data from the EMG electrodes and FSRs were gathered at a
-sampling rate of $256$Hz using a National Instruments DAQ PCI-6023E
-analogic/digital conversion card \cite{nidaq}, mounted on a fast PC
-equipped with Windows XP. Data coming from the OFTS sensors was
-gathered via the serial port at about $80$KHz. The data were
-subsequently synchronised and saved.
+Numerical data from the EMG electrodes, FSRs and OFTS were gathered at
+the fastest sampling rate we could obtain, that is, $256$Hz, using a
+National Instruments DAQ PCI-6023E analogic/digital conversion card
+\cite{nidaq}, mounted on a fast PC equipped with Windows XP.
 
 \subsubsection{EMG signal and electrode placement}
+\label{subsubsec:electrodes}
 
 The $10$ EMG electrodes were applied to the subject's right forearm,
 held in place by elastic bands. The electrodes were
@@ -53,7 +52,7 @@ for the amplification gauge was in the middle of the range,
 corresponding to about $14000$ times. This is in agreement with the
 EMG signal amplitude predicted in the related literature (see, e.g.,
 \cite{deluca}), that is about $100 \mu V$ on average: the voltages our
-DAQ card read ranged from slightly more than $0V$ to $3V$.
+DAQ card read ranged from $0V$ to about $2.5V$.
 
 Six of the electrodes were placed in pairs along the lower face of the
 forearm, whereas four of them were applied in pairs on the upper
@@ -69,8 +68,8 @@ factors:
 
 \begin{enumerate}
 
-  \item \emph{the subject.} All forearms are different from one
-    another in shape, size and power.
+  \item \emph{inter-subject variability.} All forearms are different
+    from one another in shape, size and power.
 
   \item \emph{arm posture.} Besides finger movements and grasping, the
     forearm muscles are also involved in the motion of the arm. The
@@ -79,11 +78,12 @@ factors:
     pronation to supination. Even raising the shoulder to lift the
     forearm from the table will result in remarkable signal changes.
 
-  \item \emph{electrode placement.} The intensity and quality of the
-    EMG signal depends upon a correct placement of the electrode over
-    a muscle. In principle, each electrode should be placed over a
-    single muscle, precisely on top of the muscle belly, halfway the
-    length of the muscle, and always exactly in the same place.
+  \item \emph{electrode displacement.} The intensity and quality of
+    the EMG signal depends upon a correct placement of the electrode
+    over a muscle. In principle, each electrode should be placed over
+    a single muscle, precisely on top of the muscle belly, halfway the
+    length of the muscle, and always exactly in the same
+    place. Displacing the electrodes will alter the signal.
 
   \item \emph{muscle fatigue.} As the muscles are used more and more,
     continually, fatigue changes the RMS of the EMG signal, calling
@@ -92,73 +92,61 @@ factors:
 
 \end{enumerate}
 
-As far as the first problem is concerned, since in a real setting one
-person only is expected to train and wear the prosthesis, we have not
-investigated multi-subject feasibility of the approach, concentrating
-on one subject only, male, aged $35$ and fully able-bodied. Of course,
-further investigation is required to check whether the approach can be
-transferred to real amputees, by exploiting the residual potential
-muscular activation left in their forearm stump. Moreover, independent
-multi-subject analysis will have to be carried on, in order to check
-that the described approach works with the same accuracy results for
-any human being.
-
-In order to overcome the second problem, we instructed the subject to
+Problems $1$ and $2$ have been for now neglected by concentrating on
+one subject only, male, aged $35$ and fully able-bodied, instructed to
 keep the arm still and relaxed on a table in a confortable position,
-with the palm orthogonal to the plane of the table. Again, a deeper
-investigation is required in a real setting, since the prosthesis is
-supposed to be worn all day long in all possible tasks of everyday
-life.
+with the palm orthogonal to the plane of the table. See the Discussion
+Section for more about these issues.
 
-Lastly, as far as muscle fatigue and electrode displacement are
-concerned: in general, electrodes \emph{cannot} be expected to exactly
-lie in the very same position every time the prosthesis is used;
-moreover, in a preliminary round of experiments, muscle fatigue was
-clearly perceived by the subject during the experiment. In this
-framework, the only possibility to overcome these problems is to
-explicitly take them into account, gathering enough data to be able to
-train the machine under different conditions of electrode displacement
-and muscular fatigue.
+As far as muscle fatigue and electrode displacement are concerned,
+electrodes \emph{cannot} be expected to exactly lie in the very same
+position every time the prosthesis is used; moreover, in a preliminary
+round of experiments, muscle fatigue was clearly perceived by the
+subject during the experiment. In this framework, the only possibility
+to overcome these problems is to explicitly take them into account,
+gathering enough data to be able to train the machine under different
+conditions of electrode displacement and muscular fatigue.
 
 We then organised the experiment as follows: the subject was
 instructed to continually grasp the sensor over a period of time of
 three to four minutes; then he was allowed to rest for about two
 minutes. This was called a \emph{session}. It was expected that muscle
-fatigue would appear already during one session.
-
-Three sessions were gathered without taking the elastic bands off the
-subject's forearm, in order \emph{not} to have electrode displacement
-within such a set of sessions, that we called a \emph{group}. After
-each group, the electrodes and bands were removed and the subject was
-allowed for a much longer period of rest, ranging from half an hour to
-one hour. During resting in-between groups, the subject could get back
-to his normal muscular activity.
+fatigue would appear already during one session. Three sessions were
+gathered without taking the elastic bands off the subject's forearm,
+in order \emph{not} to have electrode displacement within such a set
+of sessions, that we called a \emph{group}. After each group, the
+electrodes and bands were removed and the subject was allowed for a
+much longer period of rest, ranging from half an hour to one
+hour. During resting in-between groups, the subject could get back to
+his normal muscular activity.
 
 Five groups were then gathered during one day; and this procedure was
 entirely repeated during another day. This procedure would allow us to
 examine a relevant amount of data, gathered along a relatively long
 period of time and under different conditions of muscle fatigue
-(within one session) and electrode displacement (between groups).
+(within one session) and electrode displacement (between groups). As
+an example, Figure \ref{fig:drift}, pane $(a)$, shows the typical
+electrode output during a session (moving average over about $10$
+seconds). One can notice strong low-frequency components due to muscle
+fatigue.
 
-As an example, Figure \ref{fig:drift} shows the typical electrode
-output during three different sessions: $1$ and $2$, belonging to the
-same group, and $7$ (moving average over about $10$ seconds). One can
-notice strong low-frequency components, essentially drifts due to
-muscle fatigue. As a matter of fact, a spectral analysis of the signal
-shows that most of the relevant information is contained in the range
-$0$ to $20-30$Hz, therefore sampling at $256$Hz proved later on to be
-a large overshoot.
+Spectral analysis of the EMG signal revelaed that all relevant
+information is limited to $10$Hz (damping of $-30$dB at that
+frequency), therefore sampling at $256$Hz proved to be a large
+overshoot. We will employ this fact later on.
 
 \begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.32\textwidth]{figs/el8_movingAvg_s1} &
-    \includegraphics[width=0.32\textwidth]{figs/el8_movingAvg_s2} &
-    \includegraphics[width=0.32\textwidth]{figs/el8_movingAvg_s7} \\
-    Session $1$ & Session $2$ & Session $7$ \\
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{figs/el8_movingAvg_s1} &
+    \includegraphics[width=0.45\textwidth]{figs/targets_zoom1} \\
+    $(a)$ & $(b)$ \\
   \end{tabular}
-  \caption{Typical behaviour of an electrode signal over different
-  sessions (moving average over about $10$ seconds). Drifting can be
-  clearly seen in the signal, due to muscle fatigue.}
+  \caption{$(a)$ Typical behaviour of an electrode signal over a
+    session (moving average over about $10$ seconds). Drifting can be
+    clearly seen in the signal, due to muscle fatigue. $(b)$ Typical
+    values output by the OFTS sensor (black solid line), and the
+    categories evaluated from the fingertip sensors values (red dotted
+    line).}
   \label{fig:drift}
 \end{figure*}
 
@@ -168,7 +156,8 @@ The OFTS force/torque sensor would output a (negative) integer
 numerical value ranging from $0$ to about $-5000$, expressed in
 fiftieths of a Newton. After normalisation, the range of the applied
 force would then be between $0N$ and $100N$, with a resolution of
-$0.02N$. Linearity of the sensor is guaranteed.
+$0.02N$. Linearity of the sensor is guaranteed, and was anyway
+manually verified.
 
 \subsubsection{Type of grasp}
 
@@ -194,20 +183,10 @@ feeling of the subject. Hysteresis is also supposed to somehow degrade
 the quality of the learning. Because of these factors we would never
 expected a close-to-$100\%$ classification accuracy, nor a perfect
 reconstruction of the applied force. A better setup is currently being
-studied, which would avoid these effects.
+studied, which would avoid these effects. Again, see the Discussion
+for more about this issue.
 
-Figure \ref{fig:targets} shows typical values of the OFTS sensor and
-the related categories. One can clearly see that the applied force is
-in general higher when grasp type $4$, all fingers involved, is used,
-as expected.
-
-\begin{figure*}[!ht] \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{figs/targets_zoom1} &
-    \includegraphics[width=0.45\textwidth]{figs/targets_zoom2} \\
-  \end{tabular}
-  \caption{Typical values output by the OFTS sensor (black solid line), and the
-    categories evaluated from the fingertip sensors values (red dotted
-    line). The Figures are zooms of the same session.}
-  \label{fig:targets}
-\end{figure*}
+Figure \ref{fig:drift}, pane $(b)$, shows typical values of the OFTS
+sensor and the related categories. One can clearly see that the
+applied force is in general higher when grasp type $4$, all fingers
+involved, is used, as expected.

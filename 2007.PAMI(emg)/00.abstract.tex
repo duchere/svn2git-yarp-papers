@@ -1,28 +1,18 @@
-In the framework of robotics for prosthetics, and specifically
-prosthetic hands, a general sense of frustration impends, as far as
-control is concerned. How is an amputee supposed to command the
-prosthesis what to do (i.e., how to grasp an object) and with what
-force (i.e., grasping a hammer or lifting an egg)? So far, in
-literature, the most interesting results have been achieved by
-applying machine learning to forearm surface electromyography (EMG) to
-\emph{classify} hand postures; but this approach lacks, in general,
-the possibility of quantitatively determining the force applied during
-the grasping act.
+In the framework of hand prosthetics, it is nowadays possible to build
+mechanical hands possessing a fair amount of the abilities required by
+the disabled to carry on living in a decent way. Still, a general
+sense of frustration impends, as far as \emph{control} of the
+prosthesis is concerned: given the current state of the art, it is
+basically impossible for the patient to precisely command the
+prosthesis what to do.
 
-In this paper we address the issue by applying machine learning to the
-problem of \emph{regression} from the EMG signal to the force a human
-subject is applying to a force sensor. A detailed comparative analysis
-among three different machine learning approaches (Neural Networks,
-Support Vector Machines and Locally Weighted Projection Regression)
-reveals that the type of grasp can be reconstructed with an average
-accuracy of $90\%$, and the applied force can be predicted with an
-average error of $10\%$N, corresponding to about $5$N over a range of
-$50$N. None of the tested approaches clearly outperforms the others,
-which seems to indicate that machine learning as a whole is a viable
-approach.
-
-Notwithstanding the well-known bad conditioning of the surface EMG
-signal then, this looks highly encouraging in applying machine
-learning to enable amputees gain a fine control over advanced
-prosthetic hands, also since a surface EMG setup can be cheaply and
-easily realised and it is totally non-invasive.
+In this paper, we use machine learning techniques to reconstruct the
+hand posture and applied force from the forearm surface
+electromyographic (EMG) signal, a particularly cheap, easy-to-set-up
+and non-invasive technique. We develop an effective tool for dealing
+with the well-known bad conditioning of the EMG signal, at the same
+time obtaining a remarkable accuracy both while reconstructing the
+desired posture of the hand and the desired applied force (a task
+which has never been solved in the past so far). The system can be
+applied on-line thanks to an advanced strategy to obtain extremely
+small models.

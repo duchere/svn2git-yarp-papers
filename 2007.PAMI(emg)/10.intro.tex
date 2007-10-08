@@ -1,86 +1,87 @@
-In the framework of robotics for prosthetics, it is nowadays possible
-to build mechanically advanced prostheses such as, e.g., mechanical
-hands able to replicate a fair amount of the movements required by the
-disabled to carry on living in a decent way. Attempts in this sense
-include, e.g., the CyberHand project \cite{cyberhand}, the i-LIMB hand
-by Touch Bionics \cite{ilimb} and the \textbf{[[PATRICK: XXX by the
-DLR!!]]}. Still, a general sense of frustration impends, as far as
-control is concerned. How is an amputee supposed to command the
-prosthesis what to do (i.e., how to grasp an object) and with what
-force (i.e., grasping a hammer or lifting an egg)?
+In the framework of hand prosthetics, it is nowadays possible to build
+mechanical hands possessing a fair amount of the abilities required by
+the disabled to carry on living in a decent way. Modern hand
+mechatronics has given us robotic hands which are highly humanoid,
+light and gifted with a number of degrees of freedom. Attempts in this
+sense include, e.g., the DLR prosthetic hand (\cite{Hua2006} --- see
+Figure \ref{fig:DLRHandII}), the CyberHand project \cite{cyberhand},
+and the i-LIMB hand by Touch Bionics \cite{ilimb}.
+
+\begin{figure}
+  \begin{tabular}{cc}
+    \includegraphics[height=0.12\textheight]{figs/DLRHand-Ball-comp.eps} &
+    \includegraphics[height=0.12\textheight]{figs/DLR-Prothese.eps}
+  \end{tabular}
+  \caption{(left) The DLR Hand II. (right) The DLR prosthetic hand.}
+  \label{fig:DLRHandII}
+\end{figure}
+
+Still, a general sense of frustration impends, as far as
+\emph{control} of the prosthesis is concerned. As a matter of fact,
+given the current state of the art, it is basically impossible for the
+patient to precisely command the prosthesis what to do; whereas,
+operating a hand requires a fine control down to the level of the
+single fingers. First of all, presented with a certain task such as
+turning a door handle or grabbing a car key, the patient must be able
+to enforce the correct grasping type; this involves the activation of
+some joints only, and in particular positions. Secondly, the amount of
+force involved in the grasp must be controlled, so that it is possible
+to grab, e.g., both a hammer without letting it slip and an egg
+without breaking it.
 
 To this end, two types of interfaces between the patient and the
 prosthesis have been developed or are being studied: \emph{invasive}
-and \emph{non-invasive}. The former involve control based upon signals
-gathered directly from the user's nervous system, either via brain
-implants or surgical use of electrodes. Invasive interfaces are
-supposed to guarantee a higher signal quality as far as control is
-concerned, since the source of the signal can be precisely localised;
-on the other hand, they involve surgery, plus a lot of work for the
-implantation and to ensure medium- and long-term
-sterility. Non-invasive interfaces are easier to handle, manufacture
-and implant, but require a much better signal conditioning, since they
-usually work with surface (skin) signals or vision and gaze tracking.
+and \emph{non-invasive}. The former gather control signals directly
+from the user's nervous system, either via brain implants or surgical
+use of electrodes. Quite obviously, invasive interfaces are supposed
+to guarantee a high signal quality, since the signals can be gathered
+exactly in the right spots; but they involve surgery and all related
+sterility issues. On the other hand, non-invasive interfaces are
+easier to handle, manufacture and implant, but require a much better
+signal conditioning, since they usually work with surface (skin)
+signals or vision and gaze tracking.
 
 In the context of non-invasive interfaces for controlling mechanical
 hands, a concrete possibility arises from \emph{forearm surface
 electromyography (EMG)} \cite{zecca}, a technique by which muscle
 activation potentials are gathered by electrodes placed on the
-patient's forearm skin; these potentials can be used to track what
-muscles the patient is activating, and with how much force.
-
+patient's forearm skin; these potentials can be used to track which
+muscles the patient is willing to activate, and with what force.
 Surface EMG is therefore, in principle, a cheap and easy way of
-detecting what the patient wants the prosthesis to do. Still, the EMG
-signal suffers from a number of problems, among which the placement of
-the electrodes (which cannot be supposed to be always precisely in the
-same place), signal drifting and change due to sweat formation and
-muscular fatigue and cross-talking among deep and superficial
-muscles. See \cite{deluca} for an overview of the problems posed by
-this signal. Therefore, willing to build a \emph{map} relating EMG
-activation potentials and muscle force (and therefore hand finger
-movements), one must resort to advanced mathematical techniques.
+detecting what the patient wants the prosthesis to do.
 
-In this paper, we pursue the approach based upon \emph{machine
-learning} techniques already attempted in, e.g.,
-\cite{dunlop,fukuda,smagt}. Therefore we seek to approximate a map
-such as the one described above by choosing a function in a suitable
-functional space, based upon a number of example known values of the
-map, i.e., values gathered during an experimental phase called
-\emph{training}. If the choice is good, the unknown target values
-corresponding to further points in the input space (in this case, EMG
-potential values) can be predicted on-line (\emph{testing} phase), and
-the patient's intention to move a muscle can be reconstructed.
+Still, the EMG signal suffers from a number of problems, among which
+the unprecise placement of the electrodes, signal drifting and change
+due to sweat formation and muscular fatigue and cross-talking among
+deep and superficial muscles. (See \cite{deluca} for an overview of
+the problems posed by this signal.) It seems, though, that good
+results can be obtained via \emph{machine learning} techniques, as
+shown in, e.g., \cite{dunlop,fukuda,smagt}. In machine learning, one
+tries to approximate an unknown function given its values in a number
+of samples; the application to the current problem is exactly that of
+building a map relating EMG activation potentials and muscle force,
+and therefore hand finger movements. Such a system must be highly
+adaptive, accurate and fast --- possibly, able to run in real time, as
+the patient is wearing the prosthesis.
 
-We focus here upon the initial task of building such a map for an
-able-bodied subject, and in particularly controlled conditions. In a
-subsequent phase, it is hoped that it will be possible to use this
-method to actually drive a mechanical hand implanted on an
-amputee. There are concrete possibilities to do this, since a
-remarkable muscular and nerve activity can still be present in hand
-amputees forearms, also years after the amputation has taken place.
-
-So far, in literature, machine learning applied to surface EMG has
-been able to \emph{classify} different postures of the hand. For
-example, the surface EMG signal can be used ot detect whether the
-patient is attempting a cylindric grasp or a two-finger grip
-\cite{ekvall}; but no indication about the amount of force involved in
-the grasping act is detected, so that it is impossible to distinguish
-between, e.g., a power grasp and a precision grip. Note that this is
-crucial in everyday life, since applying the same amount of force
-while grasping a hammer or an egg would result in slippage of the
-hammer, or breaking the egg.
-
-We show here a detailed comparative analysis of what machine learning
-can do when applied to such a problem. Over two days, we have gathered
+More in detail: so far, in literature, machine learning applied to
+surface EMG has been able to \emph{classify} different postures of the
+hand. For example, the surface EMG signal can be used to detect
+whether the patient is attempting a cylindric grasp or a two-finger
+grip \cite{ekvall}; but no indication about the amount of force
+involved in the grasping act is detected, so that it is impossible to
+distinguish between, e.g., a power grasp and a precision grip. We show
+here a detailed comparative analysis of what machine learning can do
+when applied to such a problem. Over two days, we have gathered
 forearm surface EMG data while the subject was gripping in four
 distinct ways a force sensor; we have then trained three different
 machine learning systems to guess, from the EMG signal,
 
 \begin{enumerate}
 
-  \item what kind of grasp the subject was doing, e.g., thumb and index
-    finger, thumb and middle finger, thumb and ring finger or thumb
-    and all other fingers; and
+  \item what kind of grasp the subject was doing, e.g., thumb and
+    index finger, thumb and middle finger, thumb and ring finger or
+    thumb and all other fingers; and
 
   \item how much force the subject was applying to the sensor, in
     order to understand whether the grasp was a power grasp or rather
@@ -89,32 +90,34 @@ machine learning systems to guess, from the EMG signal,
 \end{enumerate}
 
 Surprisingly, as far as we know, nobody has ever attempted so far to
-solve problem $2$.
+solve problem $2$. The three approaches we have experimented with are:
+$(a)$ a simple feed-forward neural network with one hidden layer,
+$(b)$ a Support Vector Machine with radial basis function kernel
+\cite{BGV92}, $(c)$ Locally Weighted Projection Regression
+\cite{lwpr}.
 
-The three approaches we have experimented with are: $(a)$ a simple
-feed-forward neural network with one hidden layer, $(b)$ a Support
-Vector Machine with radial basis function kernel \cite{BGV92}, $(c)$
-Locally Weighted Projection Regression \cite{lwpr}. All approaches
-were trained on a massive amount of data, but bearing in mind the
-following important point: in a real setting, that is, when a patient
-is required to train the prosthesis, training must eventually stop and
-the model so obtained must give good prediction results for a long
-time --- picture the ideal scenario in which training happens in the
-first day of use, and then the prosthesis must be used in the
-following months or years by the same person.
+Moreover, in order to be more realistic and take into account the
+non-stationarity of the EMG signal, we have used the data in an
+on-line fashion, presenting the samples one by one to the system, and
+developing a procedure for selecting ``important'' samples on-the-fly,
+as they are gathered from the setup. This procedure is called
+\emph{Online Uniformisation} and is based upon the very simple idea of
+keeping a minimum inter-sample Euclidean distance, in order to
+uniformly sample the input space. The idea is justified both
+intuitively and mathematically.
 
-This has involved a careful analysis of the short- and medium-term
-changes in the EMG signal. In other words, the correct way of
-\emph{sampling in the input space in a reasonable amount of time} must
-be found. We are not yet in the position of drawing rigorous
-conclusions about this, but it seems that a sensible way ahead has
-been found.
+The selected samples are then used to periodically re-train the
+system, and check that it has adapted to the new data. The training
+sets so obtained are remarkably small and thus usable on-line, and
+they offer an excellent trade-off between size and accuracy. In
+particular, while the size of the uniform training sets decays
+polynomially, the error rates seems to increase only linearly. This
+behaviour appears in both problems highlighted above (the former
+involving classification, the latter regression), and for all the
+approaches tested.
 
-Our numerical results indicate that, in such a scenario, the type of
-grasp can be reconstructed with an average accuracy of $90\%$, and the
-applied force can be predicted with an average percentage error of
-$10\%$, meaning about $5$N over a range $50$N. None of the tested
-approaches clearly outperforms the others, which seems to indicate
-that machine learning as a whole is a viable approach. All in all,
-this looks highly encouraging in applying machine learning to enable
-amputees gain a fine control over their prostheses.
+All in all, our numerical results indicate that, in such a scenario,
+the type of grasp can be reconstructed with an average accuracy of
+$xxxxxxxx\%$, and the applied force can be predicted with an average
+percentage error of $xxxx\%$, meaning about $xxxx$N over a range
+$xxxx$N.

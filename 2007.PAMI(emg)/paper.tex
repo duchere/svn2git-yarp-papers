@@ -1,21 +1,10 @@
+%
 % Surface EMG for Force Control of Mechanical Hands
-% Castellini, van der Smagt, Sandini
-% A submission to IEEE Trans. on Pattern Analysis and Machine Intelligence
-% A shorter version of this is submitted to ICRA 2008.
-
-% OVERALL NOTES FOR PATRICK:
+% Castellini, van der Smagt
 %
-% I am not sure all the very basic explanations about the machine
-% learning methods employed would be suitable for PAMI. I guess
-% everybody know what we are taking about when we talk about SVMs, there.
+% submitted to IEEE Trans. on Pattern Analysis and Machine Intelligence
 %
-% may be that PAMI is not the right place to submit, after all... what
-% do you think?
-%
-% reference to your ICRA06 paper is incomplete. I couldn't find the
-% vol. and page numbers....
-%
-% figures are all screwed up - never understood how to fix this.
+% October, 2007
 %
 
 \documentclass[journal]{IEEEtran}
@@ -28,37 +17,23 @@
 \usepackage{url}
 \usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
 
-% ------------ useful mathematical definitions
-
 \def\RR{\mathbb{R}}
 \def\NN{\mathbb{N}}
 \def\xx{\mathbf{x}}
 \def\ww{\mathbf{w}}
-\def\aa{\boldsymbol{\alpha}}
-\def\bb{\boldsymbol{\beta}}
-\def\ee{\mathbf{e}}
-\def\dd{\mathbf{d}}
-\def\mdd{\tilde{\dd}}
-\def\b{\mathcal{B}}
-\def\d{\mathcal{D}}
 
 \begin{document}
 
-% ------------ frontmatter
+\title{Surface EMG in Advanced Hand Prosthetics}
 
-\title{Surface EMG for Force Control of\\Mechanical Hands}
-
-\author{Claudio~Castellini, Patrick van der Smagt, Giulio~Sandini
-\thanks{C. Castellini \emph{(corresponding author)}
+\author{Claudio~Castellini, Patrick~van~der~Smagt
+\thanks{Claudio Castellini \emph{(corresponding author)}
   is with the LIRA-Lab, University of Genova,
   viale F. Causa, 13, 16145 Genova, Italy.
   e-mail: claudio.castellini@unige.it.}%
-\thanks{P. van der Smagt is with the DLR, German Aerospace Center,
+\thanks{Patrick van der Smagt is with the DLR, German Aerospace Center,
   Institute of Robotics and Mechatronics, Oberpfaffenhofen, Germany.
   e-mail: smagt@dlr.de.}%
-\thanks{G. Sandini is with the Italian Institute of Technology,
-  via Morego, 30, 16100 Genova, Italy.
-  e-mail: giulio.sandini@iit.it.}%
 }
 
 \maketitle
@@ -68,12 +43,10 @@
 \end{abstract}
 
 \begin{IEEEkeywords}
-advanced prosthetics, machine learning, EMG, force control, mechanical hands
+...........
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
-
-% ------------ sections
 
 \section{Introduction}
 \label{sec:introduction}
@@ -94,7 +67,7 @@ and analyse them.
 \label{subsec:setup}
 \input{21.setup}
 
-\subsection{Data Analysis}
+\subsection{Learning Methods}
 \label{subsec:analysis}
 \input{22.analysis}
 
@@ -102,32 +75,24 @@ and analyse them.
 \label{sec:exp}
 
 In this Section we describe the results obtained from the experimental
-evaluation of our data. In particular, we first describe the general
-strategy devised to train our machines; we then show a detailed
-comparison of the three approaches selected, first on the
-classification problem, and then on the regression problem.
+evaluation of our data. In particular, we first describe some
+preliminary results and consideations which have led us to develop the
+uniformisation procedure; we then show a detailed comparative analysis
+of the three approaches selected, first on the classification problem,
+and then on the regression problem, in which online uniformisation is
+used.
 
-\subsection{Training strategy}
+\subsection{Preliminary results}
 \label{subsec:strategy}
 \input{31.strategy}
 
-\subsection{Grasp Classification}
-\label{subsec:classification}
-\input{32.class}
+\subsection{Online experiments}
+\label{subsec:online}
+\input{32.online}
 
-\subsection{EMG to Force Regression}
-\label{subsec:regression}
-\input{33.regr}
-
-\section{Discussion}
+\section{Discussion and conclusions}
 \label{sec:discussion}
 \input{40.disc}
-
-\section{Conclusions}
-\label{sec:conclusions}
-\input{50.concl}
-
-% ------------ acks, biblio, biographies
 
 \section*{Acknowledgments}
 
@@ -144,10 +109,6 @@ FP6-IST-001917.
 %% \end{IEEEbiography}
 
 %% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{patrick}}{Patrick van der Smagt}
-%% biography
-%% \end{IEEEbiography}
-
-%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Giulio Sandini}
 %% biography
 %% \end{IEEEbiography}
 

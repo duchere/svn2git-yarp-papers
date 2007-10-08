@@ -2,16 +2,14 @@ The gathered data was analysed both for classification and
 regression. \emph{Classification} is the process by which one wants to
 assign a label to each sample in the input space, whereas in
 \emph{regression} the target is a real-valued function of the values
-of the input samples. Throughout this Section, we will assume that a
-set of $l$ points in the input space is available, for which the
-target (label or force value) is known; this set will be denoted by
-$\{\xx_i,y_i\}_{i=1}^l$ and called \emph{training set}. As well, for
-each experiment, a separate set of points, for which the targets are
-not used for training, is assumed to be available, and this will be
-called the \emph{testing set}. In general, the performance of a
-machine is evaluated by training it on a training set and then testing
-it on a testing set, possibly employing standard measures of the
-generalisation error, such as cross-validation.
+of the input samples. All machine learning methods we examined need to
+be first trained on a set of points in the input space for which the
+target (label or force value) is known; this set will be called
+\emph{training set}. Then, in order to verify that the obtained models
+are good, they are tested on a separate set of points, the
+\emph{testing set}. In all our experiments, the training and testing
+sets were disjoint, and $5$-fold cross-validation was employed to
+check the generalisation power of the methods.
 
 Taking into account the considerations of the previous Section, we set
 the input space to be $\RR^{10}$, that is, one coordinate for each EMG
@@ -20,11 +18,14 @@ of classification, each category representing a grasping type would be
 represented as an integer value, that is, $y_i \in \{0,\ldots,4\}
 \subset \NN, i=1,\ldots,l$. In the case of regression, the force value
 would be directly encoded as a real number, that is, $y_i \in \RR,
-i=1,\ldots,l$. Before any analysis, all samples were normalised, as is
-customary, by subtracting the mean values and dividing by the standard
-deviation, for each input space dimension. No filtering whatsoever was
-applied to the input signals, in order to have a more realistic,
-delay-free result.
+i=1,\ldots,l$. Before training, all samples in the training set were
+normalised, as is customary, by subtracting the mean values and
+dividing by the standard deviation, for each input space
+dimension. Testing was done by normalising with the mean and standard
+deviations found during training, as one should not assume to know any
+a-priori statistics whatsoever about the testing samples. No filtering
+whatsoever was applied to the input signal, in order to have a more
+realistic, delay-free result.
 
 \subsubsection{Neural Networks}
 
@@ -37,37 +38,28 @@ this sum is then used as the argument of an \emph{activation function}
 to determine the output of the node. The nodes fed the input values to
 the network form the \emph{input layer}, and the nodes whose output is
 taken as the output of the network are called \emph{output
-layer}. Besides this, in general, an ANN can further have an arbitrary
-number of nodes organised in \emph{hidden layers}, gifted with an
-arbitrary connection topology.
+layer}.
 
 An ANN is initialised with random weights; then, for every sample in
 the training set, the network output is evaluated and its error with
-respect to the target is considered. In order to reduce the average
-error on the training set, a minimisation algorithm is then employed
-to change the weights of the network, until the desired precision is
-reached. Normally, a separate testing set is used to evaluate the
-generalisation error (average error on the testing set) and to check
-that it does not increase (overfitting) as the training error
-decreases. If the generalisation error has been kept small, the
-network will then be able to \emph{predict} the targets of the testing
-samples with a reasonable accuracy.
-
-For our experiment we strived to keep the ANN as simple as possible.
-We then chose a feed-forward neural network with $10$ units in the
-input layer; one hidden layer with $10$ units with hyperbolic tangent
-(sigmoidal) activation function; $5$ units in the output layer for
-classification, each unit representing one category, and one unit in
-the output layer for regression, the unit representing the target
-force value. The network was trained using the gradient descent
-learning function; backpropagation was enforced via the the
-quasi-Newton algorithm (for classification) and the
-Levenberg-Marquardt algorithm (for regression). The Mean Square Error
-(MSE) was used as a measure of performance. The training phase was
-stopped arbitrarily after $30$ epochs. For each experiment, we
-repeated the training phase $10$ times and then gathered the best
-model found, in order to overcome the well-known problem of local
-minima. No measure of generalisation error was taken into account.
+respect to the target is considered. A minimisation algorithm is then
+employed to change the weights of the network, until the desired
+precision is reached. For our experiment we strived to keep the ANN as
+simple as possible. We then chose a feed-forward neural network with
+$10$ units in the input layer; one hidden layer with $10$ units with
+hyperbolic tangent (sigmoidal) activation function; $5$ units in the
+output layer for classification, each unit representing one category,
+and one unit in the output layer for regression, the unit representing
+the target force value. The network was trained using gradient
+descent, with backpropagation being enforced via the quasi-Newton
+algorithm (for classification) and the Levenberg-Marquardt algorithm
+(for regression). The Mean Square Error (MSE) was used as a measure of
+performance. The training phase was stopped either after $100$ epochs
+or when the validation set would show an increasing error. For each
+experiment, we repeated the training phase $10$ times and then
+gathered the best model found, in order to overcome the well-known
+problem of local minima. Validation was done on a disjoint subset of
+the training samples.
 
 The network was implemented in Matlab, Windows version $7.1.0.246$
 (R14) Service Pack 3, running on a bi-processor $1.8$GHz machine with
@@ -92,67 +84,9 @@ found is
 \noindent where $b \in \RR$, whereas the $\alpha_i \in \RR$s are
 Lagrangian coefficients obtained by solving a minimisation problem
 whose cost functional is guaranteed to be convex. Because of this,
-SVMs do not suffer from the problem of local minima; but their
-training time is cubic in the number of samples in the training set,
-as opposed to ANNs, for which it is \textbf{[[PATRICK, can we say
-something here? I guess anyway it is not strictly necessary.]]}.
-
-In order to overcome this problem, which would have made our
-experiment unfeasible, we have decided to use a \emph{uniformisation}
-strategy on the training sets, before training the machines. The idea
-is that, in a real-life set-up such as ours, there can be many input
-samples located in the very same region of the input space, with very
-similar target values. One obvious case is that of label $0$,
-indicating no ongoing grasping: it is intuitively expected that a
-large number of samples will be taken in that region of the input
-space, since the subject will be in the $0$ condition for a longer
-time than all other labels.
-
-Since all functions involved in the experiment are due to human
-motion, we can assume that they are continuous and, probably,
-derivable up to any arbitrary order. Therefore it makes no sense for
-an approach such as SVMs to sample the input space in a non-uniform
-way such as that described above. The uniformisation procedure
-consists of removing, from a training set, those samples which are too
-close to each other, according to a suitable notion of inter-sample
-distance.
-
-In order to take into account the different variances of the EMG
-electrode values, we have decided to adopt Mahalanobis's distance as
-the inter-sample distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the
-Mahalanobis distance between $\xx_1$ and $\xx_2$ is defined as
-follows:
-
-$$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
-
-\noindent where $\Sigma$ is the $10$x$10$ covariance matrix, evaluated
-on the training set. $MD(\xx_1,\xx_2)$ is a distance in which each
-summand is weighted inversely with respect to the variance of the
-samples along that dimension of the input space: it is therefore a
-measure of distance independent of the variance of the single
-electrodes. Notice that if $\Sigma$ is replaced by the identity
-matrix, $MD(\xx_1,\xx_2)$ is reduced to the usual notion of Euclidean
-distance.
-
-Since checking the inter-sample distance obviously takes a quadratic
-time with respect to the number of samples, which was unfeasible, we
-adopted an approximated method which was able to remove most, but not
-all, samples with an insufficient Mahalanobis distance from any other
-sample. After a few initial experiments we set the threshold distance
-at $1$. We also decided to employ the Gaussian kernel. All our
-experiments with SVMs were then performed on uniformised training
-sets, using $5$-fold cross-validation and grid search to find the
-optimal values of the standard Gaussian kernel hyperparameters, $C$
-and $\sigma$.
-
-On the other hand, notice that no \emph{testing} set was uniformised,
-since it would probably be unfeasible to apply the same procedure in
-an on-line setting. Notice, further, that applying uniformisation
-resulted in training sets which were considerably smaller than the
-original ones, up to about $100$ times smaller.
-
-Lastly, we employed a well-known freely available SVM package,
-\emph{libsvm} v2.83 \cite{ChangL01}, in the Matlab wrapped flavour.
+SVMs do not suffer from the problem of local minima. We employed a
+well-known freely available SVM package, \emph{libsvm} v2.83
+\cite{ChangL01}, in the Matlab wrapped flavour.
 
 \subsubsection{Locally Weighted Projection Regression}
 
