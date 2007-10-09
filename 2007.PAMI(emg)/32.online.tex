@@ -9,7 +9,7 @@ uniformisation procedure, in order to test what would happen in a real
 setting while the patient is freely moving around.
 
 First of all, we reduced the sampling rate from $256$Hz to about
-$25Hz$, since (see Section \ref{subsubsec:electrodes}) teh bandwidth
+$25$Hz, since (see Section \ref{subsubsec:electrodes}) the bandwidth
 of the EMG signal is limited in our experiment to about $10$Hz. This
 got us a total training set of about $153000$ samples. The samples
 were naturally chronologically ordered, so that they could be fed to
@@ -64,8 +64,8 @@ shows the results.
     $(a)$ & $(b)$ \\
   \end{tabular}
   \caption{$(a)$: classification accuracy of an SVM, as the training set
-    grows according to the OU procedure. \emph{Blue curve:}
-    incremental testing set; \emph{Red curve:} full testing set. $(b)$
+    grows according to the OU procedure. \emph{Black curve:}
+    growing testing set; \emph{Red curve:} full testing set. $(b)$:
     size of the online uniformised training set: number of samples
     (upper plot), fraction of the whole training set (lower plot).}
   \label{fig:inc}
@@ -114,8 +114,8 @@ $d$, which was fixed at $0.21$ in the previous experiment.
     $(a)$ & $(b)$ \\
   \end{tabular}
   \caption{Classification and regression results using the OU
-  procedure. $(a)$: classification, $(b)$: regression. See the text
-  for more details.}
+  procedure. $(a)$: classification, $(b)$: regression. Compare with
+  Figure \ref{fig:TSsize} for the training set sizes.}
   \label{fig:allres}
 \end{figure*}
 
@@ -131,7 +131,7 @@ overlap, at least for $d>0.3$ in classification and $d>0.4$ for
 regression.
 
 One last consideration: as $d$ is increased, the size of the training
-sets decreases like $\frac{1}{d^{10}}$, since it is a finite
+sets decreases like $d^{-10}$, since we are building a finite
 partitioning of a subset of $\RR^{10}$ (see also Figure
 \ref{fig:TSsize}, in which the training set size is plotted as a
 function of $d$); whereas, it seems that the accuracy of all
@@ -142,11 +142,12 @@ can train a machine which will be only linearly worse.
 
 \begin{figure}[!ht] \centering
   \includegraphics[width=0.45\textwidth]{figs/fig_allSize} \\
-  \caption{Training set size as $d$ changes.}
+  \caption{Online uniformised training set size as $d$ changes.}
   \label{fig:TSsize}
 \end{figure}
 
 As a matter of fact, consider once again Figure \ref{fig:allres}, pane
-$(b)$: at the far right end we have a SVM which has an error of
-$12.12\% \pm 0.64\%$, but whose training set, averaged over the $5$
-splits, consists of $77.4$ samples out of the original $153000$!
+$(b)$: at the far right end we have a SVM which has a still acceptable
+error of $12.12\% \pm 0.64\%$, but whose training set, averaged over
+the $5$ splits, consists of $77.4$ samples out of the original
+$153000$!

@@ -47,22 +47,19 @@ follows:
 $$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
 
 \noindent where $\Sigma$ is the $10$x$10$ covariance matrix, evaluated
-on the training set. $MD(\xx_1,\xx_2)$ is a distance in which each
-summand is weighted inversely with respect to the variance of the
-samples along that dimension of the input space: it is therefore a
-measure of distance independent of the variance of the single
-electrodes. Notice that if $\Sigma$ is replaced by the identity
-matrix, $MD(\xx_1,\xx_2)$ is reduced to the usual notion of Euclidean
-distance.
+on the training set. $MD(\xx_1,\xx_2)$ is a measure of distance
+independent of the (co)variance of the electrodes. (Notice that if
+$\Sigma$ is replaced by the identity matrix, $MD(\xx_1,\xx_2)$ is
+reduced to the usual notion of Euclidean distance.)
 
-Since checking the inter-sample distance obviously takes a quadratic
-time with respect to the number of samples, which was unfeasible, we
-adopted an approximated method which was able to remove most, but not
-all, samples with an insufficient Mahalanobis distance from any other
-sample. After a few initial experiments, the threshold distance was
-set at $1$. Notice that no \emph{testing} set was uniformised, since
-it would probably be unfeasible to apply the same procedure in an
-on-line setting. Notice, further, that applying uniformisation
+Since checking the inter-sample distance on a batch of samples
+obviously takes a quadratic time with respect to the number of
+samples, which was unfeasible, we adopted an approximated method which
+was able to remove most, but not all, samples too Mahalanobis-close to
+each other. After a few initial experiments, the threshold distance
+was set at $1$. Notice that no \emph{testing} set was uniformised,
+since it would probably be unfeasible to apply the same procedure in
+an on-line setting. Notice, further, that applying uniformisation
 resulted in training sets which were considerably smaller than the
 original ones, up to about $100$ times smaller.
 
@@ -84,13 +81,15 @@ the case of uniform models, the test is carried out on the \emph{full}
 session. This is what we would call a \emph{cross-session analysis}.
 The result is visible in Figure \ref{fig:cross_initial}.
 
-\begin{figure*}[!ht] \centering
+\begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{figs/fig_resCross1_full} & \includegraphics[width=0.45\textwidth]{figs/fig_resCross1} \\
+    \includegraphics[width=0.22\textwidth]{figs/fig_resCross1_full} &
+    \includegraphics[width=0.22\textwidth]{figs/fig_resCross1} \\
     diagonal: $98.73\% \pm 0.39\%$  & diagonal: $95.52\% \pm 1.21\%$ \\
         rest: $73.23\% \pm 14.29\%$ & rest: $74.53\% \pm 13.70\%$ \\
     $(a)$ & $(b)$ \\
-    \includegraphics[width=0.45\textwidth]{figs/fig_resCross2_full} & \includegraphics[width=0.45\textwidth]{figs/fig_resCross2} \\
+    \includegraphics[width=0.22\textwidth]{figs/fig_resCross2_full} &
+    \includegraphics[width=0.22\textwidth]{figs/fig_resCross2} \\
     diagonal: $99.05\% \pm 0.37\%$ & diagonal: $95.37\% \pm 2.85\%$ \\
         rest: $73.23\% \pm 14.47\%$ & rest: $74.38\% \pm 12.27\%$ \\
     $(c)$ & $(d)$ \\
@@ -99,7 +98,7 @@ The result is visible in Figure \ref{fig:cross_initial}.
     procedure. $(a)$ and $(b)$, accuracy matrices for day $1$: $(a)$
     full models, $(b)$ uniform models. $(c)$ and $(d)$, same for day $2$.}
   \label{fig:cross_initial}
-\end{figure*}
+\end{figure}
 
 Consider first panes $(a)$ and $(b)$ of the Figure, pane $(a)$ being
 the accuracy matrix for full models, day $1$, and pane $(b)$ being the
@@ -128,7 +127,7 @@ sets. In fact, one should always ensure that this is the case, aiming
 for a better generalisation error. We can say that uniform models
 generalise better, at least in this case.
 
-\subsubsection{Classification accuracy}
+\subsubsection{Classification}
 
 Consider Figure \ref{fig:cross_initial} again, right hand side panes
 ($(b)$ and $(d)$) and the numbers below. The accuracy attained on
@@ -202,13 +201,13 @@ studied approaches: $0.62/0.78$ (day $1$/day $2$) for SVMs,
 $0.64/0.72$ for NNs and $0.77/0.81$ for LWPR.
 
 In other words, the larger the distance of $S_i$ and $S_j$, the worse
-the performance of model $i$ tested on session $j$, both in
-classification and in regression. This tells us that $(a)$ samples of
-the same group are closer to each other than sample from different
-groups, therefore electrode displacement causes displacement in the
-input space too; and $(b)$ that this causes bad inter-group
-performance. ``Samples far away from the training set will be
-predicted badly.''
+the performance of model $i$ tested on session $j$, \emph{both in
+classification and in regression}, and \emph{for all approaches
+tested}. This tells us that $(a)$ samples of the same group are closer
+to each other than sample from different groups, therefore electrode
+displacement causes displacement in the input space too; and $(b)$
+that this causes bad inter-group performance. ``Samples far away from
+the training set will be predicted badly.''
 
 %% In order to further sustain this claim we have checked, for each day,
 %% that models obtained by adjoining $4$ of the $5$ groups would perform
@@ -249,15 +248,15 @@ predicted badly.''
 The dual consideration is that if we train upon the ``right'' data,
 the accuracy should become acceptable. So we have considered how to
 collect \emph{only} relevant information from the gathered data, that
-is, how to sensibly reduce the training set. To do this, we have
-collected the two best models for each day and joined them
-together. For instance, consider Figure \ref{fig:cross_initial} again,
-pane $(b)$. It is apparent that model $4$ performs well on sessions
-$1$ to $12$, whereas model $13$ does well on sessions $13$ to $15$. We
-then decided to use these two models to form a ``best'' training set
-which would give good results on the whole day $1$. Analogous
-considerations led us to use also models $4$ and $8$ of day $2$. The
-obtained model will be called \emph{best} model.
+is, how to sensibly reduce the training set. To do this, in this batch
+phase, we have collected the two best models for each day and joined
+them together. For instance, consider Figure \ref{fig:cross_initial}
+again, pane $(b)$. It is apparent that model $4$ performs well on
+sessions $1$ to $12$, whereas model $13$ does well on sessions $13$ to
+$15$. We then decided to use these two models to form a ``best''
+training set which would give good results on the whole day
+$1$. Analogous considerations led us to use also models $4$ and $8$ of
+day $2$. The obtained model will be called \emph{best} model.
 
 This procedure was repeated for each problem tackled (classification,
 regression) and approach tested (SVM, NN and LWPR). Figure
@@ -268,17 +267,19 @@ been repeated for the Neural Network. In that case, models $8$ and
 $15$ of day $1$, and models $3$ and $10$ of day $2$ have been used to
 build the best model.
 
-\begin{figure*}[!ht] \centering
+\begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{figs/fig_class_resCrossBestOnDay1} & \includegraphics[width=0.45\textwidth]{figs/fig_class_resCrossBestOnDay2} \\
+    \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay1}
+    &
+    \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay2} \\
     SVM: $89.90\% \pm 4.51\%$ & SVM: $89.04\% \pm 4.50\%$ \\
     NN: $90.25\% \pm 2.77\%$ & NN: $86.84\% \pm 5.57\%$ \\
     $(a)$ & $(b)$ \\
   \end{tabular}
-  \caption{Classification accuracy of best models, day $1$ (pane
-  $(a)$) and day $2$ (pane $(b)$).}
+  \caption{Classification accuracy of best models, day $1$ $(a)$ and
+    day $2$ $(b)$.}
   \label{fig:best_class}
-\end{figure*}
+\end{figure}
 
 As one can see, there is no clear winner between SVMs and NNs. NNs
 perform slightly better on day $1$ (lower mean, lower standard
@@ -290,36 +291,34 @@ is about $12$-$15$ minutes of user activity. But notice, that samples
 gathered during both days were necessary to have an idea of which
 sessions to use.
 
+\subsubsection{Regression}
+
 Lastly, the most interesting part was how to predict the amount of
 force applied by the subject by looking at the EMG signal. To do this,
 we have repeated once again the analysis done in Subsection
 \ref{subsec:strategy} for the three approaches selected, and found out
 that the four sessions involved in the best models were: $6,12,3,12$
-for SVMs, $4,11,3,12$ for NNs and $6,13,3,4$ for LWPR.
+for SVMs, $4,11,3,12$ for NNs and $6,13,3,4$ for LWPR. We have
+considered three indices of performance: the Mean Squared Error (MSE)
+in its standard definition; the Normalised Root MSE (NRMSE), ratio of
+the square root of the MSE and the range of the target values,
+expressed as a percentage; and the Squared Correlation Coefficient
+(SCC) between the predicted target and the real target.
 
-\subsubsection{Regression}
-
-For regression, we have considered three indicators of performance:
-the Mean Squared Error (MSE) in its standard definition; the
-Normalised Root MSE (NRMSE), ratio of the square root of the MSE and
-the range of the target values, expressed as a percentage; and the
-Squared Correlation Coefficient (SCC) between the predicted target and
-the real target.
-
-\begin{figure*}[!ht] \centering
+\begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{figs/fig_err_regr_resCrossBestOnDay1} &
-    \includegraphics[width=0.45\textwidth]{figs/fig_err_regr_resCrossBestOnDay2} \\
+    \includegraphics[width=0.22\textwidth]{figs/fig_err_regr_resCrossBestOnDay1} &
+    \includegraphics[width=0.22\textwidth]{figs/fig_err_regr_resCrossBestOnDay2} \\
      SVM: $11.84\% \pm 2.64\%$ &  SVM: $10.54\% \pm 3.18\%$ \\
       NN: $10.54\% \pm 1.41\%$ &   NN: $10.01\% \pm 1.93\%$ \\
     LWPR: $11.98\% \pm 1.31\%$ & LWPR: $11.13\% \pm 1.32\%$ \\
-    \includegraphics[width=0.45\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1} &
-    \includegraphics[width=0.45\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay2} \\
+    \includegraphics[width=0.22\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1} &
+    \includegraphics[width=0.22\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay2} \\
      SVM: $7.86 \pm 3.35$ &  SVM: $5.44 \pm 2.79$ \\
       NN: $6.27 \pm 2.36$ &   NN: $4.76 \pm 1.52$ \\
     LWPR: $7.79 \pm 1.83$ & LWPR: $6.03 \pm 2.07$ \\
-    \includegraphics[width=0.45\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1} &
-    \includegraphics[width=0.45\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay2} \\
+    \includegraphics[width=0.22\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1} &
+    \includegraphics[width=0.22\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay2} \\
      SVM: $0.77 \pm 0.09$ &  SVM: $0.78 \pm 0.11$ \\
       NN: $0.83 \pm 0.04$ &   NN: $0.83 \pm 0.04$ \\
     LWPR: $0.78 \pm 0.05$ & LWPR: $0.77 \pm 0.04$ \\
@@ -328,7 +327,7 @@ the real target.
     and day $2$ (right panes). First row: Mean Squared Error; second
     row: Normalised Root MSE; third row, Squared Correlation Coefficient.}
   \label{fig:best_regr}
-\end{figure*}
+\end{figure}
 
 Figure \ref{fig:best_regr} shows the results; left panes are for day
 $1$ and right panes for day $2$. Consider the first row, plotting the
@@ -373,8 +372,7 @@ performance.
     session $6$, day $1$ & session $10$, day $2$ & session $7$, day $1$ \\
     MSE: $4.85\cdot 10^4$ & MSE: $5.48\cdot 10^4$ & MSE: $10.21\cdot 10^4$ \\
   \end{tabular}
-  \caption{Examples of the force target value, as guessed by our
-    Neural Network.}
+  \caption{Examples of real and predicted force target values.}
   \label{fig:regression}
 \end{figure*}
 

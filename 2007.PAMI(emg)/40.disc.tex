@@ -3,16 +3,22 @@ $153000$ samples, clearly show that the Online Uniformisation
 procedure can be used uniformly to obtain dramatically smaller
 training sets with no \emph{qualitative} loss of information; in other
 words, as more of the input space is sampled, OU keeps the training
-set up-to-date and small. OU sets will result in fast and accurate
-models of the sought-for EMG-to-hand map. Remarkably, OU works fine
-for both grasp classification and force regression, and with all three
-different machine learning approaches. Moreover, OU is extremely
-simple, being nothing more than an online check of Euclidean distance
-in the input space. This check is done so far by considering the new
-sample's distance from all samples in the current training set, and
-therefore could become unfeasibly heavy as the set grows; but the same
-check can be done in constant time using an algorithmic optimisation,
-such a hash table.
+set up-to-date and small. OU sets will result in small (and therefore,
+fast) and accurate models of the sought-for EMG-to-hand
+map. Remarkably, OU works fine for both grasp classification and force
+regression, and with all three different machine learning
+approaches. Moreover, it is extremely simple, being nothing more than
+an online check of Euclidean distance in the input space. This check
+is done so far by considering the new sample's distance from all
+samples in the current training set, and therefore could become
+unfeasibly heavy as the set grows; but the same check can be done in
+constant time using an algorithmic optimisation, such a hash table.
+
+The choice of the minimum inter-sample distance $d$ is obviously
+crucial and depends on the required accuracy in classification and/or
+regression; but as we have seen, as $d$ is increased, the machine's
+performance degrades only linearly, whereas the training sets become
+polynomially smaller.
 
 We believe this is the first step toward the real application of
 machine learning to an EMG-driven adaptive, dexterous hand
@@ -22,8 +28,17 @@ $3$ and $4$. Now, since OU lets us obtain good accuracy with extremely
 small training sets, it is not too far-fetched to say that the
 solution of problem $2$ is at hand --- in principle, the changing arm
 posture can be taken into account simply by sampling more of the input
-space. Problem $1$ is, really, of lesser interest, since one patient
-only is supposed to ever wear a prosthesis.
+space.
+
+All in all, problem $1$ is, really, of lesser interest, since one
+patient only is supposed to ever wear a prosthesis. On the other hand,
+a futher problem is that of training the system upon an amputee. First
+of all, the patient must still have a good deal of muscular and
+nervous plasticity in her arm stump; then, a smart way of collecting
+training data must be devised. (A simple idea is that of gathering EMG
+data from the patient's stump and grasping/force data from her healthy
+hand, while instructing her to imagine doing the same actions with
+both hands.)
 
 As far as force regression is concerned, the results presented above
 are, to the best of our knowledge, totally novel. Surprinsingly,
@@ -52,7 +67,8 @@ prediciton of the force applied during the grasp. Of the tested
 approaches, SVM is marginally better than the others, especially when
 larger training sets are used. The OU procedure is able to find as
 small a training set as $77.4$ samples on average (out of $153000$),
-which will still result in a SVM having an NRMSE of $12.12\%$.
+which will still result in a SVM having a remarkable NRMSE of
+$12.12\%$.
 
 Future work can be divided in three steps: firstly, problem $2$ of 
 \ref{subsubsec:electrodes} must be taken into account by gathering

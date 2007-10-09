@@ -53,16 +53,15 @@ detecting what the patient wants the prosthesis to do.
 Still, the EMG signal suffers from a number of problems, among which
 the unprecise placement of the electrodes, signal drifting and change
 due to sweat formation and muscular fatigue and cross-talking among
-deep and superficial muscles. (See \cite{deluca} for an overview of
-the problems posed by this signal.) It seems, though, that good
-results can be obtained via \emph{machine learning} techniques, as
-shown in, e.g., \cite{dunlop,fukuda,smagt}. In machine learning, one
-tries to approximate an unknown function given its values in a number
-of samples; the application to the current problem is exactly that of
-building a map relating EMG activation potentials and muscle force,
-and therefore hand finger movements. Such a system must be highly
-adaptive, accurate and fast --- possibly, able to run in real time, as
-the patient is wearing the prosthesis.
+deep and superficial muscles. It seems, though, that good results can
+be obtained via \emph{machine learning} techniques, as shown in, e.g.,
+\cite{smagt}. In machine learning, one tries to approximate an unknown
+function given its values in a number of samples; the application to
+the current problem is exactly that of building a map relating EMG
+activation potentials and muscle force, and therefore hand finger
+movements. Such a system must be highly adaptive, accurate and fast
+--- possibly, able to run in real time, as the patient is wearing the
+prosthesis.
 
 More in detail: so far, in literature, machine learning applied to
 surface EMG has been able to \emph{classify} different postures of the
@@ -94,30 +93,34 @@ solve problem $2$. The three approaches we have experimented with are:
 $(a)$ a simple feed-forward neural network with one hidden layer,
 $(b)$ a Support Vector Machine with radial basis function kernel
 \cite{BGV92}, $(c)$ Locally Weighted Projection Regression
-\cite{lwpr}.
+\cite{lwpr}. Our analysis consists of a preliminary phase in which
+several models have been built in a batch fashion, in order to
+understand how to deal with the non-stationarity of EMG. The most
+interesting challenge has been how to filter out unwanted data, at the
+same time keeping a high overall accuracy, both in classification and
+regression. Later on, based upon the results obtained in the
+preliminary phase, we have developed a simple but effective procedure
+for selecting a subset of the samples on-the-fly, called \emph{Online
+Uniformisation} (OU).
 
-Moreover, in order to be more realistic and take into account the
-non-stationarity of the EMG signal, we have used the data in an
-on-line fashion, presenting the samples one by one to the system, and
-developing a procedure for selecting ``important'' samples on-the-fly,
-as they are gathered from the setup. This procedure is called
-\emph{Online Uniformisation} and is based upon the very simple idea of
-keeping a minimum inter-sample Euclidean distance, in order to
-uniformly sample the input space. The idea is justified both
-intuitively and mathematically.
+OU is based upon the simple idea of keeping a minimum inter-sample
+Euclidean distance, in order to uniformly sample the input space. The
+selected samples are then used to periodically re-train the system,
+and check that it has adapted to the new data. The training sets so
+obtained are remarkably small and thus usable on-line, and they offer
+an excellent trade-off between size and accuracy. In particular, while
+the size of the uniform training sets decays polynomially, the error
+rates seems to increase only linearly. This behaviour appears in both
+problems highlighted above (the former involving classification, the
+latter regression), and for all the approaches tested. Our numerical
+results indicate that, in such a scenario, the type of grasp can be
+reconstructed with an average accuracy of $89.67\% \pm 1.53\%$, and
+the applied force can be predicted with an average percentage error of
+$7.89\% \pm 0.09\%$, meaning $4.5$N over a range of about $57$N.
 
-The selected samples are then used to periodically re-train the
-system, and check that it has adapted to the new data. The training
-sets so obtained are remarkably small and thus usable on-line, and
-they offer an excellent trade-off between size and accuracy. In
-particular, while the size of the uniform training sets decays
-polynomially, the error rates seems to increase only linearly. This
-behaviour appears in both problems highlighted above (the former
-involving classification, the latter regression), and for all the
-approaches tested.
-
-All in all, our numerical results indicate that, in such a scenario,
-the type of grasp can be reconstructed with an average accuracy of
-$xxxxxxxx\%$, and the applied force can be predicted with an average
-percentage error of $xxxx\%$, meaning about $xxxx$N over a range
-$xxxx$N.
+The paper is structured as follows: after a brief review of relevant
+literature, we describe in detail the experiment and the methods used
+to tackle it (Section \ref{sec:m&ms}); then we show and comment on the
+experimental results, both the preliminary phase and the online
+experiments (Section \ref{sec:exp}); lastly, discussion and
+conclusions are presented.
