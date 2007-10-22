@@ -36,10 +36,10 @@ from the user's nervous system, either via brain implants or surgical
 use of electrodes. Quite obviously, invasive interfaces are supposed
 to guarantee a high signal quality, since the signals can be gathered
 exactly in the right spots; but they involve surgery and all related
-sterility issues. On the other hand, non-invasive interfaces are
-easier to handle, manufacture and implant, but require a much better
-signal conditioning, since they usually work with surface (skin)
-signals or vision and gaze tracking.
+sterility (and psychological) issues. On the other hand, non-invasive
+interfaces are easier to handle, manufacture and implant, but require
+a much better signal conditioning, since they usually work with
+surface (skin) signals or vision and gaze tracking.
 
 In the context of non-invasive interfaces for controlling mechanical
 hands, a concrete possibility arises from \emph{forearm surface
@@ -65,16 +65,16 @@ Such a system must be highly adaptive, accurate and fast --- possibly,
 able to run in real time, as the patient is wearing the prosthesis.
 Another very desirable characteristic is that the system should learn
 automatically as the patient moves, being able to understand when new
-portions of the input space are being explored, i.e., new movements
-are required of the prosthesis. But so far machine learning applied to
-surface EMG has been able to \emph{classify} different postures of the
-hand. For example, the surface EMG signal can be used to detect
-whether the patient is attempting a cylindric grasp or a two-finger
-grip \cite{ekvall}; but no indication about the amount of force
-involved in the grasping act is detected, so that it is impossible to
-distinguish between, e.g., a power grasp and a precision grip.
+portions of the input space are being explored, i.e., what new
+movements are required of the prosthesis. But so far machine learning
+applied to surface EMG has only been able to classify hand postures.
+For example, the surface EMG signal can be used to detect whether the
+patient is attempting a cylindric grasp or a two-finger grip
+\cite{ekvall}; but no indication about the amount of force involved in
+the grasping act is detected, so that it is impossible to distinguish
+between, e.g., a power grasp and a precision grip.
 
-In this paper, we show a rather detailed analysis of what machine
+In this paper we show a rather detailed analysis of what machine
 learning can do when applied to such a problem. Over two days, we have
 gathered forearm surface EMG data while an able-bodied human subject
 was gripping in four distinct ways a force sensor; we have then
@@ -87,12 +87,11 @@ EMG signal,
     index finger, thumb and middle finger, thumb and ring finger or
     thumb and all other fingers; and
 
-  \item how much force the subject was applying to the sensor, in
-    order to understand whether the grasp was, e.g., a power grasp or
-    rather a precision grip. Surprisingly, as far as we know, nobody
-    has ever attempted so far to solve this problem, although it is
-    well-known that the EMG is related to the force a muscle is
-    exerting.
+  \item how much force the subject was exerting, in order to
+    understand whether the grasp was, e.g., a power grasp or rather a
+    precision grip. Surprisingly, as far as we know, nobody has ever
+    attempted so far to solve this problem, although it is well-known
+    that the EMG is related to the force a muscle is exerting.
 
 \end{enumerate}
 

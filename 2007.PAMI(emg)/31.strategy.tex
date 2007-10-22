@@ -2,7 +2,7 @@
 
 First of all we chose one of the selected approaches (NNs, SVMs or
 LWPR) and one problem (classification or regression) for initial
-experimentation. We decided to use SVMs for classification. so far,
+experimentation. We decided to use SVMs for classification. So far,
 the data were retained in full, with no subsampling. We then decided,
 as a start, to test whether data obtained during one session could be
 used to build a model able to generalise over other sessions during
@@ -102,29 +102,27 @@ The result is visible in Figure \ref{fig:cross_initial}.
 Consider first panes $(a)$ and $(b)$ of the Figure, pane $(a)$ being
 the accuracy matrix for full models, day $1$, and pane $(b)$ being the
 accuracy matrix for the same day, but using uniform models. It is
-apparent from the colours that the full models attain a better
-accuracy when tested on their own training data, that is, on the
-diagonal of the matrix, than the uniform models. In fact, the mean and
-standard deviation of the diagonal accuracies are $98.73\% \pm 0.39\%$
-for the full models and $95.52\% \pm 1.21\%$ for the uniform
-models. This is intuitively sensible since, in the case of full
-models, we are testing on the same data used for training, whereas in
-the case of uniform models, the training data are a strict subset of
-the testing data, and a quite smaller subset indeed. But as well, if
-we consider the remaining elements of the matrices, it is clear that
-the uniform models attain a better accuracy \emph{overall}, if
-compared to the full models. In fact, the accuracies are $73.23\% \pm
-14.29\%$ for the full models, and $74.53\% \pm 13.70\%$ for the
-uniform ones. The same analysis for day $2$ yields analogous results
-(consider the above Figure, panes $(c)$ and $(d)$).
+apparent that the full models attain a better accuracy when tested on
+their own training data, that is, on the diagonal of the matrix, than
+the uniform models. In fact, the mean and standard deviation of the
+diagonal accuracies are $98.73\% \pm 0.39\%$ for the full models and
+$95.52\% \pm 1.21\%$ for the uniform models. This is intuitively
+sensible since, in the case of full models, we are testing on the same
+data used for training, whereas in the case of uniform models, the
+training data are a strict subset of the testing data, and a quite
+smaller subset indeed. But as well, if we consider the remaining
+elements of the matrices, it is clear that the uniform models attain a
+better accuracy \emph{overall}, if compared to the full models. In
+fact, the accuracies are $73.23\% \pm 14.29\%$ for the full models,
+and $74.53\% \pm 13.70\%$ for the uniform ones. The same analysis for
+day $2$ yields analogous results (consider the same Figure, panes
+$(c)$ and $(d)$).
 
 From this we conclude that the uniformisation procedure is effective
 in reducing the training set size, \emph{without actually degrading
 the performance}. This is apparent from the fact that uniform models
 are more accurate on testing sets which are disjoint from the training
-sets. In fact, one should always ensure that this is the case, aiming
-for a better generalisation error. We can say that uniform models
-generalise better, at least in this case.
+sets. Uniform models generalise better, at least in this case.
 
 \subsubsection{Classification}
 
@@ -136,7 +134,7 @@ misclassified. At the same time, however, a strong ``good group
 accuracy'' is obviously present: in each matrix, good accuracy values
 are obtained on 3x3 submatrices located on the diagonals,
 corresponding to cross-session accuracy for sessions \emph{belonging
-to the same group}, that is, where the elastic bands were not removed
+to the same group}, that is, when the elastic bands were not removed
 and no electrode displacement was present.
 
 More in detail, as far as the first day is concerned (same Figure,
@@ -165,17 +163,10 @@ fatigue seems not to enter the picture, but this is reasonable since
 its effetcs are visible already within one single session (see Figure
 \ref{fig:drift} again) and the machine correctly takes it into account
 during the training phase. Notice once again that the uniformisation
-procedure does not hinder the generalisation power of the system.
-
-It is intuitively expected that the poor cross-session generalisation
-performance is due to the problem of electrode displacement. This is
-experimentally confirmed by the strong degradation in classification
-accuracy among different groups. In other words, the SVM does not
-generalise well when trained on a session belonging to group and
-tested on a session belonging to a different group. Electrode
-displacement present between groups (but not within a group) causes
-the samples in a group to be ``shifted'' in the input space, so that
-testing on a different group results in poor generalisation
+procedure does not hinder the generalisation power of the
+system. Electrode displacement present between groups (but not within
+a group) causes the samples in a group to be ``shifted'' in the input
+space, so that testing on a different group results in poor
 performance. To substantiate this claim, we have verified that the
 cross-session accuracy is highly correlated to the \emph{average
 minimum inter-sample distance} between sessions. More in detail, let
