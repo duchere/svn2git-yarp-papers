@@ -53,7 +53,7 @@ times with different splits of $S$, so to obtain a statistically
 meaningful measure of accuracy. We chose to use a mid-range value of
 $d = 0.21$ obtained from initial experiments, which would
 result in a final training set of about $1800$ samples; moreover, we
-used hyperparameters $C = 10^{1.5}$ and $\sigma = \sqrt{10}$, found by
+used hyperparameters $C = 10^{1.5}$ and $\sigma = 10^{0.5}$, found by
 grid search during the preliminary experiments. Figure \ref{fig:inc}
 shows the results.
 
@@ -121,14 +121,15 @@ $d$, which was fixed at $0.21$ in the previous experiment.
 
 As $d$ is increased from $0.13$ to $0.53$, all approaches show a
 decreasing performance, as expected: in classification, the SVM is
-almost uniformly better, going from $92.61\%$ for $d=0.13$ to
-$70.01\%$ for $d=0.53$. The standard deviations for the SVM are, also,
-uniformly smaller. In regression, again, the SVM is uniformly better
-than the other approaches, ranging from $7.09\%$ NRMSE to $12.12\%$,
-and it also shows uniformly smaller standard deviations. In both
-problems, however, it must be remarked that the error bars largely
-overlap, at least for $d>0.3$ in classification and $d>0.4$ for
-regression.
+uniformly better, going from $92.61\%$ for $d=0.13$ to $70.01\%$ for
+$d=0.53$. The standard deviations for the SVM are, also, uniformly
+smaller. In regression, again, the SVM is uniformly better than the
+other approaches, ranging from $7.09\%$ NRMSE to $12.12\%$, and it
+also shows uniformly smaller standard deviations. In both problems,
+however, it must be remarked that the error bars largely overlap, at
+least for $d>0.4$ for regression. This enables us to conclude that the
+SVM is the winning approach overall, but that there are cases in which
+another approach can be better.
 
 One last consideration: as $d$ is increased, the size of the training
 sets decreases like $d^{-10}$, since we are building a finite
@@ -137,8 +138,8 @@ partitioning of a subset of $\RR^{10}$ (see also Figure
 function of $d$); whereas, it seems that the accuracy of all
 approaches, and in both problems, only decreases linearly. This is a
 remarkable feature of the OU procedure, since it will always be
-possible to choose a polynomially smaller training set, for which we
-can train a machine which will be only linearly worse.
+possible to choose a $10$-degree polynomially smaller training set and
+obtain a machine which is only linearly worse.
 
 \begin{figure}[!ht] \centering
   \includegraphics[width=0.45\textwidth]{figs/fig_allSize} \\
@@ -151,3 +152,43 @@ $(b)$: at the far right end we have a SVM which has a still acceptable
 error of $12.12\% \pm 0.64\%$, but whose training set, averaged over
 the $5$ splits, consists of $77.4$ samples out of the original
 $153000$!
+
+Lastly, we compared the results obtained by models trained on uniform
+training sets with a simple random selection strategy. In this case,
+rather than employing the OU procedure to reduce the training sets,
+for each value of $d$ we chose at random the same number of samples
+obtained by the OU procedure, and then trained on the models so
+obtained. It was expected that, on full training sets, the random
+strategy would outperform OU; this is due to the fact that a random
+strategy will result in training sets which have the same probability
+distribution as the full testing sets; whereas, the OU procedure
+produces training sets with a uniform probability distribution. The OU
+procedure, on the other hand, is expected to perform better on
+\emph{uniform testing sets}, for the same reason. Figure
+\ref{fig:rnVSuni} shows the comparative results for SVM classification
+and regression, confirming our expectations.
+
+\begin{figure*}[!ht] \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{figs/fig_rnVSuni1} &
+    \includegraphics[width=0.45\textwidth]{figs/fig_rnVSuni2} \\
+    $(a)$ & $(b)$ \\
+  \end{tabular}
+  \caption{Classification and regression results, comparing the OU
+  procedure with a random sample selection strategy. $(a)$:
+    classification, $(b)$: regression.}
+  \label{fig:rnVSuni}
+\end{figure*}
+
+As one can see, both in classification and in regression, an SVM
+trained on uniform training sets will perform uniformly better than
+one trained on random training sets, when tested on uniform testing
+sets; and uniformly worse when tested on the full training sets. But
+the gap is larger in favour of the uniform training sets. This lets us
+conclude that uniform training sets will produce models able to
+perform well in all situations the patient should move. This is very
+useful in a practical setting: for example, picture the situation of a
+seldom performed movement, such as turning a door handle; if we were
+employing random training sets, we would have a much worse performance
+on such a movement. Uniform training sets would make the patient's
+life easier.

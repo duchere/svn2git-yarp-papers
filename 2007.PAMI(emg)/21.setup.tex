@@ -1,6 +1,20 @@
-The aim of the experiment was to gather forearm surface EMG data in
-real-time, and to relate it to $(a)$ the type of grasp applied by the
-subject, $(b)$ the force applied by the subject while grasping.
+\begin{figure*}[!t] \centering
+  \begin{tabular}{ccc}
+    \includegraphics[height=0.16\textheight]{figs/OFTS} &
+    \includegraphics[height=0.16\textheight]{figs/setup} &
+    \includegraphics[height=0.16\textheight]{figs/ottobock} \\
+    $(a)$ & $(b)$ & $(c)$ \\
+  \end{tabular}
+  \caption{The experimental setup. $(a)$ The SpaceControl OFTS
+    force/torque sensor, large face up. $(b)$
+    The arm of the subject with the EMG electrodes fitted and held in
+    place by elastic bands. Electrode cables are wired in a box and
+    then directed to a National Instruments PCI-6023E analogic/digital
+    conversion card (not shown). $(c)$ An Otto Bock 13E200=50
+    surface EMG electrode, with the amplification gauge (upper part of
+    the Figure) and the three metallic contacts (lower part).}
+  \label{fig:setup}
+\end{figure*}
 
 \subsubsection{General setup description}
 
@@ -8,32 +22,14 @@ The experiment consisted of freely, repeatedly grasping a SpaceControl
 OFTS force/torque sensor \cite{ofts} orthogonally to its large face
 (see Figure \ref{fig:setup} $(a)$). Four different ways of pressing
 were allowed: opposing the thumb and index, the thumb and middle, the
-thumb and ring or the thumb and all other fingers, at different speeds
-and with varying force. Four force sensing resistors (FSRs) were
-applied on the subject's hand fingertips (thumb, index, middle and
-ring), in order to be able to detect which grasp type was used at each
-instant of time. At the same time, $10$ forearm surface EMG electrodes
-were applied to the subject's forearm, held in place by elastic bands,
-in order to gather information about the muscle activation. Figure
-\ref{fig:setup} shows some parts of the setup.
-
-\begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[height=0.16\textheight]{figs/OFTS} &
-    \includegraphics[height=0.16\textheight]{figs/ottobock} &
-    \includegraphics[height=0.16\textheight]{figs/setup} \\
-    $(a)$ & $(b)$ & $(c)$ \\
-  \end{tabular}
-  \caption{The experimental setup. $(a)$ The SpaceControl OFTS
-    force/torque sensor, large face up. $(b)$ An Otto Bock 13E200=50
-    surface EMG electrode, with the amplification gauge (upper part of
-    the Figure) and the three metallic contacts (lower part). $(c)$
-    The arm of the subject with the EMG electrodes fitted and held in
-    place by elastic bands. Electrodes cables are wired in a box and
-    then directed to a National Instruments PCI-6023E analogic/digital
-    conversion card (not shown).}
-  \label{fig:setup}
-\end{figure*}
+thumb and ring or the thumb and all other fingers. The speed and force
+was intentionally left to the subject's will. Four force sensing
+resistors (FSRs) were applied on the subject's hand fingertips (thumb,
+index, middle and ring), in order to be able to detect which grasp
+type was used at each instant of time. At the same time, $10$ forearm
+surface EMG electrodes were applied to the subject's forearm, held in
+place by elastic bands, in order to gather information about the
+muscle activation (see Figure \ref{fig:setup} $(b)$).
 
 Numerical data from the EMG electrodes, FSRs and OFTS were gathered at
 the fastest sampling rate we could obtain, that is, $256$Hz, using a
@@ -45,14 +41,15 @@ National Instruments DAQ PCI-6023E analogic/digital conversion card
 
 The $10$ EMG electrodes were applied to the subject's right forearm,
 held in place by elastic bands. The electrodes were
-double-differential Otto Bock 13E200=50 models \cite{ottobock}, each
-one gifted with an amplification gauge ranging from $2000$ to $100000$
-times. Initial qualitative experiments revealed that a safe setting
-for the amplification gauge was in the middle of the range,
-corresponding to about $14000$ times. This is in agreement with the
-EMG signal amplitude predicted in the related literature (see, e.g.,
-\cite{deluca}), that is about $100 \mu V$ on average: the voltages our
-DAQ card read ranged from $0V$ to about $2.5V$.
+double-differential Otto Bock 13E200=50 models (\cite{ottobock}, see
+Figure \ref{fig:setup} $(c)$), each one gifted with an amplification
+gauge ranging from $2000$ to $100000$ times. Initial qualitative
+experiments revealed that a safe setting for the amplification gauge
+was in the middle of the range, corresponding to about $14000$
+times. This is in agreement with the EMG signal amplitude predicted in
+the related literature (see, e.g., \cite{deluca}), that is about $100
+\mu V$ on average: the voltages our DAQ card read ranged from $0V$ to
+about $2.5V$.
 
 Six of the electrodes were placed in pairs along the lower face of the
 forearm, whereas four of them were applied in pairs on the upper
@@ -75,15 +72,18 @@ factors:
     forearm muscles are also involved in the motion of the arm. The
     EMG signal is therefore likely to change if the forearm is moved
     during signal acquisition, for example when switching from
-    pronation to supination. Even raising the shoulder to lift the
-    forearm from the table will result in remarkable signal changes.
+    pronation to supination, or simply while walking around. Even
+    raising the shoulder to lift the forearm from the table will
+    result in remarkable signal changes.
 
   \item \emph{electrode displacement.} The intensity and quality of
     the EMG signal depends upon a correct placement of the electrode
     over a muscle. In principle, each electrode should be placed over
     a single muscle, precisely on top of the muscle belly, halfway the
-    length of the muscle, and always exactly in the same
-    place. Displacing the electrodes will alter the signal.
+    length of the muscle, and always exactly in the same place.
+    Displacing the electrodes will alter the signal, and beside that,
+    a precise placement is essentially impossible when dealing with
+    surface forearm EMG.
 
   \item \emph{muscle fatigue.} As the muscles are used more and more,
     continually, fatigue changes the RMS of the EMG signal, calling
@@ -135,29 +135,22 @@ information is limited to $10$Hz (damping of $-30$dB at that
 frequency), therefore sampling at $256$Hz proved to be a large
 overshoot. We will employ this fact later on.
 
-\begin{figure*}[!ht] \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{figs/el8_movingAvg_s1} &
-    \includegraphics[width=0.45\textwidth]{figs/targets_zoom1} \\
-    $(a)$ & $(b)$ \\
-  \end{tabular}
-  \caption{$(a)$ Typical behaviour of an electrode signal over a
+\begin{figure}[!ht] \centering
+  \includegraphics[width=0.45\textwidth]{figs/el8_movingAvg_s1}
+  \caption{Typical behaviour of an electrode signal over a
     session (moving average over about $10$ seconds). Drifting can be
-    clearly seen in the signal, due to muscle fatigue. $(b)$ Typical
-    values output by the OFTS sensor (black solid line), and the
-    categories evaluated from the fingertip sensors values (red dotted
-    line).}
+    clearly seen in the signal, due to muscle fatigue.}
   \label{fig:drift}
-\end{figure*}
+\end{figure}
 
 \subsubsection{Force applied during the grasp}
 
 The OFTS force/torque sensor would output a (negative) integer
 numerical value ranging from $0$ to about $-5000$, expressed in
-fiftieths of a Newton. After normalisation, the range of the applied
-force would then be between $0N$ and $100N$, with a resolution of
-$0.02N$. Linearity of the sensor is guaranteed, and was anyway
-manually verified.
+(negative) fiftieths of a Newton. After normalisation, the range of
+the applied force would then be between $0N$ and $100N$, with a
+resolution of $0.02N$. Linearity of the sensor is guaranteed, and was
+anyway manually verified.
 
 \subsubsection{Type of grasp}
 
@@ -176,17 +169,11 @@ immediately at the onset of finger movement, which our setup was
 unable to detect. This would result in potential wrong EMG values for
 category $0$. Moreover, the FSRs have been experimentally determined
 to suffer from a remarkable hysteresis effect, that is, they will
-indicate slightly different voltage when the subject is pressing and
-when he is releasing; this is most likely due to small rubber ends
-glued on top of the sensor surfaces which would improve the grasping
-feeling of the subject. Hysteresis is also supposed to somehow degrade
-the quality of the learning. Because of these factors we would never
-expected a close-to-$100\%$ classification accuracy, nor a perfect
-reconstruction of the applied force. A better setup is currently being
-studied, which would avoid these effects. Again, see the Discussion
-for more about this issue.
-
-Figure \ref{fig:drift}, pane $(b)$, shows typical values of the OFTS
-sensor and the related categories. One can clearly see that the
-applied force is in general higher when grasp type $4$, all fingers
-involved, is used, as expected.
+indicate slightly different voltage while pressing and releasing; this
+is due to small rubber ends glued on top of the sensor surfaces, which
+aid grasping by raising the static friction coefficient. Hysteresis is
+also supposed to somehow degrade the quality of the learning. Because
+of these factors we would never expected a close-to-$100\%$
+classification accuracy, nor a perfect reconstruction of the applied
+force. A better setup is currently being studied, which would avoid
+these effects. Again, see the Discussion for more about this issue.

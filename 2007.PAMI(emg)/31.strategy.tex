@@ -2,10 +2,11 @@
 
 First of all we chose one of the selected approaches (NNs, SVMs or
 LWPR) and one problem (classification or regression) for initial
-experimentation. We decided to use SVMs for classification. We then
-decided to test whether data obtained during one session could be used
-to build a model able to generalise over other sessions during the
-same day.
+experimentation. We decided to use SVMs for classification. so far,
+the data were retained in full, with no subsampling. We then decided,
+as a start, to test whether data obtained during one session could be
+used to build a model able to generalise over other sessions during
+the same day.
 
 Here an obvious problem arises: the total time of the experiment
 during which data were gathered was about $100$ minutes; at $256$Hz,
@@ -13,13 +14,13 @@ that means about $1.6$ millions samples, an unfeasibly large training
 set for any of the examined methods, not to mention SVM
 classification. Even restricting a training set to a single session,
 this would result in about $53000$ samples, which not only is still
-too large, but probably contains redundant and irrelevant
-information. Moreover, in a real setting, this number is doomed to
-grow continually and cannot therefore be used as it is for periodical
-re-training. We then decided to investigate a smart sampling strategy
-in order both to overcome this problem, but also to gain insight into
-the EMG signal in general. This led us to develop the batch version of
-the uniformisation procedure.
+too large, but probably contains redundant and irrelevant information.
+Moreover, in a real setting, this number is doomed to grow continually
+and cannot therefore be used as it is for periodical re-training. We
+then decided to investigate a smart sample reduction strategy in order
+both to overcome this problem, but also to gain insight into the EMG
+signal in general. This led us to develop the batch version of the
+uniformisation procedure.
 
 The simple idea behind batch uniformisation is that, in a real-life
 set-up such as ours, there can be many input samples located in the
@@ -33,21 +34,20 @@ human motion, we can assume that they are continuous and, probably,
 derivable up to any arbitrary order. Therefore it makes no sense to
 consider samples obtained in a non-uniform way such as that described
 above. The batch uniformisation procedure consists of removing, from a
-training set, those samples which are too close to each other,
+training set, those samples which are \emph{too close to each other},
 according to a suitable notion of inter-sample distance.
 
-In order to take into account the different variances of the EMG
-electrode values, and since in batch data analysis all data are
-available beforehand and therefore all possible statistics can be
-gathered a-priori, we have decided to adopt Mahalanobis's distance as
-the inter-sample distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the
-Mahalanobis distance between $\xx_1$ and $\xx_2$ is defined as
-follows:
+In order to take into account the variance of each single electrode,
+and since in batch data analysis all data are available beforehand and
+therefore all possible statistics can be gathered a-priori, we have
+decided to adopt Mahalanobis's distance as the inter-sample
+distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the Mahalanobis
+distance between $\xx_1$ and $\xx_2$ is defined as follows:
 
 $$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
 
 \noindent where $\Sigma$ is the $10$x$10$ covariance matrix, evaluated
-on the training set. $MD(\xx_1,\xx_2)$ is a measure of distance
+on the whole training set. $MD(\xx_1,\xx_2)$ is a measure of distance
 independent of the (co)variance of the electrodes. (Notice that if
 $\Sigma$ is replaced by the identity matrix, $MD(\xx_1,\xx_2)$ is
 reduced to the usual notion of Euclidean distance.)
@@ -57,11 +57,10 @@ obviously takes a quadratic time with respect to the number of
 samples, which was unfeasible, we adopted an approximated method which
 was able to remove most, but not all, samples too Mahalanobis-close to
 each other. After a few initial experiments, the threshold distance
-was set at $1$. Notice that no \emph{testing} set was uniformised,
-since it would probably be unfeasible to apply the same procedure in
-an on-line setting. Notice, further, that applying uniformisation
-resulted in training sets which were considerably smaller than the
-original ones, up to about $100$ times smaller.
+was set at $1$. Notice that no \emph{testing} set was uniformised.
+Notice, further, that applying uniformisation resulted in training
+sets which were considerably smaller than the original ones, up to
+about $100$ times smaller.
 
 The first question is: do uniformised training sets lack any relevant
 information? We trained a SVM over each single session, both for the
@@ -76,8 +75,8 @@ set of a model was uniformised, we will call the model \emph{uniform}.
 We then tested each model on all sessions of the same day, obtaining
 therefore an \emph{accuracy matrix} $A$ in which $A_{ij}$ would be a
 percentage denoting the correctly guessed labels when testing model
-$i$ (standard or uniform) on session $j$. Notice once again that, in
-the case of uniform models, the test is carried out on the \emph{full}
+$i$ (full or uniform) on session $j$. Notice once again that, in the
+case of uniform models, the test is carried out on the \emph{full}
 session. This is what we would call a \emph{cross-session analysis}.
 The result is visible in Figure \ref{fig:cross_initial}.
 
@@ -151,11 +150,11 @@ subject. On the other hand, sessions in the last group (columns $13$,
 $14$ and $15$ of the matrix) are particularly hard, except when tested
 by models obtained from the last group itself --- here the effect is
 probably motivated by the opposite reason: during those sessions, the
-subject must have explored more relevant parts of the input
-space. This is corroborated by the fact that models $13,14,15$ perform
-rather well on \emph{all} sessions, if compared to other models (check
-rows $13,14,15$ of the matrix). In other words, sessions $13,14,15$
-contain more relevant information than the others.
+subject must have explored different parts of the input space. This is
+corroborated by the fact that models $13,14,15$ perform rather well on
+\emph{all} sessions, if compared to other models (check rows
+$13,14,15$ of the matrix). In other words, sessions $13,14,15$ contain
+more relevant information than the others.
 
 Analogous considerations can be made by inspecting the accuracy matrix
 of the second day, pane $(d)$ of the Figure.
@@ -178,31 +177,29 @@ displacement present between groups (but not within a group) causes
 the samples in a group to be ``shifted'' in the input space, so that
 testing on a different group results in poor generalisation
 performance. To substantiate this claim, we have verified that the
-cross-session accuracy is highly correlated to the
-\emph{average minimum inter-sample distance} between sessions. More in
-detail, let $S_i$ denote the training set for session $i$; we have
-built a distance cross-session matrix $D$ in which
+cross-session accuracy is highly correlated to the \emph{average
+minimum inter-sample distance} between sessions. More in detail, let
+$S_i$ and $S_j$ denote the sets of samples gathered during sessions
+$i$ and $j$; then the \emph{cross-session distance matrix} $D$ is such
+that
 
 $$ D_{ij} = \frac{1}{|S_j|} \sum_{s_j \in S_j}{\min_{s_i \in S_i}{ ||s_j-s_i||^2 } } $$
 
 Essentially, $D_{ij}$ denotes how far away in the input space the
 samples in $S_j$ are from the samples in $S_i$. Note that $D$ is in
-general not symmetric, since we consider the \emph{average} of the
-\emph{minimum} distance of each sample in $S_j$ from those in $S_i$.
+general not symmetric.
 
-The cross-correlation coefficient evaluated between the values of $D$
-and the accuracy values of the cross-session accuracy matrix is
-$-0.61$ \emph{both} for the first and the second day, indicating a
-strong negative correlation. Further experiments have revealed that
-this happens for Neural Networks too (cross-correlation $-0.40$ for
-day $1$ and $-0.51$ for day $2$); and also, that $D$ is strongly
-\emph{positively} correlated to the MSE in regression, for all the
-studied approaches: $0.62/0.78$ (day $1$/day $2$) for SVMs,
-$0.64/0.72$ for NNs and $0.77/0.81$ for LWPR.
-
-In other words, the larger the distance of $S_i$ and $S_j$, the worse
-the performance of model $i$ tested on session $j$, \emph{both in
-classification and in regression}, and \emph{for all approaches
+The cross-correlation coefficient evaluated between $D$ and the
+cross-session accuracy matrix is about $-0.61$ \emph{both} for the
+first and the second day, indicating a strong negative correlation.
+Further experiments have revealed that this happens for Neural
+Networks too (cross-correlation $-0.40$ for day $1$ and $-0.51$ for
+day $2$); and also, that $D$ is strongly \emph{positively} correlated
+to the MSE in regression, for all the studied approaches: $0.62/0.78$
+(day $1$/day $2$) for SVMs, $0.64/0.72$ for NNs and $0.77/0.81$ for
+LWPR. In other words, the larger the distance of $S_i$ and $S_j$, the
+worse the performance of model $i$ tested on session $j$, \emph{both
+in classification and in regression}, and \emph{for all approaches
 tested}. This tells us that $(a)$ samples of the same group are closer
 to each other than sample from different groups, therefore electrode
 displacement causes displacement in the input space too; and $(b)$
@@ -246,34 +243,32 @@ the training set will be predicted badly.''
 %% model.
 
 The dual consideration is that if we train upon the ``right'' data,
-the accuracy should become acceptable. So we have considered how to
-collect \emph{only} relevant information from the gathered data, that
-is, how to sensibly reduce the training set. To do this, in this batch
-phase, we have collected the two best models for each day and joined
-them together. For instance, consider Figure \ref{fig:cross_initial}
-again, pane $(b)$. It is apparent that model $4$ performs well on
-sessions $1$ to $12$, whereas model $13$ does well on sessions $13$ to
-$15$. We then decided to use these two models to form a ``best''
-training set which would give good results on the whole day
-$1$. Analogous considerations led us to use also models $4$ and $8$ of
-day $2$. The obtained model will be called \emph{best} model.
+the accuracy should become acceptable. How to find the right data
+then? In this batch phase, we have deicded to adjoin two models per
+day, which would obtain a good accuracy on all sessions. For instance,
+consider Figure \ref{fig:cross_initial} again, pane $(b)$. It is
+apparent that model $4$ performs well on groups $1$ to $4$, whereas
+model $13$ does well on group $5$ (and is not bad on the
+others). These two models were used to form a ``best'' training set
+which would give good results on the whole day $1$. Analogous
+considerations led us to use also models $4$ and $8$ of day $2$. The
+obtained model will be called \emph{best} model.
 
 This procedure was repeated for each problem tackled (classification,
 regression) and approach tested (SVM, NN and LWPR). Figure
 \ref{fig:best_class} shows the classification accuracy of the best
-models for classification on all $15$ sessions of day $1$ and $2$, for
-SVMs and NNs. The analysis detailed in the previous Subsection has
-been repeated for the Neural Network. In that case, models $8$ and
-$15$ of day $1$, and models $3$ and $10$ of day $2$ have been used to
-build the best model.
+models for classification on all sessions of day $1$ and $2$, for SVMs
+and NNs. The analysis detailed in the previous Subsection has been
+repeated for the Neural Network. In that case, models $8$ and $15$ of
+day $1$, and models $3$ and $10$ of day $2$ have been used to build
+the best model.
 
 \begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay1}
-    &
+    \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay1} &
     \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay2} \\
     SVM: $89.90\% \pm 4.51\%$ & SVM: $89.04\% \pm 4.50\%$ \\
-    NN: $90.25\% \pm 2.77\%$ & NN: $86.84\% \pm 5.57\%$ \\
+     NN: $90.25\% \pm 2.77\%$ &  NN: $86.84\% \pm 5.57\%$ \\
     $(a)$ & $(b)$ \\
   \end{tabular}
   \caption{Classification accuracy of best models, day $1$ $(a)$ and
@@ -282,7 +277,7 @@ build the best model.
 \end{figure}
 
 As one can see, there is no clear winner between SVMs and NNs. NNs
-perform slightly better on day $1$ (lower mean, lower standard
+perform slightly better on day $1$ (higher mean, lower standard
 deviation) but SVMs are analogously better on day $2$. All in all,
 classification accuracy is good, at an overall rate of about
 $90\%$. In this case, the training data amounts to four sessions
@@ -324,8 +319,8 @@ expressed as a percentage; and the Squared Correlation Coefficient
     LWPR: $0.78 \pm 0.05$ & LWPR: $0.77 \pm 0.04$ \\
   \end{tabular}
   \caption{Regression accuracy of best models, day $1$ (left panes)
-    and day $2$ (right panes). First row: Mean Squared Error; second
-    row: Normalised Root MSE; third row, Squared Correlation Coefficient.}
+    and day $2$ (right panes). First row: Normalised Root MSE; second
+    row: Mean Squared Error; third row, Squared Correlation Coefficient.}
   \label{fig:best_regr}
 \end{figure}
 
@@ -340,17 +335,16 @@ moving to a real setting. Their error is on average $10.54\% \pm
 perform quite well, their average errors ranging from $10.54\%$ to
 $11.98\%$.
 
-Consider now the second and third rows of the Figure. First of all it
-is there is a clear inverse correlation between the MSE and the SCC,
-as it is expected: for both days and for all approaches, a larger MSE
-corresponds to a lower SCC. Secondly, it is once again clear that the
-generalisation performance strongly depends on which data we have used
-to train the machines: consider for instance the MSE attained by SVM
-on day $1$ (Figure \ref{fig:best_regr}, second row, left pane, blue
-curve): the best model was trained upon data coming from sessions $6$
-and $12$, although uniformised, and not surprisingly those are the
-sessions for which the MSE is minimum; the same effect is present for
-the other approaches.
+Consider now the second and third rows of the Figure. First of all
+there is a clear inverse correlation between the MSE and the SCC, as
+expected. Secondly, it is once again clear that the generalisation
+performance strongly depends on which data we have used to train the
+machines: consider for instance the MSE attained by SVM on day $1$
+(Figure \ref{fig:best_regr}, second row, left pane, blue curve): the
+best model was trained upon data coming from sessions $6$ and $12$,
+although uniformised, and not surprisingly those are the sessions for
+which the MSE is minimum; the same effect is present for the other
+approaches.
 
 Lastly, in practical terms: the best average MSE obtained by NNs
 ($6.27\cdot 10^4 \pm 2.36\cdot 10^4$ and $4.76\cdot 10^4 \pm 1.52\cdot
