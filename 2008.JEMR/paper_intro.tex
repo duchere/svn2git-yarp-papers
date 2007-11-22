@@ -1,0 +1,66 @@
+Semi-autonomous teleoperation consists of having a robotic setup (the
+\emph{slave}) work in a remote environment, guided by a human user
+(the \emph{master}). In a basic setting, the cooperation between
+master and slave is realised in such a way that the actions performed
+by the master can be precisely and timely replicated by the slave. In
+order to convey a feeling of telepresence, in particular, a high
+bandwidth is required for the slave-to-master sensorial feedback
+\cite{telesensation}. But, when any of the above conditions fails,
+teleoperation must be somehow augmented. The slave could consist of a
+set of surgical tools \cite{okamura} not immediately related to the
+human fingers; or, the master could be a disabled person; or, lastly,
+the master/slave communication bandwidth could be insufficient for a
+timely and accurate transmission of sensorial feedback.
+
+One of the possibilities to overcome these problems is that of making
+the slave more intelligent by building into it \emph{internal models}
+of the required actions \cite{kawato-99}. It is envisioned, in this
+scenario, that the master should first train the slave to perform the
+actions required, in a safe and controlled environment; and that this
+acquired knowledge should then be used by the slave in real
+situations, whenever the environment or the master's abilities do not
+allow direct control. Upon detecting the master's intention to, e.g.,
+grasp an object in its own workspace, the slave should take control
+over, initiate and complete a grasping action possibly modelled upon
+the user's style, and then return the control to the master. This is
+what we call \emph{semi-autonomous grasping}.
+
+As a minimum set of requirements, such a model should be
+\emph{accurate} (it should be able to tell exactly when to start an
+autonomous grasp, avoiding doing it when not required), \emph{fast},
+since it must be used in real-time and, \emph{flexible}: it must adapt
+well to different subjects' parameters (speed of reach, direction of
+motion), abilities and intentions; and it must be trained in a
+reasonably short amount of time.
+
+In this paper we investigate the possibility of building such an
+internal model, employing a machine learning system based upon a
+Support Vector Machine (SVM) \cite{BGV92}. In \cite{clea07}, we
+already showed some promising results related to the problem; here we
+refine the data analysis and show the results of an experiment in
+which seven subjects, of different ages and with slightly different
+movement and gaze abilities, were placed in a real teleoperation
+scenario; the subjects would then teach a SVM to recognise when they
+wanted to grasp an object in the slave setup by simply and naturally
+fixating the object, reaching for it and closing their hand. Here we
+carry the data analysis to the end.
+
+Data was gathered from the subjects using a magnetic tracker for the
+position of the hand, and a gaze tracker in order to understand
+whether the subject was fixating a particular object. One interesting
+question is whether gaze tracking can improve the situation. The
+outcome of the experiment is that such a model can actually be built,
+and that it fulfills all the requirements enumerated above: it is
+highly accurate; the solution achieved is extremely compact; and these
+characteristics are largely independent of the subjects'
+abilities. The training phase is accomplished using about $3.5$
+minutes of data gathered in real-time from each subject, in the worst
+case. The use of gaze tracking significantly improves the obtained
+models, both as far as the accuracy and the size of the models is
+concerned.
+
+The paper is structured as follows: after a quick review of related
+work, Section \ref{sec:matmet} describes the materials and methods
+used in the experiment; Section \ref{sec:res} shows the experimental
+results, and Section \ref{sec:concl} draws conclusions and outlines
+future work.
