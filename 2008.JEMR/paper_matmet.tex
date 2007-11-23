@@ -25,7 +25,7 @@ of the monitor. Figure \ref{fig:devices} shows the devices and setup.
       \includegraphics[width=0.295\linewidth]{figs/setup.eps} \\
       $(a)$ & $(b)$ & $(c)$
     \end{tabular}
-    \caption{The setup and devices used for the experiment: $(a)$ the
+    \caption{The devices and setup used for the experiment: $(a)$ the
     Immersion CyberGlove with the Flock-of-Birds sensor just above the
     wrist; $(b)$ the ASL E504 gaze tracker (pan/tilt near-infrared
     camera); $(c)$ the whole setup.}
@@ -220,7 +220,7 @@ implementation of SVMs.
 
 According to the procedure described in the previous parts of this
 Section, we decided to set up a SVM for each user $i$ and value of the
-time window $T_c$. Willing to compare the performance with and wothout
+time window $T_c$. Willing to compare the performance with and without
 the use of the gaze signal, we defined $\RR^{3}$ as the input space in
 the case of not using the gaze (the $3$ numbers representing the hand
 average velocity over $T_c$), and $\RR^{5}$ in the case of using the
@@ -229,4 +229,5 @@ position standard deviation over $T_c$). According to this and to the
 experience gathered in previous work \cite{clea07}, the ranges of the
 parameters $C$ and $\sigma$ were chosen as follows: $C$ was $10^k$
 with $k=-1,\ldots,3$ in steps of $0.2$, whereas $\sigma$ was
-$\sqrt{\frac{5}{10^{k}}}$ with $k=0,\ldots,2$, in steps of $0.2$.
+$\sqrt{\frac{5}{10^{k}}}$ with $k=0,\ldots,2$, in steps of $0.2$
+($\sqrt{\frac{3}{10^{k}}}$ in the case of not using the gaze).
