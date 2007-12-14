@@ -1,7 +1,3 @@
-\textbf{[[Patrick: I am unsure we do need this section. isn't everyone
-expected to know what SVM, NN and LWPR is at PAMI? do you possibly want to
-shrink this section?]]}
-
 The gathered data was analysed both for classification and
 regression. \emph{Classification} is the process by which one wants to
 assign a label to each sample in the input space, whereas in
@@ -33,42 +29,38 @@ realistic, delay-free result.
 
 \subsubsection{Neural Networks}
 
-Artificial Neural Networks (NNs or ANNs for short; see, e.g.,
+Feed-Forward Artificial Neural Networks (FFN; see, e.g.,
 \cite{bishop} for a comprehensive introduction) are probably the most
 popular machine learning algorithm nowadays available for both
-classification and regression. An ANN is a directed graph in which,
-for every node, the weighted sum of the input values is evaluated;
-this sum is then used as the argument of an \emph{activation function}
-to determine the output of the node. The nodes fed the input values to
-the network form the \emph{input layer}, and the nodes whose output is
-taken as the output of the network are called \emph{output
-layer}.
-
-An ANN is initialised with random weights; then, for every sample in
-the training set, the network output is evaluated and its error with
-respect to the target is considered. A minimisation algorithm is then
-employed to change the weights of the network, until the desired
-precision is reached. For our experiment we strived to keep the ANN as
-simple as possible. We then chose a feed-forward neural network with
-$10$ units in the input layer; one hidden layer with $10$ units with
-hyperbolic tangent (sigmoidal) activation function; $5$ units in the
-output layer for classification, each unit representing one category,
+classification and regression. %An ANN is a directed graph in which,
+%for every node, the weighted sum of the input values is evaluated;
+%this sum is then used as the argument of an \emph{activation function}
+%to determine the output of the node. The nodes fed the input values to
+%the network form the \emph{input layer}, and the nodes whose output is
+%taken as the output of the network are called \emph{output
+%layer}.
+%
+%An ANN is initialised with random weights; then, for every sample in
+%the training set, the network output is evaluated and its error with
+%respect to the target is considered. A minimisation algorithm is then
+%employed to change the weights of the network, until the desired
+%precision is reached.
+For our experiment we strived to keep the FFN as
+simple as possible. With 10 inputs, we chose a feed-forward neural network with
+one hidden layer with $10$ units with
+hyperbolic tangent (sigmoidal) activation function.  $5$ Outputs are
+used for classification, each unit representing one category,
 and one unit in the output layer for regression, the unit representing
 the target force value. The network was trained using gradient
 descent, with backpropagation being enforced via the quasi-Newton
 algorithm (for classification) and the Levenberg-Marquardt algorithm
-(for regression). The Mean Square Error (MSE) was used as a measure of
-performance. The training phase was stopped either after $100$ epochs
+(for regression). 
+The training phase was stopped either after $100$ epochs
 or when the validation set would show an increasing error. For each
 experiment, we repeated the training phase $10$ times and then
 gathered the best model found, in order to overcome the well-known
 problem of local minima. Validation was done on a disjoint subset of
 the training samples.
-
-The network was implemented in Matlab, Windows version $7.1.0.246$
-(R14) Service Pack 3, running on a bi-processor $1.8$GHz machine with
-1GB on-board memory; we used the Matlab Neural Network Toolbox,
-version $5.0.1$ (R2006b).
 
 \subsubsection{Support Vector Machines}
 
@@ -92,9 +84,12 @@ SVMs do not suffer from the problem of local minima. We employed a
 well-known freely available SVM package, \emph{libsvm} v2.83
 \cite{ChangL01}, in the Matlab wrapped flavour.
 
+
+\textbf{Claudio: Please add some details about your SVM, rather than general text.  E.g., the C and sigma parameters? Indeed remove much of the }
+
 \subsubsection{Locally Weighted Projection Regression}
 
-Locally Weighted Projection Regression (LWPR --- see \cite{lwpr}) is a
+Locally Weighted Projection Regression (LWPR---see \cite{lwpr}) is a
 regression method especially targeted for high-dimensional
 spaces with redundant and irrelevant input dimensions. It employs
 locally linear models, each of which performs univariate regressions

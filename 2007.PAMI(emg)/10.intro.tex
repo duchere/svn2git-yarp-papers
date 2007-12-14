@@ -1,9 +1,9 @@
-In the framework of hand prosthetics, it is nowadays possible to build
-mechanical hands possessing a fair amount of the abilities required by
-the disabled to carry on living in a decent way. Modern hand
-mechatronics has given us robotic hands which are highly humanoid,
+Active prosthetic hands, driven by a motor to open and close the ``claw,'' have been around for many years.
+Recently, however, advances in mechatronics have improved such hands and currently
+various prosthetic hands with 3 or more active degrees of freedom are being put
+on the market.  Such hand developments are a result of various robotic hands which are highly humanoid,
 light and gifted with a number of degrees of freedom. Attempts in this
-sense include, e.g., the DLR prosthetic hand (\cite{Hua2006} --- see
+sense include, e.g., the DLR prosthetic hand (\cite{Hua2006}---see
 Figure \ref{fig:DLRHandII}), the CyberHand project \cite{cyberhand},
 and the i-LIMB hand by Touch Bionics \cite{ilimb}.
 
@@ -34,7 +34,7 @@ prosthesis have been developed or are being studied: \emph{invasive}
 and \emph{non-invasive}. The former gather control signals directly
 from the user's nervous system, either via brain implants or surgical
 use of electrodes. Quite obviously, invasive interfaces are supposed
-to guarantee a high signal quality, since the signals can be gathered
+to deliver a high signal quality, since the signals can be gathered
 exactly in the right spots; but they involve surgery and all related
 sterility (and psychological) issues. On the other hand, non-invasive
 interfaces are easier to handle, manufacture and implant, but require
@@ -43,7 +43,7 @@ surface (skin) signals or vision and gaze tracking.
 
 In the context of non-invasive interfaces for controlling mechanical
 hands, a concrete possibility arises from \emph{forearm surface
-electromyography} (EMG) \cite{zecca}, a technique by which muscle
+electromyography} (EMG), a technique by which muscle
 activation potentials are gathered by electrodes placed on the
 patient's forearm skin; these potentials can be used to track which
 muscles the patient is willing to activate, and with what force.
@@ -61,7 +61,7 @@ the current problem is exactly that of building a map relating EMG
 activation potentials and muscle force, and therefore hand finger
 movements.
 
-Such a system must be highly adaptive, accurate and fast --- possibly,
+Such a system must be highly adaptive, accurate and fast---possibly,
 able to run in real time, as the patient is wearing the prosthesis.
 Another very desirable characteristic is that the system should learn
 automatically as the patient moves, being able to understand when new
@@ -71,16 +71,14 @@ applied to surface EMG has only been able to classify hand postures.
 For example, the surface EMG signal can be used to detect whether the
 patient is attempting a cylindric grasp or a two-finger grip
 \cite{ekvall}; but no indication about the amount of force involved in
-the grasping act is detected, so that it is impossible to distinguish
-between, e.g., a power grasp and a precision grip.
+the grasping act is detected.
 
 In this paper we show a rather detailed analysis of what machine
-learning can do when applied to such a problem. Over two days, we have
+learning can do when applied to such a problem. Over several days, we have
 gathered forearm surface EMG data while an able-bodied human subject
 was gripping in four distinct ways a force sensor; we have then
 trained three different machine learning systems to guess, from the
 EMG signal,
-
 \begin{enumerate}
 
   \item what kind of grasp the subject was doing, e.g., thumb and
@@ -96,9 +94,9 @@ EMG signal,
 \end{enumerate}
 
 The three approaches we have experimented with are:
-$(a)$ a simple feed-forward neural network with one hidden layer,
-$(b)$ a Support Vector Machine with radial basis function kernel
-\cite{BGV92}, $(c)$ Locally Weighted Projection Regression
+(a) a simple feed-forward neural network with one hidden layer,
+(b) a Support Vector Machine with radial basis function kernel
+\cite{BGV92}, and (c) Locally Weighted Projection Regression
 \cite{lwpr}. Our analysis consists of a preliminary phase in which
 several models have been built in a batch fashion, in order to
 understand how to deal with the non-stationarity of EMG. The most
@@ -112,7 +110,7 @@ Uniformisation} (OU).
 OU is based upon the simple idea of keeping a minimum inter-sample
 Euclidean distance, in order to uniformly sample the input space. The
 selected samples are then used to periodically re-train the system,
-and check that it has adapted to the new data. The training sets so
+and check that it has adapted to the new data. The training sets thus
 obtained are remarkably small and thus usable on-line, and they offer
 an excellent trade-off between size and accuracy. In particular, as a
 certain parameter is increased, the size of the uniform training sets

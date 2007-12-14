@@ -1,6 +1,6 @@
 \subsubsection{Batch Uniformisation}
 
-First of all we chose one of the selected approaches (NNs, SVMs or
+First of all we chose one of the selected approaches (FFNs, SVMs or
 LWPR) and one problem (classification or regression) for initial
 experimentation. We decided to use SVMs for classification. So far,
 the data were retained in full, with no subsampling. We then decided,
@@ -13,7 +13,7 @@ during which data were gathered was about $100$ minutes; at $256$Hz,
 that means about $1.6$ millions samples, an unfeasibly large training
 set for any of the examined methods, not to mention SVM
 classification. Even restricting a training set to a single session,
-this would result in about $53000$ samples, which not only is still
+this would result in about $53,000$ samples, which not only is still
 too large, but probably contains redundant and irrelevant information.
 Moreover, in a real setting, this number is doomed to grow continually
 and cannot therefore be used as it is for periodical re-training. We
@@ -42,11 +42,11 @@ and since in batch data analysis all data are available beforehand and
 therefore all possible statistics can be gathered a-priori, we have
 decided to adopt Mahalanobis's distance as the inter-sample
 distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the Mahalanobis
-distance between $\xx_1$ and $\xx_2$ is defined as follows:
-
-$$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
-
-\noindent where $\Sigma$ is the $10$x$10$ covariance matrix, evaluated
+distance between $\xx_1$ and $\xx_2$ is defined as
+$$
+  MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)
+$$
+where $\Sigma$ is the $10\times10$ covariance matrix, evaluated
 on the whole training set. $MD(\xx_1,\xx_2)$ is a measure of distance
 independent of the (co)variance of the electrodes. (Notice that if
 $\Sigma$ is replaced by the identity matrix, $MD(\xx_1,\xx_2)$ is
@@ -54,8 +54,8 @@ reduced to the usual notion of Euclidean distance.)
 
 Since checking the inter-sample distance on a batch of samples
 obviously takes a quadratic time with respect to the number of
-samples, which was unfeasible, we adopted an approximated method which
-was able to remove most, but not all, samples too Mahalanobis-close to
+samples, which was infeasible, we adopted an approximated method which
+was able to remove most, but not all, samples which are too Mahalanobis-close to
 each other. After a few initial experiments, the threshold distance
 was set at $1$. Notice that no \emph{testing} set was uniformised.
 Notice, further, that applying uniformisation resulted in training
@@ -86,12 +86,12 @@ The result is visible in Figure \ref{fig:cross_initial}.
     \includegraphics[width=0.22\textwidth]{figs/fig_resCross1} \\
     diagonal: $98.73\% \pm 0.39\%$  & diagonal: $95.52\% \pm 1.21\%$ \\
         rest: $73.23\% \pm 14.29\%$ & rest: $74.53\% \pm 13.70\%$ \\
-    $(a)$ & $(b)$ \\
+    (a) & (b) \\
     \includegraphics[width=0.22\textwidth]{figs/fig_resCross2_full} &
     \includegraphics[width=0.22\textwidth]{figs/fig_resCross2} \\
     diagonal: $99.05\% \pm 0.37\%$ & diagonal: $95.37\% \pm 2.85\%$ \\
         rest: $73.23\% \pm 14.47\%$ & rest: $74.38\% \pm 12.27\%$ \\
-    $(c)$ & $(d)$ \\
+    (c) & (d) \\
   \end{tabular}
   \caption{Cross-session analysis and evaluation of the uniformisation
     procedure. $(a)$ and $(b)$, accuracy matrices for day $1$: $(a)$
@@ -99,8 +99,8 @@ The result is visible in Figure \ref{fig:cross_initial}.
   \label{fig:cross_initial}
 \end{figure}
 
-Consider first panes $(a)$ and $(b)$ of the Figure, pane $(a)$ being
-the accuracy matrix for full models, day $1$, and pane $(b)$ being the
+Consider first panes (a) and (b) of the Figure, pane (a) being
+the accuracy matrix for full models, day $1$, and pane (b) being the
 accuracy matrix for the same day, but using uniform models. It is
 apparent that the full models attain a better accuracy when tested on
 their own training data, that is, on the diagonal of the matrix, than
@@ -116,7 +116,7 @@ better accuracy \emph{overall}, if compared to the full models. In
 fact, the accuracies are $73.23\% \pm 14.29\%$ for the full models,
 and $74.53\% \pm 13.70\%$ for the uniform ones. The same analysis for
 day $2$ yields analogous results (consider the same Figure, panes
-$(c)$ and $(d)$).
+(c) and (d)).
 
 From this we conclude that the uniformisation procedure is effective
 in reducing the training set size, \emph{without actually degrading
@@ -127,18 +127,18 @@ sets. Uniform models generalise better, at least in this case.
 \subsubsection{Classification}
 
 Consider Figure \ref{fig:cross_initial} again, right hand side panes
-($(b)$ and $(d)$) and the numbers below. The accuracy attained on
+((b) and (d)) and the numbers below. The accuracy attained on
 non-diagonal elements is about $74\%$, which is rather bad. One cannot
 expect to correctly drive a prosthesis if one sample in four is
 misclassified. At the same time, however, a strong ``good group
 accuracy'' is obviously present: in each matrix, good accuracy values
-are obtained on 3x3 submatrices located on the diagonals,
+are obtained on $3\times3$ sub-matrices located on the diagonals,
 corresponding to cross-session accuracy for sessions \emph{belonging
 to the same group}, that is, when the elastic bands were not removed
 and no electrode displacement was present.
 
 More in detail, as far as the first day is concerned (same Figure,
-pane $(b)$), one can see that the first six models (trained on the
+pane (b)), one can see that the first six models (trained on the
 first two groups) obtain a quite good accuracy on the first six
 sessions (first two groups) whereas their accuracy rapidly degrades as
 more sessions are tested for. This is probably due to the first two
@@ -155,12 +155,12 @@ $13,14,15$ of the matrix). In other words, sessions $13,14,15$ contain
 more relevant information than the others.
 
 Analogous considerations can be made by inspecting the accuracy matrix
-of the second day, pane $(d)$ of the Figure.
+of the second day, pane (d) of the Figure.
 
 From this we can confirm that \emph{electrode displacement plays a
 determinant role} in the classification accuracy. Notice that muscle
 fatigue seems not to enter the picture, but this is reasonable since
-its effetcs are visible already within one single session (see Figure
+its effects are visible already within one single session (see Figure
 \ref{fig:drift} again) and the machine correctly takes it into account
 during the training phase. Notice once again that the uniformisation
 procedure does not hinder the generalisation power of the
@@ -187,13 +187,13 @@ Further experiments have revealed that this happens for Neural
 Networks too (cross-correlation $-0.40$ for day $1$ and $-0.51$ for
 day $2$); and also, that $D$ is strongly \emph{positively} correlated
 to the MSE in regression, for all the studied approaches: $0.62/0.78$
-(day $1$/day $2$) for SVMs, $0.64/0.72$ for NNs and $0.77/0.81$ for
+(day $1$/day $2$) for SVMs, $0.64/0.72$ for FFNs and $0.77/0.81$ for
 LWPR. In other words, the larger the distance of $S_i$ and $S_j$, the
 worse the performance of model $i$ tested on session $j$, \emph{both
 in classification and in regression}, and \emph{for all approaches
-tested}. This tells us that $(a)$ samples of the same group are closer
+tested}. This tells us that (a) samples of the same group are closer
 to each other than sample from different groups, therefore electrode
-displacement causes displacement in the input space too; and $(b)$
+displacement causes displacement in the input space too; and (b)
 that this causes bad inter-group performance. ``Samples far away from
 the training set will be predicted badly.''
 
@@ -235,9 +235,9 @@ the training set will be predicted badly.''
 
 The dual consideration is that if we train upon the ``right'' data,
 the accuracy should become acceptable. How to find the right data
-then? In this batch phase, we have deicded to adjoin two models per
+then? In this batch phase, we have decided to adjoin two models per
 day, which would obtain a good accuracy on all sessions. For instance,
-consider Figure \ref{fig:cross_initial} again, pane $(b)$. It is
+consider Figure \ref{fig:cross_initial} again, pane (b). It is
 apparent that model $4$ performs well on groups $1$ to $4$, whereas
 model $13$ does well on group $5$ (and is not bad on the
 others). These two models were used to form a ``best'' training set
@@ -246,10 +246,10 @@ considerations led us to use also models $4$ and $8$ of day $2$. The
 obtained model will be called \emph{best} model.
 
 This procedure was repeated for each problem tackled (classification,
-regression) and approach tested (SVM, NN and LWPR). Figure
+regression) and approach tested (SVM, FFN, and LWPR). Figure
 \ref{fig:best_class} shows the classification accuracy of the best
 models for classification on all sessions of day $1$ and $2$, for SVMs
-and NNs. The analysis detailed in the previous Subsection has been
+and FFNs. The analysis detailed in the previous Subsection has been
 repeated for the Neural Network. In that case, models $8$ and $15$ of
 day $1$, and models $3$ and $10$ of day $2$ have been used to build
 the best model.
@@ -259,7 +259,7 @@ the best model.
     \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay1} &
     \includegraphics[width=0.22\textwidth]{figs/fig_class_resCrossBestOnDay2} \\
     SVM: $89.90\% \pm 4.51\%$ & SVM: $89.04\% \pm 4.50\%$ \\
-     NN: $90.25\% \pm 2.77\%$ &  NN: $86.84\% \pm 5.57\%$ \\
+    FFN: $90.25\% \pm 2.77\%$ & FFN: $86.84\% \pm 5.57\%$ \\
     $(a)$ & $(b)$ \\
   \end{tabular}
   \caption{Classification accuracy of best models, day $1$ $(a)$ and
@@ -267,13 +267,13 @@ the best model.
   \label{fig:best_class}
 \end{figure}
 
-As one can see, there is no clear winner between SVMs and NNs. NNs
+As one can see, there is no clear winner between SVMs and FFNs. FFNs
 perform slightly better on day $1$ (higher mean, lower standard
 deviation) but SVMs are analogously better on day $2$. All in all,
 classification accuracy is good, at an overall rate of about
 $90\%$. In this case, the training data amounts to four sessions
-(uniformised in the case of SVMs and full in the case of NNs), which
-is about $12$-$15$ minutes of user activity. But notice, that samples
+(uniformised in the case of SVMs and full in the case of FFNs), which
+is about $12$--$15$ minutes of user activity. But notice, that samples
 gathered during both days were necessary to have an idea of which
 sessions to use.
 
@@ -284,7 +284,7 @@ force applied by the subject by looking at the EMG signal. To do this,
 we have repeated once again the analysis done in Subsection
 \ref{subsec:strategy} for the three approaches selected, and found out
 that the four sessions involved in the best models were: $6,12,3,12$
-for SVMs, $4,11,3,12$ for NNs and $6,13,3,4$ for LWPR. We have
+for SVMs, $4,11,3,12$ for FFNs and $6,13,3,4$ for LWPR. We have
 considered three indices of performance: the Mean Squared Error (MSE)
 in its standard definition; the Normalised Root MSE (NRMSE), ratio of
 the square root of the MSE and the range of the target values,
@@ -296,17 +296,17 @@ expressed as a percentage; and the Squared Correlation Coefficient
     \includegraphics[width=0.22\textwidth]{figs/fig_err_regr_resCrossBestOnDay1} &
     \includegraphics[width=0.22\textwidth]{figs/fig_err_regr_resCrossBestOnDay2} \\
      SVM: $11.84\% \pm 2.64\%$ &  SVM: $10.54\% \pm 3.18\%$ \\
-      NN: $10.54\% \pm 1.41\%$ &   NN: $10.01\% \pm 1.93\%$ \\
+     FFN: $10.54\% \pm 1.41\%$ &  FFN: $10.01\% \pm 1.93\%$ \\
     LWPR: $11.98\% \pm 1.31\%$ & LWPR: $11.13\% \pm 1.32\%$ \\
     \includegraphics[width=0.22\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1} &
     \includegraphics[width=0.22\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay2} \\
      SVM: $7.86 \pm 3.35$ &  SVM: $5.44 \pm 2.79$ \\
-      NN: $6.27 \pm 2.36$ &   NN: $4.76 \pm 1.52$ \\
+     FFN: $6.27 \pm 2.36$ &  FFN: $4.76 \pm 1.52$ \\
     LWPR: $7.79 \pm 1.83$ & LWPR: $6.03 \pm 2.07$ \\
     \includegraphics[width=0.22\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1} &
     \includegraphics[width=0.22\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay2} \\
      SVM: $0.77 \pm 0.09$ &  SVM: $0.78 \pm 0.11$ \\
-      NN: $0.83 \pm 0.04$ &   NN: $0.83 \pm 0.04$ \\
+     FFN: $0.83 \pm 0.04$ &  FFN: $0.83 \pm 0.04$ \\
     LWPR: $0.78 \pm 0.05$ & LWPR: $0.77 \pm 0.04$ \\
   \end{tabular}
   \caption{Regression accuracy of best models, day $1$ (left panes)
@@ -319,7 +319,7 @@ Figure \ref{fig:best_regr} shows the results; left panes are for day
 $1$ and right panes for day $2$. Consider the first row, plotting the
 NRMSE for each session: as it is apparent, as it was for
 classification, there is no clear advantage of one approach over
-another. NNs perform slightly better as far as the NRMSE is concerned,
+another. FFNs perform slightly better as far as the NRMSE is concerned,
 which is probably the most interesting measure of performance, when
 moving to a real setting. Their error is on average $10.54\% \pm
 1.41\%$ and $10.01\% \pm 1.93\%$. But as well, both LWPR and SVM
@@ -337,13 +337,13 @@ although uniformised, and not surprisingly those are the sessions for
 which the MSE is minimum; the same effect is present for the other
 approaches.
 
-Lastly, in practical terms: the best average MSE obtained by NNs
+Lastly, in practical terms: the best average MSE obtained by FFNs
 ($6.27\cdot 10^4 \pm 2.36\cdot 10^4$ and $4.76\cdot 10^4 \pm 1.52\cdot
-10^4$) corresponds to, in turn, an average error of $5N$ and
-$4.36N$. Figure \ref{fig:regression} shows some samples of the force
+10^4$) corresponds to, in turn, an average error of 5N and
+4.36N. Figure \ref{fig:regression} shows some samples of the force
 values obtained from the OFTS, along with the corresponding values
-predicted by the best approach, that is, NNs. As one can see, despite
-the non perfect correspondence of the two curves, the NN definitely
+predicted by the best approach, that is, FFNs. As one can see, despite
+the non perfect correspondence of the two curves, the FFN definitely
 follows the real target to a remarkable degree of accuracy, for a wide
 range of frequencies of the pressing/releasing action. The Figure
 shows data taken from three different sessions, in decreasing order of

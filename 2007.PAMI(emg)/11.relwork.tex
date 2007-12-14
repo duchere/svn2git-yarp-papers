@@ -1,6 +1,6 @@
 Machine learning has already been used for hand posture classification
 using the EMG signal, at least in \cite{dunlop,fukuda,smagt}. In the
-last work, in particular, as many as $9$ different postures could be
+latter work, in particular, as many as $9$ different postures could be
 classified to a remarkable degree of accuracy; it is deemed that this
 was possible since the hand postures would correspond to isometric
 muscular configurations, i.e., precise force configurations. The EMG
@@ -9,7 +9,7 @@ signal is known to be related to the \emph{force} a muscle is applying
 hand position one must resort to classification performed in
 controlled force conditions. On the other hand, as far as we know,
 nobody has ever attempted to build a map from the EMG to the force the
-fingers apply --- rather than classification, a \emph{regression}
+fingers apply---rather than classification, a \emph{regression}
 task.
 
 Our online optimisation procedure is based upon the concept of
@@ -19,10 +19,10 @@ target function. This is required in an online setting, since there is
 no guarantee that the flow of data potentially usable for training
 will ever cease. Of the tested approaches, both Support Vector
 Machines and Locally Weighted Projection Regression try and build a
-sparse solution; but in all cases, also including Neural Networks,
+sparse solution; but in all cases, also including feed-forward neural networks,
 there is so far no guarantee that the set of samples selected to build
 the solution will stop growing as more and more data are used to
-train. SVMs in particular are deemed to build sparse solutions (bsaed
+train. SVMs in particular are deemed to build sparse solutions (based
 upon support vectors, actually), but a recent result
 \cite{Steinwart03} shows that, really, the number of support vectors
 is proportional to the number of training samples. Therefore one
@@ -30,9 +30,9 @@ cannot expect to build an eventually stable solution of an online
 problem.
 
 Other ways of reducing the number of support vectors have been tried,
-such as \cite{bmvc} in which sparseness is achieved without losing any
+e.g.\ in \cite{bmvc}, in which sparseness is achieved without losing any
 accuracy, or, e.g., \cite{LeeM01,KeerthiCDC06} where a subset of the
-support vectors is heuristically selected andfewer support vectors are
+support vectors is heuristically selected and fewer support vectors are
 traded for larger classification/regression errors. Indeed the idea of
 sparsifying a solution is not new and has been used, e.g., in a
 Bayesian framework \cite{figueiredo03adaptive}; as well, the
@@ -40,6 +40,5 @@ sparseness of solutions in the framework of Support Vector Machines
 has been exploited and improved, e.g., with Relevance Vector Machines
 \cite{tipping00relevance}.
 
-\textbf{[[Patrick, will you say something here about dexterous
-prostheses and their control?]]}
+
 
