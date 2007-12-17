@@ -1,5 +1,5 @@
 Our experimental results, performed on a large data set of about
-$153000$ samples, clearly show that the Online Uniformisation
+$153,000$ samples, clearly show that the Online Uniformisation
 procedure can be used to obtain dramatically smaller training sets
 with no \emph{qualitative} loss of information; in other words, as
 more of the input space is sampled, OU keeps the training set
@@ -23,31 +23,31 @@ The choice of the minimum inter-sample distance $d$ is obviously
 crucial and depends on the required accuracy in classification and/or
 regression; but as we have seen, as $d$ is increased, the machine's
 performance degrades only linearly, whereas the training sets become
-polynomially smaller. Therefore, at the proce of having a slightly
+polynomially smaller. Therefore, at the price of having a slightly
 worse performance, dramatically smaller training sets can be used.
 
 We believe this is the first step toward the real application of
 machine learning to an EMG-driven adaptive, dexterous hand
-prosthesis. Let us consider the problems outlined in Subsection
+prosthesis. Let us consider the problems outlined in section
 \ref{subsubsec:electrodes}: in this paper we have solved problems
 $3$ and $4$. Now, since OU lets us obtain good accuracy with extremely
 small training sets, it is not too far-fetched to say that the
-solution of problem $2$ is at hand --- in principle, the changing arm
+solution of problem $2$ is at hand---in principle, the changing arm
 posture can be taken into account simply by sampling more of the input
 space. As far as problem $1$ is concerned, inter-subject usability is
 really of lesser interest, since one patient only is supposed to ever
-wear a prosthesis. On the other hand, a futher problem is that of
+wear a prosthesis. On the other hand, a further problem is that of
 training the system upon an amputee. First of all, the patient must
 still have a good deal of muscular and nervous plasticity in her arm
 stump; then, a smart way of collecting training data must be
-devised --- an amputee is obviously not expected to train the machine
+devised---an amputee is obviously not expected to train the machine
 with a hand. A simple idea is that of gathering EMG data from the
 patient's stump and grasping/force data from her healthy hand, while
 instructing her to imagine doing the same actions with both hands.
 
 As far as force regression is concerned, the results presented above
-are, to the best of our knowledge, totally novel. Surprinsingly,
-regression from the forearm surcafe EMG signal to the force applied by
+are, to the best of our knowledge, totally novel. Surprisingly,
+regression from the forearm surface EMG signal to the force applied by
 the hand had never been attempted before. Given the good performance
 obtained by our models, we claim that the relationship between the EMG
 signal and the force has been captured by the models, under variable
@@ -66,11 +66,11 @@ Our experiments, carried out using a Support Vector Machine with
 Gaussian kernel, a Neural Network with sigmoidal activation function
 and Locally Weighted Projection Regression, indicate that the approach
 achieves, using a training set of about $1800$ samples on a total of
-$153000$ (for $d=0.21$), an average accuracy of around $90\%$ in
+$153,000$ (for $d=0.21$), an average accuracy of around $90\%$ in
 classification of grasp types and a normalised root MSE of $7.89\%$ in
-prediciton of the force applied during the grasp. Of the tested
+prediction of the force applied during the grasp. Of the tested
 approaches, SVM is marginally better than the others, especially when
 larger training sets are used. The OU procedure is able to find as
-small a training set as $77.4$ samples on average (out of $153000$),
+small a training set as $77.4$ samples on average (out of $153,000$),
 which will still result in a SVM having a remarkable NRMSE of
 $12.12\%$.
