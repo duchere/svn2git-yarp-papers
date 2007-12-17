@@ -1,4 +1,4 @@
-The considerations of the previous Subsection lead to the reasonable
+The considerations of the previous Section lead to the reasonable
 hypothesis that inter-sample distance is the key. Keeping training
 sets uniform will result in smaller sets which still contain all
 information required for training. Moreover, bad generalisation is
@@ -11,7 +11,7 @@ setting while the patient is freely moving around.
 First of all, we reduced the sampling rate from $256$Hz to about
 $25$Hz, since (see Section \ref{subsubsec:electrodes}) the bandwidth
 of the EMG signal is limited in our experiment to about $10$Hz. This
-got us a total training set of about $153000$ samples. The samples
+got us a total training set of about $153,000$ samples. The samples
 were naturally chronologically ordered, so that they could be fed to
 the system one by one as it would actually happen during continuous
 acquisition of data from the patient's activity.
@@ -46,7 +46,7 @@ a good training set, as the patient explores new regions of the input
 space, and more and more samples are seen? In order to answer this
 question we considered again the problem of SVM classification, and
 let $S$ grow according to the OU procedure. Then, every about $1.5$
-minutes of sampled data, that is every $2400$ samples, we trained the
+minutes of sampled data, that is every $2,400$ samples, we trained the
 SVM on $S$ and checked its accuracy on a testing set drawn from the
 previously seen samples (but not in $S$, of course). This was done $5$
 times with different splits of $S$, so to obtain a statistically
@@ -83,6 +83,8 @@ set: now the system is being tested on samples drawn from zones of the
 input space it has not yet seen; and, as one would expect, the
 accuracy steadily increases, and it finally catches up with that
 obtained by testing on the growing testing set.
+\textbf{Claudio:  Please do not use colours in the results, if you do not really have to.  Colour printing will bring us into problems.  You don't really need "red" vs "black"
+in the curves here.  Better use "dotted" vs "dashed" or something like that.}
 
 Consider now pane $(b)$ of the Figure: the upper plot shows the size
 of the online uniformised training set as the sample acquisition

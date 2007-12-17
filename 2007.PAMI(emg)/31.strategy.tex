@@ -44,7 +44,7 @@ decided to adopt Mahalanobis's distance as the inter-sample
 distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the Mahalanobis
 distance between $\xx_1$ and $\xx_2$ is defined as
 $$
-  MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)
+  MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)}
 $$
 where $\Sigma$ is the $10\times10$ covariance matrix, evaluated
 on the whole training set. $MD(\xx_1,\xx_2)$ is a measure of distance
