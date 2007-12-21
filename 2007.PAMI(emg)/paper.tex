@@ -3,8 +3,9 @@
 %
 % October/November, 2007
 
-\documentclass[journal]{IEEEtran}
-
+%\documentclass[journal]{IEEEtran}
+\documentclass[twocolumn,referee]{svjour2}
+% use option draft, final, or referee
 \usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
@@ -22,15 +23,14 @@
 
 \title{Surface EMG in Advanced Hand Prosthetics}
 
-\author{Claudio~Castellini, Patrick~van~der~Smagt
-\thanks{Claudio Castellini \emph{(corresponding author)}
-  is with the LIRA-Lab, University of Genova,
-  viale F. Causa, 13, 16145 Genova, Italy.
-  e-mail: claudio.castellini@unige.it.}%
-\thanks{Patrick van der Smagt is with the DLR, German Aerospace Center,
-  Institute of Robotics and Mechatronics, Oberpfaffenhofen, Germany.
-  e-mail: smagt@dlr.de.}%
-}
+\author{Claudio~Castellini \and Patrick~van~der~Smagt}
+\institute{Claudio Castellini \at LIRA-Lab, University of Genova,
+  viale F. Causa, 13, 16145 Genova, Italy, \email{claudio.castellini@unige.it}
+  \and
+  Patrick~van~der~Smagt \at Institute of Robotics and Mechatronics,
+  German Aerospace Center/DLR, Oberpfaffenhofen, Germany,
+   \email{smagt@dlr.de}}
+
 
 \maketitle
 
@@ -38,12 +38,12 @@
   \input{00.abstract}
 \end{abstract}
 
-\begin{IEEEkeywords}
+\keywords{
 Learning and Adaptive Systems; Rehabilitation Robotics; Physical
 Human-Robot Interaction
-\end{IEEEkeywords}
+}
 
-\IEEEpeerreviewmaketitle
+
 
 \section{Introduction}
 \label{sec:introduction}
@@ -85,6 +85,11 @@ online uniformisation is used.
 \subsection{Online Experiments}
 \label{subsec:online}
 \input{32.online}
+
+\subsection{Application to a robotic 4-finger hand}
+\label{subsec:application}
+\input{33.application}
+
 
 \section{Discussion and Conclusions}
 \label{sec:discussion}
