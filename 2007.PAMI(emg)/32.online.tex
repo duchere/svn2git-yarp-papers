@@ -64,25 +64,24 @@ shows the results.
     $(a)$ & $(b)$ \\
   \end{tabular}
   \caption{$(a)$: classification accuracy of an SVM, as the training set
-    grows according to the OU procedure. \emph{Black curve:}
-    growing testing set; \emph{Red curve:} full testing set. $(b)$:
+    grows according to the OU procedure. $(b)$:
     size of the online uniformised training set: number of samples
     (upper plot), fraction of the whole training set (lower plot).}
   \label{fig:inc}
 \end{figure*}
 
-Consider first the black curve in pane $(a)$ of the Figure: it is
-apparent that, already after $4$ training steps, that is after some
-$6$ minutes, the system can classify with an accuracy of about $90\%$,
-as it was the case in the preliminary analysis (accuracy $89.57 \pm
-0.94$). Notwithstanding some oscillations, the accuracy remains
-substantially constant over the whole test and, at the end, is still
-$89.14. \pm 1.05$. Consider now the red curve, representing the
-accuracy obtained by the same models but on the \emph{whole} testing
-set: now the system is being tested on samples drawn from zones of the
-input space it has not yet seen; and, as one would expect, the
-accuracy steadily increases, and it finally catches up with that
-obtained by testing on the growing testing set.
+Consider first the ``growing testing set'' curve in pane $(a)$ of the
+Figure: it is apparent that, already after $4$ training steps, that is
+after some $6$ minutes, the system can classify with an accuracy of
+about $90\%$, as it was the case in the preliminary analysis (accuracy
+$89.57 \pm 0.94$). Notwithstanding some oscillations, the accuracy
+remains substantially constant over the whole test and, at the end, is
+still $89.14. \pm 1.05$. Consider now the ``full testing set'' curve,
+representing the accuracy obtained by the same models but on the
+\emph{whole} testing set: now the system is being tested on samples
+drawn from zones of the input space it has not yet seen; and, as one
+would expect, the accuracy steadily increases, and it finally catches
+up with that obtained by testing on the growing testing set.
 
 Consider now pane $(b)$ of the Figure: the upper plot shows the size
 of the online uniformised training set as the sample acquisition
@@ -113,8 +112,9 @@ $d$, which was fixed at $0.21$ in the previous experiment.
     $(a)$ & $(b)$ \\
   \end{tabular}
   \caption{Classification and regression results using the OU
-  procedure. $(a)$: classification, $(b)$: regression. Compare with
-  Figure \ref{fig:TSsize} for the training set sizes.}
+  procedure, as $d$ is increased. $(a)$: classification, $(b)$:
+    regression. Compare with Figure \ref{fig:TSsize} for the training
+    set sizes.}
   \label{fig:allres}
 \end{figure*}
 
@@ -185,9 +185,9 @@ one trained on random training sets, when tested on uniform testing
 sets; and uniformly worse when tested on the full training sets. But
 the gap is larger in favour of the uniform training sets. This lets us
 conclude that uniform training sets will produce models able to
-perform well in all situations the patient should move. This is very
-useful in a practical setting: for example, picture the situation of a
-seldom performed movement, such as turning a door handle; if we were
+perform \emph{uniformly well} in all situations the patient should
+move. This is very useful in a practical setting: for example, picture
+a seldom performed movement, such as turning a door handle; if we were
 employing random training sets, we would have a much worse performance
 on such a movement. Uniform training sets would make the patient's
 life easier.
