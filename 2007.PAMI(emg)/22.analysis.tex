@@ -77,15 +77,22 @@ found is
   f(\xx) = \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b
 \end{equation}
 
-\noindent where $b \in \RR$, whereas the $\alpha_i \in \RR$s are
+\noindent where $b \in \RR$, whereas the $\alpha_i \in \RR$ are
 Lagrangian coefficients obtained by solving a minimisation problem
 whose cost functional is guaranteed to be convex. Because of this,
 SVMs do not suffer from the problem of local minima. We employed a
 well-known freely available SVM package, \emph{libsvm} v2.83
 \cite{ChangL01}, in the Matlab wrapped flavour.
 
+As is quite standard in the related literature, we employed a Gaussian
+kernel, so that in general
 
-\textbf{Claudio: Please add some details about your SVM, rather than general text.  E.g., the C and sigma parameters? Indeed remove much of the }
+$$ K(\xx,\yy) = e^{-\frac{||\xx-\yy||^2}{2\sigma^2}} $$
+
+We used $5$-fold cross-validation to determine the generalisation
+error of each model, and then grid-search to find the optimal values
+of the hyperparameters $\sigma$ and $C$ (a constant involved in the
+cost functional minimisation problem).
 
 \subsubsection{Locally Weighted Projection Regression}
 
