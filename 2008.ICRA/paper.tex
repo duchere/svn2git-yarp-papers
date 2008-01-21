@@ -2,6 +2,53 @@
 % Castellini, van der Smagt, Sandini, Hirzinger
 % A submission to ICRA 2008.
 
+%% --------------------------------------- ACCEPTED. reviews:
+%% From the first reviewer:
+%%
+%% The paper presents a machine learning approach for
+%% detecting the grasping type and the magnitude of the
+%% applied force using forearm surface EMG signal of a person
+%% for controlling the DLR prosthetic hand. Although the
+%% accuracy of detecting the grasping type is around 90% which
+%% may not be good enough for practical use, the magnitude of
+%% the grasping force seems to be detected rather well. 
+%%   It is hoped that the authors will present some
+%% experimental results of actual control of the prosthetic
+%% hand in the near future
+%%
+%% From the second reviewer:
+%%
+%% The experimental results and comparative study between the
+%% various machine learning approaches are well presented with
+%% insights into the viability and strengths of each method.
+%% Below are some suggestions which the authors can consider
+%% for improvement:
+%%
+%% 1) Page 2, under Data Analysis, was there any comparison
+%% study done on the filtered and non-filtered input signals
+%% in order achieve delay-free result?
+%% 2) It would be beneficial for authors to include full
+%% description of the statistical terms used. Eg. LMA
+%% (Levenberg-Marquadt Algorithm). 
+%% 3) Page 3, under Training Strategy, uniformisation, it will
+%% be ideal if the objective or rationale behind this
+%% procedure is clearly defined in the first paragraph rather
+%% than directly into the description of the procedure. 
+%% 4) Page 5, III.C, for regressions analysis; are there
+%% specific reasons for the selected performance estimators?
+%% 5) Page 6, Conclusion, does the 15 mins of training
+%% includes the uniformisation process? 
+%% --------------------------------------- REBUTTAL:
+%% FIRST REVIEWER:
+%% - application has been enforced: see MOVIE!
+%% SECOND REVIEWER:
+%% - added footnote on page 2: a little initial comparison with
+%%   filtered input AND output was done.
+%% - added reference to the LM algorithm
+%% - amended section on uniformisation and SVMs
+%% - performance estimators are standard - added phrase.
+%% - no it doesn't - added phrase
+
 \documentclass[conference,letterpaper]{IEEEtran}
 
 \usepackage{times}
@@ -114,7 +161,9 @@ classification problem, and then on the regression problem.
 \section*{Acknowledgments}
 
 This work is partially supported by the project NEURObotics,
-FP6-IST-001917.
+FP6-IST-001917. We would like to thank the two annymous reviewers who
+have given us some useful suggestions about how to improve this
+paper.
 
 {\small
 \bibliographystyle{IEEEtran}

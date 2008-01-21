@@ -25,7 +25,10 @@ directly encoded as a real number, that is, $y_i \in \RR$. Before any
 analysis, all samples were normalised, as is customary, by subtracting
 the mean values and dividing by the standard deviation, for each input
 space dimension. No filtering whatsoever was applied to the input
-signals, in order to have a more realistic, delay-free result.
+signals, in order to have a more realistic, delay-free
+result.\footnote{a few experiments have been run with filtered input,
+revealing non-conclusive results; in a few more we applied a low-pass
+filter on the output, which improved the results a little.}
 
 \subsubsection{Neural Networks}
 
@@ -58,8 +61,8 @@ signals, in order to have a more realistic, delay-free result.
 %simple as possible.
 For our experiments we used a feed-forward neural network with 10
 inputs, 10 sigmoidal hidden units, and 6 outputs, 5 representing
-the output class and one the force. Training was done using
-Levenberg-Marquardt.
+the output class and one the force. Training was done using the
+Levenberg-Marquardt algorithm \cite{lma}.
 %
 %The network was implemented in Matlab, Windows version $7.1.0.246$
 %(R14) Service Pack 3, running on a bi-processor $1.8$GHz machine with
@@ -106,8 +109,12 @@ Levenberg-Marquardt.
 %an approach such as SVMs to sample the input space in a non-uniform
 %way such as that described above.
 
-The data sets used in the SVMs were uniformised before training.  The
-uniformisation procedure consists of removing from a training set
+Support Vector Machines (see, e.g.,
+\cite{BGV92,Burges98,Cristianini00}) are a machine learning method
+able to perform both classification and regression. SVMs do not suffer
+from the problem of local minima, as is the case of NNs, but their
+training time can be prohibitive on large data-sets. Therefore we have
+used a \emph{uniformisation} strategy on the training sets: removing
 those samples which are too close to each other, according to the
 Mahalanobis distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the
 Mahalanobis distance between $\xx_1$ and $\xx_2$ is defined as
@@ -119,23 +126,20 @@ the training set. $MD(\xx_1,\xx_2)$ is a distance in which each
 summand is weighted inversely with respect to the variance of the
 samples along that dimension of the input space: it is therefore a
 measure of distance independent of the variance of the single
-electrodes.
-
-Since checking the inter-sample distance takes a quadratic time with
-respect to the number of samples, which was unfeasible, we adopted an
-approximated method which was able to remove most, but not all,
-samples too close to any other sample. After a few initial experiments
-we set the threshold distance at $1$. We also decided to employ the
-Gaussian kernel. All our experiments with SVMs were then performed on
-uniformised training sets, using $5$-fold cross-validation and grid
-search to find the optimal values of the standard Gaussian kernel
-hyperparameters, $C$ and $\sigma$. On the other hand, notice that no
-\emph{testing} set was uniformised, since it would probably be
-unfeasible to apply the same procedure in an on-line setting. Notice,
-further, that applying uniformisation resulted in training sets which
-were considerably smaller than the original ones, up to about $100$
-times smaller. We employed a well-known freely available SVM package,
-\emph{libsvm} v2.83 \cite{ChangL01}, in the Matlab wrapped flavour.
+electrodes. We adopted an approximated method which was able to remove
+most, but not all, samples too close to any other sample. After a few
+initial experiments we set the threshold distance at $1$. We also
+decided to employ the Gaussian kernel. All our experiments with SVMs
+were then performed on uniformised training sets, using $5$-fold
+cross-validation and grid search to find the optimal values of the
+standard Gaussian kernel hyperparameters, $C$ and $\sigma$. On the
+other hand, notice that no \emph{testing} set was uniformised, since
+it would probably be unfeasible to apply the same procedure in an
+on-line setting. Notice, further, that applying uniformisation
+resulted in training sets which were considerably smaller than the
+original ones, up to about $100$ times smaller. We employed a
+well-known freely available SVM package, \emph{libsvm} v2.83
+\cite{ChangL01}, in the Matlab wrapped flavour.
 
 \subsubsection{Locally Weighted Projection Regression}
 

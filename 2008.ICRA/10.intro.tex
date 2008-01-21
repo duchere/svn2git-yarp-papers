@@ -20,15 +20,15 @@ object) and with what force?
 
 To this end, two types of interfaces between the patient and the
 prosthesis have been developed or are being studied:
-\emph{invasive} and \emph{non-invasive}. The former involve
-control based upon signals gathered directly from the user's nervous
-system, either via brain implants or surgical use of
-electrodes. Invasive interfaces are supposed to guarantee a higher
-signal quality as far as control is concerned, but involve
-surgery. Non-invasive interfaces are easier to handle, manufacture and
-implant, but require a much better signal conditioning, since they
-usually work with surface (skin) signals or vision and gaze tracking.
-
+\emph{invasive} and \emph{non-invasive}.
+%% The former involve
+%% control based upon signals gathered directly from the user's nervous
+%% system, either via brain implants or surgical use of
+%% electrodes. Invasive interfaces are supposed to guarantee a higher
+%% signal quality as far as control is concerned, but involve
+%% surgery. Non-invasive interfaces are easier to handle, manufacture and
+%% implant, but require a much better signal conditioning, since they
+%% usually work with surface (skin) signals or vision and gaze tracking.
 In the context of non-invasive interfaces for controlling mechanical
 hands, a concrete possibility arises from \emph{forearm surface
 electromyography (EMG)} \cite{zecca}, a technique by which muscle
@@ -74,7 +74,6 @@ simple feed-forward neural network with one hidden layer, $(b)$ a
 Support Vector Machine with radial basis function kernel
 \cite{BGV92}, $(c)$ Locally Weighted Projection Regression
 \cite{lwpr}.
-
 % All approaches were trained on a massive amount of
 %data, but bearing in mind the following important point: in a real
 %setting, that is, when a patient is required to train the
@@ -88,12 +87,12 @@ Support Vector Machine with radial basis function kernel
 %changes in the EMG signal. In other words, the correct way of
 %\emph{sampling in the input space in a reasonable amount of time}
 %must be found.
-
 Our numerical results indicate that, in such a scenario, the type of
 grasp can be reconstructed with an average accuracy of $90\%$, and the
 applied force can be predicted with an average percentage error of
-$10\%$, meaning about $5$N over a range $50$N. None of the tested
-approaches clearly outperforms the others, which seems to indicate
-that machine learning as a whole is a viable approach. All in all,
-this looks highly encouraging in applying machine learning to enable
-amputees gain a fine control over their prostheses.
+$10\%$, meaning about $5$N over a range $50$N.
+%% None of the tested
+%% approaches clearly outperforms the others, which seems to indicate
+%% that machine learning as a whole is a viable approach. All in all,
+%% this looks highly encouraging in applying machine learning to enable
+%% amputees gain a fine control over their prostheses.
