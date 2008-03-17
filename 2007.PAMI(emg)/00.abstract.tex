@@ -1,19 +1,18 @@
-In the framework of hand prosthetics, it is nowadays possible to build
-mechanical hands possessing a fair amount of the abilities required by
-the disabled to carry on living in a decent way. Still, a general
-sense of frustration impends, as far as \emph{control} of the
-prosthesis is concerned: given the current state of the art, it is
-basically impossible for the patient to precisely command the
-prosthesis what to do.
+This paper is in the framework of \emph{active hand prostheses}, i.e.,
+mechanical hands which are light enough to be implanted on disabled
+persons; more precisely, it deals with the issue of \emph{controlling}
+an AHP. We hereby describe an experiment conducted on a healthy
+subject, aimed at establishing whether forearm surface
+electromyography (EMG) can be used to reconstruct, to a resonable
+degree of accuracy, the hand posture and force involved in
+grasping.
 
-In this paper we use machine learning techniques to reconstruct the
-hand posture and applied force from the forearm surface
-electromyographic (EMG) signal, a particularly cheap, easily set up
-and non-invasive technique. We develop an effective tool for dealing
-with the well-known bad conditioning of the EMG signal, at the same
-time obtaining a remarkable accuracy both while reconstructing the
-desired posture of the hand and the desired applied force (a task
-which has never been solved in the past so far). The system can be
-applied on-line thanks to a simple sparsification strategy which
-dramatically reduces the models size at an acceptable loss in
-accuracy.
+Several machine learning methods were compared on a data set gathered
+over two days; moreover, a simple sparsification strategy was devised,
+which enabled the methods to work also in real time in an on-line
+setting. The system was tested on a real mechanical hand (not a
+prosthetic one so far, though). The results of the experiment confirm
+that the problem can be solved with a remarkable precision. This paves
+the way for a better control of AHPs and opens up a scenario in which
+life conditions of amputees can be effectively improved with respect
+to the state of the art.

@@ -26,35 +26,7 @@ performance degrades only linearly, whereas the training sets become
 polynomially smaller. Therefore, at the price of having a slightly
 worse performance, dramatically smaller training sets can be used.
 
-We believe this is the first step toward the real application of
-machine learning to an EMG-driven adaptive, dexterous hand
-prosthesis. Let us consider the problems outlined in section
-\ref{subsubsec:electrodes}: in this paper we have solved problems
-$3$ and $4$. Now, since OU lets us obtain good accuracy with extremely
-small training sets, it is not too far-fetched to say that the
-solution of problem $2$ is at hand---in principle, the changing arm
-posture can be taken into account simply by sampling more of the input
-space. As far as problem $1$ is concerned, inter-subject usability is
-really of lesser interest, since one patient only is supposed to ever
-wear a prosthesis. On the other hand, a further problem is that of
-training the system upon an amputee. First of all, the patient must
-still have a good deal of muscular and nervous plasticity in her arm
-stump; then, a smart way of collecting training data must be
-devised---an amputee is obviously not expected to train the machine
-with a hand. A simple idea is that of gathering EMG data from the
-patient's stump and grasping/force data from her healthy hand, while
-instructing her to imagine doing the same actions with both hands.
-
-As far as force regression is concerned, the results presented above
-are, to the best of our knowledge, totally novel. Surprisingly,
-regression from the forearm surface EMG signal to the force applied by
-the hand had never been attempted before. Given the good performance
-obtained by our models, we claim that the relationship between the EMG
-signal and the force has been captured by the models, under variable
-conditions of muscle fatigue (within one session) and electrode
-displacement (within sessions belonging to different groups).
-
-All in all, in this paper we have presented a machine learning
+To sum up, in this paper we have presented a machine learning
 approach to joint classification of grasping and regression on the
 applied force, using forearm surface electromyography. The approach is
 totally non-invasive, easy to set up and use and it can be applied
@@ -74,3 +46,46 @@ larger training sets are used. The OU procedure is able to find as
 small a training set as $77.4$ samples on average (out of $153,000$),
 which will still result in a SVM having a remarkable NRMSE of
 $12.12\%$.
+
+\subsection*{Future work}
+
+We believe this is the first step toward the real application of
+machine learning to an EMG-driven adaptive, dexterous AHP. Let us
+consider the problems outlined in section
+\ref{subsubsec:electrodes}: in this paper we have solved problems
+$3$ and $4$. Now, since OU lets us obtain good accuracy with extremely
+small training sets, it is not too far-fetched to say that the
+solution of problem $2$ is at hand---in principle, the changing arm
+posture can be taken into account simply by sampling more of the input
+space. As far as problem $1$ is concerned, inter-subject usability is
+really of lesser interest, since one patient only is supposed to ever
+wear a prosthesis; on the other hand, multi-subject analysis has to be
+carried out eventually, since it must be possible to obtain good
+results on \emph{any} subject the method is applied to.
+
+The main problem, and a final one possibly, is that of training the
+system upon amputees. First of all, the patient must still have a good
+deal of muscular and nervous plasticity in her arm stump; then, a
+smart way of collecting training data must be devised---an amputee is
+obviously not expected to train the machine with a hand. A simple idea
+is that of gathering EMG data from the patient's stump and
+grasping/force data from her healthy hand, while instructing her to
+imagine doing the same actions with both hands. Secondly, the issue of
+feedback will have to be addressed, in order to provide the patient
+with reliable information about the force actually involved in the
+grasp. This is likely to be crucial in order to realise a tighter and
+tighter loop between the patient and the prosthesis.
+
+As far as force regression is concerned, the results presented above
+are, to the best of our knowledge, totally novel. Surprisingly,
+regression from the forearm surface EMG signal to the force applied by
+the hand had never been attempted before. Given the good performance
+obtained by our models, we claim that the relationship between the EMG
+signal and the force has been captured by the models, under variable
+conditions of muscle fatigue (within one session) and electrode
+displacement (within sessions belonging to different groups). In a
+certain sense, this works is an evolution of the so-called
+\emph{proportional} control of myoelectric prostheses already
+available on the market; in proportional control, the ``claw'' of the
+prosthesis is actuated with a force which is proportional to the
+amplitude of the EMG signal.

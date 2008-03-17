@@ -160,19 +160,18 @@ of the second day, pane (d) of the Figure.
 From this we can confirm that \emph{electrode displacement plays a
 determinant role} in the classification accuracy. Notice that muscle
 fatigue seems not to enter the picture, but this is reasonable since
-its effects are visible already within one single session (see Figure
-\ref{fig:drift} again) and the machine correctly takes it into account
-during the training phase. Notice once again that the uniformisation
-procedure does not hinder the generalisation power of the
-system. Electrode displacement present between groups (but not within
-a group) causes the samples in a group to be ``shifted'' in the input
-space, so that testing on a different group results in poor
-performance. To substantiate this claim, we have verified that the
-cross-session accuracy is highly correlated to the \emph{average
-minimum inter-sample distance} between sessions. More in detail, let
-$S_i$ and $S_j$ denote the sets of samples gathered during sessions
-$i$ and $j$; then the \emph{cross-session distance matrix} $D$ is such
-that
+it is present already within one single session and the machine
+correctly takes it into account during the training phase. Notice once
+again that the uniformisation procedure does not hinder the
+generalisation power of the system. Electrode displacement present
+between groups (but not within a group) causes the samples in a group
+to be ``shifted'' in the input space, so that testing on a different
+group results in poor performance. To substantiate this claim, we have
+verified that the cross-session accuracy is highly correlated to the
+\emph{average minimum inter-sample distance} between sessions. More in
+detail, let $S_i$ and $S_j$ denote the sets of samples gathered during
+sessions $i$ and $j$; then the \emph{cross-session distance matrix}
+$D$ is such that
 
 $$ D_{ij} = \frac{1}{|S_j|} \sum_{s_j \in S_j}{\min_{s_i \in S_i}{ ||s_j-s_i||^2 } } $$
 

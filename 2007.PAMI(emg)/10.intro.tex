@@ -1,13 +1,23 @@
-Active prosthetic hands, driven by a motor to open and close the
-``claw,'' have been around for many years.  Recently, however,
-advances in mechatronics have improved such hands and currently
-various prosthetic hands with 3 or more active degrees of freedom are
-being put on the market.  Such hand developments are a result of
-various robotic hands which are highly humanoid, light and gifted with
-a number of degrees of freedom. Attempts in this sense include, e.g.,
-the DLR prosthetic hand (\cite{Hua2006}---see Figure
-\ref{fig:DLRHandII}), the CyberHand project \cite{cyberhand}, and the
-i-LIMB hand by Touch Bionics \cite{ilimb}.
+Active hand prostheses (AHPs) are hand prostheses which can be
+voluntarily actuated, to some degree, by the patient who is wearing
+them. The ideal AHP is cheap, visually appealing, lightweight,
+dexterous and, lastly, easily and naturally controlled. Moreover, it
+provides sensorial feedback to the amputee. At the time of writing,
+however, the state-of-the-art of AHPs is far from this. The best
+commercially available AHPs are probably Otto Bock's SensorHand and
+Touch Bionics's i-Limb, both of which have a very limited number of
+degrees of freedom and are hardly able to replicate the human hand's
+movements and postures.
+
+Nevertheless, one can see a definite move forward as far as the
+mechatronics is concerned --- a drive which mainly comes from
+miniaturised electronics and humanoid robotics; examples of this are,
+e.g., the DLR prosthetic hand (\cite{Hua2006}---see Figure
+\ref{fig:DLRHandII}) and the the CyberHand \cite{cyberhand}. More
+degrees of freedom and human-like features are seen at the horizon;
+the i-Limbs, for instance, has five moving fingers and a passively
+opposable thumb, although it is so far controllable only in a few
+ways.
 
 \begin{figure}
   \begin{tabular}{cc}
@@ -18,69 +28,40 @@ i-LIMB hand by Touch Bionics \cite{ilimb}.
   \label{fig:DLRHandII}
 \end{figure}
 
-Still, a general sense of frustration impends, as far as
-\emph{control} of the prosthesis is concerned. As a matter of fact,
-given the current state of the art, it is basically impossible for the
-patient to precisely command the prosthesis what to do; whereas,
-operating a hand requires a fine control down to the level of the
-single fingers. First of all, presented with a certain task such as
-turning a door handle or grabbing a car key, the patient must be able
-to enforce the correct grasping type; this involves the activation of
+Still, it is unclear how to effectively \emph{control} an AHP. So far,
+the best, cheapest and simplest control strategy has been that
+provided by surface electromyography (EMG); but usually, at most, one
+or two electrodes are used, to detect strictly independent muscle
+activation potentials. These potentials control, at best, one degree
+of freedom of the prosthesis and a ``switch'' to change from, e.g.,
+opening and closing the hand to flecting/extending the elbow. On the
+other hand, operating well an AHP would require a fine control,
+possibly down to the level of the single fingers, all the more reason
+now that more dexterous and flexible AHPs are being available on the
+market.
+
+In the ideal scenario, presented with a certain task such as turning a
+door handle or grabbing a car key, the patient should be able to
+enforce the correct grasping type; this involves the activation of
 some joints only, and in particular positions. Secondly, the amount of
 force involved in the grasp must be controlled, so that it is possible
 to grab, e.g., both a hammer without letting it slip and an egg
 without breaking it.
 
-To this end, two types of interfaces between the patient and the
-prosthesis have been developed or are being studied: \emph{invasive}
-and \emph{non-invasive}. The former gather control signals directly
-from the user's nervous system, either via brain implants or surgical
-use of electrodes. Quite obviously, invasive interfaces are supposed
-to deliver a high signal quality, since the signals can be gathered
-exactly in the right spots; but they involve surgery and all related
-sterility (and psychological) issues. On the other hand, non-invasive
-interfaces are easier to handle, manufacture and implant, but require
-a much better signal conditioning, since they usually work with
-surface (skin) signals or vision and gaze tracking.
+This paper is an initial attempt at solving this problem. Our aim, in
+the long run, is that of enabling a patient to optimally and naturally
+control an AHP with many degrees of freedom and the possibility of
+modulating the involved force. To this end, provided that the patient
+still has enough muscular activity in the stump, we believe the best
+way is the use of forearm surface EMG. This technique is (rather)
+cheap and involves no surgery; and, we believe, it can be used to
+detect what the patient wants the prosthesis to do.
 
-In the context of non-invasive interfaces for controlling mechanical
-hands, a concrete possibility arises from \emph{forearm surface
-electromyography} (EMG), a technique by which muscle
-activation potentials are gathered by electrodes placed on the
-patient's forearm skin; these potentials can be used to track which
-muscles the patient is willing to activate, and with what force.
-Surface EMG is therefore, in principle, a cheap and easy way of
-detecting what the patient wants the prosthesis to do.
+In our experiment, over two days, we have gathered forearm surface EMG
+data from a healthy subject gripping in four distinct ways a force
+sensor; we have then trained three different machine learning systems
+to guess
 
-Still, the EMG signal suffers from a number of problems, among which
-the unprecise placement of the electrodes, signal drifting and change
-due to sweat formation and muscular fatigue and cross-talking among
-deep and superficial muscles. It seems, though, that good results can
-be obtained via \emph{machine learning} techniques, as shown in, e.g.,
-\cite{smagt}. In machine learning, one tries to approximate an unknown
-function given its values in a number of samples; the application to
-the current problem is exactly that of building a map relating EMG
-activation potentials and muscle force, and therefore hand finger
-movements.
-
-Such a system must be highly adaptive, accurate and fast---possibly,
-able to run in real time, as the patient is wearing the prosthesis.
-Another very desirable characteristic is that the system should learn
-automatically as the patient moves, being able to understand when new
-portions of the input space are being explored, i.e., what new
-movements are required of the prosthesis. But so far machine learning
-applied to surface EMG has only been able to classify hand postures.
-For example, the surface EMG signal can be used to detect whether the
-patient is attempting a cylindric grasp or a two-finger grip
-\cite{ekvall}; but no indication about the amount of force involved in
-the grasping act is detected.
-
-In this paper we show a rather detailed analysis of what machine
-learning can do when applied to such a problem. Over several days, we have
-gathered forearm surface EMG data while an able-bodied human subject
-was gripping in four distinct ways a force sensor; we have then
-trained three different machine learning systems to guess, from the
-EMG signal,
 \begin{enumerate}
 
   \item what kind of grasp the subject was doing, e.g., thumb and
@@ -99,15 +80,24 @@ The three approaches we have experimented with are:
 (a) a simple feed-forward neural network with one hidden layer,
 (b) a Support Vector Machine with radial basis function kernel
 \cite{BGV92}, and (c) Locally Weighted Projection Regression
-\cite{lwpr}. Our analysis consists of a preliminary phase in which
-several models have been built in a batch fashion, in order to
-understand how to deal with the non-stationarity of EMG. The most
-interesting challenge has been how to filter out unwanted data, at the
-same time keeping a high overall accuracy, both in classification and
-regression. Later on, based upon the results obtained in the
-preliminary phase, we have developed a simple but effective procedure
-for selecting a subset of the samples on-the-fly, called \emph{Online
-Uniformisation} (OU).
+\cite{lwpr}. These approaches were chosen mainly because SVMs already
+have shown good performance when trained to classify isometric hand
+postures (see, e.g., \cite{smagt}). Notice that the problem here is
+rather more complicated by the fact that the hand is obviously moving
+while grasping. For comparison, we decided to check whether neural
+networks could outperform SVMs (neural networks are probably the most
+popular machine learning method nowadays). For further comparison, we
+employed LWPR as a more heuristic approach, designed since the
+beginning to work in an online setting.
+
+Our analysis consists of a preliminary phase in which several models
+have been built in a batch fashion, in order to understand how to deal
+with the non-stationarity of EMG. The most interesting challenge has
+been how to filter out unwanted data, at the same time keeping a high
+overall accuracy, both in classification and regression. Later on,
+based upon the results obtained in the preliminary phase, we have
+developed a simple but effective procedure for selecting a subset of
+the samples on-the-fly, called \emph{Online Uniformisation} (OU).
 
 OU is based upon the simple idea of keeping a minimum inter-sample
 Euclidean distance, in order to uniformly sample the input space. The
