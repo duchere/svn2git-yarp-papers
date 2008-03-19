@@ -1,26 +1,62 @@
-\subsubsection{Batch Uniformisation}
+For a set of preliminary experiments, we first focus on SVMs applied
+to the grasp type classification problem. The simplest idea is that of
+checking whether data obtained during one session can be used to build
+a model able to generalise over other sessions during the same
+day. Such a result would indeed mean that less than three minutes of
+data gathering are potentially able to control the prosthesis for a
+long time --- at least one day, if not more.
 
-First of all we chose one of the selected approaches (FFNs, SVMs or
-LWPR) and one problem (classification or regression) for initial
-experimentation. We decided to use SVMs for classification. So far,
-the data were retained in full, with no subsampling. We then decided,
-as a start, to test whether data obtained during one session could be
-used to build a model able to generalise over other sessions during
-the same day.
+\begin{figure}[!ht] \centering
+  \begin{tabular}{c}
+    \includegraphics[width=0.45\textwidth]{figs/fig_resCross1_full.png}
+  \end{tabular}
+  \caption{Accuracy matrix for day $1$. Accuracy for non-diagonal
+    elements is $73.23\% \pm 14.29\%$.}
+  \label{fig:cross_first}
+\end{figure}
 
-Here an obvious problem arises: the total time of the experiment
-during which data were gathered was about $100$ minutes; at $256$Hz,
-that means about $1.6$ millions samples, an unfeasibly large training
-set for any of the examined methods, not to mention SVM
+In order to check this hypothesis, we trained a SVM for classification
+over each single session, for the first day. Sessions are numbered
+chronologically during the day, sessions $1,2,3$ forming group $1$,
+sessions $4,5,6$ forming group $2$, and so on. (With a slight abuse of
+language, we will call the model obtained by training a machine on
+session $i$, \emph{model $i$}). We then tested each model on all
+sessions of the first day, obtaining therefore an \emph{accuracy
+matrix} $A$ in which $A_{ij}$ would be a percentage denoting the
+correctly guessed labels when testing model $i$ on session $j$. This
+is a \emph{cross-session analysis}. The accuracy matrix $A$ for day
+$1$ is visible in Figure \ref{fig:cross_first}.
+
+As one can see, the hypothesis fails: the average accuracy attained on
+non-diagonal elements is about $74\%$, dropping down to about $30\%$
+in the worst cases (of course, we are not interested in diagonal
+elements of the matrix, which represent accuracies obtained by testing
+on data on which the models have been trained.). One cannot expect to
+correctly drive a prosthesis if one sample in four is
+misclassified. Notice that, however, a significant ``group accuracy''
+phenomenon is present: in the matrix, good accuracy values are
+obtained on $3\times3$ sub-matrices located on the diagonal,
+corresponding to cross-session accuracy for sessions \emph{belonging
+to the same group}, that is, when the elastic bands were not removed
+and no electrode displacement was present. A simple explanation of
+this is that electrode displacement shifts the samples in the input
+space, causing a decrease in performance. This hypothesis will be used
+later on.
+
+Another problem is that there are simply too many samples to train
+upon. The total time of data gathering was about $100$ minutes; at
+$256$Hz, that means about $1.6$ millions samples, an unfeasibly large
+training set for any of the examined methods, not to mention SVM
 classification. Even restricting a training set to a single session,
 this would result in about $53,000$ samples, which not only is still
 too large, but probably contains redundant and irrelevant information.
-Moreover, in a real setting, this number is doomed to grow continually
-and cannot therefore be used as it is for periodical re-training. We
-then decided to investigate a smart sample reduction strategy in order
-both to overcome this problem, but also to gain insight into the EMG
-signal in general. This led us to develop the batch version of the
-uniformisation procedure.
+Moreover, in the real setting, that is on-line, this number is doomed
+to grow continually and cannot therefore be used as it is for
+periodical re-training. A smart sample reduction strategy is needed,
+in order both to overcome this problem, but also to gain insight into
+the EMG signal in general.
+
+\subsubsection{Batch Uniformisation}
 
 The simple idea behind batch uniformisation is that, in a real-life
 set-up such as ours, there can be many input samples located in the
@@ -29,208 +65,151 @@ values. One obvious case is that of label $0$, indicating no ongoing
 grasping: it is intuitively expected that a large number of samples
 will be taken in that region of the input space, since the subject
 will be in the $0$ condition for a longer time than all other
-labels. Since all functions involved in the experiment are due to
-human motion, we can assume that they are continuous and, probably,
-derivable up to any arbitrary order. Therefore it makes no sense to
-consider samples obtained in a non-uniform way such as that described
-above. The batch uniformisation procedure consists of removing, from a
-training set, those samples which are \emph{too close to each other},
-according to a suitable notion of inter-sample distance.
+labels. 
 
-In order to take into account the variance of each single electrode,
-and since in batch data analysis all data are available beforehand and
-therefore all possible statistics can be gathered a-priori, we have
-decided to adopt Mahalanobis's distance as the inter-sample
-distance. Let $\xx_1, \xx_2 \in \RR^{10}$; then the Mahalanobis
-distance between $\xx_1$ and $\xx_2$ is defined as
-$$
-  MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)}
-$$
-where $\Sigma$ is the $10\times10$ covariance matrix, evaluated
-on the whole training set. $MD(\xx_1,\xx_2)$ is a measure of distance
+Since all functions involved in the experiment are due to human
+motion, it seems reasonable to assume that they are continuous and
+derivable up to any arbitrary order; therefore, it makes little sense
+to consider samples obtained in a non-uniform way such as that
+described above: if samples are too close to each other (according to
+a suitable notion of distance in the input space) than the value of
+our target functions should be similar, and non-parametric learning
+systems such as SVMs should be able to take it into account.
+
+Batch uniformisation consists of removing, from a training set, those
+samples which are \emph{too close to each other}, according to a
+suitable notion of inter-sample distance. In order to take into
+account the variance of each single electrode, and since in batch data
+analysis all data are available beforehand and therefore all possible
+statistics can be gathered a-priori, we have decided to adopt
+Mahalanobis's distance as the inter-sample distance. Let $\xx_1, \xx_2
+\in \RR^{10}$; then the Mahalanobis distance between $\xx_1$ and
+$\xx_2$ is defined as
+
+$$ MD(\xx_1,\xx_2) = \sqrt{(\xx_1-\xx_2)^T \Sigma^{-1} (\xx_1-\xx_2)} $$
+
+\noindent where $\Sigma$ is the $10\times10$ covariance matrix, evaluated
+on the training set. $MD(\xx_1,\xx_2)$ is a measure of distance
 independent of the (co)variance of the electrodes. (Notice that if
 $\Sigma$ is replaced by the identity matrix, $MD(\xx_1,\xx_2)$ is
 reduced to the usual notion of Euclidean distance.)
 
 Since checking the inter-sample distance on a batch of samples
 obviously takes a quadratic time with respect to the number of
-samples, which was infeasible, we adopted an approximated method which
-was able to remove most, but not all, samples which are too Mahalanobis-close to
-each other. After a few initial experiments, the threshold distance
-was set at $1$. Notice that no \emph{testing} set was uniformised.
-Notice, further, that applying uniformisation resulted in training
-sets which were considerably smaller than the original ones, up to
-about $100$ times smaller.
+samples, which was infeasible, we adopt an approximated method which
+removes most, but not necessarily all, samples which are too
+Mahalanobis-close to each other. After a few initial experiments, the
+threshold distance was set at $1$. Obviously, no \emph{testing} set is
+uniformised. Notice, further, that applying uniformisation results in
+training sets which are considerably smaller than the original ones,
+up to about $100$ times smaller, in fact dramatically decreasing the
+time required to train and test.
 
-The first question is: do uniformised training sets lack any relevant
-information? We trained a SVM over each single session, both for the
-first and second day, and both with full and uniformised training
-sets. The session were numbered chronologically during the day,
-sessions $1,2,3$ forming group $1$, sessions $4,5,6$ forming group
-$2$, and so on. With a slight abuse of language, we will call the
-model obtained by training a machine on session $i$, \emph{model
-$i$}. Moreover, in the remainder of this Subsection, if the training
-set of a model was uniformised, we will call the model \emph{uniform}.
-
-We then tested each model on all sessions of the same day, obtaining
-therefore an \emph{accuracy matrix} $A$ in which $A_{ij}$ would be a
-percentage denoting the correctly guessed labels when testing model
-$i$ (full or uniform) on session $j$. Notice once again that, in the
-case of uniform models, the test is carried out on the \emph{full}
-session. This is what we would call a \emph{cross-session analysis}.
-The result is visible in Figure \ref{fig:cross_initial}.
+Consider now Figure \ref{fig:cross_initial}. The Figure presents more
+cross-session accuracy analysis, but this time both for the first and
+second day, and both with full and uniformised training sets. (If the
+training set of a model has been uniformised, we will call the model
+\emph{uniform}.)
 
 \begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.25\textwidth]{figs/fig_resCross1_full.png} &
-    \includegraphics[width=0.25\textwidth]{figs/fig_resCross1.png} \\
+    \includegraphics[width=0.23\textwidth]{figs/fig_resCross1_full.png} &
+    \includegraphics[width=0.23\textwidth]{figs/fig_resCross1.png} \\
     diagonal: $98.73\% \pm 0.39\%$  & diagonal: $95.52\% \pm 1.21\%$ \\
         rest: $73.23\% \pm 14.29\%$ & rest: $74.53\% \pm 13.70\%$ \\
-    (a) & (b) \\
-    \includegraphics[width=0.25\textwidth]{figs/fig_resCross2_full.png} &
-    \includegraphics[width=0.25\textwidth]{figs/fig_resCross2.png} \\
+    (a) & (b) \\[5mm]
+    \includegraphics[width=0.23\textwidth]{figs/fig_resCross2_full.png} &
+    \includegraphics[width=0.23\textwidth]{figs/fig_resCross2.png} \\
     diagonal: $99.05\% \pm 0.37\%$ & diagonal: $95.37\% \pm 2.85\%$ \\
         rest: $73.23\% \pm 14.47\%$ & rest: $74.38\% \pm 12.27\%$ \\
     (c) & (d) \\
   \end{tabular}
-  \caption{Cross-session analysis and evaluation of the uniformisation
+  \caption{Cross-session analysis and evaluation of the batch uniformisation
     procedure. $(a)$ and $(b)$, accuracy matrices for day $1$: $(a)$
     full models, $(b)$ uniform models. $(c)$ and $(d)$, same for day $2$.}
   \label{fig:cross_initial}
 \end{figure}
 
-Consider first panes (a) and (b) of the Figure, pane (a) being
-the accuracy matrix for full models, day $1$, and pane (b) being the
-accuracy matrix for the same day, but using uniform models. It is
-apparent that the full models attain a better accuracy when tested on
-their own training data, that is, on the diagonal of the matrix, than
-the uniform models. In fact, the mean and standard deviation of the
-diagonal accuracies are $98.73\% \pm 0.39\%$ for the full models and
-$95.52\% \pm 1.21\%$ for the uniform models. This is intuitively
-sensible since, in the case of full models, we are testing on the same
-data used for training, whereas in the case of uniform models, the
-training data are a strict subset of the testing data, and a quite
-smaller subset indeed. But as well, if we consider the remaining
-elements of the matrices, it is clear that the uniform models attain a
-better accuracy \emph{overall}, if compared to the full models. In
-fact, the accuracies are $73.23\% \pm 14.29\%$ for the full models,
-and $74.53\% \pm 13.70\%$ for the uniform ones. The same analysis for
-day $2$ yields analogous results (consider the same Figure, panes
-(c) and (d)).
+Consider first panes (a) and (b) of the Figure, pane (a) being the
+accuracy matrix for full models, day $1$, and pane (b) being the
+accuracy matrix for the same day, but using uniform models. (Actually,
+pane (a) is the same matrix seen in Figure \ref{fig:cross_first}). It
+is apparent that uniform models attain a slightly better accuracy on
+non-diagonal elements, if compared to the full models. In fact, the
+accuracies are $73.23\% \pm 14.29\%$ for the full models, and $74.53\%
+\pm 13.70\%$ for the uniform ones. The same analysis for day $2$
+yields analogous results (consider the same Figure, panes (c) and
+(d)).
 
-From this we conclude that the uniformisation procedure is effective
-in reducing the training set size, \emph{without actually degrading
-the performance}. This is apparent from the fact that uniform models
-are more accurate on testing sets which are disjoint from the training
-sets. Uniform models generalise better, at least in this case.
+From this we conclude that the uniformisation procedure greatly
+reduces the training set size (and training and testing times) without
+degrading the performance. This is apparent from the fact that uniform
+models are slightly more accurate on testing sets which are disjoint
+from the training sets. Uniform models generalise slightly better, at
+least in this case.
 
 \subsubsection{Classification}
 
-Consider Figure \ref{fig:cross_initial} again, right hand side panes
-((b) and (d)) and the numbers below. The accuracy attained on
-non-diagonal elements is about $74\%$, which is rather bad. One cannot
-expect to correctly drive a prosthesis if one sample in four is
-misclassified. At the same time, however, a strong ``good group
-accuracy'' is obviously present: in each matrix, good accuracy values
-are obtained on $3\times3$ sub-matrices located on the diagonals,
-corresponding to cross-session accuracy for sessions \emph{belonging
-to the same group}, that is, when the elastic bands were not removed
-and no electrode displacement was present.
-
-More in detail, as far as the first day is concerned (same Figure,
-pane (b)), one can see that the first six models (trained on the
-first two groups) obtain a quite good accuracy on the first six
-sessions (first two groups) whereas their accuracy rapidly degrades as
-more sessions are tested for. This is probably due to the first two
-groups having been gathered in similar conditions, very similar
-electrode positions and/or similar movements performed by the
-subject. On the other hand, sessions in the last group (columns $13$,
-$14$ and $15$ of the matrix) are particularly hard, except when tested
-by models obtained from the last group itself --- here the effect is
-probably motivated by the opposite reason: during those sessions, the
-subject must have explored different parts of the input space. This is
-corroborated by the fact that models $13,14,15$ perform rather well on
-\emph{all} sessions, if compared to other models (check rows
-$13,14,15$ of the matrix). In other words, sessions $13,14,15$ contain
-more relevant information than the others.
-
+Let us go more in detail, as far as the first day is concerned (Figure
+\ref{fig:cross_initial} again, pane (b)): one can see that the first
+six models (trained on the first two groups) obtain a quite good
+accuracy on the first six sessions (first two groups) whereas their
+accuracy rapidly degrades as more sessions are tested for. This is
+probably due to the first two groups having been gathered in similar
+conditions, very similar electrode positions and/or similar movements
+performed by the subject. On the other hand, sessions in the last
+group (columns $13$, $14$ and $15$ of the matrix) are particularly
+hard, except when tested by models obtained from the last group itself
+--- here the effect is probably motivated by the opposite reason:
+during those sessions, the subject must have explored different parts
+of the input space. This is corroborated by the fact that models
+$13,14,15$ perform rather well on \emph{all} sessions, if compared to
+other models (check rows $13,14,15$ of the matrix). In other words,
+sessions $13,14,15$ contain more relevant information than the others.
 Analogous considerations can be made by inspecting the accuracy matrix
 of the second day, pane (d) of the Figure.
 
-From this we can confirm that \emph{electrode displacement plays a
-determinant role} in the classification accuracy. Notice that muscle
-fatigue seems not to enter the picture, but this is reasonable since
-it is present already within one single session and the machine
-correctly takes it into account during the training phase. Notice once
-again that the uniformisation procedure does not hinder the
-generalisation power of the system. Electrode displacement present
-between groups (but not within a group) causes the samples in a group
-to be ``shifted'' in the input space, so that testing on a different
-group results in poor performance. To substantiate this claim, we have
-verified that the cross-session accuracy is highly correlated to the
-\emph{average minimum inter-sample distance} between sessions. More in
-detail, let $S_i$ and $S_j$ denote the sets of samples gathered during
-sessions $i$ and $j$; then the \emph{cross-session distance matrix}
-$D$ is such that
+From this analysis we confirm (recall the previous Subsection) that
+\emph{electrode displacement plays a determinant role} in the
+classification accuracy. Notice that muscle fatigue seems not to enter
+the picture, but this is reasonable since it is present already within
+one single session and the machine correctly takes it into account
+during the training phase. Notice once again that the uniformisation
+procedure does not hinder the generalisation power of the
+system. Electrode displacement present between groups (but not within
+a group) causes the samples in a group to be ``shifted'' in the input
+space, so that testing on a different group results in poor
+performance.
+
+If this claim is correct, then there should be (negative) correlation
+between distance and accuracy. In fact, cross-session accuracy is
+highly correlated to the \emph{average minimum inter-sample distance}
+between sessions. More in detail, let $S_i$ and $S_j$ denote the sets
+of samples gathered during sessions $i$ and $j$; then the
+\emph{cross-session distance matrix} $D$ is such that
 
 $$ D_{ij} = \frac{1}{|S_j|} \sum_{s_j \in S_j}{\min_{s_i \in S_i}{ ||s_j-s_i||^2 } } $$
 
 Essentially, $D_{ij}$ denotes how far away in the input space the
 samples in $S_j$ are from the samples in $S_i$. Note that $D$ is in
-general not symmetric.
+general not symmetric. The cross-correlation coefficient evaluated
+between $D$ and the cross-session accuracy matrix is about $-0.61$
+\emph{both} for the first and the second day, indicating a strong
+negative correlation. Further experiments have revealed that this
+happens for Neural Networks too (cross-correlation $-0.40$ for day $1$
+and $-0.51$ for day $2$); and also, that $D$ is strongly
+\emph{positively} correlated to the MSE in regression, for all the
+studied approaches: $0.62/0.78$ (day $1$/day $2$) for SVMs,
+$0.64/0.72$ for FFNs and $0.77/0.81$ for LWPR. In other words, the
+larger the distance of $S_i$ and $S_j$, the worse the performance of
+model $i$ tested on session $j$, \emph{both in classification and in
+regression}, and \emph{for all approaches tested}.
 
-The cross-correlation coefficient evaluated between $D$ and the
-cross-session accuracy matrix is about $-0.61$ \emph{both} for the
-first and the second day, indicating a strong negative correlation.
-Further experiments have revealed that this happens for Neural
-Networks too (cross-correlation $-0.40$ for day $1$ and $-0.51$ for
-day $2$); and also, that $D$ is strongly \emph{positively} correlated
-to the MSE in regression, for all the studied approaches: $0.62/0.78$
-(day $1$/day $2$) for SVMs, $0.64/0.72$ for FFNs and $0.77/0.81$ for
-LWPR. In other words, the larger the distance of $S_i$ and $S_j$, the
-worse the performance of model $i$ tested on session $j$, \emph{both
-in classification and in regression}, and \emph{for all approaches
-tested}. This tells us that (a) samples of the same group are closer
-to each other than sample from different groups, therefore electrode
-displacement causes displacement in the input space too; and (b)
-that this causes bad inter-group performance. ``Samples far away from
-the training set will be predicted badly.''
-
-%% In order to further sustain this claim we have checked, for each day,
-%% that models obtained by adjoining $4$ of the $5$ groups would perform
-%% well on the group excluded when training; this would indeed indicate
-%% that more data is needed to train the machine, and that the required
-%% data must somehow be found in some of (but not necessarily all) the
-%% gathered groups. We will call these models \emph{multi-group
-%% models}. The results are visible in Figure \ref{fig:bigmodels}.
-
-%% \begin{figure*}[!ht] \centering
-%%   \begin{tabular}{cc}
-%%     \includegraphics[width=0.45\textwidth]{figs/fig_resCross_day1_big} & \includegraphics[width=0.45\textwidth]{figs/fig_resCross_day2_big} \\
-%%     $(a)$ & $(b)$ \\
-%%   \end{tabular}
-%%   \caption{Cross-session analysis of multi-group models, obtained by adjoining $4$
-%%     of the $5$ groups of each day. Each row denotes the model trained
-%%     excluding group $1,\ldots,5$ from the model itself. $(a)$ day $1$, $(b)$ day $2$.}
-%%   \label{fig:bigmodels}
-%% \end{figure*}
-
-%% Consider the rows of the matrices in the Figure: as one can see, the
-%% accuracy is uniformly very high, even when the models are tested on
-%% unseen testing data; for instance, model $1$ of day $1$ has an
-%% accuracy of $92.82\% \pm 1.96\%$, and model $4$ of day $2$ has an
-%% accuracy of $92.64\% \pm 3.73\%$. Moreover, notice that, e.g., model
-%% $5$ of day $1$ performs badly on group $5$ of day $1$, as one can
-%% expect, since model $5$ has not been trained on that very group, which
-%% was already determined to be very hard (compare Figure
-%% \ref{fig:cross_initial}, pane $(b)$, last three columns).
-
-%%  Model $1$ of day $1$, for
-%% instance, performs uniformly very well. From this we first conclude
-%% that the uniformisation procedure is not eliminating any useful
-%% information from the training sets; and, secondly, that if the right
-%% training data can be found, there are good chances of building a good
-%% model.
+This tells us that (a) samples of the same group are closer to each
+other than sample from different groups, therefore electrode
+displacement causes displacement in the input space too; and (b) that
+this causes bad inter-group performance. ``Samples far away from the
+training set will be predicted badly.''
 
 The dual consideration is that if we train upon the ``right'' data,
 the accuracy should become acceptable. How to find the right data
@@ -255,8 +234,8 @@ the best model.
 
 \begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.25\textwidth]{figs/fig_class_resCrossBestOnDay1.png} &
-    \includegraphics[width=0.25\textwidth]{figs/fig_class_resCrossBestOnDay2.png} \\
+    \includegraphics[width=0.23\textwidth]{figs/fig_class_resCrossBestOnDay1.png} &
+    \includegraphics[width=0.23\textwidth]{figs/fig_class_resCrossBestOnDay2.png} \\
     SVM: $89.90\% \pm 4.51\%$ & SVM: $89.04\% \pm 4.50\%$ \\
     FFN: $90.25\% \pm 2.77\%$ & FFN: $86.84\% \pm 5.57\%$ \\
     $(a)$ & $(b)$ \\
@@ -292,18 +271,18 @@ expressed as a percentage; and the Squared Correlation Coefficient
 
 \begin{figure}[!ht] \centering
   \begin{tabular}{cc}
-    \includegraphics[width=0.25\textwidth]{figs/fig_err_regr_resCrossBestOnDay1.png} &
-    \includegraphics[width=0.25\textwidth]{figs/fig_err_regr_resCrossBestOnDay2.png} \\
+    \includegraphics[width=0.23\textwidth]{figs/fig_err_regr_resCrossBestOnDay1.png} &
+    \includegraphics[width=0.23\textwidth]{figs/fig_err_regr_resCrossBestOnDay2.png} \\
      SVM: $11.84\% \pm 2.64\%$ &  SVM: $10.54\% \pm 3.18\%$ \\
      FFN: $10.54\% \pm 1.41\%$ &  FFN: $10.01\% \pm 1.93\%$ \\
     LWPR: $11.98\% \pm 1.31\%$ & LWPR: $11.13\% \pm 1.32\%$ \\
-    \includegraphics[width=0.25\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1.png} &
-    \includegraphics[width=0.25\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay2.png} \\
+    \includegraphics[width=0.23\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay1.png} &
+    \includegraphics[width=0.23\textwidth]{figs/fig_MSE_regr_resCrossBestOnDay2.png} \\
      SVM: $7.86 \pm 3.35$ &  SVM: $5.44 \pm 2.79$ \\
      FFN: $6.27 \pm 2.36$ &  FFN: $4.76 \pm 1.52$ \\
     LWPR: $7.79 \pm 1.83$ & LWPR: $6.03 \pm 2.07$ \\
-    \includegraphics[width=0.25\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1.png} &
-    \includegraphics[width=0.25\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay2.png} \\
+    \includegraphics[width=0.23\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay1.png} &
+    \includegraphics[width=0.23\textwidth]{figs/fig_SCC_regr_resCrossBestOnDay2.png} \\
      SVM: $0.77 \pm 0.09$ &  SVM: $0.78 \pm 0.11$ \\
      FFN: $0.83 \pm 0.04$ &  FFN: $0.83 \pm 0.04$ \\
     LWPR: $0.78 \pm 0.05$ & LWPR: $0.77 \pm 0.04$ \\

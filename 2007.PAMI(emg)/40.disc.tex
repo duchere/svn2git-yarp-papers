@@ -1,18 +1,18 @@
 Our experimental results, performed on a large data set of about
-$153,000$ samples, clearly show that the Online Uniformisation
-procedure can be used to obtain dramatically smaller training sets
-with no \emph{qualitative} loss of information; in other words, as
-more of the input space is sampled, OU keeps the training set
-up-to-date and small. OU sets will result in small (and therefore,
-fast) and accurate models of the sought-for EMG-to-hand
-map. Remarkably, OU works fine for both grasp classification and force
-regression, and with all three different machine learning approaches
-tested. Moreover, it is extremely simple, being nothing more than an
-online check of Euclidean distance in the input space. This check is
-done so far by considering the new sample's distance from all samples
-in the current training set, and therefore could become unfeasibly
-heavy as the set grows; but the same check can be clearly done in
-constant time using an algorithmic optimisation, such a hash table.
+$153,000$ samples, clearly show that Online Uniformisation can be used
+to obtain dramatically smaller training sets with no
+\emph{qualitative} loss of information; in other words, as more of the
+input space is sampled, OU keeps the training set up-to-date and
+small. OU sets will result in small (and therefore, fast) and accurate
+models of the sought-for EMG-to-hand map. Remarkably, OU works fine
+for both grasp classification and force regression, and with all three
+different machine learning approaches tested. Moreover, it is
+extremely simple, being nothing more than an online check of Euclidean
+distance in the input space. This check is done so far by considering
+the new sample's distance from all samples in the current training
+set, and therefore could become unfeasibly heavy as the set grows; but
+the same check can be clearly done in constant time using an
+algorithmic optimisation, such a hash table.
 
 Moreover, OU will produce models which perform \emph{uniformly} well,
 enabling a patient to drive the prosthesis with a good accuracy in
@@ -55,24 +55,26 @@ consider the problems outlined in section
 \ref{subsubsec:electrodes}: in this paper we have solved problems
 $3$ and $4$. Now, since OU lets us obtain good accuracy with extremely
 small training sets, it is not too far-fetched to say that the
-solution of problem $2$ is at hand---in principle, the changing arm
+solution of problem $2$ is at hand --- in principle, the changing arm
 posture can be taken into account simply by sampling more of the input
 space. As far as problem $1$ is concerned, inter-subject usability is
 really of lesser interest, since one patient only is supposed to ever
 wear a prosthesis; on the other hand, multi-subject analysis has to be
 carried out eventually, since it must be possible to obtain good
-results on \emph{any} subject the method is applied to.
+results on \emph{any} subject the method is applied to. We see no
+reason, however, why this should not be the case, at least as far as
+able-bodied subjects are concerned.
 
-The main problem, and a final one possibly, is that of training the
-system upon amputees. First of all, the patient must still have a good
-deal of muscular and nervous plasticity in her arm stump; then, a
-smart way of collecting training data must be devised---an amputee is
-obviously not expected to train the machine with a hand. A simple idea
-is that of gathering EMG data from the patient's stump and
-grasping/force data from her healthy hand, while instructing her to
-imagine doing the same actions with both hands. Secondly, the issue of
-feedback will have to be addressed, in order to provide the patient
-with reliable information about the force actually involved in the
+The ultimate problem is of coruse that of training the system upon
+amputees. First of all, the patient must still have a good deal of
+muscular and nervous plasticity in her arm stump; then, a smart way of
+collecting training data must be devised --- an amputee is obviously
+not expected to train the machine with a hand. A simple idea is that
+of gathering EMG data from the patient's stump and grasping/force data
+from her healthy hand, while instructing her to imagine doing the same
+actions with both hands. Secondly, the issue of sensorial feedback
+will have to be addressed, in order to provide the patient with
+reliable information about the force actually involved in the
 grasp. This is likely to be crucial in order to realise a tighter and
 tighter loop between the patient and the prosthesis.
 
@@ -84,8 +86,11 @@ obtained by our models, we claim that the relationship between the EMG
 signal and the force has been captured by the models, under variable
 conditions of muscle fatigue (within one session) and electrode
 displacement (within sessions belonging to different groups). In a
-certain sense, this works is an evolution of the so-called
+certain sense, this work is an evolution of the so-called
 \emph{proportional} control of myoelectric prostheses already
 available on the market; in proportional control, the ``claw'' of the
 prosthesis is actuated with a force which is proportional to the
-amplitude of the EMG signal.
+amplitude of the EMG signal. In this case, the applied force is
+proportional as well, but the control is realised in a totally natural
+way, and is \emph{adaptive} to the user, what has never been done
+before.

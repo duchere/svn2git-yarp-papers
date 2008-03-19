@@ -1,18 +1,23 @@
-This paper is in the framework of \emph{active hand prostheses}, i.e.,
-mechanical hands which are light enough to be implanted on disabled
-persons; more precisely, it deals with the issue of \emph{controlling}
-an AHP. We hereby describe an experiment conducted on a healthy
-subject, aimed at establishing whether forearm surface
-electromyography (EMG) can be used to reconstruct, to a resonable
-degree of accuracy, the hand posture and force involved in
-grasping.
+One of the biggest problems when dealing with advanced hand prostheses
+is, nowadays, that of control by the patient. Assume we can build a
+mechanical hand which is light and dexterous enough to be used by an
+amputee with beneficial effects during everyday life; how is then the
+patient supposed to command the prostheses what to do to the desired
+degree of accuracy and velocity? Right now, commercially available
+prostheses are not very dexterous, i.e., have too few degrees of
+freedom, or cannot be finely controlled; but things are changing
+rapidly, and therefore the need for good control of these mechanical
+hands arises.
 
-Several machine learning methods were compared on a data set gathered
-over two days; moreover, a simple sparsification strategy was devised,
-which enabled the methods to work also in real time in an on-line
-setting. The system was tested on a real mechanical hand (not a
-prosthetic one so far, though). The results of the experiment confirm
-that the problem can be solved with a remarkable precision. This paves
-the way for a better control of AHPs and opens up a scenario in which
-life conditions of amputees can be effectively improved with respect
-to the state of the art.
+This paper deals with advanced hand prostheses control via surface
+electromyography (EMG), probably the simplest and most accurate means
+to do it. Building upon recent results, we show that machine learning,
+together with a simple downsampling algorithm, can be effectively used
+to control on-line, in real time, a highly dexterous robotic hand. The
+system determines the type of grasp a human subject is willing to use,
+and the required amount of force involved, with a remarkable degree of
+accuracy.
+
+This paves the way for a better control of advanced hand prostheses
+and opens up a scenario in which life conditions of amputees can be
+effectively improved with respect to the state of the art.

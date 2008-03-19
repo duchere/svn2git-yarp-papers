@@ -8,12 +8,12 @@ training set. We have then implemented an online version of the
 uniformisation procedure, in order to test what would happen in a real
 setting while the patient is freely moving around.
 
-First of all, we reduced the sampling rate from $256$Hz to about
-$25$Hz, since (see Section \ref{subsubsec:electrodes}) the bandwidth
-of the EMG signal is limited in our experiment to about $10$Hz. This
-got us a total training set of about $153,000$ samples. The samples
-were naturally chronologically ordered, so that they could be fed to
-the system one by one as it would actually happen during continuous
+First of all, since (see Section \ref{subsubsec:electrodes}) the
+bandwidth of the EMG signal is limited in our experiment to about
+$10$Hz, data have been subsampled from $256$Hz to $25$Hz, getting to a
+total training set of about $153,000$ samples. The samples are
+naturally chronologically ordered, so that they could be fed to the
+system one by one as it would actually happen during continuous
 acquisition of data from the patient's activity.
 
 Furthermore, in an online setting no a-priori statistics about the
@@ -27,11 +27,11 @@ without keeping the whole sets and re-evaluating them each
 time. Testing samples were also normalised according to these
 statistics.
 
-We also tested the batch of samples for dimensionality reduction using
+(We also tested the batch of samples for dimensionality reduction using
 PCA, but found that no more than $2$ or $3$ dimensions could be
 eliminated. Therefore we dropped the idea, also since PCA would
 require, again, an estimate of the covariance matrix of the data set,
-which is not available online.
+which is not available online.)
 
 The Online Uniformisation (OU) procedure, then, works like this: we
 initially fix a minimum inter-sample distance $d$ and start
@@ -40,22 +40,21 @@ available, we check whether $dist(\xx,\xx_i)\leq d$, for at
 least one $\xx_i \in S$: if this is the case, then $\xx$ is discarded;
 otherwise, it is added to $S$.
 
-The first question we were interested in was: does OU give us an
-acceptable accuracy \emph{at all times}? That is: does $S$ constitute
-a good training set, as the patient explores new regions of the input
-space, and more and more samples are seen? In order to answer this
-question we considered again the problem of SVM classification, and
-let $S$ grow according to the OU procedure. Then, every about $1.5$
-minutes of sampled data, that is every $2,400$ samples, we trained the
-SVM on $S$ and checked its accuracy on a testing set drawn from the
-previously seen samples (but not in $S$, of course). This was done $5$
-times with different splits of $S$, so to obtain a statistically
-meaningful measure of accuracy. We chose to use a mid-range value of
-$d = 0.21$ obtained from initial experiments, which would
-result in a final training set of about $1800$ samples; moreover, we
-used hyperparameters $C = 10^{1.5}$ and $\sigma = 10^{0.5}$, found by
-grid search during the preliminary experiments. Figure \ref{fig:inc}
-shows the results.
+The first question is: does OU give us an acceptable accuracy \emph{at
+all times}? That is: does $S$ constitute a good training set, as the
+patient explores new regions of the input space, and more and more
+samples are seen? In order to answer this question we considered again
+the problem of SVM classification, and let $S$ grow according to the
+OU procedure. Then, every about $1.5$ minutes of sampled data, that is
+every $2,400$ samples, we trained the SVM on $S$ and checked its
+accuracy on a testing set drawn from the previously seen samples (but
+not in $S$, of course). This was done $5$ times with different splits
+of $S$, so to obtain a statistically meaningful measure of
+accuracy. We chose to use a mid-range value of $d = 0.21$ obtained
+from initial experiments, which would result in a final training set
+of about $1800$ samples; moreover, we used hyperparameters $C =
+10^{1.5}$ and $\sigma = 10^{0.5}$, found by grid search during the
+preliminary experiments. Figure \ref{fig:inc} shows the results.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
@@ -100,10 +99,11 @@ tested upon a full testing set. In other words, the OU procedure is
 effective in building a compact and accurate training set for SVM
 classification.
 
-What about the other approaches and problems? Figure \ref{fig:allres}
-shows an all-inclusive set of results for all problems and approaches
-considered, and for various values of the minimum distance threshold,
-$d$, which was fixed at $0.21$ in the previous experiment.
+As far as other approaches and problems are concerned, Figure
+\ref{fig:allres} shows an all-inclusive set of results for all
+problems and approaches considered, and for various values of the
+minimum distance threshold, $d$, which was fixed at $0.21$ in the
+previous experiment.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
