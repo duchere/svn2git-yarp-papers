@@ -1,0 +1,93 @@
+------------------------------------------------------------
+reviewer A
+------------------------------------------------------------
+
+Surface EMG in Advanced Hand Prosthetics 
+Claudio Castellini, Patrick van der Smagt 
+Manuscript 07_122, submitted to Biological Cybernetics 
+
+Review 
+
+This paper is of interest for the readers of Biological Cybernetics. As cybernetics is about the 
+interaction between the human and the machine, and certainly more than a simple feed forward 
+problem, it is a pity the paper does just that and ignores the feedback issue. The work reported 
+certainly contributes in resolving some of the issues in the feed forward path in the control of 
+prostheses. However, for proper prosthetic control, without excessive mental load for the user, 
+feedback is a necessity. This, unfortunately, is completely ignored in this article. I believe, before 
+accepting this manuscript for publication, the authors should address this. 
+
+Other remarks: 
+
+p.1 Abstract 
+
+The authors write: “In the framework of hand prosthetics, it is nowadays possible to build mechanical 
+hands possessing a fair amount of the abilities required by the disabled to carry on living in a decent 
+way.” This is quite a bold statement that certainly does not reflect the common opinion of 
+professionals in the rehabilitation field or that of prosthetic users. Actually, the currently available 
+prostheses are generally regarded as reasonable clumsy tools. 
+
+p.1 Abstract [repeated on p.2] 
+
+The authors write: “…… given the current state of the art, it is basically impossible for the patient to 
+precisely command the prosthesis what to do.” Again, this is a bold statement. It might be true for 
+some of the current prostheses, e.g. myo-controlled devices, but for instance with a body powered 
+voluntary closing hook a user is very well capable to precisely command the opening width and the 
+pinch force. 
+
+p.1 Introduction 
+
+“…. are being put on the market. Such hand developments are a result of various robotic hands which 
+are highly humanoid, light and gifted with a number of degrees of freedom. Attempts in this sense 
+include, e.g., the DLR prosthetic hand ([1]—see Figure 1), the CyberHand project [2], and the i-LIMB 
+hand by Touch Bionics [3].” 
+
+Light is, of course, a relative concept. In general, a hand prosthesis should be as low in mass as 
+possible. The examples mentioned are by any standards too heavy [± 500 g] to be used as a hand 
+replacement on a full time basis. 
+
+To my knowledge, only the i-LIMB hand is commercially available. 
+
+p.2 Last sentence of first column 
+
+“On the other hand, non-invasive interfaces are easier to handle, manufacture and implant, but 
+require a …..” 
+
+It’s rather confusing to use the word implant here. Is implement what is meant here? 
+
+p.7 Fig. 3 
+
+The figure and also the text above the figure, deals with the change of magnitude of the EMG-signal 
+over a session. The authors attribute the occurring changes to muscle fatigue. However, the EMG-
+signal will also change magnitude as a result of active use/non-use over a session. Hence, it is not 
+clear why the authors explain the changes in magnitude by fatigue only. 
+
+------------------------------------------------------------
+reviewer B
+------------------------------------------------------------
+
+The authors report the results of testing on a number of different algorithms used to classify 
+hand postures based on EMG signals from the forearm. As a description of an applied study, 
+these results are interesting. They report good success at classifying hand postures from EMG 
+signals in the arm, they propose a novel algorithm for downsampling the training data set 
+while maintain performance and they extend the work to predict forces at the fingers as well 
+as hand posture. 
+
+I have some recommendations, however, to improve the manuscript to fit within the 
+framework of Biological Cybernetics. 
+
+The introduction is not well organized and redundant. In particular, section 1.1 repeats what 
+was stated earlier with regards to estimating hand posture from EMG. The paragraphs on 
+online optimization with respect to other methods would be better placed in the Discussion. 
+
+In general, the manuscript reads like a diary of what the authors did and did not try. They 
+compare 3 classification methods but provide little discussion of why these 3 were chosen 
+and what can be concluded by the comparison between the three methods. Many choices 
+appear to be ad hoc. Are the authors testing any hypotheses? Do the results tell us anything 
+about how the human motor system works? Is there anything to be learned from these 
+experiments that go beyond the testing of a novel control approach? 
+
+Also, from an applied perspective, the authors should better motivate the experiment. What 
+use is a prosthetic device that is piloted from EMG signals of an intact hand? Why not use 
+the real hand? Or why not use a glove and force sensors to have the robot hand follow the 
+human hand? This issue is dealt with slightly in the final paragraphs, but should be brought 
+up in the Introduction. 
