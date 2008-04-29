@@ -1,13 +1,13 @@
 %
 % Gaze Tracking in Semi-Autonomous Grasping
-% Submitted to JEMR special issue
+% JEMR special issue on ECEM2007 abstracts
 % Castellini
 %
 
-\documentclass{article}
-
+\documentclass[jou, notxfonts]{apa}
+\usepackage{graphicx} 
+\usepackage{palatino}
 \usepackage{float}
-\usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
 \usepackage[psamsfonts]{amssymb}
@@ -26,45 +26,53 @@
 \def\d{\mathcal{D}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{\LARGE \bf Gaze Tracking in\\ Semi-Autonomous Grasping}
+
+\title{Gaze Tracking in Semi-Autonomous Grasping}
 
 \author{Claudio Castellini}
+\affiliation{LIRA-Lab, University of Genova, Italy}
+\journal{Journal Of Eye Movement Research}
+\volume{X, X, X-X}
 
-\date{}
+\abstract{
+  In critical human/robotic interactions such as, e.g., teleoperation
+  by a disabled master or with insufficient bandwidth, it is highly
+  desirable to have \emph{semi-autonomous} robotic artifacts interact
+  with a human being. Semi-autonomous grasping, for instance, consists
+  of having a smart slave able to guess the master's intentions and
+  initiating a grasping sequence whenever the master wants to grasp an
+  object in the slave's workspace.
+  In this paper we investigate the possibility of building such an
+  intelligent robotic artifact by training a machine learning system
+  on data gathered from several human subjects while trying to grasp
+  objects in a teleoperation setup. In particular, we investigate the
+  usefulness of gaze tracking in such a scenario. The resulting system
+  must be light enough to be usable on-line and flexible enough to
+  adapt to different masters, e.g., elderly and/or slow.
+  The outcome of the experiment is that such a system, based upon
+  Support Vector Machines, meets all the requirements, being $(a)$
+  highly accurate, $(b)$ compact and fast, and $(c)$ largely
+  unaffected by the subjects' diversity. It is also clearly shown that
+  gaze tracking significantly improves both the accuracy and
+  compactness of the obtained models, if compared with the use of the
+  hand position alone. The system can be trained with something like
+  $3.5$ minutes of human data in the worst case.
+  \linebreak
+  \linebreak
+  {\bf Keywords: machine learning, gaze tracking, teleoperation}
+}
+
+\acknowledgements{The work is supported by the EU-funded project NEURObotics
+(FP6-IST-001917). We thank Giulio Sandini and Giorgio Metta of the
+Italian Institute of Technology and Francesco Orabona of IDIAP
+Switzerland for their support.}
+\shorttitle{}
+\rightheader{Journal of Eye Movement Research, Volume X, Issue X}
+\leftheader{Claudio Castellini}
 
 \begin{document}
 
 \maketitle
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{abstract}
-
-In critical human/robotic interactions such as, e.g., teleoperation by
-a disabled master or with insufficient bandwidth, it is highly
-desirable to have \emph{semi-autonomous} robotic artifacts interact
-with a human being. Semi-autonomous grasping, for instance, consists
-of having a smart slave able to guess the master's intentions and
-initiating a grasping sequence whenever the master wants to grasp an
-object in the slave's workspace.
-
-In this paper we investigate the possibility of building such an
-intelligent robotic artifact by training a machine learning system on
-data gathered from several human subjects while trying to grasp
-objects in a teleoperation setup. In particular, we investigate the
-usefulness of gaze tracking in such a scenario. The resulting system
-must be light enough to be usable on-line and flexible enough to adapt
-to different masters, e.g., elderly and/or slow.
-
-The outcome of the experiment is that such a system, based upon
-Support Vector Machines, meets all the requirements, being $(a)$
-highly accurate, $(b)$ compact and fast, and $(c)$ largely unaffected
-by the subjects' diversity. It is also clearly shown that gaze
-tracking significantly improves both the accuracy and compactness of
-the obtained models, if compared with the use of the hand position
-alone. The system can be trained with something like $3.5$ minutes of
-human data in the worst case.
-
-\end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
@@ -87,18 +95,7 @@ human data in the worst case.
 \input{paper_concl.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{ACKNOWLEDGMENTS}
 
-The work is supported by the EU-funded project NEURObotics
-(FP6-IST-001917). We thank Giulio Sandini and Giorgio Metta of the
-Italian Institute of Technology and Francesco Orabona of IDIAP
-Switzerland for their support.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-{\small
-\bibliographystyle{alpha}
 \bibliography{paper}
-}
 
 \end{document}
