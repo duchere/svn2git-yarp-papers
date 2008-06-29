@@ -1,20 +1,22 @@
-One of the major problems when dealing with highly dexterous, active hand
-prosthesis is their control by the patient wearing it. With the advances
-in mechatronics, building prosthetic hands with multiple active degrees of
-freedom is realisable, but actively controlling the position and especially
-the exerted force of each finger cannot yet intuitively be done.
+In previous work \cite{2008.ICRA,2008.BioCyb} we have shown that
+forearm surface electromyography (EMG) can be effectively used to
+control a dexterous mechanical hand, thus laying the basis of
+EMG-based control of polyarticulate hand prostheses, such as, e.g.,
+Touch Bionics's i-LIMB hand. Forearm surface EMG is relatively cheap
+and totally non-invasive, thus avoiding the problems normally
+associated to surgical prosthetics.
 
-This paper deals with advanced robotic hand control via surface electromyography (EMG).
-Building upon recent results, we show that machine learning,
-together with a simple downsampling algorithm, can be effectively used
-to control on-line, in real time, finger position as well as finger force
-of a highly dexterous robotic hand. The
-system determines the type of grasp a human subject is willing to use,
-and the required amount of force involved, with a remarkable degree of
-accuracy.
+So far, the analysis has been concerned with one subject only, fully
+able-bodied, and in highly controlled conditions, i.e., with his arm
+relaxed and still on a table. In this paper we carry the analysis on
+and solve some of the problems left open in the aforementioned
+paper.
 
-This paves the way for a better control of advanced hand prostheses
-and opens up a scenario in which life conditions of amputees can be
-effectively improved with respect to the state of the art.  Furthermore, it allows for the use of EMG
-in teleoperation scenarios, in which force control is a required mode of operation.
-
+Namely, we describe the outcome of a similar experiment, in which the
+task was to press a force sensor in different grasping ways. In this
+experiment however, $10$ healthy subjects participated, and they were
+also left free to walk, raise their hands and arms, sit down and stand
+up, etc., as a patient is supposed to do during Daily-Life
+Activities. The experiment reveals that machine learning techniques
+such as Support Vector Machines are able to achieve good to excellent
+results in this framework also.
