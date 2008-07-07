@@ -16,25 +16,14 @@ Online Uniformisation is based upon the concept of sparsification of a
 function, meaning that only a subset of the samples in the training
 set are used to build an approximation to a target function. This is
 required in an online setting, since there is no guarantee that the
-flow of data potentially usable for training will ever cease. Of the
-tested approaches, both Support Vector Machines and Locally Weighted
-Projection Regression try and build a sparse solution; but in all
-cases, also including feed-forward neural networks, there is so far no
-guarantee that the set of samples selected to build the solution will
-stop growing as more and more data are used to train. SVMs in
-particular are deemed to build sparse solutions (based upon support
-vectors, actually), but a recent result \cite{Steinwart03} shows that,
-really, the number of support vectors is proportional to the number of
-training samples. Therefore one cannot expect to build an eventually
-stable solution of an online problem.
-
-Other ways of reducing the number of support vectors have been tried,
-e.g.\ in \cite{bmvc}, in which sparseness is achieved without losing any
+flow of data potentially usable for training will ever cease. Other
+ways of reducing the number of support vectors have been tried, e.g.
+in \cite{bmvc}, in which sparseness is achieved without losing any
 accuracy, or, e.g., \cite{LeeM01,KeerthiCDC06} where a subset of the
-support vectors is heuristically selected and fewer support vectors are
-traded for larger classification/regression errors. Indeed the idea of
-sparsifying a solution is not new and has been used, e.g., in a
-Bayesian framework \cite{figueiredo03adaptive}; as well, the
+support vectors is heuristically selected and fewer support vectors
+are traded for larger classification/regression errors. Indeed the
+idea of sparsifying a solution is not new and has been used, e.g., in
+a Bayesian framework \cite{figueiredo03adaptive}; as well, the
 sparseness of solutions in the framework of Support Vector Machines
 has been exploited and improved, e.g., with Relevance Vector Machines
 \cite{tipping00relevance}.
