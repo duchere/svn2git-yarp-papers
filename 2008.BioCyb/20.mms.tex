@@ -8,17 +8,21 @@ $7$ surface EMG electrodes, according to this anatomic guideline:
 
 \begin{itemize}
 
-  \item on the forearm ventral side: above the flexor pollicis longus,
-    flexor digitorum superficialis, flexor digitorum profundus and
-    flexor digitorm superficialis;
+  \item on the forearm ventral side: near the wrist, above the
+    \emph{flexor pollicis longus}; centrally, above the \emph{flexor
+    digitorum superficialis}; near the elbow, above the \emph{flexor
+    digitorum profundus}; and near the wrist, above the \emph{flexor
+    digitorum superficialis} again;
 
-  \item on the forearm dorsal side: above the extensor pollicis
-    brevis/abductor pollicis longus, extensor digitorum communis and
-    extensor digiti minimi.
+  \item on the forearm dorsal side: near the wrist, above the
+    \emph{extensor pollicis brevis / abductor pollicis longus};
+    centrally, above the \emph{extensor digitorum communis} and
+    \emph{extensor digiti minimi}.
 
 \end{itemize}
 
 These positions were chosen, according to the medical literature,
+\textbf{EMANUELE: puoi mettere una citazione da qualche libro di anatomia?}
 as carefully as possible in order to identify the best EMG sources and
 to detect the activity of the most relevant flexor and extensor
 muscles of the forearm. It must be noted, however, that we detected,
@@ -34,29 +38,6 @@ are the loudest and clearest speakers in the room.
 
 \subsection{Sensors and hardware}
 
-The electrodes we employed are Aurion ZeroWire wireless surface EMG
-electrodes (see \cite{...}). The use of wireless electrodes is
-particularly appreciated in such kind of experiments, since the
-subjects would eventually have to be free to perform DLA-like actions
-during the experiment, i.e., in a specific phase of the experiment
-they were allowed to walk around, pronate and supinate their forearms,
-sit down and stand up, walk, etc.
-
-Each subject was also given a FUTEK LMD500 Hand Gripper force sensor
-(see \cite{...}) in order for us to detect the force applied by the
-subjects' hand during the experiment.
-
-Figure \ref{fig:SubjSetup} shows $(a)$ a single electrode, glued to
-the subject's forearm skin; $(b)$ the force sensor as gripped during a
-power grasp; and $(c)$ the typical placement of the electrodes
-(ventral side of the forearm).
-
-It is well-known that the EMG raw signal relevant bandwidth lies
-between $15$ and $500$Hz, so we set the sampling rate at $2$KHz. In
-order to avoid synchronisation problems, the same sampling rate was
-applied to the force sensor, although we obviously expect a much lower
-bandwidth from this sensor than from the EMG sensors.
-
 \begin{figure*}[!t] \centering
   \begin{tabular}{ccc}
     \includegraphics[height=0.16\textheight]{figs/Electrode} &
@@ -69,6 +50,30 @@ bandwidth from this sensor than from the EMG sensors.
     placement of the EMG electrodes on a subject's forearm (ventral side).}
   \label{fig:SubjSetup}
 \end{figure*}
+
+The electrodes we employed are Aurion ZeroWire wireless surface EMG
+electrodes (see \cite{...}). The use of wireless electrodes is
+particularly appreciated in such kind of experiments, since the
+subjects would eventually have to be free to perform DLA-like actions
+during the experiment, i.e., in a specific phase of the experiment
+they were allowed to walk around, pronate and supinate their forearms,
+sit down and stand up, walk, etc. Wireless electrodes let the subjects
+feel free.
+
+Each subject was also given a FUTEK LMD500 Hand Gripper force sensor
+(see \cite{...}) in order to detect the force applied by the subjects'
+hand during the experiment.
+
+Figure \ref{fig:SubjSetup} shows $(a)$ a single electrode, glued to
+the subject's forearm skin; $(b)$ the force sensor as gripped during a
+power grasp; and $(c)$ the typical placement of the electrodes
+(ventral side of the forearm).
+
+It is well-known that the EMG raw signal relevant bandwidth lies
+between $15$ and $500$Hz, so we set the sampling rate at $2$KHz. In
+order to avoid synchronisation problems, the same sampling rate was
+applied to the force sensor, although we obviously expect a much lower
+bandwidth from this sensor than from the EMG sensors.
 
 We used a standard National Instruments data acquisition board
 (NI-USB6211) to record the sensors' signals, connected to the receiver
@@ -129,7 +134,7 @@ be referred to from now on as the \emph{Still-Arm phase (SA)}.
 Phase $2$, actually the more interesting one for the final intent of
 this study, consisted in repeating phase $1$ in a less controlled
 condition: the subject was asked to grasp the force sensor while
-freely moving, walking around, lifting and pronating/supinating his
+freely moving, walking around, lifting and pronating / supinating the
 arm and forearm, sitting down and standing up from a chair; this would
 emulate the main movements that one is expected to do during his DLAs.
 This second phase will be called \emph{Free-Arm phase (FA)}.
@@ -141,16 +146,15 @@ distributed in each phase.
 
 \subsection{Data pre-processing}
 
-Unlike more sophisticated and commercialised EMG electrodes, such as,
-e.g., Otto Bock's MyoBock electrodes \cite{ottobock}, the electrodes
-employed here would return the ``raw'' EMG signal, without any
-low-pass filtering or Root-Mean Square (RMS) processing. Nevertheless,
-it is well-known (see, again, \cite{deluca,zecca}) that muscular
-activity, namely the force exerted by a muscle, is strongly related to
-the RMS of the EMG signal, rather than to the raw signal. For this
-reason, and also in order to aim at a more practical, commercial
-implementation, we decided to evaluate the RMS of the obtained EMG
-signals, electrode by electrode.
+Unlike commercial EMG electrodes, such as, e.g., Otto Bock's MyoBock
+electrodes \cite{ottobock}, the electrodes employed here would return
+the ``raw'' EMG signal, without any low-pass filtering or Root-Mean
+Square (RMS) processing. Nevertheless, it is well-known (see, again,
+\cite{deluca,zecca}) that muscular activity, namely the force exerted
+by a muscle, is strongly related to the RMS of the EMG signal, rather
+than to the raw signal. For this reason, and also in order to aim at a
+more practical, commercial implementation, we decided to evaluate the
+RMS of the obtained EMG signals, electrode by electrode.
 
 For a given mono-variate discrete time-varying signal, the RMS is
 defined as the mean of the squares of the signal values, evaluated
@@ -158,24 +162,16 @@ over a certain time-window $T_{RMS}$. Roughly speaking, the RMS acts
 like an envelope extraction plus a low-pass filter, whose cutoff
 frequency grows smaller as the the time-window grows larger (i.e., as
 $T_{RMS}$ becomes higher). For this reason, high values of $T_{RMS}$
-imply a large delay in the signal's processing, since more samples
-must be stored before a significant value can be evaluated. The choice
-of $T_{RMS}$ is therefore crucial in order to produce a signal which
-is maximally related to the force signal, unaffected by high-frequency
-noise, and with an acceptable phase lag. It must be noted here that the
-EMG signal, being directly related to the muscle \emph{activation
+imply a delay in the resulting signal, since more samples must be
+stored before a significant value can be evaluated. The choice of
+$T_{RMS}$ is therefore crucial in order to produce a signal which is
+maximally related to the force signal, unaffected by high-frequency
+noise, and with an acceptable lag. However, it must be noted here that
+the EMG signal, being directly related to the muscle \emph{activation
 potentials}, happens to \emph{anticipate} the muscle movements by a
-few hundreds milliseconds; therefore, in a practical application,
-wider phase lags are acceptable than one would expect. This is useful
-since it allows us to increase $T_{RMS}$, if necessary.
-
-Unfortunately we are unaware of any systematic way of setting a good
-value of $T_{RMS}$ in such a framework; the Otto Bock electrodes' one
-is not mentioned either, in the related technical specification
-sheet. Therefore we found $T_{RMS}$ heuristically, according to some
-initial experiments. See the next Section for more details. As an
-example, though, consider Figures \ref{fig:spectra} and
-\ref{fig:RMSs}.
+few hundreds milliseconds; therefore, in a practical application, a
+wider lag is acceptable than one would expect. This is useful since it
+allows us to increase $T_{RMS}$, if necessary.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
@@ -201,18 +197,25 @@ example, though, consider Figures \ref{fig:spectra} and
   \label{fig:RMSs}
 \end{figure*}
 
+Unfortunately we are unaware of any systematic way of setting a good
+value of $T_{RMS}$ in such a framework; the Otto Bock electrodes' one
+is not mentioned either in the related technical specification
+sheet. Therefore we found $T_{RMS}$ heuristically, according to some
+initial experiments. See the next Section for more details. As an
+example, though, consider Figures \ref{fig:spectra} and
+\ref{fig:RMSs}.
+
 Figure \ref{fig:spectra} (panel $(a)$) shows a few seconds of typical
 force / EMG behaviour: it is apparent that the EMG signal (the bottom
-one, with high frequencies) starts oscillating at the onset of the
-movement, that is, when the force signal (the top one) starts
-increasing. It is also quite clear that the amplitude of the envelope
-of the EMG is related to the force, as is indicated in literature. The
-same Figure, (panel $(b)$), shows the frequency analysis of the same EMG
-signal: as one can see, the meaningful bandwidth lies in the interval
-known from the literature.
+one, with high frequencies) starts oscillating when the force signal
+(the top one) starts increasing. It is also quite clear that the
+amplitude of the envelope of the EMG is related to the force, as is
+indicated in literature. Panel $(b)$ shows the frequency analysis of
+the same EMG signal: as one can see, the meaningful bandwidth lies in
+the interval known from the literature.
 
-On the other hand, \ref{fig:RMSs} shows the effect of the RMS on the
-frequency components of the EMG, for three different values of
+On the other hand, Figure \ref{fig:RMSs} shows the effect of the RMS
+on the frequency components of the EMG, for three different values of
 $T_{RMS}$. It is clear that the meaningful bandwidth now contains all
 low-frequency components, possibly down to the constant, and is
 upper-bounded by about $25$Hz (panel $(a)$, for $T_{RMS}=20ms$) to
@@ -251,26 +254,25 @@ able to build an approximated map between an input space and a label
 (classification) or a real value (regression). Classification is here
 used to classify the type of grasp according to the EMG signal,
 whereas regression is used to understand how much force the subject is
-exerting, independently from the grasp type; essentially, the input
-space is $\RR^7$, one coordinate for each EMG electrode; the labels
-are four integer numbers, one for each grasp type; and the real value
-is exactly the force value read off the force sensor.
+exerting, independently from the grasp type; the input space is then
+$\RR^7$, one coordinate for each EMG electrode; the labels are four
+integer numbers, one for each grasp type; and the real value is
+exactly the force value read off the force sensor.
 
 SVMs are a \emph{supervised learning} approach, meaning that they must
 first be \emph{trained} on an EMG dataset for which labels and force
 values are known, in order to build the required input/output map; and
 then they can be used to \emph{predict} the values of new EMG samples,
-using the map. Notice that, following \cite{2008.ICRA,2008.BioCyb}, we
-work in real-time, that is, we want to associate a grasp type and a
-force value to an EMG value \emph{at each instant of time}. This
-approach enables us to detect a grasp type \emph{almost at the onset
-of the grasping movement}\footnote{the precise onset of the movement
-would correspond to those samples which sere removed since they were
-associated to too low a force value.}, differently from what happens
-in other approaches (e.g., \cite{smagt,...LUND...} in which all values
-of the input signal over a further time-window are employed as the
-input space, in order to let the system understand better the final
-grasp type.
+using the map. Notice that we work in real-time, that is, our machines
+associate a grasp type and a force value to an EMG value \emph{at each
+instant of time}. This approach enables us to detect a grasp type
+\emph{almost at the onset of the grasping movement}\footnote{the
+precise onset of the movement would correspond to those samples which
+sere removed since they were associated to too low a force value.},
+differently from what happens in other approaches (e.g.,
+\cite{smagt,...LUND...}) in which all values of the input signal over a
+further time-window are employed as the input space, in order to let
+the system understand better the final grasp type.
 
 Lastly, SVMs are known to suffer from heavy computational needs when
 it comes to training on large datasets: training on these datasets
@@ -294,7 +296,7 @@ distance from all training samples retained so far is at least
 $d$.
 
 \begin{figure*}[!ht] \centering
-  \includegraphics[width=0.6\textwidth]{figs/Schema} \\
+  \includegraphics[width=0.75\textwidth]{figs/Schema} \\
   \caption{Graphical representation of the system employed to solve our problem.}
   \label{fig:Algorithm}
 \end{figure*}
