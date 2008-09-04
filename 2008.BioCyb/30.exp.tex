@@ -60,16 +60,16 @@ experiments the values of $T_{RMS}$ and $d$ were set to:
 
 Classification proved to be more sensitive to high-frequency noise
 than regression, and therefore we set a larger value of $T_{RMS}$ for
-it; it is expected, anyway, that the low responsiveness of the RMS signal 
-computed on a $500ms$ window would be compensated at least partially 
-by the anticipatory nature of the EMG signal. This should not, then,
-hinder the performance of the system in a practical setting. As far 
-as the values of $d$ are concerned: we chose the above mentioned values
-in order to get not more than one thousand training samples for subject $1$.
-This proved to be a sensible choice, as we will see. By the way, notice that,
-rather counter-intuitively, it has been shown (see \cite{2008.BioCyb}) that the
-performance of such systems changes linearly as $d$ changes, whereas the
-training set size varies polynomially; thus, it is always possible to find a
+it; it is expected, anyway, that the low responsiveness of the RMS
+signal computed on a $500ms$ window would be compensated at least
+partially by the anticipatory nature of the EMG signal. This should
+not, then, hinder the performance of the system in a practical
+setting. As far as the values of $d$ are concerned: we chose the above
+mentioned values in order to get not more than one thousand training
+samples for subject $1$.  This proved to be a sensible choice, as we
+will see. Notice that (see \cite{2008.BioCyb}) the performance of such
+systems changes linearly as $d$ changes, whereas the training set size
+varies polynomially; thus, it is always possible to find a
 polynomially smaller training set, if needed, which will degrade the
 performance only linearly. This really means that the initial choice
 of $d$ is not that important. See the end of this Section for a deeper
@@ -224,7 +224,7 @@ that is, subject $8$ in the FA phase, as far as classification is
 concerned. The result attained by this subject is $82.59\%$. The most
 likely cause of this low performance is that too many useful samples
 are missing from the training set, that is, the minimum distace
-threshold $d$ was set to a too high value. In order to test this
+threshold $d$ was set at too high a value. In order to test this
 hypothesis, and to confirm the experimental results of
 \cite{2008.BioCyb} as we said at the beginning of this Section, we
 let $d$ linearly range around the pre-set value of $0.032$ and check

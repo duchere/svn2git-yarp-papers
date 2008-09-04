@@ -160,25 +160,26 @@ For a given mono-variate discrete time-varying signal, the RMS is
 defined as the mean of the squares of the signal values, evaluated
 over a certain time-window $T_{RMS}$. Roughly speaking, the RMS acts
 like an envelope extraction plus a low-pass filter, whose cutoff
-frequency grows smaller as the the time-window grows larger (i.e., as
+frequency grows smaller as the time-window grows larger (i.e., as
 $T_{RMS}$ becomes higher). For this reason, high values of $T_{RMS}$
 imply an ostensible delay in the resulting signal that is due to
 \emph{responsiveness} of the synthesized output signal. It becomes
-slower and slower as the $T_{RMS}$ value increases, since more 
-samples must be stored before a significant value can be evaluated.
-The choice of $T_{RMS}$ is therefore crucial in order to produce a signal
-which is maximally related to the force signal, unaffected by high-frequency
-noise, and with an acceptable lag. However, it must be noted here that
-the EMG signal, being directly related to the muscle \emph{activation
-potentials}, happens to \emph{anticipate} the muscle movements by a
-few hundreds milliseconds\footnote{The electromechanical delay (EMD)
-of a muscle is defined as the interval between the onset of the electrical
-activity of the muscle (EMG) indicating its activation by the neural system
-and the onset of the resulting change in the mechanical variable
-observed. The delays reported range from 25 to 100 ms for different muscles
-and tasks\cite{Wolf1994}.}; therefore, in a practical application, a wider lag is acceptable
-than one would expect. This is useful since it allows us to increase $T_{RMS}$,
-if necessary.
+slower and slower as the $T_{RMS}$ value increases, since more samples
+must be stored before a significant value can be evaluated.  The
+choice of $T_{RMS}$ is therefore crucial in order to produce a signal
+which is maximally related to the force signal, unaffected by
+high-frequency noise, and with an acceptable lag. However, it must be
+noted here that the EMG signal, being directly related to the muscle
+\emph{activation potentials}, happens to \emph{anticipate} the muscle
+movements by a few hundreds milliseconds\footnote{The
+electromechanical delay (EMD) of a muscle is defined as the interval
+between the onset of the electrical activity of the muscle (EMG)
+indicating its activation by the neural system and the onset of the
+resulting change in the mechanical variable observed. The delays
+reported range from 25 to 100 ms for different muscles and tasks
+\cite{Wolf1994}.}; therefore, in a practical application, a wider lag
+is acceptable than one would expect. This is useful since it allows us
+to increase $T_{RMS}$, if necessary.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
