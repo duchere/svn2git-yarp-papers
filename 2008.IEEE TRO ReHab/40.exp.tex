@@ -103,13 +103,15 @@ $2$-dimensional PCA-transformed input space.
 Actually, the confusion matrices related with each subject / modality
 pair (see Figure \ref{fig:confusion}) do not confirm this feeling:
 most mistakes in classification involve label $0$, both in the sense
-that $0$ is mistaken for something else and vice-versa. This happens
-especially (consider rows $2$ and $3$ of the Figure) for subjects $2$
-and $3$.  This phenomenon is also clearly justifiable, since
-misclassifications involving label $0$ (the ``rest'' position) happen
-at the onsets / endings of grips. A simple buffering strategy (i.e.,
-considering a few samples before switching category) would probably
-suffice to eliminate this problem.
+that $0$ is mistaken for something else and vice-versa (consider the
+first row and first column of each matrix). This happens especially
+(consider rows $2$ and $3$ of the Figure) for subjects $2$ and $3$,
+whereas subject $1$ presents more uncertainty as far as other
+confusion pairs are concerned. This phenomenon is also clearly
+justifiable, since misclassifications involving label $0$ (the
+``rest'' position) happen at the onsets / endings of grips. A simple
+buffering strategy (i.e., considering a few samples before switching
+category) would probably suffice to eliminate this problem.
 
 As far as regression is concerned, consider now Figure
 \ref{fig:examples}, panels $(b)$ and $(c)$. If we neglect a
