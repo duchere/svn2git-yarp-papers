@@ -6,11 +6,11 @@ to the previous state-of-the-art, Otto Bock's SensorHand Speed
 \cite{sensorhand}, which is essentially an open-close
 mechanism. Dexterity of hand prostheses is still far from that of
 state-of-the-art non-prosthetic mechanical hands, such as, e.g., the
-DLR II \cite{Hua2006}, but things are getting better thanks to the
-aforementioned inter-disciplinary exchange (see Figure
-\ref{fig:hands}). Several EU-funded projects (e.g., CyberHand
-\cite{CyberHand} and SmartHand \cite{smarthand}) testify the
-enthusiasm in the field.
+DLR II \cite{Hua2006} (not to mention a human hand, of course), but
+things are getting better thanks to the aforementioned
+inter-disciplinary exchange (see Figure \ref{fig:hands}). Several
+EU-funded projects (e.g., CyberHand \cite{CyberHand} and SmartHand
+\cite{smarthand}) testify the enthusiasm in the field.
 
 \begin{figure}
   \begin{tabular}{ccc}
@@ -20,7 +20,7 @@ enthusiasm in the field.
     $(a)$ & $(b)$ & $(c)$
   \end{tabular}
   \caption{$(a)$ Touch Bionics's i-LIMB prosthetic hand (reproduced
-    from \cite{ilimb}; $(b)$ the DLR-II mechanical hand; $(c)$ Otto
+    from \cite{ilimb}); $(b)$ the DLR-II mechanical hand; $(c)$ Otto
     Bock's SensorHand Speed (reproduced from \cite{sensorhand}).}
   \label{fig:hands}
 \end{figure}
@@ -34,8 +34,8 @@ is rather poor, using two or three electrodes to issue an
 ``open/close'' command or, in the more advanced case of the i-LIMB, to
 choose among a predefined set of grasp shapes. The electrodes are
 associated with large muscles in the patient's stump, such as, e.g.,
-the wrist flexor and extensor. The result is a highly non-natural for
-of control (for isntance, wrist flexion corresponding to opening) and
+the wrist flexor and extensor. The result is a highly non-natural form
+of control (for instance, wrist flexion corresponding to opening) and
 there is no chance of controlling the desired force.
 
 All in all, a general sense of frustration impends, as far as control
@@ -53,4 +53,33 @@ exerted by the prosthesis. This way the mechanical hand can be driven
 with a degree of finesse unknown so far; and as well, its force can be
 controlled, which is possibly even more important.
 
---------> e ora, model adaptation!
+The idea is that of improving the patient's quality of life by
+providing an \emph{adaptive prosthesis}, so that he/she enters a
+virtuous loop of \emph{reciprocal learning}, whereas so far the
+patient has to learn how to control the prosthesis from scratch. To
+this aim, that is, to shorten the patient's training time, we believe it is
+desirable to \emph{pre-train} the prosthesis with a model which will
+be then refined and then adapted on-line, little by little; this, as
+opposed to shipping an ``empty'' prosthesis which has to be trained
+from scratch.
+
+In machine learning, this is called \emph{model adaptation}: a system
+which adapts to a new data distribution, as this distribution shifts
+with time. Here we envision the application of this framework to a
+model trained on pre-existing patients, which would then serve as a
+basic model for new patients; we claim that adapting such pre-loaded
+models to a new patient would lead to a quicker and better training,
+rather than training from scratch. We address the problem like this:
+\textbf{FRANCESCO...}
+
+To corroborate our claim, we apply this idea to a large set of EMG
+data collected from $10$ healthy subjects. \textbf{EMANUELE: breve
+riassunto della sezione 2}. The experimental results
+show that our intuition is correct, to the point that
+\textbf{FRANCESCO: riassunto dei risultati}.
+
+The paper is structured as follows: Section \ref{sec:mms} shows how
+the EMG database was collected; Section \ref{sec:math} gives
+mathematical details about our method; Section \ref{sec:exp} shows the
+experimental results, and lastly Section \ref{sec:concl} contains the
+conclusions.
