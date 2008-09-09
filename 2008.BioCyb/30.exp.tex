@@ -191,8 +191,7 @@ results of testing FA-models on SA data, and viceversa.
     \includegraphics[width=0.45\textwidth]{figs/2on1_regr} \\
     $(a)$ & $(b)$ \\
   \end{tabular}
-  \caption{comparing true and guessed force values for regression of a
-    typical subject (number $6$, FA phase).}
+  \caption{\textbf{XXXXXXXXXXXXXX}.}
   \label{fig:2on1}
 \end{figure*}
 
@@ -216,16 +215,16 @@ off ``real'' DLAs, and more and more complex models be incrementally
 trained in order to adapt to a wider and wider set of actions and
 situations.
 
-Lastly, it is interesting to consider \emph{why} the still
-unsatisfactory results we have can be made better, in the perspective
-of having, in real life, much more data and harder problems at
-hand. Let us consider the worst result of the per-subject analysis,
-that is, subject $8$ in the FA phase, as far as classification is
-concerned. The result attained by this subject is $82.59\%$. The most
-likely cause of this low performance is that too many useful samples
-are missing from the training set, that is, the minimum distace
-threshold $d$ was set at too high a value. In order to test this
-hypothesis, and to confirm the experimental results of
+Lastly, it is interesting to consider whether the still unsatisfactory
+results we have can be made better, in the perspective of having, in
+real life, much more data and harder problems at hand. Let us consider
+the worst result of the per-subject analysis, that is, subject $8$ in
+the FA phase, as far as classification is concerned. The result
+attained by this subject is $82.59\%$. The most likely cause of this
+low performance is that too many useful samples are missing from the
+training set, that is, the minimum distace threshold $d$ was set at
+too high a value. In order to test this hypothesis, and to confirm the
+experimental results of
 \cite{2008.BioCyb} as we said at the beginning of this Section, we
 let $d$ linearly range around the pre-set value of $0.032$ and check
 $(a)$ the size of the resulting training set and $(b)$ the performance
@@ -248,7 +247,7 @@ particular, for $d=0.032$ the previously shown performance appears,
 whereas if a larger performance is required, one can increase the
 number of samples in the training set, or, which is equivalent, reduce
 the agnitude of $d$. For instance, to get an accuracy of about $90\%$
-$d$ must be set at $0.2$ ending up in a training set with some $1800$
+$d$ must be set at $0.2$ ending up in a training set with some $1600$
 samples.
 
 \subsection{Cross-Subject Analysis}
