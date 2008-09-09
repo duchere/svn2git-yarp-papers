@@ -26,7 +26,7 @@ EU-funded projects (e.g., CyberHand \cite{CyberHand} and SmartHand
 \end{figure}
 
 The most used technique for interfacing the patient with the
-prosthesis is surface electromyography (EMG). It works by detecting
+prosthesis is surface electromyography (sEMG). It works by detecting
 the activation potentials of the patient's stump residual muscles, and
 it is widely employed in the commercial setting; it is relatively
 cheap and totally non-invasive. But the control schema employed so far
@@ -75,8 +75,16 @@ rather than training from scratch. We address the problem like this:
 \textbf{FRANCESCO...}
 
 To corroborate our claim, we apply this idea to a large set of EMG
-data collected from $10$ healthy subjects. \textbf{EMANUELE: breve
-riassunto della sezione 2}. The experimental results
+data collected from $10$ healthy subjects. During the experiments 
+we asked to the subject to grasp a force sensor in different 
+conditions and using three different grips; meanwhile, we  
+recorded the electrical activity of the muscles that mostly are
+involved in the hand / wrist movements and the force exerted by 
+the subject on a off-the-shelf medical load cell. Then we estimated
+from the acquired data a raw \emph{control signal} by computing the
+RMS of the EMG signals \textbf{AND...SVM}.
+
+The experimental results
 show that our intuition is correct, to the point that
 \textbf{FRANCESCO: riassunto dei risultati}.
 
