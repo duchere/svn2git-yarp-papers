@@ -1,1 +1,61 @@
-discussion and conclusions
+The results hereby presented clearly show that the plain, old EMG
+signal can be used to drive a mechanical hand / prosthetic hand in a
+radically new way: finer, force-controlled, more dexterous. Our
+results clearly show that a machine learning approach such as Support
+Vector Machines will effectively detect well-separated grasping
+patterns in real time, as required by an amputee; at the same time,
+the system will be able to detect how much force is involved in the
+grasp. If the prosthesis has a sufficient number of DOFs, that is, it
+can be position-controlled to mimic the required grasps, and if it can
+be force-controlled, then our system will be able to control it in a
+totally natural way, that is, according to what the patient wants it
+to do.
+
+Notice that we are making here \emph{no statement at all} about the
+physical plausibility of the patterns we deal with, with respect to
+the muscular patterns elicited for the same grasps in a healthy
+arm. Actually, we have no hint that what the patient's stump muscles
+do when the patient is asked to imagine, e.g., a pinch grip, is
+related with what a healthy arm would do in the same situation. Since
+each and every amputation is different from one another, and therefore
+each stump has different muscular conditions, what we can hope for is
+that the system works fine for a reasonable range of amputees and
+stumps. Although we have only $3$ patients here, their diversity as
+far as age, age of operation and type of amputation lets us hope for
+the best.
+
+In the end, as long as for each patient, each grasp type or posture
+corresponds to a different pattern, then we can detect it and send the
+appropriate command to the prosthesis. The patient will then be able
+to elicit from the prosthesis, say, a $5$-Newton pinch grip, or a
+$30$-Newton power grasp, just by ``desiring'' it. This is what we mean
+by a better quality of life for amputees and a shorter training
+time. The keyword \emph{adaptive prosthetics} is meant, here, in the
+machine-learning sense, that is: the prosthesis is trained upon the
+patient's data and therefore adapts to her/him.
+
+We actually find it surprising that so much fine muscular activity
+can be elicited from elderly patients, such as our Subjects $1$ and
+$2$, who, by the way, have been operated \emph{decades}
+ago. Notwithstanding this, they are still perfectly able to produce,
+e.g., two very different patterns for similar grips such as the index
+/ thumb pinch grip and the tripodal grip. This lets us hope that
+possibly even a simpler method than SVMs could be used without
+degrading the performance too much, in case the miniaturisation of
+this method proves too hard. But actually, the analysis performed in
+Section \ref{sec:impl} is, again, positive.
+
+To sum up, this paper can be seen as the conclusion of a theoretical
+piece of research focussed upon myoelectric control of mechanical
+hands, with a special emphasis on prostheses, of course. In this
+research we have first demonstrated, obth theoretically and
+practically, that EMG activity of a healthy subject in highly
+controlled conditions can be used to position- and force-control a
+non-prosthetic mechanical hand \cite{2008.ICRA,2008.BioCyb}. We have
+then extended the work towards the multi-subect and non-controlled
+case, showing that the same good results appear (see the poster
+\cite{2008.GNB}; a detailed report is about to be submitted to a
+journal and is confidentially available from the corrsponding
+author). Here (see also the poster \cite{2008.Neurorob}) we extend, at
+last, the method to amputees, showing that significantly diverse
+patients can drive our system just as easily.
