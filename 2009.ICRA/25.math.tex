@@ -26,7 +26,8 @@ the leave-one-out error in closed form \cite{Rifkin07}. This is known to be
 approximately an unbiased estimator of the classifier generalization error
 \cite{LuntzB69}. This property is useful to find the best parameters for the
 learning (e.g. $\gamma$ in (\ref{eq:rbf})) and it will be used in our
-adaptation method.
+adaptation method. Note that the same formulation is used to solve both
+regression and classification problems.
 
 \subsection{Model Adaptation}
 
@@ -43,7 +44,7 @@ We generalize their approach introducing a scaling factor for the previous
 model and changing the loss into the standard square loss.
 So we obtain the following optimization problem
 \begin{align}
-\min_{\ww} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
+\min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
 subject to \ y_i = w \phi(\xx_i) + b + \xi_i
 \label{eq:opt_prob}
 \end{align}
