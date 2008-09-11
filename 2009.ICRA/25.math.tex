@@ -41,24 +41,25 @@ number of different persons. The system then starts acquiring new data, coming
 from the person wearing the prosthetic hand. Given the differences in the
 electrodes placement and between the different subjects, the new data will
 belong to a distribution that is different from the ones of the other stored
-subject. Still we expect that the distributions will be \emph{close}. Thus
+subject. Still we expect that the new distribution will be \emph{close} to at
+least one of the stored ones. Thus
 it could be possible to use one of the previous model as a
 \emph{starting point} for the training on the new data.
 Our desire is that using the previous model the learning should be faster
 than using the new data alone. Moreover the adaptation should not use the
 auxiliary data for training.
 
-We generalize the framework for adaptation proposed in \cite{YangYH07} for
-SVM. They propose to sligtly change the regularization term of the SVM, to
-induce the solution to be close to the one of the previous model. Their 
-optimization problem is the following
+To solve this problem we generalize the framework for adaptation proposed in
+\cite{YangYH07} for SVM. They propose to slightly change the regularization term
+of the SVM, to induce the solution to be close to the one of the previous model.
+Their optimization problem is the following
 \begin{align}
-\min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
+\min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \\
 \mbox{subject to} \;\; \xi_i \geq 0,\;\; y_i w \cdot \phi(\xx_i) + b \geq 1-\xi_i
 \label{eq:opt_prob_orig}
 \end{align}
 \noindent where $\ww'$ is the previous model.
-In our opinion the above formulation has the disavantage of giving a fixed
+In our opinion the above formulation has the disadvantage of giving a fixed
 weight to the previous model. Hence we introduce a scaling factor for the previous
 model. Moreover we change the loss into the standard square loss. This gives
 us the possibility to calculate the leave-one-out error with a closed formula, and
@@ -69,7 +70,6 @@ So we obtain the following optimization problem
 \mbox{subject to} \;\; y_i = w \cdot \phi(\xx_i) + b + \xi_i
 \label{eq:opt_prob}
 \end{align}
-
 It is easy to show that the optimal solution is the form
 \begin{equation}
 \ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR
@@ -80,8 +80,8 @@ Note that when $\beta$ is $0$ we recover the original LS-SVM formulation, that i
 adaptation to the previous data.
 As said before, with LS-SVM it is possible to write the leave-one-out error
 in a closed form. It turns out that it is possible to do the same if with the
-modified formulation (\ref{eq:opt_prob}). Hence it is possible to found the
-parameter $\beta$ in order to minimize the leave-one-out error. In particular
+modified formulation (\ref{eq:opt_prob}). Hence it is possible to set the
+parameter $\beta$ to minimize the leave-one-out error. In particular
 for regression there is a closed formula for the optimal $\beta$. We leave the
 mathematical details for a longer version of this paper.
 Hence with a negligible additional computational cost we can choose the optimal
