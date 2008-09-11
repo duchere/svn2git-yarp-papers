@@ -1,14 +1,16 @@
 \subsection{Background}
 
-Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and $y_i \in \RR$, is a
-set of samples drawn from an unknown probability distribution. We want to find
-a function $f(\xx)$ such that $f(\xx)$
+Assume $\xx_i \in \RR^m$ is an input vector and $y_i \in \RR$ is its associated output.
+Given a set $\{\xx_i,y_i\}_{i=1}^l$ of samples drawn from an unknown probability
+distribution, we want to find a function $f(\xx)$ such it
 best determines the corresponding associated $y$ of any future sample $\xx$
 drawn from the same distribution.
-In Least-Squares Support Vector Machine
-(LS-SVM) the function $f(\xx)$ is built as a linear model
+This is a general framework that includes regression and classification problems.
+This problem can be solved in various way, we will use kernel methods and in
+particular Least-Square Support Vector Machines (LS-SVM) \cite{Cristianini00}.
+In LS-SVM the function $f(\xx)$ is built as a linear model
 $\ww \cdot \phi(\xx) + b$, where $\phi(\xx)$ is a non-linear function that maps
-the data in a fixed feature space.
+the data in a fixed high dimensional \emph{feature} space.
 However, rather than specifying the feature space directly,
 it can be implied by a kernel function $K(\xx,\xx')$, giving the
 inner product between the images of vectors in the feature
@@ -23,7 +25,7 @@ that will be used in all our experiments.
 The parameters of the linear model, $\ww$ and $b$, are found minimizing a
 regularized least-squares loss function \cite{Cristianini00}.
 This approach is similar to the well-known formulation of Support Vector
-Machines. The difference is that the loss function is the square loss and it
+Machines (SVMs). The difference is that the loss function is the square loss and it
 does not induce a sparse solution. On the other hand it is possible to write
 the leave-one-out error in closed form \cite{Rifkin07}. This is known to be
 approximately an unbiased estimator of the classifier generalization error
@@ -34,46 +36,57 @@ regression and classification problems.
 
 \subsection{Model Adaptation}
 
-We assume the system has some kind of previous model trained off-line on a big
-number of auxiliary data. The system then starts acquiring new data, that are
-assumed to come from a distribution that is close to the distribution of the
-auxiliary data. Our desire is that using the auxiliary data should learn faster
+We assume that the system has a number of previous models trained off-line on a
+number of different persons. The system then starts acquiring new data, coming
+from the person wearing the prosthetic hand. Given the differences in the
+electrodes placement and between the different subjects, the new data will
+belong to a distribution that is different from the ones of the other stored
+subject. Still we expect that the distributions will be \emph{close}. Thus
+it could be possible to use one of the previous model as a
+\emph{starting point} for the training on the new data.
+Our desire is that using the previous model the learning should be faster
 than using the new data alone. Moreover the adaptation should not use the
 auxiliary data for training.
 
-Our formulation for the adaptation is similar to the one proposed in
-\cite{YangYH07}.
-We generalize their approach introducing a scaling factor for the previous
-model and changing the loss into the standard square loss.
+We generalize the framework for adaptation proposed in \cite{YangYH07} for
+SVM. They propose to sligtly change the regularization term of the SVM, to
+induce the solution to be close to the one of the previous model. Their 
+optimization problem is the following
+\begin{align}
+\min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
+\mbox{subject to} \;\; \xi_i \geq 0,\;\; y_i w \cdot \phi(\xx_i) + b \geq 1-\xi_i
+\label{eq:opt_prob_orig}
+\end{align}
+\noindent where $\ww'$ is the previous model.
+In our opinion the above formulation has the disavantage of giving a fixed
+weight to the previous model. Hence we introduce a scaling factor for the previous
+model. Moreover we change the loss into the standard square loss. This gives
+us the possibility to calculate the leave-one-out error with a closed formula, and
+in this way to automatically tune this additional parameter.
 So we obtain the following optimization problem
 \begin{align}
 \min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
-subject to \ y_i = w \phi(\xx_i) + b + \xi_i
+\mbox{subject to} \;\; y_i = w \cdot \phi(\xx_i) + b + \xi_i
 \label{eq:opt_prob}
 \end{align}
-\noindent where $\ww'$ is the previous model.
+
 It is easy to show that the optimal solution is the form
 \begin{equation}
-\ww = \beta \ww' + \sum_{i=1}^N \alpha_i \xx_i, \alpha_i \in \RR
+\ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR
 \end{equation}
 \noindent hence the final solution is composed by the sum of the previous model
 scaled by the parameter $\beta$, and a new model given by the new data points.
-The introduction of the parameter $\beta$ introduces a degree of freedom that
-can be used to downweight the importance of the previous model. When $\beta$
-is $0$ we recover the original LS-SVM formulation, without any adaptation to
-the previous data.
-In the following we will show how it is possible to tune automatically this
-parameter, without any additional computational cost and in a principled way.
+Note that when $\beta$ is $0$ we recover the original LS-SVM formulation, that is without any
+adaptation to the previous data.
 As said before, with LS-SVM it is possible to write the leave-one-out error
 in a closed form. It turns out that it is possible to do the same if with the
 modified formulation (\ref{eq:opt_prob}). Hence it is possible to found the
 parameter $\beta$ in order to minimize the leave-one-out error. In particular
-for regression there is a closed formula for the optimal $\beta$.
+for regression there is a closed formula for the optimal $\beta$. We leave the
+mathematical details for a longer version of this paper.
+Hence with a negligible additional computational cost we can choose the optimal
+value for the parameter $\beta$ and at the same time we can choose the best
+previous model for the adaptation.
 
 Note that the previous model $\ww'$ can be obtained by any training algorithm,
 as far as it can be expressed as a weighted sum of kernel functions.
-
-We can generalize this approach even more and instead of considering only a
-previous model, we suppose that we have many of them $\ww_i$. Again using the
-closed formula of the leave-one-out we can at the same time chose the best
-model $\ww_i$ for adaptation and its scaling factor $\beta$.
