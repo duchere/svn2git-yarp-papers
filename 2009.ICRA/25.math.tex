@@ -1,12 +1,14 @@
 \subsection{Background}
 
-Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and $y_i \in
-\{-1,1\}$, is a set of samples drawn from an unknown probability
-distribution. We want to find a function $f(\xx)$ such that
-$sgn(f(\xx))$ best determines the category of any future sample $\xx$
-drawn from the same distribution. In Least-Squares Support Vector Machine (LS-SVM)
-we construct a linear model $f(\xx)=\ww \cdot \phi(\xx) + b$, where
-$\phi(\xx)$ is a non-linear function that maps the data in a fixed feature space.
+Assume $\{\xx_i,y_i\}_{i=1}^l$, with $\xx_i \in \RR^m$ and $y_i \in \RR$, is a
+set of samples drawn from an unknown probability distribution. We want to find
+a function $f(\xx)$ such that $f(\xx)$
+best determines the corresponding associated $y$ of any future sample $\xx$
+drawn from the same distribution.
+In Least-Squares Support Vector Machine
+(LS-SVM) the function $f(\xx)$ is built as a linear model
+$\ww \cdot \phi(\xx) + b$, where $\phi(\xx)$ is a non-linear function that maps
+the data in a fixed feature space.
 However, rather than specifying the feature space directly,
 it can be implied by a kernel function $K(\xx,\xx')$, giving the
 inner product between the images of vectors in the feature
@@ -18,9 +20,10 @@ A common kernel function is the isotropic Gaussian kernel
 \end{equation}
 that will be used in all our experiments.
 
-The solution is found minimizing a regularized least-squares loss function \cite{Cristianini00}.
+The parameters of the linear model, $\ww$ and $b$, are found minimizing a
+regularized least-squares loss function \cite{Cristianini00}.
 This approach is similar to the well-known formulation of Support Vector
-Machines. The difference is that the loss function is the least square and it
+Machines. The difference is that the loss function is the square loss and it
 does not induce a sparse solution. On the other hand it is possible to write
 the leave-one-out error in closed form \cite{Rifkin07}. This is known to be
 approximately an unbiased estimator of the classifier generalization error
@@ -35,8 +38,8 @@ We assume the system has some kind of previous model trained off-line on a big
 number of auxiliary data. The system then starts acquiring new data, that are
 assumed to come from a distribution that is close to the distribution of the
 auxiliary data. Our desire is that using the auxiliary data should learn faster
-than using the new data alone. Moreover the adaptation should use only the new
-data for training 
+than using the new data alone. Moreover the adaptation should not use the
+auxiliary data for training.
 
 Our formulation for the adaptation is similar to the one proposed in
 \cite{YangYH07}.
