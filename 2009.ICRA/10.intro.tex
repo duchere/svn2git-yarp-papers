@@ -25,68 +25,66 @@ EU-funded projects (e.g., CyberHand \cite{CyberHand} and SmartHand
   \label{fig:hands}
 \end{figure}
 
-The most used technique for interfacing the patient with the
-prosthesis is surface electromyography (sEMG). It works by detecting
-the activation potentials of the patient's stump residual muscles, and
-it is widely employed in the commercial setting; it is relatively
-cheap and totally non-invasive. But the control schema employed so far
-is rather poor, using two or three electrodes to issue an
-``open/close'' command or, in the more advanced case of the i-LIMB, to
-choose among a predefined set of grasp shapes. The electrodes are
-associated with large muscles in the patient's stump, such as, e.g.,
-the wrist flexor and extensor. The result is a highly non-natural form
-of control (for instance, wrist flexion corresponding to opening) and
-there is no chance of controlling the desired force.
+The simplest, cheapest and therefore most used technique for
+interfacing the patient with the prosthesis is surface
+electromyography (EMG): activation potentials of the patient's stump
+residual muscles are detected to move the hand to predefined
+positions. But the control schema employed is rather poor, using two
+or three electrodes to issue an ``open/close'' command or, in the more
+advanced case of the i-LIMB, to choose among a predefined set of grasp
+shapes.
+%% The electrodes are associated with large muscles in the
+%% patient's stump, such as, e.g., the wrist flexor and extensor. The
+%% result is a highly non-natural form of control, e.g., wrist flexion
+%% corresponding to opening, and there is no chance of controlling the
+%% desired force. The patient must, in turn, learn how to activate the
+%% residual muscles to control the prosthesis
 
-All in all, a general sense of frustration impends, as far as control
-is concerned. How is an amputee supposed to \emph{naturally} command
-the prosthesis what to do (i.e., how to grasp an object) and with what
-force? Recent research to this end has shown that excellent results
-can be obtained by using \emph{machine learning} techniques such as,
-e.g., Support Vector Machines (SVM), to let the prosthesis itself
-\emph{adapt to the patient}, rather than the other way round. The idea
-is that, as it has been shown in, e.g.,
-\cite{smagt,dunlop,2008.ICRA,2008.BioCyb,Sebelius2005}, such a system
-can be trained to recognize EMG patterns of the patient's stump
-muscles, which are then mapped to hand positions and/or a force
-exerted by the prosthesis. This way the mechanical hand can be driven
-with a degree of finesse unknown so far; and as well, its force can be
-controlled, which is possibly even more important. A final very
-agreeable point is that standard, commercially available EMG
-electrodes can be used to this end.
+%% A general sense of frustration impends, as far as control is
+%% concerned. How is an amputee supposed to \emph{naturally} command the
+%% prosthesis what to do (i.e., how to grasp an object) and with what
+%% force?
 
-The idea is that of improving the patient's quality of life by
-providing an \emph{adaptive prosthesis}, so that he/she enters a
-virtuous loop of \emph{reciprocal learning}, whereas so far the
-patient has to learn how to control the prosthesis from scratch. To
-this aim, that is, to shorten the patient's training time, we believe it is
-desirable to \emph{pre-train} the prosthesis with a model which will
-be then refined and then adapted on-line, little by little; this, as
-opposed to shipping an ``empty'' prosthesis which has to be trained
-from scratch.
+In order to control the prosthesis in a more natural way, machine
+learning can be used to better interpret the standard EMG signals. In
+the typical case, the patient is asked to imagine, e.g., a pinch grip;
+the related EMG pattern is then used to obtain a pinch grip with the
+required force from the prosthesis. A degree of control unknown so far
+can be thus obtained, improving the patient's life and shortening the
+training time. We envision \emph{adaptive prosthetics}, a framework in
+which a patient enters a virtuous loop of \emph{reciprocal learning},
+whereas so far (s)he has to learn how to control the prosthesis from
+scratch.
+\textbf{BARBARA: sono keyword un tantino altisonanti ma vorrei che ci
+restassero --- fanno parte di un disegno piu` ampio :-)}
 
-In machine learning, this is called \emph{model adaptation}: a system
-which adapts to a new data distribution, as this distribution shifts
-with time. Here we envision the application of this framework to a
-model trained on pre-existing patients, which would then serve as a
-basic model for new patients; we claim that adapting such pre-loaded
-models to a new patient would lead to a quicker and better training,
-rather than training from scratch. We address the problem like this:
-\textbf{FRANCESCO...}
+%% A
+%% final very agreeable point is that standard, commercially available
+%% EMG electrodes can be used to this end.
+%% 
+%% The idea is that of improving the patient's quality of life by
+%% providing an \emph{adaptive prosthesis}, so that he/she enters a
+%% virtuous loop of \emph{reciprocal learning}, whereas so far the
+%% patient has to learn how to control the prosthesis from scratch.
 
-To corroborate our claim, we apply this idea to a large set of EMG
-data collected from $10$ healthy subjects. During the experiments 
-we asked to the subject to grasp a force sensor in different 
-conditions and using three different grips; meanwhile, we  
-recorded the electrical activity of the muscles that mostly are
-involved in the hand / wrist movements and the force exerted by 
-the subject on a off-the-shelf medical load cell. Then we estimated
-from the acquired data a raw \emph{control signal} by computing the
-RMS of the EMG signals \textbf{AND...SVM}.
+To further improve this loop it is desirable to \emph{pre-train} the
+prosthesis with a model which will be then refined and adapted on-line
+to the patient. In machine learning, this is called \emph{model
+adaptation}: a system which adapts to a new data distribution, as this
+distribution shifts with time. Model adaptation in this framework
+works like this: \textbf{FRANCESCO: brevissimo riassunto dell'approccio}
 
-The experimental results
-show that our intuition is correct, to the point that
-\textbf{FRANCESCO: riassunto dei risultati}.
+To check whether this idea can work we apply our system to a large set
+of EMG data collected from $10$ healthy subjects. During the
+experiments we asked to the subject to grasp a force sensor in
+different conditions and using three different grips; meanwhile, we
+recorded the electrical activity of the muscles that are most involved
+in the hand / wrist movements and the force exerted by the subject on
+a off-the-shelf force sensor. Then we estimated from the acquired data
+a raw \emph{control signal} by computing the RMS of the EMG signals.
+
+The experimental results show that our intuition is correct, to the
+point that \textbf{FRANCESCO: riassunto dei risultati}.
 
 The paper is structured as follows: after a brief review of related
 work, we clearly state the problem we want to solve (Section
@@ -96,4 +94,43 @@ shows the experimental results and lastly Section \ref{sec:concl}
 contains the conclusions.
 
 \subsection{Related Work}
+
+The use of surface forearm EMG to control active hand prostheses dates
+back to the Fifties and was brought to the market by Otto Bock
+Orthopaedic Industry, Inc. \cite{history}. EMG works by detecting a
+muscle's activation potential, a fast oscillating signal whose
+root-mean-square is non-linearly related to the force exterted by the
+muscle \cite{deluca}. Since amputees are usually left with little of
+their forearm, it has so far been necessary to carefully detect the
+patient's residual muscles with the strongest activity; these muscles
+are used, still nowadays, to control one, or at best two
+degrees-of-freedom. For example, the usual control schema of Otto
+Bock's SensorHand Speed prosthetic hand maps wrist flexion to hand
+closing and wrist extension to hand opening.
+
+The situation hasn't changed for a long time because the EMG signal is
+badly conditioned, being influenced by sweat, muscular fatigue,
+inter-arm differences and non-hand-related muscular activity
+(supination / pronation, walking, raising one's arms and so on; see
+\cite{zecca} for a survey). Only in the 1990s it became apparent that
+machine learning could be used to classify hand postures via the
+EMG. In their seminal work, Bitzer and van der Smagt \cite{smagt}
+could use a Support Vector Machine to robustly classify six different
+hand postures. Neural networks and LWPR \cite{lwpr} have been used to
+the same end (see, e.g., \cite{2008.ICRA,2008.BioCyb,Sebelius2005}) to
+classify up to $11$ hand / finger postures and movements, and to
+approximate the force involved in the grasp. As long as it is trained
+for a sufficient time, that is it explores a relevant portion of the
+input space, a well-employed machine learning method will be able to
+take into account all of the EMG signal's problems.
+
+As far as we know, there is no EMG database present in the machine
+learning community, which could serve our purpose. In \cite{...}
+analogous (but smaller) data sets are reported about, but there is no
+mention of their availability. The data set used in this paper has
+been gathered in 2008 and is the subject of another analysis whose
+preliminary results are visible in \cite{2008.GNB}. A larger, full
+report is being prepared for submission.
+
+\textbf{FRANCESCO: model adaptation in letteratura...}
 
