@@ -55,8 +55,6 @@ training time. We envision \emph{adaptive prosthetics}, a framework in
 which a patient enters a virtuous loop of \emph{reciprocal learning},
 whereas so far (s)he has to learn how to control the prosthesis from
 scratch.
-\textbf{BARBARA: sono keyword un tantino altisonanti ma vorrei che ci
-restassero --- fanno parte di un disegno piu` ampio :-)}
 
 %% A
 %% final very agreeable point is that standard, commercially available
@@ -77,16 +75,20 @@ works like this: \textbf{FRANCESCO: brevissimo riassunto dell'approccio}
 To check whether this idea can improve things, we apply it to a set of
 EMG data collected from $10$ healthy subjects. Each subject was asked
 to grasp a force sensor in different conditions and using three
-different grips; meanwhile, we recorded the electrical activity of the
-muscles that are most involved in the hand / wrist movements and the
+different grips. Meanwhile, we recorded the electrical activity of the
+muscles that are most involved in the hand/wrist movements and the
 force exerted by the subject on a off-the-shelf force sensor. The
 experimental results show that our intuition is correct, to the point
 that \textbf{FRANCESCO: riassunto dei risultati}.
 
 The paper is structured as follows: after a brief review of related
-work, we clearly state the problem we want to solve (Section
-\ref{sec:prob}); then, Sections \ref{sec:math} and \ref{sec:mms} give
-detail about our method and the EMG database. Section \ref{sec:exp}
+work, 
+%we clearly state the problem we want to solve (Section
+%\ref{sec:prob}); then, 
+we describe our method (
+Section \ref{sec:math}) and the EMG database (Section \ref{sec:mms}) %give
+%detail about our method and the EMG database. 
+Section \ref{sec:exp}
 shows the experimental results and lastly Section \ref{sec:concl}
 contains the conclusions.
 
@@ -99,7 +101,7 @@ muscle's activation potential, a fast oscillating signal whose
 root-mean-square is non-linearly related to the force exterted by the
 muscle \cite{deluca}. Since amputees are usually left with little of
 their forearm, it has so far been necessary to carefully detect the
-patient's residual muscles with the strongest activity; these muscles
+patient's residual muscles with the strongest activity. These muscles
 are used, still nowadays, to control one, or at best two
 degrees-of-freedom. For example, the usual control schema of Otto
 Bock's SensorHand Speed prosthetic hand maps wrist flexion to hand
@@ -108,14 +110,14 @@ closing and wrist extension to hand opening.
 The situation hasn't changed for a long time because the EMG signal is
 badly conditioned, being influenced by sweat, muscular fatigue,
 inter-arm differences and non-hand-related muscular activity
-(supination / pronation, walking, raising one's arms and so on; see
+(supination/pronation, walking, raising one's arms and so on; see
 \cite{zecca} for a survey). Only in the 1990s it became apparent that
 machine learning could be used to classify hand postures via the
 EMG. In their seminal work, Bitzer and van der Smagt \cite{smagt}
 could use a Support Vector Machine to robustly classify six different
 hand postures. Neural networks and LWPR \cite{lwpr} have been used to
 the same end (see, e.g., \cite{2008.ICRA,2008.BioCyb,Sebelius2005}) to
-classify up to $11$ hand / finger postures and movements, and to
+classify up to $11$ hand/finger postures and movements, and to
 approximate the force involved in the grasp. As long as it is trained
 for a sufficient time, that is it explores a relevant portion of the
 input space, a well-employed machine learning method will be able to
@@ -125,10 +127,11 @@ As far as we know, there is no EMG database present in the machine
 learning community, which could serve our purpose. In some of the
 aforementioned papers, analogous data sets (but most likely smaller
 than ours) are reported about, but there is no mention of their
-availability. The data set used in this paper has been gathered in
-2008 and is the subject of another analysis whose preliminary results
-are visible in \cite{2008.GNB}. A larger, full report is being
-prepared for submission.
-
+availability. 
+%The data set used in this paper has been gathered in
+%2008 and is the subject of another analysis whose preliminary results
+%are visible in \cite{2008.GNB}. A larger, full report is being
+%prepared for submission.
+%FIXME CLAUDIO: mi sembra inutile e potenzialmente dannoso (se il db non e' nuovo, e un contributo di meno del paper), lo toglierei 
 \textbf{FRANCESCO: model adaptation in letteratura...}
 
