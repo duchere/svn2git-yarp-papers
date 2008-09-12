@@ -1,60 +1,69 @@
-This section describes our mathematical framework. We first introduce the basic notation (section \ref{back}), then we 
-present our algorithm for online model adaptation (section \ref{adapt}).
-
+This section describes our mathematical framework. We first introduce
+the basic notation (Section \ref{back}), then we present our algorithm
+for online model adaptation (Section \ref{adapt}).
 
 \subsection{Background}
 \label{back}
 
-Assume $\xx_i \in \RR^m$ is an input vector and $y_i \in \RR$ is its associated output.
-Given a set $\{\xx_i,y_i\}_{i=1}^l$ of samples drawn from an unknown probability
-distribution, we want to find a function $f(\xx)$ such that it determines
-best 
+Assume $\xx_i \in \RR^m$ is an input vector and $y_i \in \RR$ is its
+associated output.  Given a set $\{\xx_i,y_i\}_{i=1}^l$ of samples
+drawn from an unknown probability distribution, we want to find a
+function $f(\xx)$ such that it determines best
 %determines 
 the corresponding 
 %associated 
 $y$ for any future sample $\xx$.
 %drawn from the same distribution.
-This is a general framework that includes regression and classification problems.
-This problem can be solved in various ways. Here we will use kernel methods and in
-particular Least-Square Support Vector Machines (LS-SVM) \cite{Cristianini00}.
-In LS-SVM the function $f(\xx)$ is built as a linear model
-$\ww \cdot \phi(\xx) + b$, where $\phi(\xx)$ is a non-linear function that maps
-the data in a fixed high dimensional \emph{feature} space.
-However, rather than specifying the feature space directly,
-it can be implied by a kernel function $K(\xx,\xx')$, giving the
-inner product %between the images of vectors 
-in the feature
-space, i.e. $K(\xx,\xx')=\phi(\xx) \cdot \phi(\xx')$.
-A common kernel function is the isotropic Gaussian kernel
-\begin{equation}
-	K(\xx,\xx')=\exp(-\gamma ||x-x'||^2)
-	\label{eq:rbf}
-\end{equation}
-that will be used in all our experiments.
+This is a general framework that includes regression and
+classification problems.  This problem can be solved in various
+ways. Here we will use kernel methods and in particular Least-Square
+Support Vector Machines (LS-SVM) \cite{Cristianini00}. In LS-SVM the
+function $f(\xx)$ is built as a linear model $\ww \cdot \phi(\xx) +
+b$, where $\phi(\cdot)$ is a non-linear function mapping input samples
+to a high-dimensional (possibly infinite-dimensional) Hilbert space
+called \emph{feature space}. Rather than being directly specified, the
+feature space is usually induced by a \emph{kernel function}
+$K(\xx,\xx')$ which evaluates the inner product of two samples in the
+feature space itself,
+%between the images of vectors in the feature space,
+i.e. $K(\xx,\xx')=\phi(\xx) \cdot \phi(\xx')$. A common kernel
+function is the Gaussian kernel
 
-The parameters of the linear model, $\ww$ and $b$, are found minimizing a
-regularized least-squares loss function \cite{Cristianini00}.
-This approach is similar to the well-known formulation of Support Vector
-Machines (SVMs). The difference is that the loss function is the square loss. 
+\begin{equation}
+  K(\xx,\xx')=\exp(-\gamma ||x-x'||^2)
+  \label{eq:rbf}
+\end{equation}
+
+\noindent that will be used in all our experiments.
+
+The parameters of the linear model, $\ww$ and $b$, are found by
+minimizing a regularized least-squares loss function
+\cite{Cristianini00}. This approach is similar to the well-known
+formulation of Support Vector Machines (SVMs), the difference being
+that the loss function is the square loss.
 %and it
-While this
-does not induce a sparse solution,
+While this does not induce a sparse solution,
 % On the other hand 
-it makes it  possible to write
-the leave-one-out error in closed form \cite{Rifkin07}. This is known to be
-approximately an unbiased estimator of the classifier generalization error
-\cite{LuntzB69}. This property is useful to find the best parameters for
-learning (e.g. $\gamma$ in (\ref{eq:rbf})) and it will be used in our
-adaptation method. Note that we use the same formulation  to solve both
+it makes it possible to write the leave-one-out error in closed form
+\cite{Rifkin07}. This is known to be approximately an unbiased
+estimator of the classifier generalization error \cite{LuntzB69}. This
+property is useful to find the best parameters for learning
+(e.g. $\gamma$ in (\ref{eq:rbf})) and it will be used in our
+adaptation method. Note that we use the same formulation to solve both
 regression and classification problems.
 
 \subsection{Model Adaptation}
 \label{adapt}
 
-Let us assume to have $N$ models, stored in memory, trained off-line on data acquired on $N$ different subjects. When the prosthetic hand starts to be used
-by subject $N+1$, the system begins to acquire new data. Given the differences in the electrodes placement and between different subjects, we can safely
-assume that these new data will belong to a new distribution, different from the $N$ previously modelled and stored. Still, as all subjects perform the same grasp types,
-it is reasonable to expect that the new distribution will be \emph{close} to at least one of those already modelled. 
+Let us assume $N$ models are already stored in memory, trained
+off-line on data acquired on $N$ different subjects. When the
+prosthetic hand starts to be used by subject $N+1$, the system begins
+to acquire new data. Given the differences among the subjects' arms
+and as well in the placement of the electrodes, these new data will
+belong to a new probability distribution, different from the $N$
+previously modelled and stored. Still, as all subjects perform the
+same grasp types, it is reasonable to expect that the new distribution
+will be \emph{close} to at least one of those already modelled.
 %We assume that the system has a number of previous models trained off-line on a
 %number of different persons. The system then starts acquiring new data, coming
 %from the person wearing the prosthetic hand. Given the differences in the
@@ -62,8 +71,7 @@ it is reasonable to expect that the new distribution will be \emph{close} to at 
 %belong to a distribution that is different from the ones of the other stored
 %subject. Still we expect that the new distribution will be \emph{close} to at
 %least one of the stored ones. 
-Thus
-it should be possible to use one of the previous model as a
+Thus it should be possible to use one of the previous model as a
 \emph{starting point} for the training using the new data.
 We expect that, by doing so,  learning should be faster
 than using the new data alone. 
@@ -73,56 +81,64 @@ than using the new data alone.
 To solve this problem we generalize the framework for adaptation proposed in
 \cite{YangYH07} for SVM. 
 %They propose 
-The basic idea is to slightly change the regularization term
-of the SVM, so that the solution will be close to the one of the previous model.
-The optimization problem is \cite{YangYH07} %the following
+The basic idea is to slightly change the regularization term of the
+SVM, so that the solution will be close to the one of the previous
+model.  The optimization problem is \cite{YangYH07} %the following
+
 \begin{align}
-\min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \\
-\mbox{subject to} \;\; \xi_i \geq 0,\;\; y_i w \cdot \phi(\xx_i) + b \geq 1-\xi_i,
-\label{eq:opt_prob_orig}
+  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \\
+  \mbox{subject to} \;\;
+  \xi_i \geq 0,\;\; y_i \ww \cdot \phi(\xx_i) + b \geq 1-\xi_i,
+  \label{eq:opt_prob_orig}
 \end{align}
+
 \noindent where $\ww'$ is the previous model.
 %In our opinion the above formulation has the disadvantage of giving a fixed
 %weight to the previous model. 
-This formulation gives a fixed weight to $\ww'$. This can be
-a disadvantage in our scenario: for instance, \ldots
-To solve this problem, here
-%Hence 
-we introduce a scaling factor for the previous
-model. In this way \ldots  
-We also change the loss into the standard square loss. This gives
-us the possibility to calculate the leave-one-out error with a closed formula, 
-therefore
+This formulation gives a fixed weight to $\ww'$. This can be a
+disadvantage in our scenario: for instance,
+\textbf{FRANCESCO: questa particina e` ancora da sistemare}
+\ldots To solve this problem, here we introduce a scaling factor for
+the previous model. In this way \ldots
+We also change the loss into the standard square loss. This
+gives us the possibility to calculate the leave-one-out error with a
+closed formula, therefore
 %and
 %in this way 
-to automatically tune this additional parameter.
-So we obtain the following optimization problem
+to automatically tune this additional parameter. So we obtain the
+following optimization problem
+
 \begin{align}
-\min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
-\mbox{subject to} \;\; y_i = w \cdot \phi(\xx_i) + b + \xi_i.
-\label{eq:opt_prob}
+  \min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
+  \mbox{subject to} \;\;
+  y_i = \ww \cdot \phi(\xx_i) + b + \xi_i.
+  \label{eq:opt_prob}
 \end{align}
+
 It is easy to show that the optimal solution is %the form
+
 \begin{equation}
-\ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR,
+  \ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR,
 \end{equation}
+
 \noindent hence the final solution is given by the sum of the previous model
-scaled by the parameter $\beta$, and a new model given by the new data points.
-Note that when $\beta$ is $0$ we recover the original LS-SVM formulation, that is without any
-adaptation to the previous data.
-As already mentioned,  LS-SVM makes it  possible to write the leave-one-out error
-in a closed form. It turns out that it is possible to do the same  with the
-modified formulation (\ref{eq:opt_prob}). Hence it is possible to set the
-parameter $\beta$ optimally, so to minimize the leave-one-out error,
+scaled by the parameter $\beta$, and a new model given by the new data
+points.  Note that when $\beta$ is $0$ we recover the original LS-SVM
+formulation, that is without any adaptation to the previous data.  As
+already mentioned, LS-SVM makes it possible to write the leave-one-out
+error in a closed form. It turns out that it is possible to do the
+same with the modified formulation (\ref{eq:opt_prob}). Hence it is
+possible to set the parameter $\beta$ optimally, so to minimize the
+leave-one-out error,
 %. In particular
 %for regression there is a closed formula for the optimal $\beta$. We leave the
 %mathematical details for a longer version of this paper.
 %Hence with a negligible additional computational cost we can choose the optimal
 %value for the parameter $\beta$ and 
-while at the same time we can choose the best
-previous model for  adaptation.
+while at the same time we can choose the best previous model for
+adaptation.
 
-As a last remark, we underline
- that the previous model $\ww'$ can be obtained by any training algorithm,
-as far as it can be expressed as a weighted sum of kernel functions.
-The framework is therefore very general.
+As a last remark, we underline that the previous model $\ww'$ can be
+obtained by any training algorithm, as far as it can be expressed as a
+weighted sum of kernel functions.  The framework is therefore very
+general.
