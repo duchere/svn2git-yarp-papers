@@ -17,6 +17,17 @@ without considering the order in which they were acquired. This
 procedure is repeated $10$ times, using in turn all the recorded
 subjects for the adaptive learning of the model.
 
+\begin{figure*}[!ht] \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{figs/exp1} &
+    \includegraphics[width=0.45\textwidth]{figs/exp2} \\
+    $(a)$ & $(b)$ \\
+  \end{tabular}
+  \caption{Classification $(a)$ and regression $(b)$ performance
+    difference obtained by our method with respect to \emph{NoAdapt}.}
+  \label{fig:diff_res}
+\end{figure*}
+
 To assess the performance of the proposed adaptation method we
 compared it to two baseline methods. The first one, that we call
 \emph{Prior}, consists in using only the pre-trained models without
@@ -38,65 +49,34 @@ usually cannot apply as much force as human hands do, for obvious
 safety reasons\footnote{Or, e.g., in teleoperation scenarios, they
 could be able to apply \emph{much more} force than a human hand
 can.}. We are rather concerned about getting a signal which is
-\emph{strongly correlated} with the user/subject's will. To build the
-pre-trained models we used the standard SVM algorithm. All the
-parameters to be set during training ($C$ and $\gamma$ of the gaussian
-kernel) were chosen by cross-validation.
+\emph{strongly correlated} with the user/subject's will.
 
-Figure \ref{fig:diff_cla} shows the average difference between the
-classification performance of \emph{NoAdapt} and our method.
-Adaptation always improves the performance, although the standard
-deviation is rather large when training is done on too few samples:
-depending on the subject, the improvement can be large (up to about
-$11\%$) or small, and a slight loss in performance appears in the
-worst cases. This is due to the high variance of the leave-one-out
-error with few training samples. Still, the average gain is almost
-$5\%$ when there are only $30$ training samples; and it settles to
-around $1\%$ with smaller standard deviation, as the number of
-training samples increase.
+To build the pre-trained models we used the standard SVM
+algorithm. All the parameters to be set during training ($C$ and
+$\gamma$ of the gaussian kernel) were chosen by cross-validation. In
+the following Figures, error bars (when present) denote $\pm 1$
+standard deviations with respect to the average values.
 
-To get a more detailed idea, consider Figure \ref{fig:cla_abs}: panel
-$(a)$ shows the performance obtained on the ``best'' subject, while
-panel $(b)$ shows the worst. In the best case the gain is about
-\textbf{FRA: mettici qualche numero!}, while in the worst case we
-basically re-obtain the performance of \emph{NoAdapt}, as soon as
-enough samples from the new distribution are considered.
+Figure \ref{fig:diff_res} shows the difference in classification
+(panel $(a)$) and regression (panel $(b)$) performance obtained by our
+method with respect to \emph{NoAdapt}. As one can see, adaptation
+uniformly obtains a better performance (with the exception of
+classification, when the number of samples is below $150$, when a
+slight loss of about $1\%$ can appear); and, in the worst cases, the
+performance of \emph{NoAdapt} is re-obtained. Notice also that
+standard deviations are rather large when training is done on too few
+samples. This is due to the high variance of the leave-one-out error
+technique when too few training samples are considered.
 
-This last case represents the paradigmatic case of no previous models
-matching the distribution of the new subject; as a consequence, the
-parameter $\beta$ was automatically set to a very small value. In this
-case, there is essentially no transfer of prior knowledge. This shows
-that, if we neglect the behaviour of the system when very few samples
-have been considered, in the worst case the adaptation mechanism will
-perform as well as the non-adapting case. Moreover, it is reasonable
-to think that the overall performance of the method would increase
-with the number of stored models, as this means a larger probability
-of finding a matching pre-trained model. In the long run, a large,
-possibly categorised, database of pre-trained models would definitely
-help getting uniformly better performances.
+Depending on the subject, the improvement can be quite large: up to
+about $11\%$ higher rate for classification and $10\%$ stronger
+correlation for regression. For classification, the average gain is
+almost $5\%$ when there are only $30$ training samples; and it settles
+to around $1\%$ with smaller standard deviation, as the number of
+training samples increase. For regression, it is of about $4\%$
+stronger correlation uniformly.
 
-Note that in all cases the performance of \emph{Prior} models are
-well below the performance of \emph{Adapt} and \emph{NoAdapt}: in
-Figure \ref{fig:cla_abs} we show only the performance of the best one
-among the $9$ stored models. Similar observations can be done for the
-regression task in Figure \ref{fig:diff_reg} and Figure
-\ref{fig:reg_abs}. In particular we gain on average $5\%$ correlation
-when the first $30$ samples are considered; then the gain seems to
-decrease, approaching $0$ when enough new training samples are
-acquired. However note that the standard deviation bars are all above
-the zero, meaning that in worst case most of the time we do not lose
-anything compared to the NoAdapt model (cf. Figure \ref{fig:reg_abs},
-panel $(b)$).
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.95\linewidth]{figs/exp1}
-  \caption{Classification: difference in performance between
-    \emph{NoAdapt} and our method.}
-  \label{fig:diff_cla}
-\end{figure}
-
-\begin{figure*}[ht] \centering
+\begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
     \includegraphics[width=0.45\textwidth]{figs/exp1_abs_best} &
     \includegraphics[width=0.45\textwidth]{figs/exp1_abs_worst} \\
@@ -104,28 +84,47 @@ panel $(b)$).
   \end{tabular}
   \caption{Classification: $(a)$ classification rate gain
     of the adapted model compared to \emph{NoAdapt} and \emph{Prior}
-    on the best behaving subject; $(b)$ classification rate gain for
-    the worst subject.}
+    on the best-case subject; $(b)$ classification rate gain for
+    the worst-case subject.}
   \label{fig:cla_abs}
 \end{figure*}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.95\linewidth]{figs/exp2}
-  \caption{Regression: difference in performance between
-    \emph{NoAdapt} and our method.}
-  \label{fig:diff_reg}
-\end{figure}
-
-\begin{figure*}[ht] \centering
+\begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
     \includegraphics[width=0.45\textwidth]{figs/exp2_abs_best} &
     \includegraphics[width=0.45\textwidth]{figs/exp2_abs_worst} \\
     $(a)$ & $(b)$ \\
   \end{tabular}
-  \caption{Regression: $(a)$ classification rate gain
+  \caption{Regression: $(a)$ correlation strength gain
     of the adapted model compared to \emph{NoAdapt} and \emph{Prior}
-    on the best behaving subject; $(b)$ classification rate gain for
-    the worst subject.}
+    for the best-case subject; $(b)$ correlation gain for
+    the worst-case subject.}
   \label{fig:reg_abs}
 \end{figure*}
+
+To get a more detailed idea, consider now Figure \ref{fig:cla_abs},
+concerning the classification experiment: panel $(a)$ shows the
+performance obtained on the best-case subject, that is, a subject for
+whom a very good match has been found among the pre-trained models,
+while panel $(b)$ shows the performance for the worst-case subject. In
+the best case the gain is \textbf{FRA: mettici qualche numero!}, while
+in the worst case we basically re-obtain the performance of
+\emph{NoAdapt}, as soon as enough samples from the new distribution
+are considered. Essentially, our method improves things if a good
+match can be found, and does no harm if none exists. Similar observations can be done for the regression task (Figure
+\ref{fig:reg_abs}). In the best case, the correlation is about
+\textbf{FRA: numeri anche qui} uniformly stronger, whereas in the
+worst case \emph{NoAdapt}'s perfomance is obtained.
+
+The worst-case subjects represent the paradigmatic case of no previous
+models matching the current distribution; as a consequence, the
+parameter $\beta$ was automatically set to a very small value. In this
+case, there is essentially no transfer of prior knowledge. But here it
+is reasonable to claim that the overall performance of the method
+would increase along with the number of stored models, since this
+would mean a larger probability of finding a matching pre-trained
+model.
+
+In the long run, a large database of pre-trained models, possibly
+categorised in order to avoid too hard a computational burden, would
+definitely help getting uniformly better performances.

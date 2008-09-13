@@ -3,34 +3,43 @@ problem in adaptive hand prosthetics, namely: is it possible to help a
 patient to learn to use a dexterous hand prosthesis 
 %in a quicker and
 %better way, 
-by exploiting the common features found in models trained
-upon other patients? The answer, at least as far as healthy subjects
-are concerned, is yes. We hereby presented a novel method for
-model adaptation in machine learning, using Least-Squares SVMs. The
-idea is to 
-%build the contrain 
-the SVM solution to be close to the stored model
-of another subject. The degree of closeness and the choice of which model
-to take among the pre-trained ones are completely automatic, as it uses an estimation
-of the generalization error.
+by exploiting the common features found in models trained upon other
+patients?
 
-\textbf{FRANCESCO: tutta questa parte qui sopra e` molto poco chiara. occhio all'inglese.}
+The answer, at least as far as healthy subjects are concerned, is yes:
+we have hereby presented a novel method for model adaptation in
+machine learning, using Least-Squares SVMs; the idea is to build a SVM
+solution which is \emph{close} to one of a set of pre-stored
+models. The choice of which model to use among the pre-trained ones,
+as well as the parameter $\beta$, determining the degree of closeness
+to start the training from, are completely automatic, as we use use an
+estimation of the generalization error.
 
 We tested our method on a database built with EMG and force data from
 $10$ healthy subjects, trying to improve the training times and
 asyntotic performance of one subject by pre-training on other
-subjects. The outcome of the experiment is positive: it is apparent
-that a large amount of knowledge stored in LS-SVM models is common to
-all subjects, which is probably due to the anatomical analogies among
-the arms. A careful positioning of the electrodes on the subjects'
-forearms has the beneficial effect of damping the noise introduced by
-anatomical differences. A further interesting point is that, almost
-uniformly, models obtained by adaptation from a pre-trained model
-obtain a \emph{better} performance than those trained from
-scratch. This result is somehow surprising, although very encouraging.
+subjects. The outcome of the experiment is positive: our method gains
+consistently both in the classification and regression task in the
+best and average cases, and it resorts to the non-adaptive performance
+in the worst.
 
-It remains to discover whether this idea can be transferred to
-amputees: amputations are, obviously, non-controlled, traumatic events
-(except in some cases), and therefore stumps exhibit much more
-variability than healthy forearms. This is the subject of future
-research.
+Therefore, it is apparent that a large amount of knowledge stored in
+LS-SVM models is common to all subjects, which is obviously due to the
+analogies among the tasks performed by the subjects, as well as to the
+anatomical similarities among the arms and the careful positioning of
+the electrodes on the subjects' forearms. A further interesting point
+is that, almost uniformly, models obtained by adaptation from a
+pre-trained model obtain a \emph{better} performance than those
+trained from scratch. This result is somehow surprising, although very
+encouraging.
+
+Lastly, let us consider the fact that, most likely, the overall
+performance of the method will increase when more subjects are
+available, since this would mean a larger probability of finding a
+matching pre-trained model. In a clinical setting, this means that
+after an experimental phase, adaptive prostheses employing this method
+could actually be built. It remains, of course, to discover whether
+this idea can be transferred to amputees: amputations are, obviously,
+non-controlled, traumatic events (except in some cases), and therefore
+stumps exhibit much more variability than healthy forearms. This is
+the subject of ongoing as well as future research.
