@@ -71,9 +71,10 @@ to the patient. In machine learning, this is called \emph{model
 adaptation}: a system which adapts to a new data distribution, as this
 distribution shifts with time. Model adaptation in this framework
 works like this: at each step we constrain the model to be \emph{close}
-to the previous ones stored in the memory of the prosthesis. The degree
-of \emph{closeness} is automatically tuned using an estimation of the
-generalization error using the leave-one-out error.
+to one of the pre-trained models stored in the memory of the prosthesis.
+The degree of \emph{closeness} and the choice of the pre-trained model
+to use is done automatically estimating the generalization power using
+the leave-one-out error.
 
 To check whether this idea can improve things, we apply it to a set of
 EMG data collected from $10$ healthy subjects. Each subject was asked
@@ -82,14 +83,14 @@ different grips. Meanwhile, we recorded the electrical activity of the
 muscles that are most involved in the hand/wrist movements and the
 force exerted by the subject on a off-the-shelf force sensor. The
 experimental results show that our intuition is correct, to the point
-that \textbf{FRANCESCO: riassunto dei risultati}.
+
 
 The paper is structured as follows: after a brief review of related
 work, 
 %we clearly state the problem we want to solve (Section
 %\ref{sec:prob}); then, 
-we describe our method (
-Section \ref{sec:math}) and the EMG database (Section \ref{sec:mms}) %give
+we describe our method (Section \ref{sec:math}) and the EMG database
+(Section \ref{sec:mms}) %give
 %detail about our method and the EMG database. 
 Section \ref{sec:exp}
 shows the experimental results and lastly Section \ref{sec:concl}
@@ -117,7 +118,7 @@ inter-arm differences and non-hand-related muscular activity
 \cite{zecca} for a survey). Only in the 1990s it became apparent that
 machine learning could be used to classify hand postures via the
 EMG. In their seminal work, Bitzer and van der Smagt \cite{smagt}
-could use a Support Vector Machine to robustly classify six different
+could use a Support Vector Machine (SVM) to robustly classify six different
 hand postures. Neural networks and LWPR \cite{lwpr} have been used to
 the same end (see, e.g., \cite{2008.ICRA,2008.BioCyb,Sebelius2005}) to
 classify up to $11$ hand/finger postures and movements, and to
@@ -137,6 +138,9 @@ availability.
 %prepared for submission.
 %FIXME CLAUDIO: mi sembra inutile e potenzialmente dannoso (se il db non e' nuovo, e un contributo di meno del paper), lo toglierei 
 Regarding model adaptation, several approaches has been proposed.
-In 
-\textbf{FRANCESCO: model adaptation in letteratura...}
-
+In \cite{daume07easyadapt} many of them are compared and benchmarked,
+however most of them are computational inefficient because a re-training
+over new and old data is needed. An approach that doesn't use re-training,
+based on SVM has been proposed in \cite{YangYH07}. As far as we know this
+is the first attempt to use model adaptation in the domain of EMG
+prosthetics.

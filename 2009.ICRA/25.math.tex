@@ -53,7 +53,7 @@ regression and classification problems.
 \subsection{Model Adaptation}
 \label{sec:adapt}
 
-Let us assume $N$ models are already stored in memory, trained
+Let us assume we have $N$ pre-trained models stored in memory, trained
 off-line on data acquired on $N$ different subjects. When the
 prosthetic hand starts to be used by subject $N+1$, the system begins
 to acquire new data. Given the differences among the subjects' arms
@@ -69,7 +69,7 @@ will be \emph{close} to at least one of those already modelled.
 %belong to a distribution that is different from the ones of the other stored
 %subject. Still we expect that the new distribution will be \emph{close} to at
 %least one of the stored ones. 
-Thus it should be possible to use one of the previous model as a
+Thus it should be possible to use one of the pre-trained model as a
 \emph{starting point} for the training using the new data.
 We expect that, by doing so,  learning should be faster
 than using the new data alone. 
@@ -80,7 +80,7 @@ To solve this problem we generalize the framework for adaptation proposed in
 \cite{YangYH07} for SVM. 
 %They propose 
 The basic idea is to slightly change the regularization term of the
-SVM, so that the solution will be close to the one of the previous
+SVM, so that the solution will be close to the one of the pre-trained
 model.  The optimization problem is \cite{YangYH07} %the following
 \begin{align}
   \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \nonumber \\
@@ -88,7 +88,7 @@ model.  The optimization problem is \cite{YangYH07} %the following
   \xi_i \geq 0,\;\; y_i \ww \cdot \phi(\xx_i) + b \geq 1-\xi_i~,
   \label{eq:opt_prob_orig}
 \end{align}
-\noindent where $\ww'$ is the previous model.
+\noindent where $\ww'$ is one pre-trained model.
 %In our opinion the above formulation has the disadvantage of giving a fixed
 %weight to the previous model. 
 This formulation gives a fixed weight to $\ww'$. This can be a
@@ -96,7 +96,7 @@ disadvantage in our scenario: for instance,
 in the case none of the stored models is useful for the task at hand,
 imposing the closeness could harm the performance of the new model.
 To solve this problem, here we introduce a scaling factor for
-the previous model. In this way we can control the degree to which
+the pre-trained model. In this way we can control the degree to which
 the new model is close to the previous one.
 We also change the loss into the standard square loss. This
 gives us the possibility to calculate the leave-one-out error with a
@@ -114,7 +114,7 @@ It is easy to show that the optimal solution is %the form
 \begin{equation}
   \ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~,
 \end{equation}
-\noindent hence the final solution is given by the sum of the previous model
+\noindent hence the final solution is given by the sum of the pre-trained model
 scaled by the parameter $\beta$, and a new model given by the new data
 points.  Note that when $\beta$ is $0$ we recover the original LS-SVM
 formulation, that is without any adaptation to the previous data.  As
@@ -128,10 +128,10 @@ leave-one-out error,
 %mathematical details for a longer version of this paper.
 %Hence with a negligible additional computational cost we can choose the optimal
 %value for the parameter $\beta$ and 
-while at the same time we can choose the best previous model for
+while at the same time we can choose the best pre-trained model for
 adaptation.
 
-As a last remark, we underline that the previous model $\ww'$ can be
+As a last remark, we underline that the pre-trained model $\ww'$ can be
 obtained by any training algorithm, as far as it can be expressed as a
 weighted sum of kernel functions.  The framework is therefore very
 general.

@@ -5,7 +5,10 @@ better way, by exploiting the common features found in models trained
 upon other patients? The answer, at least as far as healthy subjects
 is concerned, is yes. We have hereby presented a novel method for
 model adaptation in machine learning, using Least-Squares SVMs. The
-idea is that of ... \textbf{FRANCESCO...}
+idea to build the contrain the SVM solution to be close the stored model
+of another subject. The degree of closeness and the choice of which model
+to take among the pre-trained ones is completely automatic, using an estimation
+of the generalization error.
 
 We tested our method on a database built with EMG and force data from
 $10$ healthy subjects, trying to improve the training times of one
