@@ -1,9 +1,9 @@
 This section describes our mathematical framework. We first introduce
-the basic notation (Section \ref{back}), then we present our algorithm
-for online model adaptation (Section \ref{adapt}).
+the basic notation (Section \ref{sec:back}), then we present our algorithm
+for online model adaptation (Section \ref{sec:adapt}).
 
 \subsection{Background}
-\label{back}
+\label{sec:back}
 
 Assume $\xx_i \in \RR^m$ is an input vector and $y_i \in \RR$ is its
 associated output.  Given a set $\{\xx_i,y_i\}_{i=1}^l$ of samples
@@ -28,12 +28,10 @@ feature space itself,
 %between the images of vectors in the feature space,
 i.e. $K(\xx,\xx')=\phi(\xx) \cdot \phi(\xx')$. A common kernel
 function is the Gaussian kernel
-
 \begin{equation}
   K(\xx,\xx')=\exp(-\gamma ||x-x'||^2)
   \label{eq:rbf}
 \end{equation}
-
 \noindent that will be used in all our experiments.
 
 The parameters of the linear model, $\ww$ and $b$, are found by
@@ -53,7 +51,7 @@ adaptation method. Note that we use the same formulation to solve both
 regression and classification problems.
 
 \subsection{Model Adaptation}
-\label{adapt}
+\label{sec:adapt}
 
 Let us assume $N$ models are already stored in memory, trained
 off-line on data acquired on $N$ different subjects. When the
@@ -84,22 +82,22 @@ To solve this problem we generalize the framework for adaptation proposed in
 The basic idea is to slightly change the regularization term of the
 SVM, so that the solution will be close to the one of the previous
 model.  The optimization problem is \cite{YangYH07} %the following
-
 \begin{align}
-  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \\
+  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \nonumber \\
   \mbox{subject to} \;\;
-  \xi_i \geq 0,\;\; y_i \ww \cdot \phi(\xx_i) + b \geq 1-\xi_i,
+  \xi_i \geq 0,\;\; y_i \ww \cdot \phi(\xx_i) + b \geq 1-\xi_i~,
   \label{eq:opt_prob_orig}
 \end{align}
-
 \noindent where $\ww'$ is the previous model.
 %In our opinion the above formulation has the disadvantage of giving a fixed
 %weight to the previous model. 
 This formulation gives a fixed weight to $\ww'$. This can be a
 disadvantage in our scenario: for instance,
-\textbf{FRANCESCO: questa particina e` ancora da sistemare}
-\ldots To solve this problem, here we introduce a scaling factor for
-the previous model. In this way \ldots
+in the case none of the stored models is useful for the task at hand,
+imposing the closeness could harm the performance of the new model.
+To solve this problem, here we introduce a scaling factor for
+the previous model. In this way we can control the degree to which
+the new model is close to the previous one.
 We also change the loss into the standard square loss. This
 gives us the possibility to calculate the leave-one-out error with a
 closed formula, therefore
@@ -107,20 +105,15 @@ closed formula, therefore
 %in this way 
 to automatically tune this additional parameter. So we obtain the
 following optimization problem
-
-\begin{align}
-  \min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \\
-  \mbox{subject to} \;\;
-  y_i = \ww \cdot \phi(\xx_i) + b + \xi_i.
+\begin{align} 
+  \min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \nonumber \\
+  \mbox{subject to} \;\; y_i = \ww \cdot \phi(\xx_i) + b + \xi_i~.
   \label{eq:opt_prob}
 \end{align}
-
 It is easy to show that the optimal solution is %the form
-
 \begin{equation}
-  \ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR,
+  \ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~,
 \end{equation}
-
 \noindent hence the final solution is given by the sum of the previous model
 scaled by the parameter $\beta$, and a new model given by the new data
 points.  Note that when $\beta$ is $0$ we recover the original LS-SVM

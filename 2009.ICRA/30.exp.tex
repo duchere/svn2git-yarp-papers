@@ -1,28 +1,81 @@
 We have conducted two different experiments, one to predict the force measured
 by the force sensor and another one to classify the grasp type.
-The EMG data were the preprocessed as described in Sec ???.
-To assess the performance of the proposed adaptation method we have compared it
-to two baseline methods. The first one consists in using only the stored models
-wihtout updating them; the second one consists in using only the new data for
-training. The parameters of the training ($C$ and $\gamma$) were chosen by
-cross-validation.
+The EMG data were the preprocessed as described in Sec \ref{sec:preproc}.
 
-Given that we have data from $10$ subjects we have used a sort of
-cross-validation to test the methods. In particular we consider one of the
-subject for the new data and use the other $9$ subjects to train the stored
-models. We repeat this procedure $10$ times, one for each subject, to have a
-reliable estimation of the performance.
+As said in Sec \ref{sec:adapt}, we need $N$ models already stored in memory.
+Then training data comes from subject $N+1$ and the system starts
+training. The performace is evaluated using unseen data from the subject
+$N+1$.
+To simulate this scenario and to have reliable estimation of the
+performance, we have used a sort of cross-validation.
+In particular we consider one of the subject to generate random sequences
+of training data and use the other $9$ subjects to train the stored models.
+This procedure is repeated $10$ times.
+
+To assess the performance of the proposed adaptation method we have compared it
+to two baseline methods. The first one, that we call \emph{Prior} consists in
+using only the stored models wihtout updating them with the new training data.
+The second one, \emph{NoAdapt}, consists in using LS-SVM using only the new data
+for training, as it would be in the normal scenario without adaption.
+For classification we used the classification rate as a measure of performance,
+while for regression we used the correlation index because \textbf{Claudio: perche'?
+hai una citazione da mettere?}.
+All the parameters of the training ($C$ and $\gamma$ of the gaussian kernel)
+were chosen by cross-validation.
+
+In Figure \ref{fig:diff_cla} we have plotted the average difference between 
+the classification performance of NoAdapt and our method. Using our adaptation
+method there is always an improvement, but when the training samples are too
+few the standard deviations are big. This is due to the high variance of the
+leave-one-out error with few training samples. Still, the average gain is
+almost $5\%$ when there are only 30 training samples and seems to stabilize
+around $1\%$ as the training samples increase.
+In Figure \ref{fig:cla_abs}.a we have plotted the best performance of our method
+on a particular subject, while in Figure \ref{fig:cla_abs}.b there is the worst
+performance on another subject. In the best case the gain is quite significant,
+while in the worst case we almost recover the performance of NoAdapt. In this
+case none of the models match the new distribution of the data, so the parameter
+$\beta$ was automatically set to a very small value. It is reasonable to think
+that the performance of the method would increase with the number of stored
+models. Note that in all the cases the performance of Prior models, where well
+below the performance of Adapt and NoAdapt, in Figure \ref{fig:cla_abs} is shown
+only the performance of the best one among all the 9 stored models.
+Similar observations can be done for the regression task in Figure \ref{fig:diff_reg}
+and Figure \ref{fig:reg_abs}.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{figs/exp1}
-  \caption{The classification experiment.}
-  \label{fig:exp1}
+  \caption{Difference in performance between NoAdapt and our method  on the
+ classification of the grasp types.}
+  \label{fig:diff_cla}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure*}[ht] \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{figs/exp1_abs_best} &
+    \includegraphics[width=0.45\textwidth]{figs/exp1_abs_worst} \\
+    $(a)$ & $(b)$ \\
+  \end{tabular}
+  \caption{$(a)$ Best classfication rate gain of the adapted model compared to
+ NoAdapt and Prior on a particular subject; $(b)$ worst performance on another subject.}
+  \label{fig:cla_abs}
+\end{figure*}
+
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.95\linewidth]{figs/exp2}
   \caption{The regression experiment.}
-  \label{fig:exp2}
+  \label{fig:diff_reg}
 \end{figure}
+
+\begin{figure*}[ht] \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{figs/exp2_abs_best} &
+    \includegraphics[width=0.45\textwidth]{figs/exp2_abs_worst} \\
+    $(a)$ & $(b)$ \\
+  \end{tabular}
+  \caption{$(a)$ Best correlation coefficient gain of the adapted model compared to NoAdapt
+ and Prior on a particular subject; $(b)$ worst performance on another subject.}
+  \label{fig:reg_abs}
+\end{figure*}
