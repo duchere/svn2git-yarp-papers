@@ -31,9 +31,19 @@ una sorta di best-case scenario, se ho capito giusto allora va detto, se non ho 
 da cosa hai scritto che cos'e' sto prior}
 The second one, \emph{NoAdapt}, consists in using LS-SVM using only the new data
 for training, as it would be in the standard scenario without adaption.
-For classification we used the classification rate as a measure of performance,
-while for regression we used the correlation index because \textbf{Claudio: perche'?
-hai una citazione da mettere?}.
+For classification we used the classification rate as a measure of
+performance; for regression, the performance index is the correlation coefficient
+evaluated between the predicted force signal and the real one. The
+choice of the correlation coefficient, as opposed to the more standard
+Mean-Square Error, is suggested by a practical consideration: when
+driving a prosthesis, or even a non-prosthetic mechanical hand, we are
+not interested in the absolute force values desired by the
+user/subject, since mechanical hands usually cannot apply as much
+force as human hands do, for obvious safety reasons\footnote{or, e.g.,
+in teleoperation scenarios, they could be able to apply \emph{much
+more} force than a human hand can.}. We are rather concerned about
+getting a signal which is \emph{strongly correlated} with the
+user/subject's will. 
 To build the  pre-trained models we used the standard SVM algorithm. All the parameters to be set during %of the
 training ($C$ and $\gamma$ of the gaussian kernel) were chosen by cross-validation.
 
