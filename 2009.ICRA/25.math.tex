@@ -83,7 +83,7 @@ The basic idea is to slightly change the regularization term of the
 SVM, so that the solution will be close to the one of the pre-trained
 model.  The optimization problem is \cite{YangYH07} %the following
 \begin{align}
-  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^N \xi^2 \nonumber \\
+  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^l \xi^2 \nonumber \\
   \mbox{subject to} \;\;
   \xi_i \geq 0,\;\; y_i \ww \cdot \phi(\xx_i) + b \geq 1-\xi_i~,
   \label{eq:opt_prob_orig}
@@ -106,13 +106,13 @@ closed formula, therefore
 to automatically tune this additional parameter. So we obtain the
 following optimization problem
 \begin{align} 
-  \min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^N \xi^2 \nonumber \\
+  \min_{\ww,b} \frac{1}{2} \|\ww- \beta \ww'\|^2 + \frac{C}{2} \sum_{i=1}^l \xi^2 \nonumber \\
   \mbox{subject to} \;\; y_i = \ww \cdot \phi(\xx_i) + b + \xi_i~.
   \label{eq:opt_prob}
 \end{align}
 It is easy to show that the optimal solution is %the form
 \begin{equation}
-  \ww = \beta \ww' + \sum_{i=1}^N \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~,
+  \ww = \beta \ww' + \sum_{i=1}^l \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~,
 \end{equation}
 \noindent hence the final solution is given by the sum of the pre-trained model
 scaled by the parameter $\beta$, and a new model given by the new data
