@@ -5,30 +5,24 @@ The EMG data were the preprocessed as described in Section \ref{sec:preproc}.
 As already mentioned in Section \ref{sec:adapt}, our working assumption is to have
  $N$ pre-trained models stored in memory.
 Then new data comes from subject $N+1$ and the system starts
-training, to build the $N+1$ model. 
+training, to build the $N+1$ model.
 The performace is evaluated using unseen data from the subject
 $N+1$.
 To simulate this scenario and to have reliable estimation of the
-performance, we  used a leave-one-out approach: 
-we consider one of the subject to generate random sequences
-{\bf FixMe Fra: Random sequences?? vuoi dire unordered sequences, = sequences are taken without considering the order in which they were acquired?}
-of training data and use the other $9$ subjects to train the stored models.
-This procedure is repeated $10$ times.
-{\bf FixMe Fra: se capisco cosa volevi dire, si potrebbe scrivere cosi':
+performance, we used a leave-one-out approach: 
 of the 10 subjects for which we have the data recordings, we train off-line
 9 models. These will correspond to the $N$ stored models in memory. The data from the 10th 
-remaining subject will be used for the adaptive learning of the $N+1$ model. This procedure is repeated
-10 times, using in turns all the recorded subjects for the adaptive learning of the model.
-}
+remaining subject will be used for the adaptive learning of the $N+1$ model.
+The training sequences are random subsets from the entire dataset, that is taken without
+considering the order in which they were acquired.
+This procedure is repeated 10 times, using in turns all the recorded subjects
+for the adaptive learning of the model.
 
-
-To assess the performance of the proposed adaptation method we  compared it
+To assess the performance of the proposed adaptation method we compared it
 to two baseline methods. The first one, that we call \emph{Prior}, consists in
 using only the pre-trained models without updating them with the new training data.
-{\bf FixMe Fra: come usi i 9 modelli? assumi che ce ne sia uno che va bene per i dati che arrivano? oppure li usi sempre tutti e 9, e per ogni nuovo dato da classificare li usi
-tutti e 9 e poi decidi di prenderti l'output di....????? Io avevo capito che nel caso prior usavamo uno dei 9 modelli pre-trained, ovvero quello che funziona meglio. Questo sarebbe
-una sorta di best-case scenario, se ho capito giusto allora va detto, se non ho capito allora devi spiegare cos'altro fai --in ogni caso io non capisco
-da cosa hai scritto che cos'e' sto prior}
+Then we consider only the best performance of the 9 pre-trained models, to consider
+the best-case scenario.
 The second one, \emph{NoAdapt}, consists in using LS-SVM using only the new data
 for training, as it would be in the standard scenario without adaption.
 For classification we used the classification rate as a measure of
@@ -43,13 +37,13 @@ force as human hands do, for obvious safety reasons\footnote{or, e.g.,
 in teleoperation scenarios, they could be able to apply \emph{much
 more} force than a human hand can.}. We are rather concerned about
 getting a signal which is \emph{strongly correlated} with the
-user/subject's will. 
+user/subject's will.
 To build the  pre-trained models we used the standard SVM algorithm. All the parameters to be set during %of the
 training ($C$ and $\gamma$ of the gaussian kernel) were chosen by cross-validation.
 
 Figure \ref{fig:diff_cla} shows the average difference between 
 the classification performance of \emph{NoAdapt} and our method. We see that using our adaptation
-method there is always an improvement in performance, but when  training is done on too little samples %are too
+method there is always an improvement in performance, but when training is done on too little samples %are too
 %few 
 the standard deviations are big, i.e. depending on the subject there can be both a great gain or loss in performance. 
 This is due to the high variance of the
@@ -68,8 +62,11 @@ Note that in all the cases the performance of \emph{Prior} models, where well
 below the performance of \emph{Adapt} and \emph{NoAdapt}: in Figure \ref{fig:cla_abs} is shown
 only the performance of the best one among all the 9 stored models.
 Similar observations can be done for the regression task in Figure \ref{fig:diff_reg}
-and Figure \ref{fig:reg_abs}: we see that \ldots
-{\bf FixMe Fra: e non te la puoi mica cavare cosi!!! dai fai uno sforzo scrivi due linee sui risultati di regressione!!!!}
+and Figure \ref{fig:reg_abs}. In particular we gain in average 0.05 points on the score
+of the correlation coefficient on the first 30 samples. Then the gain seems to decrease,
+maybe approaching 0 when there is enough new training samples. However note that
+the standard deviation bars are all above the zero, meaning that in worst case most of the time
+we do not lose anything compared to the NoAdapt model (cf. Figure \ref{fig:reg_abs}.b).
 
 \begin{figure}[t]
   \centering
