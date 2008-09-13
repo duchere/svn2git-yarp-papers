@@ -1,53 +1,70 @@
-We have conducted two different experiments, one to predict the force measured
+We conducted two different experiments, one to predict the force measured
 by the force sensor and another one to classify the grasp type.
-The EMG data were the preprocessed as described in Sec \ref{sec:preproc}.
+The EMG data were the preprocessed as described in Section \ref{sec:preproc}.
 
-As said in Sec \ref{sec:adapt}, we need $N$ pre-trained models.
-Then training data comes from subject $N+1$ and the system starts
-training. The performace is evaluated using unseen data from the subject
+As already mentioned in Section \ref{sec:adapt}, our working assumption is to have
+ $N$ pre-trained models stored in memory.
+Then new data comes from subject $N+1$ and the system starts
+training, to build the $N+1$ model. 
+The performace is evaluated using unseen data from the subject
 $N+1$.
 To simulate this scenario and to have reliable estimation of the
-performance, we have used a sort of cross-validation.
-In particular we consider one of the subject to generate random sequences
+performance, we  used a leave-one-out approach: 
+we consider one of the subject to generate random sequences
+{\bf FixMe Fra: Random sequences?? vuoi dire unordered sequences, = sequences are taken without considering the order in which they were acquired?}
 of training data and use the other $9$ subjects to train the stored models.
 This procedure is repeated $10$ times.
+{\bf FixMe Fra: se capisco cosa volevi dire, si potrebbe scrivere cosi':
+of the 10 subjects for which we have the data recordings, we train off-line
+9 models. These will correspond to the $N$ stored models in memory. The data from the 10th 
+remaining subject will be used for the adaptive learning of the $N+1$ model. This procedure is repeated
+10 times, using in turns all the recorded subjects for the adaptive learning of the model.
+}
 
-To assess the performance of the proposed adaptation method we have compared it
+
+To assess the performance of the proposed adaptation method we  compared it
 to two baseline methods. The first one, that we call \emph{Prior}, consists in
 using only the pre-trained models without updating them with the new training data.
+{\bf FixMe Fra: come usi i 9 modelli? assumi che ce ne sia uno che va bene per i dati che arrivano? oppure li usi sempre tutti e 9, e per ogni nuovo dato da classificare li usi
+tutti e 9 e poi decidi di prenderti l'output di....????? Io avevo capito che nel caso prior usavamo uno dei 9 modelli pre-trained, ovvero quello che funziona meglio. Questo sarebbe
+una sorta di best-case scenario, se ho capito giusto allora va detto, se non ho capito allora devi spiegare cos'altro fai --in ogni caso io non capisco
+da cosa hai scritto che cos'e' sto prior}
 The second one, \emph{NoAdapt}, consists in using LS-SVM using only the new data
-for training, as it would be in the normal scenario without adaption.
+for training, as it would be in the standard scenario without adaption.
 For classification we used the classification rate as a measure of performance,
 while for regression we used the correlation index because \textbf{Claudio: perche'?
 hai una citazione da mettere?}.
-For pre-trained models we use a standard SVM algorithm and all the parameters of the
+To build the  pre-trained models we used the standard SVM algorithm. All the parameters to be set during %of the
 training ($C$ and $\gamma$ of the gaussian kernel) were chosen by cross-validation.
 
-In Figure \ref{fig:diff_cla} we have plotted the average difference between 
-the classification performance of NoAdapt and our method. Using our adaptation
-method there is always an improvement, but when the training samples are too
-few the standard deviations are big. This is due to the high variance of the
+Figure \ref{fig:diff_cla} shows the average difference between 
+the classification performance of \emph{NoAdapt} and our method. We see that using our adaptation
+method there is always an improvement in performance, but when  training is done on too little samples %are too
+%few 
+the standard deviations are big, i.e. depending on the subject there can be both a great gain or loss in performance. 
+This is due to the high variance of the
 leave-one-out error with few training samples. Still, the average gain is
-almost $5\%$ when there are only 30 training samples and seems to stabilize
+almost $5\%$ when there are only 30 training samples and it seems to stabilize
 around $1\%$ as the training samples increase.
-In Figure \ref{fig:cla_abs}.a we have plotted the best performance of our method
-on a particular subject, while in Figure \ref{fig:cla_abs}.b there is the worst
-performance on another subject. In the best case the gain is quite significant,
-while in the worst case we almost recover the performance of NoAdapt. This is an example
-where none of the models matches the new distribution of the data, so the parameter
-$\beta$ is automatically set to a very small value. It is reasonable to think
+Figure \ref{fig:cla_abs}.a shows the best performance obtained by our method
+on a particular subject, while  Figure \ref{fig:cla_abs}.b shows the worst
+performance achieved, of course on another subject. We see that in the best case the gain is quite significant,
+while in the worst case we basically obtain  the performance of \emph{NoAdapt}. This last case is an example
+where none of the models stored in memory matched the new distribution of the data, so the parameter
+$\beta$ is automatically set to a very small value and in practice there is no transfer of prior knowledge. It is reasonable to think
 that the performance of the method would increase with the number of stored
-models, increasing the probability to always find a good pre-trained model.
-Note that in all the cases the performance of Prior models, where well
-below the performance of Adapt and NoAdapt: in Figure \ref{fig:cla_abs} is shown
+models, as it would increase the probability to find a good pre-trained model.
+Note that in all the cases the performance of \emph{Prior} models, where well
+below the performance of \emph{Adapt} and \emph{NoAdapt}: in Figure \ref{fig:cla_abs} is shown
 only the performance of the best one among all the 9 stored models.
 Similar observations can be done for the regression task in Figure \ref{fig:diff_reg}
-and Figure \ref{fig:reg_abs}.
+and Figure \ref{fig:reg_abs}: we see that \ldots
+{\bf FixMe Fra: e non te la puoi mica cavare cosi!!! dai fai uno sforzo scrivi due linee sui risultati di regressione!!!!}
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{figs/exp1}
-  \caption{Difference in performance between NoAdapt and our method  on the
+  \caption{Classification results: Difference in performance between \emph{NoAdapt} and our method  on the
  classification of the grasp types.}
   \label{fig:diff_cla}
 \end{figure}
@@ -58,15 +75,15 @@ and Figure \ref{fig:reg_abs}.
     \includegraphics[width=0.45\textwidth]{figs/exp1_abs_worst} \\
     $(a)$ & $(b)$ \\
   \end{tabular}
-  \caption{$(a)$ Best classification rate gain of the adapted model compared to
- NoAdapt and Prior on a particular subject; $(b)$ worst performance on another subject.}
+  \caption{Classification results: $(a)$ Best classification rate gain of the adapted model compared to
+ \emph{NoAdapt} and \emph{Prior} on a particular subject; $(b)$ worst performance on another subject.}
   \label{fig:cla_abs}
 \end{figure*}
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.95\linewidth]{figs/exp2}
-  \caption{Difference in performance between NoAdapt and our method  on the
+  \caption{Regression experiments: Difference in performance between \emph{NoAdapt} and our method  on the
  regression of the force.}
   \label{fig:diff_reg}
 \end{figure}
@@ -77,7 +94,7 @@ and Figure \ref{fig:reg_abs}.
     \includegraphics[width=0.45\textwidth]{figs/exp2_abs_worst} \\
     $(a)$ & $(b)$ \\
   \end{tabular}
-  \caption{$(a)$ Best correlation coefficient gain of the adapted model compared to NoAdapt
- and Prior on a particular subject; $(b)$ worst performance on another subject.}
+  \caption{Regression experiments: $(a)$ Best correlation coefficient gain of the adapted model compared to \emph{NoAdapt}
+ and \emph{Prior} on a particular subject; $(b)$ worst performance on another subject.}
   \label{fig:reg_abs}
 \end{figure*}
