@@ -9,10 +9,10 @@ the $N+1$'th model. The performance is then evaluated using unseen
 data from subject $N+1$. To simulate this scenario and to have a
 reliable estimation of the performance, we use a leave-one-out
 approach: out of the $10$ subjects for which we have data recordings,
-we train $9$ models off-line; these correspond to the $N$ stored
-models in memory, while data from the remaining subject are be used
+we train $9$ models off-line. These correspond to the $N$ stored
+models in memory, while data from the remaining subject are  used
 for the adaptive learning of the $N+1$'th model. The training
-sequences are random subsets from the entire dataset, that is taken
+sequences are random subsets from the entire dataset, that is they are taken
 without considering the order in which they were acquired. This
 procedure is repeated $10$ times, using in turn all the recorded
 subjects for the adaptive learning of the model.
@@ -31,8 +31,8 @@ subjects for the adaptive learning of the model.
 To assess the performance of the proposed adaptation method we
 compared it to two baseline methods. The first one, that we call
 \emph{Prior}, consists in using only the pre-trained models without
-updating them with the new training data; then we consider only the
-best performance of the $9$ pre-trained models, corresponding to the
+updating them with the new training data. Therefore we consider only the
+best performance obtained by one of the $9$ pre-trained models, corresponding to the
 best-case scenario. The second one, \emph{NoAdapt}, is plain LS-SVM
 using only the new data for training, as it would be in the standard
 scenario without adaption.
@@ -60,9 +60,9 @@ standard deviations with respect to the average values.
 Figure \ref{fig:diff_res} shows the difference in classification
 (panel $(a)$) and regression (panel $(b)$) performance obtained by our
 method with respect to \emph{NoAdapt}. As one can see, adaptation
-uniformly obtains a better performance (with the exception of
-classification, when the number of samples is below $150$, when a
-slight loss of about $1\%$ can appear); and, in the worst cases, the
+uniformly obtains a better performance, with the exception of
+classification when the number of samples is below $150$: in that case a
+slight loss of about $1\%$ can appear).  In the worst cases, the
 performance of \emph{NoAdapt} is re-obtained. Notice also that
 standard deviations are rather large when training is done on too few
 samples. This is due to the high variance of the leave-one-out error
@@ -71,9 +71,9 @@ technique when too few training samples are considered.
 Depending on the subject, the improvement can be quite large: up to
 about $11\%$ higher rate for classification and $10\%$ stronger
 correlation for regression. For classification, the average gain is
-almost $5\%$ when there are only $30$ training samples; and it settles
+almost $5\%$ when there are only $30$ training samples. It settles
 to around $1\%$ with smaller standard deviation, as the number of
-training samples increase. For regression, it is of about $4\%$
+training samples increases. For regression, it is of about $4\%$
 stronger correlation uniformly.
 
 \begin{figure*}[!ht] \centering
@@ -102,12 +102,12 @@ stronger correlation uniformly.
   \label{fig:reg_abs}
 \end{figure*}
 
-To get a more detailed idea, consider now Figure \ref{fig:cla_abs},
-concerning the classification experiment: panel $(a)$ shows the
+To get a more detailed idea of the results obtained, consider now Figure \ref{fig:cla_abs},
+concerning the classification experiment. Panel $(a)$ shows the
 performance obtained on the best-case subject, that is, a subject for
 whom a very good match has been found among the pre-trained models,
 while panel $(b)$ shows the performance for the worst-case subject. In
-the best case the gain is about $3\%$ at 360 samples, while
+the best case the gain is about $3\%$ after 360 samples, while
 in the worst case we basically re-obtain the performance of
 \emph{NoAdapt}, as soon as enough samples from the new distribution
 are considered. Essentially, our method improves things if a good
@@ -120,7 +120,7 @@ worst case \emph{NoAdapt}'s perfomance is obtained.
 The worst-case subjects represent the paradigmatic case of no previous
 models matching the current distribution; as a consequence, the
 parameter $\beta$ was automatically set to a very small value. In this
-case, there is essentially no transfer of prior knowledge. But here it
+case, there is essentially no transfer of prior knowledge. But it
 is reasonable to claim that the overall performance of the method
 would increase along with the number of stored models, since this
 would mean a larger probability of finding a matching pre-trained
