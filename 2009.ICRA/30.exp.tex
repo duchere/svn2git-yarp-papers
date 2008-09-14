@@ -57,23 +57,28 @@ $\gamma$ of the gaussian kernel) were chosen by cross-validation. In
 the following Figures, error bars (when present) denote $\pm 1$
 standard deviations with respect to the average values.
 
-Figure \ref{fig:diff_res} shows the difference in classification
+We have considered a maximum of 360 training samples and the final performance,
+averaged across the subjects, for \emph{NoAdapt} is $89.2\%$ and $0.811$,
+respectively for classification and regression.
+With our adaptation method we get instead $90.2\%$ and $0.85$.
+Figure \ref{fig:diff_res} shows in more details the difference in classification
 (panel $(a)$) and regression (panel $(b)$) performance obtained by our
 method with respect to \emph{NoAdapt}. As one can see, adaptation
 uniformly obtains a better performance, with the exception of
 classification when the number of samples is below $150$: in that case a
-slight loss of about $1\%$ can appear).  In the worst cases, the
+slight loss of about $1\%$ can appear.  In the worst cases, the
 performance of \emph{NoAdapt} is re-obtained. Notice also that
 standard deviations are rather large when training is done on too few
 samples. This is due to the high variance of the leave-one-out error
 technique when too few training samples are considered.
 
 Depending on the subject, the improvement can be quite large: up to
-about $11\%$ higher rate for classification and $10\%$ stronger
-correlation for regression. For classification, the average gain is
+about $15\%$ higher rate for classification and about $0.15$ points stronger
+correlation for regression. In average, for classification, the gain is
 almost $5\%$ when there are only $30$ training samples. It settles
 to around $1\%$ with smaller standard deviation, as the number of
-training samples increases. For regression, we have a correlation coefficient about 0.04 points uniformly stronger.
+training samples increases. For regression, we have a correlation
+coefficient about $0.04$ points uniformly stronger in average.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{cc}
@@ -114,7 +119,9 @@ match can be found, and does no harm if none exists.
 Similar observations can be done for the regression task (Figure
 \ref{fig:reg_abs}). In the best case, the correlation is about
 0.06 points uniformly stronger, whereas in the
-worst case \emph{NoAdapt}'s perfomance is obtained.
+worst case \emph{NoAdapt}'s performance is obtained.
+Note also the performance of \emph{Prior}, constantly inferior to
+\emph{NoAdapt} and our method.
 
 The worst-case subjects represent the paradigmatic case of no previous
 models matching the current distribution; as a consequence, the
@@ -126,5 +133,5 @@ would mean a larger probability of finding a matching pre-trained
 model.
 
 In the long run, a large database of pre-trained models, possibly
-categorised in order to avoid too hard a computational burden, would
+categorized in order to avoid too hard a computational burden, would
 definitely help getting uniformly better performances.
