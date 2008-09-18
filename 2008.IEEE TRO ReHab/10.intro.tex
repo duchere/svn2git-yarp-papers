@@ -10,7 +10,10 @@ field which has probably benefited most from this interaction. At
 least two EU funded projects, CyberHand \cite{cyberhand} and SmartHand
 \cite{smarthand} are aimed at building dexterous AHPs which can fully
 replace the human hand, and at the same time control it via innovative
-brain-machine interfaces, both invasive and non-invasive.
+brain-machine interfaces, both invasive and non-invasive. A third
+project, NEURObotics \cite{neurobotics} has just ended, one of whose
+aims was exactly that of realising a new generation of prostheses
+(``beyond prosthetics'').
 
 Moreover, the introduction on the market of Touch Bionics's i-LIMB
 hand prosthesis \cite{ilimb} has demonstrated that the market is ready
@@ -18,7 +21,9 @@ for a leap forward, as far as dexterity of AHPs is concerned. Before
 the i-LIMB was introduced, the state-of-the-art of commercial AHPs was
 represented by Otto Bock's SensorHand \cite{sensorhand}, which has one
 degree-of-freedom (DOF) and acts like an open-close claw. All in all,
-it seems that dexterity of hand prostheses is increasing.
+it seems that dexterity of hand prostheses is increasing, although it
+is still far from state-of-the-art mechanical non-prosthetic hands,
+such as, e.g., the DLR II hand \cite{Hua2006}.
 
 Still, control is lagging behind. The most widely used way of
 controlling active hand prostheses is forearm surface electromyography
@@ -37,31 +42,32 @@ holding a hammer without letting it slip; clearly a fine control of
 the involved force is required to enable the patient perform the two
 operations with the same setup. Issue $(b)$ means that usually large
 muscles, such as the wrist flexor and extensor, are used to control
-the prosthesis - it is the case of opening / closing Otto Bock's hand;
-the patient must therefore learn to associate, e.g., wrist flexing
-with hand opening, and this implies long training times. At the same
-time, and this leads to issue $(c)$, there is scarce chance that such
-a rough control schema be able to control more than a few standard
-grasping postures, as opposed to the flexibility of innovative AHPs
-such as the i-LIMB, not to mention the human hand.
+the prosthesis --- it is the case of opening / closing Otto Bock's
+hand; the patient must therefore learn to associate, e.g., wrist
+flexing with hand opening, and this implies long training times. At
+the same time, and this leads to issue $(c)$, there is scarce chance
+that such a rough control schema be able to control more than a few
+standard grasping postures, as opposed to the potential flexibility of
+innovative AHPs such as the i-LIMB, not to mention the human hand.
 
 In this paper we hint at and propose a new framework for controlling
-AHPs, that we call adaptive hand prosthetics. We envision the use of
-machine learning techniques to revitalise EMG as a control device,
-which implies that already-commercial setups and knowledge can be
-reused. At the same time, we propose that an AHP should adapt to the
-patient, in addition to the patient adapting to the prosthesis,
-entering a virtuous loop of reciprocal learning. This way, we claim,
-(a) shorter training times and (b) finer control by the patient can be
-achieved, improving the qualitiy-of-life of amputees.
+AHPs, that we call \emph{adaptive hand prosthetics}. We envision the
+use of machine learning techniques to revitalise EMG as a control
+device, which implies that already-commercial setups and knowledge can
+be reused. At the same time, we propose that an AHP should adapt to
+the patient, in addition to the patient adapting to the prosthesis,
+entering a virtuous loop of \emph{reciprocal learning}. This way, we
+claim, $(a)$ shorter training times and $(b)$ finer control by the
+patient can be achieved, improving the qualitiy-of-life of amputees.
 
 Let us go more in detail. At least since 2000 roboticians have
 realised that machine learning techniques such as, e.g., Support
 Vector Machines (SVM) can be employed to classify the EMG signals
 gathered from healthy subjects, after being trained upon the subject's
 EMG data \cite{smagt,dunlop}; in particular in \cite{smagt} it was
-shown that up to 11 different hand isotonic/isometric postures could
-be effectively distinguished using 10 standard EMG electrodes. In
+shown that up to $11$ different hand isotonic/isometric postures could
+be effectively distinguished using $10$ standard EMG electrodes
+\textbf{CLAUDIO: errore. ref. agli studi su emg per rehabilitation}. In
 \cite{2008.ICRA,2008.BioCyb} it was as well shown that a healthy
 subject can, using the same setup, control in real-time a grasping
 posture (not necessarily isotonic/isometric, then) along with the
@@ -78,35 +84,44 @@ is unavoidable. This is a delicate and hard task, if compared to the
 usual way EMG has been so far employed to drive myoelectric
 prostheses.
 
-As well, in \cite{2008.Neurorob}, we have shown that such an approach
-can be applied to any healthy subject, and even in non-controlled
-conditions, that is, while the subjects are allowed to freely move,
-sit down, stand up, pronate and supinate the forearm, etc., as one is
-expected to realistically do in daily-life activities.
+As well, in \cite{2008.GNB} \footnote{at the time of writing, a fuller
+report has been prepared and submitted to an appropriate journal.}, we
+have shown that such an approach can be applied to any healthy
+subject, and even in non-controlled conditions, that is, while the
+subjects are allowed to freely move, sit down, stand up, pronate and
+supinate the forearm, etc., as one is expected to realistically do in
+daily-life activities.
 
 In this paper we carry the theoretical analysis to the end, showing
 that the same excellent results are obtained by amputees; and we
 further hint at how this approach could be practically realised, by
-being embedded in a commercially available AHP.
-
-In particular, we describe the outcome of an experiment in which three
-hand amputees, of very different age, age of amputation and type of
-amputation, were asked to simulate in three different ways four
-different grasping actions. A force sensor would tell us how much
-force the patients were trying, or figuring, to apply, instant by
-instant. We therefore derive a set of SVM models which are able to
-understand, in real-time (25Hz), whether the patient is trying to
-point his index or apply a precision grip, tripodal grip or power
-grasp; and at the same time, how much force the patient is requiring.
+being embedded in a commercially available AHP. In particular, we
+describe the outcome of an experiment in which three hand amputees, of
+very different age, age of amputation and type of amputation, were
+asked to simulate / imagine doing four to five different hand postures
+/ grips with their missing hand, in three different training
+modalities. A force sensor would tell us how much force the patients
+were trying to apply, instant by instant. We therefore derive a set of
+SVM models which are able to understand, in real-time ($25$Hz),
+whether the patient is trying to point his index, strech his hand,
+apply a precision grip, tripodal grip or power grasp; and at the same
+time, how much force the patient is requiring, independently of the
+type of posture / grip. We then move on to describing a realistic
+implementation of the system on a micro-controller, which can be
+embedded in a prosthesis, either commercially available or still at
+the academic, prototypical level.
 
 This paves the way to a level of control for AHPs which is totally
-unknown so far; and its practical implementation is possible, since we
-can employ standard materials (electrodes, electronics, the
-prosthesis) and miniaturise the models.
+unknown so far; and its practical implementation is at hand, since
+standard materials (the electrodes, the associated electronics, the
+prosthesis) can be employed, and the models can be miniaturised and
+embedded.
 
-The paper is structured as follows: Section II describes the
-experiment; Section III describes the data pre-processing and gives an
-idea of how the data look like; Section IV describes the experimental
-results; Section V describes how the approach can be implemented in
-reality; and lastly Section VI contains a discussion of the results
-and the conclusions.
+The paper is structured as follows: Section \ref{sec:m&ms} describes
+the experiment; Section \ref{sec:pre} describes the data
+pre-processing and gives an idea of how the data look like; Section
+\ref{sec:exp} describes the experimental results; Section
+\ref{sec:impl} describes how the approach can be implemented in
+reality; and lastly Sections \ref{sec:disc} and \ref{sec:concl}
+contain a discussion of the results and the possible outcomes of our
+work, and the conclusions.

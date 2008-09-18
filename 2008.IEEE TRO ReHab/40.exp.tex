@@ -33,9 +33,10 @@ folds and cross-validation was performed on it; this makes the
 evaluation robust against the problem of over-fitting. We employed a
 well-known freely available SVM package, \emph{libsvm} v2.83
 \cite{ChangL01}, in the Matlab wrapped flavour, with a Gaussian
-kernel. This particular kind of SVM requires setting two
-\emph{hyperparameters}, called $\gamma$ and $C$, which were found by
-grid search using the aforementioned performance indexes.
+kernel. This particular kind of SVM, in our case employing the
+so-called Gaussian or Radial-basis Function kernel, requires setting
+two \emph{hyperparameters}, called $\gamma$ and $C$, which were found
+by grid search using the aforementioned performance indexes.
 
 Table \ref{tab:results} shows the main results obtained by the SVMs.
 
@@ -58,12 +59,16 @@ The first consideration is that for each subject, at least one
 modality produces excellent results, both in classification and
 regression. Subject $1$ works best by imitation, whereas subjects $2$
 and $3$ exhibit best results via bilateral action and mirror-box. If
-we consider the best modality for each subject, we get an average
-classification accuracy of $94.72\%$ and an average regression
-correlation of $0.95$. Essentially the system can predict everything,
-as is apparent from Figure \ref{fig:examples} in which a comparison is
-shown between bits of real target labels and values and the
-corresponding guessed targets.
+we consider the modality with the best results for each subject, we
+get an average classification accuracy of $94.72\%$ and an average
+regression correlation of $0.95$. Essentially the system can predict
+everything, as is apparent from Figure \ref{fig:examples} in which a
+comparison is shown between bits of real target labels and values and
+the corresponding guessed targets.
+
+It is unclear why modalities produce better or worse results according
+to the subjects, but see Section \ref{sec:concl} for a couple of hints
+on why this phenomenon appears.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{ccc}
@@ -74,8 +79,9 @@ corresponding guessed targets.
   \end{tabular}
   \caption{comparing true and guessed labels $(a)$ and force values
     $(b)$ and $(c)$. Notice, in panel $(a)$, that labels
-    $3$ (pinch grip) are often mistaken for labels $4$ (tripodal
-    grip). Notice also, especially in panel $(c)$, the almost perfect
+    $3$ (pinch grip) are easily mistaken for labels $4$ (tripodal
+    grip) but not to the point of hindering the performance of the
+    system. Notice also, especially in panel $(c)$, the almost perfect
     correlation between force and guessed force, both during a slow
     buildup/release and during quick applications of force.}
   \label{fig:examples}
@@ -109,9 +115,11 @@ first row and first column of each matrix). This happens especially
 whereas subject $1$ presents more uncertainty as far as other
 confusion pairs are concerned. This phenomenon is also clearly
 justifiable, since misclassifications involving label $0$ (the
-``rest'' position) happen at the onsets / endings of grips. A simple
-buffering strategy (i.e., considering a few samples before switching
-category) would probably suffice to eliminate this problem.
+``rest'' position) happen at the onsets / endings of
+grips. \textbf{CLAUDIO: dimostralo! qual e` la forza associata alle
+label balorde? vuoi vedere che e` BASSA ???} In a practocal setting, a
+simple buffering strategy (i.e., considering a few samples before
+switching category) would probably suffice to eliminate this problem.
 
 As far as regression is concerned, consider now Figure
 \ref{fig:examples}, panels $(b)$ and $(c)$. If we neglect a
@@ -119,9 +127,14 @@ high-frequency oscillation, the guessed force values are essentially
 replicating the true values --- again, there are different offsets,
 but this is a direct result of choosing \emph{maximum correlation} as
 the performance index. The signals in the Figure could easily be used
-in practice after a simple linear trasnformation. Notice in particular
-(panel $(c)$) how the system is smoothly able to correctly guess both
-low-frequency (left-hand side) and high-frequency (right-hand side)
+in practice after a simple linear transformation; the oscillation can
+be removed by low-pass filtering the signal before sending it to the
+control system of the prosthesis, or by relying on the
+electro-mechanical time constants of the prosthesis itself, which
+would probably be hardly capable of accurately following such a
+high-frequency spurious signal. Notice in particular (panel $(c)$) how
+the system is smoothly able to correctly guess both low-frequency
+(left-hand side) and relatively high-frequency (right-hand side)
 oscillations of the target value.
 
 Inspection of the hyperparameters $C$ and $\gamma$ is useful to narrow
@@ -137,23 +150,36 @@ set, again, at $2$ (almost) uniformly. Regression as well seems an
 easy task for SVMs, which in the end confirms the visual appearance of
 the PCA scatterplots of Figure \ref{fig:PCA}.
 
-One last hint at this is that the percentage of Support Vectors found
-by the system is systematically low and strongly inversely correlated
-with the perfomance attained. For classification, the percentage is
-$20.88\% \pm 6.19\%$ with correlation to the performance $-0.90$
-($p$-value smaller than $0.001$); for regression, we have $16.78\% \pm
-9.39\%$ with correlation $-0.93$ ($p<0.001$). Notice that this
-percentage also tells us how complex the prediction task is, since
-this kind of SVMs employ a weighted sum of $N$ Gaussian functions in
-the input space, where $N$ is the number of Support Vectors found. In
-practical terms, let us consider, for example, the models obtained for
-Subject $3$ via bilateral action: the classification model has $1866$
-SVs and the regression model has $1094$, for a total memory occupancy
-(in Matlab) of, in turn, $173$KB and $76$KB, which is small enough to
-fit on any miniaturised device avaialble nowadays. \textbf{EMANUELE:
-questo e` vero? se non lo e` modero l'affermazione...} Of course,
-things are supposed to get even \emph{better} from this point of view,
-if we allow for a slightly worse performance and employ a
-sparsification technique such as, e.g., uniformisation
-\cite{2008.ICRA,2008.BioCyb}; such a technique is anyway needed when
-we switch to a real online framework.
+One last hint at this comes from the analysis of the models
+themselves. SVMs enjoy the property of building \emph{sparse}
+solutions to the problems on which they are trained; this means that
+the prediction function, for the selected kernel, both for
+classification and regression, is a weigthed sum of Gaussian
+functions. The Gaussians involved in the sum are centered around some
+of the training samples --- the so-called \emph{Support Vectors}
+(SVs), and their number is usually much smaller than the total number
+of samples used in the training phase.
+
+The sparsity of SVM models is extremely useful in our context, since
+smaller models mean higher chance of miniaturising them and using them
+in pratice. At the same time (see, e.g., \cite{v-edbed-82}), it is
+well-known that the total number of SVs is inversely correlated to the
+model's generalisation power, and therefore to its overall
+performance. In our case, the percentage of SVs with respect to the
+size of the related training sets is systematically low and strongly
+inversely correlated with the perfomance attained. For classification,
+the percentage is $20.88\% \pm 6.19\%$ with correlation to the
+performance $-0.90$; for regression, we have $16.78\% \pm 9.39\%$ with
+correlation $-0.93$.
+
+In practical terms, let us consider, for example, the models obtained
+for Subject $3$ via bilateral action, a case in which the performance
+is excellent: the classification model has $1866$ SVs and the
+regression model has $1094$, for a total memory occupancy (in Matlab)
+of, in turn, $173$KB and $76$KB, which is small enough to fit on any
+miniaturised device avaialble nowadays (see the next Section for more
+details). Of course, things are supposed to get even
+\emph{better} from this point of view, if we allow for a slightly
+worse performance and employ a sparsification technique such as, e.g.,
+uniformisation \cite{2008.ICRA,2008.BioCyb}; such a technique is
+anyway needed when we switch to a real online framework.

@@ -5,10 +5,10 @@ required from the subject. Samples associated with a low force value
 were arbitrarily given the label $0$, since they denote no activity of
 the muscles, that is, a resting condition. Subject $1$ actually needed
 the no-action data set to be replicated for each modality, since we
-did not record its baseline each time - a mistake which was corrected
-with the second and third subject. Moreover, we could not record the
-"pointing index" activity for this subject in the second modality,
-which is therefore null.
+did not record its baseline each time --- a mistake which was
+corrected with the second and third subject. Moreover, we could not
+record the "pointing index" activity for this subject in the second
+modality, which is therefore null.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{ccc}
@@ -55,7 +55,9 @@ subject and modality.
     \includegraphics[width=0.3\textwidth]{figs/data33} \\
   \end{tabular}
   \caption{ PCA analysis of the subjects' data. (top to bottom)
-    Subject $1$, $2$ and $3$; (left to right) modality $1$, $2$ and $3$.}
+    Subject $1$, $2$ and $3$; (left to right) modality $1$, $2$ and
+    $3$. Notice that subject $1$, modality $2$ has no ``pointing
+    index'' data, and that subject $3$ has the ``hand stretch'' data.}
   \label{fig:PCA}
 \end{figure*}
 
@@ -64,25 +66,24 @@ well separated and distinct signals, according to the elicited type of
 grasp. In particular, notice how two very similar grasp types, i.e.,
 pinch grip (thumb and index come together as to precisely grip, e.g.,
 a pen) and tripodal grip (the same, but done with the middle finger,
-too) appear well separated on almost each graph - look at the black
+too) appear well separated on almost each graph --- look at the black
 and pink coloured samples.
 
 Notice, as well, that the graphs have not all the same scale and that
 they appear incongruent with one another, but this is due to $(a)$
-having the electrodes positioned in a non-uniform way, that is,
-irrespective of their order numbers, on the stumps of the three
-patients; and $(b)$ the PCA coefficients being evaluated in a blind
-way. This problem seems, anyway, ininfluent on the result of the
-experiment, since a machine learning approach such as SVMs is supposed
-exactly to automatically find patterns and regularities among the
-samples. The graphs above let us hope for the best.
+having positioned the electrodes irrespective of their order number on
+the stumps of the patients; and $(b)$ the PCA coefficients being
+evaluated in a blind way. This problem seems, anyway, ininfluent on
+the result of the experiment, since a machine learning approach such
+as SVMs is supposed exactly to automatically find patterns and
+regularities among the samples for each subject.
 
 One last point is that PCA being so effective in reducing the
-dimensionality of our data to two does not necessariy imply that we
+dimensionality of our data to two does not necessarily imply that we
 could use two electrodes only to obtain the same results; this depends
 on the PCA coefficients, which show consistently the same magnitude
 (except in the case of subject $3$, where a heavy drift was observed
-on two electrodes, very likely due to sweating - this is a well-known
+on two electrodes, very likely due to sweating --- this is a well-known
 problem of EMG-controlled prosthetics). This means that each electrode
 is required to give a uniformly-weighted contribution to the
 PCA-transformed $2$-dimensional samples. Of course reducing the

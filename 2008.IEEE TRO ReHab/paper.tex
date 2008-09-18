@@ -5,6 +5,15 @@
 %
 % September, 2008
 
+% TODO:
+% - numeri nuovi - con label V
+% - controlla FORZA associata alle label sbagliate: sara` bassa! se
+%     cosi` e`, possiamo rifare l'esperimento ESCLUDENDO le forze
+%     basse, ma utilizzando il regressore: il tutto ha validita`
+%     sperimentale TOTALE!! e i risultati saranno anche migliori.
+% - Ben: posso citare la pesonal communication?
+% - eliminare annotations (cioe` i link!)
+
 \documentclass[journal]{IEEEtran}
 
 \usepackage{times}
@@ -40,6 +49,10 @@
   is with the RBCS Department, Italian Institute of Technology,
   via Morego, 30, 16163 Genova, Italy.
   e-mail: giulio.sandini@iit.it.}%
+\thanks{\textbf{NOTE} for the reviewers of this paper: a preliminary,
+  very short analysis of some of the data presented in this paper has
+  been submitted to a rehabilitation medicine journal as a ``short
+  report'', and is currently under review.}%
 }
 
 \maketitle
@@ -49,13 +62,14 @@
 \end{abstract}
 
 \begin{IEEEkeywords}
-  learning systems, adaptive systems, artificial intelligence, prosthetics.
+  rehabilitation robotics, learning and adaptive systems, adaptive
+  control, prosthetics.
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-\label{sec:introduction}
+\label{sec:intro}
 \input{10.intro}
 
 \section{Materials and Methods}
@@ -74,9 +88,13 @@
 \label{sec:impl}
 \input{50.impl}
 
-\section{Discussion and Conclusions}
-\label{sec:discussion}
+\section{Discussion}
+\label{sec:disc}
 \input{60.disc}
+
+\section{Conclusions}
+\label{sec:concl}
+\input{70.concl}
 
 \section*{Acknowledgments}
 
@@ -87,12 +105,20 @@ experiment.
 \bibliographystyle{IEEEtran}
 \bibliography{paper,claudio}
 
-%% \begin{IEEEbiography}{Michael Shell}
-%% Biography text here.
+%% \begin{IEEEbiography}{Claudio Castellini}
+%% Biography text here
 %% \end{IEEEbiography}
 
-%% \begin{IEEEbiographynophoto}{John Doe}
-%% Biography text here.
-%% \end{IEEEbiographynophoto}
+%% \begin{IEEEbiography}{Emanuele Gruppioni}
+%% Biography text here
+%% \end{IEEEbiography}
+
+%% \begin{IEEEbiography}{Angelo Davalli}
+%% Biography text here
+%% \end{IEEEbiography}
+
+%% \begin{IEEEbiography}{Giulio Sandini}
+%% Biography text here
+%% \end{IEEEbiography}
 
 \end{document}
