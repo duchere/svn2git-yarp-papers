@@ -2,14 +2,15 @@ The objective of realising an embedded system, able to control via a
 SVM model an advanced, dexterous hand prosthesis such as, e.g., Touch
 Bionics's i-LIMB is nowadays at hand, thanks to the remarkable degree
 of development of microelectronics and micro-controller technology for
-prosthetics. Examples of this can be found, e.g., in \cite{...}. Here
-we sketch a possible architecture for such an implementation.
+prosthetics. Here we sketch a possible architecture for such an
+implementation in our framework.
 
 Due to the necessity of small, lightweight and low-power consuming
 hardware in this framework, we propose a centralised architecture
-based upon a micro-controller such as, e.g., ... \cite{...}. This
-would minimise the number of required components. Figure \ref{fig:mc}
-is a schema of the proposed architecture.
+based upon a micro-controller such as, e.g., \textbf{EMANUELE}
+... \cite{...}. This would minimise the number of required
+components. Figure \ref{fig:mc} is a schema of the proposed
+architecture.
 
 \begin{figure*}[!ht] \centering
   \includegraphics[width=0.9\textwidth]{figs/mc}
@@ -57,8 +58,8 @@ required sampling rate would not exceed $25$Hz as is clear from the
 previous Sections. As well, there is no filtering / envelope /
 root-mean-square evaluation burden, since the Otto Bock electrodes
 already perform these task. Current feedback signals, at least one per
-motor, can as well be acquired without any problem, as is done in
-standard myoelectric prosthesis nowadays.
+motor, can as well be acquired easilty, as is done in standard
+myoelectric prosthetics.
 
 The posture / grip indexes required by the patient must be translated
 to appropriate position control signals, to be sent to the motor
@@ -67,11 +68,11 @@ possibility, as a proportional torque at the hand joints, that is, a
 current applied to each motor, according to the simple relationship $I
 = K_M M$, where $K_M$ is the motor's torque-to-current conversion
 factor. A more sophisticated schema could enforce \emph{impedance
-control} at the hand (see, e.g., \cite{...}) if the hand itself is
+control} at the hand (see, e.g., \cite{alin}) if the hand itself is
 dexterous and sophisticated enough to allow it. The motors are
 actuated using a PWM signal per each motor, managed by the
 micro-contorller. For the associated power motor drivers, a standard
-H-bridge schema would suffice.
+H-bridge schema would suffice. \textbf{EMANUELE}
 
 Besides the SVM models, the micro-controller will store, e.g., the
 maximum safety values for the motor currents and the PWM controllers

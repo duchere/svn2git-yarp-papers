@@ -34,7 +34,7 @@ evaluation robust against the problem of over-fitting. We employed a
 well-known freely available SVM package, \emph{libsvm} v2.83
 \cite{ChangL01}, in the Matlab wrapped flavour, with a Gaussian
 kernel. This particular kind of SVM, in our case employing the
-so-called Gaussian or Radial-basis Function kernel, requires setting
+so-called Gaussian or Radial Basis Function kernel, requires setting
 two \emph{hyperparameters}, called $\gamma$ and $C$, which were found
 by grid search using the aforementioned performance indexes.
 
@@ -47,9 +47,9 @@ Table \ref{tab:results} shows the main results obtained by the SVMs.
     \hline
                 & Imitation & Bilateral & Mirror \\
     \hline
-    Subject $1$ & $93.09\%$ / $0.96$ & $90.39\%$ / $0.95$ & $82.48\%$ / $0.93$ \\
-    Subject $2$ & $88.70\%$ / $0.86$ & $95.90\%$ / $0.96$ & $96.09\%$ / $0.94$ \\
-    Subject $3$ & $85.55\%$ / $0.83$ & $94.99\%$ / $0.93$ & $93.57\%$ / $0.93$ \\
+    Subject $1$ & $93.11\%$ / $0.96$ & $90.41\%$ / $0.95$ & $82.39\%$ / $0.93$ \\
+    Subject $2$ & $88.67\%$ / $0.86$ & $95.98\%$ / $0.96$ & $96.07\%$ / $0.94$ \\
+    Subject $3$ & $84.07\%$ / $0.81$ & $92.40\%$ / $0.92$ & $91.98\%$ / $0.91$ \\
     \hline
   \end{tabular}
   \label{tab:results}
@@ -60,14 +60,14 @@ modality produces excellent results, both in classification and
 regression. Subject $1$ works best by imitation, whereas subjects $2$
 and $3$ exhibit best results via bilateral action and mirror-box. If
 we consider the modality with the best results for each subject, we
-get an average classification accuracy of $94.72\%$ and an average
-regression correlation of $0.95$. Essentially the system can predict
-everything, as is apparent from Figure \ref{fig:examples} in which a
+get an average classification accuracy of $93.86\%$ and an average
+regression correlation of $0.95$. The system can predict almost
+perfectly, as is apparent from Figure \ref{fig:examples} in which a
 comparison is shown between bits of real target labels and values and
 the corresponding guessed targets.
 
 It is unclear why modalities produce better or worse results according
-to the subjects, but see Section \ref{sec:concl} for a couple of hints
+to the subjects, but see Section \ref{sec:disc} for a couple of hints
 on why this phenomenon appears.
 
 \begin{figure*}[!ht] \centering
@@ -101,25 +101,33 @@ $2$-dimensional PCA-transformed input space.
     pair. Subjects are on each row, modalities are on each column. In
     each matrix $C$, the entry $C_{ij}$ denotes the fraction of labels
     $i$ which have been mistaken for $j$ over the total mistaken
-    labels of that particular pair. The diagonals of the matrices are,
-    therefore, identically zero.}
+    labels of that particular subject / modality pair. The diagonals
+  of the matrices are, therefore, identically zero.}
   \label{fig:confusion}
 \end{figure*}
 
 Actually, the confusion matrices related with each subject / modality
-pair (see Figure \ref{fig:confusion}) do not confirm this feeling:
-most mistakes in classification involve label $0$, both in the sense
-that $0$ is mistaken for something else and vice-versa (consider the
-first row and first column of each matrix). This happens especially
-(consider rows $2$ and $3$ of the Figure) for subjects $2$ and $3$,
-whereas subject $1$ presents more uncertainty as far as other
-confusion pairs are concerned. This phenomenon is also clearly
-justifiable, since misclassifications involving label $0$ (the
-``rest'' position) happen at the onsets / endings of
-grips. \textbf{CLAUDIO: dimostralo! qual e` la forza associata alle
-label balorde? vuoi vedere che e` BASSA ???} In a practocal setting, a
+pair (see Figure \ref{fig:confusion}) confirm this feeling only for
+subject $1$ and only partially. Really, most mistakes in
+classification involve label $0$, both in the sense that $0$ is
+mistaken for something else and vice-versa (consider the first row and
+first column of each matrix). This happens especially (consider rows
+$2$ and $3$ of the Figure) for subjects $2$ and $3$, whereas subject
+$1$ presents more uncertainty as far as other confusion pairs are
+concerned. This phenomenon is also clearly justifiable, since
+misclassifications involving label $0$ (the ``rest'' position) happen
+at the onsets / endings of grips --- this is confirmed by visual
+inspection, in the cases of modalities $2$ and $3$ (in modality $1$
+the teacher was pressing the force sensor, so the data are unreliable
+for this kind of analysis), and for subjects $2$ and $3$. In these
+cases, willing to obtain an even more accurate classification rate,
+one can think of using the regression system to guess when the
+required force is above a reasonable threshold, and start the
+classification only at that point, when the chance of mistaking the
+posture / grip is close to zero. Also, in a practical setting, a
 simple buffering strategy (i.e., considering a few samples before
-switching category) would probably suffice to eliminate this problem.
+switching category) would probably suffice to eliminate this problem
+completely.
 
 As far as regression is concerned, consider now Figure
 \ref{fig:examples}, panels $(b)$ and $(c)$. If we neglect a
@@ -140,15 +148,15 @@ oscillations of the target value.
 Inspection of the hyperparameters $C$ and $\gamma$ is useful to narrow
 down the grid search and also to gather more abstract considerations
 about the problems at hand. Here we have that, in classification, (the
-logarithm of) $C$ is $2.06 \pm 0.77$ and (the logarithm of) $\gamma$
-is uniformly $2$. These numbers reveal that the problem is rather
-easy, since $C$ is set at a quite high value, and as well $\gamma$ is at
-the highest possible value in our grid search range. As far as
-regression is concerned, we find a similar pattern, with (the
-logarithm of) $C$ being $0.61 \pm 0.55$ and that of $\gamma$ being
-set, again, at $2$ (almost) uniformly. Regression as well seems an
-easy task for SVMs, which in the end confirms the visual appearance of
-the PCA scatterplots of Figure \ref{fig:PCA}.
+logarithm of) $C$ is $2.17 \pm 0.83$ and $\gamma$ is uniformly
+$2$. These numbers reveal that the problem is rather easy, since $C$
+is set at a quite high value, and as well $\gamma$ is at the highest
+possible value in our grid search range. As far as regression is
+concerned, we find a similar pattern, with (the logarithm of) $C$
+being $0.56 \pm 0.53$ and $\gamma$ being set, again, at $2$
+uniformly. Regression as well seems an easy task for SVMs, which in
+the end confirms the visual appearance of the PCA scatterplots of
+Figure \ref{fig:PCA}.
 
 One last hint at this comes from the analysis of the models
 themselves. SVMs enjoy the property of building \emph{sparse}
@@ -168,18 +176,18 @@ model's generalisation power, and therefore to its overall
 performance. In our case, the percentage of SVs with respect to the
 size of the related training sets is systematically low and strongly
 inversely correlated with the perfomance attained. For classification,
-the percentage is $20.88\% \pm 6.19\%$ with correlation to the
-performance $-0.90$; for regression, we have $16.78\% \pm 9.39\%$ with
+the percentage is $20.55\% \pm 6.07\%$ with correlation to the
+performance $-0.96$; for regression, we have $17.11\% \pm 9.53\%$ with
 correlation $-0.93$.
 
 In practical terms, let us consider, for example, the models obtained
 for Subject $3$ via bilateral action, a case in which the performance
-is excellent: the classification model has $1866$ SVs and the
-regression model has $1094$, for a total memory occupancy (in Matlab)
-of, in turn, $173$KB and $76$KB, which is small enough to fit on any
+is excellent: the classification model has $2059$ SVs and the
+regression model has $1324$, for a total memory occupancy (in Matlab)
+of, in turn, $207$KB and $91$KB, which is small enough to fit on any
 miniaturised device avaialble nowadays (see the next Section for more
-details). Of course, things are supposed to get even
-\emph{better} from this point of view, if we allow for a slightly
-worse performance and employ a sparsification technique such as, e.g.,
-uniformisation \cite{2008.ICRA,2008.BioCyb}; such a technique is
-anyway needed when we switch to a real online framework.
+details). Of course, things are supposed to get even \emph{better}
+from this point of view, if we allow for a slightly worse performance
+and employ a sparsification technique such as, e.g., uniformisation
+\cite{2008.ICRA,2008.BioCyb}; such a technique is anyway needed when
+we switch to a real online framework.

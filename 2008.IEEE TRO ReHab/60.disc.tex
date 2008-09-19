@@ -1,6 +1,6 @@
-The results hereby presented clearly show that the plain, old EMG
-signal can be used to drive a mechanical hand / prosthetic hand in a
-radically new way: finer, force-controlling, more dexterous. Our
+The results hereby presented clearly show that the well-known surface
+EMG signal can be used to drive a mechanical hand / prosthetic hand in
+a radically new way: finer, force-controlling, more dexterous. Our
 results indicate that a machine learning approach such as Support
 Vector Machines will effectively detect well-separated grasping
 patterns in real time, as required by an amputee; at the same time,
@@ -39,8 +39,7 @@ is theoretically perfectly able to work in non-controlled conditions
 shown that a sparsification strategy such as \emph{uniformisation} can
 enforce on-line learning of new situations at the price of degrading
 the performance reasonably. It remains to adapt the proposed PC /
-microcontroller architecture to such a continual retraining schema,
-but this seems no big problem.
+microcontroller architecture to such a continual retraining schema.
 
 Lastly, a few notes from a rather medical point of view. In this work
 we are making \emph{no statement at all} about the physiological
@@ -69,11 +68,7 @@ activity can be elicited from elderly patients, such as our subjects
 $1$ and $2$, who, by the way, have been operated \emph{decades}
 ago. Notwithstanding this, they are still perfectly able to produce,
 e.g., two very different patterns for similar grips such as the index
-/ thumb pinch grip and the tripodal grip. This lets us hope that
-possibly even a simpler method than SVMs could be used without
-degrading the performance too much, in case the miniaturisation of
-this method proves too hard in practice. But actually, the analysis
-performed in Section \ref{sec:impl} is very promising.
+/ thumb pinch grip and the tripodal grip.
 
 The use of three different modalities has proven effective in finding
 the best way for each single patient to train the system. Actually, as
@@ -86,14 +81,14 @@ to observe any stastically meaningful phenomenon, in order to possibly
 relate the type of amputation to the preferred modality --- a
 relationship which would be of great help when a new patient has to
 train the system. Here we can note that subject $1$ is the one left
-with the shortest stump. One possibility why he performs best in the
-teacher imitation modality is then\footnote{personal communication
-with Benoni B. Edin of the Ume\o a University, Sweden.\textbf{FIXME}}
-that he presents the ``highest degree'' of de-afferentiation in his
-forearm, since he misses most of it, as opposed to subjects $2$ and
-$3$. Literature on de-afferentiated patients (see, e.g.,
-\cite{...}) indicates that such a condition, at least in neuropathic
-patients, eases tasks in which motor and visual perception are
-de-coupled or contradictory; and this seems to be the case, since
-subject $1$ obtains better results when he has to \emph{imitate
-someone else} rather than figuring out his own movements.
+with the shortest stump. One possible reason why he performs best in
+the teacher imitation modality is then\footnote{personal communication
+with Benoni B. Edin of Ume\aa\ University, Sweden.} that he presents
+the ``highest degree'' of de-afferentiation in his forearm, since he
+misses most of it, as opposed to subjects $2$ and $3$. Literature on
+de-afferentiated patients (see, e.g., \cite{lajoie,miall}) indicates
+that such a condition, at least in neuropathic patients, eases tasks
+in which motor and visual perception are de-coupled or contradictory;
+and this seems to be the case, since subject $1$ obtains better
+results when he has to \emph{imitate someone else} rather than
+figuring out his own movements.
