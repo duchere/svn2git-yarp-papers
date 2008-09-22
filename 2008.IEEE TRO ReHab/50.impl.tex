@@ -1,21 +1,22 @@
-The objective of realising an embedded system, able to control via a
-SVM model an advanced, dexterous hand prosthesis such as, e.g., Touch
-Bionics's i-LIMB is nowadays at hand, thanks to the remarkable degree
-of development of microelectronics and micro-controller technology for
-prosthetics. Here we sketch a possible architecture for such an
-implementation in our framework.
-
-Due to the necessity of small, lightweight and low-power consuming
-hardware in this framework, we propose a centralised architecture
-based upon a micro-controller such as, e.g., MicroChip's 18F4431 model
-\cite{mc}, which is currently being used at INAIL Centro Protesi.
-This would minimise the number of required components. Figure
-\ref{fig:mc} is a schema of the proposed architecture.
+In this Section we sketch a possible architecture for such an
+implementation in our framework. Small, lightweight and low-power
+consuming devices are required, therefore we propose a centralised
+architecture based upon a micro-controller gifted with $32$ to $64$KB
+on-board memory. This would be enough for an optimised form of the
+models obtained in the previous Section. Standard micro-controllers
+such as, e.g., MicroChip's PIC32 models \cite{mc}, already in use at
+INAIL Centro Protesi, would suffice. Figure \ref{fig:mc} is a schema
+of the proposed architecture applied to a hand prosthesis gifted with
+$5$ motors, each one controlling a finger\footnote{an alternative, in
+case more memory or more computational power is needed, is that of
+tightly coupling two micro-controllers, one of which would control the
+motors and the other would be devoted to computation.}.
 
 \begin{figure*}[!ht] \centering
   \includegraphics[width=0.9\textwidth]{figs/mc}
   \caption{a schema for the miniaturisation of the proposed method
-    onto a micro-controller.}
+    onto a micro-controller, in the hypothesis of controlling a
+    five-fingered hand prosthesis and using $5$ EMG electrodes.}
   \label{fig:mc}
 \end{figure*}
 
@@ -72,7 +73,7 @@ factor. A more sophisticated schema could enforce \emph{impedance
 control} at the hand (see, e.g., \cite{alin}) if the hand itself is
 dexterous and sophisticated enough to allow it. The motors are
 actuated using a PWM signal per each motor, managed by the
-micro-contorller. For the associated power motor drivers, a standard
+micro-controller. For the associated power motor drivers, a standard
 H-bridge schema would suffice.
 
 Besides the SVM models, the micro-controller will store, e.g., the

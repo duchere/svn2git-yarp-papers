@@ -3,26 +3,26 @@
 Three hand amputees, patients of the INAIL Centro Protesi in Vigorso
 di Budrio, Bologna, Italy, joined the experiment.
 
-The first subject is a male, aged 63, trans-radial one-third proximal,
-amputated in 1963. He is a pioneer of myoelectric prostheses, having
-started out using them in the Sixties. The second subject is male,
-aged 56, trans-radial one-third distal, amputated in 1972; he also
-started using myoelectric prostheses very early, actually in 1974. The
-third subject is male again, aged 25, trans-carpal, amputated in 2007;
-he was in the process of learning how to use a standard myoelectric
+The first subject is male, aged 63, trans-radial one-third proximal,
+amputated in 1963; he is a pioneer of myoelectric prostheses, having
+started using them in the Sixties. The second subject is male, aged
+56, trans-radial one-third distal, amputated in 1972; he also started
+using myoelectric prostheses very early, actually in 1974. The third
+subject is male again, aged 25, trans-carpal, amputated in 2007; he
+was in the process of learning how to use a standard myoelectric
 prosthesis at the time of writing.
 
 A set of three patients is obviously not sufficient to gather
 statistics about the applicability of our method, but we are lucky
 enough that they present a rather wide variety of operations and
 conditions. In particular, subject $1$ has about $9$cm left of his
-left forearm, subject $2$ has some $20$cm, and subject $3$, a
-trans-carpal amputee, has the whole forearm plus some of the carpus
-(Figure \ref{fig:stumps} shows the subjects' stumps). Moreover,
-subjects $1$ and $2$ were amputated a very long time ago, although
-they have been using myodevices since then, whereas subject $3$ is
-freshly operated and is just starting to learn. Lastly, subject $3$ is
-rather young as opposed to the other subjects.
+forearm, subject $2$ has some $20$cm, and subject $3$, a trans-carpal
+amputee, has the whole forearm plus some of the carpus (Figure
+\ref{fig:stumps} shows the subjects' stumps). Moreover, subjects $1$
+and $2$ were amputated a very long time ago, although they have been
+using myodevices since then, whereas subject $3$ is freshly
+operated. Lastly, subject $3$ is rather young as opposed to the other
+subjects.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{ccc}
@@ -32,10 +32,10 @@ rather young as opposed to the other subjects.
     subject $1$ & subject $2$ & subject $3$ \\
   \end{tabular}
   \caption{the subjects' stumps. Subject $1$ has a trans-radial
-    one-third proximal amputation, leaving about $9$cms. of forearm in his
-    stump; subject $2$ is trans-radial one-third distal, left with some
-    $20$cms. of forearm; and subject $3$ is trans-carpal, still having his
-    full forearm.}
+    one-third proximal amputation, with a stump about $9$cm long;
+    subject $2$ is trans-radial one-third distal, stump about $20$cm
+    long; and subject $3$ is trans-carpal, retaining the full
+    forearm.}
   \label{fig:stumps}
 \end{figure*}
 
@@ -122,7 +122,10 @@ required actions in the three modalities.
     \includegraphics[width=0.3\textwidth]{figs/mod3} \\
     teacher imitation & bilateral action & mirror-box \\
   \end{tabular}
-  \caption{the three training modalities.}
+  \caption{the three training modalities. (left to right) Subject $1$
+    imitating a pinch grip; subject $3$ bilaterally performing a pinch
+    grip; subject $2$ assuming the pointing index posture while
+    looking in the mirror-box.}
   \label{fig:modalities}
 \end{figure*}
 
@@ -136,7 +139,7 @@ gifted with diverse frequency and amplitude components. Figure
 \ref{fig:ex_signals} shows some sample force and EMG signals. On
 average, each modality lasted something more than $5$ minutes and no
 subjects reported fatigue or pain. At the aforementioned sampling rate
-of $100$Hz, we gathered a total of about $1.8$ million samples.
+of $100$Hz, we gathered a total of about $270000$ samples.
 
 \begin{figure*}[!ht] \centering
   \begin{tabular}{ccc}
@@ -159,9 +162,9 @@ of $100$Hz, we gathered a total of about $1.8$ million samples.
 \subsection{Methods}
 
 As already pointed out in literature, Support Vector Machines (SVM)
-\cite{BGV92} are a good machine learning method for this framework, so we
-employed them. For an explanation of how SVMs work in the context of
-EMG signals, please refer to, among others,
+\cite{BGV92} are a good machine learning method to solve this problem,
+so we employed them. For an explanation of how SVMs work in the
+context of EMG signals, please refer to, among others,
 \cite{2008.ICRA,2008.BioCyb}, whereas, for a comprehensive tutorial on
 SVMs in the more general framework of classification and regression,
 refer to \cite{Burges98,SmolaTut2004}. SVMs are a statistical learning

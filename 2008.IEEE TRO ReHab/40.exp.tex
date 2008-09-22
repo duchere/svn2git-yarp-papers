@@ -182,12 +182,14 @@ correlation $-0.93$.
 
 In practical terms, let us consider, for example, the models obtained
 for Subject $3$ via bilateral action, a case in which the performance
-is excellent: the classification model has $2059$ SVs and the
+is excellent, and a complex case, since subject $3$ performed five
+kinds of postures / grips, as opposed to the four performed by the
+other subjects: the classification model has $2059$ SVs and the
 regression model has $1324$, for a total memory occupancy (in Matlab)
-of, in turn, $207$KB and $91$KB, which is small enough to fit on any
-miniaturised device avaialble nowadays (see the next Section for more
-details). Of course, things are supposed to get even \emph{better}
-from this point of view, if we allow for a slightly worse performance
-and employ a sparsification technique such as, e.g., uniformisation
-\cite{2008.ICRA,2008.BioCyb}; such a technique is anyway needed when
-we switch to a real online framework.
+of, in turn, $207$KB and $91$KB. When optimised, these models are small
+enough to fit on a standard micro-controller (see the next Section for
+more details). Of course, things are supposed to get even
+\emph{better} from this point of view, if we allow for a slightly
+worse performance and employ a sparsification technique such as, e.g.,
+uniformisation \cite{2008.ICRA,2008.BioCyb}; such a technique is
+anyway needed when we switch to a real online framework.
