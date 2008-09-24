@@ -1,4 +1,5 @@
 @echo off
 
+latex paper
 bibtex paper
-pdflatex paper
+latex paper
