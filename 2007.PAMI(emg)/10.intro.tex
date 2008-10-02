@@ -8,15 +8,15 @@ controlled. Sensorial feedback completes the picture, making the
 prosthesis a sensible replacement of the lost hand.
 
 At the time of writing, however, the state-of-the-art of AHPs is far
-from this. The best commercially available AHPs are probably Otto
+from this. The most dexterous commercially available AHPs are Otto
 Bock's SensorHand \cite{sensorhand} and Touch Bionics's i-Limb
 \cite{ilimb}. The SensorHand is a classical one-DOF ``claw'',
-proportionally controlled typically by one or two electromyography electrodes; the
-i-Limb has five independently moving fingers plus a passively
-opposable thumb, but only uses two electrodes and, as far as one can
-understand, offers no fine control over single fingers or over the
-required amount of force. Nevertheless, one can see a definite move
-forward as far as the mechatronics is concerned --- a drive which
+proportionally controlled typically by one or two electromyography
+electrodes; the i-Limb has five independently moving fingers plus a
+passively opposable thumb, but only uses two electrodes and, as far as
+one can understand, offers no fine control over single fingers or over
+the required amount of force. Nevertheless, one can see a definite
+move forward as far as the mechatronics is concerned --- a drive which
 mainly comes from miniaturised electronics and humanoid robotics;
 examples of this are, e.g., the DLR prosthetic hand (\cite{Hua2006}
 --- see Figure \ref{fig:DLRHandII}) and the the CyberHand
@@ -42,36 +42,35 @@ correct grasping type; this involves the activation of some joints
 only, and in particular positions. Secondly, the amount of force
 involved in the grasp must be controlled, so that it is possible to
 grab, e.g., both a hammer without letting it slip and an egg without
-breaking it.
+breaking it. Thirdly, feedback to the patient is paramount.
 
-To this end, two types of interfaces between the patient and the
-prosthesis have been developed or are being studied: \emph{invasive}
-and \emph{non-invasive}. The former gather control signals directly
-from the user's nervous system, either via brain implants or surgical
-use of electrodes. Quite obviously, invasive interfaces are supposed
-to deliver a high signal quality, since the signals can be gathered
-exactly in the right spots; but they involve surgery and all related
-sterility (and psychological) issues. On the other hand, non-invasive
-interfaces are easier to handle and maintain, but require a much
-better signal conditioning, since they usually work with surface
-(skin) signals or vision and gaze tracking.
+As far as the feed-forward path is concerned, that is, sending
+commands to the prosthesis, two types of interfaces between the
+patient and the prosthesis have been developed or are being studied:
+\emph{invasive} and \emph{non-invasive}. The former gather control
+signals directly from the user's nervous system, either via brain
+implants or surgical use of electrodes. Quite obviously, invasive
+interfaces are supposed to deliver a high signal quality, since the
+signals can be gathered exactly in the right spots; but they involve
+surgery and all related sterility (and psychological) issues. On the
+other hand, non-invasive interfaces are easier to handle and maintain,
+but require a much better signal conditioning, since they usually work
+with surface (skin) signals or vision and gaze tracking.
 
 In the context of non-invasive interfaces for controlling mechanical
 hands, a concrete possibility arises from \emph{forearm surface
-electromyography} (EMG), a technique by which muscle
-activation potentials are gathered by electrodes placed on the
-patient's forearm skin; these potentials can be used to track which
-muscles the patient is willing to activate, and with what force.
-Surface EMG is therefore, in principle, a cheap and easy way of
-detecting what the patient wants the prosthesis to do. It comes at no
-surprise that EMG is the most used way of controlling commercially
-available prostheses.
+electromyography} (EMG), a technique by which muscle activation
+potentials are gathered by electrodes placed on the patient's forearm
+skin; these potentials can be used to track which muscles the patient
+is willing to activate, and with what force. Surface EMG is therefore,
+in principle, a cheap and easy way of detecting what the patient wants
+the prosthesis to do.
 
-Using the EMG to control an AHP requires adaptivity, accuracy and
-speed: each single patient must be able to control the prosthesis
-accurately in real time. These characteristics belong to \emph{machine
-learning}, which has in fact already been applied to EMG in the
-classification of isotonic hand postures of healthy subjects
+Using the EMG to feed-forward control an AHP requires adaptivity,
+accuracy and speed: each single patient must be able to control the
+prosthesis accurately in real time. These characteristics belong to
+\emph{machine learning}, which has in fact already been applied to EMG
+in the classification of isotonic hand postures of healthy subjects
 \cite{ekvall,smagt}; but so far, no indication about the amount of
 force involved in the grasping act is detected.
 
@@ -100,12 +99,12 @@ control it in impedence, to the point of grasping an egg without
 breaking it, and then to actually break it, when the subject would
 tighten the grip.
 
-All in all, the results in this paper lay the basis for the control of
-the next generation AHPs. The last big step is to check whether an
-amputee's forearm still contains enough muscular potential activity to
-obtain the same results. This is the main subject of future research,
-along with sensorial feedback, to better close the sensorimotor loop
-between the patient and the prosthesis.
+All in all, the results in this paper lay the basis for the
+feed-forward control of the next generation AHPs. The last big step is
+to check whether an amputee's forearm still contains enough muscular
+potential activity to obtain the same results. This is the main
+subject of future research, along with feedback, to better close the
+sensorimotor loop between the patient and the prosthesis.
 
 The paper is structured as follows: after a brief review of relevant
 literature, we describe in detail the experiment and the methods used

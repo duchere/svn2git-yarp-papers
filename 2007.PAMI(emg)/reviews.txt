@@ -1,6 +1,9 @@
 ------------------------------------------------------------
-reviewer A
+First review
 ------------------------------------------------------------
+
+reviewer A
+----------
 
 Surface EMG in Advanced Hand Prosthetics 
 Claudio Castellini, Patrick van der Smagt 
@@ -61,9 +64,8 @@ over a session. The authors attribute the occurring changes to muscle fatigue. H
 signal will also change magnitude as a result of active use/non-use over a session. Hence, it is not 
 clear why the authors explain the changes in magnitude by fatigue only. 
 
-------------------------------------------------------------
 reviewer B
-------------------------------------------------------------
+----------
 
 The authors report the results of testing on a number of different algorithms used to classify 
 hand postures based on EMG signals from the forearm. As a description of an applied study, 
@@ -91,3 +93,43 @@ use is a prosthetic device that is piloted from EMG signals of an intact hand? W
 the real hand? Or why not use a glove and force sensors to have the robot hand follow the 
 human hand? This issue is dealt with slightly in the final paragraphs, but should be brought 
 up in the Introduction. 
+
+------------------------------------------------------------
+Second review
+------------------------------------------------------------
+
+I am happy to see the authors have improved their paper and have 
+addressed many issues raised by the previous version. However, my 
+major concern remains. In the abstract the authors start out with a 
+promising sentence: "One of the major problems when dealing with 
+highly dexterous, active hand prosthesis is their control by the 
+patient wearing it."  Unfortunately, it quickly takes the wrong turn 
+where EMG-control is presented as a solution for the problem 
+identified. The last paragraph of the abstract draws future 
+perspectives based on nothing else but wishful thinking.
+
+Improvements in the feed-forward path alone do not solve the control 
+problem in hand prostheses. As EMG-control, no matter how 
+sophisticated, by definition cannot provide feedback [and because all 
+known ways of closing the loop non-invasively are all too slow] this 
+paper is just another example of doing the wrong thing better and 
+better.
+
+I appreciate the issue of sensorial feedback is not within the scope 
+of the work presented. However, the authors present their work within 
+the framework of improving prosthetic control. Of course, the 
+feed-forward path is an important and integral part of the control 
+loop as is the feedback path [which is more than just sensorial 
+feedback]. Therefore both should be addressed.
+
+Moreover, the authors introduced a new bold statement in the 
+introduction section, where they write: "The best commercially 
+available AHPs are probably Otto Bock's SensorHand [1] and Touch 
+Bionics's i-Limb [2]."  To my knowledge there has never been a 
+comparative study on hand prostheses, let alone that one can define 
+such a thing as the best hand prosthesis. What is best, is strongly 
+related to the user.
+
+In the same Introduction the authors write: "It comes at no surprise 
+that EMG is the most used way of controlling commercially available 
+prostheses." Such a statement needs a reference, at least.
