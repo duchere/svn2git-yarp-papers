@@ -5,18 +5,16 @@
 %
 % Accepted for publication, March 2008
 % Further revision required October, 2008
-%
+% At last, accepted October, 2008
 
-% use option draft, final, or referee
-\documentclass[twocolumn,referee]{svjour2}
+\documentclass[twocolumn,fleqn,natbib]{svjour2}
 
-\usepackage{times}
-\usepackage{epsfig}
+\smartqed
+
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage[psamsfonts]{amssymb}
 \usepackage{url}
-\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
 
 \def\RR{\mathbb{R}}
 \def\NN{\mathbb{N}}
@@ -24,13 +22,18 @@
 \def\yy{\mathbf{y}}
 \def\ww{\mathbf{w}}
 
+\journalname{Biological Cybernetics}
+
 \begin{document}
 
-\title{Surface EMG in Advanced Hand Prosthetics}
+\title{Surface EMG in Advanced Hand Prosthetics
+\thanks{This work is partially supported by the project NEURObotics,
+FP6-IST-001917.}
+}
 
-\author{Claudio~Castellini \and Patrick~van~der~Smagt}
+\author{Claudio Castellini \and Patrick van der Smagt}
 \institute{
-  Claudio~Castellini \at LIRA-Lab, University of Genova,
+  Claudio Castellini \at LIRA-Lab, University of Genova,
   viale F. Causa, 13, 16145 Genova, Italy,
   \email{claudio.castellini@unige.it}
   \and
@@ -38,6 +41,8 @@
   German Aerospace Center/DLR, Oberpfaffenhofen, Germany,
    \email{smagt@dlr.de}
 }
+
+\date{Received: date / Revised: date}
 
 \maketitle
 
@@ -98,24 +103,14 @@ regression problem, in which OU is used.
 \label{sec:discussion}
 \input{40.disc}
 
-\section*{Acknowledgments}
-
-This work is partially supported by the project NEURObotics,
-FP6-IST-001917. We thank Giorgio Metta and Giulio Sandini of the
-Italian Institute of Technology for their support.
+\begin{acknowledgements}
+  We thank Giorgio Metta and Giulio Sandini of the
+  Italian Institute of Technology for their support.
+\end{acknowledgements}
 
 {\small
-\bibliographystyle{IEEEtran}
-%\bibliographystyle{spbasic}
+\bibliographystyle{spbasic}
 \bibliography{paper}
 }
-
-%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{claudio}}{Claudio Castellini}
-%% biography
-%% \end{IEEEbiography}
-
-%% \begin{IEEEbiography}{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{patrick}}{Patrick van der Smagt}
-%% biography
-%% \end{IEEEbiography}
 
 \end{document}
