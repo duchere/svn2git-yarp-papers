@@ -111,15 +111,34 @@ following optimization problem
 \end{align}
 It is easy to show that the optimal solution is %the form
 \begin{equation}
-  \ww = \beta \ww' + \sum_{i=1}^l \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~,
+  \ww = \beta \ww' + \sum_{i=1}^l \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~, \label{eq:sol}
 \end{equation}
 \noindent hence the final solution is given by the sum of the pre-trained model
 scaled by the parameter $\beta$, and a new model given by the new data
 points.  Note that when $\beta$ is $0$ we recover the original LS-SVM
 formulation, that is without any adaptation to the previous data.  As
 already mentioned, LS-SVM makes it possible to write the leave-one-out
-error in a closed form. It turns out that it is possible to do the
-same with the modified formulation (\ref{eq:opt_prob}). Hence it is
+error in a closed form. We show in the following that it is possible to do the
+same with the modified formulation (\ref{eq:opt_prob}).
+
+We indicate with $\boldsymbol{V}_i$ the $i$'th element of the vector
+$\boldsymbol{V}$ and with $\boldsymbol{M}_{ij}$ the element of the matrix
+$\boldsymbol{M}$ in $i$'th row and $j$'th column.
+With easy calculations it is easy to show \ref{eq:opt_prob} can be rewritten as
+\begin{align}
+\boldsymbol{\alpha}&=\boldsymbol{R} (\boldsymbol{Y}-\beta \hat{\boldsymbol{Y}}) \\
+&= \boldsymbol{\alpha}' - \beta \boldsymbol{\alpha}''~,
+\end{align}
+\noindent where $\boldsymbol{R}=(\boldsymbol{K}+1/C)^{-1}$ and $\boldsymbol{K}$
+is the kernel matrix, i.e. $\boldsymbol{K}_{ij}=K(\xx_i,\xx_j)$.
+From this equation, and using the same steps in \cite{Cawley06}, we have that
+\begin{align}
+y_i - y^{-i} = \frac{\boldsymbol{\alpha}'_i}{\boldsymbol{R}_{ii}} - \beta \frac{\boldsymbol{\alpha}''_i}{R_{ii}}~.
+\end{align}
+\noindent where $y^{-i}$ is the predition on the $i$'th sample when it is
+removed from the training set. Note that in the above formula $\beta$ is the only
+parameter, while the other quantities are independent from $\beta$.
+Hence it is
 possible to set the parameter $\beta$ optimally, so to minimize the
 leave-one-out error,
 %. In particular
