@@ -58,9 +58,9 @@ prosthetic hand starts to be used by subject $N+1$, the system begins
 to acquire new data. Given the differences among the subjects' arms
 and as well in the placement of the electrodes, these new data will
 belong to a new probability distribution, different from the $N$
-previously modelled and stored. Still, as all subjects perform the
+previously modeled and stored. Still, as all subjects perform the
 same grasp types, it is reasonable to expect that the new distribution
-will be \emph{close} to at least one of those already modelled.
+will be \emph{close} to at least one of those already modeled.
 %We assume that the system has a number of previous models trained off-line on a
 %number of different persons. The system then starts acquiring new data, coming
 %from the person wearing the prosthetic hand. Given the differences in the
@@ -82,7 +82,7 @@ The basic idea is to slightly change the regularization term of the
 SVM, so that the solution will be close to the one of the pre-trained
 model.  The optimization problem is \cite{YangYH07} %the following
 \begin{align}
-  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^l \xi^2 \nonumber \\
+  \min_{\ww,b} \frac{1}{2} \|\ww- \ww'\|^2 + C \sum_{i=1}^l \xi \nonumber \\
   \mbox{subject to} \;\;
   \xi_i \geq 0,\;\; y_i \ww \cdot \phi(\xx_i) + b \geq 1-\xi_i~,
   \label{eq:opt_prob_orig}
@@ -113,7 +113,7 @@ It is easy to show that the optimal solution is %the form
 \begin{equation}
   \ww = \beta \ww' + \sum_{i=1}^l \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~, \label{eq:sol}
 \end{equation}
-\noindent where $\alpha_i \in \RR$ are Lagrange multipliers; hence, the final solution is given by the sum of the pre-trained model
+\noindent hence, the final solution is given by the sum of the pre-trained model
 scaled by the parameter $\beta$, and a new model given by the new data
 points.  Note that when $\beta$ is $0$ we recover the original LS-SVM
 formulation, that is without any adaptation to the previous data.  As
@@ -121,22 +121,25 @@ already mentioned, LS-SVM makes it possible to write the leave-one-out
 error in a closed form. We show in the following that it is possible to do the
 same with the modified formulation (\ref{eq:opt_prob}).
 
-We indicate with $\boldsymbol{V}_i$ the $i$'th element of the vector
-$\boldsymbol{V}$ and with $\boldsymbol{M}_{ij}$ the element of the matrix
-$\boldsymbol{M}$ in $i$'th row and $j$'th column.
-With easy calculations it is easy to show \ref{eq:opt_prob} can be rewritten as
+We indicate with $V_i$ the $i$'th element of the vector
+$\boldsymbol{V}$ and with $M_{ij}$ the element of the matrix
+$\boldsymbol{M}$ in $i$'th row and $j$'th column. We also denote with
+$\boldsymbol{Y}$ the vector of the $y_i, i=1,\cdots,l$, with
+$\hat{\boldsymbol{Y}}$ the vector of the predictions of the previous model
+$\ww'$ on the $l$ training samples and with $\boldsymbol{K}$ the kernel matrix,
+i.e. $K_{ij}=K(\xx_i,\xx_j)$.
+It is possible to show that the vector $\boldsymbol{\alpha}$,
+composed by $\alpha_i, i=1,\cdots,l$, in (\ref{eq:sol}) can be calculated as
 \begin{align}
-\boldsymbol{\alpha}&=\boldsymbol{R} (\boldsymbol{Y}-\beta \hat{\boldsymbol{Y}}) \\
-&= \boldsymbol{\alpha}' - \beta \boldsymbol{\alpha}''~,
+\boldsymbol{\alpha}&=\boldsymbol{R} (\boldsymbol{Y}-\beta \hat{\boldsymbol{Y}}) = \boldsymbol{\alpha}' - \beta \boldsymbol{\alpha}''~,
 \end{align}
-\noindent where $\boldsymbol{R}=(\boldsymbol{K}+1/C)^{-1}$ and $\boldsymbol{K}$
-is the kernel matrix, i.e. $\boldsymbol{K}_{ij}=K(\xx_i,\xx_j)$.
+\noindent where $\boldsymbol{R}=(\boldsymbol{K}+1/C)^{-1}$.
 From this equation, and using the same steps in \cite{Cawley06}, we have that
 \begin{align}
-y_i - y^{-i} = \frac{\boldsymbol{\alpha}'_i}{\boldsymbol{R}_{ii}} - \beta \frac{\boldsymbol{\alpha}''_i}{R_{ii}}~.
+y_i - y^{-i} = \frac{\alpha'_i}{R_{ii}} - \beta \frac{\alpha''_i}{R_{ii}}~.
 \end{align}
 \noindent where $y^{-i}$ is the predition on the $i$'th sample when it is
-removed from the training set. Note that in the above formula $\beta$ is the only
+removed from the training set. In the above formula $\beta$ is the only
 parameter, while the other quantities are independent from $\beta$.
 Hence it is
 possible to set the parameter $\beta$ optimally, so to minimize the
@@ -148,6 +151,10 @@ leave-one-out error,
 %value for the parameter $\beta$ and 
 while at the same time we can choose the best pre-trained model for
 adaptation.
+Note that the complexity of the algorithm is dominated by the calculation
+of the matrix $\boldsymbol{R}$, that is calculated in any case for the training.
+So the computational cost of the leave-one-out error is negligible compared to
+the training one.
 
 As a last remark, we underline that the pre-trained model $\ww'$ can be
 obtained by any training algorithm, as far as it can be expressed as a
