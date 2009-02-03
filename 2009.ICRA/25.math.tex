@@ -15,8 +15,8 @@ the corresponding
 $y$ for any future sample $\xx$.
 %drawn from the same distribution.
 This is a general framework that includes both regression and
-classification.  The problem can be solved in various
-ways. Here we will use kernel methods and in particular Least-Square
+classification. The problem can be solved in various
+ways. Here we will use kernel methods and in particular Least-Squares
 Support Vector Machines (LS-SVM) \cite{Cristianini00}. In LS-SVM the
 function $f(\xx)$ is built as a linear model $\ww \cdot \phi(\xx) +
 b$, where $\phi(\cdot)$ is a non-linear function mapping input samples
@@ -117,8 +117,7 @@ As far as the leave-one-out error is concerned,
 we have that
 
 \begin{align}
-   \boldsymbol{\alpha}&=\boldsymbol{R} (\boldsymbol{Y}-\beta \hat{\boldsymbol{Y}}) =
-     \boldsymbol{\alpha}' - \beta \boldsymbol{\alpha}''
+   \boldsymbol{\alpha}&=\boldsymbol{R} (\boldsymbol{Y}-\beta \hat{\boldsymbol{Y}})
 \end{align}
 
 \noindent where
@@ -127,25 +126,20 @@ $\boldsymbol{Y}$ is the vector of the $y_i$,
 $\hat{\boldsymbol{Y}}$ is the vector of the predictions of the previous model, and
 $\boldsymbol{R}=(\boldsymbol{K}+1/C)^{-1}$ with
 $\boldsymbol{K}$ denoting the kernel matrix, i.e., $K_{ij}=K(\xx_i,\xx_j)$.
-From this equation, and using the same steps in \cite{Cawley06}, we have that the
-leave-one-out error for $y_i$ in our setting is
+Let $\boldsymbol{\alpha}'=\boldsymbol{R}\boldsymbol{Y}$ and
+$\boldsymbol{\alpha}''=\boldsymbol{R}\hat{\boldsymbol{Y}}$; from the equation above,
+and using the same steps in \cite{Cawley06}, we have that the
+prediction on sample $i$, when removed from the training set, is
 
 \begin{align}
-	\frac{\alpha'_i}{R_{ii}} - \beta \frac{\alpha''_i}{R_{ii}}~.
-%	y_i - y^{-i} = \frac{\alpha'_i}{R_{ii}} - \beta \frac{\alpha''_i}{R_{ii}}.
+	y_i - \frac{\alpha'_i}{R_{ii}} + \beta \frac{\alpha''_i}{R_{ii}}
+%	y_i - y^{-i} = \frac{\alpha'_i}{R_{ii}} - \beta \frac{\alpha''_i}{R_{ii}}
 \end{align}
 
-%\noindent where $ERR_{LOO}(y_i)$ is the leave-one-out error for $y_i$, that, the
-%error in predicting $y_i$ after having removed it from the training set.
-%\noindent where $y^{-i}$ is the predition on the $i$'th sample when it is
-%removed from the training set. In the above formula $\beta$ is the only
-Notice that, in the above formula, $\beta$ is the only parameter; hence,
+\noindent from which the leave-one-out-error is easily evaluated, according
+to the required measure of accuracy for the problem at hand. Notice that,
+in the above formula, $\beta$ is the only parameter; hence,
 it is possible to set it optimally in order to minimize the leave-one-out error
-%. In particular
-%for regression there is a closed formula for the optimal $\beta$. We leave the
-%mathematical details for a longer version of this paper.
-%Hence with a negligible additional computational cost we can choose the optimal
-%value for the parameter $\beta$ and 
 while at the same time choosing the best pre-trained model for adaptation.
 
 Notice also that the complexity of the algorithm is dominated by the evaluation
