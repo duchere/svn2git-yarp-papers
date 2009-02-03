@@ -113,7 +113,7 @@ It is easy to show that the optimal solution is %the form
 \begin{equation}
   \ww = \beta \ww' + \sum_{i=1}^l \alpha_i \phi(\xx_i), \; \alpha_i \in \RR~, \label{eq:sol}
 \end{equation}
-\noindent hence the final solution is given by the sum of the pre-trained model
+\noindent where $\alpha_i \in \RR$ are Lagrange multipliers; hence, the final solution is given by the sum of the pre-trained model
 scaled by the parameter $\beta$, and a new model given by the new data
 points.  Note that when $\beta$ is $0$ we recover the original LS-SVM
 formulation, that is without any adaptation to the previous data.  As

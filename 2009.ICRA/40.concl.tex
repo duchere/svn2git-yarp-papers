@@ -5,7 +5,6 @@ patient to learn to use a dexterous hand prosthesis
 %better way, 
 by exploiting the common features found in models trained upon other
 patients?
-
 The answer, at least as far as healthy subjects are concerned, is yes:
 we have hereby presented a novel method for model adaptation in
 machine learning, using Least-Squares SVMs; the idea is to build a SVM
@@ -32,6 +31,8 @@ is that, almost uniformly, models obtained by adaptation from a
 pre-trained model obtain a \emph{better} performance than those
 trained from scratch. This result is somehow surprising, although very
 encouraging.
+
+Notice that we present no results on a real prosthetic/robotic hand so far --- this is subject of immediate-future research. We successfully applied a similar system to the DLR-II mechanical hand (see \cite{2008.ICRA,2008.BioCyb}), and since the accuracy of the system presented here is analogous to that of the one therein, there is no reason why the results presented here should not apply as well in the practical case. One interesting possibility is that of using this system to speed up the adaptation of an already existing dexterous hand prostheses, such as, e.g., Touch Bionics's i-LIMB \cite{ilimb} prosthetic hand, as already mentioned in the introduction.
 
 Lastly, let us consider the fact that, most likely, the overall
 performance of the method will increase when more subjects are
