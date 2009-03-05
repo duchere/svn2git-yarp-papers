@@ -1,122 +1,69 @@
-The rehabilitation medicine community has, in the past few years,
-witnessed a wonderful transfer of knowledge from the community of
-robotics. Roboticians are, more and more, working along with doctors
-and physiatrists in order to provide mechanical / electronic artifacts
-to patients who need rehabilitation, with the aim of improving their
-quality of life after an accident has occurred.
-
-A paradigmatic case is that of active hand prosthetics (AHP), the
-field which has probably benefited most from this interaction. At
-least two EU funded projects, CyberHand \cite{cyberhand} and SmartHand
-\cite{smarthand} are aimed at building dexterous AHPs which can fully
-replace the human hand, and at the same time control it via innovative
-brain-machine interfaces, both invasive and non-invasive. A third
-project, NEURObotics \cite{neurobotics} has just ended, one of whose
-aims was exactly that of realising a new generation of prostheses
-(``beyond prosthetics'').
-
-Moreover, the introduction on the market of Touch Bionics's i-LIMB
-hand prosthesis \cite{ilimb} has represented a leap forward, as far as
-dexterity of AHPs is concerned. Before the i-LIMB, the
-state-of-the-art was Otto Bock's SensorHand \cite{sensorhand}, which
-has one degree-of-freedom (DOF) and acts like an open-close claw. All
-in all, it seems that dexterity of hand prostheses is increasing,
-although it is still far from state-of-the-art mechanical
-non-prosthetic hands, such as, e.g., the DLR II hand \cite{Hua2006}.
-
-Still, control is lagging behind. The most widely used way of
-controlling active hand prostheses is forearm surface electromyography
+One of the most widely used ways of feed-forward controlling Active Hand
+Prostheses (AHPs) is forearm surface electromyography
 (EMG), a technique by which muscle activation potentials are gathered
 from the patient's stump skin, and then used to drive the
-prosthesis. The technique (see \cite{deluca} for more details) is
+prosthesis\footnote{Sensorial feedback is even less developed at the
+time of writing; thermic and vibrotactile feedback has been experimented
+with little success \cite{zecca}, so that visual feedback is so far the
+only effective way to close the control loop.}. EMG \cite{deluca} is
 relatively cheap, non-invasive and easy to use, and it has been around
-for some 40 years, but it still has at least three problems: $(a)$
-there is no force control, $(b)$ position control is highly innatural,
-and $(c)$ it is limited as far as hand postures are concerned.
+for some 40 years. Still, as it stands today, it is used in a way that
+is highly innatural for the patient, allows for a very limited number
+of grasp types, and enforces no control of the \emph{force} involved
+in a grasp. 
 
-Issue $(a)$ is paramount for a correct control of grasping / gripping
---- picture the necessity of holding an egg without breaking it, and
-holding a hammer without letting it slip; clearly a fine control of
-the involved force is required to enable the patient perform the two
-operations with the same setup. Issue $(b)$ means that usually large
-muscles, such as the wrist flexor and extensor, are used to control
-the prosthesis --- it is the case of opening / closing Otto Bock's
-hand; the patient must therefore learn to associate, e.g., wrist
-flexing with hand opening, and this implies long training times. At
-the same time, and this leads to issue $(c)$, there is scarce chance
-that such a rough control schema be able to control more than a few
-standard grasping postures, as opposed to the potential flexibility of
-innovative AHPs such as the i-LIMB.
+Force control, or at least a way to feed-forward modulate the force
+involved in a grasp, is paramount for daily-life activities of amputees,
+for example to hold an egg without breaking it and/or to hold a hammer
+without letting it slip. Moreover, due to the limitations in the signal
+processing techniques, so far large muscles, such as the wrist flexor
+and extensor, are used to drive the prosthesis; in the typical case the
+patient must learn to associate wrist flexing with hand opening, and this
+implies long training times. Lastly, such a rough schema cannot control
+more than a few standard grasping postures. This, notwithstanding recent
+advances in hand prostheses mechatronics, such as Touch Bionics's i-LIMB
+\cite{ilimb}, a real leap forward as far as dexterity is concerned
+(even more dexterous non-prosthetic mechanical hands have already appeared,
+such as the DLR II hand \cite{Hua2006}).
 
-In this paper we hint at and propose a new framework for controlling
-AHPs, that we call \emph{adaptive hand prosthetics}. We envision the
-use of machine learning techniques to revitalise forearm surface EMG
-as a control device, which implies that readily available, commercial
-setups and knowledge can be reused. We propose that an AHP should
-adapt to the patient, in addition to the patient adapting to the
-prosthesis, entering a virtuous loop of \emph{reciprocal
-learning}. This way, we claim, $(a)$ shorter training times and $(b)$
-finer control by the patient can be achieved, improving the
-qualitiy-of-life of amputees.
+In this paper we show that plain, old surface EMG can be used to reach
+a much better form of feed-forward control of mechanical hands: similar
+grasp postures can be discerned easily, and the required force can be understood
+almost perfectly. The interesting point is that no specialised hardware
+is needed (five commercially available EMG electrodes suffice) and no
+careful positioning of the electrodes on the patients' stumps is required.
+The innovative bit is represented by the use of a machine learning technique,
+which means that the situation can be potentially radically improved without
+the need of surgery and complex electronics.
 
-Let us go more in detail. At least since 2000 roboticians have
-realised that machine learning techniques such as, e.g., Support
-Vector Machines (SVM) can be employed to classify the EMG signals
-gathered from healthy subjects, after being trained upon the subject's
-EMG data \cite{smagt,dunlop}; in particular it was shown that up to
-$6$ hand isotonic / isometric hand postures could be effectively
-classified using such techniques. Then, in
-\cite{2008.ICRA,2008.BioCyb}, it was as well shown that a healthy
-subject can, using the same setup, command \emph{in real-time} a
-grasping posture, not necessarily isotonic / isometric, \emph{along
-with the involved force}.
+More in detail, three hand amputees were required to imagine performing
+different grasps with different levels of force with their missing limb;
+the obtained data have then been analysed using a Support Vector Machine (SVM)
+both for classification of the grasp and for regression upon the desired force.
+The machine is able to distinguish the required grasp in real-time with a
+high precision, and to understand the required force with an equally excellent
+performance. SVMs, as well as other machine learning techniques, have already been employed
+on the EMG signal to classify grasp postures and force required by healthy
+subjects (see, e.g., \cite{smagt,dunlop,2008.BioCyb}), but as far as we know
+this is the first time such an analysis is carried out on patients with some
+systematicity, both for grasp and force control.
 
-This possibility is a consequence, really, of the well-known
-relationship between the EMG root-mean square and the force exerted by
-the muscle the EMG electrode is applied to \cite{deluca}; but the
-innovative idea is that of understanding the type of grasp and the
-involved force by using a limited number of electrodes, applied to the
-forearm, in which 19 muscles lie and "talk" at the same time, and some
-of them are buried deep into the forearm, so that muscle cross-talking
-is unavoidable. This is a delicate and hard task, if compared to the
-usual way EMG has been so far employed to drive myoelectric
-prostheses.
+The task seems hard at first sight, since each patient's anatomy and residual
+muscle activity is different; moreover, one would expect people operated
+decades ago not to be able to imagine fine movements and postures of their
+missing limbs. Instead, rather surprisingly, our data analysis reveals that
+similar grasps such as a pinch and a tripodal grip can still be perfectly
+distinguished; that the requried force is delicately modulated and it can be
+estimated well; and that no anatomical / functional inspection of the stump
+is required.
 
-As well, in \cite{2008.GNB}\footnote{the reference is a poster; at the
-time of writing, a fuller report has been prepared and submitted to an
-appropriate journal.}, it was shown that such an approach can be
-applied to any healthy subject, and even in non-controlled conditions,
-that is, while the subjects are allowed to freely move, sit down,
-stand up, pronate and supinate the forearm, etc., as one is expected
-to realistically do in daily-life activities.
-
-In this paper we carry the theoretical analysis to the end. We
-describe the outcome of an experiment in which three hand amputees, of
-very different age, age of amputation and type of amputation, were
-asked to simulate / imagine doing four to five different hand postures
-/ grips with their missing hand, in three different training
-modalities. A force sensor would tell us how much force the patients
-were trying to apply, instant by instant. We therefore derive a set of
-SVM models which are able to understand, in real-time ($25$Hz),
-whether the patient is trying to point his index, strech his hand,
-apply a precision grip, tripodal grip or power grasp; and at the same
-time, how much force the patient is requiring, independently of the
-type of posture / grip. We then move on to describing a realistic
-implementation of the system on a micro-controller, which can be
-embedded in a prosthesis, either commercially available or still at
-the academic, prototypical level.
-
-This paves the way to a level of control for AHPs which is totally
-unknown so far; and its practical implementation is at hand, since
-standard materials (the electrodes, the associated electronics, the
-prosthesis) can be employed, and the models can be miniaturised and
-embedded.
+This result hints at a scenario in which the prosthesis adapts to the patient
+as well as the other way round, entering a positive feedback loop
+of reciprocal learning, leading to shorter training times and a better
+quality of life for the patients.
 
 The paper is structured as follows: Section \ref{sec:m&ms} describes
 the experiment; Section \ref{sec:pre} describes the data
 pre-processing and gives an idea of how the data look like; Section
-\ref{sec:exp} describes the experimental results; Section
-\ref{sec:impl} describes how the approach can be implemented in
-reality; and lastly Sections \ref{sec:disc} and \ref{sec:concl}
-contain a discussion of the results and the possible outcomes of our
-work, and the conclusions.
+\ref{sec:exp} describes the experimental results; lastly, Section
+\ref{sec:disc} contains a discussion of the results and the conclusions.

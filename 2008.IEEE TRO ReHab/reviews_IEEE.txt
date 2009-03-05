@@ -1,0 +1,124 @@
+paper rejected
+
+reviewer 1
+----------
+
+This is a clear short technical paper; the methods are sound and the
+classification results encouraging. However, although this work must be
+done in order to develop hand prosthetics, as pointed out by the
+authors, the paper does not provide much novel technical or scientific
+insights. In particular the methods (SVM) are nothing novel, and the
+application an extension of prior work with healthy subjects. The
+proposed implementation of the miniature controller is only very
+preliminary and sketchy.
+
+It is suggested that the authors either send the results of their
+classification results to another journal, and in the meantime work at
+developing an actual working controller and the hand. Such complete
+work could be then submitted to this journal.  
+
+reviewer 2
+----------
+
+This paper addresses the control of hand prostheses by means of EMG
+signals and the authors apply machine learning approaches such as
+Support Vector Machines to detect grasping patterns intended by hand
+amputees.
+
+In the state of the art of advanced prosthetics powerful signal
+processing algorithms for EMG classification have been investigated to
+provide additional prosthetic actuation commands. Even if interesting
+results have been achieved by several groups extracting motor
+information, extracting users’ voluntary intentions is still difficult
+and hampered by several limitations. Moreover, the decoding system that
+transmits commands to the prosthetic hand requires user training
+because the muscles that generate the signals are typically not
+homologous to those used during natural hand movements. This puts
+forward an undesired cognitive burden on the subject. 
+Therefore the proposed research area is very interesting and it
+contributes to provide a solution to the improvement of patients
+quality of life and to provide shorter training times.
+
+
+Main comments:
+
+1)The paper is well written and the authors show some significant
+results obtained with three subjects. In parallel the authors main
+claim is that (from the Discussion) “EMG signal can be used to drive a
+mechanical hand / prosthetic hand in a radically new way: finer, force
+controlling, more dexterous.” They explain what kind of prosthesis is
+needed to achieve this (high number of DoFs, etc..), nevertheless,
+their technique has not been used to actually drive an artificial
+prosthesis. It is important to understand that the fine and dexterous
+control of a hand prosthesis is provided by both the type of control
+and the type of prosthesis (mechanism and actuation). When the authors
+will experiment both control and mechanical hand as an integrated
+system and provide significant results of the whole integrated system
+they will be able to state the above claim. For the moment they should
+change their claims in the whole paper.
+
+2)In the Introduction paragraph 6 line 3 authors state: “We envision
+the use of machine learning techniques to revitalize forearm surface
+EMG as a control device, which implies that readily available,
+commercial setups and knowledge can be reused.” This makes confusion
+with the fact that the system proposed needs an artificial hand not
+commercially available and should be clarified. 
+
+3)The state of the art should be more comprehensive and the authors
+should relate their work more to the published works and to the most
+recent developments. Advancements in the state of the art of dexterous
+prosthetic hands were made in the past years see for example: 
+
+M.C. Carrozza, et al Biological Cybernetics, 95, 6, 2006, pp. 629-644;
+
+M. Controzzi, et al "Mechatronic Design of a Transradial Cybernetic
+Hand," IEEE/RSJ 2008 Intl. Conf. on Intelligent Robots and Systems,
+IROS, Nice, France, September 22-26, 2008;  
+
+C. Cipriani, et al "Embedded Hardware Architecture Based on
+Microcontrollers for the Action and Perception of a Transradial
+Prosthesis," IEEE RAS/EMBS 2008 Intl. Conf. on Biomedical Robotics and
+Biomechatronics, BIOROB, Scottsdale, AZ, Oct. 19-22 2008. 
+
+As regards using EMG signals as a simple and effective approach to
+obtaining commands for controlling active prosthetic hands: 
+
+M. Nader,  Clin Orth Rela Res,vol. 258, pp. 9–17, 1990. For a review
+see: M. Zecca, et al Crit. Rev. Biomed. Eng., vol. 30, no. 04–06, pp.
+459–485, 2002. 
+
+Also as regards several groups extracting motor information, see: 
+
+Y. Huang, et al  IEEE Trans. Biomed. Eng., vol. 52, no.11, pp.
+1801–1811, Nov. 2005; 
+
+A. Ajiboye and R. W. Weir, IEEE Trans Neural Syst Rehabil Eng, vol 13,
+issue 3, pp. 280–291, 2005; 
+
+F. Sebelius, et al Medical Engineering & Physics, vol. 27, issue 5, pp.
+403-413, 2005.
+
+P. Shenoy, K. J. Miller, B. Crawford, R. P. N. Rao, “Online
+Electromyographic Control of a Robotic Prosthesis,” IEEE Trans Biomed
+Eng, 2008; 
+
+
+Minor comments are the following:
+1)the cited papers should be published – see reference [11] for example
+2)On p.6 authors state “It is unclear why modalities produce better or
+worse results according to the subjects, but see Section VI for a
+couple of hints on why this phenomenon appears.”  This should be put in
+a better form (as well as in Section VI) and state clearly if the
+authors know or not the reasons that underlie this phenomena.
+
+Some very minor comments for the English form 
+-Authors use often term ‘enjoy’ to describe features of components,
+e.g. Section B line 11 “electrodes enjoy an excellent …” This term
+needs to be changed, simple form like “electrodes have an excellent …”
+-In the Introduction use capital letters first time that Active Hand
+Prosthetics is used and be sure you differentiate this from Adaptive
+Hand Prosthetics for which you use AHP acronym
+-On p 7 Section V line 10: use ‘scheme’ or ‘schematic’ instead of
+schema
+-On p 9 3rd paragraph line 9: cut ‘exquisitely’
+-On p 9 4th  paragraph line 4: chance ‘sensorial’ in ‘sensory’

@@ -1,15 +1,15 @@
 The results hereby presented clearly show that the well-known surface
 EMG signal can be used to drive a mechanical hand / prosthetic hand in
-a radically new way: finer, force-controlling, more dexterous. Our
+a much batter way than before: finer, force-controlling, more dexterous. Our
 results indicate that a machine learning approach such as Support
 Vector Machines will effectively detect well-separated grasping
 patterns in real time, as required by an amputee; at the same time,
 the system will be able to detect how much force is involved in the
 grasp. If the prosthesis has a sufficient number of DOFs, that is, it
 can be position-controlled to mimic the required grasps, and if it can
-be force-controlled, then our system will be able to control it in a
-totally natural way, that is, according to what the patient wants it
-to do.
+be force-controlled, then a system such as the one described in this paper
+will be able to feed-forward control it in a natural way, that is,
+according to what the patient wants it to do.
 
 The positioning of the electrodes, at least in the case of the three
 patients who joined the experiment, is uniform and not related to any
@@ -25,37 +25,23 @@ Section \ref{sec:exp}) indicates that the problem is rather easy, if
 considered form the pure point of view of machine learning. This lets
 us hope that, in case SVMs proved too hard to implement in practice,
 even a less sophisticated method such as, e.g., nearest neighbours,
-could obtain acceptable performance values. Anyway, our realistic
-implementation analysis shows that there should be no problem in
-miniaturising the system, and embedding it in a prosthesis, even a
-commercially available one.
+could obtain acceptable performance values.
 
-As far as training is concerned, it is worth noting that soon on-line
-learning could be needed, especially since patients are not supposed
-to remain in controlled conditions while wearing the prosthesis. In
-previous or submitted work, we have already shown that the framework
-is theoretically perfectly able to work in non-controlled conditions
-(the so-called Daily-Life Activity analysis). As well, it has been
-shown that a sparsification strategy such as \emph{uniformisation} can
-enforce on-line learning of new situations at the price of degrading
-the performance reasonably. It remains to adapt the proposed PC /
-microcontroller architecture to such a continual retraining schema.
-
-Lastly, a few notes from a rather medical point of view. In this work
-we are making \emph{no statement at all} about the physiological
+Lastly, in this work we are making no statement about the physiological
 resemblance of the patterns we deal with, with respect to the muscular
 patterns elicited for the same grasps in a healthy arm. Actually, we
 have not investigated what the patient's stump muscles do when the
 patient is asked to imagine, e.g., a pinch grip --- this is indeed a
 very interesting issue, but is not the focus of this work. Since each
 and every amputation is different from one another, and therefore each
-stump has different muscular conditions, what we can hope for is that
+stump has different muscular conditions, we can hope that
 the system works fine for a reasonable range of amputees and
 stumps. Although we have only $3$ patients here, their diversity as
 far as age, age of operation and type of amputation lets us hope for
 the best. In the end, as long as for each patient, each grasp type or
-posture corresponds to a different pattern, then we can detect it and
-send the appropriate command to the prosthesis. The patient will then
+posture corresponds to a different pattern, then a system such as ours
+can detect it and send the appropriate command to the prosthesis.
+The patient will then
 be able to elicit from the prosthesis, say, a $5$N pinch grip, or a
 $30$N power grasp, just by ``desiring'' so. This is what we mean by a
 better quality of life for amputees and a shorter training time. The
