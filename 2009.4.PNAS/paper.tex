@@ -18,13 +18,15 @@
 
 \begin{document}
 
-\title{On the use of motor invariants for speech recognition}
+\title{On the use of motor invariants in speech classification}
 
 \author{
 Claudio Castellini\affil{1}{LIRA-Lab, University of Genova, Italy},
-Giorgio Metta\affil{2}{Italian Institute of Technology, Genova, Italy},
-Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy}, \and
-Michele Tavella\affil{4}{EPFL, Lausanne, Switzerland}
+Giorgio Metta\affil{2}{Italian Institute of Technology, Genova, Italy} \and
+Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy}
+%Giorgio Metta\affil{2}{Italian Institute of Technology, Genova, Italy},
+%Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy} \and
+%Michele Tavella\affil{4}{EPFL, Lausanne, Switzerland}
 }
 
 \contributor{Submitted to Proceedings of the National Academy of Sciences
@@ -35,25 +37,39 @@ of the United States of America}
 \begin{article}
 
 \begin{abstract}
-Speech recognition is the task of enabling a machine to understand speech and write down what a human speaker is saying. Currently, the task is carried out under a number of simplifying assumptions, namely uniqueness of the speaker, uniformity of speech speed and pitch, and knowledge of an underlying vocabulary. We hereby propose the detection and use of motor invariants, that is recurring kinematic patterns of the phonetic apparatus during speech, to lift these assumptions. We demonstrate that the speech recognition capability of a standard machine learning method can be improved both qualitatively and quantitatively by the use of such motor invariants. This method paves the way to multi-speaker, pitch-, speed- and vocabulary-independent speech recognition.
+
+  The use of phonetic motor invariants (recurring kinematic patterns)
+  to improve speech classification is here investigated. The
+  idea is inspired by the Motor Theory of Speech perception, as well as
+  from recent findings about the interplay between speech
+  perceptual and motor areas in the brain. Using a multi-subject database
+  of synchronised speech and lips/tongue trajectories, we first detect
+  motor invariants associated with bilabial and dental consonants.
+  We then show that automated classification of these
+  consonants is radically improved by adding the motor invariants to
+  standard audio features. Lastly, we show that the very same invariants can be
+  automatically reconstructed from the audio features to such a degree of
+  precision that they still uniformly improve the classification; the
+  reconstruction, too, is based upon the human data.
+  This result encourages the systematic use of motor invariants to build
+  better speech recognition systems. Moreover, some of the issues found in
+  the analysis seem to shed light on the mechanisms of human speech perception
+  --- mainly, to support the claims of the motor theory of speech.
+  
 \end{abstract}
 
-\keywords{machine learning | speech recognition}
+\keywords{motor theory of speech | machine learning | speech recognition}
 
-\section{Introduction}
-
-\dropcap{I}ntroduction ....
-
-\section{Conclusions}
-
-Conclusions ....
-
-%\begin{materials}
-%materials and methods
-%\end{materials}
+\input{10.intro}
+\input{20.dataset}
+\input{30.segm}
+\input{40.class}
+\input{50.rec}
+\input{60.disc}
+\input{70.concl}
 
 \begin{acknowledgments}
-This work is supported by the EU-funded project Contact (NEST 5010).
+  This work is supported by the EU-funded project Contact (NEST 5010).
 \end{acknowledgments}
 
 %\begin{thebibliography}{}
