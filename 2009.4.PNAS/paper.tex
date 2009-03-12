@@ -1,5 +1,5 @@
 % On the use of motor invariants for speech recognition
-% Castellini, Metta, Fadiga, Tavella (?)
+% Castellini, Metta, Fadiga
 % submitted to PNAS
 
 \documentclass{pnastwo}
@@ -24,9 +24,6 @@
 Claudio Castellini\affil{1}{LIRA-Lab, University of Genova, Italy},
 Giorgio Metta\affil{2}{Italian Institute of Technology, Genova, Italy} \and
 Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy}
-%Giorgio Metta\affil{2}{Italian Institute of Technology, Genova, Italy},
-%Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy} \and
-%Michele Tavella\affil{4}{EPFL, Lausanne, Switzerland}
 }
 
 \contributor{Submitted to Proceedings of the National Academy of Sciences
@@ -40,16 +37,20 @@ of the United States of America}
 
   The use of phonetic motor invariants (recurring kinematic patterns)
   to improve speech classification is here investigated. The
-  idea is inspired by the Motor Theory of Speech perception, as well as
-  from recent findings about the interplay between speech
+  idea is inspired by the motor theory of speech perception, as well as
+  by recent findings about the interplay between speech
   perceptual and motor areas in the brain. Using a multi-subject database
   of synchronised speech and lips/tongue trajectories, we first detect
-  motor invariants associated with bilabial and dental consonants.
+  motor invariants associated with bilabial and dental consonants
+  and use them to segment the speech and motor signals.
   We then show that automated classification of these
   consonants is radically improved by adding the motor invariants to
-  standard audio features. Lastly, we show that the very same invariants can be
+  standard audio features, which makes the system largely independent
+  of the speaker and the coarticulation.
+  Lastly, we show that the very same invariants can be
   automatically reconstructed from the audio features to such a degree of
-  precision that they still uniformly improve the classification; the
+  precision that they still uniformly improve the classification with
+  respect to using the audio features only; the
   reconstruction, too, is based upon the human data.
   This result encourages the systematic use of motor invariants to build
   better speech recognition systems. Moreover, some of the issues found in
