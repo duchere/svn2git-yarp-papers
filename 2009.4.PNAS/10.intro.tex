@@ -9,32 +9,39 @@ for the disabled, to data mining in large speech corpuses. Despite decades
 of research in the field though, state-of-the-art Automated Speech Recognition
 (ASR) systems need to be trained upon very large corpuses of data, or upon
 a single speaker's speech in controlled conditions of noise, pitch and speed.
-Lastly, most ASRs employ a pre-existing vocabulary, which strongly
+Moreover, most ASRs employ a pre-existing vocabulary, which strongly
 limits their flexibility.
 
-Inspired by the Motor Theory of Speech Perception (MTS, \cite{...}) and by
-recent research on speech perception and production in humans, we
+Inspired by the motor theory of speech perception (MTS, \cite{...}) and by
+recent neurological research on speech perception and production in humans, we
 hereby investigate the use of \emph{phonetic motor invariants} to overcome
 the above limitations of ASRs. A phonetic motor invariant is a recurring
 pattern in the motion of phonetic articulators (tongue, lips, teeth, etc.)
-associated to a phoneme; for example, bilabial plosives such as /b/ and /p/
-are naturally associated to a fast plosive motion of the lips. 
+associated to a phoneme; for example, bilabial plosive consonants such as
+/b/ and /p/ are naturally associated to a fast opening of the lips (a plosion,
+that is). It is known since the Sixties \cite{...} that the audio signal of speech
+cannot be effectively segmented down to the level of the single phoneme,
+especially as far as stop consonants such as bilabial plosives
+are concerned; in particular, their representations in the audio domain are
+radically different according to the phoneme which immediately follows
+(\emph{coarticulation}). It remains an open question then, how humans can
+distinctly perceive a common phoneme in, e.g., /ba/ and /bi/, since they
+apparenty have access to the speaker's audio signal only.
 
-According to the MTS, the audio signal of speech cannot be
-effectively segmented down to the level of the single phonemes, especially
-as far as consonants are concerned; early results \cite{...} indicate that stop consonants are
-radically different in the audio domain according to the phoneme which
-immediately follows (\emph{coarticulation}). According to the MTS,
-while perceiving sounds, humans reconstruct \emph{phonetic gestures}
---- the physical acts of producing the phonemes.
-Moreover, recent neuroscientific evidence such as, e.g., \cite{dausilio},
-indicates that the brain motor areas responsible for producing a certain
-phoneme are inextricably involved in the its perception. This further suggests
-that motor information is paramount for understanding speech in humans.
+The explanation put forward by the MTS is that, while perceiving sounds,
+humans reconstruct \emph{phonetic gestures}, the physical acts of
+producing the phonemes, as they were trained since their birth to associate
+them to the sounds they heard. Recent neuroscientific evidence actually
+indicates that the brain motor areas responsible
+for producing a certain phoneme are inextricably involved in its
+perception; D'Ausilio et al., for instance \cite{dausilio}, show that
+in a discrimination task of /b/,/p/,/d/ and /t/, TMS of the lips and tongue
+motor areas creates a bias in favour of the related consonants. This further
+suggests that motor information is paramount for understanding speech in humans.
 
-If this is true, one possible reason why ASR is so difficult could be that no
-machine, in general, has access to the motor representation of the
-audio signal it is supposed to understand. So, motor information should
+One possible reason why ASR is so difficult is then that
+machines have in general no access to the motor representation of the
+audio signal they are supposed to understand. So, motor information should
 help ASR, especially when tests on different speakers and different
 coarticulations are performed: for example, when training on subject $A$ and
 testing on subject $B$, or when training on pseudo-words such as /ba/, /bi/,
@@ -45,22 +52,24 @@ of phonetic gestures and show that, in a simple problem of classification of
 four stop consonants /b/, /p/, /d/, /t/ extracted from a dataset of
 multi-speaker audio and motor data, they improve dramatically the classification
 results, making the system essentially speaker- and coarticulation-independent.
-This, despite the small training data set (about a thousand samples).
+This, despite the small data set (less than $1200$ samples).
 
-First we define motor invariants for those consonants, according to standard
-physiology textbooks (e.g., /b/ corresponding to a fast opening, a "plosion", of the lips).
-We then use them to semi-automatically segment the audio/motor data and extract
-variable-length sequences representing each consonant.
+First of all, for each consonant we manually identify a motor invariant by
+looking at the synchronised signals. The invariants found this way are in
+agreement with basic physiology textbooks and with everyday experience,
+e.g., /b/ and /p/ are associated to a plosion of the lips. Motor invariants
+are then used to semi-automatically segment the audio/motor data and extract
+a variable length data sequence for each utterance of each consonant.
+
 We then show that a standard machine learning method, employed to distinguish
 (classify) the consonants across speakers and coarticulations, obtains
 dramatically better results if features extracted from motor invariants are
-available. We perform three kinds of analyses: first on the whole data set, irrespective
-of the speaker and the coarticulation; then per-speaker, that is, training on
-some speakers and testing on others; and lastly per-coarticulation, training
-on some coarticulating phonemes and testing on others. Our results indicate that
-on the whole data set motor features are as good as audio features, and that
-using them both further iproves the classification results. Per-speaker, this gap
-is more evident, audio features being less and less effective as we make the
+available. Three classification experiments are performed: on the whole data set,
+per-speaker (training on some speakers and testing on others) and per-coarticulation
+(training on some coarticulating phonemes and testing on others). Our results
+indicate that on the whole data set motor features are as good as audio features, and that
+using them both further improves the classification results. Per-speaker, this gap
+is more evident, audio features alone being less and less effective as we make the
 problem harder. Per-coarticulation, lastly, audio features become virtually
 unusable, while motor features still obtain good results. Interestingly,
 using both kinds of features in the per-coarticulation tests makes the
