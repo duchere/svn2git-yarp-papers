@@ -1,16 +1,16 @@
-% Towards Adaptive Hand Prosthetics
+% ...
 % Castellini, Gruppioni, Davalli, Sandini
 % submitted to Journal of Physiology, Paris
 %
 % March, 2009
 
-\documentclass[journal]{IEEEtran}
+\documentclass[review,12pt]{elsarticle}
 
 \usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{amsmath}
-\usepackage[psamsfonts]{amssymb}
+\usepackage{amssymb}
 \usepackage{url}
 
 \def\RR{\mathbb{R}}
@@ -19,43 +19,45 @@
 \def\yy{\mathbf{y}}
 \def\ww{\mathbf{w}}
 
+\journal{J Physiol Paris}
+
 \begin{document}
 
-\title{Towards Adaptive Hand Prosthetics}
+\begin{frontmatter}
 
-\author{Claudio~Castellini, Emanuele~Gruppioni, Angelo~Davalli, Giulio~Sandini%
-\thanks{Manuscript received on ... . This work was supported in part
-  by the EU project NEURObotics (FP6-IST-001917).}%
-\thanks{C. Castellini \emph{(corresponding author)}
-  is with the LIRA-Lab, University of Genova,
-  viale F. Causa, 13, 16145 Genova, Italy.
-  e-mail: claudio.castellini@unige.it.}%
-\thanks{E. Gruppioni and A. Davalli
-  are with the INAIL Centro Protesi,
-  via Rabuina, 14, 40054 Vigorso di Budrio (Bologna), Italy.
-  e-mail: \{e.gruppioni,a.davalli\}@inail.it.}%
-\thanks{G. Sandini
-  is with the RBCS Department, Italian Institute of Technology,
-  via Morego, 30, 16163 Genova, Italy.
-  e-mail: giulio.sandini@iit.it.}%
-\thanks{\textbf{NOTE} for the reviewers of this paper: a preliminary,
-  limited analysis of some of the data presented in this paper has
-  been submitted to a rehabilitation medicine journal as a ``short
-  report'', and is currently under review.}%
-}
+\title{Advanced hand prosthetics by EMG-based\\
+grasp pattern classification and force estimation}
 
-\maketitle
+\author[liralab]{Claudio Castellini\corref{corauth}}
+\ead{claudio.castellini@unige.it}
+\author[inail]{Emanuele Gruppioni}
+\ead{e.gruppioni@inail.it}
+\author[inail]{Angelo Davalli}
+\ead{a.davalli@inail.it}
+\author[iit]{Giulio Sandini}
+\ead{giulio.sandini@iit.it}
+
+\address[liralab]{LIRA-Lab, University of Genova,
+  viale F. Causa 13, 16145 Genova (Italy)}
+\address[inail]{INAIL Centro Protesi,
+  via Rabuina 14, 40054 Vigorso di Budrio (Bologna, Italy)}
+\address[iit]{RBCS Department, Italian Institute of Technology,
+  via Morego 30, 16163 Genova (Italy)}
+
+\cortext[corauth]{Corresponding author}
 
 \begin{abstract}
   \input{00.abstract}
 \end{abstract}
 
-%\begin{IEEEkeywords}
-%  rehabilitation robotics, learning and adaptive systems, AI reasoning
-%  methods, hand prosthetics.
-%\end{IEEEkeywords}
-%
-\IEEEpeerreviewmaketitle
+\begin{keyword}
+  learning and adaptive systems \sep
+  support vector machines \sep
+  hand prosthetics \sep
+  electromyography \sep  
+\end{keyword}
+
+\end{frontmatter}
 
 \section{Introduction}
 \label{sec:intro}
@@ -69,13 +71,9 @@
 \label{sec:pre}
 \input{30.pre}
 
-\section{Experimental Results}
+\section{Results}
 \label{sec:exp}
 \input{40.exp}
-
-%\section{A Realistic Implementation}
-%\label{sec:impl}
-%\input{50.impl}
 
 \section{Discussion and Conclusions}
 \label{sec:disc}
@@ -88,23 +86,7 @@ Protesi for kindly helping us finding the patients who have joined the
 experiment. We also thank Benoni B. Edin of Ume\aa\ University,
 Sweden, for a helpful comment on the paper.
 
-\bibliographystyle{IEEEtran}
+\bibliographystyle{elsarticle-harv}
 \bibliography{paper,../../claudio}
-
-%% \begin{IEEEbiography}{Claudio Castellini}
-%% Biography text here
-%% \end{IEEEbiography}
-
-%% \begin{IEEEbiography}{Emanuele Gruppioni}
-%% Biography text here
-%% \end{IEEEbiography}
-
-%% \begin{IEEEbiography}{Angelo Davalli}
-%% Biography text here
-%% \end{IEEEbiography}
-
-%% \begin{IEEEbiography}{Giulio Sandini}
-%% Biography text here
-%% \end{IEEEbiography}
 
 \end{document}
