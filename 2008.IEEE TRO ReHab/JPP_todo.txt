@@ -1,3 +1,23 @@
+ANALISI
+-----------------------------------------------
+
+revisore #1:
+- migliore scelta dei parametri (nested cross-validation)
+- includere la soglia per lo 0 nella cross-validazione
+- diciamo che si possono usare semplici accorgimenti per migliorare il
+	tutto (buffering, o uso della regressione per determinare la soglia
+	dello 0) ma poi non lo facciamo....
+- grid search per gamma e` al bordo della grid, perche' non la estendiamo?
+
+revisore #2:
+- niente
+
+revisore #3:
+- niente
+
+FORMA
+-----------------------------------------------
+
 revisore #1:
 
 - cambiare titolo
@@ -19,11 +39,34 @@ revisore #1:
 - diciamo che si possono usare semplici accorgimenti per migliorare il
 	tutto (buffering, o uso della regressione per determinare la soglia
 	dello 0) ma poi non lo facciamo....
-- grid search per gamma e` al bordo della grid, perche' non la estndiamo?
+- grid search per gamma e` al bordo della grid, perche' non la estendiamo?
+- descrizione matematica del calcolo della performance
 - future work: applicazione ai bilaterali usando la teacher imitation !!
 
 revisore #2:
 
+- better organisation of the paper, overall
+- only hard facts in the result section
+- "imagine" is misleading
+- "estimate" rather than "guess"
+- "subject - study participant - individual" rather than "patient"
+- subsampling+filtering must be done the other way around !!
+- anche qui: piu` dettagli su training e testing sets
+- patients: what caused the amputations?
+- electrodes: details + moved around during the experiments?
+- grasps: why were they chosen?
+- why subject #3 only performs hand-stretching?
+- cancellare figure spettrali?
+- drift mostrati in una figura: ok, refer to papers in ICRA and BioCyb
+- sorpresa per l'accuratezza degli amputati: ma due sono utenti storici di mioprotesi...!
+- randomisation of experiments - this is sadly true....
 
+revisore #3:
 
-
+- review of the state-of-the-art
+- why standard positioning, and not better?
+- what muscles were addressed? is this important?
+- anche questo non ha capito che segnali diamo in pasto alla SVM....
+- figures 4,5 not clear
+- better figures: LARGER, DIO CANE, E IN BIANCO E NERO!!!
+- more and better references, from journals
