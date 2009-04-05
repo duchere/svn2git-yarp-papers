@@ -1,127 +1,131 @@
-\subsection{Patients}
+\section{Materials and Methods}
+\label{sec:m&ms}
+
+\subsection{Subjects}
 
 Three hand amputees, patients of the INAIL Centro Protesi in Vigorso
-di Budrio, Bologna, Italy, joined the experiment.
+di Budrio, Bologna, Italy, joined the experiment voluntarily after
+having been carefully informed of the procedure they were about to undergo,
+according to the INAIL patients care guidelines. All of them have lost
+their limb traumatically and, at the time of the experiment, the status of
+their muscle remnants was excellent.
 
-The first subject is male, aged 63, trans-radial one-third proximal,
-amputated in 1963; he is a pioneer of myoelectric prostheses, having
-started using them in the Sixties. The second subject is male, aged
-56, trans-radial one-third distal, amputated in 1972; he also started
-using myoelectric prostheses very early, actually in 1974. The third
-subject is male again, aged 25, trans-carpal, amputated in 2007; he
-was in the process of learning how to use a standard myoelectric
-prosthesis at the time of writing.
-
-A set of three patients is obviously not sufficient to gather
-statistics about the applicability of our method, but we are lucky
-enough that they present a rather wide variety of operations and
-conditions. In particular, subject $1$ has about $9$cm left of his
-forearm, subject $2$ has some $20$cm, and subject $3$, a trans-carpal
-amputee, has the whole forearm plus some of the carpus (Figure
-\ref{fig:stumps} shows the subjects' stumps). Moreover, subjects $1$
-and $2$ were amputated a very long time ago, although they have been
-using myodevices since then, whereas subject $3$ is freshly
-operated. Lastly, subject $3$ is rather young as opposed to the other
-subjects.
+Subject $1$ is male, 63 years old, trans-radial
+one-third proximal, amputated in 1963; he is a
+pioneer of myoelectric prostheses, having started using them in the
+Sixties. The second subject is male, aged 56, trans-radial one-third
+distal, amputated in 1972; he also started using myoelectric prostheses
+very early, actually in 1974. The third subject is male again, aged 25,
+trans-carpal, amputated in 2007; he was in the process of learning how
+to use a standard myoelectric prosthesis at the time the experiment was
+performed (summer 2008). Subject $1$ has about $9$cm left of his
+forearm, subject $2$ has some $20$cm, and subject $3$ has the whole forearm
+plus some of the carpus --- see Figure \ref{fig:stumps}.
 
 \begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.3\textwidth]{figs/stump_1} &
-    \includegraphics[width=0.3\textwidth]{figs/stump_2} &
-    \includegraphics[width=0.3\textwidth]{figs/stump_3} \\
-    subject $1$ & subject $2$ & subject $3$ \\
-  \end{tabular}
-  \caption{the subjects' stumps. Subject $1$ has a trans-radial
+  \includegraphics[width=\textwidth]{figs/stumps}
+  \caption{the subjects' stumps. Subject $1$ (left) has a trans-radial
     one-third proximal amputation, with a stump about $9$cm long;
-    subject $2$ is trans-radial one-third distal, stump about $20$cm
-    long; and subject $3$ is trans-carpal, retaining the full
-    forearm.}
+    subject $2$ (center) is trans-radial one-third distal, stump about $20$cm
+    long; subject $3$ (right) is trans-carpal, retaining the full forearm.}
   \label{fig:stumps}
 \end{figure*}
 
 \subsection{Setup}
 
-We placed on each subject's stump $5$ surface EMG electrodes without
-searching for the best anatomical position, but rather in a standard
-way for all, around the stump, near the elbow (for subject $1$ this
-was actually the only possible choice!) and at uniform angles from one
-another, in such a way to "wrap" the stump. See the ``Discussion and
-Conclusions'' Section for more about this issue.
+We used a FUTEK LMD500 Hand Gripper force sensor \cite{futek}, a strain-gauge
+based sensor with guaranteed low non-linearity and hysteresis factors, which can easily
+be gripped in various ways since it is light and small. The sensor returns a
+voltage proportional to the force applied to its narrow face (Figure \ref{fig:setup}, left).
+Also, $5$ standard commercial surface EMG electrodes were used, namely OttoBock
+Myobock models \cite{myobock}, type 13E125=50 (Figure \ref{fig:setup}, center).
+The Myobock are dry bi-differential electrodes, performing a band-pass filtering between
+$2$ and $500$Hz, plus a notch filter at $50$Hz (in the European version
+that we used) for power supply noise rejection. The output signal is rectified
+and amplified by a factor ranging from $2 000$ to $100 000$ --- after a few initial
+experiments, we set it at mid-range, corresponding to an amplification factor of
+about $14 000$, which gave us an output voltage exactly matching the input range of
+the acquisition card.
+These electrodes are the state-of-the-art in commercially available myoprostheses,
+since their output is deemed exceptionally good, highly correlated with the
+force exerted by the muscle(s) whose activity the electrode is gathering.
+All in all, six signals were monitored (one per each EMG electrode and one from the
+force sensor), and sampled at a rate of $100$Hz via a standard USB acquisition card,
+connected to an entry-level laptop.
 
-The electrodes we employed are standard commercial surface EMG
-devices, namely OttoBock Myobock models \cite{ottobock}, two of the
-13C7=50 type and three of the 13E125=50 type. Myobock electrodes enjoy
-an excellent noise rejection ratio and pre-amplify the signal --- an
-amplification gauge can be set for each electrode, and here it was set
-at a mid-range value for all electrodes. Moreover, they perform a
-run-time root-mean square evaluation of the signal; this results in an
-exceptionally good output, which is already highly correlated with the
-force exerted by the muscle(s) whose activity the electrode is
-gathering.
+\begin{figure*}[!ht] \centering
+  \includegraphics[width=\textwidth]{figs/setup}
+  \caption{parts of the experimental setup. (left to right) the FUTEK LMD500
+    Hand Gripper; an Otto Bock Myobock EMG electrode; placement of the electrodes
+    on a subject's stump, parallel to the forearm axis, equally spaced, held in
+    place by an elastic band --- the electrodes' wires are clearly seen.}
+  \label{fig:setup}
+\end{figure*}
 
-Each subject was also given a FUTEK LMD500 Hand Gripper force sensor
-\cite{futek} in order to detect the required force during the
-experiment. Data were gathered via a standard digital acquisition
-card, namely a National Instruments NI-DAQ 6122 USB card, connected to
-the EMG electrodes and force sensor on one side, and to an entry-level
-laptop on the other side. We employed National Instruments's
-SignalExpress application to sample the (synchronised) data at a
-sampling rate of $100$Hz.
+The electrodes were placed around the stump just below the elbow, parallel
+to the forearm axis, equally spaced and held in place by an elastic band
+(Figure \ref{fig:setup}, right panel). This was done
+in order to detect signals from all muscle remnants uniformly,
+rather than try and associate electrodes to single muscles
+as is the case in normal one-DOF myodevices. By the way, for subject $1$
+this was the only possibility, since his stump
+would not allow the electrodes to be positioned anywhere else --- this problem
+of ``cluttered'' electrodes on a subject's stump actually also appears in
+\cite{sebelius}.
 
-\subsection{Experiment Design}
+\subsection{Experimental procedure}
 
-The patients were induced to imagine performing with their missing
-hand $5$ different postures / grips: no action, pointing index, pinch
-grip, tripodal grip, power grasp; subject $3$ was also asked to
-stretch his hand --- a posture which most amputees deem very useful
-for, e.g., slipping the hand in a pocket. The postures / grips were
-performed with free force and speed by the subjects, while we would
-record the EMG and force sensor activity.
+\subsubsection{Grasping postures}
 
-Since the beginning we decided to employ a \emph{supervised learning}
-strategy to build our models, as has been done in literature so
-far. To this end, three ways of training the system
-(\emph{modalities}) were designed and employed:
+The subjects were asked to perform with their phantom hand several
+different grasp postures, chosen according to suggestions by the
+INAIL Centro Protesi personnel and patients, and loosely based upon
+Cutkosky's taxonomy \cite{cutkosky}:
 
 \begin{enumerate}
 
-  \item \emph{teacher imitation.} A healthy subject (the teacher)
-    would place his arm besides the patient's stump and ask him
-    to imagine replicating the teacher's postures and grips. The
-    subject was asked to imagine gripping with his maximum strength,
-    while the teacher would grip the force sensor in order to mark the
-    postures / grips.
+  \item the baseline \emph{rest condition} (\re);
 
-  \item \emph{bilateral action.} The patient was asked to grip the
-    force sensor with his healthy hand while imagining doing the same
-    things with his missing hand.
+  \item the act of \emph{pointing the index finger} (\po), used when pressing buttons;
 
-  \item \emph{mirror-box.} Same as modality $2$, but a simple, plain
-    mirror (in the case of subject $1$), or a \emph{mirror-box} (for
-    subjects $2$ and $3$, see \cite{mirror-box}), was placed
-    in-between the patient's arms, in order to increase the visual
-    feedback.
+	\item a \emph{power grasp} (\pw) in which the whole hand wraps around an object,
+		used, e.g., when holding a heavy cylindrical object such as a hammer;
+		
+	\item a \emph{precision pinch grip} (\pi) with thumb and index finger closing on
+	 	an object, usually for lifting small objects such as a pen or an egg;
+	
+	\item a \emph{precision tripodal grip} (\tr) similar to \pi, but using the
+		middle finger too, used for spherical objects;
+		
+	\item the act of \emph{stretching one's hand} (\hs), used when an amputee is trying
+		to put his hand inside a pocket. 
 
 \end{enumerate}
+	
+Each posture was performed repeatedly by each subject a free number of times,
+ranging from $10$ to about $25$ (except the rest condition, obviously, which consisted
+of a few seconds of no-activity recording), with speeds ranging from $5$Hz to
+"slow motion" (about $20$ seconds to complete a grasp, using various degrees of
+force). The postures were performed in the order described
+above, with a few seconds of rest inbetween. The
+experimenter would at times suggest the subject to go faster or slower, to press
+harder or softer, and at times the subject would be free to do whatever he wanted.
+We will call this sequence a \emph{cycle}.
 
-The idea behind the mirror-box modality is inspired by Ramachandran's
-experiments on amputees of the mid-Nineties \cite{ramachandran}, where
-it was noted that the illusion of seeing one's hand moving would
-reinforce the visual feedback loop and ease the ghost limb pain in
-monolateral hand amputees. We figured out that such a device could
-actually reinforce the patient's ability to produce different
-activation patterns.
+\subsubsection{Training modalities}
 
-Figure \ref{fig:modalities} shows various subjects performing the
-required actions in the three modalities.
+Since we employ a supervised learning strategy, a way of knowing what the subject is
+doing is required in the training phase. In particular, each sample must be associated
+to a label, denoting the current grasp posture, and to a force value.
+
+Labels, one for each required posture (\re,\po,\pw,\pi,\tr,\hs),
+were attached to each sample simply according to the
+type of grasp required from the subject during a particular phase of the current
+cycle; for example, samples gathered while asking the subject to perform a power grasp
+would be labled with \po, and so on.
 
 \begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.3\textwidth]{figs/mod1} &
-    \includegraphics[width=0.3\textwidth]{figs/mod2} &
-    \includegraphics[width=0.3\textwidth]{figs/mod3} \\
-    teacher imitation & bilateral action & mirror-box \\
-  \end{tabular}
+  \includegraphics[width=\textwidth]{figs/modalities}
   \caption{the three training modalities. (left to right) Subject $1$
     imitating a pinch grip; subject $3$ bilaterally performing a pinch
     grip; subject $2$ assuming the pointing index posture while
@@ -129,148 +133,182 @@ required actions in the three modalities.
   \label{fig:modalities}
 \end{figure*}
 
-The patients were left free, to a large extent, to exert the postures
-/ grips with the amount of force and the speed they liked; in some
-phases of the experiment, the teacher would command them to grip
-faster or slower, or with a certain desired force. The result is that
-the patients applied a wide range of gripping speeds and forces, which
-helped test whether our approach would work equally well with signals
-gifted with diverse frequency and amplitude components. Figure
-\ref{fig:ex_signals} shows some sample force and EMG signals. On
-average, each modality lasted something more than $5$ minutes and no
-subjects reported fatigue or pain. At the aforementioned sampling rate
-of $100$Hz, we gathered a total of about $270000$ samples.
+Force values, on the other hand, were collected according to three
+\emph{modalities} (see Figure \ref{fig:modalities}):
+
+\begin{enumerate}
+
+  \item \emph{teacher imitation.} A healthy subject (the teacher)
+    would place his arm besides the subject's stump and ask him
+    to imitate the teacher's postures with his phantom limb. The
+    subject was asked to grasp with maximum strength,
+    while the teacher would grip the force sensor in order to mark the
+    postures / grips.
+
+  \item \emph{bilateral action.} The subject would grip the
+    force sensor with his healthy hand while doing the same
+    thing with the phantom limb.
+
+  \item \emph{mirror-box.} Same as modality $2$, but a \emph{mirror-box}
+    \cite{mirror-box} was used.
+
+\end{enumerate}
+
+Each subject performed one cycle in each modality, resulting in a total
+of nine cycles, with a length of $5.7 \pm 1.06$ minutes (average
+$\pm$ one standard deviation). After all cycles were recorded, samples
+associated with force signal values lower than $0.01$V were artificially
+given the label \re. This threshold was detected by visual inspection
+of the signal, and checked by comapring it with the values during the 
+baseline rest condition. Due to an error in the
+experiment protocol, Subject $1$ did not record the pointing index
+grasp during the second modality, and Subjects $1$ and $2$ did not
+record the hand stretching posture.
+
+Figure \ref{fig:examples} shows some sample force and EMG signals obtained
+during the experiments. Notice that for subject $3$, two electrodes (blue and
+red curves) suffer of a non-null baseline and slowly drifting components,
+later on determined to be due to sweat. This is common when dealing with
+surface EMG \cite{deluca97,deluca02}.
 
 \begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.3\textwidth]{figs/example_signal1} &
-    \includegraphics[width=0.3\textwidth]{figs/example_signal2} &
-    \includegraphics[width=0.3\textwidth]{figs/example_signal3} \\
-  \end{tabular}
-  \caption{three examples of force (black, continuous line) and EMG
-    signals (coloured and dotted lines) during subjects'
-    activity. (left panel) Modality $1$: around the $5000$th sample a
-    switch from pointing index to  power grasp appears --- notice the
-    related change in magnitude of the EMG. (center
-    and right panels) Modality $3$, slow and fast power grasping ---
-    notice two EMG electrodes spoiled by a non-null baseline and a
-    slow drifting component, which was later on determined to be due
-    to sweat.}
-  \label{fig:ex_signals}
+  \includegraphics[width=\textwidth]{figs/figExamples}
+  \caption{three examples of force (black thick line) and EMG
+    signals (coloured thin lines). (left panel) Subject $1$ in the teacher imitation
+    modality switches from \po\ to \pw\ at about $200$ seconds of activity --- notice
+    the sharp change in relative average magnitude of the EMG signals, before and after
+    the switch. (center and right panels) Subject $3$ in the mirror-box modality, slow
+    and fast power grasping.}
+  \label{fig:examples}
 \end{figure*}
-
-\subsection{Methods}
-
-As already pointed out in literature, Support Vector Machines (SVM)
-\cite{BGV92} are a good machine learning method to solve this problem,
-so we employed them. For an explanation of how SVMs work in the
-context of EMG signals, please refer to, among others,
-\cite{2008.ICRA,2008.BioCyb}, whereas, for a comprehensive tutorial on
-SVMs in the more general framework of classification and regression,
-refer to \cite{Burges98,SmolaTut2004}. SVMs are a statistical learning
-method able to build an approximated map between an input space and a
-label (classification) or a real value (regression). Classification is
-here used to classify the type of grasp according to the EMG signal,
-whereas regression is used to understand how much force the subject is
-exerting, independently from the grasp type.
-
-The input space is chosen to be $\RR^5$, one coordinate for each EMG
-electrode; the labels are five integer numbers, one for each grasp
-type (six for subject $3$, who also performed the hand stretching
-posture); and the real value is exactly the force value read off the
-force sensor. Notice that we work in real-time, that is, our machines
-associate a grasp type and a force value to an EMG value at each
-instant of time. This approach enables us to detect a grasp type
-almost at the onset of the grasping movement.
 
 \subsection{Data pre-processing and preliminary analysis}
 
-The data related to each subject and modality were chronologically
-juxtaposed exactly in the order the experiments were performed; then a
-label was attached to each sample, according to the type of grasp
-required from the subject. Samples associated with a low force value
-were given the label $0$, since they denote no activity of the
-muscles, that is, a resting condition. Subject $1$ actually needed the
-no-action data set to be replicated for each modality, since we did
-not record its baseline each time --- a mistake which was corrected
-with the second and third subject. Moreover, we could not record the
-"pointing index" activity for this subject in the second modality,
-which is therefore null.
+Both force and EMG signals were digitally filtered in order
+to remove high-frequency noise components (II order low-pass FIR filter
+with cut-off frequency at $5$Hz). After filtering, spectral analysis
+reveals that, in agreement with the literature, the EMG relevant bandwidth
+lies below $10$-$12$Hz (recall that the Myobock electrodes already rectify
+the EMG signal, whose bandwidth would otherwise be $15$-$500$Hz)
+so both signals were subsampled at $25$Hz.
 
-\begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.3\textwidth]{figs/spectrum_force} &
-    \includegraphics[width=0.3\textwidth]{figs/spectrum_electrode_1} &
-    \includegraphics[width=0.3\textwidth]{figs/spectrum_electrode_3} \\
-    force & electrode $1$ & electrode $3$ \\
-  \end{tabular}
-  \caption{frequency analysis of the force signal and two
-    typical electrodes.}
-  \label{fig:spectra}
-\end{figure*}
-
-Spectral analysis of the EMG signal as read from the electrodes, in
-agreement with the literature, shows that its relevant bandwidth lies
-below $10$-$12$Hz (see Figure \ref{fig:spectra}), so we could safely
-subsample the signals at $25$Hz, that is, considering one sample in
-four of the original data stream. This made the data set to be dealt
-with much smaller and computationally tractable. Subsequently, we
-applied a II order low-pass filter with cutoff frequency at $5$Hz in
-order to remove all possible high-frequency noise. This has proved to
-be a very effective way of getting a good signal in early experiments
-(see \cite{2008.Neurorob}).
-
-Principal Component Analysis (PCA) reveals that the 5 signals can be
-linearly reduced to two losing, on average, only $7.7\% \pm 4.4\%$ of
-the signal variance; therefore, we can visualise the samples, tagging
-them according to the labels (and therefore according to the action)
-and visually detecting how well the subjects can produce different EMG
-patterns when they are asked to simulate different grasping
+Principal Component Analysis (PCA) was applied to the $5$ EMG signals in
+each cycle, revealing that they can be linearly reduced to two losing,
+on average, only $7.7\% \pm 4.4\%$ of the signal variance. Although this
+loss would probably hinder classification and regression, and therefore
+the $5$-dimensional original signals were used later on, this reduction
+enables us to visualise the samples, tagging them according to the labels
+(and therefore according to the grasp), and to qualitatively check
+how well the subjects can produce different EMG
+patterns when they are asked to perform different grasping
 actions. Figure \ref{fig:PCA} shows the results, according to each
 subject and modality.
 
 \begin{figure*}[!ht] \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.3\textwidth]{figs/data11} &
-    \includegraphics[width=0.3\textwidth]{figs/data12} &
-    \includegraphics[width=0.3\textwidth]{figs/data13} \\
-    \includegraphics[width=0.3\textwidth]{figs/data21} &
-    \includegraphics[width=0.3\textwidth]{figs/data22} &
-    \includegraphics[width=0.3\textwidth]{figs/data23} \\
-    \includegraphics[width=0.3\textwidth]{figs/data31} &
-    \includegraphics[width=0.3\textwidth]{figs/data32} &
-    \includegraphics[width=0.3\textwidth]{figs/data33} \\
-  \end{tabular}
-  \caption{ PCA analysis of the subjects' data. (top to bottom)
-    Subject $1$, $2$ and $3$; (left to right) modality $1$, $2$ and
-    $3$. Notice that subject $1$, modality $2$ has no ``pointing
-    index'' data, and that subject $3$ has the ``hand stretch'' data.}
+  \includegraphics[width=\textwidth]{figs/figPCA}
+  \caption{visualisation of the PCA-reduced EMG signals.}
   \label{fig:PCA}
 \end{figure*}
 
-As is apparent from the Figure, all subjects can produce remarkably
-well separated and distinct signals, according to the elicited type of
-grasp. In particular, notice how two very similar grasp types, i.e.,
-pinch grip (thumb and index come together as to precisely grip, e.g.,
-a pen) and tripodal grip (the same, but done with the middle finger,
-too) appear well separated on almost each graph --- look at the black
-and pink coloured samples.
+As is apparent from the Figure, all subjects can produce distinct signals
+according to the required type of grasp. In particular,
+notice how two very similar grasp types, i.e.,
+\pi\ and \tr, are qualitatively discernible on almost each graph.
+Notice that PCA being so effective in reducing the
+dimensionality of the EMG signals two does not imply that
+two electrodes would suffice to obtain the same results. In fact, PCA coefficients
+consistently show the same magnitude, meaning that each electrode
+is required.
 
-Notice, as well, that the graphs have not all the same scale and that
-they appear incongruent with one another, but this is due to
-having positioned the electrodes irrespective of their order number on
-the stumps of the patients. This is anyway ininfluent, since SVMs
-are exaclty supposed to automatically find patterns and regularities
-among the samples for each subject.
+\subsection{Classification / regression method}
+\label{subsec:method}
 
-One last point is that PCA being so effective in reducing the
-dimensionality of our data to two does not necessarily imply that we
-could use two electrodes only to obtain the same results; this depends
-on the PCA coefficients, which show consistently the same magnitude
-(except in the case of subject $3$, where a heavy drift was observed
-on two electrodes, very likely due to sweating --- this is a well-known
-problem of EMG-controlled prosthetics). This means that each electrode
-is required to give a uniformly-weighted contribution to the
-PCA-transformed $2$-dimensional samples. Of course reducing the
-required number of electrodes is a requirement, since this would make
-the prosthesis cheaper. We are invesitigating the issue.
+The good performance of Support Vector Machines (SVMs) applied to similar
+problems has already been demonstrated since 1996 \cite{smagt06}. SVMs are
+statistical learning machines \cite{v-edbed-82} which build an approximated map between
+samples drawn from an input space (under the standard i.i.d. sampling hypothesis)
+and a set of labels (classification) or a real value (regression).
+The map is a weighted sum of basic functions chosen a priori
+via the so-called kernel (hence the term \emph{kernel methods}), each of
+which is centered on a sample.
+The weights are found by minimising a cost functional which is the sum of
+a loss function, punishing the error on the samples, and a regulariser, punishing
+over-complex solutions. For a comprehensive tutorial on SVMs please refer to
+\cite{Burges98,SmolaTut2004}.
+
+Maps found by SVMs are sparse, meaning that some (practically, most) of the
+weights found by minimisation are zero.
+Those samples for which the weight is not zero, that is, those which actually
+contribute to the map, are called \emph{Support Vectors}
+(SVs), and their number is usually much smaller
+than the total number of samples used in the training phase --- this is why
+prediction with SVMs is in practice rather fast \cite{Cristianini00}. The
+ratio between the number of SVs and the number of samples is then a good index
+to measure how difficult a problem is: the smaller the ratio, the easier
+the problem, indicating that a few samples are sufficient to
+fully determine the map. In classification, this means that samples with different
+labels are well separated in the input space; in regression, it means that a
+simple relationship exists between the samples and the target values.
+The sparsity of SVM models is extremely useful in our context, since
+smaller models also mean higher chance of miniaturising them and using them
+in pratice on a prosthesis.
+
+In our case, the input space is $\RR^5$, one coordinate for each EMG
+electrode; EMG signals are fed to the SVM as they are, sample by sample. The labels are
+(a subset of) $\{\re,\po,\pw,\pi,\tr,\hs\}$ while the regression value is exactly the
+force value as read from the force sensor. No feature extraction besides the low-pass
+filtering is, therefore, employed on the signals.
+
+As is standard, we use a Gaussian kernel both for classification and regression.
+Multi-class classification is realised via the all-pairs schema,
+in which a quadratic number of SVMs are trained to discriminate pairs of grasp
+postures, and then a final decision is made according to a voting criterion.
+Regression is done using the $\epsilon$-SVR technique, which neglects errors smaller
+than a tolerance threshold $\epsilon>0$, here set at the default value of $0.1$.
+Multi-class classification and $\epsilon$-SVR are
+provided by \emph{libsvm} v2.83 \cite{ChangL01} in the Matlab wrapped version.
+
+For classification, the performance index is the \emph{weighted accuracy},
+that is the average of the percentages of correctly predicted labels of type
+$i$, divided by the number of labels $i$ in the testing set:
+
+$$ \sum_{i \in \{\re,\po,\pw,\pi,\tr,\hs\}}	\frac{c_i}{n_i} $$
+
+\noindent where $n_i$ is the number of samples tagged with the label $i$
+in the testing set and $c_i$ is the number of correctly predicted labels of type $i$.
+This measure, as opposed to the more standard overall ratio of correctly
+predicted labels and number of samples, has the advantage of adjusting the
+importance of each label according to how often it appears in the
+testing set. For example, in general there are more \re\ labels than others,
+since the resting condition appears both at the beginning
+of the experiment and in-between the grasps, therefore this label must be
+weighted \emph{less} than the others, since it is more easily found in the testing
+set. For regression, the performance index is the root mean-square error (RMSE),
+normalised over the range of the force signal. This values characterises
+the error in regression as a percentage of the maximum amplitude of the target
+signal.
+
+In both cases, in order to avoid the ominous danger of overfitting the data,
+two hyperparameters have to be found, $\gamma$ and $C$,
+which account in turn for the width of the Gaussians used to build the
+approximated solution and the weight assigned to the regulariser during minimisation of
+the cost functional.
+We find optimal values for $C$ and $\gamma$, as is standard, by logarithmic grid search:
+for all pairs $C,\gamma$ such that $C=10^{1,\ldots,3}$ and $\gamma=\frac{10^{0,\ldots,2}}{5}$,
+the generalisation error of a machine trained using that particular pair is estimated
+via $5$-fold cross-validation; at the end the pair resulting in the best performance is
+chosen as optimal. Training samples are normalised by subtracting the mean values
+dimension-wise and dividing by the standard deviations; testing samples are normalised
+using the mean and standard deviation of the training set.
+
+After the optimal parameters are found, the generalisation error of the optimal machine
+is evaluated via an \emph{outer} $10$-fold cross-validation,
+in which for each fold the optimal parameters found during the previous step
+are used to train an optimal machine on the training set of the split; the optimal
+machine so obtained is then tested on the testing set left of the split.
+This method, called \emph{nested cross-validation},
+is deemed to be among the best ways to get an unbiased estimate of the generalisation
+error of a machine learning method, since $(a)$ it de-couples the estimation of the
+optimal parameters from that of the generalisation error, and $(b)$ it never tests
+a machine on data which have been used for training, avoiding the so-called
+resubstitution bias \cite{nestedCV}.

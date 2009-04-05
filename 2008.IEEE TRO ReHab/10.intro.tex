@@ -1,71 +1,117 @@
-One of the most widely used ways of feed-forward controlling Active Hand
-Prostheses (AHPs) is forearm surface electromyography
-(EMG), a technique by which muscle activation potentials are gathered
-from the patient's stump skin, and then used to drive the
-prosthesis\footnote{Sensorial feedback is even less developed at the
-time of writing; thermic and vibrotactile feedback has been experimented
-with little success \cite{zecca}, so that visual feedback is so far the
-only effective way to close the control loop.}. EMG \cite{deluca} is
-relatively cheap, non-invasive and easy to use, and it has been around
-for some 40 years. Still, as it stands today, it is used in a way that
-is highly innatural for the patient, allows for a very limited number
-of grasp types, and enforces no control of the \emph{force} involved
-in a grasp. 
+\section{Introduction}
+\label{sec:intro}
 
-Force control, or at least a way to feed-forward modulate the force
-involved in a grasp, is paramount for daily-life activities of amputees,
-for example to hold an egg without breaking it and/or to hold a hammer
-without letting it slip. Moreover, due to the limitations in the signal
-processing techniques, so far large muscles, such as the wrist flexor
-and extensor, are used to drive the prosthesis; in the typical case the
-patient must learn to associate wrist flexing with hand opening, and this
-implies long training times. Lastly, such a rough schema cannot control
-more than a few standard grasping postures. This, notwithstanding recent
-advances in hand prostheses mechatronics, such as Touch Bionics's i-LIMB
-\cite{ilimb}, a real leap forward as far as dexterity is concerned
-(even more dexterous non-prosthetic mechanical hands have already appeared,
-such as the DLR II hand \cite{Hua2006}).
+As of today, the most common way of feed-forward controlling an active
+hand prosthesis is via forearm surface electromyography (EMG),
+a technique by which motor unit activation potentials are read from the
+amputee's stump skin and then used to command the prosthesis \cite{deluca97}.
+The clinical success of EMG is motivated by its non-invasiveness and
+relatively low cost \cite{englehart06}.
+Still, even though multifingered hand prostheses have appeared on the market
+(for example Touch Bionics's i-LIMB, see \url{www.touchbionics.com}),
+it seems that EMG-based control is not keeping the pace, being limited to a
+few hand postures or a simple proportional estimate of force.
+Moreover, this control is quite non-natural, meaning that the amputee must
+learn to associate muscle remnants actions to unrelated postures of the
+prosthesis, e.g., phantom wrist flexion and hand closing.
 
-In this paper we show that plain, old surface EMG can be used to reach
-a much better form of feed-forward control of mechanical hands: similar
-grasp postures can be discerned easily, and the required force can be understood
-almost perfectly. The interesting point is that no specialised hardware
-is needed (five commercially available EMG electrodes suffice) and no
-careful positioning of the electrodes on the patients' stumps is required.
-The innovative bit is represented by the use of a machine learning technique,
-which means that the situation can be potentially radically improved without
-the need of surgery and complex electronics.
+It would be desirable, for a dexterous prosthesis, to let the amputee command a
+grasp posture and force just by performing the corresponding action with the
+phantom limb, resulting in a movement or force elicited by "desiring"
+it. Also, a way to finely modulate the force involved in a grasp is paramount
+in daily life activities, for example to hold an egg without breaking it or to
+grasp a hammer without letting it slip. Lastly, the system should be able to
+work in real-time and to adapt continually to the changing nature of the EMG
+signal.
 
-More in detail, three hand amputees were required to imagine performing
-different grasps with different levels of force with their missing limb;
-the obtained data have then been analysed using a Support Vector Machine (SVM)
-both for classification of the grasp and for regression upon the desired force.
-The machine is able to distinguish the required grasp in real-time with a
-high precision, and to understand the required force with an equally excellent
-performance. SVMs, as well as other machine learning techniques, have already been employed
-on the EMG signal to classify grasp postures and force required by healthy
-subjects (see, e.g., \cite{smagt,dunlop,2008.BioCyb}), but as far as we know
-this is the first time such an analysis is carried out on patients with some
-systematicity, both for grasp and force control.
+Actually, recent scientific literature
+indicates that plain, old EMG signals can be used in a better way by improving
+the signal processing method, essentially by switching to machine learning.
+In \cite{2008.BioCyb} it is shown that a healthy subject can finely feed-forward
+control a dexterous, non-prosthetic mechanical hand, namely the DLR-II
+\cite{ButFisGre2004}), over a long time using $10$ EMG electrodes; willing to
+explore this issue further, in particular as far as amputees are concerned, we
+have devised a new experiment.
 
-The task seems hard at first sight, since each patient's anatomy and residual
-muscle activity is different; moreover, one would expect people operated
-decades ago not to be able to imagine fine movements and postures of their
-missing limbs. Instead, rather surprisingly, our data analysis reveals that
-similar grasps such as a pinch and a tripodal grip can still be perfectly
-distinguished; that the requried force is delicately modulated and it can be
-estimated well; and that no anatomical / functional inspection of the stump
-is required.
+Three below-elbow traumatic amputees, two of which
+were operated decades ago, were asked to perform
+grasp postures with their phantom limb at various speeds and forces, while their
+EMG activity was recorded using $5$ commercially available electrodes, positioned
+without clinical help, and the desired force was
+estimated using a force sensor in three different ways.
+The EMG and force signals were used to train a standard machine learning system
+(a Support Vector Machine) in order to check how well phantom limb postures
+could be discriminated and the required force approximated. This paper is
+a report of the experiment, whose outcome is positive.
 
-This result hints at a scenario in which the prosthesis adapts to the patient
-as well as the other way round, entering a positive feedback loop
-of reciprocal learning, leading to shorter training times and a better
-quality of life for the patients.
-
-%The paper is structured as follows: Section \ref{sec:m&ms} describes
-%the experiment; Section \ref{sec:pre} describes the data
-%pre-processing and gives an idea of how the data look like; Section
-%\ref{sec:exp} describes the experimental results; lastly, Section
-%\ref{sec:disc} contains a discussion of the results and the conclusions.
+We now quickly revise related work highlighting the novel contributions of this
+work, then we describe the experiment and results and discuss them.
 
 \subsection{Related work}
+
+\subsubsection{The EMG signal}
+
+Myoelectric control, i.e., feed-forward control of prostheses using surface EMG,
+has been the most popular form of (externally powered) control by amputees since
+the Sixties, mostly due to its relatively low cost and non-invasiveness. It has
+provided a simple yet effective way to control single degree-of-freedom (DOF) hand
+prostheses such as OttoBock's SensorHand for decades, also allowing for a simple
+force estimation, the so-called proportional control. Body-powererd prostheses,
+actuated via a harness connected, e.g., to the shoulder, and cosmetic ones, i.e.,
+passive prostheses, have been less interesting, but also cheaper, options.
+
+With the appearance on the market of multiple-DOFs hand prostheses, myoelectric
+control has gained interest since it represents essentially the only non-surgical
+way of finely controlling such artifacts. Before 1975, the common
+control schema was based upon the identification of active muscle remnants in the
+amputee's stump and the coding of two, at most three levels of activity of each
+remnant to prosthesis commands \cite{bottomley65,childress69}. It is from the mid-Seventies
+on that probabilistic methods as well as pattern recognition techniques began to be used,
+including Bayes methods, artificial neural networks and nearest neighbors. More recently
+EMG has been subject to accurate feature extraction and classification,
+e.g. \cite{englehart01,dunlop,smagt06} in order to discriminate hand postures, not necessarily
+used for grasping (for instance, the act of wrist flexion) and not only in the field
+of prosthetics, e.g. \cite{fukuda,yokoi}.
+
+Some authors of this very work \cite{2008.ICRA,2008.BioCyb} have as well verified that the problem, from
+the very point of view of machine learning, is easy, and that a Support Vector Machine
+\cite{BGV92}, a standard multi-layer perceptron and an incremental local-approximation
+method such as LWPR \cite{lwpr} obtain similar results when applied to the plain EMG
+signal as extracted by Otto Bock's commercially standard electrodes, the Myobock
+(see \url{www.ottobockus.com}).
+
+\subsubsection{Artificial / prosthetic hands}
+
+In \cite{zecca02} (Section 3) an interesting comparison among artificial hands, including
+the human hand, is shown; remarkable mechanical hands such as the Utah/MIT hand, the
+Stanford/JPL hand, the DLR hand and the Robonaut Hand are compared (see also the
+references in the paper for more details); but their high dexterity makes them non
+usable as prostheses, either because they are too large, too heavy or too power-demanding.
+The DLR-II hand, appeared in 2004 \cite{ButFisGre2004}, is probably the most sophisticated
+mechanical hand at the time of writing, but it is far from being usable as a prosthesis.
+
+As of 2004, the only choice was the Otto Bock / SUVA hand, which only had $2$ DOFs and
+no opposable thumb. More recently, Touch Bionics's i-LIMB (\url{www.touchbionics.com}) has appeared, which has
+5 independent DOFs and a passive opposable thumb. Its myoelectric control system enables
+the selection among $5$ hand postures using $2$ electrodes (information collected from the
+website); nevertheless, the impression is that most of the grasping effort is achieved through
+the underactuation of the hand, as it happens with the CyberHand \cite{cyberhand}.
+
+It seems reasonable to say that surface myoelectric control will still be the standard for the
+years to come, even when the dexterity of commercial prostheses increases. Given the
+stunning progress of machine learning, it is no wonder that as many as $127$ EMG
+electrodes are used simultaneously in Targeted
+Muscle Reinnervation \cite{kuiken06}, probably the most spectacular use of myoelectric control
+so far, although it is out of the scope of this work since it involves surgery.
+
+\subsubsection{Clinical applications}
+
+Interestingly, as far as we know, little work has been done on amputees --- actually,
+all aforementioned works are experimentally checked on healthy subjects. In the framework of
+Project SmartHand (\url{www.elmat.lth.se/~smarthand}) \cite{sebelius} is the only
+test on amputees, as far as we know. Sebelius had $5$ below-elbow amputees, plus one subject
+with congenital malformation of the forearm, perform up to
+$10$ hand postures (not grasping-related) while recording a 16-channel EMG signal. His
+results indicate that a rather high recognition rate is obtained by a neural network
+aided by a sort of decision tree, although not uniformly for all subjects; and that
+the age of amputation seems not to influence the subjects' ability.

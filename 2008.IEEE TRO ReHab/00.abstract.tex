@@ -1,22 +1,21 @@
-The state-of-the-art in active (myoelectric) hand prosthetics is
-rather poor if considered from the point of view of control.
-Even the most advanced commercial prostheses, gifted with
-several degrees of freedom and able to mimic a number of human-like
-grips, provide no force control and enforce non-natural feed-forward
-actuation, so that the patient has to learn how to drive them from
-scratch. For instance, closing the hand is generally actuated using
-the remnant of the wrist flexor.
-
-We hereby describe an experiment in which three amputees train a machine
-learning system with surface electromyography signals, while asked to
-imagine, with their missing hands, complex grip postures and different
-degrees of force involved in the grip. Even though some patients have been
-operated \emph{decades} ago, we show that they can still produce remarkably
-distinct and precise signals for each grip and force value, therefore
-potentially feed-forward controlling a dexterous active hand prosthesis
-to a degree of finesse unknown so far.
-
-This result hints at a scenario in
-which prostheses adapt to the patient, entering a positive feedback loop
-of reciprocal learning, leading to shorter training times and a better
-quality of life for the patients.
+The state-of-the-art feed-forward control of active hand prostheses
+is rather poor. Even multifingered commercial prostheses are
+controlled via surface electromyography (EMG) in a way that enforces
+a few fixed grasping postures, or a very basic estimate of force.
+Control is not natural, meaning that the amputee must learn to associate,
+e.g., wrist flexion and hand closing. Nevertheless, recent literature
+indicates that much more information can be gathered from plain, old
+surface EMG. To check this issue we have performed an experiment in
+which three amputees train a Support Vector Machine (SVM) using five
+commercially available EMG electrodes while asked to perform various
+grasping postures and forces with their phantom limbs. In agreement
+with recent neurological studies on cortical plasticity, we show that
+amputees operated decades ago can still produce distinct and stable
+signals for each posture and force. The SVM classifies the posture up
+to a precision of $95\%$ and approximates the force with an error of
+as little as $7\%$ of the signal range, sample-by-sample at $25$Hz.
+These values are in line with results previously obtained by healthy
+subjects while feed-forward controlling a dexterous mechanical hand.
+We then conclude that amputees can finely control a dexterous prosthesis
+both in force and position using standard EMG in a natural way, that is,
+using the phantom limb.

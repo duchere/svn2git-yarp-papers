@@ -1,80 +1,159 @@
-The results hereby presented clearly show that the well-known surface
-EMG signal can be used to drive a mechanical hand / prosthetic hand in
-a much batter way than before: finer, force-controlling, more dexterous. Our
-results indicate that a machine learning approach such as Support
-Vector Machines will effectively detect well-separated grasping
-patterns in real time, as required by an amputee; at the same time,
-the system will be able to detect how much force is involved in the
-grasp. If the prosthesis has a sufficient number of DOFs, that is, it
-can be position-controlled to mimic the required grasps, and if it can
-be force-controlled, then a system such as the one described in this paper
-will be able to feed-forward control it in a natural way, that is,
-according to what the patient wants it to do.
+\section{Discussion}
+\label{sec:disc}
 
-The positioning of the electrodes, at least in the case of the three
-patients who joined the experiment, is uniform and not related to any
-anatomical consideration. Since the results we have obtained are
-uniformly good for all patients, it is probably possible to claim that
-careful positioning, as well as medical control to identify the best
-working remaining muscles in the stump, is not required. This would
-simplify the whole procedure.
+\subsection{Quality of the results}
 
-The proposed analysis of SVM hyperparameters and percentage of Support
-Vectors with respect to the total number of training samples (see
-Section \ref{sec:exp}) indicates that the problem is rather easy, if
-considered form the pure point of view of machine learning. This lets
-us hope that, in case SVMs proved too hard to implement in practice,
-even a less sophisticated method such as, e.g., nearest neighbours,
-could obtain acceptable performance values.
+In \cite{2008.BioCyb} it was shown that a dexterous mechanical hand such as
+the DLR-II could be feed-forward force and position controlled in
+real time by a healthy subject using surface EMG. Although this opens
+interesting possibilities, e.g., in teleoperation, virtual reality
+and robotic surgery, it is in the field of hand prosthetics that it has the
+most immediate applications. The question remained open then, whether comparable
+results could be \emph{in principle} achieved by amputees:
 
-Lastly, in this work we are making no statement about the physiological
-resemblance of the patterns we deal with, with respect to the muscular
-patterns elicited for the same grasps in a healthy arm. Actually, we
-have not investigated what the patient's stump muscles do when the
-patient is asked to imagine, e.g., a pinch grip --- this is indeed a
-very interesting issue, but is not the focus of this work. Since each
-and every amputation is different from one another, and therefore each
-stump has different muscular conditions, we can hope that
-the system works fine for a reasonable range of amputees and
-stumps. Although we have only $3$ patients here, their diversity as
-far as age, age of operation and type of amputation lets us hope for
-the best. In the end, as long as for each patient, each grasp type or
-posture corresponds to a different pattern, then a system such as ours
-can detect it and send the appropriate command to the prosthesis.
-The patient will then
-be able to elicit from the prosthesis, say, a $5$N pinch grip, or a
-$30$N power grasp, just by ``desiring'' so. This is what we mean by a
-better quality of life for amputees and a shorter training time. The
-keyword \emph{adaptive prosthetics} is meant, here, in the
-machine-learning sense, that is: the prosthesis is trained upon the
-patient's data and therefore adapts to her/him.
+\begin{enumerate}
 
-We have actually found it surprising that so much fine muscular
-activity can be elicited from elderly patients, such as our subjects
-$1$ and $2$, who, by the way, have been operated \emph{decades}
-ago. Notwithstanding this, they are still perfectly able to produce,
-e.g., two very different patterns for similar grips such as the index
-/ thumb pinch grip and the tripodal grip. This is maybe the most
-interesting scientific finding of this work and, if confirmed on more
-patients, it will be worth investigating with a deeper analysis from
-an exquisitely neuroscientific point of view.
+  \item is there enough fine muscular activity left in a stump?
+  \item how do the age of operation, the type of
+	amputation and the use of myoelectric prosthesis affect the results?
+  \item does the essential uniqueness of each single stump challenge the
+  	general applicability of the method?
 
-The use of three different modalities has proven effective in finding
-the best way for each single patient to train the system. Actually, as
-one can see by considering Table \ref{tab:results} again, subject $1$
-obtains better results if he trains the system in the teacher
-imitation modality, whereas subjects $2$ and $3$ make it work better
-in the bilateral action and mirror-box modalities. It is unclear why
-this is the case, and anyway a broader range of patients is required
-to observe any stastically meaningful phenomena, in order to possibly
-relate the type of amputation to the preferred modality --- a
-relationship which would be of great help when a new patient has to
-train the system.
+\end{enumerate}
 
-The only reasonable note we can make here is that subject $1$ is left
-with a very short stump, as opposed to subjects $2$ and $3$; this
-qualifies him as having a high degree of de-afferentiation, i.e.,
-sensorial feedback deprivation. It has been noted \cite{lajoie,miall}
+The results of our experiment show that, at least in the case of our subjects, the
+answer to the first question is positive. In the aforementioned paper, a classification
+accuracy of about $90\%$ and a normalised RMSE of about $10\%$ were sufficient to
+correctly control the DLR-II hand. Comparing these figures with those presented in the
+"Results" Section, we conclude that our subjects would actually be able to
+do the same, even possibly a little better. 
+
+It must be taken into account that, with respect to \cite{2008.BioCyb},
+the duration of each cycle is short (a few minutes versus one and a half hour)
+and that the electrodes were left in the same position for each subject. Nevertheless,
+these problems have been tackled and solved in that paper, and the very same
+techniques proposed therein can be employed in this case, in a practical setting.
+Moreover, a number of simple strategies can be used to further improve the
+performance: since most classification errors happen at the onset
+of grasps, for example, the regression machine can be used to start the classification only
+when the predicted force is above a threshold, when the chance of mistaking the
+posture is close to zero. Buffering, i.e., considering a few samples before
+switching category, would also help. The regression output
+signal can further be low-pass filtered to accommodate for the high-frequency oscillation
+noticed in Figure \ref{fig:examples}. All this is, of course, subject to experiments
+once a practical implementation is realised.
+
+As far as the second question is concerned, of course more subjects and more cycles per
+subject are needed for a full answer; but if we restrict to our experiment, we see that
+our subjects obtain good results regardless of the age of operation (decades for Subjects
+$1$ and $2$, one year for Subject $3$) and type of amputation (Subject $1$ has a very
+short stump, Subject $2$ has a longer one and Subject $3$ retains his full forearm).
+Lastly, all our subjects have been using myoelectric prostheses, (Subject $3$
+was actually being trained at the time of the experiment); this probably gives them
+a little advantage, but not that much, since commercial myoelectric prostheses, so far,
+mainly employ the wrist flexor and extensor; so we would expect a stronger fitness of
+these muscles, but not necessarily of all the others in the forearm. A similar consideration
+appears in \cite{sebelius}, actually the only work we can compare with.
+
+Question $3$ seems to have a negative answer: the same uniform electrode positioning strategy
+worked fine for all Subjects, notwithstanding their diversity.
+If confirmed, this finding would definitely simplify the clinical training procedures as well
+as the manufacturing of prosthetic sockets, to the benefit of the patients.
+
+\subsection{Practical issues}
+
+Regarding the practical issue of manufacturing such a system,
+one wonders how easy it will be to miniaturise the optimal
+models obtained for each subject, both for classification and regression;
+we have conducted a preliminary study which indicates that it should be possible
+with a reasonable effort using standard micro-controllers. To this end, the
+above mentioned sparsity of the solutions built by SVMs (see Subsection
+\ref{subsec:method}) is an advantage. Anyway, the low percentages of SVs in the
+best models found (Figure \ref{fig:SVs}) indicate that the problem, in general,
+is easy from the point of view of machine learning: in case SVMs proved too
+hard to implement in practice, even a less sophisticated method such as, e.g.,
+nearest neighbours, could obtain acceptable performance values.
+
+This consideration suggests that the rehabilitation community should probably stop
+looking for more and more sophisticated features and machine learning methods,
+and concentrate on the prosthesis itself. As well, knowing the state-of-the-art of
+hand prostheses, we claim that invasive techniques such as, e.g., electroneurography
+\cite{cipriani} will not be necessary for a long time to come, at least for
+trans-radial amputees. We have just begun exploiting plain, old surface EMG.
+
+\subsection{EMG patterns}
+
+The form of feed-forward control enforced by this method is, we claim, ``more
+natural'' than the standard single-muscle activation technique, since here
+we detect real-time \emph{phantom movements} and \emph{forces}.
+No claim is made about the physiological resemblance of the EMG patterns found
+to muscular patterns elicited for the same grasps in a healthy arm. As long as
+each subject can generate a distinct pattern for each grasp posture, this pattern
+can be detected and the appropriate command can be sent to the prosthesis.
+The net effect is that the amputee could obtain, e.g., a $20$N power grasp just
+by doing it with the phantom limb --- what he used to do naturally before the trauma.
+
+As a matter of fact, we find amazing that long-term amputees, one of which has
+had almost \emph{no forearm} for $45$ years, can still produce such distinct signals
+for anatomically similar phantom movements such as, e.g., a pinch grip and a
+tripodal grip. (Indeed all subjects are users of conventional myoelectric
+prostheses, but in that case movements are required, which can be at
+best defined gross, if compared to the precision obtained in this experiment.)
+It is common understanding that, due to cortical plasticity, motor/sensory brain
+areas devoted to amputated limbs are in the long run reassigned to other
+functions. The wonderful accuracy we have seen seems to go against this belief,
+and is in agreement with recent neurological studies on above/below elbow
+amputees \cite{sirigu1,sirigu2}. Trans-cranial magnetic stimulation and EMG detection
+on such subjects has revealed that stable, precise EMG patterns appear in subjects with long-term
+amputations when they are required to move their phantom limbs. In \cite{sirigu2}
+such a pattern was even observed in an \emph{above-elbow} amputee, asked to perform
+phantom thumb flexion, due to residual muscle synergies. This lets us hope that
+our technique could be applied, although probably not to the same extent, to more
+severe amputees such as trans-humerals.
+
+\subsection{On the training modalities}
+
+The three modalities were devised in order to provide a simple and effective
+way to obtain labels and force values for each EMG sample. For healthy
+subjects, this is usually done using a force sensor gripped with the hand
+\cite{2008.BioCyb} or a dataglove \cite{sebelius}; obviously these ideas
+will not work with an amputee.
+The competing use of three different modalities has proven effective in finding
+the best way for each single subject to train the system; as it turns out,
+almost consistently for classification and regression (consider Figure
+\ref{fig:results} again), performances \emph{differ} significantly as
+the modality changes for each subject. This is an important issue, since
+a better and quicker training could be obtained if we could
+know in advance what modality suits best an amputee. We have no general
+answer to this question so far, but some considerations are at hand.
+
+The teacher imitation and bilateral action
+modalities were essentially suggested by common sense, while the mirror-box
+is inspired by by Ramachandran's experiments on amputees of the
+mid-Nineties \cite{ramachandran96}, where it was noted that the illusion of
+seeing one's hand moving would reinforce the visual feedback loop and ease
+the ghost limb pain in monolateral hand amputees. We figured out that such
+a device could actually improve the subject's ability to control EMG
+activation patterns at least with respect to the bilateral action modality;
+but it turns out that there is little or no difference between their performances,
+and indeed mirror-box is \emph{worse} than bilateral action for Subject $1$ in
+classification. Probably, a certain amount of training with the mirror is required,
+before a subject becomes proficient with the device.
+
+Let us then restrict our attention to imitation and bilateral action.
+Imitation is predictably the less accurate modality, since it is the
+teacher who presses the force sensor in order to simulate the force applied by the
+subject; as well, the only way the subject has to know when to start grasping
+is visual feedback, which indeed introduces a delay. (Anyway let us notice that
+teacher imitation is the only possibility if we want to extend this method to
+\emph{bilateral} hand amputees, whose quality of life can really be low after
+the amputation.)
+Both regression and classification performances are worse in this modality for Subjects
+$2$ and $3$; but it is best for Subject $1$, and it degrades
+as we go to Subject $2$ and $3$. An interesting observation is that Subject $1$
+has the shortest stump left, Subject $2$ has more, and Subject $3$ has it all;
+this qualifies $1$ as having a high degree of de-afferentiation (sensorial
+feedback deprivation). It has been noted \cite{lajoie02,miall07}
 that de-afferented patients perform \emph{better than normal subjects}
 in tasks involving a conflict between what they perceive from their
 moving limb and what they see; and this might explain why Subject $1$
