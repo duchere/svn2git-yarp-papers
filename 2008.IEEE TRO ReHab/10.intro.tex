@@ -24,17 +24,13 @@ grasp a hammer without letting it slip. Lastly, the system should be able to
 work in real-time and to adapt continually to the changing nature of the EMG
 signal.
 
-Actually, recent scientific literature
-indicates that plain, old EMG signals can be used in a better way by improving
-the signal processing method, essentially by switching to machine learning.
-In \cite{2008.BioCyb} it is shown that a healthy subject can finely feed-forward
-control a dexterous, non-prosthetic mechanical hand, namely the DLR-II Hand
-\cite{ButFisGre2004}, over a long time using $10$ EMG electrodes; willing to
-explore this issue further, in particular as far as amputees are concerned, we
-have devised a new experiment.
-
-Three below-elbow traumatic amputees, two of which
-were operated decades ago, were asked to perform
+Actually, recent scientific literature indicates that plain, old EMG signals
+can be used in a better way in prosthetics, by improving the signal processing
+method, essentially by switching to machine learning. Excellent results have
+been shown on healthy subjects, but surprisingly, as far as we know, there is
+so far just one study on amputees \cite{sebelius}. Willing to explore the issue
+deeper and further, we have devised a new experiment. Three below-elbow traumatic
+amputees, two of which were operated decades ago, were asked to perform
 grasp postures with their phantom limb at various speeds and forces, while their
 EMG activity was recorded using $5$ commercially available electrodes, positioned
 without clinical help, and the desired force was
@@ -72,7 +68,7 @@ EMG has been subject to accurate feature extraction and classification,
 e.g. \cite{englehart01,dunlop,smagt06} in order to discriminate hand postures, not necessarily
 used for grasping (for instance, the act of wrist flexion) and not only in the field
 of prosthetics, e.g. \cite{fukuda,yokoi}. A thorough and well-organised survey and
-historicla account of myoelectric control for hand prostheses can be found in
+historical account of myoelectric control for hand prostheses can be found in
 \cite{englehart06}.
 
 Some authors of this very work \cite{2008.ICRA,2008.BioCyb} have as well verified that the problem, from
@@ -82,9 +78,9 @@ method such as LWPR \cite{lwpr} obtain similar results when applied to the plain
 signal as extracted by Otto Bock's commercially standard electrodes, the Myobock
 (see \url{www.ottobockus.com}).
 
-It seems reasonable to say that surface myoelectric control will still be the standard for the
+It seems then reasonable to say that surface myoelectric control will still be the standard for the
 years to come, even when the dexterity of commercial prostheses increases. Given the
-stunning progress of machine learning, it is no wonder that as many as $127$ EMG
+ongoing progress of machine learning, it is no wonder that as many as $127$ EMG
 electrodes are used simultaneously in Targeted
 Muscle Reinnervation \cite{kuiken06}, probably the most spectacular use of myoelectric control
 so far, although it is out of the scope of this work since it involves surgery.
@@ -93,7 +89,7 @@ promising.
 
 \subsubsection{Artificial / prosthetic hands}
 
-In \cite{zecca02} (Section 3) a full comparison among artificial hands, including
+In Section $3$ of \cite{zecca02} a full comparison among artificial hands, including
 the human hand, is shown; remarkable mechanical hands such as the Utah/MIT hand, the
 Stanford/JPL hand, the DLR hand and the Robonaut Hand are compared (see also the
 references in the paper for more details); but their high dexterity makes them
@@ -101,7 +97,7 @@ unusable as prostheses, either because they are too large, too heavy or too powe
 As well the DLR-II hand, appeared in 2004 \cite{ButFisGre2004}, probably the most sophisticated
 mechanical hand at the time of writing, is far from being usable as a prosthesis.
 
-As of 2004, the only choice was the Otto Bock / SUVA hand, which only had $2$ DOFs and
+As of 2004, a widely employed prosthesis was the Otto Bock / SUVA hand, which only had $2$ DOFs and
 no opposable thumb. More recently, Touch Bionics's i-LIMB (\url{www.touchbionics.com}) has appeared, which has
 5 independent DOFs and a passive opposable thumb. Its myoelectric control system enables
 the selection among $5$ hand postures using $2$ electrodes (information collected from the
@@ -111,8 +107,7 @@ the prototype level.
 
 \subsubsection{Clinical applications}
 
-Surprisingly, as far as we know, little work has been done on amputees --- actually,
-all aforementioned works are experimentally checked on healthy subjects. In the framework of
+All aforementioned works are experimentally checked on healthy subjects. In the framework of
 Project SmartHand (\url{www.elmat.lth.se/~smarthand}) \cite{sebelius} is the only
 test on amputees, as far as we know. Sebelius had $5$ below-elbow amputees, plus one subject
 with congenital malformation of the forearm, perform up to
@@ -124,12 +119,12 @@ the age of amputation seems not to influence the subjects' ability.
 \subsubsection{Original contributions}
 
 To the best of our knowledge, this is the first time a position / force estimation
-is attempted on amputees somehow systematically. Besides studying the accuracy
-obtained in producing signals usable to drive a dexterous prosthesis, we draw some
-considerations about the subjects' diversity
-as patients (age, age of operation, type of amputation) and its impact on the results.
-For the benefit of practical applicability, $5$ commercially available EMG electrodes are
-employed. The method is simple, from the point of view of machine learning: 
-the EMG signals are fed to a Support Vector Machine and classification / regression
-are performed instant by instant. This suggests that standard surface EMG still has
-to be fully exploited.
+is attempted on amputees somehow systematically. We apply a standard machine learning
+system to the EMG of three amputees both to recognise the grasping posture and
+to approximate the required force. Some considerations about the subjects' diversity
+as patients (age, age of operation, type of amputation) are drawn, also with respect to
+its impact on the results. Just $5$ commercially available EMG electrodes are
+employed, and their signals are fed as-they-are to the machine at $25$Hz.
+Classification / regression are performed sample-by-sample. The results are
+good, and the simplicity of the tools used indicates that surface EMG still has to be
+fully exploited.
