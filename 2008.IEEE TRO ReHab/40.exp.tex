@@ -45,16 +45,18 @@ two modalities.
 \begin{figure*}[!ht] \centering
   \includegraphics[width=\textwidth]{figs/figGuess}
   \caption{comparing true and predicted targets. (upper row) Classification
-    of Subject $2$ in bilateral action (left) and Subject $1$ in mirror-box 
-    (right). (lower row) Regression of Subjects $2$ (left) and $3$ (right)
-    in bilateral action.}
+    of Subject $2$ in bilateral action (left, weighted accuracy $95.74\% \pm
+    1.15\%$) and Subject $1$ in mirror-box (right, $79.72\% \pm 1.70\%$).
+    (lower row) Regression of Subjects $2$ (left, normalised RMSE $6.54\% \pm
+    0.31\%$) and $3$ (right, $7.70\% \pm 0.65\%$) in bilateral action.}
   \label{fig:guess}
 \end{figure*}
 
 Figure \ref{fig:guess} indicates that (upper row) most errors in classification
-appear at the onset of grasps (transitions to/from label \re), while regression
-(lower row) appears good both when slow (left panel) and fast (right panel) grasps
-are used. The only significant disturbance is a high-frequency but low-amplitude
+appear at the onset of grasps (transitions to/from label \re), although for Subject $1$
+\pw\ and \pi\ are also frequently mistaken. Regression (lower row) appears good
+both when force is approximated during slow (left panel) and fast (right panel)
+grasps. The only significant disturbance is a high-frequency but low-amplitude
 modulation of the predicted force. Confusion matrices for each subject and
 modality (Figure \ref{fig:confusion}) actually confirm that \re\ is easily mistaken
 for any other label (first row and column of each matrix), in particular for

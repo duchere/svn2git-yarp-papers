@@ -45,55 +45,51 @@ work, then we describe the experiment and results and discuss them.
 
 \subsection{Related work}
 
-\subsubsection{The EMG signal}
+\subsubsection{Myoelectric control}
 
 Myoelectric control, i.e., feed-forward control of prostheses using surface EMG,
 has been the most popular form of (externally powered) control by amputees since
 the Sixties, mostly due to its relatively low cost and non-invasiveness. It has
 provided a simple yet effective way to control single degree-of-freedom (DOF) hand
 prostheses such as OttoBock's SensorHand for decades, also allowing for a simple
-force estimation, the so-called proportional control. Body-powererd prostheses,
-actuated via a harness connected, e.g., to the shoulder, and cosmetic ones, i.e.,
-passive prostheses, have been less interesting, but also cheaper, options.
-
-With the appearance on the market of multiple-DOFs hand prostheses, myoelectric
-control has gained interest since it represents essentially the only non-surgical
-way of finely controlling such artifacts. Before 1975, the common
+force estimation, the so-called proportional control. Before 1975, the common
 control schema was based upon the identification of active muscle remnants in the
 amputee's stump and the coding of two, at most three levels of activity of each
-remnant to prosthesis commands \cite{bottomley65,childress69}. It is from the mid-Seventies
-on that probabilistic methods as well as pattern recognition techniques began to be used,
-including Bayes methods, artificial neural networks and nearest neighbors. More recently
-EMG has been subject to accurate feature extraction and classification,
-e.g. \cite{englehart01,dunlop,smagt06} in order to discriminate hand postures, not necessarily
-used for grasping (for instance, the act of wrist flexion) and not only in the field
-of prosthetics, e.g. \cite{fukuda,yokoi}. A thorough and well-organised survey and
-historical account of myoelectric control for hand prostheses can be found in
-\cite{englehart06}.
+remnant to prosthesis commands, e.g. \cite{bottomley65,childress69}. From the mid-Seventies
+on probabilistic methods and pattern recognition techniques began to be used,
+including Bayes methods, artificial neural networks and nearest neighbors. 
+A thorough and well-organised survey and historical account of myoelectric
+control for hand prostheses can be found in \cite{englehart06}.
 
-Some authors of this very work \cite{2008.ICRA,2008.BioCyb} have as well verified that the problem, from
-the very point of view of machine learning, is easy, and that a Support Vector Machine
-\cite{BGV92}, a standard multi-layer perceptron and an incremental local-approximation
+With the appearance on the market of multiple-DOFs hand prostheses, the myoelectric
+signal gains even more interest, since it represents the only non-surgical
+way of finely controlling such artifacts. \cite{englehart01,dunlop,smagt06} are
+examples of better and better posture discrimination using EMG, always on healthy
+subjects. The issue is important also outside the field of prosthetics, e.g., in
+robotic control and teleoperation \cite{fukuda,yokoi}.
+
+In \cite{2008.ICRA,2008.BioCyb} it has been verified on one single healthy subject
+that that the problem, from the very point of view of machine learning,
+is easy, and that a Support Vector Machine \cite{BGV92},
+a standard multi-layer perceptron and an incremental local-approximation
 method such as LWPR \cite{lwpr} obtain similar results when applied to the plain EMG
 signal as extracted by Otto Bock's commercially standard electrodes, the Myobock
 (see \url{www.ottobockus.com}).
 
-It seems then reasonable to say that surface myoelectric control will still be the standard for the
-years to come, even when the dexterity of commercial prostheses increases. Given the
-ongoing progress of machine learning, it is no wonder that as many as $127$ EMG
-electrodes are used simultaneously in Targeted
+It seems then reasonable to say that surface myoelectric control will still be the
+standard for the years to come, even when the dexterity of commercial prostheses
+increases. Single-DOF control via EMG is being studied \cite{englehart08} and looks
+extremely promising. As many as $127$ EMG electrodes are used simultaneously in Targeted
 Muscle Reinnervation \cite{kuiken06}, probably the most spectacular use of myoelectric control
 so far, although it is out of the scope of this work since it involves surgery.
-As well, single-DOF control via EMG is being studied \cite{englehart08} and looks extremely
-promising.
 
 \subsubsection{Artificial / prosthetic hands}
 
 In Section $3$ of \cite{zecca02} a full comparison among artificial hands, including
 the human hand, is shown; remarkable mechanical hands such as the Utah/MIT hand, the
 Stanford/JPL hand, the DLR hand and the Robonaut Hand are compared (see also the
-references in the paper for more details); but their high dexterity makes them
-unusable as prostheses, either because they are too large, too heavy or too power-demanding.
+references in the paper for more details); but in those cases high dexterity means they
+are not usable as prostheses, either because they are too large, too heavy or too power-demanding.
 As well the DLR-II hand, appeared in 2004 \cite{ButFisGre2004}, probably the most sophisticated
 mechanical hand at the time of writing, is far from being usable as a prosthesis.
 
@@ -103,13 +99,20 @@ no opposable thumb. More recently, Touch Bionics's i-LIMB (\url{www.touchbionics
 the selection among $5$ hand postures using $2$ electrodes (information collected from the
 website); nevertheless, the impression is that most of the grasping effort is achieved through
 the underactuation of the hand, as it happens with the CyberHand \cite{cyberhand}, still at
-the prototype level.
+the prototype level, and the DLR Prosthetic Hand \cite{Hua2006}. In all cases, force control
+is still underdeveloped, notwithstanding its relevance, and notwithstanding the ongoing work
+on impedance control \cite{ott} in robotics. There is a trend of tranferring technology from
+mechatronics to prosthetics and we are probably going to see more and more dexterous
+prostheses built and marketed in the upcoming years; still, control
+lags behind, even without considering the crucial issue of sensorial feedback,
+dealt with in, e.g., \cite{cipriani} but completely open as yet.
 
 \subsubsection{Clinical applications}
 
-All aforementioned works are experimentally checked on healthy subjects. In the framework of
-Project SmartHand (\url{www.elmat.lth.se/~smarthand}) \cite{sebelius} is the only
-test on amputees, as far as we know. Sebelius had $5$ below-elbow amputees, plus one subject
+All aforementioned works and systems have been tested on healthy subjects. At the time
+of writing and to the best of our knowledge, \cite{sebelius} is the only test on amputees, done
+in the framework of Project SmartHand (\url{www.elmat.lth.se/~smarthand}).
+Sebelius had $5$ below-elbow amputees, plus one subject
 with congenital malformation of the forearm, perform up to
 $10$ hand postures (not grasping-related) while recording a 16-channel EMG signal. His
 results indicate that a rather high recognition rate is obtained by a neural network
@@ -125,6 +128,6 @@ to approximate the required force. Some considerations about the subjects' diver
 as patients (age, age of operation, type of amputation) are drawn, also with respect to
 its impact on the results. Just $5$ commercially available EMG electrodes are
 employed, and their signals are fed as-they-are to the machine at $25$Hz.
-Classification / regression are performed sample-by-sample. The results are
-good, and the simplicity of the tools used indicates that surface EMG still has to be
+Classification / regression are performed sample-by-sample. The encouraging results,
+and the simplicity of the tools used, indicates that surface EMG still has to be
 fully exploited.
