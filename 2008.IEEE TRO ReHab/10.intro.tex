@@ -69,7 +69,7 @@ subjects. The issue is important also outside the field of prosthetics, e.g., in
 robotic control and teleoperation \cite{fukuda,yokoi}.
 
 In \cite{2008.ICRA,2008.BioCyb} it has been verified on one single healthy subject
-that that the problem, from the very point of view of machine learning,
+that the problem, from the very point of view of machine learning,
 is easy, and that a Support Vector Machine \cite{BGV92},
 a standard multi-layer perceptron and an incremental local-approximation
 method such as LWPR \cite{lwpr} obtain similar results when applied to the plain EMG
@@ -99,9 +99,9 @@ no opposable thumb. More recently, Touch Bionics's i-LIMB (\url{www.touchbionics
 the selection among $5$ hand postures using $2$ electrodes (information collected from the
 website); nevertheless, the impression is that most of the grasping effort is achieved through
 the underactuation of the hand, as it happens with the CyberHand \cite{cyberhand}, still at
-the prototype level, and the DLR Prosthetic Hand \cite{Hua2006}. In all cases, force control
-is still underdeveloped, notwithstanding its relevance, and notwithstanding the ongoing work
-on impedance control \cite{ott} in robotics. There is a trend of tranferring technology from
+the prototype level, and the DLR Prosthetic Hand \cite{Hua2006}. Force control is a hot topic
+currently being studied in robotics \cite{ott,thomas} as well as in hand prosthetics, among others
+in \cite{meek1,meek2}. There is a definite trend of tranferring technology from
 mechatronics to prosthetics and we are probably going to see more and more dexterous
 prostheses built and marketed in the upcoming years; still, control
 lags behind, even without considering the crucial issue of sensorial feedback,
@@ -127,7 +127,10 @@ system to the EMG of three amputees both to recognise the grasping posture and
 to approximate the required force. Some considerations about the subjects' diversity
 as patients (age, age of operation, type of amputation) are drawn, also with respect to
 its impact on the results. Just $5$ commercially available EMG electrodes are
-employed, and their signals are fed as-they-are to the machine at $25$Hz.
-Classification / regression are performed sample-by-sample. The encouraging results,
+employed, and their signals are fed as-they-are to the machine at $25$Hz;
+classification / regression are performed sample-by-sample.
+(Traditionally, isometric/isotonic postures are classified after a certain amount
+of signal has been presented to the system, which introduces delay --- this issue
+has recently been tackled in \cite{tsukamoto}, too.) The encouraging results,
 and the simplicity of the tools used, indicates that surface EMG still has to be
 fully exploited.
