@@ -158,7 +158,7 @@ of nine cycles, with a length of $5.7 \pm 1.06$ minutes (average
 $\pm$ one standard deviation). After all cycles were recorded, samples
 associated with force signal values lower than $0.01$V were artificially
 given the label \re. This threshold was detected by visual inspection
-of the signal, and checked by comapring it with the values during the 
+of the signal, and checked by comparing it with the values during the 
 baseline rest condition. Due to an error in the
 experiment protocol, Subject $1$ did not record the pointing index
 grasp during the second modality, and Subjects $1$ and $2$ did not
@@ -186,10 +186,9 @@ surface EMG \cite{deluca97,deluca02}.
 Both force and EMG signals were digitally filtered in order
 to remove high-frequency noise components (II order low-pass FIR filter
 with cut-off frequency at $5$Hz). After filtering, spectral analysis
-reveals that, in agreement with the literature, the EMG relevant bandwidth
-lies below $10$-$12$Hz (recall that the Myobock electrodes already rectify
-the EMG signal, whose bandwidth would otherwise be $15$-$500$Hz)
-so both signals were subsampled at $25$Hz.
+reveals that the relevant bandwidth of the
+EMG signal, as recovered form the elctrodes, and of the force signal,
+lies below $10$-$12$Hz, so both signals were subsampled at $25$Hz.
 
 Principal Component Analysis (PCA) was applied to the $5$ EMG signals in
 each cycle, revealing that they can be linearly reduced to two losing,
@@ -223,7 +222,7 @@ is required.
 \label{subsec:method}
 
 The good performance of Support Vector Machines (SVMs) applied to similar
-problems has already been demonstrated since 1996 \cite{smagt06}. SVMs are
+problems is known since \cite{smagt06}. SVMs are
 statistical learning machines \cite{v-edbed-82} which build an approximated map between
 samples drawn from an input space (under the standard i.i.d. sampling hypothesis)
 and a set of labels (classification) or a real value (regression).
@@ -293,8 +292,8 @@ which account in turn for the width of the Gaussians used to build the
 approximated solution and the weight assigned to the regulariser during minimisation of
 the cost functional.
 We find optimal values for $C$ and $\gamma$, as is standard, by logarithmic grid search:
-for all pairs $C,\gamma$ such that $C=10^{1,\ldots,3}$ and $\gamma=\frac{10^{0,\ldots,2}}{5}$,
-the generalisation error of a machine trained using that particular pair is estimated
+for each pair $(C,\gamma)$ for $C=10^{1,\ldots,3}$ and $\gamma=\frac{10^{0,\ldots,2}}{5}$,
+the generalisation error of a machine trained using that pair is estimated
 via $5$-fold cross-validation; at the end the pair resulting in the best performance is
 chosen as optimal. Training samples are normalised by subtracting the mean values
 dimension-wise and dividing by the standard deviations; testing samples are normalised
