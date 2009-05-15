@@ -1,0 +1,173 @@
+%\renewcommand{\familydefault}{\sfdefault}
+%\documentclass{llncs}
+%
+%\pagestyle{headings}
+%\usepackage{amsmath}
+\newcommand{\new}{\newcommand}
+\new{\bg}{\begin}
+\new{\lp}{\left(}
+\new{\rp}{\right)}
+
+
+\newcommand{\xx}{\mathcal{X}}
+\newcommand{\yy}{\mathcal{Y}}
+\newcommand{\rr}{\mathbb{R}}
+
+\new{\iii}{\begin{enumerate}}
+\new{\fff}{\end{enumerate}}
+\new{\iiii}{\begin{itemize}}
+\new{\ffff}{\end{itemize}}
+\new{\mfi}{\begin{eqnarray*}}
+\new{\mff}{\end{eqnarray*}}
+\new{\mfni}{\begin{eqnarray}}
+\new{\mfnf}{\end{eqnarray}}
+\new{\beeq}[2]{\begin{equation}\label{#1}{#2}\end{equation}}
+\new{\eqn}[1]{~(\ref{#1})}
+
+\new{\room}{\ \ \ \ }
+\new{\card}{\#}
+
+
+\new{\nor}[1]{\|{#1}\|}
+\new{\normi}[1]{\left\|{#1}\right\|_{\infty}}
+\new{\scal}[2]{\left\langle{#1},{#2}\right\rangle}
+\new{\scalh}[2]{\left\langle{#1},{#2}\right\rangle_\hh}
+\new{\set}[1]{\{{#1}\}}
+% GENERAL MACRO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\new{\rone}{{\mathrm{I\hskip-2.2pt R}}}
+\new{\com}{{\mathbb C}}
+\new{\rone}{{\mathbb R}} 
+\new{\nat}{{\mathbb N}}
+
+\new{\fz}{f_\vz}
+\new{\fzlo}{\overline{f}_\vz^\la}
+\new{\rd}{\rone^\dm}
+\new{\ed}{{\mathbb E}}
+%\new{\nat}{{\mathrm{I\hskip-2.2pt N}}}
+%\new{\com}{{\mathrm{I\hskip-2.2pt C}}}
+
+%
+%\new{\rd}{{\mathrm{I\hskip-2.2pt R}}^\dm}
+%\new{\ed}{{\mathrm{I\hskip-2.2pt E}}^\dm}
+\new{\argmin}{\operatornamewithlimits{argmin}}
+\new{\argmax}{\operatornamewithlimits{argmax}}
+\new{\Prob}[1]{\mathrm{P}\left[\, #1 \right]}
+\new{\E}{{\mathbb E}}
+\new{\eps}{\varepsilon}
+%\new{\nor}[1]{\left\|{#1}\right\|}
+%\new{\scal}[2]{\left\langle{#1},{#2}\right\rangle}
+
+%LEARNING MACRO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\new{\marg}{\rho_X}
+\new{\prob}{\rho}
+\new{\dm}{d}
+\new{\tr}{\vz}
+\new{\n}{n}
+\new{\vb}{{\mathbf b}}
+\new{\vf}{{\mathbf f}}
+\new{\vl}{\bar{\ell}}
+\new{\vx}{{\mathbf x}}
+\new{\vy}{{\mathbf y}}
+\new{\vz}{{\mathbf z}}
+\new{\vc}{{\mathbf c}}
+\new{\vu}{{\mathbf u}}
+\new{\vv}{{\mathbf v}}
+%\new{\k}{{\mathcal k}}
+%\new{\kx}{{\mathcal k}_x}
+\new{\kk}{K}
+\new{\s}{K^s}
+\new{\kkx}{K_x}
+\new{\w}{W}
+\new{\wx}{\w_x}
+\new{\WW}{{\mathbf W}}
+\new{\DD}{{\mathbf D}}
+\new{\LL}{{\mathbf L}}
+\new{\LS}{{\mathbf L}_{s}}
+\new{\LR}{{\mathbf L}_{r}}
+\new{\II}{{\mathbf I}}
+\new{\KK}{{\mathbf K}}
+\new{\ka}{\kappa}
+\new{\ls}{\ell}
+\new{\err}{{\mathcal E}}
+\new{\emp}{{\mathcal E}_z}
+\new{\hh}{{\mathcal H}}
+\new{\oo}{{\mathcal G}}
+\new{\ff}{{\mathcal F}}
+\new{\ldue}{L^2(X,\rho)}
+\new{\la}{\lambda}
+\new{\dd}{\delta}
+\new{\vG}{{\mathbf \Gamma}}
+\new{\vC}{{\mathbf C}}
+\new{\vS}{{\mathbf S}}
+\new{\vU}{{\mathbf U}}
+\new{\vY}{{\mathbf Y}}
+\new{\vX}{{\mathbf X}}
+\new{\vaa}{{\boldsymbol{\alpha}}}
+\new{\bh}{{\mathcal B}(\hh)}
+\new{\hs}{ HS(\hh)}
+
+\new{\lduew}{L^2(X,\rho_\w)}
+\new{\Tt}{L_{K,\hh}}
+\new{\Tn}{L_{K,n}}
+\new{\U}{U_\w}
+\new{\LK}{L_{K}}
+
+\new{\Wt}{L_{\w,\hh}}
+\new{\Wn}{L_{\w,n}}
+
+\new{\Ah}{A_{\hh}}
+\new{\An}{A_{n}}
+
+\new{\Ls}{L_{s}}
+\new{\Lr}{L_{r}}
+
+\new{\Lshn}{L_{s,\hh,n}}
+\new{\Lrhn}{L_{r,\hh,n}}
+\new{\LLsh}{L_{s,\hh}}
+\new{\LLrh}{L_{r,\hh}}
+\new{\I}{I_{\kk,\w}}
+\new{\Ik}{I_\kk}
+\new{\IIk}{I^*_\kk}
+\new{\Iw}{I_\w}
+\new{\IIw}{I^*_\w}
+
+\new{\m}{m}
+\new{\mn}{m_{n}}
+
+\new{\Ax}{{A_{\mathbf x}}}
+\new{\A}{A}
+\new{\AR}{\A^\la}
+\new{\ARx}{\A^\la}
+%\new{\Tx}{{T_{\mathbf x}}}
+\new{\Tx}{L_{K,n}}
+%\new{\Sx}{{S_{\mathbf x}}}
+\new{\Sx}{{S_n}}
+\new{\T}{T}
+\new{\Kx}{{K_{\mathbf x}}}
+\new{\K}{K}
+\new{\g}{{\mathcal G}}
+\new{\sn}{\hat{\sigma}}
+\new{\vn}{\hat{v}}
+\new{\un}{\hat{u}}
+
+\new{\so}{{s^\prime}}
+
+\new{\Pj}{P_j}
+\new{\Qj}{Q_j}
+\new{\Pnj}{\hat{P}_j}
+\new{\Qnj}{\hat{Q}_j}
+
+\new{\cl}{c}
+\new{\br}{b}
+\new{\R}{R}
+\new{\vre}{\vf_\rho}
+\new{\re}{f_\rho}
+\new{\X}{\mathcal X}
+\new{\Y}{\mathcal Y}
+\new{\W}{\mathcal W}
+
+\new{\bbeta}{\boldsymbol{\beta}}
+%END  command MACRO----------------------------------
+
