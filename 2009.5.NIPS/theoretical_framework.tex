@@ -24,12 +24,14 @@ to recognize the perceived object (Figure \ref{fig:training-scheme}, bottom). Te
 multi-modal classifier are reported in section .. and ...
 
 Figure \ref{fig:test-scheme} shows the test phase with its two possible outcomes. When receiving as input a VPR of a known object, the system can
+opt for two different types of action:
 \begin{itemize}
-\item activate the sensor motor map. This producs as an output an estimate of the most probable motor grasps associated to that object, with the corresponding 
+\item {\em Activation of the sensor-motor map}. This produces as an output an estimate of the most probable motor grasps associated 
+to that object, with the corresponding 
 MPRs for the grasp postures. We call this estimates {\em motor priming}, as they would correspond in an embodied agent to the pre-activation of the possible 
 grasps. A detailed description of how we obtain the motor priming is given in section .....
 
-\item classify the object. Note that, having learned the object on two modalities, the classifier needs as input a VPR and its corresponding MPR. We derive the
+\item {Object classification}. Note that, having learned the object on two modalities, the classifier needs as input a VPR and its corresponding MPR. We derive the
 {\em not perceived} MPR using the senso-motor map (Figure \ref{fig:test-scheme}, bottom). The obtained motor priming is then given as input to the classifier with the VPR. We stress again that the clasifier recognizes the object on the basis of its visual appearance and of how it can be grasped. Experiments
 reported in section ... shows clearly that this leads to a significant increase in performance compared to using only visual information.
 
