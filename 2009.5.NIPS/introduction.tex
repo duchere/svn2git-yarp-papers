@@ -1,20 +1,30 @@
-Consider Figure \ref{fig:chairs}, representing $(a)$ a chair, and $(b)$ Santiago
-Calatrava's ``sedia redonda'', the round chair, a particularly stylish object of
-design sold as a chair in the Sixties. What makes us claim that these objects
-both belong to the category of chairs? Indeed, this is an ominous problem in
-object recognition: too often the category of an object is determined by its
-function rather than by its visual appearance alone. The very concept of object
-has been re-defined by Gibson \cite{gibson} in terms of its affordances ---
-``what one can do with it''. According to this view, what ties both the objects in
-Figure \ref{fig:chairs} to the category of chairs is the fact that they are
-used to sit down.
+\begin{figure}[!h] \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{images/chair_calatrava} &
+    \includegraphics[width=0.45\textwidth]{images/chair_vangogh} \\
+  \end{tabular}
+  \caption{Two very different chairs: (left) Santiago Calatrava's \emph{Tabourettli}
+    (1986) and (right) reproduction from \emph{Vincent's chair} by Vincent Van Gogh
+    (1888).}
+  \label{fig:chairs}
+\end{figure}
 
-Further hints at a strong link between perception and action come from neuroscience,
-in particular from the mirror neurons paradigm \cite{fadiga}. According to the
-mirror theory, neural correlates are found for both the performance of a grasping
+Consider Figure \ref{fig:chairs}. What enables us to immediately claim that both
+these objects are chairs? The answer is simply: both can be used to sit, and have
+been designed to this end. Although nothing in
+their visual appearance ties them together, we all know what can be done with such
+objects since we have \emph{done} it, at some time in the past. The category of an object
+is often determined by its function too, rather than by its visual appearance alone,
+and this consideration has led to the re-definition of the concept of ``object''
+by Gibson \cite{gibson1,gibson2} in terms of its affordances --- ``what one can do with it''.
+
+The theory of affordances has recently found neurological evidence,
+it is claimed, in the mirror neurons paradigm \cite{gallese-96,rizzolatti-04}, according to which
+neural correlates exist for both the performance of a grasping
 action (mainly involving the sensorimotor system of primates) and its visual
-representation when performed by another primate (involving the visual system only).
-If this is true, as it seems, then the monkeys' (and our) object classification is
+representation when performed by another primate (involving the visual system only,
+\cite{umilta-01}).
+If this is true, then the monkeys' (and our own) object classification is
 so robust mainly because these biological systems \emph{know what to do} with the
 objects they see --- a capability which machines lack, so far. Picture, for instance,
 how much easier automated object recognition of a mug would be under changing illumination
@@ -32,11 +42,22 @@ we call the \emph{Visuo-Motor Grasping dataBase} (VMGdB). The immediate result i
 ability of retrieving a (set of) grasping posture(s) just by seeing an object; this
 ability, which we call \emph{grasp priming}, has obvious applications in robotic fields
 where (semi)autonomous grasping / fine manipulation is reuquired, such as robotic surgery,
-humanoid robotics, teleoperation, advanced hand prosthetics etc.
+humanoid robotics, teleoperation, advanced hand prosthetics etc. This connection between
+robotics and the mirror theory has been explored, although not to this extent, at
+least in \cite{lopes-05,metta-06}.
 
-Since, though, the focus of this work is on enhancing object reocgnition, we then show
-that these grasping postures, reconstructed by the VMM, dramatically improve the
-classification rate of a standard object classifier.
+Notice that this problem is, in general, ill-posed, since an object can be grasped in
+many distinct ways: a direct inverse mapping from visual to motor features is impossible.
+So we resort to a probabilistic estimation: given the sight of an object, how would I
+\emph{most likely} grasp it? This solution is similar to that found for motor-based speech
+recognition, e.g., in \cite{richmond2007}. More in detail, \textbf{ANNALISA e DISI-jin, volete
+approfondire brevemente?}
+
+Lastly, since the focus of this work is on enhancing object reocgnition, we show
+that the grasping posture estimation reconstructed by the VMM dramatically improves the
+classification rate of a standard object classifier. The visual/motor cue integration is
+realised via \textbf{BABI, TATIANA, questo e` vostro}. Our experimental analysis shows
+that \textbf{e qui mettiamo i numeri principali dei risultati sperimantali.}
 
 The paper is organised like this: in Section \ref{sec::framework} we define the general
 multi-modal learning framework, and then we describe the instance under examination;

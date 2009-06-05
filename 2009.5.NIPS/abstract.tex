@@ -1,25 +1,27 @@
-Object recognition is a key problem of artificial vision and robotics,
-particularly as far as the problem of grasping is concerned. Traditionally,
+Object recognition is a key problem of artificial vision. In robotics,
+it is strongly conncted to grasping and is a paramount issue. Traditionally,
 visual features are evaluated from camera images, and statistical methods
 are then trained on huge visual datasets in order to obtain a robust object
 classifier. The knowledge so obtained is then used to choose a model to
-perform a grasping action.
+perform a grasping action. \textbf{CC: e` debole, lo so. ci vuole un paragrafo
+piu` incisivo.}
 
-Inspired by the neuroscientific framework of mirror neurons, we propose
-to enhance the model of an object adding to the visual features a description
-of the grasps chosen by humans for that object --- in other words, a model of
-its affordances. Since in a standard setting the grasps are not directly
+Inspired, among others, by the neuroscientific framework of mirror neurons,
+we hereby propose to enhance the model of an object by adding to its visual
+features a probabilistic description of the grasps chosen by human subjects
+to grasp it --- in other words, a model of its affordances.
+Since in a standard setting the grasps are not directly
 available to the system, they must be reconstructed from the visual features,
-and then used to augment the recognition system's input space.
+and then used to augment the recognition system's input space. We achieve
+this by building a map from visual to motor features, what
+we call a Visuo-Motor Map (VMM). A VMM is functionally akin to a mirror
+structure, practically enforced by training a multivariate regression schema
+on a large human grasping database.
 
-We hereby show that such a technique dramatically improves the recognition
-rate of a standard object classifier. Grasp reconstruction is done via
-a visuo-motor map, functionally akin to a mirror structure, practically
-enforced by training a multivariate regression schema on a large grasping
-database.
-
+We experimentally show that such a technique dramatically improves the
+recognition rate of a standard object classifier.
 The proposed system can be seen as an instance of a general framework for
 multi-model learning, in which an artificial system learns to reconstruct
-proximal patterns (e.g., ``how to grasp a mug'') from distal ones (e.g., the
+active sensory patterns (``how do I grasp a mug'') from passive ones (the
 visual appearance of a mug), and then to use the former together with the
 latter to improve its understanding of the environment.
