@@ -1,13 +1,25 @@
-Multi-modality is a fundamental feature that characterizes biological systems
-and lets them achieve high robustness in understanding skills while coping with
-uncertainty.
-Relatively recent studies showed that multi-modal learning
-is a potentially effective add-on to artificial systems, allowing
-the transfer of information from one modality to another.
-In this paper we propose a general architecture for jointly learning visual and motion patterns:
-by means of regression theory we model a mapping between the two sensorial modalities improving
-the performance of artificial perceptive systems.
-We present promising results on a case study of grasp classification in a controlled setting
-and discuss future developments.
+Object recognition is a key problem of artificial vision and robotics,
+particularly as far as the problem of grasping is concerned. Traditionally,
+visual features are evaluated from camera images, and statistical methods
+are then trained on huge visual datasets in order to obtain a robust object
+classifier. The knowledge so obtained is then used to choose a model to
+perform a grasping action.
 
+Inspired by the neuroscientific framework of mirror neurons, we propose
+to enhance the model of an object adding to the visual features a description
+of the grasps chosen by humans for that object --- in other words, a model of
+its affordances. Since in a standard setting the grasps are not directly
+available to the system, they must be reconstructed from the visual features,
+and then used to augment the recognition system's input space.
 
+We hereby show that such a technique dramatically improves the recognition
+rate of a standard object classifier. Grasp reconstruction is done via
+a visuo-motor map, functionally akin to a mirror structure, practically
+enforced by training a multivariate regression schema on a large grasping
+database.
+
+The proposed system can be seen as an instance of a general framework for
+multi-model learning, in which an artificial system learns to reconstruct
+proximal patterns (e.g., ``how to grasp a mug'') from distal ones (e.g., the
+visual appearance of a mug), and then to use the former together with the
+latter to improve its understanding of the environment.

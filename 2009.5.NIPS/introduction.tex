@@ -1,29 +1,69 @@
-\begin{itemize}
+Consider Figure \ref{fig:chairs}, representing $(a)$ a chair, and $(b)$ Santiago
+Calatrava's ``sedia redonda'', the round chair, a particularly stylish object of
+design sold as a chair in the Sixties. What makes us claim that these objects
+both belong to the category of chairs? Indeed, this is an ominous problem in
+object recognition: too often the category of an object is determined by its
+function rather than by its visual appearance alone. The very concept of object
+has been re-defined by Gibson \cite{gibson} in terms of its affordances ---
+``what one can do with it''. According to this view, what ties both the objects in
+Figure \ref{fig:chairs} to the category of chairs is the fact that they are
+used to sit down.
 
-\item learning by imitation great capability of cognitive systems. It permits to learn how to grasp a cup never seen before just by seeing someone else doing it.
-Fundamental learning mechanism etc 
+Further hints at a strong link between perception and action come from neuroscience,
+in particular from the mirror neurons paradigm \cite{fadiga}. According to the
+mirror theory, neural correlates are found for both the performance of a grasping
+action (mainly involving the sensorimotor system of primates) and its visual
+representation when performed by another primate (involving the visual system only).
+If this is true, as it seems, then the monkeys' (and our) object classification is
+so robust mainly because these biological systems \emph{know what to do} with the
+objects they see --- a capability which machines lack, so far. Picture, for instance,
+how much easier automated object recognition of a mug would be under changing illumination
+conditions, if only our machine had an idea of how to grasp something which looked like
+a mug.
 
-\item a widely accredited hip is that the underlying mechanism of learning by imitation is the existence of a sensor motor map that links
-the visual perception of an object to the motir position of the hand when it manipulates it. Mirror neurons blabla 
+Inspired by these considerations, we hereby define a theoretical framework for
+reconstructing \emph{active} sensory modalities from \emph{passive} ones, that is in
+short, for figuring out what to do with what one sees, hears, smells etc. In particular,
+we enforce one such schema using a multi-variate regression technique to associate
+\emph{object visual features} to related \emph{human grasping postures}. This schema is
+called a \emph{Visuo-Motor Map} (VMM) and is trained
+using a large database of visual and motor data collected from human subjects, that
+we call the \emph{Visuo-Motor Grasping dataBase} (VMGdB). The immediate result is the
+ability of retrieving a (set of) grasping posture(s) just by seeing an object; this
+ability, which we call \emph{grasp priming}, has obvious applications in robotic fields
+where (semi)autonomous grasping / fine manipulation is reuquired, such as robotic surgery,
+humanoid robotics, teleoperation, advanced hand prosthetics etc.
 
-\item another consequence of the existence of a sensor-motor map is that when we learn an object by seeing and manipulating it, we are then able
-to recognize it with a higher degree of accuracy and robustness than if we would have learned it on visual data only. 
+Since, though, the focus of this work is on enhancing object reocgnition, we then show
+that these grasping postures, reconstructed by the VMM, dramatically improve the
+classification rate of a standard object classifier.
 
-\item Enabling a robot to display similar abilities is one of the holy grails of research in artificial cognitive systems. 
+The paper is organised like this: in Section \ref{sec::framework} we define the general
+multi-modal learning framework, and then we describe the instance under examination;
+we then describe in detail the vision-related unit (Section \ref{sec::vision}) and the
+regression schema employed to build the VMM (Section \ref{sec::regression}). We then show our
+experimental results (Section \ref{sec::experiments}) and conclude in Section \ref{sec::concl}.
 
-\item In this paper we present a mirror neurons inspired algorithm for building perception action maps between visual, passive perception and motor, active
-perception. During learning, the algorithm takes as input visual and sensomotor data and (a) it builds a mapping between the two modalities (b) it builds 
-a classifier on both modalities. After training, wehn presented with a visual input, the system is able to perform grasp priming (= is able to predict
-which are the possible way to grasp the seen object; this information could be used to pre-activate a robot hand) and enhanced visual recognition
-(= is able to recognize objects with a higher degree of accuracy and robustness compared to a model learned only on visual features, even if
-the sensor modality is not perceived by the agent). Experiments show that.....
-
-
-\item in the rest of the paper...
-
-
-\end{itemize}
-
+%\begin{itemize}
 %
+%\item learning by imitation great capability of cognitive systems. It permits to learn how to grasp a cup never seen before just by seeing someone else doing it.
+%Fundamental learning mechanism etc 
 %
+%\item a widely accredited hip is that the underlying mechanism of learning by imitation is the existence of a sensor motor map that links
+%the visual perception of an object to the motir position of the hand when it manipulates it. Mirror neurons blabla 
 %
+%\item another consequence of the existence of a sensor-motor map is that when we learn an object by seeing and manipulating it, we are then able
+%to recognize it with a higher degree of accuracy and robustness than if we would have learned it on visual data only. 
+%
+%\item Enabling a robot to display similar abilities is one of the holy grails of research in artificial cognitive systems. 
+%
+%\item In this paper we present a mirror neurons inspired algorithm for building perception action maps between visual, passive perception and motor, active
+%perception. During learning, the algorithm takes as input visual and sensomotor data and (a) it builds a mapping between the two modalities (b) it builds 
+%a classifier on both modalities. After training, wehn presented with a visual input, the system is able to perform grasp priming (= is able to predict
+%which are the possible way to grasp the seen object; this information could be used to pre-activate a robot hand) and enhanced visual recognition
+%(= is able to recognize objects with a higher degree of accuracy and robustness compared to a model learned only on visual features, even if
+%the sensor modality is not perceived by the agent). Experiments show that.....
+%
+%\item in the rest of the paper...
+%
+%\end{itemize}
