@@ -64,44 +64,49 @@ Address \\
 \end{abstract}
 
 \section{Introduction}
-{\bf COMMENT BABS: secondo me il focus del paper dovrebbe essere sull'implementazione della sensomotor map che sta alla base
-dei neuroni a specchio. I risultati che otteniamo sono (1) grasp priming (quando vedo un oggetto sono in grado di predirre
-come posso grasparl, e questo preattiva i possibili grasps. Occhio che per ora non stiamo considerando il task, bisognera'
-dirlo chiaramente} (2) enhanced visual recognition (vedo un oggetto senza prenderlo, il fatto che ho imparato la sensomotor
-map fa si che posso ricostruire l'informazione motoria anche se non e' effettivamente percepita e questo porta a un boost
-nel recognition rate). Suggerisco che dell'introduzione si occupino Claudio (per la parte sui neuroni a specchio, la
-sensor motor map), Babs (modello teorico generale, classificazione) e Annalisa (parte sulla regressione). a seguire c'e' 
-l'introduzione di Iciap per quel che puo' servire}
 
 \input{introduction}
 \label{sec:intro}
 
 \section{Theoretical Framework}
 \label{sec::framework}
-{\bf COMMENT BABS: secondo me questa section deve essere il cuore del paper. Iniziamo con una descrizione generale del 
-framework, con i suoi effetti sul grasp priming e l'enhanced visual recognition, e elenchiamo i building blocks. a seguire 4 subsections con la descrizione delle components: perception (visual unit shortened), building the sensomotor map (regression),
-grasp priming (come concretamente si fa il rpiming a partire dalle components} e classification(come praticamente si
-usa il risultato della regressione per aumentare il recognition rate). Secondo me serviranno un po' di diagrammi/figure
-per spiegare bene cosa facciamo. Suggerisco di dividere il lavoro cosi': descrizione generale (Claudio, Babs, Annalisa),
-visual perception (Nicoletta), building the sensorimotor map (Luca, Annalisa), grasp priming (Luca, Annalisa), classification
-(Barbara, Tatiana). a seguire il testo e' cut and paste da iciap}
-
 \input{theoretical_framework.tex}
 
-\section{Vision Unit}
-\label{sec::vision}
+\subsection{Perceptual Representations}
+\label{sec:2.1}
 \input{vision_unit}
 
-\section{Regression Model}
-\label{sec::regression}
+\subsection{Learning the Sensor-motor Map}
+\label{sec:2.2}
 \input{regression}
 
-\section{Experiments}
-{\bf COMMENT BABS: secondo me questa sezione dovrebbe essere organizzata cosi': piccolo cappello introduttivo (Claudio),
-descrizione del database (Nicoletta), risultati per il grasp priming (Annalisa, Luca), risultati per la classification 
-(Babs, Tati)}
+\subsection{Learning the Visuo-motor Classifier}
+\label{sec:2.3}
+\input{classifier}
 
-\input{experiments}
+\subsection{Motor Grasp Priming}
+\label{sec:2.4}
+\input{grasp-priming}
+
+\subsection{Visuo-motor Object Recognition}
+\label{sec:2.5}
+\input{vm-obj}
+
+\section{Experiments}
+\label{exper}
+\input{hat-exper}
+
+\subsection{The Database}
+\label{sec:3.1}
+\input{database}
+
+\subsection{Results for the Motor Grap Priming}
+\label{sec:3.2}
+\input{grasp-priming-results}
+
+\subsection{Results for Visuo-motor Object Recognition}
+\label{sec:3.3}
+\input{vm-obj-results}
 
 \section{Conclusions}
 \input{conclu}
