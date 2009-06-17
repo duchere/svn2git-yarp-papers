@@ -70,24 +70,41 @@
 \begin{abstract}
 
 \paragraph*{Background:}
-in previous work \cite{2008.ICRA,2008.BioCyb}
-forearm surface electromyography (EMG) has been effectively used to
-control in position \emph{and force} a dexterous mechanical hand, thus laying the basis of
-EMG-based control of polyarticulate hand prostheses, such as, e.g.,
-Touch Bionics's i-LIMB hand.
-So far, the analysis has been concerned with one subject only, fully
-able-bodied, and in highly controlled conditions, i.e., with the arm
-relaxed and still on a table. In this paper we describe the outcome of a similar experiment, in which however $10$ healthy subjects participated,
-who were left free to walk, raise their hands and arms, sit
-down and stand up, etc., as a patient is supposed to do during
-Daily-Life Activities. We also propose a cross-subject model analysis, i.e., training a model on a subject and testing it on another one, which reveals that a certain degree of cross-subject compatibility is present.
-      
+
+forearm surface electromyography (EMG) has been in use since the Sixties
+to feed-forward control active hand prostheses in a more and more refined way.
+Recent research shows that it can be used to control even a dexterous
+polyarticulate hand prosthesis such as Touch Bionics's i-LIMB,
+as well as a multifingered, multi-degree-of-freedom mechanical hand such
+as the DLR II. In this paper we extend previous work and investigate
+the robustness of such fine control possibilities, in two ways: firstly,
+we conduct an analysis on data obtained from $10$ healthy subjects, trying
+to assess the general applicability of the technique; secondly, we compare
+the baseline controlled condition (arm relaxed and still on a table) with
+a ``Daily-Life Activity'' condition in which subjects walk, raise
+their hands and arms, sit down and stand up, etc., as an experimental proxy
+of what a patient is supposed to do in real life.
+We also propose a cross-subject model analysis,
+i.e., training a model on a subject and testing it on another one. The use
+of pre-trained models could be useful in shortening the time required by
+the subject / patient to become proficient in using the hand.
+
 \paragraph*{Results:}
-machine learning techniques such as Support Vector Machines (SVMs) are able to achieve excellent results also in this less controlled situation. In particular, in the DLA situation, an average accuracy of about $95\%$ in classification of grip posture is attained, and reconstruction of the required force is obtained with an average correlation factor of $0.90$.
+
+a standard machine learning technique was able to achieve a real-time grip
+posture classification rate of about $97\%$ in the baseline condition and
+$95\%$ in the DLA condition; and an average correlation ot the target of
+about $0.93$ ($0.90$) while reconstructing the required force. Cross-subject analysis
+is encouraging although not definitive in its present state.
 
 \paragraph*{Conclusions:}
-EMG can control in position and force a dexterous mechanical hand and/or a hand prosthesis for any healthy subject, and in DLA situation. Also, there are strong hints that a ``common'' model can be built and shipped along with the prosthesis (rather than having to train it from
-scratch), thus shortening the patient's training time.
+
+performance figures obtained here are in the same order of magnitude of
+those obtained in previous work about healthy subjects in controlled conditions
+and/or amputees, which lets us claim that this technique can be used
+by reasonably any subject, and in DLA situations. Use of previously trained
+models is not fully assessed here, but more recent work indicates it is a
+promising way ahead.
 
 \end{abstract}
 
@@ -96,90 +113,140 @@ scratch), thus shortening the patient's training time.
 \section*{Background}
 \label{sec:introduction}
 
-In recent years rehabilitation medicine, and prosthetics in
-particular, has benefited from the advances in mechatronics, a field
-which has so far pertained to robotics. This synergy is driving
-rehabilitation medicine to a scenario in which an amputee's life will
-be better, when more dexterous and controllable prostheses will make
-it to the market. The paradigmatic example is represented by the
-recent commercialisation of Touch Bionics's i-LIMB prosthetic hand
-\cite{ilimb}, which is lightweight, long-running, it has five fingers
-and five Degrees-Of-Freedom (DOFs --- one per finger, see Figure
-\ref{fig:hands} $(a)$). (At the time of writing, a few hundreds i-LIMBs
-have been implanted and sold.)
+Electromyography (EMG from now on) is a well-known diagnostic tool
+for detecting muscle disorders from motor unit activation potentials
+\cite{deluca97,deluca02}. In its non-invasive (surface) version it
+has also been used since the Sixties
+(see, e.g., \cite{bottomley65,childress69,sears})
+to enable amputees control one or two degrees-of-freedom (DOFs)
+of active upper limb prostheses. Its commercial / clinical applications
+include, e.g., Otto Bock's SensorHand Speed \cite{sensorhand}, the Motion
+Control Hand and the Utah Arm \cite{mchand}, and more recently,
+Touch Bionics's i-LIMB \cite{ilimb}, with $5$ active and one passive DOF.
+In some of these cases, force / torque are also controlled.
 
-The dexterity of this prosthesis is very high, though still far from
-the best non-prosthetic robot hand prototypes (e.g., the DLR-II hand,
-see \cite{Hua2006} and Figure \ref{fig:hands} $(b)$). In fact, it
-represents a real breakthrough with respect to the state-of-the-art
-commercial prostheses, namely Otto Bock's SensorHand Speed (see Figure
-\ref{fig:hands} $(c)$), which has one open/close DOF. Notice, anyway,
-that both prostheses still allow for no control of the \emph{force}
-required by the patient.
+The popularity of surface EMG stems from its cheapness, simplicity of use
+and non-invasiveness. Nevertheless, research on more and more dexterous
+mechanical hands is ongoing (e.g., the DLR-II hand \cite{Hua2006} and the
+Cyberhand \cite{cyberhand,cipriani}) and soon a finer control will be
+required. To this end, at least since 2002
+\cite{dunlop,zecca,smagt,2008.ICRA} it is known that a few surface EMG
+electrodes suffice to recognise up to nine isometric/isotonic hand postures.
+This potentiality has so far been exploited clinically in the i-LIMB only,
+and to a very limited extent so far, as far as we know.
+In previous work it has also been shown that
+a dexterous hand prosthesis can be controlled in force \emph{while} detecting
+grasping postures \cite{2008.ICRA,2008.BioCyb} in real time.
+So it appears that plain, old EMG still has to be exploited in full.
 
-In fact, control is, in general, far from optimal. The most widely
-used control device nowadays is surface electromyography (EMG), a
-cheap, non-invasive technique by which surface electrodes gather from
-the patient's stump skin the (residual) muscle activation potentials
-(see, e.g., \cite{deluca}); these potentials are then somehow
-translated to motor commands. The current EMG-based strategies employ
-large muscles, such as the wrist flexor and extensor, to control one
-or, at best, two DOFs (e.g., opening and closing of the Otto Bock's
-claw). This means that controlling the prosthesis is highly
-non-natural, and implies a long training time for the patient, that
-is, the patient must learn how to order the hand what she/he wants it
-to do.
-
-Even a dexterous hand prosthesis as the i-LIMB cannot be controlled in
-a fine and natural way; it uses two EMG electrodes in combination, to
-produce a set of predefined grasp shapes; and the force involved in
-the grasp is not controlled. Most of the adaptability is left to the
-compliance of the hand itself. Notice that \emph{force control} is a
-paramount requirement in Daily-Life Activities (DLA): picture the
-possibility of holding an egg without breaking it, or holding a hammer
-without letting it slip.
-
-Indeed, as more advanced hand prostheses appear on the market, there
-is a strong demand for \emph{accurate control strategies}. This paper
-fits in this line of research, showing that plain, old-fashioned EMG,
-together with \emph{machine learning} techniques, can be used in a
-radically better way to control a dexterous hand prosthesis. In
-\cite{2008.ICRA,2008.BioCyb} we have shown that ten EMG electrodes
-could enable a healthy human subject to control \emph{in position and
-in force} a dexterous mechanical hand such as the DLR-II hand. Here we
-carry on the analysis, extending it to $10$ healthy subjects and
-showing that the same excellent results are obtained, regardless of
-the subject involved; moreover, we relax the highly controlled
-conditions of the previous experiment (the subject would keep her/his
-arm and body posture rigorously relaxed and still) and show that the
-same technique, applied to subjects who can freely move, walk, sit,
-raise and lower their arms and pronate/supinate their forearms,
-obtains only slightly worse results, which would most likely become
-optimal in an online environment.
-
-Our research aims at realising \emph{adaptive prosthetics}, that is,
-the possibility for the prosthesis to adapt to the patient's needs and
-style: so far, it is the patient that has to adapt to the prosthesis,
-and learn how to use it. In our vision, the patient and the prosthesis
-are involved in a \emph{reciprocal learning} loop. The result is that
-the patient needs less time to correctly use the prosthesis, and also
-that she/he can use it in a finer way, more suited to real DLAs. The
-results presented in this paper show that this is possible. The final
-question remains of whether an
-\emph{amputee} can do the same; some initial results seem to indicate
-that the answer is positive (see the ``Discussion and conclusions''
-section for more details).
+The work presented in this paper fits in this line of research,
+extending previous results along two ``orthogonal'' directions: first, we analyse
+data collected from $10$ healthy subjects and thus try and assess the general
+applicability of the technique; second, we compare a baseline controlled
+condition with a ``Daily-Life Activity'' (DLA) one, in which subjects walk, raise
+their hands and arms, sit down and stand up, etc., while performing the same
+actions of the baseline. The DLA condition is an experimental proxy
+of what a patient is supposed to do in real life. Lastly, we propose a
+cross-subject model analysis, i.e., training a
+model on a subject and testing it on another one. The use
+of pre-trained models could be useful in shortening the time required by
+the subject / patient to become proficient in using the prosthesis.
 
 \section*{Methods}
 \label{sec:m&ms}
 
-\subsection*{Subjects and electrode placement}
+\subsection*{Subjects}
 
-The experiment was carried out on ten healthy subjects, two women and
-eight men, nine right-handed and one left-handed, of an average age of
-$30.9 \pm 8.45$ years. The subjects were given no knowledge of what
-the experiment was about. We placed on each subject's dominant forearm
-$7$ surface EMG electrodes, according to this anatomic guideline:
+Ten healthy subjects joined the experiment after having given their informed
+consent. The subjects were two women and eight men, nine right-handed and one
+left-handed, average age $30.9 \pm 8.45$ years, standard Caucasian weight and
+height. They were given no knowledge of what the experiment was about.
+
+\subsection*{Experimental procedure}
+
+The experiment consisted of two phases.
+During phase $1$, after a ``rest'' condition was sampled to define the baseline
+EMG activity, the subject would keep her/his arm still and relaxed
+on a table, and was asked to grasp a force sensor using, in turn,
+three different ways of grasping it (Figure \ref{fig:Grasps}):
+index precision grip, other fingers precision grip and power grasp.
+While gathering data, a label $\{1,2,3,4\}$ denoting the grasp (or rest)
+was attached to each sample, in order to build the ground truth values.
+
+%\begin{figure*}[!t] \centering
+%  \begin{tabular}{ccc}
+%    \includegraphics[height=0.16\textheight]{grip1.eps} &
+%    \includegraphics[height=0.16\textheight]{grip2.eps} &
+%    \includegraphics[height=0.16\textheight]{grip3.eps} \\
+%    $(a)$ & $(b)$ & $(c)$ \\
+%  \end{tabular}
+%  \caption{The three different grips employed in the experiment: $(a)$
+%   index precision grip; $(b)$ other fingers precision grip; $(c)$
+%   power grasp.}
+%  \label{fig:Grasps}
+%\end{figure*}
+
+The subject freely repeated each grasping action for
+$100$'', resting for $30$'' in between grasps. The whole procedure was
+repeated twice for numerical robustness purposes. This ``baseline''
+phase will be referred to from now on as the \emph{Still-Arm phase (SA)}.
+
+Phase $2$, which started soon after phase $1$ for each subject,
+consisted in repeating phase $1$ while the subject was left free to
+move, walk around, lift and pronate / supinate the
+arm and forearm, sit down and stand up from a chair. This 
+second phase is intended as a laboratory-controlled proxy 
+of the main movements a patient is expected to do during DLAs.
+This phase will be called \emph{Free-Arm phase (FA)}.
+
+Each subject's experiment resulted in something more than
+$1200$'' of data. Data were sampled at $2$KHz, resulting in
+about $2.4\times 10^6$ samples for each subject, equally
+distributed in each phase.
+
+\subsection*{Equipment and electrode placement}
+
+%\begin{figure*}[!t] \centering
+%  \begin{tabular}{ccc}
+%    \includegraphics[height=0.16\textheight]{Electrode.eps} &
+%    \includegraphics[height=0.16\textheight]{Hand_Gripper.eps} &
+%    \includegraphics[height=0.16\textheight]{El_Arrangement.eps} \\
+%    $(a)$ & $(b)$ & $(c)$ \\
+%  \end{tabular}
+%  \caption{The experimental setup (\textit{subject side}): $(a)$ an EMG
+%    wireless electrode; $(b)$ the FUTEK force sensor; $(c)$ the typical
+%    placement of the EMG electrodes on a subject's forearm (ventral side).}
+%  \label{fig:SubjSetup}
+%\end{figure*}
+
+We employed Aurion ZeroWire wireless surface EMG
+electrodes \cite{zerowire}, in order to ease the FA
+phase, which required free movement in the laboratory. A FUTEK LMD500
+Hand Gripper force sensor \cite{LMD500} was used to detect the
+force applied while grasping. Figure \ref{fig:SubjSetup} $(a,b)$ shows some of the
+elements of the setup. A standard digital acquisition board
+(National Instruments NI-USB6211) was used to record the signals,
+connected to the receiver of the EMG wireless device and to an
+amplifier, in turn connected to the force sensor. The sampling rate was set at
+$2$KHz in order to correctly sample both signals\footnote{The EMG signal
+relevant bandwidth lies between $15$ and $500$Hz.}. The board was connected via a
+USB port to an entry-level laptop. We used a custom National
+Instruments' LabView VI block to acquire the signals.
+
+%\begin{figure*}[!t] \centering
+%  \begin{tabular}{cc}
+%    \includegraphics[height=0.16\textheight]{NI-6211.eps} &
+%    \includegraphics[height=0.16\textheight]{Zero_Base.eps} \\
+%  $(a)$ & $(b)$\\
+%  \end{tabular}
+%  \caption{The experimental setup (\textit{experimenter side}): $(a)$
+%   the USB data acquisition card (NI-USB6211); $(b)$ the EMG device
+%   receiver.}
+%  \label{fig:ExpSetup}
+%\end{figure*}
+
+Seven electrodes were glued on each subject's dominant
+forearm, according to this anatomic guideline:
 
 \begin{itemize}
 
@@ -196,165 +263,42 @@ $7$ surface EMG electrodes, according to this anatomic guideline:
 
 \end{itemize}
 
-These positions were chosen, according to the medical literature
-\cite{Kendall},
-as carefully as possible in order to identify the best EMG sources and
-to detect the activity of the most relevant flexor and extensor
-muscles of the forearm. It must be noted, however, that we detected,
-both visually and by palpation, that inter-arm differences are
-remarkable, depending on the subjects' age, gender and physical
+These positions were chosen, according to the medical \cite{Kendall} and
+bioengineering \cite{kampas} literature, to detect the activity of the flexor
+and extensor muscles of the forearm which are most relevant during grasping.
+Figure \ref{fig:SubjSetup} $(c)$ shows
+the typical electrode positioning. Notice that there may be remarkable
+inter-arm differences depending on the subjects' age, gender and physical
 fitness. Moreover, some of the aforementioned muscles are deep into
 the forearm, so that muscle cross-talk cannot be avoided. This is a
-well-known problem in the EMG literature (\cite{deluca,zecca}) and is
-one of the factors that make our problem hard: it is like
-reconstructing a coherent speech by listening to $19$ people who talk
-at the same time, and not necessarily the ones we want to listen to
-are the loudest and clearest speakers in the room.
+well-known problem in the EMG literature \cite{deluca97,zecca}.
 
-\subsection*{Sensors and hardware}
+\subsection*{Data analysis}
 
-%\begin{figure*}[!t] \centering
-%  \begin{tabular}{ccc}
-%    \includegraphics[height=0.16\textheight]{Electrode.eps} &
-%    \includegraphics[height=0.16\textheight]{Hand_Gripper.eps} &
-%    \includegraphics[height=0.16\textheight]{El_Arrangement.eps} \\
-%    $(a)$ & $(b)$ & $(c)$ \\
-%  \end{tabular}
-%  \caption{The experimental setup (\textit{subject side}): $(a)$ an EMG
-%    wireless electrode; $(b)$ the FUTEK force sensor; $(c)$ the typical
-%    placement of the EMG electrodes on a subject's forearm (ventral side).}
-%  \label{fig:SubjSetup}
-%\end{figure*}
+The root-mean-square (RMS) of the EMG was evaluated using a time window
+$T_{RMS}$\footnote{The choice of the RMS, as opposed
+to the simpler rectification and filtering,
+is motivated by its well-known relationship to the force exerted
+by the related muscle \cite{deluca97,deluca02,zecca}. Rectification plus filtering
+would likely work as well, and it is indeed employed in some commercial myoelectrodes
+such as Otto Bock's MyoBock ones \cite{ottobock}.}. The optimal value
+of $T_{RMS}$ was evaluated independently for classification of the grasping
+posture and force detection, via grid search, in a preliminary phase of the
+experiment, and set to $500ms$ for classification and $100ms$ for regression.
 
-The electrodes we employed are Aurion ZeroWire wireless surface EMG
-electrodes (see \cite{zerowire}). The use of wireless electrodes is
-particularly appreciated in such kind of experiments, since the
-subjects would eventually have to be free to perform DLA-like actions
-during the experiment, i.e., in a specific phase of the experiment
-they were allowed to walk around, pronate and supinate their forearms,
-sit down and stand up, walk, etc. Wireless electrodes let the subjects
-feel free.
-
-Each subject was also given a FUTEK LMD500 Hand Gripper force sensor
-(see \cite{LMD500}) in order to detect the force applied by the subjects'
-hand during the experiment.
-
-Figure \ref{fig:SubjSetup} shows $(a)$ a single electrode, glued to
-the subject's forearm skin; $(b)$ the force sensor as gripped during a
-power grasp; and $(c)$ the typical placement of the electrodes
-(ventral side of the forearm).
-
-It is well-known that the EMG raw signal relevant bandwidth lies
-between $15$ and $500$Hz, so we set the sampling rate at $2$KHz. In
-order to avoid synchronisation problems, the same sampling rate was
-applied to the force sensor, although we obviously expect a much lower
-bandwidth from this sensor than from the EMG sensors.
-
-We used a standard National Instruments data acquisition board
-(NI-USB6211) to record the sensors' signals, connected to the receiver
-of the EMG wireless device (Figure \ref{fig:ExpSetup}) and to an
-amplifier connected to the force sensor. The board was connected via a
-USB port to an entry-level laptop. We used a custom National
-Instruments' LabView VI block to acquire the signals.
-
-%\begin{figure*}[!t] \centering
-%  \begin{tabular}{cc}
-%    \includegraphics[height=0.16\textheight]{NI-6211.eps} &
-%    \includegraphics[height=0.16\textheight]{Zero_Base.eps} \\
-%  $(a)$ & $(b)$\\
-%  \end{tabular}
-%  \caption{The experimental setup (\textit{experimenter side}): $(a)$
-%   the USB data acquisition card (NI-USB6211); $(b)$ the EMG device
-%   receiver.}
-%  \label{fig:ExpSetup}
-%\end{figure*}
-
-\subsection*{Experiment design}
-
-The experiment consisted of two phases, one right after the
-other.
-
-During phase $1$ the subject would keep her/his arm still and relaxed
-on a table, and was asked to grasp the force sensor using, in turn,
-three different grips (Figure~\ref{fig:Grasps}):
-
-\begin{itemize}
-  \item index precision grip;
-  \item other fingers precision grip;
-  \item power grasp.
-\end{itemize}
-
-%\begin{figure*}[!t] \centering
-%  \begin{tabular}{ccc}
-%    \includegraphics[height=0.16\textheight]{grip1.eps} &
-%    \includegraphics[height=0.16\textheight]{grip2.eps} &
-%    \includegraphics[height=0.16\textheight]{grip3.eps} \\
-%    $(a)$ & $(b)$ & $(c)$ \\
-%  \end{tabular}
-%  \caption{The three different grips employed in the experiment: $(a)$
-%   index precision grip; $(b)$ other fingers precision grip; $(c)$
-%   power grasp.}
-%  \label{fig:Grasps}
-%\end{figure*}
-
-A rest condition was sampled beforehand to define the baseline of the
-EMG activity. The subject freely repeated each grasping action for
-$100$'', resting for $30$'' in between grasps. The whole procedure was
-repeated twice, in order to gather more data and diminish the effect
-of local, statistically irrelevant, errors. Since during these
-activities the subject would lie in a highly controlled position
-(relaxed arm and sitting posture), this phase will
-be referred to from now on as the \emph{Still-Arm phase (SA)}.
-
-Phase $2$, actually the more interesting one for the final intent of
-this study, consisted in repeating phase $1$ in a less controlled
-condition: the subject was asked to grasp the force sensor while
-freely moving, walking around, lifting and pronating / supinating the
-arm and forearm, sitting down and standing up from a chair; this would
-emulate the main movements that one is expected to do during his DLAs.
-This second phase will be called \emph{Free-Arm phase (FA)}.
-
-As a whole, each subject's experiment resulted in something more than
-$1200$'' of data; at the above mentioned sampling rate of $2$KHz, this
-makes it for about $2.4\times 10^6$ samples for each subject, equally
-distributed in each phase.
-
-\subsection*{Data pre-processing}
-
-Unlike commercial EMG electrodes, such as, e.g., Otto Bock's MyoBock
-electrodes \cite{ottobock}, the electrodes employed here would return
-the ``raw'' EMG signal, without any low-pass filtering or Root-Mean
-Square (RMS) processing. Nevertheless, it is well-known (see, again,
-\cite{deluca,zecca}) that muscular activity, namely the force exerted
-by a muscle, is strongly related to the RMS of the EMG signal, rather
-than to the raw signal. For this reason, and also in order to aim at a
-more practical, commercial implementation, we decided to evaluate the
-RMS of the obtained EMG signals, electrode by electrode.
-
-For a given mono-variate discrete time-varying signal, the RMS is
-defined as the mean of the squares of the signal values, evaluated
-over a certain time-window $T_{RMS}$. Roughly speaking, the RMS acts
-like an envelope extraction plus a low-pass filter, whose cutoff
-frequency grows smaller as the time-window grows larger (i.e., as
-$T_{RMS}$ becomes higher). For this reason, high values of $T_{RMS}$
-imply an ostensible delay in the resulting signal that is due to
-\emph{responsiveness} of the synthesized output signal. It becomes
-slower and slower as the $T_{RMS}$ value increases, since more samples
-must be stored before a significant value can be evaluated.  The
-choice of $T_{RMS}$ is therefore crucial in order to produce a signal
-which is maximally related to the force signal, unaffected by
-high-frequency noise, and with an acceptable lag. However, it must be
-noted here that the EMG signal, being directly related to the muscle
-\emph{activation potentials}, happens to \emph{anticipate} the muscle
+Notice that the right choice of $T_{RMS}$ can be, in general,
+crucial: a small value will make the system more responsive (i.e., implies
+a smaller delay) but a higher value will be more informative and improve the
+performance (especially in the case of classification, as we verified).
+On the other hand, it is known that the EMG signal anticipates the muscle
 movements by a few hundreds milliseconds\footnote{The
 electromechanical delay (EMD) of a muscle is defined as the interval
 between the onset of the electrical activity of the muscle (EMG)
 indicating its activation by the neural system and the onset of the
 resulting change in the mechanical variable observed. The delays
 reported range from 25 to 100 ms for different muscles and tasks
-\cite{Wolf1994}.}; therefore, in a practical application, a wider lag
-is acceptable than one would expect. This is useful since it allows us
-to increase $T_{RMS}$, if necessary.
+\cite{Wolf1994}.}; therefore, in a practical application derived from this
+experiment, a wider lag would be more acceptable than one would expect.
 
 %\begin{figure*}[!ht] \centering
 %  \begin{tabular}{cc}
@@ -380,102 +324,94 @@ to increase $T_{RMS}$, if necessary.
 %  \label{fig:RMSs}
 %\end{figure*}
 
-Unfortunately we are unaware of any systematic way of setting a good
-value of $T_{RMS}$ in such a framework; the Otto Bock electrodes' one
-is not mentioned either in the related technical specification
-sheet. Therefore we found $T_{RMS}$ heuristically, according to some
-initial experiments. See the next Section for more details. As an
-example, though, consider Figures \ref{fig:spectra} and
-\ref{fig:RMSs}.
-
-Figure \ref{fig:spectra} (panel $(a)$) shows a few seconds of typical
-force / EMG behaviour: it is apparent that the EMG signal (the bottom
-one, with high frequencies) starts oscillating when the force signal
-(the top one) starts increasing. It is also quite clear that the
+Figure \ref{fig:spectra} $(a)$ shows the typical EMG signal (red)
+and force (blue) recorded by the force sensor. Clearly the
 amplitude of the envelope of the EMG is related to the force, as is
-indicated in literature. Panel $(b)$ shows the frequency analysis of
-the same EMG signal: as one can see, the meaningful bandwidth lies in
-the interval known from the literature.
-
-On the other hand, Figure \ref{fig:RMSs} shows the effect of the RMS
+indicated in literature. Panel $(b)$ of the Figure shows the bandwidth
+of the EMG. Figure \ref{fig:RMSs} shows the effect of the RMS
 on the frequency components of the EMG, for three different values of
-$T_{RMS}$. It is clear that the meaningful bandwidth now contains all
-low-frequency components, possibly down to the constant, and is
+$T_{RMS}$. In all cases, the RMS signal bandwidth is
 upper-bounded by about $25$Hz (panel $(a)$, for $T_{RMS}=20ms$) to
-$10$Hz (panel $(c)$, for $T_{RMS}=0.5s$). As expected, larger values
+$10$Hz (panel $(c)$, for $T_{RMS}=0.5s$), as expected (larger values
 of $T_{RMS}$ correspond to a better filtering but also to a larger
-delay.
+delay). According to these figures, we subsampled the RMS of the EMG
+signals at $25$Hz by taking one sample in $80$ of the original sequence,
+resulting in about $30.000$ samples for each subject.
 
-This enables us to safely sub-sample the EMG signal after the RMS has
-been applied. Assuming that $T_{RMS}$ is not too small, we have
-subsampled both the EMG and force signal at $25$Hz, taking one sample
-in $80$ of the original sequence. This has considerably reduced the
-amount of data to be processed, namely to about $30.000$ samples for
-each subject.
+Lastly, samples for which the applied force was lower than a specific
+threshold were removed. After verifying several choices both numerically
+and visually, the threshold was uniformly set at $20\%$ of the mean force
+value obtained for each subject and phase.
 
-As a last data pre-processing step, we removed from the sample set
-those samples for which the applied force was lower than a specific
-threshold, in order to get a clearer representation of the activation
-potentials. Of course, we fully retained the samples corresponding to
-the baseline rest condition. This is why we preferred to record this
-condition before the rest of the experiment.
+\subsection*{Statistical analysis}
 
-\subsection*{Support Vector Machines}
-
-According to \cite{2008.ICRA,2008.BioCyb}, where a detailed
-comparative analysis among three different machine learning methods
-was carried out, we chose to employ Support Vector Machines (SVMs) to
-solve our problem. For an explanation of how SVMs work in the context
-of EMG signals, please refer to those papers; for a comprehensive
-tutorial on SVMs in the more general framework of
-\emph{classification} and \emph{regression}, refer to
-\cite{Burges98,SmolaTut2004}.
-
-Suffice it here to say that SVMs are a statistical learning method
+According to previous literature (e.g., \cite{smagt,2008.BioCyb}), the
+statistical analysis was carried on using Support Vector Machine (SVM).
+For a comprehensive tutorial on SVMs refer to
+\cite{Burges98,SmolaTut2004}). SVMs are a statistical learning method
 able to build an approximated map between an input space and a label
 (classification) or a real value (regression). Classification is here
 used to classify the type of grasp according to the EMG signal,
 whereas regression is used to understand how much force the subject is
-exerting, independently from the grasp type; the input space is then
-$\RR^7$, one coordinate for each EMG electrode; the labels are four
-integer numbers, one for each grasp type; and the real value is
-exactly the force value read off the force sensor.
-
-SVMs are a \emph{supervised learning} approach, meaning that they must
-first be \emph{trained} on an EMG dataset for which labels and force
-values are known, in order to build the required input/output map; and
-then they can be used to \emph{predict} the values of new EMG samples,
-using the map. Notice that we work in real-time, that is, our machines
-associate a grasp type and a force value to an EMG value \emph{at each
-instant of time}. This approach enables us to detect a grasp type
-\emph{almost at the onset of the grasping movement}\footnote{the
-precise onset of the movement would correspond to those samples which
-were removed since they were associated to too low a force value.},
-differently from what happens in other approaches (e.g.,
+exerting, independently from the grasp type. The input space is
+$\RR^7$, one coordinate for each EMG electrode. We used the
+ground truth values as labels and the force value given by the force sensor
+for the regression. Notice that SVMs work here in real-time, associating a grasp type
+and a force value to an EMG value at each instant of time.
+Grasp type and forces are then predicted almost at the onset of the
+grasping movement, differently from what happens in other approaches (e.g.,
 \cite{smagt,Sebelius2005}) in which all values of the input signal over a
-further time-window are employed as the input space, in order to let
-the system understand better the final grasp type.
+further time-window are employed as the input space.
 
-Lastly, SVMs are known to suffer from heavy computational needs when
-it comes to training on large datasets: training on these datasets
-would have then been prohibitive. Moreover, the general aim of our
-research is to build an on-line system, able to predict in a very
-short amount of time; and in on-line learning the flow of training
-data is potentially endless. So we need a way of checking whether the
-EMG samples used for training are useful, rejecting the ones deemed
-useless. This is supposed to eventually keep the training set bounded,
-and dramatically reduce the training set size in this particular
-experiment, where the training time is rather small if compared to a
-real-life setting. We employ \emph{uniformisation}
-\cite{2008.ICRA,2008.BioCyb} to do this: given a \emph{minimum
-distance} $d > 0$, we reject those samples which are too close to each
-other, with the underlying assumption that the maps we are trying to
-build are smooth enough to allow such a simplification. More in
-detail, the samples in a training batch are considered one by one in
-chronological order, as it would happen in an on-line setting; each
-new sample is then added to the training set if, and only if, its
-distance from all training samples retained so far is at least
-$d$.
+In order to ease the computational burden we employed uniformisation
+\cite{2008.BioCyb} to reduce the size of the training sets. The samples
+in a training set are considered one by one in chronological order, as it
+would happen in an on-line setting, and each new sample is added to the
+training set if and only if its Euclidean distance from all training samples
+retained so far is larger than a predefined value $d$. Values of $d$ were
+set to $0.02$ for the SA phase and $0.032$ for the FA phase. These values
+were chosen in order to get not more than one thousand training
+samples for subject $1$. The choice is arbitrary, but notice that
+(see \cite{2008.BioCyb} again) the performance of such
+systems changes linearly as $d$ changes, whereas the training set size
+varies polynomially; thus, it is always possible to find a
+polynomially smaller training set, if needed, which will degrade the
+performance only linearly. This really means that the initial choice
+of $d$ is not crucial. Notice, too, that no testing sets have been
+uniformised, in order to give a more realistic result.
+
+SVM analysis was performed for each subject and for each phase,
+to check how the performance depends upon subjects and conditions.
+For classification, the performance index is, as is
+customary, the percentage of overall correctly guessed labels. For
+regression, the performance index is the correlation coefficient
+evaluated between the predicted force signal and the real one. The choice
+of the correlation coefficient is suggested by this consderation:
+when driving a prosthesis we are
+not interested in the absolute force values desired by the
+user/subject, since mechanical hands usually cannot apply as much
+force as human hands do, for obvious safety reasons\footnote{or, e.g.,
+in teleoperation scenarios, they could be able to apply \emph{much
+more} force than a human hand can.}. We are rather concerned about
+getting a signal which is strongly correlated with the user/subject's will.
+Anyway, we also report about the normalised root mean-square error (NRMSE),
+in order to give a broader view of the results. Normalisation is done against the
+signals' ranges (notice, though, that correlation is the criterion used to
+find the optimal parameters during grid search).
+
+We employed a well-known freely available SVM package, \emph{libsvm}
+v2.83 \cite{ChangL01}, in the Matlab wrapped flavour; the Gaussian kernel
+was chosen, since it is a standard choice in previous literature.
+$5$-fold cross-validation was
+used to assess the generalisation error for each training set; this measure
+was then used for grid-searching the typical Gaussian kernel hyperparamters
+of a SVM, called $\gamma$ and $C$. Once these parameters were found, the overall
+performance was evaluated as the mean and standard deviation of the performances
+obtained on each fold.
+
+%To sum up, Figure \ref{fig:Algorithm} graphically depicts the structure of the
+%system. Notice that there can actually be two different RMS windows, one for
+%classification and one for regression.
 
 %\begin{figure*}[!ht] \centering
 %  \includegraphics[width=0.75\textwidth]{Schema.eps} \\
@@ -483,93 +419,10 @@ $d$.
 %  \label{fig:Algorithm}
 %\end{figure*}
 
-Figure \ref{fig:Algorithm} graphically depicts the structure of our
-system, finally producing the classification and regression models,
-which will be then used for the prediction. Notice that there can
-actually be two different RMS windows, one for classification and one
-for regression.
-
-\section*{Results and Discussion}
+\section*{Results}
 \label{sec:exp}
 
-This Section is a detailed account of the experimental results. It is
-worth to repeat once again what the main questions are, in the light
-of the long-term aim of this research. It is already known that SVMs
-applied to this problem, \emph{for one healthy subject} and \emph{in
-highly controlled conditions} can solve it. Now,
-
-\begin{enumerate}
-
-  \item can they be successfully applied to \emph{any} subject?
-
-  \item will they work in non-controlled conditions?
-
-\end{enumerate}
-
-The first question is tantamount to asking whether a uniformly good
-performance can be obtained for each subject; the second question is
-equivalent, in our framework, to asking whether the performance is
-comparable between the SA and FA phases.
-
 \subsection*{Per-Subject Analysis}
-
-For each of the $10$ subjects, and for each phase (SA and FA) we
-hereby present a performance result both for classification and
-regression. For classification, the performance index is, as is
-customary, the percentage of overall correctly guessed labels. For
-regression, the performance index is the correlation coefficient
-evaluated between the predicted force signal and the real one. The
-choice of the correlation coefficient, as opposed to the more standard
-Mean-Square Error, is suggested by a practical consideration: when
-driving a prosthesis, or even a non-prosthetic mechanical hand, we are
-not interested in the absolute force values desired by the
-user/subject, since mechanical hands usually cannot apply as much
-force as human hands do, for obvious safety reasons\footnote{or, e.g.,
-in teleoperation scenarios, they could be able to apply \emph{much
-more} force than a human hand can.}. We are rather concerned about
-getting a signal which is \emph{strongly correlated} with the
-user/subject's will.
-
-As is standard in machine learning, each data set was split in $5$
-folds and cross-validation was performed on it; this makes the
-evaluation robust against the problem of over-fitting. In all our
-tests, the training sets were uniformised using a minimum distance
-threshold $d$, but no testing sets were uniformised, of course. We
-employed a well-known freely available SVM package, \emph{libsvm}
-v2.83 \cite{ChangL01}, in the Matlab wrapped flavour, with a Gaussian
-kernel. This particular kind of SVM requires setting two
-\emph{hyperparameters}, called $\gamma$ and $C$, which were found by
-grid search using the aforementioned performance indexes.
-
-With respect to the previous Section, after an initial round of
-experiments the values of $T_{RMS}$ and $d$ were set to:
-
-\begin{itemize}
-
-  \item $T_{RMS}=0.5s$ for classification, and $T_{RMS}=0.1s$ for regression;
-
-  \item $d=0.02$ for the SA phase, and $d=0.032$ for the FA phase.
-
-\end{itemize}
-
-Classification proved to be more sensitive to high-frequency noise
-than regression, and therefore we set a larger value of $T_{RMS}$ for
-it; it is expected, anyway, that the low responsiveness of the RMS
-signal computed on a $500ms$ window would be compensated at least
-partially by the anticipatory nature of the EMG signal. This should
-not, then, hinder the performance of the system in a practical
-setting. As far as the values of $d$ are concerned: we chose the above
-mentioned values in order to get not more than one thousand training
-samples for subject $1$.  This proved to be a sensible choice, as we
-will see. Notice that (see \cite{2008.BioCyb}) the performance of such
-systems changes linearly as $d$ changes, whereas the training set size
-varies polynomially; thus, it is always possible to find a
-polynomially smaller training set, if needed, which will degrade the
-performance only linearly. This really means that the initial choice
-of $d$ is not that important. See the end of this Section for a deeper
-analysis.
-
-Figure \ref{fig:results} shows the main results obtained by the SVMs.
 
 %\begin{figure*}[!ht] \centering
 %  \begin{tabular}{cc}
@@ -583,28 +436,36 @@ Figure \ref{fig:results} shows the main results obtained by the SVMs.
 %  \label{fig:results}
 %\end{figure*}
 
-Consider the Figure, panel $(a)$, showing the classification
-performance. It is clear that the system attains an excellent accuracy
-overall, namely $97.14\% \pm 2.89\%$ on average in the SA phase, and
-$95.28\% \pm 4.73\%$ in the FA phase. Moreover, the performance is
+Figure \ref{fig:results} shows the main results. Classification
+accuracy (top panel) for the SA phase ranges
+from $99.58\% \pm 0.17\%$ (subject $5$) to $91.37\% \pm 0.89\%$ (subject $8$);
+for the FA phase, it ranges
+from $98.40\% \pm 0.08\%$ (subject $2$) to $82.43\% \pm 1.24\%$ (subject $8$ again).
+On average over all subjects, the classification accuracy is
+$97.14\% \pm 2.90\%$ for SA and $95.24\% \pm 4.77\%$ for FA.
+Notice that the performance is
 consistent by subject and by phase, meaning that $(a)$ hard subjects
 in the SA phase are hard as well in the FA phase and viceversa, and
-$(b)$ the FA phase is always harder than the SA phase. Less controlled
-conditions make the problem harder, as one would expect, but the
-performance remains very good to excellent.
+$(b)$ the FA phase is always harder than the SA phase.
 
-Consider now panel $(b)$ of the same Figure, showing the regression
-performance: again the results are excellent, being $0.93
-\pm 0.04$ for the SA phase and $0.90 \pm 0.05$ for the FA
-phase. Again, consistency by subject and by phase appears. Remarkably,
+Regression figures (middle and bottom panels) show that for the SA phase
+the correlation to true signal ranges from
+$0.9784 \pm 0.0017$ (subject $5$) to $0.8959 \pm 0.0033$ (subject $8$),
+whereas for the FA phase it ranges from
+$0.9657 \pm 0.0022$ (subject $5$) to $0.8161 \pm 0.0078$ (subject $8$).
+On average, the correlation is $0.93 \pm 0.04$ for the SA phase and
+$0.90 \pm 0.05$ for the FA phase. Again, consistency by subject and by
+phase appears. Remarkably,
 not all subjects which are slightly harder for regression (namely,
 $1,2,3,6,8$) happen to be hard for classification; in particular, only
 subject $8$ is definitely hard \emph{both} for classification and
 regression, while, e.g., subject $6$ is hard for regression but not
-that hard for classification.
+that hard for classification. The bottom panel shows that an analogous
+situation appears if we consider the NRMSE. (Recall that the NRMSE is
+an error measure while the correlation to target is a positive performance
+index.)
 
-As an example of what the system can really do, Figure
-\ref{fig:examples} shows the real and guessed force values for a
+Figure \ref{fig:examples} shows the real and guessed force values for a
 typical subject, namely number $6$, FA phase. As one can visually
 check, the guessed force values are highly correlated to the real
 values.
@@ -620,48 +481,25 @@ values.
 %  \label{fig:examples}
 %\end{figure*}
 
-Since we are doing multi-subject per-subject analysis here, an
-interesting point is that of checking whether there are any
-regularities among them, from the point of view of machine
-learning. For instance, knowing that a hyperparameter takes mostly a
-certain value would enable us to employ a narrower and/or quicker grid
-search with new, upcoming subjects. Table \ref{tab:hyp} shows the
-average values of (the logarithms of) $\gamma$ and $C$ and for the
-optimal models obtained via cross-validation, as described at the
-beginning of this Section.
-
-The grid search ranges were $0$-$3$ for $log_{10}(C)$ and
-$-1.85$-$0.16$ for $log_{10}(\gamma)$ (these are standard values in
-literature). In view of this, we see that the average value of
+To check whether there are any regularities among the subjects and phases,
+we show in Table \ref{tab:hyp} the average values of (the logarithms of)
+$\gamma$ and $C$ for the optimal models obtained via cross-validation
+(knowing that a hyperparameter takes mostly a certain can narrow down the
+grid search with new subjects).
+The grid search ranges were $[0,3]$ for $log_{10}(C)$ and
+$[-1.85,0.16]$ for $log_{10}(\gamma)$ (these are standard values in
+literature, given the dimensionality of the input space). The average value of
 $log_{10}(C)$ is around $1.5$, but its standard deviation is too wide
 to allow narrowing the grid search, at least in the case of
 classification. The standard deviation is smaller for regression than
 for classification in both cases, which seems to indicate that
 regression as a problem is more stable with respect to the
-hyperparameters. In this case one can foresee a faster way of finding
-the optimal hyperparameters, for example by employing a minimisation
-procedure rather than grid search.
+hyperparameters.
 
-All in all, the answers to the two questions we posed at the beginning
-of the Section are positive. Results are consistent and excellent for
-each subject, and both for the SA and FA phases, with a special
-emphasis on the latter one. Of course, one more interesting question
-is: is the FA phase really indicative of what a patient might do in
-her/his DLAs? Since we are claiming that the FA phase represent
-something inherently more complex than the SA phase, we should be able
-to see that FA-models (trained in non-controlled conditions) are to
-some extent able to predict the outcomes in the SA (controlled)
-conditions; of course, we expect a large amount of data to overlap, so
-that the other way round would be true, too, but to a lesser
-extent. Notice, by the way, that the problems of electrode
-displacement and inter-arm differences are not present here, since the
-electrodes were not moved between the two phases, and the experiments
-are done on the same subject.
-
-The answer is found via a kind of cross-analysis: for each subject,
-and for either problem, classification and regression, we can train a
-machine on the data gathered during the FA phase and then test on the
-data gathered during the SA phase. Figure \ref{fig:2on1} shows the
+In order to check whether the FA phase is really indicative of what
+a patient might do in her/his DLAs, we have trained a
+machine on the data gathered during the FA phase and then tested it
+on the data gathered during the SA phase. Figure \ref{fig:2on1} shows the
 results of testing FA-models on SA data, and viceversa.
 
 %\begin{figure*}[!ht] \centering
@@ -675,38 +513,19 @@ results of testing FA-models on SA data, and viceversa.
 %  \label{fig:2on1}
 %\end{figure*}
 
-First of all, both ways of testing attain good results (although, of
-course, not comparable with those of the plain per-subject analysis,
-compare with Figure \ref{fig:results}): testing FA-models on SA data
-gives a performance of $72.11\% \pm 12.34\%$ for classification and
-$0.81 \pm 0.12$ for regression; whereas testing SA-models on FA data
-gives $70.17\% \pm 11.99\%$ in classification and $0.75 \pm 0.12$ in
-regression. This indicates a prevalence of the former models over the
-latter ones. Moreover, by considering the aforementioned Figure, it is
-apparent that, almost consistently, the result obtained by FA-models
-on SA data is superior with respect to the others. This indicates
-that, actually, models trained on FA data ``know something more''; we
-claim that this added value is given by the freedom of movement
-granted to the subjects during this phase of the experiment. Together
-with the fact that we are employing uniformisation, a strategy which
-limits the number of samples in training sets, this lets us also claim
-that, in a real setting, we could have more and more data be gathered
-off ``real'' DLAs, and more and more complex models be incrementally
-trained in order to adapt to a wider and wider set of actions and
-situations.
+FA-models tested on SA data obtain an average accuracy of $75.11\% \pm 12.34\%$
+for classification and $0.8056 \pm 0.1151$ for regression;
+whereas testing SA-models on FA data gives $70.17\% \pm 11.99\%$ in classification
+and $0.7530 \pm 0.1153$ in regression. The advantage of FA models over SA models
+is apparent, uniform and consistent. Notice that here we show no error bars,
+since, for each subject and phase, there is just one training set and one testing set.
 
-Lastly, it is interesting to consider whether the still unsatisfactory
-results we have can be made better, in the perspective of having, in
-real life, much more data and harder problems at hand. Let us consider
-the worst result of the per-subject analysis, that is, subject $8$ in
-the FA phase, as far as classification is concerned. The result
-attained by this subject is $82.59\%$. The most likely cause of this
-low performance is that too many useful samples are missing from the
-training set, that is, the minimum distace threshold $d$ was set at
-too high a value. In order to test this hypothesis, and to confirm the
-experimental results of
-\cite{2008.BioCyb} as we said at the beginning of this Section, we
-let $d$ linearly range around the pre-set value of $0.032$ and check
+Lastly, let us consider the worst result of the per-subject analysis
+--- subject $8$ in the FA phase, as far as classification is concerned.
+One of the possible causes of this comparatively low performance
+($82.43\% \pm 1.24$) is that too many samples are missing from the
+original training set ($d$ too high). In order to test this hypothesis,
+we let $d$ linearly range around the pre-set value of $0.032$ and check
 $(a)$ the size of the resulting training set and $(b)$ the performance
 obtained by the system. Figure \ref{fig:subj8} shows the result of
 this test.
@@ -722,33 +541,26 @@ this test.
 %\end{figure*}
 
 The Figure confirms that the training set size has a decreasing
-polynomial trend, while the performance changes linearly. In
+polynomial trend, while the performance changes linearly
+\cite{2008.BioCyb}. In
 particular, for $d=0.032$ the previously shown performance appears,
 whereas if a larger performance is required, one can increase the
 number of samples in the training set, or, which is equivalent, reduce
-the agnitude of $d$. For instance, to get an accuracy of about $90\%$
+the magnitude of $d$. For instance, to get an accuracy of about $90\%$
 $d$ must be set at $0.2$ ending up in a training set with some $1600$
 samples.
 
 \subsection*{Cross-Subject Analysis}
 
-We now turn our attention to cross-subject analysis, that is, how
-accurate a model trained on a subject is, if tested on data gathered
-from another subject. This problem is interesting in the sense that it
-can shed light on common model features, hopefully paving the way for
-building a pre-trained ``universal'' model, which could be shipped
-along with the mechanical hand or prosthesis, and dramatically reduce
-the human subject's training time.
-
 Recall that in this experiment, for all subjects, the EMG electrodes
 were carefully positioned on the forearm according to an anatomical
 guideline, meaning that noise due to inter-arm differences should be
 to some extent avoided. We can therefore check how well each model
-performs on each subject by building a \emph{cross-subject performance
-matrix} $A$, for both classification and regression, and for both phases,
+performs on each subject by building a cross-subject performance
+matrix $A$, for both classification and regression, and for both phases,
 in which $A_{ij}$ is the performance index attained by a model trained
 on data gathered from subject $i$ while predicting data gathered from
-subject $j$. Figure \ref{fig:cross} shows the four matrices.
+subject $j$.  Figure \ref{fig:cross} shows the matrices.
 
 %\begin{figure*}[!ht] \centering
 %  \begin{tabular}{cc}
@@ -770,102 +582,115 @@ prediction. Consider the numbers below the matrices in the Figure: in
 classification, the performances are $51.69\%$ and $54.04\%$, with the
 remarkable particular that the FA-models are slightly, but
 consistently, \emph{better} in cross-subject analysis (higher mean
-values and lower standard deviations) than the SA-models. This
-indicates that, as already hinted at in the previous Subsection, the
-FA-models have a wider knowledge of the respective input spaces and,
-therefore, of the input space \emph{tout court}. This gives them a
-little edge over the more limited SA-models.
-
-As far as regression is concerned, things are even better, the average
-cross-subject correlation being around $0.60$. To some extent, it is
-likely that some of these models could actually be used as bootstrap
-models for training online on new subjects. This corroborates the
-hypothesis that, given a sufficiently large number of subjects, a
-``common model'' could be potentially extracted, which would act as a
-basis for online learning. How to build this common model is the
-object of future research. Notice that, interestingly, models trained
+values and lower standard deviations) than the SA-models. As far as
+regression is concerned, the average cross-subject correlation is
+around $0.60$. Notice that models trained
 on subjects $6$ (for the SA phase) and $8$ (FA phase) appear to be
 particularly bad in predicting other subjects' data (the related rows
 of the bottom left and right matrices, in turn, are rather darker than
 the average).
 
-Here the question naturally arises: what makes a model more or less
-effective on ``new'' data? \footnote{this question is actually
-connected to the general problem of generalisation in machine
-learning; here we have no pretence of solving this problem in general,
-but only to give a hint at the solution in this particular framework.}
-In our previous work, we showed a significant (inverse) correlation
-between the performance matrices and the \emph{cross-distance
-matrices} $D$, obtained by evaluating a mean distance $D_{ij}$ between
+In previous work it was shown that a significant (inverse) correlation
+appears between the cross-subject performance matrices and the
+\emph{cross-distance matrices} $D$,
+obtained by evaluating a mean distance $D_{ij}$ between
 two sample sets $S_i$ and $S_j$ like this:
 
 $$ D_{ij} = \frac{1}{|S_j|} \sum_{s_j \in S_j}{\min_{s_i \in S_i}{ ||s_j-s_i||^2 } } $$
 
-Here we repeat the analysis for each pair $(i,j)$ of subjects and for
-the two phases and problems. The results show that inverse correlation
+This analysis for each pair $(i,j)$ of subjects and for
+the two phases and problems shows that inverse correlation
 is absent in the case of the FA phase in classification; it is mild
 ($-0.32$) for SA in classification; and that it is strong in the case
 of regression ($-0.63$ for the SA phase and $-0.65$ for the FA
 phase). It is likely that the correlation in regression is connected
 to the actual smoothness of the function the system is trying to
-approximate --- a consideration which we already put forward in the
-previous work. It is unclear why the classification problems show a
+approximate. It is unclear why the classification problems show a
 weak correlation or none at all.
 
-\section*{Conclusions}
+\section*{Discussion and Conclusions}
 \label{sec:discussion}
-  
-Our results clearly indicate that the problem, at least from a
-theoretical point of view, is solved for healthy subjects. The
-indicated approach, that is, Support Vector Machines, obtains
-excellent results in all variants hereby presented. This does not
-mean, of course, that SVMs are the one and only good method; actually,
-Neural Networks are LWPR (see \cite{lwpr}) have already been employed
-with only slightly worse results, and probably even simpler approaches
-would get an acceptable level of performance.
 
-This paper, as already said, is a companion to, and the natural
-extension of, \cite{2008.ICRA,2008.BioCyb}. Here we show that the
-approach described therein can be applied with sucess to any healthy
-subject, and in a non-controlled, DLA-like framework. We also show
-that the uniformisation procedure produces remarkably small training
-sets, which nevertheless attain an excellent accuracy, and we confirm
-the phenomenon therein described, consisting in a linear degradation
-of the performance, as the minimum distance $d$ is linearly changed,
-whereas the training set size changes polynomially.
+Several authors, even of this very work, have already assessed that
+machine learning methods, applied to this problem, can solve it (an
+incomplete list includes
+\cite{chan2005,tsukamoto,englehart08,cipriani,2008.BioCyb}). The
+research is all the more interesting since very recent work on
+amputees, both from the neuroscientific \cite{pascual,sirigu1,sirigu2}
+and the engineer's \cite{sebelius,2009.JPP,ramos}
+point of view, clearly shows that it is applicable to the disabled.
 
-We are now ready to claim that machine learning can be used in a
-practical application of this framework, at least on healthy subjects,
-to realise an adaptive approach to EMG-based control of mechanical
-hands. As far as ``real'' prosthetics is concerned, we have already
-carried on experiments on amputees, revealing that a surprisingly fine
-residual muscular activity can be found in stumps, even several
-\emph{decades} after the operation (see our poster
-\cite{2008.Neurorob}; a full report is in preparation). Muscular
-plasticity means highly discernible signals, and a system such as the
-one described here is then able to solve the problem in that case,
-too.
+Within this stream of research, in this work we aimed at answering
+these questions:
 
-The possibility of building a common model to aid reciprocal learning
-is fascinating. In this paper we have shown that it should be possible
-to build one without much effort; a combination of data taken from
-other patients, together with the uniformisation strategy, could
-actually give a head-start to the prosthesis, therefore shortening the
-patient's training time.
+\begin{enumerate}
 
-All in all, we believe that the new, exciting scenario of
-\emph{adaptive prosthetics} is ready to appear. In such a scenario,
-the patient and the prosthesis are involved in a loop of
-\emph{reciprocal learning} and the training time is dramatically
-shorter than it is now. At the same time, the amputee can control the
-prosthesis in a much finer way, allowing for a better restoration of
-pre-operation DLA capacity. This will change in a better way the
-amputees' life. The method can be, in principle, extended to other
-kinds of amputation and disability.
+  \item can forearm surface EMG be successfully applied to any (healthy) subject?
+
+  \item will it work in Daily-Life Activities?
+
+\end{enumerate}
+
+The first question is tantamount to asking whether a uniformly good
+performance can be obtained for each subject; the second question is
+equivalent, in our framework, to asking whether the performance is
+comparable between the SA and FA phases, provided that we agree upon
+considering the FA phase as a reasonable experimental proxy of DLAs
+of the standard patient. Our results point at a positive answer to
+both questions.
+
+Firstly, the figures obtained by our approach on the SA phase are
+comparable to those found in other, related work such as
+\cite{ramos,cipriani} or \cite{2008.BioCyb} where the predicted signals
+were actually used to control the DLR-II hand in real-time. This
+indicates that the approach will reasonably work on any healthy subject.
+Combining this result with the more recent results obtained on amputees
+listed above, we conclude that the approach is viable for a wide range
+of patients, too. On the other hand, we are not claiming that SVMs are the one and only
+good method. At least neural networks, LWPR \cite{lwpr} and Hidden Markov
+Models \cite{chan2005} have been employed too, with similar results; probably,
+even simpler approaches would get an acceptable level of performance,
+which further raises the hopes for a real system based upon these
+results. From the point of view of machine learning, interpreting surface
+EMG is an easy task, a feeling corroborated, at least in the case of
+regression, by the uniformity of the optimal hyperparamters found by
+grid search.
+
+Secondly, we can state that the approach also works while the subjects
+are engaged in non-controlled activities; the results obtained in the
+FA phase are in the same order of performance as those in the SA phase.
+A deeper analysis reveals that FA models are in a sense ``wider'' than
+SA ones, since they test better on SA data than the reverse.
+
+As a side result, we notice that uniformisation can produce remarkably
+small training sets (some $30$ times smaller) which nevertheless can be
+used to generate models with excellent accuracy, and we confirm
+the phenomenon described in \cite{2008.BioCyb}: as the minimum distance
+$d$ is linearly increased, performance degrades linearly
+while the training sets become polynomially smaller. This opens up the
+possibility of using it to build asymptotically bound training sets,
+which is paramount in an on-line setting, where the data flow is
+potentially endless.
+
+Notice that, in this work, the training sets
+are, in absolute terms, \emph{small}, since each subject could not be
+tested for more than $20$ minutes; this means that the models presented
+here might suffer from noise introduced by medium-to-long term factors
+such as, e.g., muscle fatigue, sweat and/or electrode re-positioning.
+But in \cite{2008.BioCyb} we showed that these problems could be overcome
+by a sufficiently long training time, and we see no reason to believe that
+this is not the case here.
+
+As far as cross-subject analysis is confirmed, the figures presented here
+cannot be used in practice, although they are better than chance; but notice
+that in \cite{2009.ICRA} a more refined approach has been employed successfully,
+indicating that pre-trained models can be effectively used to improve
+classification and regression performance, with respect to \emph{tabula rasa}
+learning.
 
 \section*{Competing interests}
 
-No competing interests at all.
+No competing interests.
 
 \section*{Authors contributions}
 
@@ -877,7 +702,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 
 {\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
  \bibliographystyle{bmc_article}  % Style BST file
-  \bibliography{paper,claudio} }     % Bibliography file (usually '*.bib' ) 
+  \bibliography{paper,X:/Archivio/Work/Science/claudio} }     % Bibliography file (usually '*.bib' ) 
+%  \bibliography{paper,../../claudio} }     % Bibliography file (usually '*.bib' ) 
 
 \ifthenelse{\boolean{publ}}{\end{multicols}}{}
 
@@ -900,45 +726,20 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 
 \section*{Figure legends}
 
-\begin{figure}[!ht] \centering
-%  \begin{center}
-%  \begin{tabular}{ccc}
-%    \includegraphics[width=0.25\textwidth]{hands_TB.eps} &
-%    \includegraphics[width=0.25\textwidth]{hands_DLRII.eps} &
-%    \includegraphics[width=0.25\textwidth]{hands_OB.eps} \\
-%    $(a)$ & $(b)$ & $(c)$
-%  \end{tabular}
-%  \end{center}
-  \caption{$(a)$ Touch Bionics's i-LIMB prosthetic hand (reproduced
-    from \cite{ilimb}); $(b)$ the DLR-II mechanical hand; $(c)$ Otto
-    Bock's SensorHand Speed (reproduced from \cite{sensorhand}).}
-  \label{fig:hands}
-\end{figure}
-
-\begin{figure}[!ht] \centering
-%  \begin{tabular}{ccc}
-%    \includegraphics[height=0.16\textheight]{Electrode.eps} &
-%    \includegraphics[height=0.16\textheight]{Hand_Gripper.eps} &
-%    \includegraphics[height=0.16\textheight]{El_Arrangement.eps} \\
-%    $(a)$ & $(b)$ & $(c)$ \\
-%  \end{tabular}
-  \caption{The experimental setup (\textit{subject side}): $(a)$ an EMG
-    wireless electrode; $(b)$ the FUTEK force sensor; $(c)$ the typical
-    placement of the EMG electrodes on a subject's forearm (ventral side).}
-  \label{fig:SubjSetup}
-\end{figure}
-
-\begin{figure}[!ht] \centering
-%  \begin{tabular}{cc}
-%    \includegraphics[height=0.16\textheight]{NI-6211.eps} &
-%    \includegraphics[height=0.16\textheight]{Zero_Base.eps} \\
-%  $(a)$ & $(b)$\\
-%  \end{tabular}
-  \caption{The experimental setup (\textit{experimenter side}): $(a)$
-   the USB data acquisition card (NI-USB6211); $(b)$ the EMG device
-   receiver.}
-  \label{fig:ExpSetup}
-\end{figure}
+%\begin{figure}[!ht] \centering
+%%  \begin{center}
+%%  \begin{tabular}{ccc}
+%%    \includegraphics[width=0.25\textwidth]{hands_TB.eps} &
+%%    \includegraphics[width=0.25\textwidth]{hands_DLRII.eps} &
+%%    \includegraphics[width=0.25\textwidth]{hands_OB.eps} \\
+%%    $(a)$ & $(b)$ & $(c)$
+%%  \end{tabular}
+%%  \end{center}
+%  \caption{$(a)$ Touch Bionics's i-LIMB prosthetic hand (reproduced
+%    from \cite{ilimb}); $(b)$ the DLR-II mechanical hand; $(c)$ Otto
+%    Bock's SensorHand Speed (reproduced from \cite{sensorhand}).}
+%  \label{fig:hands}
+%\end{figure}
 
 \begin{figure}[!t] \centering
 %  \begin{tabular}{ccc}
@@ -954,14 +755,38 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 \end{figure}
 
 \begin{figure}[!ht] \centering
+%  \begin{tabular}{ccc}
+%    \includegraphics[height=0.16\textheight]{Electrode.eps} &
+%    \includegraphics[height=0.16\textheight]{Hand_Gripper.eps} &
+%    \includegraphics[height=0.16\textheight]{El_Arrangement.eps} \\
+%    $(a)$ & $(b)$
+%  \end{tabular}
+  \caption{The experimental setup (\textit{subject side}): $(a)$ an EMG
+    wireless electrode; $(b)$ the force sensor; $(c)$ typical
+    placement of the EMG electrodes on a subject's forearm (ventral side).}
+  \label{fig:SubjSetup}
+\end{figure}
+
+%\begin{figure}[!ht] \centering
+%%  \begin{tabular}{cc}
+%%    \includegraphics[height=0.16\textheight]{NI-6211.eps} &
+%%    \includegraphics[height=0.16\textheight]{Zero_Base.eps} \\
+%%  $(a)$ & $(b)$\\
+%%  \end{tabular}
+%  \caption{The experimental setup (\textit{experimenter side}): $(a)$
+%   the USB data acquisition card (NI-USB6211); $(b)$ the EMG device
+%   receiver.}
+%  \label{fig:ExpSetup}
+%\end{figure}
+
+\begin{figure}[!ht] \centering
 %  \begin{tabular}{cc}
 %    \includegraphics[width=0.45\textwidth]{force_raw.eps} &
 %    \includegraphics[width=0.45\textwidth]{spectrum_raw.eps} \\
 %    $(a)$ & $(b)$ \\
 %  \end{tabular}
-  \caption{$(a)$ typical raw EMG and force signals (the EMG signal
-    being the bottom, high-frequency one); $(b)$ frequency diagram of
-    the EMG signal.}
+  \caption{$(a)$ typical raw EMG (red) and force (blue) signals, as read from the
+    electrodes and force sensor; $(b)$ frequency diagram of the EMG signal.}
   \label{fig:spectra}
 \end{figure}
 
@@ -977,11 +802,11 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
   \label{fig:RMSs}
 \end{figure}
 
-\begin{figure}[!ht] \centering
-%  \includegraphics[width=0.75\textwidth]{Schema.eps} \\
-  \caption{Graphical representation of the system employed to solve our problem.}
-  \label{fig:Algorithm}
-\end{figure}
+%\begin{figure}[!ht] \centering
+%%  \includegraphics[width=0.75\textwidth]{Schema.eps} \\
+%  \caption{Graphical representation of the system employed to solve our problem.}
+%  \label{fig:Algorithm}
+%\end{figure}
 
 \begin{figure}[!ht] \centering
 %  \begin{tabular}{cc}
