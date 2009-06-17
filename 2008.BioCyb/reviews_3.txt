@@ -1,0 +1,50 @@
+Reviewer's report
+
+The authors address the problem of inferring different grasp
+types and grasp forces from surface EMG recordings for use in hand prosthesis. A
+non-linear support vector machine with a Gaussian kernel is used for
+classification and regression, and it is shown that in ten healthy subjects
+three different grasp types can be inferred with very high reliability and grasp
+forces can be accurately reconstructed. Importantly, the authors also
+demonstrate that their approach works almost equally well when subjects are not
+immobilized but rather perform daily-life activities. Finally, it is shown that
+classification/regression models trained on one subject perform above chance
+when applied to data recorded from other subjects.
+
+1.) Major Compulsory Revisions
+
+In my point of view, the main shortcoming of this manuscript is the lack of a
+proper literature review. There is an abundance of recently published work on
+classifying EMG signals, yet the authors almost exclusively refer to their own
+work. As such, it is difficult to judge whether the submitted manuscript makes a
+substantial contribution to the field. If the manuscript is to be accepted, the
+authors have to clarify the contribution of their work not only in relation to
+their own previous work but in relation to the state of the art in this field.
+
+2.) Minor Essential Revisions
+
+The authors should state how many actual samples of each of the four conditions
+have been used for classification and present a confusion matrix for assessing
+the types of occurring misclassifications.
+
+On page 7, the authors refer to four different grasp types. If I understand
+correctly this should refer to three grasp types and one "rest" condition?
+
+The authors should motivate why they use the type of classifier employed in this
+study, e.g., why a linear SVM is not sufficient.
+
+On page 7, the authors state that "in online learning the flow of training data
+is potentially endless". This is problematic if supervised learning algorithms
+are employed.
+
+3.) Discretionary Revisions
+It might be advisable to have a native English speaker proofread the manuscript.
+
+On page 13 "Neural Networks are LWPR" is probably a typo.
+
+Level of interest An article whose findings are important to those with closely
+related research interests
+
+Quality of written English Acceptable
+
+Statistical review No, the manuscript does not need to be seen by a statistician.
