@@ -33,3 +33,6 @@ dvips figure_11
 
 latex figure_12
 dvips figure_12
+
+latex figure_13
+dvips figure_13
