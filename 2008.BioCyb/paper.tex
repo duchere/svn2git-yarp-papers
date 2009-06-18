@@ -116,8 +116,7 @@ promising way ahead.
 Electromyography (EMG from now on) is a well-known diagnostic tool
 for detecting muscle disorders from motor unit activation potentials
 \cite{deluca97,deluca02}. In its non-invasive (surface) version it
-has also been used since the Sixties
-(see, e.g., \cite{bottomley65,childress69,sears})
+has also been used since the Sixties \cite{bottomley65,childress69,sears}
 to enable amputees control one or two degrees-of-freedom (DOFs)
 of active upper limb prostheses. Its commercial / clinical applications
 include, e.g., Otto Bock's SensorHand Speed \cite{sensorhand}, the Motion
@@ -133,9 +132,9 @@ required. To this end, at least since 2002
 \cite{dunlop,zecca,smagt,2008.ICRA} it is known that a few surface EMG
 electrodes suffice to recognise up to nine isometric/isotonic hand postures.
 This potentiality has so far been exploited clinically in the i-LIMB only,
-and to a very limited extent so far, as far as we know.
-In previous work it has also been shown that
-a dexterous hand prosthesis can be controlled in force \emph{while} detecting
+and to a very limited extent so far, as far as we know. In previous work
+it has also been shown that a dexterous hand prosthesis can be
+feed-forward force-controlled \emph{while} detecting
 grasping postures \cite{2008.ICRA,2008.BioCyb} in real time.
 So it appears that plain, old EMG still has to be exploited in full.
 
@@ -152,7 +151,7 @@ model on a subject and testing it on another one. The use
 of pre-trained models could be useful in shortening the time required by
 the subject / patient to become proficient in using the prosthesis.
 
-\section*{Methods}
+\section*{Materials and Methods}
 \label{sec:m&ms}
 
 \subsection*{Subjects}
@@ -223,8 +222,8 @@ We employed Aurion ZeroWire wireless surface EMG
 electrodes \cite{zerowire}, in order to ease the FA
 phase, which required free movement in the laboratory. A FUTEK LMD500
 Hand Gripper force sensor \cite{LMD500} was used to detect the
-force applied while grasping. Figure \ref{fig:SubjSetup} $(a,b)$ shows some of the
-elements of the setup. A standard digital acquisition board
+force applied while grasping. (See Figure \ref{fig:SubjSetup} $(a,b)$.)
+A standard digital acquisition board
 (National Instruments NI-USB6211) was used to record the signals,
 connected to the receiver of the EMG wireless device and to an
 amplifier, in turn connected to the force sensor. The sampling rate was set at
@@ -348,7 +347,7 @@ value obtained for each subject and phase.
 According to previous literature (e.g., \cite{smagt,2008.BioCyb}), the
 statistical analysis was carried on using Support Vector Machine (SVM).
 For a comprehensive tutorial on SVMs refer to
-\cite{Burges98,SmolaTut2004}). SVMs are a statistical learning method
+\cite{Burges98,SmolaTut2004}. SVMs are a statistical learning method
 able to build an approximated map between an input space and a label
 (classification) or a real value (regression). Classification is here
 used to classify the type of grasp according to the EMG signal,
@@ -467,15 +466,16 @@ an error measure while the correlation to target is a positive performance
 index.)
 
 Figure \ref{fig:examples} shows the real and guessed force values for a
-typical subject, namely number $6$, FA phase. As one can visually
-check, the guessed force values are highly correlated to the real
-values. On the other hand, Figure \ref{fig:confusion} shows the (average)
-confusion matrices for the AS and FA phases. Clearly, most of the classification
-errors, for both phases, regard the ``other fingers precision grip'' being
-mistaken for the ``power grasp''. This is intuitively sensible, since gripping
+typical subject, namely number $6$, FA phase. Strong correlation between
+the guessed and true values is visually apparent, in agreement with the
+performance values outlined before.
+On the other hand, Figure \ref{fig:confusion} shows the (average)
+confusion matrices for the SA and FA phases. Clearly, most of the classification
+errors, for both phases, regard the ``power grasp'' being mistaken for the
+``other fingers precision grip''. This is intuitively sensible, since gripping
 with middle, ring and pinkie finger involves co-contracting the index finger too.
 This makes the former grip quite similar to the latter, from a muscular point
-of view. Notice that the converse is only partially true.
+of view.
 
 %\begin{figure*}[!ht] \centering
 %  \begin{tabular}{cc}
