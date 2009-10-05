@@ -1,6 +1,7 @@
-\section{Data set}
+\section{Data Set}
+\label{sec:dataset}
 
-\subsection{Subjects and set-up}
+\subsection{Subjects and Set-up}
 \label{subsec:setup}
 
 Six female subjects, Italian mothertongue, were recorded while uttering
@@ -9,38 +10,24 @@ Italian words and pseudo-words. Words were mainly stress-initial, e.g.,
 to have consonants both at the beginning and in the middle of
 words, followed by different vowels and consonants.
 The data recording setup includes a \emph{Laryngograph Microprocessor}
-device (Laryngograph Ltd., London \cite{...}) to gather the speech audio
+device (Laryngograph Ltd., London, see \url{www.laryngograph.com}) to gather the speech audio
 signal and the electroglottographic (EGG) signal at $16$KHz sampling
 rate; and an AG500 electromagnetic articulograph (Carstens Medizinelektronik
-GmbH, Germany \cite{...}) to record at a sampling rate of $200$Hz the
+GmbH, Germany, see \url{www.articulograph.de}) to record at a sampling rate of $200$Hz the
 3D positions of a set of sensors glued on the tongue, lips and front teeth
 during speech production. A full description of the acquisition set-up and
 the obtained database can be found in \cite{tavella}.
 
-The subset used in this work comprises $77$ words containing /b/, /p/,
-/d/ or /t/. These consonants were chosen because \textbf{GIUSTIFICAZIONE
-PRECISA: letteratura sulle stop consonant, esperimenti neuroscientifici
-sulla loro produzione e percezione.}
+The subset used in this work comprises the $77$ words in the database
+which contain /b/, /p/, /d/ or /t/. This includes utterings from each of the
+$6$ subjects, and consonants are found both at the beginning of the word or
+in the middle.
 
-\subsection{Segmentation}
+\subsection{MI-Based Signal Segmentation}
 \label{subsec:segm}
 
-Traditionally \cite{...}, the audio speech signal is segmented with a
-fixed-length Hamming window, usually 20ms. long. The resulting sequence
-is then analysed in the frequency or cepstral domain \cite{...} and the
-resulting coefficients are used as features for a classification system.
-This approach neglects the qualitative overall characteristics of the
-phoneme being uttered: depending on the speed of the speech, a consonant
-can have different lengths and, by using the above approach, global
-information about it is lost (see \cite{...}, where this approach is
-dubbed "beads-on-a-string"). Nevertheless, as far as we know, there is
-so far no widely accepted alternative method for speech segmentation,
-if the audio signal is the only one available.
-
-An alternative way --- the one we actually pursue --- is that of defining
-the length of a phoneme in terms of the phonetic gesture that produced
-it. The audio signal is, therefore, segmented according to the motor
-invariant chosen to represent the associated phonetic gesture.
+We define the length of a phoneme in terms of the MI underlying its production;
+the audio signal is, therefore, segmented according to it.
 A qualitative examination of the synchronised audio and motor
 signals obtained from utterances of /b/, /p/, /d/ and /t/
 by different speakers indicates that common patterns can
@@ -52,27 +39,21 @@ speakers. The same patterns can be observed when other words containing
 /b/ and /p/ are considered, both when the phoneme appears at the beginning
 or inside a word, and regardless of the phoneme appearing immediately after.
 
-\begin{figure*}[t] \centering
-  \begin{tabular}{c}
-    \includegraphics[width=\textwidth]{figs/figSamples} \\
-  \end{tabular}
-  \caption{the speech signal and motor trajectories of lips opening
-    velocity (\vlio) and acceleration (\alio) during utterances containing /b/.
-    Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
-    The gray zone denotes the detected start and ending of the plosion. All signals
-    are normalised over the indicated time frame, for visualisation purposes.}
-  \label{fig:isdView}
-\end{figure*}
+These observations visually confirm everyday experience as well as
+the basic taxonomy of stop consonants, found in any linguistics textbook.
+In particular, all considered consonants are plosives,
+i.e., produced by a fast release of air; /b/ and /p/ are bilabials
+(plosion produced using the upper and lower lips) while /d/ and /t/ are
+dentals (plosion produced using the tongue tip and the upper teeth);
+and, lastly, /b/ and /d/ are voiced, i.e., the vocal folds are active during
+the plosion, while /p/ and /t/ are voiceless.
 
-These observations visually confirm everyday experience and as well
-basic definitions of stop consonants, found in any physiology textbook.
 The following motor invariants are then defined and associated to the
 consonants under examination:
 
 \begin{enumerate}
 
-  \item
-    Let $s_1(t)$ and $s_2(t)$ be the signals associated
+  \item Let $s_1(t)$ and $s_2(t)$ be the signals associated
     with sensors placed on two phonetic actuators (e.g., the upper and
     lower lips), and $\delta(t) = ||s_1(t)-s_2(t)||$ be their
     Euclidean distance. Then, a plosion is defined as the interval
@@ -84,27 +65,31 @@ consonants under examination:
     lip are considered for $s_1(t)$ and $s_2(t)$, whereas for /d/ and /t/
     those on the tongue tip and upper teeth are. In turn, the associated
     distances will be denoted as \lio\ (lips opening) and \ttu\
-    (tongue tip - upper teeth distance).    
+    (tongue tip - upper teeth distance).
 
   \item To discriminate /b/ and /d/ from /p/ and /t/, the average of the
     voicing signal over the duration of the phoneme is considered. The
-    voicing signal \cite{...} is derived from the EGG signal and indicates
-    whether the vocal folds are activate.
+    voicing signal is derived from the EGG signal and indicates
+    whether the vocal folds are active.
 
 \end{enumerate}
 
-Condition $(1)$ physically defines a plosion: e.g., considering \lio, $t_{start}$
-is just before opening the mouth and $t_{end}$ is at maximum velocity, just
-before decelerating; condition $(2)$ selects an appropriate pair
-of articulators needed for the phoneme under consideration;
-condition $(3)$ discriminates voiced from voiceless consonants. This schema matches
-the basic taxonomy of the consonants we are interested in, that is, plosive
-bilabials (/b/, /p/) versus dentals (/d/, /t/) and voiced (/b/, /d/) versus
-voiceless (/p/, /t/). In Figure \ref{fig:isdView} for example, the gray zone
-indicates the start and ending of the invariants, gathered according to
-condition $(1)$.
+Condition $(1)$ physically defines a plosion, e.g., considering \lio, $t_{start}$
+marks the onset of the act of opening the lips, while $t_{end}$ is found at the
+instant of maximum opening velocity. The choice of cutting the signals at $t_{end}$
+rather than, say, when the lips are still and \lio\ is maximum, is motivated by
+the need to capture the plosion only, with as little as possible of the following
+phoneme. By manual inspection of the audio segments so obtained, we could actually
+verify that only a tiny fraction of the coarticulating phoneme could be heard
+at the end of the uttering.
 
-The segmentation is then carried out semi-automatically: for each
+Then, condition $(2)$ selects an appropriate pair of articulators needed for the
+phoneme under consideration, and condition $(3)$ discriminates voiced from voiceless
+consonants. This schema matches the above-mentioned taxonomy. In Figure
+\ref{fig:isdView} the gray zone indicates the detected interval of time using conditions
+$1$ and $2$.
+
+The segmentation is carried out semi-automatically: for each
 utterance, all sequences matching conditions $(1)$---$(3)$ are displayed and the
 associated speech is played, so that the experimenter can choose whether the
 sequence is a correct guess or it is a false positive. In this experiment we only
@@ -114,21 +99,21 @@ cannot be enforced. If the sequence is accepted, it is labelled
 with the associated consonant, the speaker, and the
 coarticulating phoneme. For example, from the word /bronzo/ (bronze) a /b/
 sequence is extracted, and the letter "r" is stored as the coarticulating phoneme.
-By hearing the obtained sequences, one notices that they contain some of the
-coarticulating sound, but this is inevitable according to the MTS \cite{...}. 
-
 This way, from the original $77$ words and pseudowords, a total
-of $1165$ audio/motor sequences are extracted, with a length of $121.43 \pm 41.63$
+of $1157$ audio/motor sequences are extracted, with a length of $122 \pm 41.2$
 milliseconds (mean $\pm$ one standard deviation).
+
+% qui potremmo mettere una tabella con le statistiche sul data set:
+%
 %In turn, 
 %
 %\begin{itemize}
 %
-%  \item $292$ /b/, $305$ /p/, $60$ /d/ and $508$ /t/;
+%  \item $292$ /b/, $303$ /p/, $59$ /d/ and $503$ /t/;
 %
-%  \item $213,151,158,230,242,171$ for subjects $1,\ldots,6$;
+%  \item $213,149,156,229,241,169$ for subjects $1,\ldots,6$;
 %
-%  \item $354,62,100,379,167,71,32$ for each coarticulating phoneme
+%  \item $352,59,99,377,167,71,32$ for each coarticulating phoneme
 %    /a/, /e/, /i/, /o/, /u/, /r/ and /s/.
 %
 %\end{itemize}
@@ -136,3 +121,64 @@ milliseconds (mean $\pm$ one standard deviation).
 %Notice that no distinction is made whether the consonant is at the beginning
 %of an utterance (e.g., /b/ in /baffo/, moustache) or in the middle of
 %it (e.g., /d/ in /strada/, \emph{road}).
+
+\subsection{Cross-Validation}
+\label{subsec:cv}
+
+As is standard practice in machine learning, the obtained dataset was divided into
+splits to perform cross-validation (CV). CV \cite{stat} is usually used
+to determine an estimate of the generalisation error of a learning method, at the
+same time providing a ground for grid-searching the optimal parameters\footnote{These
+two points should really be independent of each other, a feature provided, e.g., by
+\emph{nested} CV \cite{nestedCV}; but here the size of the dataset is
+prohibitively small for such an analysis.}. The dataset was therefore divided into
+$10$, almost equally sized, random disjoint sets,
+whose union coincides with the original dataset; every
+learning method would then be trained upon $9$ of these sets and tested upon the
+tenth. This ensures that no data used for testing have been used for training. Such a
+training/testing set pair is called a \emph{split}. (Data are normalised using the
+statistics of the training set.) After choosing a standard performance index for the machine
+considered (e.g., the classification accuracy for classifiers), we would run the machine
+on each split and show the mean performance, plus/minus one standard error of the mean,
+that is the standard deviation divided by the square root of the number of splits.
+
+We will call this type of CV, the \emph{overall} CV schema,
+since every training and testing sets contain data tagged with every subject and
+coarticulating phoneme. In our case, however, CV is used also to perform more subtle
+tests, for instance to check whether a classifier trained on some subjects would
+then effectively predict samples uttered by an another subject; or whether a classifier
+trained upon a subset of coarticulating phonemes (e.g., on /CV/, where C is /b/, /p/,
+/d/ or /t/ and V is /a/, /e/, /i/ or /o/) would then effectively predict samples
+coarticulated with other phonemes (in the example above, predict samples of the form
+/CV'/ where C is as before and V' is /u/, /r/ or /s/).
+To this end, $5$ more CV schemas were devised:
+
+\begin{itemize}
+
+  \item \spka\ The training sets contain samples
+  	uttered by $5$ speakers while the testing set is
+  	uttered by the remaining speaker; this gives us $6$ splits.
+
+  \item \spkb\ Likewise, but training on $3$ speakers and testing on the
+  	other $3$. This results in $\binom{3}{6} = 20$ splits.
+
+  \item \spkc\ Likewise, but training on $1$ speaker and testing on the
+  	other $5$, resulting in $6$ splits.
+
+  \item \coa\ The training sets contain samples
+  	with $4$ coarticulating vowels, whereas the testing sets contain samples
+  	with the remaining two, plus /r/ and /s/. This gives us $5$ splits.
+
+  \item \cob\ Likewise, but training on $3$ coarticulating vowels and
+  	testing on the remaining $2$ plus /r/ and /s/. This gives us
+  	$\binom{3}{5} = 10$ splits.
+
+\end{itemize}
+
+Notice that, the more splits, the more reliable the results are, as far as the
+generalisation error is concerned; but as well, in some cases the training sets
+are rather small if compared to the testing sets. This is the reason why we could
+not try, e.g., a CV schema with training on utterings containing
+one coarticulating vowel and testing on all the others (e.g., training on
+/Ca/ and testing on /CV/, where C is any consonant and /V/ is
+/e/, /i/, /o/, /u/, /r/ or /s/).

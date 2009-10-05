@@ -1,25 +1,59 @@
-\section{Introduction}
+\section{Introduction/Motivation}
 \label{sec:intro}
 
-\dropcap{S}peech recognition is the ability for a machine to convert
-human speech, coded as an audio signal, into words and commands. The
-applications of speech recognition range from human-computer interfaces,
-such as the possibility of dictating to a word processor, to informatics
-for the disabled, to data mining in large speech corpuses. Despite decades
-of research in the field though, state-of-the-art Automated Speech Recognition
-(ASR) systems need to be trained upon very large corpuses of data, or upon
-a single speaker's speech in controlled conditions of noise, pitch and speed.
-Moreover, most ASRs employ a pre-existing vocabulary, which strongly
-limits their flexibility.
+\dropcap{A}utomated speech recognition (ASR) is the ability for a machine
+to convert human speech, coded as an audio signal, into words.
+Potential applications of ASR range from human-computer interfaces
+to informatics for the disabled to data mining in large speech corpuses.
+Despite decades of research in the field though, state-of-the-art ASR
+systems still need to be trained upon very large and heterogeneous data sets, or upon
+a single speaker's speech in controlled conditions.
+And nevertheless, human beings show an excellent ability
+of understanding one another's speech, independently of the speaker, the
+accent, the pitch and speed, noise, etc.
 
-Inspired by the motor theory of speech perception (MTS, \cite{...}) and by
-recent neurological research on speech perception and production in humans, we
-hereby investigate the use of \emph{phonetic motor invariants} to overcome
-the above limitations of ASRs. A phonetic motor invariant is a recurring
-pattern in the motion of phonetic articulators (tongue, lips, teeth, etc.)
-associated to a phoneme; for example, bilabial plosive consonants such as
-/b/ and /p/ are naturally associated to a fast opening of the lips (a plosion,
-that is). It is known since the Sixties \cite{...} that the audio signal of speech
+Recent neuroscientific
+evidence indicates that the brain motor areas responsible for producing labials
+and dentals are involved in their perception; D'Ausilio et al. \cite{dausilio}
+show that in a discrimination task of /b/,/p/,/d/ and /t/, trans-cranial magnetic
+stimulation of the lips and tongue \emph{motor areas} creates a bias in favour
+of the \emph{perception} of labials, and similarly, stimulation of the tongue
+favours dentals. This suggests that motor information may be paramount for
+understanding speech in humans.
+
+Inspired by this finding, we wonder whether knowledge about \emph{production}
+of speech in humans, somehow mathematically coded, would help \emph{recognition}
+of speech by a machine. To this end, we have focussed on the automatic version of
+the problem tackled in the above-mentioned paper. For each consonant,
+a corresponding typical phonetic motor invariant (MI) was
+identified according to basic physiology and everyday experience;
+e.g., a a fast, voiced opening (plosion) of the lips for /b/, and so on.
+MIs were then used to semi-automatically segment the audio/motor data found in a
+database of speech/motor trajectories recorded from $6$ subjects.
+
+Subsequently, a simple regression method (a feed-forward neural network) was employed
+to build an Audio-Motor Map (AMM) from audio features of the isolated segment to
+features of the related MI. In principle, an AMM returns an approximation of the MI
+associated to a segment of speech: it is our mathematical proxy of speech production
+in humans.
+
+To test the approach then, we have devised three experiments involving a standard
+classifier, namely a Support Vector Machine \cite{BGV92}. We wanted to check whether
+the use of MI-based features, either those recorded in the database (the ``real''
+motor features) or the AMM-reconstructed ones (a more realistic scenario),
+could improve the classifier's performance. Our results show that this is the case,
+especially when the classifier is trained on incomplete data sets such as 
+per-speaker (e.g., training on speakers $1,2,3$ and testing on $4$) and
+per-coarticulation\footnote{Coarticulation is the phenomenon by which a consonant's audio representation
+looks different depending of the vowel immediately following it.}
+(e.g., training on /ba/, /be/, /bi/, /bo/ and testing on /bu/); or when noise is added,
+in which case motor features significantly help classification, even when added to a
+state-of-the-art set of audio features about $20$ times larger than that extracted
+from the MIs.
+
+\subsection{Related Work}
+
+It is known since the Sixties \cite{liberman1} that the audio signal of speech
 cannot be effectively segmented down to the level of the single phoneme,
 especially as far as stop consonants such as bilabial plosives
 are concerned; in particular, their representations in the audio domain are
@@ -28,16 +62,11 @@ radically different according to the phoneme which immediately follows
 distinctly perceive a common phoneme in, e.g., /ba/ and /bi/, since they
 apparenty have access to the speaker's audio signal only.
 
-The explanation put forward by the MTS is that, while perceiving sounds,
+The explanation put forward by the so-called motor theory of speech perception
+(MTS, \cite{liberman2,galant,massaro}) is that, while perceiving sounds,
 humans reconstruct \emph{phonetic gestures}, the physical acts of
 producing the phonemes, as they were trained since their birth to associate
-them to the sounds they heard. Recent neuroscientific evidence actually
-indicates that the brain motor areas responsible
-for producing a certain phoneme are inextricably involved in its
-perception; D'Ausilio et al., for instance \cite{dausilio}, show that
-in a discrimination task of /b/,/p/,/d/ and /t/, TMS of the lips and tongue
-motor areas creates a bias in favour of the related consonants. This further
-suggests that motor information is paramount for understanding speech in humans.
+them to the sounds they heard. 
 
 One possible reason why ASR is so difficult is then that
 machines have in general no access to the motor representation of the
@@ -47,43 +76,25 @@ coarticulations are performed: for example, when training on subject $A$ and
 testing on subject $B$, or when training on pseudo-words such as /ba/, /bi/,
 /be/ and then testing for the presence of /b/ in /bo/, /bu/ or even /br/.
 
-In this work, we use phonetic motor invariants as mathematical representations
-of phonetic gestures and show that, in a simple problem of classification of
-four stop consonants /b/, /p/, /d/, /t/ extracted from a dataset of
-multi-speaker audio and motor data, they improve dramatically the classification
-results, making the system essentially speaker- and coarticulation-independent.
-This, despite the small data set (less than $1200$ samples).
+Traditionally (e.g., \cite{bourl,salvi}), the audio speech signal is segmented with a
+fixed-length Hamming window, usually 20ms. long. The resulting sequence
+is then analysed in the frequency or cepstral domain and the
+resulting coefficients are used as features for a classification system.
+One negative aspect of this approach is that it
+neglects the qualitative overall characteristics of the
+phoneme being uttered: depending on the speed of the speech, a consonant
+can have different lengths and, by using the above approach, global
+information about it is lost (see \cite{ostendorf}, where this approach is
+dubbed "beads-on-a-string"). Nevertheless, as far as we know, there is
+so far no widely accepted alternative method for speech segmentation,
+if the audio signal is the only one available. One attempt, but not based
+upon articulatory data al all, appears in \cite{bourlard}.
 
-First of all, for each consonant we manually identify a motor invariant by
-looking at the synchronised signals. The invariants found this way are in
-agreement with basic physiology textbooks and with everyday experience,
-e.g., /b/ and /p/ are associated to a plosion of the lips. Motor invariants
-are then used to semi-automatically segment the audio/motor data and extract
-a variable length data sequence for each utterance of each consonant.
-
-We then show that a standard machine learning method, employed to distinguish
-(classify) the consonants across speakers and coarticulations, obtains
-dramatically better results if features extracted from motor invariants are
-available. Three classification experiments are performed: on the whole data set,
-per-speaker (training on some speakers and testing on others) and per-coarticulation
-(training on some coarticulating phonemes and testing on others). Our results
-indicate that on the whole data set motor features are as good as audio features, and that
-using them both further improves the classification results. Per-speaker, this gap
-is more evident, audio features alone being less and less effective as we make the
-problem harder. Per-coarticulation, lastly, audio features become virtually
-unusable, while motor features still obtain good results. Interestingly,
-using both kinds of features in the per-coarticulation tests makes the
-classification \emph{worse} than when using motor features only.
-This result agrees with the MTS claim that coarticulation makes
-the speech audio signal unsuited for identifying phonemes, and that phonetic
-gestures are the true representatives of them.
-
-Lastly, we train another machine learning system on the same data, this time
-to obtain a map from audio features to motor features,
-in order to check whether motor invariants can be reconstructed
-from the audio signal alone. The result is uniformly positive across the three
-kinds of analyses, and if we use these reconstructed motor invariants for
-classification, we obtain qualitativley similar results, although, as expected,
-quantitatively worse. This result seems, in turn, to support the claim
-\cite{...} that humans reconstruct distal phonetic gestures when perceiving
-speech.
+Reconstruction of articulatory features has been attempted since a long
+time, but in most cases it is not derived from articulatory \emph{data}
+gathered from human subjects. One pioneeristic case is that of Papcun
+et al. \cite{papcun} and subsequently Korin Richmond's work
+\cite{richmond2002,richmond2007} who have been able to reconstruct point-by-point
+the trajectories of articulators from the audio signal to a remarkably low
+error rate. The procedure for building the AMM is deeply inspired by their
+work.

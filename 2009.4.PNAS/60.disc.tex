@@ -1,3 +1,86 @@
 \section{Discussion}
 \label{sec:disc}
 
+The experiments presented in this paper were inspired by the intuition that the
+proficiency of humans in speech recognition is grounded in the interaction
+between production and understanding of speech in the human brain. Alvin
+Liberman's motor theory of speech perception, although controversial and
+recently reviewed and revised \cite{liberman1,liberman2,galant,massaro},
+provides a theoretical framework to this intuition, which recent neurological
+evidence \cite{dausilio} supports even further.
+
+Assuming this idea as a working hypothesis, we have first tried to identify
+a new, biologically inspired, way to segment the audio signal. It is nowadays
+widely accepted that this task is impossible by just looking at a standard
+speech signal, since the same phoneme has different audio characteristics
+depending on the speaker, the voice pitch / speed / accent, and due to the
+phenomenon of coarticulation. But physiology tells us that there actually \emph{is} an invariant
+over all possible /b/s, for instance, and that is the act that produced it,
+that is, a labial plosion. Therefore we propose to segment the audio signal
+using the articulators' trajectories to detect
+the beginning and end of phonemes. The choice of the articulators and the
+conditions on the trajectories are established according to basic rules of
+the phonetic production; for example, a /b/ will be identifed from
+the beginning to the end of an associated labial plosion. This is possible,
+in our case, thanks to a database of synchronised speech / articulographic
+data gathered from several human subjects.
+
+With respect to the traditional speech segmentation, done via uniform time
+windows of about $20$ milliseconds, this approach focusses on the \emph{act}
+that produced the sound. If it is true that speech acts are invariant across
+subjects and words, then it should be possible to extract form the motor data
+a set of fetaures that are more robust to changes in noise, speakers,
+coarticulation, etc., than standard
+audio features. We use to this end the coeffcients of a cubic fit of the
+motor trajectories, so to obtain a qualitative representation of the speech
+act.
+
+It is clearly shown by our results (Figures \ref{fig:class1_perf}
+and \ref{fig:class2_perf}) that these features perform
+better than a set of $20$ cepstral coefficients evaluated across each utterance,
+while discriminating /b/, /p/, /d/ or /t/ in the database. This gap is even
+more evident if examined from a per-speaker or per-coarticulation perspective.
+In these tasks, the audio features show a dramatically decreasing discrimination
+ability, which is not the case with the motor features. In short, motor features
+are ``more invariant'' than audio features across speakers and coarticulations.
+This agrees with the motor theory of speech perception.
+
+Now, speech acts are not available in real life --- according to the mirror
+paradigm, human beings reconstruct them from the audio signal, after a long
+training which begins in infanthood and probably never ends. The AMM is a
+representative of this mechanism. Its numerical evaluation
+reveals that the normalised root-mean-square-error obtained is rather
+uniform across the reconstructed signals, and is at worst $15.55\%$. These
+results are coherent with those presented in \cite{papcun,richmond2002,richmond2007}.
+But what is more interesting is that the AMM reconstructs labial trajectories
+better than dental trajectories when presented with labials and viceversa,
+and dually for tongue/dental trajectories and dentals, giving rise to a double
+dissociation. A simple explanation of this fact is that human beings
+(upon whose data the AMM is trained) identify phonetic actuators which produced
+the sound they hear, and neglect the others.
+
+The AMM is used to reconstruct the speech acts from the audio signal; these
+reconstructed motor trajectories are then used as input to the phoneme
+discrimination classifiers used in the previous experiments. The results
+(consider Figures \ref{fig:class1_perf} and \ref{fig:class2_perf} again)
+obviously show that they attain lower performances than the features
+extracted from the real motor signals, but actually, comparable
+to the audio features; and that if we join the audio classification model
+to the one obtained for these features (with a trivial probabilistic calculation)
+we again obtain a high performance, superior to that of audio features alone
+and comaprable to that of real motor features.
+
+AMM-reconstructed audio features also help in the presence of noise. This time
+we evaluate the performance of a $200$ milliseconds wide Mel cesptrogram (a total
+of $351$ numbers, each one coding \emph{one} phoneme) as noise is added to the
+speech signal; the performance degrades steadily. But again, if we join this
+model with one obtained by running the AMM on the noisy speech, we uniformly
+and significantly increase the performance (Figure \ref{fig:class3_perf}). The
+gap seems to widen as more and more noise is added, although this claim would
+require a deeper analysis.
+
+Of course, AMM-reconstructed motor features do not carry any more information
+(in the sense defined by Shannon) than what is in the speech signal; therefore,
+from the point of view of machine learning / speech recognition, one can see
+this technique as ``just'' a better way of extracting invariant features from
+speech.

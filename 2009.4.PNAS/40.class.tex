@@ -1,3 +1,85 @@
-\section{Speech classification}
+\section{Phoneme discrimination}
 \label{sec:class}
 
+\subsection{Experiment 1}
+\label{subsec:exp1}
+
+In the first experiment the performance of a standard classifier is evaluated
+according to the \overall\ CV schema for four different sets of features.
+Figure \ref{fig:class1_perf} shows the results.
+
+``Audio'' is a set of $20$ cepstral coefficients evaluated according to the
+Mel scale over a bandwidth of $20$Hz to $2$KHz. This is a standard set of features
+according to state-of-the-art literature, when the segment
+length is fixed a priori. In this case the segment length is not fixed so the
+cepstra are evaluated over the whole window, regardless of its length.
+
+``Real motor'' is a set of $17$ coefficients evaluated as follows: for each
+signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares cubic fit
+is generated over the selected segment, that is, from $t_{start}$ to $t_{end}$
+as defined above. This results in $4$ real numbers
+per signal, which qualitatively encode the shape of the signal considered. The
+$17$th number is the average of the voicing signal over the selected segment.
+
+``Reconstructed motor'' refers to the same procedure as above, but applied
+to the AMM-reconstructed signal curves.
+
+Lastly, ``Joint'' denotes a decision procedure obtained by multiplying the
+label probabilities obtained from the best classifiers for the audio and
+reconstructed motor features.
+
+The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
+and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
+by subtracting the mean values and dividing by the standard deviations,
+dimension-wise.
+
+The accuracies obtained are, in turn,
+$87.64\% \pm 1.05\%$
+$92.05\% \pm 0.70\%$
+$87.38\% \pm 0.83\%$
+$92.65\% \pm 1.00\%$, with statistically significant difference (Student's t-test,
+$p<0.01$) between audio and real motor features, audio and joint features, and
+reconstructed motor and joint features.
+
+\subsection{Experiment 2}
+\label{subsec:exp2}
+
+Experiment 1 was replicated using this time the remaining CV schemas.
+Figure \ref{fig:class2_perf} shows the results. (For comparison,
+the Figure also shows in the first column the accuracies obtained for
+experiment $1$.)
+
+For each and every CV schema, the statistically significant differences seen in
+Figure \ref{fig:class1_perf} are present (again, tested via $p$-values);
+in particular, in the per-speaker CV schemas, the audio features versus
+the joint models show accuracies of
+$81.92\% \pm 2.04\%$ and $87.27\% \pm 1.17\%$ (\spka),
+$78.90\% \pm 0.61\%$ and $85.74\% \pm 0.44\%$ (\spkb), and
+$70.29\% \pm 0.73\%$ and $76.25\% \pm 1.53\%$ (\spkc).
+
+In the per-coarticulation results the gap is more evident; the joint models
+here perform worse than the reconstructed motor features. Audio features
+versus reconstructed motor features show accuracies of
+$41.60\% \pm 9.72\%$ and $62\% \pm 4.86\%$ (\coa) and
+$34.84\% \pm 3.64\%$ and $55\% \pm 5.5\%$ (\cob).
+
+\subsection{Experiment 3}
+\label{subsec:exp3}
+
+Lastly, for experiment 3 we replaced the audio features with
+a $351$-dimensional set of $20$ mel-cepstral
+coefficient, this time obtaining by taking $19$ slices of $20$ milliseconds each,
+shifted over the audio segment by the required amount of time. This set of
+features was compared, again, with the real and reconstructed motor features and
+a probabilistic joint model, as white noise was added to the audio signals.
+
+The intensity of noise was let range from nil to $150\%$ of the standard deviation
+of each utterance considered; for each sample, $10$ noisy ones were generated, in
+order to obtain a larger statistical basis. As in experiment $1$, the \overall\ CV
+schema was chosen. Figure \ref{fig:class3_perf} shows the results.
+
+(Notice that the real motor features are not affected by noise.) Student's t-test
+reveals that the cepstra-2KHz and joint features are always significantly different.
+The cepstra-2KHz and joint features show accuracies ranging from
+$91.96\% \pm 0.22\%$ and $93.26\% \pm 0.25\%$ for no noise, to
+$69.34\% \pm 0.47\%$ and $75.69\% \pm 0.53\%$ for maximum noise.

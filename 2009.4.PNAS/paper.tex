@@ -1,31 +1,51 @@
-% On the use of motor invariants for speech recognition
+% Using motor invariants in automatic phoneme discrimination
 % Castellini, Metta, Fadiga
 % submitted to PNAS
 
 \documentclass{pnastwo}
 
+% ---------------------------------- bookkeeping
+
 % remove for submission
 \usepackage[dvips]{graphicx}
 
-\usepackage{amssymb,amsfonts,amsmath}
+%\usepackage{pnastwoF}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
 
-\newcommand{\lio}{\textbf{lio}}
-\newcommand{\ttu}{\textbf{ttu}}
-\newcommand{\vlio}{\textbf{vlio}}
-\newcommand{\vttu}{\textbf{vttu}}
-\newcommand{\alio}{\textbf{alio}}
-\newcommand{\attu}{\textbf{attu}}
+\newcommand{\lio}{\textsf{lio}}
+\newcommand{\ttu}{\textsf{ttu}}
+\newcommand{\vlio}{\textsf{vlio}}
+\newcommand{\vttu}{\textsf{vttu}}
+\newcommand{\alio}{\textsf{alio}}
+\newcommand{\attu}{\textsf{attu}}
 
-\contributor{Submitted to Proceedings of the National Academy of Sciences of the United States of America}
+\newcommand{\overall}{\emph{overall}}
+\newcommand{\spka}{\emph{spk5vs1}}
+\newcommand{\spkb}{\emph{spk3vs3}}
+\newcommand{\spkc}{\emph{spk1vs5}}
+\newcommand{\coa}{\emph{coart4vs1}}
+\newcommand{\cob}{\emph{coart3vs2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Don't type in anything in the following section:
+%%%%%%%%%%%%
+%% For PNAS Only:
+\contributor{Submitted to Proceedings
+of the National Academy of Sciences of the United States of America}
 \url{www.pnas.org/cgi/doi/10.1073/pnas.0709640104}
 \copyrightyear{2008}
 \issuedate{Issue Date}
 \volume{Volume}
 \issuenumber{Issue Number}
+%%%%%%%%%%%%
 
 \begin{document}
 
-\title{On the use of motor invariants in speech classification}
+% ---------------------------------- frontmatter
+
+\title{Using motor invariants in automatic phoneme discrimination}
 
 \author{
 Claudio Castellini\affil{1}{LIRA-Lab, University of Genova, Italy},
@@ -42,35 +62,36 @@ of the United States of America}
 
 \begin{abstract}
 
-  The use of phonetic motor invariants (recurring kinematic patterns)
-  to improve speech classification is here investigated. The
-  idea is inspired by the motor theory of speech perception, as well as
-  by recent findings about the interplay between speech
-  perceptual and motor areas in the brain. Using a multi-subject database
-  of synchronised speech and lips/tongue trajectories, we first identify
-  motor invariants associated with bilabial and dental consonants
-  and use them to segment the speech and motor signals.
-  We then show that automated classification of these
-  consonants is radically improved by adding the motor invariants to
-  standard audio features, which makes the system largely independent
-  of the speaker and the coarticulation.
-  Lastly, we show that the very same invariants can be
-  automatically reconstructed from the audio features to such a degree of
-  precision that they still uniformly improve the classification with
-  respect to using the audio features only; the
-  reconstruction, too, is based upon the human data.
-  This result encourages the systematic use of motor invariants to build
-  better speech recognition systems. Moreover, some of the issues found in
-  the analysis support the claims of the motor theory of speech.
-  
+  We hereby investigate the use of phonetic motor invariants (MIs),
+  that is, recurring kinematic patterns in the human phonetic articulators,
+  to improve automatic phoneme discrimination. Using a multi-subject
+  database of synchronised speech and lips/tongue trajectories, we first
+  identify MIs commonly associated with bilabial and dental consonants,
+  and use them to segment the speech and motor signals altogether.
+  We then build a simple NN-based regression schema (an Audio-Motor
+  Map, AMM) mapping audio features of these segments to the corresponding
+  MIs. Experiments show that $(a)$ in ideal (noise-free, multi-subject training set)
+  conditions, automatic phoneme discrimination based upon AMM-reconstructed
+  MIs is as effective as that based upon standard audio features
+  only, and that a simple combination of audio and MI features significantly
+  improves the discrimination performance; $(b)$ this gap widens dramatically
+  as we restrict the training set on a per-speaker and/or per-coarticulation basis;
+  and $(c)$ as noise is added the gap persists, even if we compare against
+  a state-of-the-art audio feature set which is about $20$ times larger than
+  that extracted from MIs. These results encourage the use of MIs in the more
+  general framework of automated speech recognition. Moreover, our findings seem to
+  support some of the claims of the motor theory of speech.
+
 \end{abstract}
 
-\keywords{motor theory of speech | machine learning | speech recognition}
+\keywords{motor theory of speech | machine learning | phoneme discrimination |speech recognition}
+
+% ---------------------------------- the paper
 
 \input{10.intro}
 \input{20.dataset}
+\input{30.rec}
 \input{40.class}
-\input{50.rec}
 \input{60.disc}
 \input{70.concl}
 
@@ -78,49 +99,83 @@ of the United States of America}
   This work is supported by the EU-funded project Contact (NEST 5010).
 \end{acknowledgments}
 
-%\begin{thebibliography}{}
-%
+% ---------------------------------- refs
+
+% for the submission: comment out the line below, and then include the .bbl
+\bibliographystyle{plain} \bibliography{paper}
+%\begin{thebibliography}
+%...
 %\end{thebibliography}
 
 \end{article}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------------- figures & tables
 
-%% Adding Figure and Table References
-%% Be sure to add figures and tables after \end{article}
-%% and before \end{document}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figSamples}}
+  \caption{the speech signal and motor trajectories of lips opening
+    velocity (\vlio) and acceleration (\alio) during utterances containing /b/.
+    Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
+    The gray zone denotes the detected start and ending of the plosion. All signals
+    are normalised over the indicated time frame, for visualisation purposes.}
+  \label{fig:isdView}
+\end{figure*}
 
-%% For figures, put the caption below the illustration.
-%%
-%% \begin{figure}
-%% \caption{Almost Sharp Front}\label{afoto}
-%% \end{figure}
+\begin{figure}[t]
+  \centerline{\includegraphics[width=.5\textwidth]{figs/figAMM}}
+  \caption{Quantitative performance of the AMM. For each CV schema and output signal
+    we report the NRMSE average value (histogram coloured bars) and standard error of
+    the mean (thin error bars). NRMSE is the standard root-mean-square-error, normalised
+    as a fraction of the range of each signal.}
+  \label{fig:amm_perf}
+\end{figure}
 
-%% For Tables, put caption above table
-%%
-%% Table caption should start with a capital letter, continue with lower case
-%% and not have a period at the end
-%% Using @{\vrule height ?? depth ?? width0pt} in the tabular preamble will
-%% keep that much space between every line in the table.
+\begin{figure}[t]
+  \centerline{\includegraphics[width=.5\textwidth]{figs/figAccento_}}
+  \caption{Real and AMM-reconstructed MIs for \vlio\ and \vttu\ while uttering
+    the /t/ in \emph{accento?} (accent). Notice the apparent gap in the quality
+    of the reconstruction, favouring the labiodental trajectory (\vttu).}
+  \label{fig:example}
+\end{figure}
 
-%% \begin{table}
-%% \caption{Repeat length of longer allele by age of onset class}
-%% \begin{tabular}{@{\vrule height 10.5pt depth4pt  width0pt}lrcccc}
-%% table text
-%% \end{tabular}
-%% \end{table}
+\begin{figure}[t]
+  \centerline{\includegraphics[width=.5\textwidth]{figs/figDD1Vel}}
+  \caption{Double dissociation of correlation between real and AMM-reconstructed MI
+    (mean and standard error of the mean). Mean coefficients are significantly
+    higher for \vlio\ when ``listening'' to labials than dentals ($0.8466 \pm 0.0158$
+    versus $0.5196 \pm 0.0281$ with Student's t-test $p<0.01$) and vice-versa
+    for \vttu\ ($0.3731 \pm 0.0296$ versus $0.9528 \pm 0.0079$, $p<0.01$). The \overall\ CV
+    schema is used.}
+  \label{fig:DD}
+\end{figure}
 
-%% For two column figures and tables, use the following:
+\begin{figure}[t]
+  \centerline{\includegraphics[width=.5\textwidth]{figs/figClass1}}
+  \caption{Classification accuracy (as the percentage of correctly guessed
+    /b/, /p/, /d/ and /t/ with respect to the total number of samples) obtained
+    in the \overall\ CV schema, using audio features, ``real'' motor features,
+    motor features reconstructed by the AMM, and by joining the audio and
+    reconstructed-motor models.}
+  \label{fig:class1_perf}
+\end{figure}
 
-%% \begin{figure*}
-%% \caption{Almost Sharp Front}\label{afoto}
-%% \end{figure*}
+\begin{figure}[t]
+  \centerline{\includegraphics[width=.5\textwidth]{figs/figClass2}}
+  \caption{Classification accuracy obtained for each CV schema, using the
+    four sets of features of Figure \ref{fig:class1_perf}. In the \coa\ and
+    \cob\ schemas, the joint features performance is not shown since it is
+    worse than that obtained by the reconstructed motor features alone.}
+  \label{fig:class2_perf}
+\end{figure}
 
-%% \begin{table*}
-%% \caption{Repeat length of longer allele by age of onset class}
-%% \begin{tabular}{ccc}
-%% table text
-%% \end{tabular}
-%% \end{table*}
+\begin{figure}[t]
+  \centerline{\includegraphics[width=.5\textwidth]{figs/figClass3}}
+  \caption{Classification accuracy obtained for the \overall\ CV schema
+    as noise is added, using the sets of features of Figure \ref{fig:class1_perf}
+    but where the $20$-dimensional audio features have been replaced with a
+    $351$-dimensional cepstrogram. For the cepstra2KHz and joint features,
+    errorbars denoting one standard error of the mean are shown.}
+  \label{fig:class3_perf}
+\end{figure}
 
 \end{document}
