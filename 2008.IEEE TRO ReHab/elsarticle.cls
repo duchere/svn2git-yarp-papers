@@ -21,7 +21,7 @@
 %% The list of all files belonging to the 'Elsarticle Bundle' is
 %% given in the file `manifest.txt'.
 %% 
-%% $Id: elsarticle.cls,v 1.1 2009-03-27 10:23:09 claudio72 Exp $
+%% $Id: elsarticle.cls,v 1.1 2009/03/27 10:23:09 claudio72 Exp $
 %%
  \def\RCSfile{elsarticle}%
  \def\RCSversion{1.0.1}%

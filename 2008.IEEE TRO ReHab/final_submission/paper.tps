@@ -18,21 +18,21 @@ MaxPos.x=-4
 MaxPos.y=-23
 NormalPos.left=22
 NormalPos.top=22
-NormalPos.right=918
-NormalPos.bottom=342
+NormalPos.right=776
+NormalPos.bottom=334
 Class=CLatexEdit
 Document=paper.tex
 
 [Frame0_Row0]
-cyCur=436
+cyCur=450
 cyMin=10
 
 [Frame0_Col0]
-cxCur=1012
+cxCur=892
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=1112
+Cursor.row=695
 Cursor.column=0
-TopSubLine=1086
+TopSubLine=680
 
