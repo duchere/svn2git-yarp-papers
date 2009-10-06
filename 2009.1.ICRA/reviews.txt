@@ -1,0 +1,168 @@
+Subject:	Decision on ICRA'09 submission 176
+From:		ras-ceb@ras.papercept.net
+Date:		Wed, 7 Jan 2009 16:58:57 UT
+To:		forabona@idiap.ch
+CC:		claudio.castellini@unige.it, bcaputo@idiap.ch,
+		emanuele.fiorilla@iit.it, giulio.sandini@iit.it
+
+[SNIP]
+
+The authors present a methodology for adapting EMG-based
+hand prostheses.
+The paper is well-written, contains thorough results. The
+only review objecting to its objection has few real
+argument, however, one argument of his holds by closer
+inspection of the paper and that is the lack of a robot
+application. Similarly, the machine learning side is build
+on a relatively well-developed base. Thus, the main novelty
+lies in the actual application. However, this would still
+turn the paper into a fair publication.
+
+
+
+Reviewer 1 of ICRA'09 submission 176
+
+Comments to the author
+======================
+
+The authors present a methodology to adapt EMG-based hand
+prostheses using previously trained models from different
+subjects. The approach is based on previous work by Yang,
+Yan and Hauptmann on SVM-regression/classification, which
+is generalized to multiple models and applied to EMG-based
+prostheses.
+
+The paper addresses an interesting and relevant problem,
+the proposed methodology appears sound, and convincing
+empirical evidence for its usefulness is presented. Also,
+most of the paper is well written and thus easy to follow.
+My main (and really only major) criticism concerns the
+description of the automatic determination of beta, the
+weights assigned to previously learned models (Section
+II.B). While this appears central to the proposed
+methodology, the authors do not explain in detail how beta
+is determined. Also, in the section describing the
+experimental results no empirical data regarding beta is
+presented. For example, it would be interesting to see by
+how much beta differs between previously trained models.
+Further, I wonder why the authors only use the best of all
+previously trained models rather than a weighted average?
+
+Minor issues:
+- In equation (4) it might be useful to point out that
+alpha refers to the Lagrange multipliers.
+- I assume 100'' and 30'' refers to 100s and 30s,
+respectively?
+- Section V: "asymptotic" instead of "asyntotic".
+- The observation that even for large training sets the
+adapted models perform better than those trained from
+scratch is indeed very surprising and could/should be
+investigated in some more detail.
+- Full stop missing before last sentence of Section I.
+
+
+
+
+Reviewer 2 of ICRA'09 submission 176
+
+Comments to the author
+======================
+
+This paper presents an algorithm for EMG classification and
+regression based on Least-Squares SVM with model
+adaptation.  Experimental results are also shown.
+
+This paper is well written with nice introduction and
+motivation.  Results do appear to be promising, but are not
+necessarily conclusive.  Additionally, I wish more details
+were given on the algorithmic implementation.  
+
+The main goal of this model adaptation approach is to
+reduce the training time.  As expected, no significant
+improvement is obtained with large training sets.  However,
+a reported average of 5% classification improvement using
+only 30 samples (about 1 second of data at 25Hz) is
+promising, but the high variance is discouraging.  One
+subject is reported to have a 15% increase, why is this not
+shown as your best-case subject?  Additionally, some
+subjects had decreased performance, exactly how many?  In
+addition to reporting averages, it would be helpful to the
+reviewers to show individual statics (at least for small
+training sets) for each subject (since you only have 10).  
+  
+
+It is not completely clear how the beta or the w' in
+equation 3 are selected.  It is claimed that these are
+selected "optimally", but since this is the main
+theoretical contribution of this paper, you should give
+much more detail on how these are determined.  
+
+It would be very interesting to see how performance varies
+with the number of models used (i.e N=5,10,15,20, etc).  In
+particular, will the high variance seen in fig. 4 be
+reduced with more models?  I encourage you to collect data
+form more subjects.  Additionally how will the computation
+time scale with higher N?  
+
+Also, figures 4-6 need to have thicker lines that are
+easier to read.
+
+Comments on the Video Attachment
+================================
+
+
+
+
+Reviewer 3 of ICRA'09 submission 176
+
+Comments to the author
+======================
+
+This manuscripts presents some preliminary results on
+detecting grasping postures from EMG recordings. The
+movitation is prosthetic hand control.
+Prosthetic hand control is an interesting and signitificant
+topic. However, I cannot find a significant contribution in
+this article:
+- No application to robotic hand is shown
+- The better performance of "adapt" vs "no adapt" is close
+to 
+  obvious
+- No convincing improvement over the Bitzer and v.d. Smagt 
+     
+  ICRA paper; these authors already controlled a real robot
+   
+  hand with EMG
+
+I suggest comparison with the controller of the Touch
+Bionic hand on the real system.
+
+Comments on the Video Attachment
+================================
+
+
+
+
+Reviewer 4 of ICRA'09 submission 176
+
+Comments to the author
+======================
+
+In general, this is a good paper in the right direction, I
+have only a few comments:
+
+Isn't the use of LS-SVM is a bit problematic for EMG data
+as it is noisy. The outliers have higher impact in LS-SVM
+than regular SVM, right?
+
+The plots given in the figures are hard to read. It will be
+better if thicker lines are used.
+
+I have a feeling that the improvement (even in the best
+case) is not as high as one would expect. Could it be due
+to the noise amplification of the least squares ?
+
+Although the authors state a reason for using correlation
+coefficient for presenting the regression performances, I
+am not totally convinced. I think it would be better to see
+the actual prediction errors as well.

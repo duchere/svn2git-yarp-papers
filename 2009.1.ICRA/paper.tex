@@ -1,0 +1,103 @@
+% Model Adaptation with Least-Squares SVM for Adaptive Hand Prosthetics
+% Orabona, Castellini, Caputo, Fiorilla, Sandini
+%
+% A submission to ICRA 2009
+
+\documentclass[conference,letterpaper,10pt]{ieeeconf}
+
+\IEEEoverridecommandlockouts
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{url}
+
+% ------------ useful mathematical definitions
+
+\def\RR{\mathbb{R}}
+\def\NN{\mathbb{N}}
+\def\xx{\mathbf{x}}
+\def\ww{\mathbf{w}}
+\def\aa{\boldsymbol{\alpha}}
+\def\bb{\boldsymbol{\beta}}
+\def\ee{\mathbf{e}}
+\def\dd{\mathbf{d}}
+\def\mdd{\tilde{\dd}}
+\def\b{\mathcal{B}}
+\def\d{\mathcal{D}}
+
+\begin{document}
+
+% ------------ frontmatter
+
+\title{Model Adaptation with Least-Squares SVM\\for Adaptive Hand Prosthetics}
+
+\author{Francesco~Orabona, Claudio~Castellini, Barbara~Caputo, Angelo~Emanuele~Fiorilla and Giulio~Sandini%
+\thanks{F. Orabona \emph{(corresponding author)} and B. Caputo
+  are with Idiap Research Institute,
+  rue Marconi, 19, Case Postale 592, CH-1920 Martigny, Switzerland.
+  e-mail: francesco.orabona@idiap.ch, barbara.caputo@idiap.ch}%
+\thanks{C. Castellini
+  is with the LIRA-Lab, University of Genova,
+  viale F. Causa, 13, 16145 Genova, Italy.
+  e-mail: claudio.castellini@unige.it}%
+\thanks{A.E. Fiorilla and G. Sandini
+  are with the DIST, University of Genova,
+  viale F. Causa, 13, 16145 Genova, Italy.
+  and the Italian Institute of Technology,
+  via Morego, 30, 16163 Genova, Italy.
+  e-mail: emanuele.fiorilla@iit.it, giulio.sandini@iit.it}%
+}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+  \input{00.abstract}
+\end{abstract}
+
+% ------------ sections
+
+\section{Introduction}
+\label{sec:intro}
+\input{10.intro}
+
+%\section{Problem Statement}
+%\label{sec:prob}
+%\input{15.prob}
+
+\section{Mathematical Framework}
+\label{sec:math}
+\input{25.math}
+
+\section{Database}
+\label{sec:mms}
+\input{20.mms}
+
+\section{Experimental Results}
+\label{sec:exp}
+\input{30.exp}
+
+\section{Conclusions}
+\label{sec:concl}
+\input{40.concl}
+
+% ------------ acks, biblio, biographies
+
+\section*{Acknowledgments}
+
+This work is partially supported by the project NEURObotics,
+FP6-IST-001917 (CC) and the project DIRAC, FP6-IST-027787 (FO,BC). We
+thank Thierry Pozzo and Marco Jacono for their
+support during the experiment and Elisa Ricci for the useful discussions
+on the paper.
+
+{\small
+\bibliographystyle{IEEEtran}
+\bibliography{paper,claudio}
+}
+
+\end{document}
