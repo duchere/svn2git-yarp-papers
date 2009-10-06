@@ -1,0 +1,31 @@
+\section{Regression model}
+\label{sec::regression}
+
+The mapping between object description and grasp description (Fig. \ref{fig::implementation})  corresponds to a vector-valued regression problem. 
+Given a training set of input-output pairs $\{({\bf x}_i, {\bf y}_i): {\bf x}_i \in \rone^p,{\bf y}_i \in \rone^d \}_{i=1}^n$, 
+the aim is to estimate a deterministic map from images of objects to sensor values able to generalize on new data. 
+In other words, we want to estimate a function $\boldsymbol{f}:~\rone^p~\to~\rone^d$, 
+where $p$ is the number of features representing the input images and $d$ is the number of sensors.
+
+This requires an estension of supervised learning methods to the vector valued setting.
+Assuming that the data is sampled  {\em i.i.d.} on $\rone^p \times \rone^d$ according to an unknown probability 
+distribution $P({\bf x}, {\bf y})$, ideally the best estimator minimizes the prediction error, measured by a loss function $V({\bf y},\boldsymbol{f}({\bf x}))$, on all possible examples. Since $P$ is unknown we can exploit the training data only. 
+On the other hand, the minimization of the \emph{empirical risk}:  $
+\mathcal{E}_n(\boldsymbol{f})=\frac{1}{n}\sum_{i=1}^{n} V({\bf y}_i,\boldsymbol{f}({\bf x}_i))$ leads to solving an ill-posed problem, since the solution is  not stable and achieves poor generalization. 
+Regularized methods tackle the learning problem by finding the estimator that minimizes a functional composed of a data fit term and a penalty term, which is introduced to favour smoother solutions that do not overfit the training data. The use of kernel functions allows to work with non-linearity in a simple and principled way. In \cite{MicchPon05Onlearning} the vector-valued extension of the scalar Regularized Least Squares method was proposed, based on matrix-valued kernels that encode the similarities among the components $f^\ell$ of the vector-valued function $\boldsymbol{f}$.
+In particular we consider the minimization of the functional: 
+\begin{equation}
+\frac{1}{n}\sum_{i=1}^{n} ||{\bf y}_i - \boldsymbol{f}({\bf x}_i)||_d^2 + \lambda ||\boldsymbol{f}||_K^2
+\label{eq:Tikh}
+\end{equation}
+in a Reproducing Kernel Hilbert Space (RKHS) of vector valued functions, defined by a kernel function $K$.
+The first term in (\ref{eq:Tikh}) is the \emph{empirical risk} evaluated with the square loss and
+the second term is the norm of a candidate function $\boldsymbol{f}$ in the RKHS defined by the kernel $K$. 
+The latter represents the \emph{complexity} of the function $\boldsymbol{f}$, while the regularizing parameter $\lambda$ balances the amount of error we allow on the training data and the smoothness of the desired estimator. 
+
+The representer theorem \cite{dev04representer,MicchPon05Onlearning} guarantees that the solution of (\ref{eq:Tikh}) can always be written as: $\boldsymbol{f}({\bf x}) = \sum_{i=1}^n K({\bf x}, {\bf x}_i){\bf c}_i,$ where the coefficients ${\bf c}_i$ depend on the data, on the kernel choice and on the regularization parameter $\lambda$. The minimization of (\ref{eq:Tikh}) is known as Regularized Least Squares (RLS) and consists in inverting a matrix of size $nd \times nd$.\\
+Tikhonov Regularization is a specific instance of a larger class of regularized kernel methods
+studied by \cite{LoGerfo08Spectral} in  the scalar case and extended to the vector case in [preprint].
+These algorithms, collectively know  spectral regularization methods, provide a  computational alternative to Tikhonov regularization and are often easier to tune. In particular we consider 
+iterative regularization methods with early stopping, where the role of the regularization 
+parameter is played by the number of iterations. Besides Tikhonov regularization, in  the experiments we consider L2 boosting (Landweber iteration) \cite{bulmann02boosting,LoGerfo08Spectral} and the $\nu$-method \cite{LoGerfo08Spectral}. 

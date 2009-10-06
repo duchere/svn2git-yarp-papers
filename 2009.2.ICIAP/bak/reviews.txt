@@ -1,0 +1,238 @@
+Date: Thu, 30 Apr 2009 13:30:34 +0100
+From: ICIAP2009 <iciap2009@easychair.org>
+To: Nicoletta Noceti <noceti@disi.unige.it>
+Subject: ICIAP2009 notification
+
+Dear author,
+ we are pleased to inform you that your paper has been accepted for
+presentation at the 15th International Conference on Image Analysis and
+Processing (ICIAP2009).
+ Below you will find the reviewer comments your paper has received. On
+the conference web page you will find detailed instructions on the
+submission of the final version of the paper, that must be uploaded no
+later than May 30th, 2009.
+ We also remind you that in order for the paper to be actually presented at the conference and published in the proceedings, at least one of the authors must perform a full registration by May 30th.
+
+Kind regards,
+ Carlo Sansone and Pasquale Foggia
+ ICIAP2009 Program Chairs
+
+---------------------------------------------
+
+Paper: 68
+Title: Towards a theoretical framework for learning multi-modal patterns for embodied agents
+
+-------------------- review 1 --------------------
+
+PAPER: 68
+TITLE: Towards a theoretical framework for learning multi-modal patterns for embodied agents
+ 
+OVERALL RATING: 2 (accept) 
+REVIEWER'S CONFIDENCE: 3 (high) 
+Originality and level of innovativeness: 3 (one step forward)
+Quality of content: 3 (solid work)
+Quality of presentation: 3 (readable)
+Quality of references: 2 (references could be improved (see comments))
+Suitability for the ICIAP2009 conference: 2 (appropriate)
+ 
+----------------------- REVIEW --------------------
+
+The paper presents a technique based on regression theory to create a
+mapping among different sensorial modalities.
+
+The work is well organized and the content clearly presented.
+
+However, I have some points to raise
+
+1) It is not clear which is the final goal of their approach and
+consequently the original contribution of the paper:
+
+- to improve object recognition by using the information about
+  grasping? (in this case it shuold be more interesting to recognize
+  grasping using vision, avoiding the glove)
+
+- to learn the association object-grasp type in order to improve the
+  grasping ability of a robot arm (in this case the experiment should
+  include real robot grasping)
+
+
+2) The mapping based on regression theory seems to be the strongest part,
+also if in the experiments the authors move from vector-valued to
+scalar regression.
+
+3) In my opinion less emphasis should be given to the general framework
+(multimodal perception to improve the capability of a robot is an old
+idea in the AI and robotics community) while the specific way to
+create the mapping and the specific application are very interesting.
+
+To this purpose I suggest to change the title and restructure some
+parts of the paper (abstract and introduction).
+
+A reference to [preprint] (ref. 12) ... has to be corrected (end of page
+5) 
+
+
+-------------------- review 2 --------------------
+
+PAPER: 68
+TITLE: Towards a theoretical framework for learning multi-modal patterns for embodied agents
+ 
+OVERALL RATING: 2 (accept) 
+REVIEWER'S CONFIDENCE: 3 (high) 
+Originality and level of innovativeness: 3 (one step forward)
+Quality of content: 3 (solid work)
+Quality of presentation: 4 (well written)
+Quality of references: 3 (references are adequate)
+Suitability for the ICIAP2009 conference: 2 (appropriate)
+ 
+----------------------- REVIEW --------------------
+
+The paper deals with the problem of multi-modal learning i.e. learning from a set of heterogeneous
+data provided by different type of sensors. As case studied, the joint learning from visual and
+motion pattern is proposed and modeled as a vector-valued regression task. Experimental results
+are provided in the context of grasp classification.
+
+The paper is well written and easy to read. The title and the abstract clearly and synthetically
+explain the overall content of the paper pointing out the novelty of the proposed approach. The
+organization of the manuscript is good and provides first a simple introduction of the
+motivation behind multi-modal learning, then specifically discuss the problem of grasp
+classification and describes the two main units involved in it (the vision unit and the
+regression unit) and finally presents the experimental results. Appropriate references are
+provided for previous works.
+
+I liked the main idea of the paper (deal with multi-modality through a vector-valued regression
+approach) and I consider this work worth to be published. Of course there are several issues
+with respect to the current version of this work. Mainly:
+* the experimental set-up is not very interesting (few individuals involved, grasp classification
+treated as one-to-one mapping)
+* both the vision and the regression units rely on well established techniques (bag-of-words
+approach with SIFT descriptor, RLS and kernel methods)
+However I consider this an attempt to bring new ideas into the problem of multimodality and I
+encourage the authors to look at new approaches in this context and specifically to extend the
+current regression framework drawing ideas from recent works about multitask learning [21-22].
+
+Minor typos are present (e.g. page 8, guaranteeing), the caption of table 1 must be corrected,
+the numbers in the references must be checked. 
+
+
+-------------------- review 3 --------------------
+
+PAPER: 68
+TITLE: Towards a theoretical framework for learning multi-modal patterns for embodied agents
+ 
+OVERALL RATING: 2 (accept) 
+REVIEWER'S CONFIDENCE: 2 (medium) 
+Originality and level of innovativeness: 3 (one step forward)
+Quality of content: 3 (solid work)
+Quality of presentation: 4 (well written)
+Quality of references: 2 (references could be improved (see comments))
+Suitability for the ICIAP2009 conference: 2 (appropriate)
+ 
+----------------------- REVIEW --------------------
+
+The paper deal with the problem of learning multimodal patterns for agents. This work is based on
+the main assumption that there exists a map between patterns belonging to different modalities
+and focuses on the problem to define a map between a passive and an active modality. Despite this
+map is generally many-to-many, the authors simplify the problem by considering just one-to-one
+maps and present the case study of grasping objects. In this framework, the passive modality is
+the sight of an object, while the active one is the grasping.
+
+Major Comments:
+
+(1) The multimodality analysis and the case study of grasping objects are well investigated
+problems in robotics, but the references to the state-of-the-art are missed. Could the authors
+add some references of previous works? Could they also highlight what is new in their work?
+Could they compare its results with others? An useful reference is
+Unifying Perspectives in Computational and Robot Vision
+Lecture Notes in Electrical Engineering, Volume 8, 2008
+
+(2) In Section (4): the map relating the passive and the active modality is defined as a function
+f from R^p to R^d, where p is the number of features representing an object and d the number of
+sensors. As explained in Section 5.1, a sensor, mounted on the subject's wrist, measures the
+speed, the force and the position of the hand of the subject when he/she grasps an object:
+therefore, d = 1 and the action seems to be characterized by more than one cue. Is f defined
+from R^p to R or is it defined from R^p to {1, ..., d} \times R^m, where m is the size of a
+vector describing the cues (i.e. speed, force, position...) of the action ?
+Could the author explain better the map definition ?
+
+(3) Despite the authors aim to define a general mapping between multimodal patterns, the
+explanation is often made in terms of the specific case study of grasping objects. For instance,
+in Section (4), in introducing mathematically the map f, the space of the passive modality is
+defined as the space of the feature vectors describing an object (hence in terms of the visual
+appearance of an image), while the space of the action is generally defined as R^d. The authors
+should separate the general theory from the case study.
+
+(4) Section (4), in formula (1): the authors should  explain what is ||f||^2_K  and make explicit
+that this is the empirical risk cited before.
+
+(5) Which is the variability range of the regularization parameter \lambda in the experiments ?
+As far as I understand, in the implementation used in this work, the regularization is done by
+an iterative method. How many iterations are necessary for estimating the map f in the visual
+case study illustrated here ?
+
+Minor Comments:
+
+(1) Fig. 2 is cited before Fig. 1: could the author make the order of the figures consistent ?
+
+(2) In the footnote 1 on page 3, substitute "the nomenclature..." with "The nomenclature ..."
+(capitalize 'the').
+
+(3) In Section (4) the acronym RKHS can be removed. Moreover, on page 6, substitute 'number of
+iteration" with "number of iterations".
+
+(4) In Tab. 1, please cite that 'Land' and 'Nu mean' mean 'Landweber'- and '\nu'- method ([18]
+and [8]) respectively. 
+
+
+-------------------- review 4 --------------------
+
+PAPER: 68
+TITLE: Towards a theoretical framework for learning multi-modal patterns for embodied agents
+ 
+OVERALL RATING: 2 (accept) 
+REVIEWER'S CONFIDENCE: 2 (medium) 
+Originality and level of innovativeness: 3 (one step forward)
+Quality of content: 3 (solid work)
+Quality of presentation: 4 (well written)
+Quality of references: 2 (references could be improved (see comments))
+Suitability for the ICIAP2009 conference: 2 (appropriate)
+ 
+----------------------- REVIEW --------------------
+
+The paper presents a method for learning multimodal patterns in a robotic scenario.
+The idea is interesting, the paper is well written and structured, and deserves to be presented at the conference.
+I have only one remark. I'm not convinced that what the authors are selling is a so general idea, as highlighted in the paper with general and pompous sentences.
+And this is confirmed by the fact that the authors do not make any reference to other well known multimodal approaches to Pattern Recognition, such as the huge "multi classifier systems" or the "multimodal biometrics" or the "audio video analysis". In all these very large contexts there are methods where one modality helps and drives other modalities. Maybe you should consider to reduce the scope of the proposed approach.
+
+In the specific robotics field, I think authors should refer to other works trying to merge vision and touch sensing in robots.
+Quite old examples are: 
+
+P.K. Allen, Integrating vision and touch for object recognition tasks, Journal of Robotics Research, 7(6),1988,15-33
+
+S. A. Stansfield, A robotic perceptual system utilizing passive vision and active touch, Journal of Robotics Research,7(6),1988,138-161
+
+R.A.Browse, J.C. Rodger, Integrating Tactile and Visual Perception for robotics, Proc. of Advanced Robotics Programme Workshop on Manipulators, Sensors and Steps towards Mobility, 1987
+
+J.C. Rodger, R.A. Browse, Combined Visual and Tactile Perception for Robotics, Proc. of Canadian Artificial Intelligence Conf., 1986 
+
+
+-------------------- review 5 --------------------
+
+PAPER: 68
+TITLE: Towards a theoretical framework for learning multi-modal patterns for embodied agents
+ 
+OVERALL RATING: 1 (weak accept) 
+REVIEWER'S CONFIDENCE: 2 (medium) 
+Originality and level of innovativeness: 2 (other papers on the same topic exist)
+Quality of content: 2 (not a significant paper)
+Quality of presentation: 2 (requires considerable work)
+Quality of references: 2 (references could be improved (see comments))
+Suitability for the ICIAP2009 conference: 2 (appropriate)
+ 
+----------------------- REVIEW --------------------
+
+In the paper a general architecture for learning multi-modal patterns of data is proposed. It is assumed that some of the available perceptual channels are not active and a behavioural model of the system is built in order to cope with this inactivity. The proposed  method does not appear original. 
+In my opinion, the use of the term "embodied agents" in the title appears inappropriate, because the paper mainly focuses on an approach to reconstruct an active modality from a passive modality,
+via statistical regression, in a system with the aim of  implementing sense making and perception activities.  No reference to the literature concerning embodied agents and embodied multimodal interaction activities is reported.
+As to the experimentation,  in order to  validate the presented framework, an application 
+for grasp prediction is described, but the generality of the methodology  and the performance results of the proposed technique  is not deeply discussed. The authors declare that the experiment is an initial setting since they assume “a one-to-one mapping between objects and grasps classes….  this is quite far away from real world situations, where the mapping  should be instead one-to-many or many-to-many” 

@@ -1,0 +1,50 @@
+\section{Regression model}
+\label{sec::regression}
+
+The mapping between object description and grasp description (Fig. \ref{fig::implementation})  corresponds to a vector-valued regression problem. 
+Given a training set of input-output pairs $\{({\bf x}_i, {\bf y}_i): {\bf x}_i \in \rone^p,{\bf y}_i \in \rone^d \}_{i=1}^n$, 
+the aim is to estimate a deterministic map from images of objects to sensor values able to generalize on new data. 
+In other words, we want to estimate a function $\boldsymbol{f}:~\rone^p~\to~\rone^d$, 
+where $p$ is the number of features representing the input images and $d$ is the number of sensors. This requires an estension of supervised learning methods to the vector valued setting.
+Assuming that the data is sampled  {\em i.i.d.} on $\rone^p \times \rone^d$ according to an unknown probability 
+distribution $P({\bf x}, {\bf y})$, ideally the best estimator minimizes the prediction error, measured by a loss function $V({\bf y},\boldsymbol{f}({\bf x}))$, on all possible examples. Since $P$ is unknown we can exploit the training data only. 
+On the other hand, the minimization of the \emph{empirical risk}:  $
+\mathcal{E}_n(\boldsymbol{f})=\frac{1}{n}\sum_{i=1}^{n} V({\bf y}_i,\boldsymbol{f}({\bf x}_i))$ leads to solving an ill-posed problem, since the solution is  not stable and achieves poor generalization. 
+Regularized methods tackle the learning problem by finding the estimator that minimizes a functional composed of a data fit term and a penalty term, which is introduced to favour smoother solutions that do not overfit the training data. The use of kernel functions allows to work with non-linearity in a simple and principled way. In \cite{MicchPon05Onlearning} the vector-valued extension of the scalar Regularized Least Squares method was proposed, based on matrix-valued kernels that encode the similarities among the components $f^\ell$ of the vector-valued function $\boldsymbol{f}$.
+In particular we consider the minimization of the functional: 
+\begin{equation}
+\frac{1}{n}\sum_{i=1}^{n} ||{\bf y}_i - \boldsymbol{f}({\bf x}_i)||_d^2 + \lambda ||\boldsymbol{f}||_K^2
+\label{eq:Tikh}
+\end{equation}
+in a Reproducing Kernel Hilbert Space (RKHS) of vector valued functions, defined by a kernel function $K$.
+The second term in (\ref{eq:Tikh}) represents the \emph{complexity} of the function $\boldsymbol{f}$ and the regularizing parameter $\lambda$ balances the amount of error we allow on the training data and the smoothness of the desired estimator. The representer theorem \cite{dev04representer,MicchPon05Onlearning} guarantees that the solution of (\ref{eq:Tikh}) can always be written as: $\boldsymbol{f}({\bf x}) = \sum_{i=1}^n K({\bf x}, {\bf x}_i){\bf c}_i,$ where the coefficients ${\bf c}_i$ depend on the data, on the kernel choice and on the regularization parameter $\lambda$. The minimization of (\ref{eq:Tikh}) is known as Regularized Least Squares (RLS) and consists in inverting a matrix of size $nd \times nd$.\\
+Tikhonov Regularization is a specific instance of a larger class of regularized kernel methods
+studied by \cite{LoGerfo08Spectral} in  the scalar case and extended to the vector case in [preprint].
+These algorithms, collectively know  spectral regularization methods, provide a  computational alternative to Tikhonov regularization and are often easier to tune. In particular we consider 
+iterative regularization methods with early stopping, where the role of the regularization 
+parameter is played by the number of iteration. Besides Tikhonov regularization, in  the experiments we consider L2 boosting (Landweber iteration) \cite{bulmann02boosting,LoGerfo08Spectral} and the $\nu$-method \cite{LoGerfo08Spectral}. 
+%
+%An alternative approach to find a good estimator $\boldsymbol{f}$ is to proceed by means of iterative algorithms. 
+%These methods iteratively minimize the empirical risk and are regularized by 
+%stopping the iterations before reaching convergence \cite{Yao07Early}.
+%The main idea is to start with an approximate
+%solution and iteratively add a correction in the direction
+%opposite to the gradient of the empirical risk.
+%By early stopping the procedure, a regularized solution is achieved, hence avoiding overfitting.
+%The number of iterations $m$ plays the role of the regularization parameter $\lambda$.
+%When computing the solution for a specific number of iterations, 
+%the process yields the solutions for all the previous steps, therefore it
+%is computationally inexpensive to select the optimal stopping point.
+%For the experiments we will consider only the Landweber \cite{bulmann02boosting} and the $\nu$-method \cite{LoGerfo08Spectral}.
+
+% Standard regression techniques start with a parametric representation of the desired map and estimate its parameters by minimizing the prediction error on the training data, the so called empirical risk. These methods, apart from imposing a predefinite shape of the estimator, are known to overfit, that is they rely too much on the training data, which usually is affected by an unknown amount of noise. Regularized techniques introduce a penalty term on the complexity of the estimator, favouring smoother solutions that do not overfit the training data.
+%We now briefly introduce some mathematical notation to better describe these methods. 
+% The best possible estimator is the one minimizing the expected risk:
+% $$
+% I[f] \equiv  \int_{\rone^p \times \rone}~V(y, f({\bf x})) P({\bf x}, y)~d{\bf x}dy,
+% $$
+% where $V(y,f({\bf x}))$ is the loss function measuring the error of
+% predicting $y$ by $f({\bf x})$ and in our case we chose to work with the square loss $(y-f(x))^2$.
+%Ideally the best estimator minimizes the prediction error, measured by a loss function $V({\bf y},\boldsymbol{f}({\bf x}))$, on all possible examples, but since $P$ is unknown we can exploit the training data only. On the other hand, the minimization of the \emph{empirical risk}:  $
+%\mathcal{E}_n(\boldsymbol{f})=\frac{1}{n}\sum_{i=1}^{n} V({\bf y}_i,\boldsymbol{f}({\bf x}_i))$ leads to solving an ill-posed problem, since the solution is not unique, not stable and
+%with poor generalization properties. 

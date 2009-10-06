@@ -1,0 +1,32 @@
+\section{Discussion and future work}
+In this paper we proposed a general architecture for learning multi-modal patterns of data. 
+The underlying assumption is that the system we want to model has several perceptual channels available, 
+but among them some might be inactive. 
+We adopted a regression-based approach to build a behavioral model of the system 
+that can be exploited to amend such inactivity.
+As a validation attempt, we presented an application for grasp prediction by means of vector 
+valued regression: the experimental phase produced very promising results that encourage 
+us to further investigate this framework. 
+Even though the regression problem is inherently vector-valued, we  restricted 
+our analysis to the simple scalar-valued case. 
+A preliminary analysis on the covariance matrix of the sensors measures 
+shows some correlation among the sensors, both positive and negative, 
+pointing at the usefulness of a full-fledged vector-valued approach. 
+Recently, much work has been devoted on how to best exploit the similarity among the components 
+and learn all of them simultaneously. The main idea behind most of the literature is to use prior 
+knowledge on the components relatedness to design a particular penalization term or a proper 
+matrix-valued kernel \cite{micchelli04kernels}. 
+In absence of prior knowledge, one approach is to design an heuristic to evaluate the similarity 
+among the components from the available data, e.g. by computing the sample covariance of the 
+sensor measures. 
+Our current research is focused on how to translate this information into a viable matrix-valued kernel. 
+Alternatively one can learn the vector structure directly in the training phase 
+\cite{pontil08transferlearning,jacob08clusteredmtl}.  
+
+This  multifaceted framework can be further extended in different directions. 
+Regarding the experimental setup, we plan to enrich the dataset with a higher number of subjects, and multiple grasps for each object. Indeed, this will let us relax the one-to-one assumption we adopted in this paper and investigate a more realistic many-to-many mapping between objects and grasp classes.
+As anticipated in the introduction, the modeled mapping will be used in the context of multimodal learning to investigate whether, by reconstructing a missing modality, the object recognition rate improves.
+From the statistical learning viewpoint, we plan to explore new solutions drawing inspiration from the mentioned works on multitask learning. 
+
+\subsection*{Acknowledgments}
+This work was supported by the EMMA project sponsored by the Hasler Foundation (B. C.)

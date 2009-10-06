@@ -1,0 +1,150 @@
+
+%%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is the LaTeX source for the instructions to authors using
+% the LaTeX document class 'llncs.cls' for contributions to
+% the Lecture Notes in Computer Sciences series.
+% http://www.springer.com/lncs       Springer Heidelberg 2006/05/04
+%
+% It may be used as a template for your own input - copy it
+% to a new file with a new name and use it as the basis
+% for your article.
+%
+% NB: the document class 'llncs' has its own and detailed documentation, see
+% ftp://ftp.springer.de/data/pubftp/pub/tex/latex/llncs/latex2e/llncsdoc.pdf
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[runningheads]{llncs}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{url}
+
+%\urldef{\mailsa}\path|{alfred.hofmann,ursula.barth,ingrid.beyer,natalie.brecht,|
+%\urldef{\mailsb}\path|christine.guenther,frank.holzwarth,piamaria.karbach,|
+%\urldef{\mailsc}\path|anna.kramer,erika.siebert-cole,lncs}@springer.com|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+\input{macro}
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{Towards a theoretical framework for learning multi-modal patterns for embodied agents}
+
+% a short form should be given in case it is too long for the running head
+% \titlerunning{Lecture Notes in Computer Science: Authors' Instructions}
+
+% the name(s) of the author(s) follow(s) next
+%
+% NB: Chinese authors should write their first names(s) in front of
+% their surnames. This ensures that the names appear correctly in
+% the running heads and the author index.
+%
+% \author{...%
+% \and ...\and ...\and ...}
+
+%%%Authors:
+%%%Name	Country	Affiliation	 
+%%%Nicoletta Noceti	Italy	Disi	
+%%%Barbara Caputo	Switzerland	IDIAP Research Institute	
+%%%Claudio Castellini	Italy	University of Genova	 
+%%%Luca Baldassarre	Italy	DIFI/DISI - Universita di Genova	 
+%%%Annalisa Barla	Italy	DISI - University of Genova	 
+%%%Lorenzo Rosasco	United States	MIT	 
+%%%Francesca Odone	Italy	DISI	 
+%%%Giulio Sandini	Italy	Robotics, brain and cognitive sciences dept - IIT /DIST - Universita di Genova
+
+
+\author{N.~Noceti$^1$ \and B.~Caputo$^2$ \and C.~Castellini$^3$
+\and L.~Baldassarre$^{1,4}$ \and A.~Barla$^1$ \and L.~Rosasco$^{1,5}$ \and
+F.~Odone$^1$ \and G.~Sandini$^{3,6}$}
+%
+% \authorrunning{Lecture Notes in Computer Science: Authors' Instructions}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next; don't give your e-mail address
+% unless you accept that it will be published
+ \institute{
+1 - DISI - University of Genova, 
+2 - IDIAP - Martigny,\\
+3 - DIST - University of Genova,
+4 - DIFI - University of Genova,\\
+5 - MIT, Cambridge, MA,
+6 - IIT, Genova
+\\
+\vskip 0.3cm
+{\tt \{noceti, baldassarre, barla, odone\}@disi.unige.it},\\
+{\tt bcaputo@idiap.ch},
+{\tt claudio.castellini@unige.it},\\
+{\tt lrosasco@mit.edu},
+{\tt giulio.sandini@iit.it}
+% mail...\\
+%\mailsa\\
+% \mailsb\\
+% \mailsc\\
+% \url{...}
+ }
+
+%\institute{AFFILIATIONS}
+%
+% NB: a more complex sample for affiliations and the mapping to the
+% corresponding authors can be found in the file "llncs.dem"
+% (search for the string "\mainmatter" where a contribution starts).
+% "llncs.dem" accompanies the document class "llncs.cls".
+%
+
+% \toctitle{Lecture Notes in Computer Science}
+% \tocauthor{Authors' Instructions}
+\maketitle
+
+
+\begin{abstract}
+% The abstract should summarize the contents of the paper and should
+% contain at least 70 and at most 150 words. It should be written using the
+% \emph{abstract} environment.
+
+Multi-modality is a fundamental feature that characterizes biological systems 
+and lets them achieve high robustness in understanding skills while coping with
+uncertainty.
+Relatively recent studies showed that multi-modal learning
+is a potentially effective add-on to artificial systems, allowing
+the transfer of information from one modality to another.
+In this paper we propose a general architecture for jointly learning visual and motion patterns: 
+by means of regression theory we model a mapping between the two sensorial modalities improving 
+the performance of artificial perceptive systems.
+We present promising results on a case study of grasp classification in a controlled setting
+and discuss future developments. 
+
+\keywords{ multi-modality, visual and sensor-motor patterns, regression theory, behavioural model, objects and actions recognition 
+% We would like to encourage you to list your keywords within
+% the abstract section
+}
+\end{abstract}
+
+%\input{introduction_claudio.tex}
+
+ \input{introduction.tex}
+
+\input{theoretical_framework.tex}
+
+\input{vision_unit.tex}
+
+\input{regression.tex}
+
+\input{preliminary_experiments.tex}
+
+\input {discussion_future_work.tex}
+
+\input{bibliography.tex}
+
+\end{document}

@@ -1,0 +1,36 @@
+\section{Discussion and future work}
+In this paper we proposed a general architecture for learning multi-modal patterns of data. 
+The underlying assumption is that the system we want to model has several perceptual channels available, 
+but among them some might be inactive. 
+We adopted a regression-based approach to build a behavioral model of the system 
+that can be exploited to amend such inactivity.
+As a validation attempt, we presented an application for grasp prediction by means of vector 
+valued regression: the experimental phase produced very promising results that encourage 
+us to further investigate this framework. 
+Even though the regression problem is inherently vector-valued, we  restricted 
+our analysis to the simple scalar-valued case. 
+A preliminary analysis on the covariance matrix of the sensors measures 
+shows some correlation among the sensors, both positive and negative, 
+pointing at the usefulness of a full-fledged vector-valued approach. 
+Recently, much work has been devoted on how to best exploit the similarity among the components 
+and learn all of them simultaneously. The main idea behind most of the literature is to use prior 
+knowledge on the components relatedness to design a particular penalization term or a proper 
+matrix-valued kernel \cite{micchelli04kernels}. 
+In absence of prior knowledge, one approach is to design an heuristic to evaluate the similarity 
+among the components from the available data, e.g. by computing the sample covariance of the 
+sensor measures. 
+Our current research is focused on how to translate this information into a viable matrix-valued kernel. 
+Alternatively one can learn the vector structure directly in the training phase 
+\cite{pontil08transferlearning,jacob08clusteredmtl}.
+Future work will be partially devoted to enrich the dataset with a higher number of subjects: 
+this will be the basis for an extensive investigation about the potentialities of our proposal, allowing 
+us to perform a more reliable statistical analysis. 
+We aim also to test the adaptability with respect to different settings: as mentioned in 
+Sec. \ref{sec::framework} we assumed a one-to-one mapping between objects and grasps classes; 
+however, this is quite far away from real world situations, where the mapping should be instead 
+one-to-many or many-to-many. Extensions to these cases will be designed and explored.
+% (Fig.\ref{fig:cov})
+%High differences between the two matrices and still unclear which one best represents the problem at hand.\\
+%Both positive and negative strong correlations are present among the sensors, not obvious how to exploit negative correlation.
+
+%Most of this reasearch is focused on multi-task learning, where the inputs may differ between the problems. Our setting corresponds to a natural vector-valued regression problem, where the inputs are the same for each component $f^\ell$ of the estimator.\\
