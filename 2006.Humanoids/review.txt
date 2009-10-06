@@ -1,0 +1,163 @@
+Subject:	Your Humanoids 2006 Submission (Number 74)
+From:		aude.billard@epfl.ch
+Date:		Mon, 11 Sep 2006 12:26:40 -0700
+To:		claudio.castellini@unige.it
+CC:		aude.billard@epfl.ch
+
+Dear Dr. claudio castellini:
+
+We are sorry to inform you that your paper entitled
+
+Optimised Support Vector Machines for Robotic Control
+
+was not selected by the program committee to appear at Humanoids 2006.   
+
+The selection process was very competitive. Due to time and space limitations, we could only choose a small number of the submitted papers to appear on the program.  We received 161 valid submissions, out of which sole 100 were accepted, 33 for oral presentation and 67 for poster presentation.
+
+Nonetheless, we still hope that you can attend the conference and get to meet with other researchers working in this quickly growing field. 
+
+We have enclosed below the reviewers' comments for your perusal.
+
+
+Kind Regards,
+
+Giulio Sandini  and  Aude Billard 
+Chairs of the IEEE-RAS International Conference on Humanoid Robots 2006 
+
+
+
+---------------------------------------------------------------------------------
+============================================================================ 
+Humanoids 2006 Reviews for Submission #74
+============================================================================ 
+
+Title: Optimised Support Vector Machines for Robotic Control
+
+Authors: claudio castellini, francesco orabona and giulio sandini
+============================================================================
+                            REVIEWER #1
+============================================================================ 
+
+
+                           Reviewer's Scores
+                  -----------------------------------
+
+                 Originality of concept:: good
+                     Technical Soundness: very good
+                   Importance of results: good
+                 Thoroughness of results: satisfactory
+                          Recommendation: Accept if possible
+If accepted, in which category should the paper be featured?: Poster Session
+Does the quality of this paper warrant a nomination for a conference award?:: No
+           Reviewer's level of expertise: Knowledgeable
+If a video was provided, assess the quality of the video: Accept & Nominate for an award
+
+
+---------------------------------------------------------------------------
+                          Detailed Comments
+---------------------------------------------------------------------------
+
+The main point of the paper is to use Support Vector Machines
+to tackle the problem of finding direct and inverse models of 
+arm/head/eye systems. The merit of this paper is a survey on three
+optimization problem to find the one providing the smallest machine,
+while retaining most of the accuracy.
+
+In overall, the paper is well written, the SVM are correctly introduced,
+the results on optimization are thoroughly described, but not the
+experimentations.
+
+The main idea of learning on-line the direct and inverse kinematic models is
+interesting, but this paper needs further experiments and measurements to 
+assert its relevancy.
+
+Indeed as the document        is clearly unbalanced spending too much space
+introducing SVM, and do not sufficiently described how it fits the 
+Humanoid Robotics Conference.
+
+The robotic problem clearly stated is the learning
+of direct and inverse kinematics models. But the review on previous works 
+is extremly weak: only the paper of  Schaal is cited as a comparison. 
+This is very surprising specially as the authors
+thanks Giorgio Metta who has also done some contributions on learning inverse
+models of arm/head/eye systems together with Fitzpatrick.
+
+They are no discussion or whatsoever in the origin of the problem:
+most of the head/arm/eye system does have problems with non-linear errors
+induced by the elasticity of the joints. Traditionnal calibration of the camera
+might not be sufficient.  In addition to Fitzpatrick, such problem has also
+been
+addressed in a more traditionnal ways by Thompson and al. in 
+"Robotic and Autonomous Systems", vol. "50", pp. "27-40", 2005. 
+A comparison with this work would have been appropriate.
+
+Again it would have been more interesting for the authors to decrease the part
+dedicated to the introduction of SVM, and to build up on the experimental
+parts:
+- What is the gain to use Support Vector Machines against traditionnal
+inverse kinematic model in vision based behavior ? 
+You could use the difference of projection in the image plane between a
+classical
+approach, the RFWR, and yours.
+- Put some numbers (frequency time) on CPU consumption even if it is unfair to
+RFWR. Together with the computer characteristics, it would help the reader to
+make sure that
+your approach is sound for on-line uses as stated in your introduction.
+
+============================================================================
+                            REVIEWER #2
+============================================================================ 
+
+
+                           Reviewer's Scores
+                  -----------------------------------
+
+                 Originality of concept:: satisfactory
+                     Technical Soundness: poor
+                   Importance of results: poor
+                 Thoroughness of results: poor
+                          Recommendation: Reject
+If accepted, in which category should the paper be featured?: Poster Session
+Does the quality of this paper warrant a nomination for a conference award?:: No
+           Reviewer's level of expertise: Knowledgeable
+If a video was provided, assess the quality of the video: Accept & Nominate for an award
+
+
+---------------------------------------------------------------------------
+                          Detailed Comments
+---------------------------------------------------------------------------
+
+The example problems are too simple to be useful tests. It is not
+clear why simple parametric models from kinematic calibration were not
+used. SVMs could be used to model the residuals after a parametric fit
+if necessary.
+
+The disucssion of SVM regression was too limited. Given that retaining
+support vectors is an important part of the approach, a definition of
+a support vector in the regression case is needed, as well as a much
+more extensive discussion of how SVM regression relates to least
+squares regression, given the same basis set. In the least squares
+case, it is the faraway points that matter most. Which points matter
+most in the SVM case? If a basis transformation is used, this needs to
+be clearly described. Is the hyperplane fit once in advance of all
+queries,
+or is a new hyperplane fit for each query (in which case a discussion of
+memory-base/lazy learning approaches is needed)?
+
+It is not clear what is "growing" as more data is given to the
+SVMs. Number of data points? The text says only 10 data points are
+retained. Number of basis functions? The text needs to describe how
+new basis functions are created.  In general a more complete
+description of how basis functions are chosen for the example problems
+is needed.
+
+The comparision to RFWR is unclear. What is the performance of RFWR in
+Fig. 3?
+
+Since the MSE are normalized, it was not clear what level of
+performance was actually achieved.
+
+Two of the proposed methods, rejecting closely spaced points and
+points that are already predicted well, are common practice in
+memory-based/lazy learning.  See Locally Weighted Learning by Atkeson,
+Moore, Schaal. 1997.
