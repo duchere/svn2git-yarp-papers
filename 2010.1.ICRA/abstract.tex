@@ -1,0 +1,28 @@
+Object recognition is a key problem of artificial vision; in robotics, it
+is strongly connected to that of grasping. In fact, there is so far no
+general solution to either problem. Traditionally,
+visual features are evaluated from camera images and statistical methods
+are then trained on huge visual datasets in order to obtain a robust object
+classifier. The knowledge so obtained is then used to choose a model to
+perform a grasping action.
+
+Inspired, among others, by the neuroscientific framework of mirror neurons,
+we hereby propose to enhance the model of an object by adding to its visual
+features a probabilistic description of the grasps chosen by human subjects
+to grasp it. %--- in other words, a model of its affordances.
+Since in a standard setting the grasps are not directly
+available to the system, they must be reconstructed from the visual features,
+and then used to augment the recognition system's input space. We achieve
+this by building a map from visual to motor features, which
+we call a Visuo-Motor Map (VMM), practically enforced via regression on a
+human grasping database.
+
+We experimentally show that such a technique improves the
+recognition rate of a standard object classifier: in case the original motor
+features are used, the improvement is dramatic, whereas when we reconstruct
+them via the VMM we still obtain a statistically significant improvement.
+%The proposed system can be seen as an instance of a general framework for
+%multi-model learning, in which an artificial system learns to reconstruct
+%active sensory patterns (``how do I grasp a mug'') from passive ones (the
+%visual appearance of a mug), and then to use the former together with the
+%latter to improve its understanding of the environment.

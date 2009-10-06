@@ -1,0 +1,42 @@
+The capability to recognise and categorise objects is a crucial
+ability for an autonomous agent; and in robotics, it is inextricably
+woven with the ability of grasping an object. In cognitive science, the
+theoretical link between vision and manipulation was provided by 
+Gibson, according to whom an object is characterized by three
+properties: (1) it has a certain minimal and maximal size related to the
+body of an agent, (2) it shows temporal stability, and (3) it is manipulable
+by the agent. These properties imply that the object is defined in relation
+to an embodied agent able to manipulate the object. Therefore the set of
+possible manipulation actions are a crucial part of the object definition
+itself. 
+
+Interestingly, the theory of affordances has recently found neurological evidence,
+it is claimed, in the mirror neurons paradigm \cite{gallese-96,rizzolatti-04}.
+According to it, structures exist in the high primates' brain which will fire
+if, and only if, an object is grasped (which mainly involves the sensorimotor
+system) or is seen grasped by an external agent (involving the visual system only,
+\cite{umilta-01}). In addition to the original findings in monkeys, very recent
+evidence has been produced for the existence of such structures in humans
+\cite{friston09}. If this is true, then the human object classification is
+so robust exactly because we \emph{know what to do} with the
+objects we see --- a capability which machines lack, so far.
+
+This idea has so far been little exploited; among the positive cases there
+are \cite{metta-06,lopes-05} who take an exquisitely robotic perspective,
+letting their systems acquire motor information about objects by
+having a humanoid robot actually manipulating them. On the other hand,
+the vast majority of work on object recognition and categorization
+models objects starting from static images, without taking into account
+their 3D structure and their manipulability \cite{griffin_perona_cvpr2008,leibe_etal_ijcv2008}.
+Few very recent attempts try to capture the Gibson's view. The approach
+proposed in \cite{gupta_davis_cvpr2008} presents a Bayesian framework that
+unifies the inference processes involved in object categorization and
+localization, action understanding and perception of object reaction.
+The joint recognition of objects and actions is based on shape and motion,
+and the models take as input video data. In \cite{kjellstrom_etal_eccv2008},
+the authors consider objects as contextual information for recognizing
+manipulation actions and vice versa. The action-object dependence is
+modelled with a factorial conditional random field with a hierarchical
+structure. In both approaches, objects and their affordances are first
+modelled separately, and combined together in a second step. This does
+not consider the embodiment of the agent manipulating the objects.

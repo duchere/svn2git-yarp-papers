@@ -1,0 +1,69 @@
+Our goal in classification is to demonstrate that the motor information is
+useful in object learning and recognition. Moreover we want 
+to show that integrating it with the visual information can 
+produce a better performance, namely higher classificaton 
+rate and robusteness.
+
+To this end we consider both the visual and the motor features
+labelled in terms of objects. The idea is that a classifier 
+should predict which is the inspected object when the input is
+a visual information, a motor information or the combination 
+of the two.
+
+In the computer vision and pattern recognition literature 
+some authors have suggested different methods to combine
+multiple cues. They can be all reconducted to one of the 
+following three approaches: low-level, mid-level and high-level
+integration \cite{Polikar2006,sanderson2004}. 
+In the low-level case the features are concatenated
+to define a single vector. In the mid-level approach
+the different features descriptor are kept separated 
+but they are integrated in a single classifier generating the
+final hypothesis. The high-level method starts from
+the output of different classifiers each dealing with one feature: 
+the hypotheses produced are then combined together to
+achieve a consensus decision.
+We implemented these three strategies in an SVM-based framework
+using the Discriminative Accumulation Scheme (DAS, \cite{DAS}) for
+the high-level, and the Multi-Cue Kernel (MCK, \cite{MCK}) for the
+mid-level integration.
+
+\vspace{0.5cm}
+
+\noindent\textbf{DAS.} It is based on a weak coupling method called accumulation. Its main 
+idea is that information from different cues can be summed together.
+
+Suppose we are given $M$ object classes and for each class, a set
+of $N_{j}$ training data $\{I^{j}_{i}\}_{i=1}^{N_{j}}$,
+$j=1,\ldots M$. For each, we have a set of $P$ different
+features so that for an object $j$ we have $P$ new training sets.
+We train an SVM on every set. Kernel functions may differ from cue to
+cue and model parameters can be estimated during the training step
+via cross validation. Given a test image $\hat{I}$ and assuming
+$M\geq2$, for each single-cue SVM we compute the distance from the
+separating hyperplane $D_{j}(p)$, $p=1\ldots P$.
+After collecting all the distances $\{D_{j}(p)\}_{p=1}^{P}$ for
+all the $M$ objects  and the $P$ cues, we classify the image
+$\hat{I}$ using the linear combination:
+\begin{equation}
+j^{*}=\argmax_{j=1}^{M} \left \{\sum_{p=1}^{P}a_{p}D_{j(p)} \right \}, \quad
+\sum_{p=1}^{P}a_{p}=1. \label{eq:DAS}
+\end{equation}
+The coefficients $\{a_{p}\}_{p=1}^{P}\in \Re^{+}$ are determined
+via cross validation during the training step.
+
+\vspace{0.5cm}
+
+\noindent\textbf{MCK.} The Multi Cue Kernel is positively
+weighted linear combination of Mercer kernels, thus a Mercer kernel itself:
+\begin{equation}
+K_{MC}({\{T_{p}(I_{i})\}}_{p},{\{T_{p}(I)\}}_{p})=\sum_{p=1}^{P}a_{p}K_{p}(T_{p}(I_{i}),T_{p}(I)),
+\; \sum_{p=1}^{P}a_{p}=1.\label{eq:MCK}
+\end{equation}
+In this way it is possible to perform only one classification
+step, identifying the best weighting factors $a_{p}\in \Re^{+}$
+through cross validation while
+determining the optimal separating hyperplane. This means that the
+coefficients $a_{p}$ are guaranteed to be optimal. 
+
+

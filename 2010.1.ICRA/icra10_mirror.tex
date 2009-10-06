@@ -1,0 +1,86 @@
+\documentclass[a4paper,10pt,conference]{ieeeconf}
+
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
+\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{multirow}
+
+\title{\LARGE \bf
+Joint Visual and Motor Learning for Object Modeling and Recognition
+} 
+
+\author{B. Caputo, T. Tommasi, C. Castellini, N. Noceti, F. Odone, G. Sandini%
+\thanks{This work is  supported by the EU Integrated Project project DIRAC (IST-027787, BC and TT) and by the
+project Contact (NEST 5010, CC).}%
+\thanks{B. Caputo and T. Tommasi are with the Idiap Research Institute,
+        {\tt\small bcaputo@idiap.ch, ttommasi@idiap.ch}}%
+\thanks{C. Castellini is with the LIRA-Lab, University of Genova, Italy, and the
+        DLR --- German Aerospace Research Center, Wessling, Germany,
+        {\tt\small claudio.castellini@unige.it}}%
+\thanks{G. Sandini is with the Italian Institute of Technology, Genova, Italy,
+        {\tt\small giulio.sandini@iit.it}}%
+\thanks{N. Noceti and F. Odone are with the Computer Science Department of the University of Genova, Italy,
+{\tt\small odone@disi.unige.it, noceti@disi.unige.it}}%
+}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec::introduction}
+\input{introduction}
+\subsection{Related work}
+\input{related-work}
+
+\section{The Visuo-Motor Grasping Database}
+\label{sec:database}
+\input{database}
+\section{Theoretical framework}
+\label{sec::framework}
+\input{theoretical_framework}
+\subsection{Perceptual representations}
+\label{sec::vision}
+\input{vision_unit}
+\subsection{Learning the Visuo-Motor Map}
+\label{sec::regression}
+\input{regression}
+\subsection{Learning the Visuo-Motor Classifier}
+%\subsection{Building the visuo-motor classifier}
+\label{sec::classifier}
+\input{classifier}
+%\subsection{Multi-modal object recognition}
+%\label{sec::recognition}
+%\input{recognition}
+
+\section{Experimental results}
+\label{sec::experiments}
+\input{results}
+
+\section{Conclusions and future work}
+\label{sec::conclu}
+\input{conclu}
+
+%\section{ACKNOWLEDGMENTS}
+%
+%The authors gratefully acknowledge the contribution of National Research
+%Organization and reviewers' comments.
+
+{\small
+\bibliographystyle{IEEEtran}
+\bibliography{icra10_mirror,icra10_mirror_nic}
+}
+
+\end{document}

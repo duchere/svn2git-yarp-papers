@@ -1,0 +1,65 @@
+The VMM is supposed to be a regression strategy from visual to motor features, 
+as defined above. Since the output is multivariate
+(the motor features, consisting of $22$ numbers) and the input is very highly dimensional (the visual features, consisting of $200$
+numbers), we decided
+to enforce the VMM using neural networks. Each network was kept as
+simple as possible: one hidden layer with $20$ neurons,
+log-sigmoid transfer function and scaled conjugate gradient 
+backpropagation. The training procedure used the early stopping
+strategy, i.e. the training set was divided in a new training
+and validation set. The network is evaluated on the validation set: 
+when the performance stops improving, the algorithm halts. 
+
+Most of these settings are inspired by the work of Richmond and others
+\cite{papcun,richmond2007} on audio-to-motor mapping. In fact,
+since each object may correspond to several grasps as it happens in reality
+(recall the Section above), the relationship between the visual  and the motor features
+is highly non-functional and it is in general hard, if not pointless, to
+model it using a single NN. Richmond's idea was to model a \emph{probability
+distribution} rather than a functional map; here we follow a somewhat more naive approach:
+we define an ``archetipal grasp'' related to the specific
+object observed. In the case of an object that can be grasped in only one way 
+(for instance ``pig''), then the archetipal grasp will correspond 
+to it. In case of an object graspable in different ways, then the 
+archetipal grasp will correspond to an ``average'' grasp between those 
+possible. We expect that this reconstructed grasp will have a 
+positive effect on the overall performance of our object recognition system;
+at the same time we hope that such representation won't get messed up
+with other ones since the output space is also rather high-dimensional.
+
+
+%The VMM Trying to map visual to motor information
+%actually means defining a regression strategy. In our setting,
+%we need a method which receive in input a SIFT feature vector
+%and produces in output a sensorymotor feature vector. 
+%A reasonable hypothesis is that every time we see an object 
+%we are able to associate to it all the possible ways in
+%which we know it can be grasped. The idea can be simplified
+%supposing to define an ``archetipal grasp'',related to the specific
+%object observed. In the case of an object that can be grasped in only one way 
+%(for instance ``pig''), then the archetipal grasp will correspond 
+%to it. In case of an object graspable in different ways, then the 
+%archetipal grasp will correspond to an ``average'' grasp between those 
+%possible. We expect that this reconstructed grasp will have a 
+%positive effect on the overal performance of our object recognition system.
+%
+%We implemented this strategy using 7 neural
+%networks, one for each object in the VMGdb database. All the
+%neural networks are equal: 200 input values corresponding
+%to the SIFT feature vector elements; 20 neurons in the hidden layer;
+%22 output values corresponding to the sensorimotor feature vector 
+%elemets; log-sigmoid transfer function; scaled conjugate gradient 
+%backpropagation. The training procedure used the early stopping
+%strategy, i.e. the training set was divided in a new training
+%and validation set. The network is evaluated on the validation set: 
+%when the performance stops improving, the algorithm halts. 
+%
+%\textbf{Solo qualche idea rozza: nella discussione finale andrebbe 
+%detto che la rete neurale cosi' definita e' debole...la scelta del 
+%numero nei neuroni nell'hidden layer e' 'occhiometrica': ...la teoria 
+%suggerisce che dovrebbero essere di piu'...anche l'addestramento per ogni
+%oggetto e' fatto usando circa 200 campioni, ma per come e' fatta la rete
+%numero dei parametri che volgiamo stimare e' maggiore di 200...,
+%avremmo bisogno di piu' campioni o diridurre la dimensione dei
+%vettori di input ed output (sappiamo che non tutti gli elementi dei vettori
+%SIFT e motor sono utili)}

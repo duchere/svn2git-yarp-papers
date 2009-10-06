@@ -1,0 +1,60 @@
+This paper presented a theoretical framework for joint modelling of visual and motor data for multimodal object recognition.
+The key feature of our approach is the learning of a Visuo-Motor Map between the two modalities during training.
+The existence of this map makes it possible to benefit from the multimodal nature of the model even when the motor data
+is not perceived by the system. Experiments confirm the validity of our approach, showing a gain in performance
+of up to 7.6\% and 2.4\% when using both modalities, compared to results achieved using vision only.
+
+%In this paper we have shown that even a simple approach to sensorimotor learning
+%can significantly improve the performance of a traditional classifer. The performance
+%of our VMM-enhanced object classification system is such that .... \textbf{numeri dagli
+%esperimenti}. The VMM has been obtained so far in the most straightforward way, that
+%is, by applying a standard neural network to visual features of objects, and having
+%it map onto motor features of an associated grasp.
+
+The data upon which our experiments have been carried on are collected in the
+CONTACT Visuo-Motor Grasping dataBase (VMGdB), which we envision as a testbed and
+a benchmark for all researchers interested in investigating the nature of (human and
+robotic) grasping, and its ties to object recognition. %In fact, in this work we have
+%neglected a lot of potentially useful information contained in the database, for instance
+%the dynamics associated with the reaching phase, prior to grasping, which is well-known
+%to carry substantial information about it \cite{174427,santello}.
+
+\noindent
+{\bf Future Work.} The current implementation of the framework contains several simplifying assumptions, each corresponding to 
+ongoing and future research directions:
+\begin{enumerate}
+\item {\em Dynamic of the data.}
+In this work we have
+neglected a lot of potentially useful information coming from the dynamics associated with the reaching phase, prior to grasping.
+This is well-known
+to carry substantial information about it \cite{174427,santello}. We plan to include the dynamic in the representation of motor and 
+also visual features: indeed the dynamic changes in the object state associated with its manipulation are an important cue on the
+object's identity \cite{gupta_davis_cvpr2008,kjellstrom_etal_eccv2008}. This research direction will likely lead us to move
+from grasping postures to grasping actions, and therefore affordance-based object representations.
+
+\item {\em Shape-based visual representations.}
+While here we used an appearance-based visual representation for the object, we are fully aware that this visual information
+is weakly correlated with the grasping and therefore makes the life of the mapping function much harder. We plan in the future to
+represent objects based on shape information. This will lead to visual information complementary to the grasp hand posture (the
+configuration of the hand at the moment of the grasp can be seen as a motor-based information regarding the shape of the object).
+We also expect that a shape-based visual representation will make it possible to build categorical object models based on their
+shape, i.e. graspability. This might lead to better defined VMMs, and it would greatly help in the case of large number
+objects. 
+
+
+\item {\em Learning of the Visuo-Motor Map.}
+Experimental results  indicate that the ``real'' motor features, that is, the
+grasping hand postures as recorded by the data glove, contain much more information
+than the visual features alone. Therefore, if one were able to extract more (or better)
+motor information from the sight of an object, that is, to build a better VMM,
+the situation could improve further. One immediate direction for this line of research
+is that of abandoning the somewhat artificial notion of an archetypal grasp associated
+with an object, and start training a VMM in order for it to reconstruct a
+\emph{probability distribution} over grasps. This would correspond to enhancing an
+object model with a possible set of grasps, rather than with one grasp only; a
+further, important step toward the re-definition of an object in terms of its
+affordances.
+We are currently studying an extended version of the VMM architecture based on vector-valued regression to explicitly take into account the many-to-many relationship between objects and grasps. In this case, instead of learning the map between an object and an average grasp, we would learn the map between an object and a vector of the possible grasps. At run time this would allow us to associate the most probable grasp to the object under consideration.
+
+
+\end{enumerate}
