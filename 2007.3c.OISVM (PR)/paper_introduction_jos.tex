@@ -1,0 +1,106 @@
+Online learning is a learning framework for supervised classification, which continuously 
+adapts its classification rule (hypothesis), by receiving feedbacks from the environment. 
+%Within the framework of machine learning, \emph{on-line learning} is
+%the kind of learning that must be enforced by any system supposed to
+%continually adapt to its environment. 
+Consequently, an online learning system must face a 
+potentially endless flow of training samples, and must therefore limit
+the number of samples taken into account when training, due to
+inevitable restrictions on the available resources (e.g., a finite
+computational power).
+%%  A typical source of example
+%% problems of on-line learning is autonomous robotics, whereby a robot
+%% moves around and collects data about a changing, maybe unstructured
+%% environment.
+
+Support Vector Machine (SVM) is one of the most popular and promising classification algorithms. They have good theoretical basis and they entertain very good performance in numerous applications. However, the training time of an SVM is cubic in the number of support vectors, while the inference time is linear in the number of support vectors~\cite{KeerthiCDC06}. The space requirements of the algorithm can be given by the number of support vectors, which typically grows proportionally with number of samples~\cite{Steinwart03}. 
+Recently, there have been several attempts to cast the SVM as an online learning algorithm~\cite{},
+but all these either lack the
+capability of working with limited resources without losing much
+of the accuracy \cite{KivinenSW04}, or they suffer from unacceptably long
+training and test duration~\cite{}. 
+
+%The choice of SVMs is mainly motivated by their theoretically well
+%founded generalization power, the danger of data overfitting being
+%sensibly smaller than with other approaches. Notice that the price to
+%pay for this is that SVMs typically require a long training time --- an SVM can
+%be up to $50$ times slower than other specialized approaches with
+%similar performances \cite{BurgesS96}; in fact, the time required by
+%an SVM to train and predict is, in turn, cubic and linear in the
+%number of support vectors \cite{KeerthiCDC06}; and as well, the number
+%of support vectors found grows proportionally with respect to the
+%number of samples \cite{Steinwart03}.
+
+%This makes the approach unsuitable, in its current formulation, for
+%on-line learning; whereas OISVMs exactly solve this problem,
+%incrementally selecting a subset of support vectors (SVs), based upon
+%\emph{linear independence in the feature space}.
+%% The size of the
+%%kernel matrix (the core of an SVM and its major bottleneck) is
+%%therefore kept small.
+
+
+%To this aim, the use of discriminative classifiers such as, e.g.,
+%AdaBoost and Support Vector Machines (SVMs) has gained momentum in the
+%last years, especially in the field of robot localization
+%\cite{MartinezMozos05a,pronobis06iros} --- a natural source of
+%on-line learning problems, since a moving robot must continually adapt
+%to a potentially changing environment. However, how to use these
+%methods in on-line settings is an open challenge: discriminative
+%learning methods do have the ability of adapting to a changing
+%environment via training, but they are normally used on batches of
+%previously available data, which is unsatisfactory in on-line
+%learning. On-line learning extensions of these algorithms have been
+%proposed (e.g. \cite{CauwenberghsP00}), but they either lack the
+%capability of working with limited resources without losing too much
+%accuracy \cite{KivinenSW04}, or they suffer from unacceptably long
+%training/testing times (e.g., after-training simplification
+%\cite{NguyenH05}). It is then clear that on-line learning systems are
+%forced to accept a trade-off between their accuracy and the limited
+%resources available. So, it becomes
+%crucial to find a way to save resources while obtaining an acceptable
+%approximation of the ideal (batch) system.
+
+In this paper we describe a new online algorithm which approximately converges to the SVM solution at each round. The approximation can be controlled by a used-defined parameter and by the type of the kernel used. As opposed to similar algorithms, the resulting time and space requirements of the proposed algorithm are asymptotically bounded. Similarly to many kernel-based discriminative online algorithms, our algorithm constructs its classification function by keeping a subset of instances called \emph{support set}. In contrast to other algorithms, our algorithm tries to express every new instance that is chosen to be added to the support set as an approximated combination of previous instances already in the support set, and by that reducing dramatically the time and space requirements without reducing accuracy. We show both theoretically and empirically that the size of the support set
+does not grow linearly with the training set, as analyzed in \cite{Steinwart03}
+for SVMs, but converges to a limit size and then stop growing \cite{engel2004}. 
+We call our algorithm \emph{Online Independent Support Vector Machine} or OISVM for brevity. 
+
+
+%Our experiments indicate that, using OISVMs, the number of SVs
+%employed to build the solution \emph{does not grow linearly with the
+%training set}, as it was the case in \cite{Steinwart03}, but reaches a
+%limit size and stops \cite{engel2004}. In the case of
+%finite-dimensional feature spaces they also \emph{keep the full
+%accuracy of standard SVMs}; whereas in the infinite-dimensional case,
+%at the price of a negligible loss in accuracy, one can tune the
+%growing rate of the machine. This statement is supported by an
+%extensive evaluation on standard benchmark databases as well as on two
+%real-world applications, namely $(a)$ place recognition by a mobile
+%robot in an indoor environment, and $(b)$ human grasping posture
+%classification.
+
+%Experiment $(a)$ is concerned with a mobile robot moving around in an
+%indoor environment subject to high variability due to human activities
+%over long time spans. These variations include people appearing in
+%different rooms during working time, objects such as cups moved or
+%taken in/out of the drawers, pieces of furniture pushed around, and so
+%forth. The robot is then required to localize its own position,
+%despite all these changes.  In experiment $(b)$ the system tries to
+%classify the ways a number of human subjects grasp several different
+%objects over a reasonably long time span, therefore being independent
+%of the subjects' styles and the object's shapes.
+
+Our experimental results confirm that OISVM produces smaller models comparing the
+standard SVM, with a training complexity which is square in the number of samples,
+and with bounded testing time. Moreover, it reaches near-optimal
+performance while retaining the good generalization power of standard SVMs.
+
+The paper is organized as follows. Section \ref{sec:SVM} presents 
+the problem setting. In Section \ref{sec:OISVM} we describe our new 
+online algorithm. 
+In Section \ref{sec:comparison} we give a detailed comparison with
+similar approaches. Section \ref{sec:exp}
+describes the experimental results, and
+Section \ref{sec:conclusions}  concludes the paper and outlines some
+future work.

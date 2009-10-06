@@ -1,0 +1,222 @@
+We want first of all to thank the reviewers for their thorough reviews and insightful comments, that helped us
+in improving substantially the quality of the presentation.
+Please find below our replies to the reviewers. Please do not hesitate
+to contact us again in case they need further explanations.
+
+---------------------------------------
+to all reviewers:
+---------------------------------------
+
+In order to comply to common requests by the reviewers, we have
+shortened and synthesized the paper. In particular, Sections 2 and 3
+are now one section only, number 2. The mathematical introduction to
+SVMs has been shortened; our approach is now clearly described in
+pesudocode and some more text has been introduced to clarify passages
+which were drawn directly from existing literature. Formulae are now
+clearly introduced and explained and we have adopted, as suggested by
+reviewer #4, a "theorem - proof" style. Hopefully, the maths now flow
+like a clear speech.
+
+Some experimental results have been added to shed light on the
+behavior of our system in Section 3.1. A full discussion on the dependence of
+accuracy upon \eta would really takes too much space and time, so
+we have reserved it for future work. Figures should now be totally
+clear.
+
+In order to better understand the time behavior of our system,
+we now propose an analysis of kernel evaluations --- a comparison
+on CPU time would be unfair since some of the approaches compared
+are machine code while others are Matlab scripts (including ours
+--- anyway, please notice that our matlab code is one OOM *faster*
+than the one we compare with!).
+The new results show the trade-off between speed and accuracy.
+Our results indicate that our approach is, once again, winning,
+as we expected.
+
+---------------------------------------
+reviewer #1
+---------------------------------------
+> I am not fully satisfied with the experiments. Experiments have 
+> been done on many different datasets. The bahaviour of your approach w.r.t. 
+> the number of SVs seems methodologically sound to me. My biggest concern is 
+> that training time comparisons among different approaches are completely 
+> missing. The paper presents some analysis on the computational complexity of 
+> the method but it does not discuss at all on how this reflects on the time 
+> requirements for finite size datasets.
+
+We answered this point in the general response to reviewers, please see above.
+
+
+> In table 2 where the values of the objective functions for OISVM and RSVM are
+> compared with respect to the LIBSVM one, there is a surprisingly negative
+> result of your method when evaluated on the Ringnorm dataset. I think it
+> could be nice to try to explain this anomaly..
+
+We have no precise explanation for the surprising negative
+result shown for the Ringnorm dataset in Table 2; but we observe
+that the *accuracy* obtained by our method on that very dataset
+is in agreement with all others. Possibly, the cost function in
+that case is such that a large difference in its value does not
+change the solution much. From this point of view, our method
+is even more justified, since it finds the approximated minimum
+which is best suited to keep up with accuracy, although this could
+be very far (in value) from the optimal one.
+We have added a few sentences in the text (page 19), giving more
+details on this result.
+
+---------------------------------------
+reviewer #2
+---------------------------------------
+> 1. In order to determine whether an example should be included in the
+> "support set," the authors evaluates its linear dependency on the examples in
+> the existing support set. I think that there is an alternative, certainly
+> simpler, way of doing it. Naturally, if an example is within the SVM boundary
+> (or outside the margin), it won't be a support vector anyway. Thus, when a
+> new example is presented, its decision function is evaluated  by Eq.(3) and,
+> if it is larger than 1, it can be discarded for further training. Its
+> complexity is O(|B|) compared to O(|B|^2) of the proposed method. Possibly,
+> in this way, the support set may not be bounded. However, I recommend that
+> the author discuss it.
+
+This idea is known in literature and it has been tested in [5].
+However the problem is that if we use it, we lose the boundedness of the solution.
+A short discussion on the point has been put in Section 2.2.3.
+
+
+> 2. In the experiments section, the authors provide the extensive results on
+> various data sets. It is clear that the proposed method reduces the number of
+> SVs significantly, i.e. reduced storage complexity and faster prediction,
+> without much degrading the accuracy. With that said, I think that time
+> complexity is much more important than storage complexity in on-line
+> classification problems. Even though I am sure that training is much faster
+> for the proposed method than for the standard SVMs, it would be better if the
+> authors have shown it explicitly, for example in terms of CPU times.
+
+We answered this point in the general response to reviewers, please see above.
+
+
+> 3. This paper (implicitly) assumes a static on-line scenario, that is a fixed 
+> distribution (or system) which generates data which are sequentially observed 
+> one by one. A related, and practically important, scenario is a dynamic case 
+> where the system changes over time. It is possible to extend the propose 
+> method to dynamic situations. It could be an interesting future research 
+> direction and is worth discussing in the Conclusions section. There are some 
+> references on the issues (though not for SVMs), and please refer to the 
+> followings, if necessary: 
+> 
+> J.W. Yoon, S. Roberts, M.Dyson, J. Gan (2008).
+>  Sequential Bayesian Estimation for Adaptive Classification.
+>  Proceedings of IEEE International Conference on Multisensor Fusion and 
+> Integration for Intelligent Systems (MFI 2008).
+>
+> W.D. Penny and S.J. Roberts (1999).
+>  Dynamic models for nonstationary signal segmentation.
+>  Computers and Biomedical Research 32(6), 483-502. 
+
+References added. Yes, it is a good point, and possible subject of future work.
+
+
+> 4. It could be a nitpicking, but it is a bit hard to read the figures. The 
+> numbers, the labels, and the legends are too small. Usually I would not even 
+> point out this kind of things for a low-quality paper.
+
+We changed the figures as suggested.
+
+
+---------------------------------------
+reviewer #3
+---------------------------------------
+> 1. The authors compare their algorithm only with offline SVM algorithms. It is
+> important to compare with state of the art online SVM algorithms such as the 
+> 
+> Antoine Bordes and Léon Bottou: The Huller: a simple and efficient online
+> SVM, Machine Learning: ECML 2005, 505-512, Lecture Notes in Artificial
+> Intelligence, LNAI 3720, Springer Verlag, 2005.
+> 
+> for which the code is publicly available.
+
+A comparison has been added with LASVM [7], from the same authors of Huller.
+The code of LASVM is available as well and, as far as we know, it is considered
+the state of the art on-line SVM solver.
+
+
+> It is important that the authors provide comparative experimental results
+> showing the number of support vectors vs the achieved accuracy in the case of
+> a sufficiently increasing dataset. For example how is the accuracy affected
+> if the number of training vectors increases from 1 to 100.000 or more?
+
+We have produced a new analysis on the largest dataset we have,
+Adult7, which is visible in Figure 2, showing the accuracy versus number of
+support vectors. Adult7 has 16.000 samples, and the Figure clearly shows that
+our system is uniformly, point-by-point better than the others: it retains fewer SVs
+while getting a *better* accuracy.
+
+
+> The term "training step" used in Figs. 3 and 5 is unclear. The following
+> sentence in section 5.3 (p.27) should be clarified "Each training step
+> corresponds to a different user, and it also is a partition of the
+> fixed-partition method." How many training vectors correspond to each step?
+
+The term was misleading. A better explanation has been given.
+
+---------------------------------------
+reviewer #4
+---------------------------------------
+> 1)	The paper is overly verbose. Section 2.1 should be drastically reduced if 
+> not eliminated. Section 2 should define the on-line learning problem and 
+> previously proposed methods related to the authors' contribution
+
+As said in the general response to reviewers, the paper has been shortened and
+maths are now clearer.
+
+
+> 2)	Section 3 should be re-written in a more concise manner defining theorems 
+> or propositions and presenting formal proofs. An outline of the full 
+> algorithm in the form of pseudocode (why not in MATLAB) could sum up the 
+> discussion. Currently, algorithm description is split in two parts. More 
+> specifically, Eq. (18) should be better introduced.  Trivial algebraic 
+> manipulations in Eq. (17) could be omitted. Section 3.4 could be eliminated.
+
+We followed the reviewer's suggestion, introducing a "theorem - proof" style.
+Algorithm pseudocode has been added (pag. 13).
+Section 3.4 has been removed and few senteces about multiclass classification
+have been added in Section 2.2.3.
+
+
+> 3)	The major drawback of the analysis is the selection of threshold on Delta. 
+> The authors do not study this issue, which is of paramount importance. Nobody 
+> would run the algorithm several times for several \eta 
+
+As far as \eta selection
+is concerned, the analysis provided in Figure 3 shows how the accuracy
+changes as \eta changes (which implicitly determines the number of
+kernel evaluations). We do not have as yet a formal mathematical argument
+relating accuracy and \eta, but we hope this new analysis partially
+covers the issue. As we point out in the Conclusion, \eta should
+be considered as the others parameters of SVM.
+
+
+> 4)	Section 4 is unexpected. If some details should be mentioned in the paper 
+> they should appear in Introduction or Section 2.
+
+Related work has been moved in the Introduction.
+
+
+> 5)	The experimental results should target in providing insight for both \eta 
+> selection and accuracy. Although SVMs are data dependent, a subset of 
+> informative experiments could reveal the properties of the proposed algorithm 
+> instead of a long set of heterogeneous experiments.
+
+We added a new experiments, Fig. 3, showing more clearly the trade-off that is possible
+to achieve between accuracy and speed, varying \eta. 
+Interestingly, decreasing \eta does not always obtain better accuracy
+with respect to larger values. This indicates that a thorough analysis
+of the phenomenon is definitely worthwhile, but is far from easy and
+would require too much work. Some notes about this phenomenon have been
+added to the paper (page 20).
+
+
+> 6)	A long list of references pleases many researchers. However, it is 
+> preferable, to cite the most relevant papers to authors' work.
+
+References have been reduced to those strictly necessary.

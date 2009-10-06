@@ -1,0 +1,158 @@
+
+%This section contains the required mathematical background. We
+%introduce SVMs both in the batch and on-line versions. The interested
+%reader is referred to, e.g., \cite{Cristianini00,Herbrich01} for a
+%comprehensive introduction to the subject.
+
+%\subsection{Support Vector Machines}
+
+Assume that we are given $l$ observations. Each observation is a pair of 
+an instance, $\xx_i\in\RR^m$, and a label, $y_i\in\{-1,1\}$, for $1 \le i \le l$.  
+The training set, $\{\xx_i,y_i\}_{i=1}^l$, is a set of samples drawn from 
+an unknown fixed probability distribution. In binary classification our goal
+is to predict the label of a given an instance drawn from the same distribution as the training set. Formally, we would like to find a function
+$f(\xx)$ such that given a new instance $\xx$,
+the prediction of its label is sign of the function, namely, $sgn(f(\xx))$.
+
+Assuming the
+data are linearly separable, an SVM will look for the \emph{separating
+hyperplane} in $\RR^m$, $f(\xx) = \ww\cdot\xx + b$, such that
+$\|\ww\|$ is minimal and all the constraints
+$y_i(\ww\cdot\xx_i + b)-1\geq 0$, for $i = 1,\ldots,l$ are fulfilled. 
+%(from now on, the range of $i$ will be implicit whenever a subscript $i$ appears
+free in a formula). 
+In the more general case where the data is not
+linearly separable, the problem is relaxed by introducing $l$ slack
+variables $\xi_i$ and constraints are $y_i(\ww\cdot\xx_i +
+b)-1+\xi_i\geq 0$, with $\xi_i \geq 0$.
+% In order
+%to find such a hyperplane, we wish to maximize the hyperplane's
+%distance from both groups of samples (\emph{margin}), minimizing at
+%the same time the values of the slack variables. The margin is
+%easily determined to be $\frac{2}{\|\ww\|}$, so we are left with the
+%problem of minimizing $\|\ww\|$ and $\xi_i$ subject to the above constraints.
+This problem is then usually solved by minimizing the following convex
+function:
+\begin{equation} \label{eqn:svm_primal}
+  \min_{\ww,b} \left( \frac{1}{2} \|\ww\|^2 + C \sum_{i=1}^l \xi_i^p \right)
+\end{equation}
+\noindent subject to the constraints $y_i (\ww\cdot\xx_i + b) \geq
+1-\xi_i$ and $\xi_i \geq 0$, where $C \in \RR^+$ is an error penalty
+coefficient and $p$ is usually $1$ or $2$ \cite{Cristianini00}. This
+minimization problem can be compactly expressed in Lagrangian form by
+introducing $l$ pairs of coefficients $\alpha_i, \mu_i$ and then
+minimizing
+\begin{equation} \label{eqn:lp1}
+  L_P = \frac{1}{2} \|\ww\|^2 - \sum_{i=1}^l \alpha_i \left(y_i (\ww\cdot\xx_i+b) - 1 +
+        \xi_i \right) + C \sum_{i=1}^l \xi_i^p - \sum_{i=1}^l \mu_i \xi_i \nonumber
+\end{equation}
+subject to the constraints that $\alpha_i,\mu_i\geq 0$ for all $i$.
+Karush-Kuhn-Tucker (KKT) conditions \cite{Cristianini00},
+give the necessary and sufficient conditions for $\ww, b$ and
+$\alpha_i$ to be a feasible solution. From these conditions we have
+\begin{equation}
+  \frac{\partial L_P}{\partial \ww}= \ww - \sum_{i=1}^l \alpha_i y_i \xx_i = 0 \label{eqn:kkt1}
+\end{equation}
+%$\alpha_i$ to be be a solution, we obtain, for $p=1$,
+%\begin{eqnarray}
+%  \frac{\partial L_P}{\partial \ww}= \ww - \sum_{i=1}^l \alpha_i y_i \xx_i & = & 0 \Rightarrow \ww = \sum_{i=1}^l \alpha_i y_i \xx_i \label{eqn:kkt1} \\
+%  \frac{\partial L_P}{\partial \xi_i}= C-\alpha_i-\mu_i & = & 0  \label{eqn:kkt2} \\
+%  \frac{\partial L_P}{\partial b}= \sum_{i=1}^l \alpha_i y_i & = & 0 \label{eqn:kkt3} \\
+%  \alpha_i \left(y_i (\ww\cdot\xx_i+b) - 1 + \xi_i \right) & = & 0 \label{eqn:kkt4} \\
+%  \xi_i ( \alpha_i - C ) & = & 0 \label{eqn:kkt5}
+%\end{eqnarray}
+%Whereas for $p=2$ condition (\ref{eqn:kkt5}) disappears and condition
+%(\ref{eqn:kkt2}) becomes
+%\begin{equation}
+%	\frac{\partial L_P}{\partial \xi_i}= 2 C \xi_i - \alpha_i = 0
+%	\label{eqn:kkt2b}
+%\end{equation}
+%Taking (\ref{eqn:kkt1}) into account, $f(\xx)$ can be expressed as
+or $\ww = \sum_{i=1}^l \alpha_i y_i \xx_i$. Hence the inference function $f(\xx)$ can be expressed as
+\begin{equation} \label{eqn:lin_sol}
+  f(\xx) = \sum_{i=1}^l \alpha_i y_i \xx \cdot \xx_i + b
+\end{equation}
+where $\xx$ is a query instance for which we would like to predict the label.
+Note that in the last equation, the query instance $\xx$
+appears only in the form of inner products with the instances in the training set $\xx_i$.
+In order to improve the discriminative power of SVMs, the instances $\xx_i$ are  mapped into
+a high (possibly infinite) dimensional space (the \emph{feature
+space}) via a non-linear mapping $\Phi(\xx)$. Each inner product is replaced by the \emph{kernel function} $K(\xx_i,\xx_j) = \Phi(\xx_i)\cdot \Phi(\xx_j)$. We define the \emph{kernel matrix} $K$ such that the $ij$-th element is $K_{ij} = K(\xx_i,\xx_j)$.
+%This idea is called
+%\emph{kernel trick} and is standard in SVM literature; it avoids the
+%necessity of explicitly knowing $\Phi$. 
+In the following, the term
+\emph{kernel dimension} will refer, as is customary, to the dimension
+of the feature space.
+%The kernel dimension is related to the
+%generalization power of the machine, and it depends on the choice of
+%the kernel itself.
+Widely used kernels include the \emph{polynomial}
+kernel, which has finite kernel dimensional and the \emph{Gaussian} kernel
+which has infinite kernel dimensional. Equation (\ref{eqn:lin_sol}) then becomes
+\begin{equation} \label{eqn:sol}
+  f(\xx) = \sum_{i=1}^l \alpha_i y_i K(\xx,\xx_i) + b
+\end{equation}
+
+After training, that is after the minimization of $L_P$, some of the coefficients 
+$\alpha_i$ are
+zero. The instances $\xx_i$ for which the corresponding $\alpha_i$ are not zero called
+\emph{support vectors}. 
+
+%This phenomenon is known as
+%\emph{sparseness} of the solution, meaning that only a subset of the
+%training data is usually really needed to build it.
+
+%Using the KKT conditions in (\ref{eqn:lp1}) we obtain that to train a
+%SVM we must solve a quadratic programming problem (QP) with as many
+%unknowns as training samples.
+%State-of-the-art QP solvers decompose
+%the problem into manageable subproblems or, in the limit, perform
+%iterative pairwise optimization \cite{Platt99}. This approach is
+%essentially batch, that is, all the training samples must be available
+%from the start.
+
+%\subsection{On-line Learning with SVMs}
+
+While in the batch setting we assume to have all the training observations are
+available in hindsight, in on-line learning the training observations are
+revealed one at time and no a-priori knowledge of the full training
+set can be assumed. In general, an on-line learning framework works in rounds.
+On round $i$ an instance $\xx_i$ is presented to the learning algorithm. 
+The algorithm predicts a label using the previous hypothesis $h_{i-1}$. 
+Then the correct label $y_i$ is revealed and the algorithm suffers an instantaneous
+loss. Based on the loss incurred the algorithm updates its hypothesis
+%iteratively by refining a hypothesis $h_i$. In particular, at any
+%point in time a new sample $\xx_{l+1}$ is received, it is predicted
+%using the current hypothesis $h_l$.  The true label $y_{l+1}$ is
+%matched against its prediction, 
+resulting a new hypothesis $h_i$ \cite{Herbrich01}.  
+In other words, for any given sequence of
+instance-label pair, $(\xx_1,y_1),\cdots,(\xx_l,y_l)$, a sequence of
+hypotheses $h_1,\cdots,h_{l}$ is generated, such that $h_{i}$ depends
+only on $h_{i-1}$ and $(\xx_i,y_i)$.
+%In the case of kernel based algorithms
+%such as SVMs, the representer theorem \cite{CoxOS90,ScholkopfHS01}
+%states that, under broad hypotheses, the solution to a problem such as
+%(\ref{eqn:svm_primal}) can be expressed as a linear combination of
+%kernel functions evaluated on the training points. Hence for any $l$,
+%$h_{l}$ is a linear combination of kernel functions evaluated on $\xx_1,
+%\cdots,\xx_l$.
+%In a sense, $h_{l}$ takes into account all samples up to
+%$\xx_l$, so there is no real difference in calculating the solution
+%using all the samples received $\xx_1,
+%\cdots,\xx_l$ or only using $h_{l-1}$ and $(\xx_l,y_l)$.
+Note that, unlike in the batch setting, here we are also interested
+in the intermediate hypotheses $h_i, i=1,\ldots,l$. In fact the
+hypothesis is used every time a new sample is acquired, for training and
+testing.
+
+The standard training algorithms for SVMs are meant to be used in the
+batch setting and we can distinguish two different approaches to extend
+them to the online setting. In the first one the batch algorithm is
+adapted to examine one sample at the time and produce an exact or
+approximate solution. Examples of this approaches are respectively \cite{CauwenberghsP00}
+and \cite{SyedLS99}. A second approach is based on
+gradient-descent methods, in which the solver slowly converge to the batch
+solution. This approach has been followed in
+\cite{KivinenSW04,ChengVSWC07}.

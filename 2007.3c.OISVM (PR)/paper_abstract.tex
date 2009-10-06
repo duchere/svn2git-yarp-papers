@@ -1,0 +1,19 @@
+Support Vector Machines (SVMs) are one of the most successful
+algorithms for classification. However, due to their space and time
+requirements, they are not suitable for on-line learning, that is,
+when presented with an endless stream of training observations.
+
+In this paper we propose a new on-line algorithm, called On-line
+Independent Support Vector Machines (OISVMs), which approximately
+converges to the standard SVM solution each time new observations
+are added; the approximation is controlled via a user-defined parameter.
+The method employs a set of linearly independent observations
+and tries to project every new observation onto the set
+obtained so far, dramatically reducing time and space requirements
+at the price of a negligible loss in accuracy. As opposed to similar
+algorithms, the size of the solution obtained by OISVMs is always
+bounded, implying a bounded testing time. These statements are
+supported by extensive experiments on standard
+benchmark databases as well as on two real-world applications, namely
+place recognition by a mobile robot in an indoor environment and
+human grasping posture classification.

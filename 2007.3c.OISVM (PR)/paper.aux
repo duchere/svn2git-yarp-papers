@@ -1,0 +1,162 @@
+\relax 
+\newlabel{IDIAP}{{a}{1}}
+\newlabel{LIRA}{{b}{1}}
+\newlabel{EPFL}{{c}{1}}
+\newlabel{IIT}{{d}{1}}
+\global\@namedef{n@author@}{5}
+\global\@namedef{n@collab@}{0}
+\citation{BGV92}
+\citation{Cristianini00}
+\citation{Steinwart03}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}}
+\newlabel{sec:introduction}{{1}{2}}
+\citation{CauwenberghsP00,DomeniconiG01,SyedLS99,BordesEWB05}
+\citation{DownsGM01,NguyenH05}
+\citation{SmolaS02}
+\citation{FineS02,Baudat03,BachJordan2005}
+\citation{LeeM01,KeerthiCDC06}
+\citation{WuSB06}
+\citation{EngelMM04,KivinenSW04,WestonBB05,ChengVSWC07}
+\citation{CsatoO01}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Problem Setting}{4}}
+\newlabel{sec:SVM}{{2}{4}}
+\citation{Cristianini00}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Support Vector Machines}{5}}
+\citation{Cristianini00}
+\newlabel{eqn:svm_primal}{{1}{6}}
+\newlabel{eqn:lp1}{{2}{6}}
+\newlabel{eqn:kkt1}{{3}{6}}
+\newlabel{eqn:lin_sol}{{4}{6}}
+\citation{Steinwart03}
+\citation{SyedLS99}
+\citation{KivinenSW04,ChengVSWC07}
+\citation{CauwenberghsP00}
+\citation{DownsGM01}
+\citation{DownsGM01}
+\newlabel{eqn:sol}{{5}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}On-line Independent SVMs}{7}}
+\citation{ScholkopfHS01}
+\newlabel{eqn:mod_primal}{{6}{8}}
+\newlabel{eqn:svm_primal_general}{{7}{8}}
+\newlabel{eqn:kt2}{{7}{8}}
+\citation{KeerthiCDC06}
+\citation{DownsGM01}
+\citation{EngelMM04}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Exploiting linear independence on-line}{9}}
+\newlabel{eqn:ald1}{{8}{10}}
+\newlabel{eqn:ald3}{{9}{10}}
+\newlabel{eqn:ald5}{{10}{10}}
+\citation{CauwenberghsP00,CsatoO01}
+\citation{KeerthiDC05,KeerthiCDC06}
+\newlabel{eqn:inv_upd}{{11}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Incremental Training}{11}}
+\newlabel{eqn:primal}{{12}{11}}
+\citation{EngelMM04}
+\citation{Steinwart03}
+\citation{DomeniconiG01}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Analysis}{12}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Pseudo-code of OISVM.}}{13}}
+\newlabel{alg:algo}{{1}{13}}
+\newlabel{eqn:ald_single}{{13}{14}}
+\newlabel{eqn:ald_single2}{{14}{14}}
+\citation{BachJordan2005}
+\citation{EngelMM04}
+\citation{Orabona09}
+\citation{CauwenberghsP00,DiehlC03}
+\citation{BordesEWB05}
+\citation{ChangL01}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Experimental Results}{15}}
+\newlabel{sec:exp}{{3}{15}}
+\citation{Cristianini00}
+\citation{Steinwart03}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Standard Benchmarks}{16}}
+\newlabel{sec:exp1}{{3.1}{16}}
+\citation{Ratsch05}
+\citation{LeeM01}
+\citation{KeerthiCDC06}
+\citation{Demsar06}
+\citation{RifkinYP03}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Comparison of LIBSVM2, IncrSVM and OISVM and on the \emph  {Diabetes} (left panel) and \emph  {Adult7} (right panel) benchmarks. \emph  {Diabetes} is solved using a polynomial kernel with degree $3$, while \emph  {Adult7} is solved using a Gaussian kernel.}}{18}}
+\newlabel{fig:ad7}{{1}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Comparison of LIBSVM2, IncrSVM and OISVM on the \emph  {Adult7} dataset.}}{18}}
+\newlabel{fig:sv_cr}{{2}{18}}
+\citation{BordesEWB05,DiehlC03}
+\citation{BordesEWB05}
+\citation{BlanchardMVZ05}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of OISVM, RSVM, IncrSVM and LIBSVM2 on 10 standard benchmarks, solved using a Gaussian kernel. For each benchmark, we report the classification rate and the number of SVs. The value of $\eta $ has been chosen in order not to loose more than $0.5\%$ accuracy with respect to LIBSVM2.}}{19}}
+\newlabel{table:t1}{{1}{19}}
+\citation{luo:idol2}
+\citation{luo:idol2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Robot Navigation}{20}}
+\newlabel{sec:exp2}{{3.2}{20}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Loss in percentage of the objective function of OISVM and RSVM in relation to the one of LIBSVM2 on 10 standard benchmarks, solved using a Gaussian kernel. The values of $\eta $ are the same of Table 1\hbox {}.}}{21}}
+\newlabel{table:t1_o}{{2}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Trade-off between accuracy and number of kernel evaluations of OISVM, IncrSVM and LASVM on 3 benchmarks. The OISVM curve is obtained plotting the number of kernel evaluations and the recognition rate at the end of the training, for each value of $\eta $. The number of kernel evaluations increases as $\eta $ decreases. In LASVM and IncrSVM there is no parameter to trade accuracy for training speed, so only one point is shown.}}{22}}
+\newlabel{fig:kernel_eval}{{3}{22}}
+\citation{linde:icpr04}
+\citation{Lowe99}
+\citation{WallravenCG03}
+\citation{WallravenCG03}
+\citation{BoughorbelTF04}
+\citation{SyedLS99}
+\citation{luo:icra07}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Sample images illustrating the variations captured in the IDOL2 database. Images in the top row show the variability introduced by changes in illumination for two rooms (first six images) as well as people appearing in the environment. The middle row shows the influence of people's everyday activity (first four images) as well as larger variations which happened over a time span of $6$ months. Finally, the bottom row illustrates the changes in viewpoint observed for a series of images acquired one after another in $1.6$ seconds.}}{23}}
+\newlabel{fig:idol}{{4}{23}}
+\citation{BoughorbelTF04}
+\citation{EngelMM04}
+\citation{cyberglove}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Experimental results on the IDOL2 database, using OISVM with three different values of $\eta $, the fixed-partition and IncrSVM. Top: $\chi ^2$ kernel, Bottom: matching kernel.}}{25}}
+\newlabel{fig:exp:idol}{{5}{25}}
+\citation{cutkosky}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Grasp Classification}{26}}
+\newlabel{sec:exp3}{{3.3}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces (above) The devices and some of the objects used for the experiment, left to right: the CyberGlove, the Force Resistor Sensor attached to the subject's thumb, the beer can, the duct tape roll and the mug. (below) The $5$ grasp types to be recognized, left to right: power large, power flat, tripodal precision, thumb/index precision and spherical precision.}}{26}}
+\newlabel{fig:devices}{{6}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Classification rate (left) and average number of support vectors (left) for the grasping classification experiment. OISVM uses a Gaussian kernel and three different values of $\eta $.}}{27}}
+\newlabel{fig:exp:grasp}{{7}{27}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusions}{28}}
+\newlabel{sec:conclusions}{{4}{28}}
+\citation{YoonRDG08}
+\bibstyle{IEEEtran}
+\bibdata{paper}
+\bibcite{BGV92}{1}
+\bibcite{Cristianini00}{2}
+\bibcite{Steinwart03}{3}
+\bibcite{CauwenberghsP00}{4}
+\bibcite{DomeniconiG01}{5}
+\bibcite{SyedLS99}{6}
+\bibcite{BordesEWB05}{7}
+\bibcite{DownsGM01}{8}
+\bibcite{NguyenH05}{9}
+\bibcite{SmolaS02}{10}
+\@writefile{toc}{\contentsline {section}{References}{30}}
+\bibcite{FineS02}{11}
+\bibcite{Baudat03}{12}
+\bibcite{BachJordan2005}{13}
+\bibcite{LeeM01}{14}
+\bibcite{KeerthiCDC06}{15}
+\bibcite{WuSB06}{16}
+\bibcite{EngelMM04}{17}
+\bibcite{KivinenSW04}{18}
+\bibcite{WestonBB05}{19}
+\bibcite{ChengVSWC07}{20}
+\bibcite{CsatoO01}{21}
+\bibcite{ScholkopfHS01}{22}
+\bibcite{KeerthiDC05}{23}
+\bibcite{Orabona09}{24}
+\bibcite{DiehlC03}{25}
+\bibcite{ChangL01}{26}
+\bibcite{Ratsch05}{27}
+\bibcite{Demsar06}{28}
+\bibcite{RifkinYP03}{29}
+\bibcite{BlanchardMVZ05}{30}
+\bibcite{luo:idol2}{31}
+\bibcite{linde:icpr04}{32}
+\bibcite{Lowe99}{33}
+\bibcite{WallravenCG03}{34}
+\bibcite{BoughorbelTF04}{35}
+\bibcite{luo:icra07}{36}
+\bibcite{cyberglove}{37}
+\bibcite{cutkosky}{38}
+\bibcite{YoonRDG08}{39}
+\global\c@lastpage=33

@@ -1,0 +1,60 @@
+The importance of applying learning strategies to artificial cognitive systems has been long recgnized
+\cite{Thrun:Mitchell:LifelongRobotLearning}. Learning robots can operate robustly in unknown environemnts,
+can take advantage of knowledge from supervisors online and can compensate for changes by updating their internal representation about the environemtn and themselves.
+
+In the field of robot navigation, online methods have been used for building topological maps and detect loop closure \cite{tapus},
+to learn variability of environments due to illumination changes and natural dynamic of rooms \cite{Luo:IROS07}, or for adaptive obstacle avoidance in dynamic indoor environments
+like corridors \cite{Zeng:Weng:ICRA04}.  Online methods have been applied both to indoor \cite{} and outdoor navigation \cite{}, mostly within a probabilistic
+framework \cite{}. With the notable exception of \cite{roger:IROS07}, all online approaches proposed so far have been tested on a very limited
+temporal domain, of few hours if not of few minutes. thus it is not clear if these methods would be able to provide high accuracy, combined with controlled computing resources, in case of online learning across a time span of several months.
+
+Another domain where online techniques have been used in learnig gestures by imitation.
+{\bf FIXME CLAUDIO: here I dont really know the literature, can you write donw something along the way
+of what I did for navigation?}
+
+
+
+A possible way to solve these problems is to keep the number of
+support vectors as small as possible, possibly without losing accuracy.
+In this sense several exact and approximate approaches have been proposed so
+far for simplifying the SVM decision function.
+
+An exact simplification of the decision function (\ref{eqn:sol})
+is proposed in \cite{DownsGM01}, based upon linear independence of
+the SVs in the feature space, performed \emph{after} the training is done.
+This can be seen as a simple consequence of the fact that,
+if the feature space has
+dimension $n$, at most $n+1$ SVs are required to build the
+solution \cite{PontilV98}.
+The idea is useful in reducing the testing
+time, but it is unfeasible in an online setting, since the
+simplification should be performed every time a new sample is
+acquired. The same consideration applies to other after-training
+simplification methods proposed in, e.g., chapter 18.3 in \cite{SmolaS02} and
+\cite{NguyenH05}.
+
+In order to keep the solution compact without losing accuracy, the key
+is to build a low-rank approssimation of the kernel matrix.
+Unsupervised rank reduction methods have been proposed, e.g.
+\cite{Baudat03}, as well as supervised ones, e.g. \cite{BachJordan2005}, but
+no application of these ideas appears so far, to the best of our
+knowledge, in online settings.
+Other methods to heuristically select a subset of the support vectors have been
+proposed, e.g., in \cite{LeeM01,KeerthiCDC06}. In \cite{WuSB06} instead a method
+to directly build a ``vocabulary'' of vectors is proposed, but the formulation
+is not convex and the SVM feature of having a unique solution is lost.
+Besides this, these methods require the knowledge of the full training set,
+and therefore are not suited for online learning.
+
+A different method has been proposed by Liu et al. \cite{LiuSD05} and
+rediscovered by Collobert et al. \cite{CollobertSWB06}:
+they have used a non-convex formulation of the learning problem where
+training errors are no longer support vectors thus dramatically reducing the
+growth rate of the support vectors with the training samples.
+Anyway in the paper it is not clear if the number of support vectors reaches
+a limit or if it will grow indefenitely, even if less than with standard
+SVM.
+
+The exact solution to online SVM learning was given by Cauwenberghs
+and Poggio in 2000 \cite{CauwenberghsP00}, but
+their algorithm cannot be used to reduce the number of SVs.

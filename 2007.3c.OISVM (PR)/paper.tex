@@ -1,0 +1,118 @@
+\documentclass[doublespacing]{elsart}
+%\documentclass[singlespacing]{elsart}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+%\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+\def\RR{\mathbb{R}}
+\def\NN{\mathbb{N}}
+\def\xx{\mathbf{x}}
+\def\ww{\mathbf{w}}
+\def\KK{\mathbf{K}}
+\def\vv{\mathbf{v}}
+\def\aa{\boldsymbol{\alpha}}
+\def\bb{\boldsymbol{\beta}}
+\def\ee{\mathbf{e}}
+\def\dd{\mathbf{d}}
+\def\mdd{\tilde{\dd}}
+\def\b{\mathcal{B}}
+\def\d{\mathcal{D}}
+\def\X{\mathcal{X}}
+
+\newtheorem{teorema}{Theorem}
+\newenvironment{proof}{\par\noindent{\bf Proof:}}{\qed \par\medskip\noindent}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{On-line Independent Support Vector Machines}
+
+%\author[IDIAP]{Francesco Orabona\corauthref{cor}},
+%\corauth[cor]{Corresponding author.}
+\author[IDIAP]{Francesco Orabona},
+\ead{forabona@idiap.ch}
+\author[LIRA]{Claudio Castellini},
+\ead{claudio.castellini@unige.it}
+\author[IDIAP]{Barbara Caputo},
+\ead{bcaputo@idiap.ch}
+\author[IDIAP,EPFL]{Luo Jie},
+\ead{jluo@idiap.ch}
+\author[IIT]{Giulio Sandini}
+\ead{giulio.sandini@iit.it}
+
+\address[IDIAP]{Idiap Research Institute, Centre du Parc, Rue Marconi 19, P.O. Box 592 --- CH-1920 Martigny, Switzerland}
+\address[LIRA]{LIRA-Lab, University of Genova, viale F. Causa, 13, 16145 Genova, Italy}
+\address[EPFL]{Swiss Federal Institute of Technology in Lausanne (EPFL), CH-1015 Lausanne, Switzerland.}
+\address[IIT]{Italian Institute of Technology, via Morego 30, 16163 Genova, Italy.}
+
+\begin{abstract}
+  \input{paper_abstract}
+\end{abstract}
+
+\begin{keyword}
+  Support Vector Machines, on-line learning, bounded testing
+  complexity, linear independence
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{paper_introduction}
+
+%\section{Related Work}
+%\label{sec:related-work}
+%\input{paper_related-work}
+
+\section{Problem Setting}
+\label{sec:SVM}
+\input{paper_SVM}
+
+%\section{On-line Independent SVM}
+%\label{sec:OISVM}
+%\input{paper_OISVM}
+
+%\section{Related Work}
+%\label{sec:comparison}
+%\input{paper_comparison}
+
+\section{Experimental Results}
+\label{sec:exp}
+\input{paper_exp}
+
+\subsection{Standard Benchmarks}
+\label{sec:exp1}
+\input{paper_exp1}
+
+\subsection{Robot Navigation}
+\label{sec:exp2}
+\input{paper_exp2}
+
+\subsection{Grasp Classification}
+\label{sec:exp3}
+\input{paper_exp3}
+
+\section{Conclusions}
+\label{sec:conclusions}
+\input{paper_conclusions}
+
+\section*{Acknowledgments}
+Thanks to Joseph Keshet for helping improving the manuscript.
+This work was supported by EU projects RobotCub (IST-2004-004370),
+NEURObotics (FP6-IST-001917) and DIRAC (FP6-0027787).
+
+{\small
+\bibliographystyle{IEEEtran}
+\bibliography{paper}
+}
+
+\end{document}

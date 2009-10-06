@@ -1,0 +1,109 @@
+In on-line training, samples are received by the system with no
+statistical guarantee on the future; therefore, on-line learning rules
+out all methods relying on the knowledge of the complete training
+set. This includes a number of methods which might appear akin to
+ours, such as, e.g., kernel matrix low rank approximation methods
+based on Incomplete Cholesky Factorization
+\cite{FineS02,Baudat03,BachJordan2005}. For the same reason, any
+after-training simplification procedure cannot be used
+(e.g. \cite{DownsGM01,NguyenH05}, chapter $18.3$ in \cite{SmolaS02}).
+In fact the idea therein is useful in reducing the testing time, but
+it is unfeasible in an on-line setting, since the simplification
+should be performed every time a new sample is acquired.
+
+Other methods to heuristically select a subset of the support vectors
+have been proposed, e.g., in \cite{LeeM01,KeerthiCDC06}. In
+\cite{WuSB06}, instead, a method to directly build a ``vocabulary'' of
+vectors is proposed, but the formulation is not convex.
+% and the SVM
+%feature of having a unique solution is lost.
+Besides this, these
+methods require the knowledge of the full training set too, and,
+again, are not suited for on-line learning.
+
+On the other hand, a solution with \emph{bounded complexity} must be
+produced. As a matter of fact, the number of support vectors retained
+by an SVM is proportional to the number of training samples
+\cite{Steinwart03}, and the testing time is in turn proportional to
+the number of support vectors; so in an on-line setting the machine
+will eventually become unfeasibly slow. Obviously, while bounding the
+complexity of the solution, one also wants to have the best possible
+solution.
+To bound the number of operations during testing, the complexity of
+the predictor must be somehow bounded a priori. Training in the primal
+with a linear kernel can be a way to have a small solution, but it
+cannot be used with infinite dimensional kernels. On the other hand
+several on-line kernel-based methods have been proposed to bound
+complexity of predictor
+\cite{CsatoO01,EngelMM04,KivinenSW04,WestonBB05,ChengVSWC07}. For all
+of them the price to pay is a loss in prediction performance.
+Moreover in many of them
+(e.g. \cite{CsatoO01,KivinenSW04,WestonBB05,ChengVSWC07}) only an
+approximate solution is found after each update, and the algorithm
+will slowly converge to the true solution using a
+gradient-descent-like procedure.
+
+It must be remarked that, on the other hand, OISVMs always find
+the best possible solution, given the subset of vectors selected as
+basis vectors to build it. This is due to the fact that all the
+received training samples are stored, like in the on-line methods in
+\cite{CauwenberghsP00}. In the long run this is problematic (for
+instance, if we move towards life-long learning \cite{Thrun95k}), but
+it can be solved using a forgetting strategy like, e.g., those
+proposed in \cite{WestonBB05}.
+%% QUELLA CHE SEGUE E` UNA CACCHIATA... CHI L'HA SCRITTA, LAPALISSE? :-)
+%% ; alternatively, one could use
+%% out-of-core storage of the data (i.e., storage on the hard disk) in
+%% order to be able to deal with big training sets.
+
+The sparsification method presented here has been already proposed in
+\cite{CsatoO01,EngelMM04}, but we use the original SVM loss function,
+more suited for classification tasks. In fact the maximization of the
+margin and the concept of the margin itself can be taken into account
+during training only using this loss function \cite{Cristianini00}.
+Both the above cited papers employ the squared error as loss function,
+which is more suited for regression problems, implicitly assuming an
+additive gaussian noise on the output values. On the other hand the
+exact solution to on-line SVM learning in \cite{CauwenberghsP00}
+cannot be used to reduce the number of support vectors. A different
+method has been proposed by Liu et al. \cite{LiuSD05} and rediscovered
+by Collobert et al. \cite{CollobertSWB06}: they have used a non-convex
+formulation of the learning problem where training errors are no
+longer support vectors, thus dramatically reducing the growth rate of
+the support vectors with the training samples. However, in the paper
+it is not clear if the number of support vectors reaches a limit or if
+it will grow indefenitely, even if less than with standard SVM.
+
+As far as our experimental test-beds are concerned: in the field of
+robot navigation, on-line methods have been used for building
+topological maps and detect loop closure
+\cite{Tapus:Siegwart:ICRA2006}, to learn variability of environments
+due to illumination changes and natural dynamic of rooms
+\cite{luo07iros}, or for adaptive obstacle avoidance in dynamic indoor
+environments like corridors \cite{Zeng:Weng:ICRA04}. On-line methods
+have been applied both to indoor
+\cite{luo07iros,Tapus:Siegwart:ICRA2006} and outdoor navigation
+\cite{ljubjiana:icra02}.
+%, mostly within a probabilistic framework \cite{ljubjiana:icra02,emma:irca05,Tapus:Siegwart:ICRA2006}.
+With the notable exception of \cite{luo07iros}, all on-line approaches
+proposed so far have been tested on a very limited temporal domain, of
+few hours if not of few minutes. Thus, it is not clear if these
+methods are able to provide high accuracy, combined with
+controlled computing resources, in case of on-line learning across a
+time span of several months.
+
+Lastly, regarding grasping recognition, machine learning has never
+been applied on-line to the best of our knowledge. In \cite{AR}
+\emph{regression}, rather than classification, is used to predict the
+grasping configuration. Batch approaches have been used to classify
+grasps, e.g., in \cite{ekvall} (using hidden Markov models),
+\cite{degranville} (Gaussian mixtures) and \cite{friedrich} (neural
+networks). In \cite{heumer}, a comparison of classification systems
+for grasp recognition is presented, the main outcome of which being
+that (uncalibrated) human grasping data gathered from a CyberGlove can
+be used to an excellent extent to recognise the grasp type, although
+the performance can be heavily influenced by multiple user
+analysis. In all works examined, the emphasis is really on affordances
+\cite{gibson} rather than on objects or hand configurations; in other
+words, one is generally interested in the types of grasps and what can
+be done using them.

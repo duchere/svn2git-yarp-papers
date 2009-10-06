@@ -1,0 +1,161 @@
+Support Vector Machines (SVMs) \cite{BGV92} are one of the most popular and
+promising classification algorithms. As opposed to other learning methods such
+as, e.g., neural networks, they are strongly theoretically founded, and have
+been shown to enjoy excellent performance in several applications (see, e.g.,
+\cite{Cristianini00}). One framework, though, in which their power has not yet
+been fully developed is \emph{on-line} learning. A system involved in on-line
+learning must face a potentially endless flow of training data, updating
+its knowledge after each new sample.
+This setting is particularly difficult for SVMs as the size of an SVM solution
+grows linearly with the number of training samples taken into account \cite{Steinwart03}.
+Since any real system
+has access to finite resources (e.g., finite computational power, memory etc.),
+a strategy to limit the number of data points is required, and a trade-off to accuracy
+must be accepted. So, it becomes
+crucial to find a way to save resources while obtaining an acceptable
+approximation of the ideal (batch) system.
+
+In this paper we describe a new on-line algorithm, On-line Independent SVMs
+(OISVMs), which approximately converges to the ideal, batch SVM solution.
+Similar to other kernel-based discriminative on-line algorithms, OISVMs
+construct the hypothesis via a subset of the samples seen so far called
+\emph{basis}; new samples are put in the basis only if they are linearly
+independent in the feature space from the current basis.
+The approximate solution obtained can be controlled via a user-defined
+parameter. As opposed to similar algorithms,
+the size of the solution found in our case is \emph{always} bounded, implying a
+bounded testing time. The reduction in time and space requirement is on
+average dramatic, at the price of a negligible loss of accuracy. We
+show both theoretically and empirically that the size of the basis \emph{does
+not grow} linearly with the training set, but converges to a limit size
+and then stops growing.
+%Notice that the price to
+%pay for this is that SVMs typically require a long training %time --- an SVM can
+%be up to $50$ times slower than other specialized approaches with
+%similar performances \cite{BurgesS96}
+%This makes the approach unsuitable, in its current formulation, for
+%on-line learning; whereas OISVMs exactly solve this problem,
+%incrementally selecting a subset of support vectors (SVs), %based upon
+%\emph{linear independence in the feature space}.
+OISVMs produce smaller models compared to the standard SVMs, with a
+training complexity which is asymptotically quadratic in the number of
+samples, and with bounded testing time. Moreover, they reach
+near-optimal performance while retaining the good generalization power
+of standard SVMs.
+%In the case of
+%finite-dimensional feature spaces they also \emph{keep the full
+%accuracy of standard SVMs}; whereas in the infinite-dimensional case,
+%at the price of a negligible loss in accuracy, one can tune the
+%growing rate of the machine.
+
+These statements are supported by an extensive evaluation on standard
+benchmark databases as well as on two real-world applications, namely
+$(a)$ place recognition by a mobile robot in an indoor environment,
+and $(b)$ human grasping posture classification.
+
+The paper is organized as follows. Section \ref{sec:SVM} sets up the problem
+and describes our method. 
+%In Section \ref{sec:comparison} we give a detailed
+%comparison with similar approaches, and how machine learning has so
+%far been applied to the problems we have tackled. 
+Section
+\ref{sec:exp} describes the experimental results, and Section
+\ref{sec:conclusions} concludes the paper and outlines some future
+work.
+
+\subsection*{Related work}
+
+%In the field of
+%robot navigation, on-line methods have been used for building
+%topological maps and detect loop closure
+%\cite{Tapus:Siegwart:ICRA2006}, to learn variability of environments
+%due to illumination changes and natural dynamic of rooms
+%\cite{luo07iros}, or for adaptive obstacle avoidance in dynamic indoor
+%environments like corridors \cite{Zeng:Weng:ICRA04}. On-line methods
+%have been applied both to indoor
+%\cite{luo07iros,Tapus:Siegwart:ICRA2006} and outdoor navigation
+%\cite{ljubjiana:icra02}.
+%%, mostly within a probabilistic framework \cite{ljubjiana:icra02,emma:irca05,Tapus:Siegwart:ICRA2006}.
+%With the notable exception of \cite{luo07iros}, all on-line approaches
+%proposed so far have been tested on a very limited temporal domain, of
+%few hours if not of few minutes. Thus, it is not clear if these
+%methods are able to provide high accuracy, combined with
+%controlled computing resources, in case of on-line learning across a
+%time span of several months.
+%Regarding grasping recognition, machine learning has never
+%been applied on-line to the best of our knowledge. In \cite{AR}
+%\emph{regression}, rather than classification, is used to predict the
+%grasping configuration. Batch approaches have been used to classify
+%grasps, e.g., in \cite{ekvall} (using hidden Markov models),
+%\cite{degranville} (Gaussian mixtures) and \cite{friedrich} (neural
+%networks). In \cite{heumer}, a comparison of classification systems
+%for grasp recognition is presented, the main outcome of which being
+%that (uncalibrated) human grasping data gathered from a CyberGlove can
+%be used to an excellent extent to recognize the grasp type, although
+%the performance can be heavily influenced by multiple user
+%analysis. In all works examined, the emphasis is really on affordances
+%\cite{gibson} rather than on objects or hand configurations; in other
+%words, one is generally interested in the types of grasps and what can
+%be done using them.
+
+Attempts to cast the SVMs as an on-line learning algorithm have already
+appeared (e.g., \cite{CauwenberghsP00,DomeniconiG01,SyedLS99,BordesEWB05}), but
+in all cases there is no attempt to reduce the growth of the solution.
+
+After-training simplification methods aiming to ``shrink'' the obtained solution
+(e.g. \cite{DownsGM01,NguyenH05}, chapter $18.3$ in \cite{SmolaS02}) are
+too computationally expensive
+in an on-line setting where a new solution must be produced after each new
+sample.
+%In fact the idea therein is useful in reducing the testing time, but
+%it is unfeasible in an on-line setting, since the simplification
+%should be performed every time a new sample is acquired.
+Also, the lack of knowledge of the complete
+data set typical of on-line learning rules out a number of methods, 
+such as, e.g., kernel matrix low rank approximation methods
+based on Incomplete Cholesky Factorization
+\cite{FineS02,Baudat03,BachJordan2005}.
+
+Other methods have been proposed to heuristically select a subset of the
+vectors as basis, e.g., in \cite{LeeM01,KeerthiCDC06}. In
+\cite{WuSB06}, instead, a method to directly build a ``vocabulary'' of
+vectors is proposed, but the formulation is not convex.
+%On the other hand, a solution with \emph{bounded complexity} must be
+%produced. 
+%As a matter of fact, the number of support vectors retained
+%by an SVM is proportional to the number of training samples
+%\cite{Steinwart03}, and the testing time is in turn proportional to
+%the number of support vectors; so in an on-line setting the machine
+%will eventually become unfeasibly slow. 
+On the other hand, several on-line kernel-based methods have been proposed 
+a priori bounding the complexity of the predictor
+\cite{EngelMM04,KivinenSW04,WestonBB05,ChengVSWC07}.
+All of them use a sort of stochastic gradient descent procedure to train a
+classifier with a fixed size. However the resulting loss of performance compared
+to standard SVM makes these algorithms unsuitable for most real-world applications.
+A strategy similar to the one we propose is used in \cite{CsatoO01}, but
+again the training is achieved through a variant of the stochastic gradient
+descent procedure.
+Another possibility is to directly optimize the primal formulation of SVM,
+but this strategy cannot be used with infinite dimensional kernels.
+%Moreover in many of them
+%(e.g. \cite{CsatoO01,KivinenSW04,WestonBB05,ChengVSWC07}) only an
+%approximate solution is found after each update, and the algorithm
+%will slowly converge to the true solution using a
+%gradient-descent-like procedure.
+% and the SVM
+%feature of having a unique solution is lost.
+%Besides all of this, these
+%methods require the knowledge of the full training set too, and,
+%again, are not suited for on-line learning.
+
+%Experiment $(a)$ is concerned with a mobile robot moving around in an
+%indoor environment subject to high variability due to human activities
+%over long time spans. These variations include people appearing in
+%different rooms during working time, objects such as cups moved or
+%taken in/out of the drawers, pieces of furniture pushed around, and so
+%forth. The robot is then required to localize its own position,
+%despite all these changes.  In experiment $(b)$ the system tries to
+%classify the ways a number of human subjects grasp several different
+%objects over a reasonably long time span, therefore being independent
+%of the subjects' styles and the object's shapes.

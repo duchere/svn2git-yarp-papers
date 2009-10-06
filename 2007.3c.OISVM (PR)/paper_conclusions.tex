@@ -1,0 +1,70 @@
+In this paper we have presented, implemented and tested a novel system
+for on-line learning based upon Support Vector Machines. The method,
+On-line Independent SVMs (OISVMs), avoids using in the solution those
+support vectors which are linearly dependent of previous ones in the
+feature space; linear independence is checked incrementally every time
+a new sample is made available to the system; the optimization problem
+is solved via an incremental algorithm which benefits of the small size
+of the basis set. A parameter called $\eta$ is employed to trade
+better/worse accuracy for more/fewer support vectors in the basis.
+
+We tested the method both on a standard set of benchmark databases and
+on two real-world case studies, namely: $(a)$ place recognition in an
+indoor environment and $(b)$ human grasping classification. Both
+real-world experiments have been carefully crafted in order to take
+into account changing conditions in the environment: robot images were
+acquired under different weather conditions and across a time span of
+several months; grasping was done across a time span of several days,
+with several different objects and by several human subjects with
+little or no prior knowledge about the experiment.
+
+The experimental results, carried out for various values of $\eta$,
+show that OISVMs enjoy an excellent accuracy/basis size trade
+off. Moreover, a deeper analysis of the value of the objective
+function at the end of the training reveals that our method
+selects the basis vectors in such a way as to better minimize
+it.
+
+%% %In particular, in the case of
+%% %robot localisation, we can reduce the number of SVs up to $4.5$ times
+%% %with a negligeble loss in performance; whereas, in grasping classification
+%% %we can reduce more than $13$ times.
+%% Furthermore, our analysis clearly shows that OISVMs improve on SVMs,
+%% proving to be highly adaptive to environmental changes (Introduction,
+%% requirement $1$) and accurate (Introduction, requirement $2$), by
+%% keeping the number of support vectors extremely small, thus minimizing
+%% the need for storage and making testing and training significantly
+%% faster (Introduction, requirements $3$ and $4$).
+
+An open issue is how to choose $\eta$ to achieve an optimal trade-off
+between accuracy and speed for a given task. Both theory and experiments
+clearly point out the relevance of $\eta$ for fully exploiting the power of
+OISVMs, but its choice is today one of the heuristics of the method, along with
+the choice of $C$, the kernel function and the kernel parameters. Therefore,
+the only solution we can point to the reader is the use of a validation set,
+as it is customary for the other previously mentioned SVM parameters.
+How to determine $\eta$ in a more principled way will be the focus of future
+work.
+
+Another research direction we plan to pursue is to extend the method so to
+handle an underlying dynamic distribution of the data, as opposed to the static
+scenario considered in this paper. This problem has been already tackled in 
+generative frameworks (i.e. \cite{YoonRDG08}) but it is still far from being solved
+in discriminative settings.
+
+Lastly we plan to use OISVM in a life-long learning scenario. So far OISVMs are
+able to perform continuous learning on data collected on a span of
+time of up to several months, but it is still not possible to use them
+with a truly never-ending stream of data, since all training samples
+must anyway be retained. To achieve this goal we plan to extend
+the method so to include a forgetting mechanism.
+%%  Another important
+%% issue is multimodality: systems typically acquire
+%% inputs from different modalities that must be combined together during
+%% learning so to build a rich internal model. Thus, we plan to extend
+%% OISVMs so to work on multimodal data streams.
+%Also, so far we have considered a purely supervised learning
+%framework, but while it is reasonable to have a privileged teacher for
+%some time, in general the system will have to act autonomously. Thus,
+%OISVMs should be extended to the semi-supervised framework. Future
+%work will address these issues.

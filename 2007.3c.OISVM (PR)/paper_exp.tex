@@ -1,0 +1,34 @@
+In this Section we report the experimental evaluation of OISVMs. We
+first test the method on a set of databases commonly used in the
+machine learning community (Section \ref{sec:exp1}); we then apply it
+to two more realistic scenarios: the first is about place recognition,
+where the aim is to update the model to handle variations in an indoor
+environment (Section \ref{sec:exp2}). In the second we show how our
+method classifies different types of human grasps, incrementally
+updating the model with the information coming from the observation of
+different subjects (Section \ref{sec:exp3}).
+
+We have implemented OISVM in Matlab, in the DOGMA library \cite{Orabona09}, and tested it against incremental
+and standard batch SVM implementations. In particular we have considered
+the incremental SVM developed in \cite{CauwenberghsP00,DiehlC03}, that we will
+denote with IncrSVM\footnote{Matlab code available at \url{http://www.cpdiehl.org/}},
+and the approximate on-line approach of
+\cite{BordesEWB05}, LASVM\footnote{C code available at \url{http://leon.bottou.org/}}.
+Note that IncrSVM and LASVM use $p=1$ in (\ref{eqn:svm_primal}),
+that is the norm-1 of the slack variables,
+that is known to be sparser of the formulation with $p=2$, norm-2, used in OISVM.
+Hence, to have a baseline of the exact norm-2 formulation, we have also used the
+batch implementation of LIBSVM v2.82 \cite{ChangL01},
+modified as suggested by the Authors in order to set $p=2$ in
+(\ref{eqn:svm_primal}); this modified version is called LIBSVM2 in
+the following.
+
+%The LIBSVM software library was also extended to
+%various families of kernels, and to the fixed-partition incremental
+%VM \cite{SyedLS99}, an approximate incremental extension of
+%SVM.
+%In the case of finite-dimensional kernels,
+%we only show the performance of LIBSVM-2 against OISVMs with $\eta$ at
+%machine precision, since the solution found by OISVM is exactly
+%equivalent; in the case of infinite-dimensional kernels, we show
+%curves for various values of $\eta$.

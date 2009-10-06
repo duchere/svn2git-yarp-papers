@@ -1,0 +1,173 @@
+-------------------------------------------------------------------
+Reviewer #1: SUMMARY
+-------------------------------------------------------------------
+
+This paper proposes an on-line algorithm for SVM which maintains a linearly 
+independent set of support vectors as basis vectors. The approach is then 
+tested on two real-world applications and a standard benchmark for 
+classification.
+
+COMMENTS
+
+Organization: I found the paper well written and substantially quite clear. 
+However, I would discuss more about the algorithms and some formulas by 
+giving details on their derivation which could not be necessarily clear to 
+the common reader. The 3 most important issues are in the following: 
+- Formula (14) is not sufficienly explained and seems hard to understand as it 
+is.
+- Also the derivation of (8) is not completely clear.
+- The "\beta update" algorithm is presented by just saying that it is an 
+application of the "modified Newton's method" of Keerthi el al. I would add a 
+section which briefly introduces the most important steps which defines this 
+algorithm.
+
+Quality: I found the paper original enough and the quality of the work is 
+good. The theory which is presented is solid.
+
+Experiments: I am not fully satisfied with the experiments. Experiments have 
+been done on many different datasets. The bahaviour of your approach w.r.t. 
+the number of SVs seems methodologically sound to me. My biggest concern is 
+that training time comparisons among different approaches are completely 
+missing. The paper presents some analysis on the computational complexity of 
+the method but it does not discuss at all on how this reflects on the time 
+requirements for finite size datasets. In table 2 where the values of the 
+objective functions for OISVM and RSVM are compared with respect to the 
+LIBSVM one, there is a surprisingly negative result of your method when 
+evaluated on the Ringnorm dataset. I think it could be nice to try to explain 
+this anomaly..
+
+Summarizing, I found your work really interesting but I think the presentation 
+and the experiments could be improved to make it fully suitable for 
+pubblication.
+
+-------------------------------------------------------------------
+Reviewer #2
+-------------------------------------------------------------------
+
+Reviewer #2: I think this paper proposes an original approach to deal with an 
+important subject in pattern recognition, on-line learning for SVMs. I 
+consider this paper outstanding also in other respects: technical validity, 
+well-structured and well-executed experiments, clear presentation, writing, 
+and so on. 
+
+Still, there are a few minor points, which I think are not difficult to 
+address at all.
+
+1.In order to determine whether an example should be included in the "support 
+set," the authors evaluates its linear dependency on the examples in the 
+existing support set. I think that there is an alternative, certainly 
+simpler, way of doing it. Naturally, if an example is within the SVM boundary 
+(or outside the margin), it won't be a support vector anyway. Thus, when a 
+new example is presented, its decision function is evaluated  by Eq.(3) and, 
+if it is larger than 1, it can be discarded for further training. Its 
+complexity is O(|B|) compared to O(|B|^2) of the proposed method. Possibly, 
+in this way, the support set may not be bounded. However, I recommend that 
+the author discuss it.
+
+2. In the experiments section, the authors provide the extensive results on 
+various data sets. It is clear that the proposed method reduces the number of 
+SVs significantly, i.e. reduced storage complexity and faster prediction, 
+without much degrading the accuracy. With that said, I think that time 
+complexity is much more important than storage complexity in on-line 
+classification problems. Even though I am sure that training is much faster 
+for the proposed method than for the standard SVMs, it would be better if the 
+authors have shown it explicitly, for example in terms of CPU times.
+
+3. This paper (implicitly) assumes a static on-line scenario, that is a fixed 
+distribution (or system) which generates data which are sequentially observed 
+one by one. A related, and practically important, scenario is a dynamic case 
+where the system changes over time. It is possible to extend the propose 
+method to dynamic situations. It could be an interesting future research 
+direction and is worth discussing in the Conclusions section. There are some 
+references on the issues (though not for SVMs), and please refer to the 
+followings, if necessary: 
+
+J.W. Yoon, S. Roberts, M.Dyson, J. Gan (2008).
+ Sequential Bayesian Estimation for Adaptive Classification.
+ Proceedings of IEEE International Conference on Multisensor Fusion and 
+Integration for Intelligent Systems (MFI 2008).
+
+W.D. Penny and S.J. Roberts (1999).
+ Dynamic models for nonstationary signal segmentation.
+ Computers and Biomedical Research 32(6), 483-502. 
+
+4. It could be a nitpicking, but it is a bit hard to read the figures. The 
+numbers, the labels, and the legends are too small. Usually I would not even 
+point out this kind of things for a low-quality paper.
+
+-------------------------------------------------------------------
+Reviewer #3
+-------------------------------------------------------------------
+
+Reviewer #3: This paper proposes an online binary classification algorithm, 
+called online independent support vector machines (OISVM) that approximately 
+converges to the standard SVM solution. A remarkable feature of the proposed 
+algorithm is that the size of the solution of the algorithm is always 
+bounded.
+
+The paper is very well written, but there are some open issues that have to be 
+addressed and clarified. 
+
+1. The authors compare their algorithm only with offline SVM algorithms. It is 
+important to compare with state of the art online SVM algorithms such as the 
+
+Antoine Bordes and Léon Bottou: The Huller: a simple and efficient online SVM, 
+Machine Learning: ECML 2005, 505-512, Lecture Notes in Artificial 
+Intelligence, LNAI 3720, Springer Verlag, 2005.
+
+for which the code is publicly available. 
+
+2. It is important that the authors provide comparative experimental results 
+showing the number of support vectors vs the achieved accuracy in the case of 
+a sufficiently increasing dataset. For example how is the accuracy affected 
+if the number of training vectors increases from 1 to 100.000 or more?
+
+3. The term "training step" used in Figs. 3 and 5 is unclear. The following 
+sentence in section 5.3 (p.27) should be clarified "Each training step 
+corresponds to a different user, and it also is a partition of the 
+fixed-partition method." How many training vectors correspond to each step? 
+
+-------------------------------------------------------------------
+Reviewer #4
+-------------------------------------------------------------------
+
+Reviewer #4: This paper proposes a novel online algorithm for SVM training 
+based on the independence of a new feature vector $\phi(x_{l+1}$ and the set 
+of feature vectors which correspond to the set of support vectors selected up 
+to sample $l$. A linear regression problem is formulated and an online 
+solution to this problem is given, which exploits previous ideas, such as the 
+Cauwenberghs'- Poggio's incremental algorithm.
+
+The novel contribution of this 
+paper is located in sections 3.1-3.3.  This contribution is worth publishing. 
+
+However, the lack of focus and structure in the present version of the paper 
+necessitate for a major revision.
+
+In particular, 
+
+1)	The paper is overly verbose. Section 2.1 should be drastically reduced if 
+not eliminated. Section 2 should define the on-line learning problem and 
+previously proposed methods related to the authors' contribution
+
+2)	Section 3 should be re-written in a more concise manner defining theorems 
+or propositions and presenting formal proofs. An outline of the full 
+algorithm in the form of pseudocode (why not in MATLAB) could sum up the 
+discussion. Currently, algorithm description is split in two parts. More 
+specifically, Eq. (18) should be better introduced.  Trivial algebraic 
+manipulations in Eq. (17) could be omitted. Section 3.4 could be eliminated.
+
+3)	The major drawback of the analysis is the selection of threshold on Delta. 
+The authors do not study this issue, which is of paramount importance. Nobody 
+would run the algorithm several times for several \eta 
+
+4)	Section 4 is unexpected. If some details should be mentioned in the paper 
+they should appear in Introduction or Section 2.
+
+5)	The experimental results should target in providing insight for both \eta 
+selection and accuracy. Although SVMs are data dependent, a subset of 
+informative experiments could reveal the properties of the proposed algorithm 
+instead of a long set of heterogeneous experiments.
+
+6)	A long list of references pleases many researchers. However, it is 
+preferable, to cite the most relevant papers to authors' work.

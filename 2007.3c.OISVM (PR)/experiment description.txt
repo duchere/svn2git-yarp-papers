@@ -1,0 +1,52 @@
+esperimento grasp classification (PAMI after BMVC)
+--------------------------------
+
+- grasp types [1]
+    (1)	power large
+    (2/4)	power flat
+    (14)	precision tripod
+    (9)	precision thumb/index
+    (13)	precision sphere
+
+- 8 soggetti
+- 2 sessioni in giorni diversi
+- 5 sottosessioni, una per grasp type
+
+- molti oggetti di diversa forma e peso, svariate affordance
+   sessione 1:
+     power large: coca, bott, scat (altern. draghetto per mani piccole)
+     power flat: mart, legol
+     prec tripod: pallap, pallag, papera, coca
+     prec th/in: colt, sco, legoc, papera
+     prec sphere: pallap, pallag, papera
+   sessione 2:
+     power large: drago, mano, mug
+     power flat: pinz, cacc, tele
+     prec tripod: evid, penna, pallagialla
+     prec th/in: evid, penna
+     prec sphere: fluff, pallagialla, mug
+
+- ogni soggetto 60 prese per grasp, per 2 sessioni:
+    120*8 = 960 sample per grasp type
+    600 sample per soggetto
+    totale prese: 120*8*5 = 600*8 = 4800
+
+- sampling a 50Hz
+
+bertellus	1	3/7	16:07-16:25	18'
+carlos	1	4/7	11:33-11:54	21'
+claudio	1	2/7	16:39-16:50	21'
+giovanna	1	3/7	11:57-12:12	15'
+randazzus	1	5/7	11:46-12:05	19'
+paolo		1	6/7	12:06-12:23	17'
+barbara	1	5/7	15:37-15:57	20'
+ginevra	1	5/7	14:28-14:46	18'
+
+bertellus	2	4/7	12:46-13:04	17'
+carlos	2	5/7	11:13-11:32	19'
+claudio	2	4/7	12:00-12:15	15'
+giovanna	2	4/7	15:36-15:53	17'
+randazzus	2	5/7	14:48-15:06	18'
+paolo		2	6/7	15:08-15:25	17'
+barbara	2	6/7	16:23-16:40	17'
+ginevra	2	9/7	14:36-14:50	14'
