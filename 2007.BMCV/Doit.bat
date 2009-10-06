@@ -1,11 +1,11 @@
 @echo off
 
+
+pdflatex paper
+
+bibtex paper
 
 pdflatex paper
-
-bibtex paper
-
+
 pdflatex paper
-
-pdflatex paper
-
+
