@@ -51,7 +51,7 @@
 
 \begin{bmcformat}
 
-\title{Multi-subject / Daily-Life Activity\\EMG-based control of mechanical hands}
+\title{Multi-subject / daily-life activity\\EMG-based control of mechanical hands}
  
 \author{%
   Claudio Castellini\correspondingauthor$^1$%
@@ -156,7 +156,7 @@ model on a subject and testing it on another one. The use
 of pre-trained models could be useful in shortening the time required by
 the subject / patient to become proficient in using the prosthesis.
 
-\section*{Materials and Methods}
+\section*{Materials and methods}
 \label{sec:m&ms}
 
 \subsection*{Subjects}
@@ -232,8 +232,8 @@ A standard digital acquisition board
 (National Instruments NI-USB6211) was used to record the signals,
 connected to the receiver of the EMG wireless device and to an
 amplifier, in turn connected to the force sensor. The sampling rate was set at
-$2$KHz in order to correctly sample both signals\footnote{The EMG signal
-relevant bandwidth lies between $15$ and $500$Hz.}. The board was connected via a
+$2$KHz in order to correctly sample both signals (the EMG signal
+relevant bandwidth lies between $15$ and $500$Hz). The board was connected via a
 USB port to an entry-level laptop. We used a custom National
 Instruments' LabView VI block to acquire the signals.
 
@@ -280,29 +280,30 @@ well-known problem in the EMG literature \cite{deluca97,zecca}.
 \subsection*{Data analysis}
 
 The root-mean-square (RMS) of the EMG was evaluated using a time window
-$T_{RMS}$\footnote{The choice of the RMS, as opposed
+$T_{RMS}$. The optimal value
+of $T_{RMS}$ was evaluated independently for classification of the grasping
+posture and force detection, via grid search, in a preliminary phase of the
+experiment, and set to $500ms$ for classification and $100ms$ for regression.
+The choice of the RMS, as opposed
 to the simpler rectification and filtering,
 is motivated by its well-known relationship to the force exerted
 by the related muscle \cite{deluca97,deluca02,zecca}. Rectification plus filtering
 would likely work as well, and it is indeed employed in some commercial myoelectrodes
-such as Otto Bock's MyoBock ones \cite{ottobock}.}. The optimal value
-of $T_{RMS}$ was evaluated independently for classification of the grasping
-posture and force detection, via grid search, in a preliminary phase of the
-experiment, and set to $500ms$ for classification and $100ms$ for regression.
+such as Otto Bock's MyoBock ones \cite{ottobock}.
 
 Notice that the right choice of $T_{RMS}$ can be, in general,
 crucial: a small value will make the system more responsive (i.e., implies
 a smaller delay) but a higher value will be more informative and improve the
 performance (especially in the case of classification, as we verified).
 On the other hand, it is known that the EMG signal anticipates the muscle
-movements by a few hundreds milliseconds\footnote{The
-electromechanical delay (EMD) of a muscle is defined as the interval
+movements by a few hundreds milliseconds; therefore, in a practical application derived from this
+experiment, a wider lag would be more acceptable than one would expect.
+The electromechanical delay (EMD) of a muscle is defined as the interval
 between the onset of the electrical activity of the muscle (EMG)
 indicating its activation by the neural system and the onset of the
 resulting change in the mechanical variable observed. The delays
 reported range from 25 to 100 ms for different muscles and tasks
-\cite{Wolf1994}.}; therefore, in a practical application derived from this
-experiment, a wider lag would be more acceptable than one would expect.
+\cite{Wolf1994}.
 
 %\begin{figure*}[!ht] \centering
 %  \begin{tabular}{cc}
@@ -394,9 +395,9 @@ of the correlation coefficient is suggested by this consideration:
 when driving a prosthesis we are
 not interested in the absolute force values desired by the
 user/subject, since mechanical hands usually cannot apply as much
-force as human hands do, for obvious safety reasons\footnote{Or, e.g.,
+force as human hands do, for obvious safety reasons (or, e.g.,
 in teleoperation scenarios, they could be able to apply \emph{much
-more} force than a human hand can.}. We are rather concerned about
+more} force than a human hand can). We are rather concerned about
 getting a signal which is strongly correlated with the user/subject's will.
 Anyway, we also report about the normalised root mean-square error (NRMSE),
 in order to give a broader view of the results. Normalisation is done against the
@@ -427,7 +428,7 @@ obtained on each fold.
 \section*{Results}
 \label{sec:exp}
 
-\subsection*{Per-Subject Analysis}
+\subsection*{Per-subject analysis}
 
 %\begin{figure*}[!ht] \centering
 %  \begin{tabular}{cc}
@@ -572,7 +573,7 @@ the magnitude of $d$. For instance, to get an accuracy of about $90\%$
 $d$ must be set at $0.2$ ending up in a training set with some $1600$
 samples.
 
-\subsection*{Cross-Subject Analysis}
+\subsection*{Cross-subject analysis}
 
 Recall that in this experiment, for all subjects, the EMG electrodes
 were carefully positioned on the forearm according to an anatomical
@@ -630,7 +631,7 @@ to the actual smoothness of the function the system is trying to
 approximate. It is unclear why the classification problems show a
 weak correlation or none at all.
 
-\section*{Discussion and Conclusions}
+\section*{Discussion and conclusions}
 \label{sec:discussion}
 
 Since 2002 at least, it is known that that machine learning methods,
@@ -736,6 +737,7 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 
 \ifthenelse{\boolean{publ}}{\end{multicols}}{}
 
+\newpage
 \section*{Tables}
 
 \begin{table}[!ht] \centering
@@ -770,7 +772,7 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %  \label{fig:hands}
 %\end{figure}
 
-\begin{figure}[!t] \centering
+\begin{figure}[!ht] \centering
 %  \begin{tabular}{ccc}
 %    \includegraphics[height=0.16\textheight]{grip1.eps} &
 %    \includegraphics[height=0.16\textheight]{grip2.eps} &
