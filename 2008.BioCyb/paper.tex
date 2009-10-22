@@ -8,6 +8,7 @@
 % Resubmitted w/ new reviewers, March, 2009
 % Accepted under revision, June, 2009
 % Submitted after revision, June, 2009
+% Finally accepted, October, 2009.
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \documentclass[10pt]{bmc_article}    
@@ -57,17 +58,16 @@
   Claudio Castellini\correspondingauthor$^1$%
   \email{Claudio Castellini - claudio.castellini@unige.it}%
 \and
-  Angelo Emanuele Fiorilla$^{2,3}$%
+  Angelo Emanuele Fiorilla$^{1,2}$%
   \email{Angelo Emanuele Fiorilla - emanuele.fiorilla@iit.it}%
 \and
-  Giulio Sandini$^3$%
+  Giulio Sandini$^2$%
   \email{Giulio Sandini - giulio.sandini@iit.it}%
 }%
 
 \address{%
-    \iid(1)LIRA-Lab, University of Genova, viale F. Causa 13, 16145 Genova, Italy\\
-    \iid(2)DIST, University of Genova, viale F. Causa 13, 16145 Genova, Italy\\
-    \iid(3)Italian Institute of Technology, via Morego 30, 16163 Genova, Italy
+    \iid(1)DIST, University of Genova, viale F. Causa 13, 16145 Genova, Italy\\
+    \iid(2)Italian Institute of Technology, via Morego 30, 16163 Genova, Italy
 }%
 
 \maketitle
@@ -227,7 +227,7 @@ We employed Aurion ZeroWire wireless surface EMG
 electrodes \cite{zerowire}, in order to ease the FA
 phase, which required free movement in the laboratory. A FUTEK LMD500
 Hand Gripper force sensor \cite{LMD500} was used to detect the
-force applied while grasping. (See Figure \ref{fig:SubjSetup} $(a,b)$.)
+force applied while grasping. (See Figure \ref{fig:SubjSetup}.)
 A standard digital acquisition board
 (National Instruments NI-USB6211) was used to record the signals,
 connected to the receiver of the EMG wireless device and to an
@@ -270,7 +270,7 @@ forearm, according to this anatomic guideline:
 These positions were chosen, according to the medical \cite{Kendall} and
 bioengineering \cite{kampas} literature, to detect the activity of the flexor
 and extensor muscles of the forearm which are most relevant during grasping.
-Figure \ref{fig:SubjSetup} $(c)$ shows
+Figure \ref{fig:SubjSetup} (rightmost panel) shows
 the typical electrode positioning. Notice that there may be remarkable
 inter-arm differences depending on the subjects' age, gender and physical
 fitness. Moreover, some of the aforementioned muscles are deep into
@@ -302,7 +302,7 @@ The electromechanical delay (EMD) of a muscle is defined as the interval
 between the onset of the electrical activity of the muscle (EMG)
 indicating its activation by the neural system and the onset of the
 resulting change in the mechanical variable observed. The delays
-reported range from 25 to 100 ms for different muscles and tasks
+reported range from $25$ to $100ms$ for different muscles and tasks
 \cite{Wolf1994}.
 
 %\begin{figure*}[!ht] \centering
@@ -329,15 +329,15 @@ reported range from 25 to 100 ms for different muscles and tasks
 %  \label{fig:RMSs}
 %\end{figure*}
 
-Figure \ref{fig:spectra} $(a)$ shows the typical EMG signal (red)
+Figure \ref{fig:spectra} (left) shows the typical EMG signal (red)
 and force (blue) recorded by the force sensor. Clearly the
 amplitude of the envelope of the EMG is related to the force, as is
-indicated in literature. Panel $(b)$ of the Figure shows the bandwidth
+indicated in literature. The right panel of the Figure shows the bandwidth
 of the EMG. Figure \ref{fig:RMSs} shows the effect of the RMS
 on the frequency components of the EMG, for three different values of
 $T_{RMS}$. In all cases, the RMS signal bandwidth is
-upper-bounded by about $25$Hz (panel $(a)$, for $T_{RMS}=20ms$) to
-$10$Hz (panel $(c)$, for $T_{RMS}=0.5s$), as expected (larger values
+upper-bounded by about $25$Hz (left panel, for $T_{RMS}=20ms$) to
+$10$Hz (right panel, for $T_{RMS}=0.5s$), as expected (larger values
 of $T_{RMS}$ correspond to a better filtering but also to a larger
 delay). According to these figures, we subsampled the RMS of the EMG
 signals at $25$Hz by taking one sample in $80$ of the original sequence,
@@ -397,7 +397,7 @@ not interested in the absolute force values desired by the
 user/subject, since mechanical hands usually cannot apply as much
 force as human hands do, for obvious safety reasons (or, e.g.,
 in teleoperation scenarios, they could be able to apply \emph{much
-more} force than a human hand can). We are rather concerned about
+more} force than a human hand can). Rather, we are concerned about
 getting a signal which is strongly correlated with the user/subject's will.
 Anyway, we also report about the normalised root mean-square error (NRMSE),
 in order to give a broader view of the results. Normalisation is done against the
@@ -479,7 +479,8 @@ On the other hand, Figure \ref{fig:confusion} shows the (average)
 confusion matrices for the SA and FA phases. Clearly, most of the classification
 errors, for both phases, regard the ``power grasp'' being mistaken for the
 ``other fingers precision grip''. This is intuitively sensible, since gripping
-with middle, ring and pinkie finger involves co-contracting the index finger too.
+with middle, ring and pinkie finger involves co-contracting the index finger too,
+to some extent.
 This makes the former grip quite similar to the latter, from a muscular point
 of view.
 
@@ -516,7 +517,7 @@ $log_{10}(C)$ is around $1.5$, but its standard deviation is rather wide
 with respect to the range, at least in the case of
 classification. The standard deviation is smaller for regression than
 for classification in both cases, which seems to indicate that
-regression as a problem is more stable with respect to the
+regression is more stable a problem with respect to the
 hyperparameters.
 
 In order to check whether the FA phase is really indicative of what
@@ -701,7 +702,7 @@ In \cite{2008.BioCyb} it is shown that these problems could be overcome
 by a sufficiently long training time, and we see no reason to believe that
 this is not the case here.
 
-Notice that, in general, predicting the grip force from the EMG signal
+Also notice that, in general, predicting the grip force from the EMG signal
 is nothing new --- the EMG-to-force is well-known and has been modelled,
 among other methods, via linear regression \cite{Hoozemans05}. Our regression model
 is novel in that it predicts the force to a similar degree of precision
@@ -779,8 +780,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[height=0.16\textheight]{grip3.eps} \\
 %    $(a)$ & $(b)$ & $(c)$ \\
 %  \end{tabular}
-  \caption{The three different grips employed in the experiment: $(a)$
-   index precision grip; $(b)$ other fingers precision grip; $(c)$
+  \caption{The three different grips employed in the experiment: \emph{(left)}
+   index precision grip; \emph{(center)} other fingers precision grip; \emph{(right)}
    power grasp.}
   \label{fig:Grasps}
 \end{figure}
@@ -792,8 +793,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[height=0.16\textheight]{El_Arrangement.eps} \\
 %    $(a)$ & $(b)$
 %  \end{tabular}
-  \caption{The experimental setup (\textit{subject side}): $(a)$ an EMG
-    wireless electrode; $(b)$ the force sensor; $(c)$ typical
+  \caption{Part of the experimental setup: \emph{(left)} an EMG
+    wireless electrode; \emph{(center)} the force sensor; \emph{(right)} typical
     placement of the EMG electrodes on a subject's forearm (ventral side).}
   \label{fig:SubjSetup}
 \end{figure}
@@ -816,8 +817,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.45\textwidth]{spectrum_raw.eps} \\
 %    $(a)$ & $(b)$ \\
 %  \end{tabular}
-  \caption{$(a)$ typical raw EMG (red) and force (blue) signals, as read from the
-    electrodes and force sensor; $(b)$ frequency diagram of the EMG signal.}
+  \caption{\emph{(left)} typical raw EMG (red) and force (blue) signals, as read from the
+    electrodes and force sensor; \emph{(right)} frequency diagram of the EMG signal.}
   \label{fig:spectra}
 \end{figure}
 
@@ -828,7 +829,7 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.3\textwidth]{spectrum_RMS1000.eps} \\
 %    $(a)$ & $(b)$ & $(c)$ \\
 %  \end{tabular}
-  \caption{(left to right) effects of the RMS on the bandwidth of the EMG
+  \caption{\emph{(left to right)} effects of the RMS on the bandwidth of the EMG
     signals, for $T_{RMS} = 20, 100, 500ms$.}
   \label{fig:RMSs}
 \end{figure}
@@ -845,8 +846,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.45\textwidth]{perfRegr.eps} \\
 %    $(a)$ & $(b)$ \\
 %  \end{tabular}
-  \caption{classification (top) and regression (middle, correlation to target;
-    bottom, NRMSE) results obtained by the system, on both phases of the
+  \caption{classification \emph{(top)} and regression (\emph{middle}, correlation to target;
+    \emph{bottom}, NRMSE) results obtained by the system, on both phases of the
     experiment (FA and SA) and for each subject.}
   \label{fig:results}
 \end{figure}
@@ -857,8 +858,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.45\textwidth]{example_6_two.eps} \\
 %    $(a)$ & $(b)$ \\
 %  \end{tabular}
-  \caption{comparing true (continuous line) and guessed (dotted line) force values for regression of a
-    typical subject (number $6$, FA phase).}
+  \caption{comparing true (black continuous line) and guessed (red dotted line)
+    force values for regression of a typical subject (number $6$, FA phase).}
   \label{fig:examples}
 \end{figure}
 
@@ -867,7 +868,7 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.45\textwidth]{confMat_1.eps} &
 %    \includegraphics[width=0.45\textwidth]{confMat_2.eps} \\
 %  \end{tabular}
-  \caption{confusion matrices for the SA phase (left) and FA phase (right). Each matrix
+  \caption{confusion matrices for the SA \emph{(left)} and FA phase \emph{(right)}. Each matrix
            is the average over the confusion matrices of the $10$ subjects. A confusion
            matrix $C$ is such that its $(i,j)$th element is the fraction of $i$ labels
            mistaken for $j$ labels, over the total mistaken labels.}
@@ -880,7 +881,7 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.45\textwidth]{2on1_regr.eps} \\
 %    $(a)$ & $(b)$ \\
 %  \end{tabular}
-   \caption{classification (top) and regression (bottom, correlation to target)
+   \caption{classification \emph{(top)} and regression (\emph{bottom}, correlation to target)
       results obtained testing on SA-data models trained on FA, and vice-versa.}
   \label{fig:2on1}
 \end{figure}
@@ -889,8 +890,8 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %  \begin{tabular}{c}
 %    \includegraphics[width=0.6\textwidth]{subj8.eps} \\
 %  \end{tabular}
-  \caption{size of the training set (dotted line) and classification
-    performance (continuous line), of subject $8$ in the FA phase, as
+  \caption{size of the training set (red dotted line) and classification
+    performance (blue continuous line), of subject $8$ in the FA phase, as
     $d$ changes.}
   \label{fig:subj8}
 \end{figure}
@@ -902,9 +903,9 @@ This work has been partially supported by the EU project NEURObotics, FP6-IST-00
 %    \includegraphics[width=0.45\textwidth]{crossRegr1.eps} & \includegraphics[width=0.45\textwidth]{crossRegr2.eps} \\
 %    $0.60 \pm 0.18$ & $0.58 \pm 0.19$ \\
 %  \end{tabular}
-  \caption{cross-subject performance matrices, for classification (top
-    row) and regression (bottom row), in the SA (left column)
-    and FA phase (right column); the numbers refer to all element of
+  \caption{cross-subject performance matrices, for classification \emph{(top
+    row)} and regression \emph{(bottom row)}, in the SA \emph{(left column)}
+    and FA phase \emph{(right column)}; the numbers refer to all element of
     the matrices, excluding the diagonals.}
   \label{fig:cross}
 \end{figure}
