@@ -14,6 +14,10 @@ according to state-of-the-art literature, when the segment
 length is fixed a priori. In this case the segment length is not fixed so the
 cepstra are evaluated over the whole window, regardless of its length.
 
+%
+% Giorgio: qui il tempo viene buttato via?
+%
+
 ``Real motor'' is a set of $17$ coefficients evaluated as follows: for each
 signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares cubic fit
 is generated over the selected segment, that is, from $t_{start}$ to $t_{end}$
@@ -73,7 +77,7 @@ shifted over the audio segment by the required amount of time. This set of
 features was compared, again, with the real and reconstructed motor features and
 a probabilistic joint model, as white noise was added to the audio signals.
 
-The intensity of noise was let range from nil to $150\%$ of the standard deviation
+The intensity of noise was changed from nil to $150\%$ of the standard deviation
 of each utterance considered; for each sample, $10$ noisy ones were generated, in
 order to obtain a larger statistical basis. As in experiment $1$, the \overall\ CV
 schema was chosen. Figure \ref{fig:class3_perf} shows the results.

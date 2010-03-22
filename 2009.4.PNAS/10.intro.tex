@@ -1,11 +1,11 @@
 \section{Introduction/Motivation}
 \label{sec:intro}
 
-\dropcap{A}utomated speech recognition (ASR) is the ability for a machine
+\dropcap{A}utomated speech recognition (ASR) is the ability of a machine
 to convert human speech, coded as an audio signal, into words.
 Potential applications of ASR range from human-computer interfaces
 to informatics for the disabled to data mining in large speech corpuses.
-Despite decades of research in the field though, state-of-the-art ASR
+Despite decades of research, state-of-the-art ASR
 systems still need to be trained upon very large and heterogeneous data sets, or upon
 a single speaker's speech in controlled conditions.
 And nevertheless, human beings show an excellent ability
@@ -13,8 +13,8 @@ of understanding one another's speech, independently of the speaker, the
 accent, the pitch and speed, noise, etc.
 
 Recent neuroscientific
-evidence indicates that the brain motor areas responsible for producing labials
-and dentals are involved in their perception; D'Ausilio et al. \cite{dausilio}
+evidence indicates that the brain motor areas responsible for producing labial
+and dental phonemes are also involved in their perception; D'Ausilio et al. \cite{dausilio}
 show that in a discrimination task of /b/,/p/,/d/ and /t/, trans-cranial magnetic
 stimulation of the lips and tongue \emph{motor areas} creates a bias in favour
 of the \emph{perception} of labials, and similarly, stimulation of the tongue
@@ -22,25 +22,25 @@ favours dentals. This suggests that motor information may be paramount for
 understanding speech in humans.
 
 Inspired by this finding, we wonder whether knowledge about \emph{production}
-of speech in humans, somehow mathematically coded, would help \emph{recognition}
+of speech in humans, encoded mathematically, would help \emph{recognition}
 of speech by a machine. To this end, we have focussed on the automatic version of
-the problem tackled in the above-mentioned paper. For each consonant,
+the problem tackled in the D'Ausilio et al. paper. For each consonant,
 a corresponding typical phonetic motor invariant (MI) was
-identified according to basic physiology and everyday experience;
+identified according to basic physiology of speech;
 e.g., a a fast, voiced opening (plosion) of the lips for /b/, and so on.
 MIs were then used to semi-automatically segment the audio/motor data found in a
 database of speech/motor trajectories recorded from $6$ subjects.
 
 Subsequently, a simple regression method (a feed-forward neural network) was employed
-to build an Audio-Motor Map (AMM) from audio features of the isolated segment to
+to build an Audio-Motor Map (AMM), which converts audio features of the isolated segment to
 features of the related MI. In principle, an AMM returns an approximation of the MI
-associated to a segment of speech: it is our mathematical proxy of speech production
+associated to a segment of speech: it is a mathematical proxy of speech production
 in humans.
 
-To test the approach then, we have devised three experiments involving a standard
-classifier, namely a Support Vector Machine \cite{BGV92}. We wanted to check whether
+To test the approach, we have devised three experiments involving a 
+classifier in the form of a Support Vector Machine \cite{BGV92}. We wanted to check whether
 the use of MI-based features, either those recorded in the database (the ``real''
-motor features) or the AMM-reconstructed ones (a more realistic scenario),
+motor features) or the AMM-reconstructed ones (a more ecological scenario),
 could improve the classifier's performance. Our results show that this is the case,
 especially when the classifier is trained on incomplete data sets such as 
 per-speaker (e.g., training on speakers $1,2,3$ and testing on $4$) and
@@ -65,13 +65,13 @@ apparenty have access to the speaker's audio signal only.
 The explanation put forward by the so-called motor theory of speech perception
 (MTS, \cite{liberman2,galant,massaro}) is that, while perceiving sounds,
 humans reconstruct \emph{phonetic gestures}, the physical acts of
-producing the phonemes, as they were trained since their birth to associate
-them to the sounds they heard. 
+producing the phonemes, as they were trained since birth to associate
+articulatory gestures to the sounds they heard. 
 
 One possible reason why ASR is so difficult is then that
 machines have in general no access to the motor representation of the
-audio signal they are supposed to understand. So, motor information should
-help ASR, especially when tests on different speakers and different
+audio signal they are supposed to understand. We hypothesize that motor 
+information might help ASR, especially when tests on different speakers and different
 coarticulations are performed: for example, when training on subject $A$ and
 testing on subject $B$, or when training on pseudo-words such as /ba/, /bi/,
 /be/ and then testing for the presence of /b/ in /bo/, /bu/ or even /br/.
@@ -85,7 +85,7 @@ neglects the qualitative overall characteristics of the
 phoneme being uttered: depending on the speed of the speech, a consonant
 can have different lengths and, by using the above approach, global
 information about it is lost (see \cite{ostendorf}, where this approach is
-dubbed "beads-on-a-string"). Nevertheless, as far as we know, there is
+dubbed ``beads-on-a-string''). Nevertheless, as far as we know, there is
 so far no widely accepted alternative method for speech segmentation,
 if the audio signal is the only one available. One attempt, but not based
 upon articulatory data al all, appears in \cite{bourlard}.
@@ -98,3 +98,8 @@ et al. \cite{papcun} and subsequently Korin Richmond's work
 the trajectories of articulators from the audio signal to a remarkably low
 error rate. The procedure for building the AMM is deeply inspired by their
 work.
+
+On the other hand, the work of Metta et al. \cite{metta-06} and Hinton \cite{hinton-2006} 
+has shown that articulatory data can improve classification performance of 
+hand actions by a computer. Transferring the method to speech perception seems
+like a natural choice.

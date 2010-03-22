@@ -28,12 +28,16 @@ data gathered from several human subjects.
 With respect to the traditional speech segmentation, done via uniform time
 windows of about $20$ milliseconds, this approach focusses on the \emph{act}
 that produced the sound. If it is true that speech acts are invariant across
-subjects and words, then it should be possible to extract form the motor data
-a set of fetaures that are more robust to changes in noise, speakers,
+subjects and words, then it should be possible to extract directly from the motor data
+fetaures that are more robust to changes in noise, speakers,
 coarticulation, etc., than standard
 audio features. We use to this end the coeffcients of a cubic fit of the
 motor trajectories, so to obtain a qualitative representation of the speech
 act.
+
+%
+% Giorgio: the cubic fit is not mentioned earlier in the paper?
+%
 
 It is clearly shown by our results (Figures \ref{fig:class1_perf}
 and \ref{fig:class2_perf}) that these features perform

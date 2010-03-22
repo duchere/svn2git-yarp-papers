@@ -5,16 +5,19 @@
 \label{subsec:amm_setup}
 
 The procedure for building the AMM closely follows that outlined in
-\cite{papcun,richmond2002,richmond2007} for a multi-layer perceptron.
+\cite{papcun,richmond2002,richmond2007} for a multi-layer perceptron neural network.
 For each of the $1157$ audio sequences, the spectrogram is evaluated
 over time windows (slices) of $20$ milliseconds, using a $20$ filter
 Mel-scale filterbank between $20$Hz and $2$KHz.
 Each slice overlaps by $10$ milliseconds with
-the preceding slice. Then point by point, the velocity and acceleration of
+the preceding slice. Then point by point\footnote{that is, ...}, the velocity and acceleration of
 \lio\ and \ttu\ (from now on, in turn, \vlio, \alio, \vttu\ and \attu) are
 associated to $19$ spectrogram slices, covering about $200$ milliseconds
 of speech and centered around the point itself.
 %Figure \ref{fig:amm} graphically represents the procedure.
+
+% Giorgio: I do not understand point-by-point, what do you mean exactly?
+% I think that it's good to explain it better!
 
 This way, about $15000$ samples are extracted from the original $1157$
 audio/motor sequences; each input sample consists of $19\cdot 20 = 380$ real
@@ -45,7 +48,7 @@ logistic activation function has asymptotic values of $0$ and $1$.
 \label{subsec:amm_results}
 
 Figure \ref{fig:amm_perf} shows a quantitative assessment of the performance
-of the AMM. The NRMSE ranges from $15.55\% \pm 1.11\%$ (\vlio, \coa ---
+of the AMM. The NRMSE (Normalized Root Mean Square Error) ranges from $15.55\% \pm 1.11\%$ (\vlio, \coa ---
 RMSE is normalised against the range of the signals considered) to
 $8.07\% \pm 0.5\%$ (\vttu, \spkc). Regression upon \vlio\ shows the largest
 errors, over all CV schemas.
@@ -68,3 +71,7 @@ there is a noticeable ``double dissociation''
 pattern arising from the comparison of the correlation coefficients when the AMM
 reconstructs \vlio\ and \vttu\ from labials or dentals. This pattern repeats to an
 almost uniform extent when the other CV schemas are used.
+
+% Giorgio: should we speculate about the meaning of this for control of articulation?
+% minimum variance principle?
+%
