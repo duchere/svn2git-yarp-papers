@@ -21,21 +21,21 @@ of the \emph{perception} of labials, and similarly, stimulation of the tongue
 favours dentals. This suggests that motor information may be paramount for
 understanding speech in humans.
 
-Inspired by this finding, we wonder whether knowledge about \emph{production}
+Inspired by this finding, we investigate whether knowledge about the \emph{production}
 of speech in humans, encoded mathematically, would help \emph{recognition}
 of speech by a machine. To this end, we have focussed on the automatic version of
-the problem tackled in the D'Ausilio et al. paper. For each consonant,
+the problem tackled in D'Ausilio et al.'s work. For each consonant,
 a corresponding typical phonetic motor invariant (MI) was
 identified according to basic physiology of speech;
 e.g., a a fast, voiced opening (plosion) of the lips for /b/, and so on.
 MIs were then used to semi-automatically segment the audio/motor data found in a
 database of speech/motor trajectories recorded from $6$ subjects.
 
-Subsequently, a simple regression method (a feed-forward neural network) was employed
+Subsequently, a simple regression method (namely, a feed-forward neural network) was employed
 to build an Audio-Motor Map (AMM), which converts audio features of the isolated segment to
-features of the related MI. In principle, an AMM returns an approximation of the MI
-associated to a segment of speech: it is a mathematical proxy of speech production
-in humans.
+features of the related MI. On an abstract level, an AMM is a mathematical proxy of a mirror
+structure \cite{umilta-01}, reconstructing the distal speaker's speech production act while
+listening to the related piece of speech.
 
 To test the approach, we have devised three experiments involving a 
 classifier in the form of a Support Vector Machine \cite{BGV92}. We wanted to check whether

@@ -12,11 +12,7 @@ Figure \ref{fig:class1_perf} shows the results.
 Mel scale over a bandwidth of $20$Hz to $2$KHz. This is a standard set of features
 according to state-of-the-art literature, when the segment
 length is fixed a priori. In this case the segment length is not fixed so the
-cepstra are evaluated over the whole window, regardless of its length.
-
-%
-% Giorgio: qui il tempo viene buttato via?
-%
+cepstra are evaluated over the whole window, regardless of its duration.
 
 ``Real motor'' is a set of $17$ coefficients evaluated as follows: for each
 signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares cubic fit
@@ -81,7 +77,6 @@ The intensity of noise was changed from nil to $150\%$ of the standard deviation
 of each utterance considered; for each sample, $10$ noisy ones were generated, in
 order to obtain a larger statistical basis. As in experiment $1$, the \overall\ CV
 schema was chosen. Figure \ref{fig:class3_perf} shows the results.
-
 (Notice that the real motor features are not affected by noise.) Student's t-test
 reveals that the cepstra-2KHz and joint features are always significantly different.
 The cepstra-2KHz and joint features show accuracies ranging from

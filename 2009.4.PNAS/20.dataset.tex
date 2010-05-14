@@ -4,18 +4,16 @@
 \subsection{Subjects and Set-up}
 \label{subsec:setup}
 
-% Giorgio: \url non mi funziona :(
-
 Six female subjects, Italian mothertongue, were recorded while uttering
 Italian words and pseudo-words. Words were mainly stress-initial, e.g.,
 /matto/, /nome/, /strada/ (mad, name, road), and were chosen in order
 to have consonants both at the beginning and in the middle of
 words, followed by different vowels and consonants.
 The data recording setup includes a \emph{Laryngograph Microprocessor}
-device (Laryngograph Ltd., London, see \url{www.laryngograph.com}) which gathers speech audio
+device (Laryngograph Ltd., London, www.laryngograph.com) which gathers speech audio
 signal and the electroglottographic (EGG) signal at $16$KHz sampling
 rate; and an AG500 electromagnetic articulograph (Carstens Medizinelektronik
-GmbH, Germany, see \url{www.articulograph.de}) that records the
+GmbH, Germany, www.articulograph.de) that records the
 3D positions of a set of sensors glued on the tongue, lips and front teeth
 during speech production at a sampling rate of $200$Hz. A full description of the 
 acquisition set-up and the obtained database can be found in \cite{tavella}.
@@ -149,11 +147,10 @@ since every training and testing sets contain data tagged with every subject and
 coarticulating phoneme. In our case, however, CV is used also to perform more subtle
 tests, for instance to check whether a classifier trained on some subjects would
 then effectively predict samples uttered by an another subject; or whether a classifier
-trained upon a subset of coarticulating phonemes (e.g., on /CV/, where C is /b/, /p/,
-/d/ or /t/ and V is /a/, /e/, /i/ or /o/) would then effectively predict samples
+trained upon a subset of coarticulating phonemes (e.g., on /$\alpha\beta$/ with
+$\alpha \in \{b,p,d,t\}$ and $\beta \in \{a,e,i,o\}$) would then effectively predict samples
 coarticulated with other phonemes (in the example above, predict samples of the form
-/CV'/ where C is as before and V' is /u/, /r/ or /s/).
-To this end, $5$ more CV schemas were devised:
+/$\alpha\gamma$/ with $\gamma \in \{u,r,s\}$). To this end, $5$ more CV schemas were devised:
 
 \begin{itemize}
 
@@ -182,5 +179,5 @@ generalisation error is concerned; but as well, in some cases the training sets
 are rather small if compared to the testing sets. This is the reason why we could
 not try, e.g., a CV schema with training on utterings containing
 one coarticulating vowel and testing on all the others (e.g., training on
-/Ca/ and testing on /CV/, where C is any consonant and /V/ is
-/e/, /i/, /o/, /u/, /r/ or /s/).
+/$\alpha$a/ and testing on /$\alpha\beta$/, where $\alpha$ is any consonant
+and $\beta \in \{e,i,o,u,r,s\}$.

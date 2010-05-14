@@ -50,8 +50,7 @@ of the National Academy of Sciences of the United States of America}
 \author{
 Claudio Castellini\affil{1}{LIRA-Lab, University of Genova, Italy},
 Giorgio Metta\affil{2}{Italian Institute of Technology, Genova, Italy},
-Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy} \and
-Others\affil{4}{don't forget the other authors}
+Luciano Fadiga\affil{3}{DSBTA, University of Ferrara, Italy}
 }
 
 \contributor{Submitted to Proceedings of the National Academy of Sciences
@@ -122,25 +121,25 @@ of the United States of America}
   \label{fig:isdView}
 \end{figure*}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=.5\textwidth]{figs/figAMM}}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figAMM}}
   \caption{Quantitative performance of the AMM. For each CV schema and output signal
     we report the NRMSE average value (histogram coloured bars) and standard error of
     the mean (thin error bars). NRMSE is the standard root-mean-square-error, normalised
     as a fraction of the range of each signal.}
   \label{fig:amm_perf}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=.5\textwidth]{figs/figAccento_}}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figAccento_}}
   \caption{Real and AMM-reconstructed MIs for \vlio\ and \vttu\ while uttering
     the /t/ in \emph{accento?} (accent). Notice the apparent gap in the quality
     of the reconstruction, favouring the labiodental trajectory (\vttu).}
   \label{fig:example}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=.5\textwidth]{figs/figDD1Vel}}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figDD1Vel}}
   \caption{Double dissociation of correlation between real and AMM-reconstructed MI
     (mean and standard error of the mean). Mean coefficients are significantly
     higher for \vlio\ when ``listening'' to labials than dentals ($0.8466 \pm 0.0158$
@@ -148,35 +147,35 @@ of the United States of America}
     for \vttu\ ($0.3731 \pm 0.0296$ versus $0.9528 \pm 0.0079$, $p<0.01$). The \overall\ CV
     schema is used.}
   \label{fig:DD}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=.5\textwidth]{figs/figClass1}}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figClass1}}
   \caption{Classification accuracy (as the percentage of correctly guessed
     /b/, /p/, /d/ and /t/ with respect to the total number of samples) obtained
     in the \overall\ CV schema, using audio features, ``real'' motor features,
     motor features reconstructed by the AMM, and by joining the audio and
     reconstructed-motor models.}
   \label{fig:class1_perf}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=.5\textwidth]{figs/figClass2}}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figClass2}}
   \caption{Classification accuracy obtained for each CV schema, using the
     four sets of features of Figure \ref{fig:class1_perf}. In the \coa\ and
     \cob\ schemas, the joint features performance is not shown since it is
     worse than that obtained by the reconstructed motor features alone.}
   \label{fig:class2_perf}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=.5\textwidth]{figs/figClass3}}
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/figClass3}}
   \caption{Classification accuracy obtained for the \overall\ CV schema
     as noise is added, using the sets of features of Figure \ref{fig:class1_perf}
     but where the $20$-dimensional audio features have been replaced with a
     $351$-dimensional cepstrogram. For the cepstra2KHz and joint features,
     errorbars denoting one standard error of the mean are shown.}
   \label{fig:class3_perf}
-\end{figure}
+\end{figure*}
 
 \end{document}
