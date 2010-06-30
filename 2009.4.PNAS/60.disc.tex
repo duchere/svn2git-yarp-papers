@@ -10,11 +10,14 @@ provides a theoretical framework to this intuition, which recent neurological
 evidence \cite{dausilio} supports even further.
 
 Assuming this idea as a working hypothesis, we have first tried to identify
-a new, biologically inspired, way to segment the audio signal. It is nowadays
-widely accepted that this task is impossible by just looking at a standard
-speech signal, since the same phoneme has different audio characteristics
-depending on the speaker, the voice pitch / speed / accent, and due to the
-phenomenon of coarticulation. But physiology tells us that there actually \emph{is} an invariant
+a new, biologically inspired, way to segment the audio signal.
+ It is nowadays widely accepted that the traditional segmentation, carried out 
+by exclusively looking at the acoustic properties of phonemes, has strong limitations
+mainly due to intra-speaker speech variability and to coarticulation.  
+%since the same phoneme has different audio characteristics
+%depending on the speaker, the voice pitch / speed / accent, and due to the
+%phenomenon of coarticulation. 
+But physiology tells us that there actually \emph{is} an invariant
 over all possible /b/s, for instance, and that is the act that produced it,
 that is, a labial plosion. Therefore we propose to segment the audio signal
 using the articulators' trajectories to detect
@@ -25,13 +28,12 @@ the beginning to the end of an associated labial plosion. This is possible,
 in our case, thanks to a database of synchronised speech / articulographic
 data gathered from several human subjects.
 
-With respect to the traditional speech segmentation, done via uniform time
-windows of about $20$ milliseconds, this approach focusses on the \emph{act}
-that produced the sound. If it is true that speech acts are invariant across
+With respect to the traditional speech segmentation, 
+this approach focuses on the \emph{act} that produced the sound. If it is true that speech acts are invariant across
 subjects and words, then it should be possible to extract directly from the motor data
-fetaures that are more robust to changes in noise, speakers,
+features that are more robust to changes in noise, speakers,
 coarticulation, etc., than standard
-audio features. We use to this end the coeffcients of a cubic fit of the
+audio features. We use to this end the coefficients of a cubic fit of the
 motor trajectories, so to obtain a qualitative representation of the speech
 act.
 
@@ -40,7 +42,7 @@ act.
 
 It is clearly shown by our results (Figures \ref{fig:class1_perf}
 and \ref{fig:class2_perf}) that these features perform
-better than a set of $20$ cepstral coefficients evaluated across each utterance,
+better than a set of $20$ mel-cepstral coefficients evaluated across each utterance,
 while discriminating /b/, /p/, /d/ or /t/ in the database. This gap is even
 more evident if examined from a per-speaker or per-coarticulation perspective.
 In these tasks, the audio features show a dramatically decreasing discrimination
@@ -55,12 +57,16 @@ representative of this mechanism. Its numerical evaluation
 reveals that the normalised root-mean-square-error obtained is rather
 uniform across the reconstructed signals, and is at worst $15.55\%$. These
 results are coherent with those presented in \cite{papcun,richmond2002,richmond2007}.
-But what is more interesting is that the AMM reconstructs labial trajectories
-better than dental trajectories when presented with labials and viceversa,
-and dually for tongue/dental trajectories and dentals, giving rise to a double
-dissociation. A simple explanation of this fact is that human beings
-(upon whose data the AMM is trained) identify phonetic actuators which produced
-the sound they hear, and neglect the others.
+
+%Leonardo: I removed the paragraph below (but it could be just modified though) as results are just a consequence of the %already known difference of variability between critical and non-critical articulators
+
+%But what is more interesting is that the AMM reconstructs labial trajectories
+%better than dental trajectories when presented with labials and viceversa,
+%and dually for tongue/dental trajectories and dentals, giving rise to a double
+%dissociation. A simple explanation of this fact is that human beings
+%(upon whose data the AMM is trained) identify phonetic actuators which produced
+%the sound they hear, and neglect the others.
+
 
 The AMM is used to reconstruct the speech acts from the audio signal; these
 reconstructed motor trajectories are then used as input to the phoneme
@@ -71,10 +77,13 @@ extracted from the real motor signals, but actually, comparable
 to the audio features; and that if we join the audio classification model
 to the one obtained for these features (with a trivial probabilistic calculation)
 we again obtain a high performance, superior to that of audio features alone
-and comaprable to that of real motor features.
+and comparable to that of real motor features. Perhaps the most striking result 
+is the one observed in the per-coarticulation setting where the reconstructed motor
+signals alone largely outperforms the joint feature set. 
+
 
 AMM-reconstructed audio features also help in the presence of noise. This time
-we evaluate the performance of a $200$ milliseconds wide Mel cesptrogram (a total
+we evaluate the performance of a $200$ milliseconds wide Mel cepstrogram (a total
 of $351$ numbers, each one coding \emph{one} phoneme) as noise is added to the
 speech signal; the performance degrades steadily. But again, if we join this
 model with one obtained by running the AMM on the noisy speech, we uniformly
