@@ -5,16 +5,18 @@
 to convert human speech, coded as an audio signal, into words.
 Potential applications of ASR range from human-computer interfaces
 to informatics for the disabled to data mining in large speech corpora.
-Despite decades of research, state-of-the-art ASR
-systems still need to be trained upon very large and heterogeneous data sets
-to account for speech variability.
+%Despite decades of research, state-of-the-art ASR
+%systems still need to be trained upon very large and heterogeneous data sets
+%to account for speech variability.
 %, or upon a single speaker's speech in controlled conditions.
-And nevertheless, human beings show an excellent ability
-of understanding one another's speech, independently of the speaker, the
-accent, the pitch and speed, noise, etc.
+%And nevertheless, human beings show an excellent ability
+%to understand one another's speech, independently of the speaker, the
+%accent, the pitch and speed, noise, etc.
+While human beings show an excellent ability to understand one another's speech,
+ independently of the speaker, the accent, the noise, etc., the robustness to speech varialbility
+of state-of-the-art ASR systems is still an active research topic.
 
-Recent neuroscientific
-evidence indicates that the brain motor areas responsible for producing labial
+Recent neuroscientific evidence indicates that the brain motor areas responsible for producing labial
 and dental phonemes are also involved in their perception; D'Ausilio et al. \cite{dausilio}
 show that in a discrimination task of /b/,/p/,/d/ and /t/, trans-cranial magnetic
 stimulation of the lips and tongue \emph{motor areas} creates a bias in favor
@@ -22,7 +24,7 @@ of the \emph{perception} of labials, and similarly, stimulation of the tongue
 favors dentals. This suggests that motor information may be paramount for
 understanding speech in humans.
 
-Inspired by these finding, in this paper we investigate whether the knowledge of speech production in humans 
+Inspired by these findings, in this paper we investigate whether the knowledge of speech production in humans 
 integrated into an automatic phoneme classifier improves the identification in the acoustic dimension 
 of the specific behaviors of the /b/,/p/,/d/ and /t/ plosive consonants.
  
@@ -33,9 +35,9 @@ to the classic approach  in which the complex acoustic effects of speech product
 
 %Although conclusions on the actual utility of speech production knowledge are somehow contradictory
 
-By limiting our investigation on the utility of motor information to the much simpler (than ASR) task of four consonants classification\footnote{Note that a recognition task requires both segmentation of speech into phones and their classification.} we are able to relax working assumptions and avoid technical difficulties that so far have hampered a satisfactory integration of motor information into ASR systems. 
+By limiting our investigation on the utility of motor information to the much simpler (than ASR) task of four consonants classification\footnote{Note that a recognition task requires both segmentation of speech into phones and their classification.} we are able to relax working assumptions and avoid technical difficulties that have so far hampered a satisfactory integration of motor information into ASR systems. 
 
-Additionally, from previous work it is not feasible to properly identify which aspects of the recognition process benefit from motor information. For example, motor knowledge may improve the modeling (and so the identification) of coarticulation effects that are seen in the training data set, but not necessarily improve the recognition of phonemes in unseen contexts, i.e., it may not necessarily improve the generalization ability of the ASR system. On the other hand the experimental setup we have designed has the main goal of investigating whether motor information improves the generalization ability of a phoneme classifier.  
+Additionally, in previous work it is not possible to properly identify which aspects of the recognition process benefit from motor information. For example, motor knowledge may improve the modeling (and so the identification) of coarticulation effects that are seen in the training data set, but not necessarily improve the recognition of phonemes in unseen contexts, i.e., it may not necessarily improve the generalization ability of the ASR system. On the other hand the experimental setup we have designed has the main goal of investigating whether motor information improves the generalization ability of a phoneme classifier.  
 
 %Although the integration of speech production knowledge in an ASR system often brings some improvements, %it is commonly held that the potential of speech production knowledge is far from being exhaustively exploited.  
 
@@ -60,7 +62,7 @@ motor features) or the AMM-reconstructed ones (a more ecological scenario),
 could improve the classifier's performance. Our results show that this is the case,
 especially when the classifier is trained on incomplete data sets such as 
 per-speaker (e.g., training on speakers $1,2,3$ and testing on $4$) and
-per-coarticulation(e.g., training on /ba/, /be/, /bi/, /bo/ and testing on /bu/); or when noise is added,
+per-coarticulation (e.g., training on /ba/, /be/, /bi/, /bo/ and testing on /bu/); or when noise is added,
 in which case motor features significantly help classification, even when added to a
 state-of-the-art set of audio features about $20$ times larger than that extracted
 from the MIs.
@@ -78,13 +80,13 @@ apparently have access to the speaker's audio signal only.
 
 The explanation put forward by the so-called motor theory of speech perception
 (MTS, \cite{liberman2,galant}) is that, while perceiving sounds,
-humans reconstruct \emph{phonetic gestures}, the physical acts of
-producing the phonemes, as they were trained since birth to associate
+humans reconstruct \emph{phonetic gestures}, the physical acts that 
+produce the phonemes, as they were trained since birth to associate
 articulatory gestures to the sounds they heard. 
 
-Even ignoring the motor theory of speech perception the use of speech production knowledge is appealing in that the coupling of articulatory and audio streams allows for explicit models of the effects of speech production phenomena (e.g., coarticulation) on the acoustic domain. These effects cannot be precisely modeled (e.g., when the phoneme /a/ affects the phonetic realization of /b/ in /ba/?)  or modeled at all (e.g., what happens when I utter a /o/ with exaggeratedly open jaw?) when the phonemic stream is directly mapped onto the acoustic dimension as in the standard approach to ASR.  
+Even ignoring the motor theory of speech perception, the use of speech production knowledge is appealing in that the coupling of articulatory and audio streams allows for explicit models of the effects of speech production phenomena (e.g., coarticulation) on the acoustic domain. These effects cannot be precisely modeled (e.g., when the phoneme /a/ affects the phonetic realization of /b/ in /ba/?)  or modeled at all (e.g., what happens, in the acoustic domain, when I utter a /o/ with exaggeratedly open jaw?) when the phonemic stream is directly mapped onto the acoustic dimension as in the standard approach to ASR.  
 
-Different solutions have been proposed to integrate speech production knowledge into an ASR system and different types of speech production information has been used, ranging from articulatory measurements (see \cite{zlokarnik,stephenson,wrench}, for example) to symbolic non-measured representations of articulatory gestures that "replicate" a (symbolic) phoneme into all its possible articulatory configurations\footnote{Articulatory configurations are configurations of the positions of the phonetic articulators} (see \cite{richardson, livescu}, for example).
+Different solutions have been proposed to integrate speech production knowledge into an ASR system and different types of speech production information has been used, ranging from articulatory measurements (see \cite{zlokarnik,stephenson,wrench}, for example) to symbolic non-measured representations of articulatory gestures that "replicate" a (symbolic) phoneme into all its possible articulatory configurations\footnote{Articulatory configurations are configurations of the positions of the phonetic articulators.} (see \cite{richardson, livescu}, for example).
  
    
 %One possible reason why ASR is so difficult is then that
@@ -95,11 +97,11 @@ Different solutions have been proposed to integrate speech production knowledge 
 %testing on subject $B$, or when training on pseudo-words such as /ba/, /bi/,
 %/be/ and then testing for the presence of /b/ in /bo/, /bu/ or even /br/.
 
-Although some studies have shown increased word recognition accuracy when including speech production knowledge in ASR, it is commonly held that the potential of speech production knowledge is far from being exhaustively exploited. Limits of current approaches include: the use of the phoneme as basic unit (as opposed to articulatory configuration, for example) which appears to be too "coarse", especially in the context of spontaneous spoken speech 
+Although some studies have shown increased word recognition accuracy when including speech production knowledge in ASR, it is commonly held that the potential of speech production knowledge is far from being exhaustively exploited. Limits of current approaches include: the use of the phoneme as basic unit (as opposed to articulatory configuration, for example) which appears to be too "coarse", especially in the context of spontaneous spoken speech
 %where coarticulation effects are more frequent and marked
-;and  the lack of a mechanism that accounts for the different importance of articulators in the realization of a given phoneme (e.g., in the generation of phoneme /b/ lips are critical, i.e., important, while tongue is non-critical).
+; and  the lack of a mechanism that accounts for the different importance of articulators in the realization of a given phoneme (e.g., in the generation of phoneme /b/ lips are critical, i.e., important, while tongue is non-critical).
 
-The traditional approach in which the speech signal is segmented into phones, often referred to as "beads on a string" approach, poses problems to an accurate modeling of spontaneous speech where coarticulation phenomena such as phone deletion or assimilation (where a phone assimilates some articulatory gestures of the preceding/following phone), are frequent and not always predictable and call for finer-grained basic units (see \cite{ostendorf})). To partly make-up for such limitation we propose an alternative approach where, instead of segmenting the audio stream looking at audio features only and then observing the articulatory gestures within the identified phones, we give priority to the motor information in that speech is segmented by searching for phone-specific patterns of the (critical) articulatory gestures.
+The traditional approach in which the speech signal is segmented into phones, often referred to as "beads on a string" approach, poses problems to an accurate modeling of spontaneous speech where coarticulation phenomena such as phone deletion or assimilation (where a phone assimilates some articulatory gestures of the preceding/following phone) that "distort" the acoustic appearance of phonemes, are frequent and not always predictable and call for finer-grained basic units (see \cite{ostendorf})). To partly make-up for such limitation we propose an alternative approach where, instead of segmenting the audio stream looking at audio features only and then observing the articulatory gestures within the identified phones, we give priority to the (expectedly) more distinctive and stable motor information in that speech is segmented by searching for phone-specific patterns of the (critical) articulatory gestures.
 
 %Concerning the necessity of a phoneme dependent distinction between critical and non-critical articulators we do not 
 %Traditionally (e.g., \cite{bourl,salvi}), the audio speech signal is segmented with a
@@ -121,12 +123,12 @@ During recognition, articulatory gestures have to be recovered
 from audio information as audio is the only signal available.
 Reconstruction of articulatory features has been attempted since a long
 time, but in most cases it is not derived from articulatory \emph{data}
-gathered from human subjects. One pioneeristic case is that of Papcun
+gathered from human subjects. One pioneering case is that of Papcun
 et al. \cite{papcun} where the AMM is carried out by a Multilayer Perceptron.
 Our procedure for building the AMM is deeply inspired by this work.
 %By using a Multilayer Perceptron we implicitly assume that all articulators have the same importance and that the AMM is a %one-to-one mapping.   
 %Papcun et al. \cite{papcun} observed that non-critical articulators have higher variance (in terms of position) than critical %articulators. 
-The Multilayer Perceptron tries to carry out the best recovery of all articulatory gestures while more emphasis to the recovery of the gestures of the critical articulators should be given to the detriment of the non-critical articulators, which have higher variance (in terms of position, see \cite{papcun,rose}). Although we do not address this issue, the simple fact that we only consider two articulators alleviates a problem that would be otherwise far more relevant if all articulators were taken into account\footnote{The higher variance of the non-critical articulators is the main cause that makes AMM a one-to-many mapping: different articulatory configurations result in the same acoustic realization. Solutions to properly address this "ill-posed" nature of the AMM have been proposed by Richmond et al. \cite{richmond} and Toda et al. \cite{toda}. }.
+The Multilayer Perceptron attempts the best recovery of all articulatory gestures while more emphasis to the recovery of the gestures of the critical articulators should be given to the detriment of the non-critical articulators, which have higher variance (in terms of position, see \cite{papcun,rose}). Although we do not address this issue, the simple fact that we only consider two articulators alleviates a problem that would be otherwise far more relevant if all articulators were taken into account\footnote{The higher variance of the non-critical articulators is the main cause that makes AMM a one-to-many mapping: different articulatory configurations result in the same acoustic realization. Solutions to properly address this "ill-posed" nature of the AMM have been proposed by Richmond et al. \cite{richmond} and Toda et al. \cite{toda}. }.
 
 %and subsequently Korin Richmond's work
 %\cite{richmond2002,richmond2007} who have been able to reconstruct point-by-point

@@ -4,9 +4,9 @@
 \subsection{Subjects and Set-up}
 \label{subsec:setup}
 
-Six female subjects, Italian mothertongue, were recorded while uttering
+Six female Italian native speakers were recorded while uttering
 Italian words and pseudo-words. Words were mainly stress-initial, e.g.,
-/matto/, /nome/, /strada/ (mad, name, road), and were chosen in order
+"matto", "nome", "strada" (mad, name, road), and were chosen in order
 to have consonants both at the beginning and in the middle of
 words, followed by different vowels and consonants.
 The data recording setup includes a \emph{Laryngograph Microprocessor}
@@ -42,9 +42,9 @@ or inside a word, and regardless of the phoneme appearing immediately after.
 These observations visually confirm the basic taxonomy of stop consonants 
 as found in any linguistics textbook.
 In particular, all considered consonants are plosives,
-i.e., produced by a fast release of air; /b/ and /p/ are bilabials
-(plosion produced using the upper and lower lips) while /d/ and /t/ are
-dentals (plosion produced using the tongue tip and the upper teeth);
+i.e., consonants that involve a complete blockage of the oral cavity followed by a fast release of air;
+ /b/ and /p/ are bilabials (blockage produced using the upper and lower lips) while /d/ and /t/ are
+dentals (blockage produced using the tongue tip and the upper teeth);
 and, lastly, /b/ and /d/ are voiced, i.e., the vocal folds are active during
 the plosion, while /p/ and /t/ are voiceless.
 
@@ -143,8 +143,8 @@ on each split and show the mean performance, plus/minus one standard error of th
 that is the standard deviation divided by the square root of the number of splits.
 
 We will call this type of CV, the \emph{overall} CV schema,
-since every training and testing sets contain data tagged with every subject and
-coarticulating phoneme. In our case, however, CV is used also to perform more subtle
+since every training and testing set contains data tagged with every subject and
+coarticulating phoneme. In our case, however, CV is also used to perform more subtle
 tests, for instance to check whether a classifier trained on some subjects would
 then effectively predict samples uttered by an another subject; or whether a classifier
 trained upon a subset of coarticulating phonemes (e.g., on /$\alpha\beta$/ with
@@ -177,7 +177,7 @@ coarticulated with other phonemes (in the example above, predict samples of the 
 Notice that, the more splits, the more reliable the results are, as far as the
 generalisation error is concerned; but as well, in some cases the training sets
 are rather small if compared to the testing sets. This is the reason why we could
-not try, e.g., a CV schema with training on utterings containing
+not try, e.g., a CV schema with training on utterances containing
 one coarticulating vowel and testing on all the others (e.g., training on
 /$\alpha$a/ and testing on /$\alpha\beta$/, where $\alpha$ is any consonant
 and $\beta \in \{e,i,o,u,r,s\}$.

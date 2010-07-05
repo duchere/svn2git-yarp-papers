@@ -24,7 +24,7 @@ build the AMM, with $380$ input units, one hidden layer with $15$ units and
 $4$ output units; the net is trained via the Scaled Conjugate Gradient
 Descent method \cite{MOLLER93} and the activation is a logistic sigmoidal function.
 
-Training is done via early stopping on the approriate validation set (see the previous
+Training is done via early stopping on the appropriate validation set (see the previous
 Section for the details about CV). This procedure is repeated over $10$ random restarts, and then
 the network with best average performance over the $4$ output dimensions is stored.
 %We have manually verified that all training sessions end by validation stopping
@@ -57,8 +57,8 @@ Qualitative inspection of the results (one example is given in Figure \ref{fig:e
 is encouraging, showing that the AMM-reconstructed motor signals are on average rather
 similar to the real ones.
 
-As a further test of reliability, we checked how good the performance is with respect
-to what consonants are used as input, and what outputs are monitored. For each utterance,
+As a further test of reliability, we checked how good the performance is with respect to the "criticality"
+of the articulators. For each utterance,
 the correlation coefficient between AMM-reconstructed and real MIs has been collected
 according to whether labials (/b/,/p/) or dentals (/d/,/t/) had been presented as input
 to the AMM.
@@ -67,7 +67,8 @@ As one can see in Figure \ref{fig:DD}, when the \overall\ CV schema is used,
 there is a noticeable ``double dissociation''
 pattern arising from the comparison of the correlation coefficients when the AMM
 reconstructs \vlio\ and \vttu\ from labials or dentals. This pattern repeats to an
-almost uniform extent when the other CV schemas are used.
+almost uniform extent when the other CV schemas are used confirming that the behaviour
+of the non-critical articulators is more variable and less predictable.
 
 % Giorgio: should we speculate about the meaning of this for control of articulation?
 % minimum variance principle?
