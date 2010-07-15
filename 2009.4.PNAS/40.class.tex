@@ -41,6 +41,21 @@ $92.65\% \pm 1.00\%$, with statistically significant difference (Student's t-tes
 $p<0.01$) between audio and real motor features, audio and joint features, and
 reconstructed motor and joint features.
 
+Note that the impact on accuracy of the reconstructed motor features when combined with 
+the acoustic feature not only depends on the type and number of motor features themselves 
+but also on the acoustic feature set one chooses. 
+In this experiment and in experiment 2 we choose an acoustic feature set whose number of features 
+is small, i.e., comparable with that of the motor feature sets (20 vs. 17 features). 
+
+This set is the best set of a pool of small acoustic feature sets we have compared. This is shown in figure \ref{fig:class1_caudio} where the accuracy of the classifier based on the "Audio" set (named "audioWhole" in the figure) is compared with that  of classifiers based on two alternative small sets: "audioPower", a set consisting of a vector of 17 mel-cepstral coefficients computed at the frame where the phone has the $20\%$ of the phone's energy, and "audioBME", a set consisting of $3$ vectors of mel-cepstral coefficients computed in $3$ frames at the beginning, middle and end of the phone respectively.
+
+The "Audio" set is the best small audio set but it is not the overall best audio set. Figure \ref{fig:class1_caudio} shows the accuracy of a classifier based on 351-dimensional set of 20 mel-cepstral coefficients (set "large audio"), this time obtained by taking $19$ slices of $20$ milliseconds each, shifted over the audio segment by the required amount of time. This audio set has the best accuracy among the audio feature sets, but its classification accuracy is further improved when it is combined with motor information ($92.48\%$ vs. $93.08\%$). 
+
+The accuracy increase of the joint set is smaller than the increase observed when the "Audio" set is used, however, when the "large audio" set is used the ratio of acoustic and motor information is somehow unbalanced as the "reconstructed motor" set is a very short "summary" of the "large audio" set. A larger set of reconstructed motor features consisting of values of the four signals computed at each frame would lead to a more balanced ratio and may lead to a largest boost in accuracy in the joint model.  
+
+%As it is shown in figure The "Audio" set is the best small set of acoustic features 
+
+
 \subsection{Experiment 2}
 \label{subsec:exp2}
 
@@ -67,9 +82,7 @@ $34.84\% \pm 3.64\%$ and $55\% \pm 5.5\%$ (\cob).
 \label{subsec:exp3}
 
 Lastly, for experiment 3 we replaced the audio features with
-a $351$-dimensional set of $20$ mel-cepstral
-coefficient, this time obtained by taking $19$ slices of $20$ milliseconds each,
-shifted over the audio segment by the required amount of time. This set of
+the "large audio" feature set decribed above. This set of
 features was compared, again, with the real and reconstructed motor features and
 a probabilistic joint model, as white noise was added to the audio signals.
 
