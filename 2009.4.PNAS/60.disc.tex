@@ -1,6 +1,53 @@
 \section{Discussion}
 \label{sec:disc}
 
+The experimental results presented in the previous Section clearly prove that,
+at least in the case here examined, and with the techniques here exploited,
+the answer to the question posed in the Introduction, ``can the use of MI-based
+features improve a phoneme classifier's performance?'' is positive.
+
+Overall, $16$ features extracted from motor invariants detected with an articulograph
+(what we have called real motor features) exhibit dramatically better error rates
+than $390$ state-of-the-art audio features in an automated discrimination task between
+two bilabial and two dental consonants. Since the discrimination is performed using an
+absolutely standard classifier (and, according to the literature, a good one), that is,
+a Support Vector Machine with Gaussian kernel whose hyperparameters are found via
+grid-search, this result should have a somehow general validity.
+The gap is apparent in all our experiments, and is validated using Student's
+t-test all over. It increases as the training sets are restricted, for example
+when per-subject (i.e., training on some subjects, testing on the others) or
+per-coarticulation (i.e., training on some coarticulating phonemes and testing on
+others) tests are conducted. This clearly indicates that MI-based features are
+somehow ``more invariant'' than audio-based ones across subjects and regardless
+of coarticulation.
+
+Moreover, an Audio-Motor-Map, this one too built using a standard machine learning
+method (namely, a feed-forward neural network), is able to reconstruct the MIs
+to such a degree of precision that the same features as above, extracted from these
+reconstructed trajectories, exhibit comparable error rates as those found with the
+audio features when the training sets are restricted (Experiments 1 and 2); and they
+boost a largely \emph{better} performance then the audio ones, when noise is added
+to the audio signal. This indicates that these features, even when the audio signal
+is the only source of information available (a realistic scenario) can improve the
+discrimination of phonemes.
+
+Lastly, when audio and reconstructed motor features are joint
+using a simple probabilistic schema, the error rates are sometimes better than when
+the feature sets are used independently. In some cases a statistically significant
+performance increase is noticed (see Experiment 2, CV schemas \spkb\ and \spkc)
+even though no clear advantage is seen when using either the audio or the
+reconstructed motor features alone. This means that the MI-based models are
+correctly classifying some consonants that the audio-based models misclassify,
+and that the classification confidence of the MI-based models is higher; and
+also that the dual is true. Sometimes the audio features help, sometimes the MI-based
+features do.
+
+
+
+
+Experiments
+1 and 2 show that 
+
 The experiments presented in this paper were inspired by the intuition that the
 proficiency of humans in speech recognition is grounded in the interaction
 between production and understanding of speech in the human brain. Alvin

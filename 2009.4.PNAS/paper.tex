@@ -1,4 +1,4 @@
-% Using motor invariants in automatic phoneme discrimination
+% The use of phonetic motor invariants can improve automatic phoneme discrimination
 % Castellini, Metta, Fadiga, Badino
 % submitted to PNAS
 
@@ -45,8 +45,8 @@ of the National Academy of Sciences of the United States of America}
 
 % ---------------------------------- frontmatter
 
-\title{Using phonetic motor invariants\\
-improves automatic phoneme discrimination}
+\title{The use of phonetic motor invariants\\
+can improve automatic phoneme discrimination}
 
 \author{
 Claudio Castellini\affil{1}{German Aerospace Research Center, Oberpfaffenhofen, Germany},
@@ -72,16 +72,24 @@ of the United States of America}
   and use them to simultaneously segment speech and motor signals.
   We then build a simple neural network-based regression schema (an Audio-Motor
   Map, AMM) mapping audio features of these segments to the corresponding
-  MIs. Experiments show that $(a)$ in ideal (noise-free, multi-subject training set)
-  conditions, automatic phoneme discrimination based upon AMM-reconstructed
-  MIs is as effective as that based upon standard audio features
-  only, and that a simple combination of audio and MI features significantly
-  improves the discrimination performance; $(b)$ this gap widens dramatically
-  as we restrict the training set on a per-speaker and/or per-coarticulation basis
-  (where reconstructed MIs are by far more effective than
-  audio features);  and $(c)$ as noise is added the gap persists. These results 
-  support some of the claims of the motor theory of speech perception and add 
-  experimental evidence of the actual utility of MIs in the more general framework of automated speech recognition.
+  MIs.
+  
+  Extensive experimental results show that
+  $(a)$ $16$ simple features extracted from the MIs, as originally gathered from
+    articulatory sensors, are dramatically more effective than $390$ state-of-the-art
+    audio features, in automatically discriminating bilabials from dentals;
+  $(b)$ the same features, reconstructed using the AMM, are in general as effective
+    as the audio features, and sometimes better when used together with them.
+    These claims are shown to hold in ideal training conditions (noise-free,
+    large multi-subject training set) as well as when training on a subset of the
+    speakers, and on a subset of the coarticulating phonemes.
+    
+  Lastly, we show that the AMM-reconstructed motor features alone are dramatically
+  more resilient to noise than the audio features.
+  
+  These results support some of the claims of the motor theory of speech perception
+  and add experimental evidence of the actual utility of MIs in the more general
+  framework of automated speech recognition.
   
 % even if we compare against
 %  a state-of-the-art audio feature set which is about $20$ times larger than
@@ -91,7 +99,7 @@ of the United States of America}
 
 \end{abstract}
 
-\keywords{motor theory of speech | machine learning | phoneme discrimination |speech recognition}
+\keywords{motor theory of speech | machine learning | phoneme discrimination | speech recognition}
 
 % ---------------------------------- the paper
 
@@ -103,7 +111,8 @@ of the United States of America}
 \input{70.concl}
 
 \begin{acknowledgments}
-  This work is supported by the EU-funded project Contact (NEST 5010) and Poeticon (ICT-FP7-215843).
+  This work is supported by the EU-funded projects
+  Contact (NEST 5010) and Poeticon (ICT-FP7-215843).
 \end{acknowledgments}
 
 % ---------------------------------- refs
@@ -119,8 +128,8 @@ of the United States of America}
 % ---------------------------------- figures & tables
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figSamples}}
-  \caption{the speech signal and motor trajectories of lips opening
+  \centerline{\includegraphics[width=\textwidth]{figs/samples}}
+  \caption{The speech signal and motor trajectories of lips opening
     velocity (\vlio) and acceleration (\alio) during utterances containing /b/.
     Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
     The gray zone denotes the detected start and ending of the plosion. All signals
@@ -129,59 +138,53 @@ of the United States of America}
 \end{figure*}
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figAMM}}
-  \caption{Quantitative performance of the AMM. For each CV schema and output signal
-    we report the NRMSE average value (histogram coloured bars) and standard error of
-    the mean (thin error bars). NRMSE is the standard root-mean-square-error, normalised
-    as a fraction of the range of each signal.}
+  \centerline{\includegraphics[width=\textwidth]{figs/AMM}}
+  \caption{Quantitative performance of the AMM. For each cross-validation schema (overall, etc.)
+    and output signal (\vlio, etc.) the NRMSE average value and standard error of the mean
+    is reported.}
   \label{fig:amm_perf}
 \end{figure*}
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figAccento_}}
-  \caption{Real and AMM-reconstructed MIs for \vlio\ and \vttu\ while uttering
+  \centerline{\includegraphics[width=\textwidth]{figs/recMIs}}
+  \caption{Real and AMM-reconstructed \vlio\ and \vttu\ for subject $6$ uttering
     the /t/ in \emph{accento?} (accent). Notice the apparent gap in the quality
-    of the reconstruction, favouring the labiodental trajectory (\vttu).}
+    of the reconstruction, favouring in this case the labiodental trajectory (\vttu).}
   \label{fig:example}
 \end{figure*}
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figDD1Vel}}
+  \centerline{\includegraphics[width=\textwidth]{figs/doubleDiss}}
   \caption{Double dissociation of correlation between real and AMM-reconstructed MI
     (mean and standard error of the mean). Mean coefficients are significantly
-    higher for \vlio\ when ``listening'' to labials than dentals ($0.8466 \pm 0.0158$
-    versus $0.5196 \pm 0.0281$ with Student's t-test $p<0.01$) and vice-versa
-    for \vttu\ ($0.3731 \pm 0.0296$ versus $0.9528 \pm 0.0079$, $p<0.01$). The \overall\ CV
+    higher for \vlio\ when ``listening'' to labials than dentals ($0.8822 \pm 0.0119$
+    versus $0.3381 \pm 0.0281$ with Student's t-test $p<0.01$) and vice-versa
+    for \vttu\ ($0.9280 \pm 0.0096$ versus $0.5548 \pm 0.0236$, $p<0.01$). The \overall\ CV
     schema is used.}
   \label{fig:DD}
 \end{figure*}
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figClass1}}
-  \caption{Classification accuracy (as the percentage of correctly guessed
-    /b/, /p/, /d/ and /t/ with respect to the total number of samples) obtained
-    in the \overall\ CV schema, using audio features, ``real'' motor features,
+  \centerline{\includegraphics[width=\textwidth]{figs/exp1}}
+  \caption{Balanced error rate in classification of bilabials and dentals obtained
+    in the \overall\ CV schema, using audio features, real motor features,
     motor features reconstructed by the AMM, and by joining the audio and
     reconstructed-motor models.}
   \label{fig:class1_perf}
 \end{figure*}
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figClass2}}
-  \caption{Classification accuracy obtained for each CV schema, using the
-    four sets of features of Figure \ref{fig:class1_perf}. In the \coa\ and
-    \cob\ schemas, the joint features performance is not shown since it is
-    worse than that obtained by the reconstructed motor features alone.}
+  \centerline{\includegraphics[width=\textwidth]{figs/exp2}}
+  \caption{Balanced error rate in classification of bilabials and dentals for each
+    CV schema, using the four sets of features of Figure \ref{fig:class1_perf}.}
   \label{fig:class2_perf}
 \end{figure*}
 
 \begin{figure*}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/figClass3}}
-  \caption{Classification accuracy obtained for the \overall\ CV schema
-    as noise is added, using the sets of features of Figure \ref{fig:class1_perf}
-    but where the $20$-dimensional audio features have been replaced with a
-    $351$-dimensional cepstrogram. For the cepstra2KHz and joint features,
-    errorbars denoting one standard error of the mean are shown.}
+  \centerline{\includegraphics[width=\textwidth]{figs/exp3}}
+  \caption{Balanced error rate in classification of bilabials and dentals for the
+    \overall\ CV schema as noise is added, using the sets of features of Figure
+    \ref{fig:class1_perf}.}
   \label{fig:class3_perf}
 \end{figure*}
 

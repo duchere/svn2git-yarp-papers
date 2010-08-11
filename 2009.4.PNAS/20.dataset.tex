@@ -9,7 +9,7 @@ Italian words and pseudo-words. Words were mainly stress-initial, e.g.,
 "matto", "nome", "strada" (mad, name, road), and were chosen in order
 to have consonants both at the beginning and in the middle of
 words, followed by different vowels and consonants.
-The data recording setup includes a \emph{Laryngograph Microprocessor}
+The data recording setup included a \emph{Laryngograph Microprocessor}
 device (Laryngograph Ltd., London, www.laryngograph.com) which gathers speech audio
 signal and the electroglottographic (EGG) signal at $16$KHz sampling
 rate; and an AG500 electromagnetic articulograph (Carstens Medizinelektronik
@@ -20,8 +20,10 @@ acquisition set-up and the obtained database can be found in \cite{tavella}.
 
 The subset used in this work comprises the $77$ words in the database
 which contain /b/, /p/, /d/ or /t/. This includes utterings from each of the
-$6$ subjects, and consonants are found both at the beginning of the word or
-in the middle.
+$6$ subjects; consonants are found both at the beginning of the word or
+in the middle; and they are followed by either /a/,/e/,/i/,/o/,/u/,/r/ or /s/.
+From now on, the phoneme appearing immediately after a consonant will be called
+\emph{coarticulating} phoneme.
 
 \subsection{MI-Based Signal Segmentation}
 \label{subsec:segm}
@@ -35,23 +37,19 @@ actually be found in the behaviour of the related articulators.
 For instance, as is apparent from Figure \ref{fig:isdView}, 
 recurring shapes of the lips opening velocity and acceleration appear
 when both /ba/ and /bufalo/ are considered, even when uttered by different
-speakers. The same patterns can be observed when other words containing
-/b/ and /p/ are considered, both when the phoneme appears at the beginning
-or inside a word, and regardless of the phoneme appearing immediately after.
+speakers. The same patterns can be observed and are qualitatively clear when other
+words containing /b/ and /p/ are considered, both when the phoneme appears at the
+beginning or inside a word, and regardless of the coarticulating phoneme.
 
 These observations visually confirm the basic taxonomy of stop consonants 
-as found in any linguistics textbook.
-In particular, all considered consonants are plosives,
-i.e., consonants that involve a complete blockage of the oral cavity followed by a fast release of air;
- /b/ and /p/ are bilabials (blockage produced using the upper and lower lips) while /d/ and /t/ are
-dentals (blockage produced using the tongue tip and the upper teeth);
-and, lastly, /b/ and /d/ are voiced, i.e., the vocal folds are active during
-the plosion, while /p/ and /t/ are voiceless.
+as found in any linguistics textbook. In particular, all considered consonants are plosives,
+i.e., consonants that involve a complete blockage of the oral cavity followed by a fast
+release of air. /b/ and /p/ are bilabials (blockage produced using the upper and lower lips)
+while /d/ and /t/ are dentals (blockage produced using the tongue tip and the upper teeth).
+The following motor invariants are then defined and associated to the consonants under
+examination:
 
-The following motor invariants are then defined and associated to the
-consonants under examination:
-
-\begin{enumerate}
+\begin{itemize}
 
   \item Let $s_1(t)$ and $s_2(t)$ be the signals associated
     with sensors placed on two phonetic actuators (e.g., the upper and
@@ -65,32 +63,29 @@ consonants under examination:
     lip are considered for $s_1(t)$ and $s_2(t)$, whereas for /d/ and /t/
     those on the tongue tip and upper teeth are. In turn, the associated
     distances will be denoted as \lio\ (lips opening) and \ttu\
-    (tongue tip - upper teeth distance).
+    (tongue tip - upper teeth distance). As well, the respective velocities
+    and accelerations will be denoted by \vlio, \vttu, \alio, \attu.
 
-  \item To discriminate /b/ and /d/ from /p/ and /t/, the average of the
-    voicing signal over the duration of the phoneme is considered. The
-    voicing signal is derived from the EGG signal and indicates
-    whether the vocal folds are active.
+\end{itemize}
 
-\end{enumerate}
+The first condition physically defines a plosion, e.g., considering \lio, $t_{start}$
+marks the onset of the act of opening the lips (null velocity, positive acceleration)
+while $t_{end}$ is found at the instant of maximum opening velocity and zero acceleration.
+The choice of cutting the signals at $t_{end}$ rather than, say, when the lips are still
+and \lio\ is maximum is motivated by the need to capture the plosion only, with as little
+as possible of the following phoneme. By manual (audio) inspection of the audio segments so
+obtained, we could actually verify that only a tiny fraction of the coarticulating phoneme
+could be heard at the end of the uttering.
 
-Condition $(1)$ physically defines a plosion, e.g., considering \lio, $t_{start}$
-marks the onset of the act of opening the lips, while $t_{end}$ is found at the
-instant of maximum opening velocity. The choice of cutting the signals at $t_{end}$
-rather than, say, when the lips are still and \lio\ is maximum, is motivated by
-the need to capture the plosion only, with as little as possible of the following
-phoneme. By manual inspection of the audio segments so obtained, we could actually
-verify that only a tiny fraction of the coarticulating phoneme could be heard
-at the end of the uttering.
-
-Then, condition $(2)$ selects an appropriate pair of articulators needed for the
-phoneme under consideration, and condition $(3)$ discriminates voiced from voiceless
-consonants. This schema matches the above-mentioned taxonomy. In Figure
+The second condition then selects an appropriate pair of articulators needed for the
+phoneme under consideration. This schema matches the above-mentioned taxonomy. In Figure
 \ref{fig:isdView} the gray zone indicates the detected interval of time using conditions
-$1$ and $2$.
+$1$ and $2$. We expect that the same schema could be used to identify relevant MIs for
+other consonants, e.g., an alveolar plosion for /k/ and /g/ and so on --- of course one
+must have had the right sensors in place.
 
 The segmentation is carried out semi-automatically: for each
-utterance, all sequences matching conditions $(1)$---$(3)$ are displayed and the
+utterance, all sequences matching the above conditions are displayed and the
 associated speech is played, so that the experimenter can choose whether the
 sequence is a correct guess or it is a false positive. In this experiment we only
 monitor \lio\ and \ttu, so that false positives appear, e.g., when considering
@@ -122,23 +117,22 @@ milliseconds (mean $\pm$ one standard deviation).
 %of an utterance (e.g., /b/ in /baffo/, moustache) or in the middle of
 %it (e.g., /d/ in /strada/, \emph{road}).
 
-\subsection{Cross-Validation}
+\subsection{Cross-validation}
 \label{subsec:cv}
 
 As is standard practice in machine learning, the obtained dataset was divided into
 splits to perform cross-validation (CV). CV \cite{stat} is usually used
-to determine an estimate of the generalisation error of a learning method, at the
+to estimate the generalisation error of a learning machine, at the
 same time providing a ground for grid-searching the optimal parameters\footnote{These
 two points should really be independent of each other, a feature provided, e.g., by
 \emph{nested} CV \cite{nestedCV}; but here the size of the dataset is
 prohibitively small for such an analysis.}. The dataset was therefore divided into
-$10$, almost equally sized, random disjoint sets,
-whose union coincides with the original dataset; every
-learning method would then be trained upon $9$ of these sets and tested upon the
+$10$ equally sized random disjoint sets, whose union coincides with the original dataset; every
+learning machine would then be trained upon $9$ of these sets and tested upon the
 tenth. This ensures that no data used for testing have been used for training. Such a
-training/testing set pair is called a \emph{split}. (Data are normalised using the
+training/testing set pair is called a \emph{split}. (Testing data are normalised using the
 statistics of the training set.) After choosing a standard performance index for the machine
-considered (e.g., the classification accuracy for classifiers), we would run the machine
+considered (e.g., the balanced error rate for classifiers), we would run the machine
 on each split and show the mean performance, plus/minus one standard error of the mean,
 that is the standard deviation divided by the square root of the number of splits.
 
