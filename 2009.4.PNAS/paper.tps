@@ -15,24 +15,24 @@ ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-4
-MaxPos.y=-30
-NormalPos.left=22
-NormalPos.top=29
-NormalPos.right=954
-NormalPos.bottom=325
+MaxPos.y=-23
+NormalPos.left=0
+NormalPos.top=0
+NormalPos.right=939
+NormalPos.bottom=271
 Class=CLatexEdit
 Document=paper.tex
 
 [Frame0_Row0]
-cyCur=424
+cyCur=358
 cyMin=10
 
 [Frame0_Col0]
-cxCur=1025
+cxCur=1033
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=131
+Cursor.row=74
 Cursor.column=0
-TopSubLine=63
+TopSubLine=61
 
