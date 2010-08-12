@@ -14,7 +14,7 @@ to informatics for the disabled to data mining in large speech corpora.
 %accent, the pitch and speed, noise, etc.
 While human beings show an excellent ability to understand one another's speech,
 independently of the speaker, the accent, the noise, etc., the robustness to
-speech varialbility of state-of-the-art ASR systems is still an active research
+speech variability of state-of-the-art ASR systems is still an active research
 topic.
 
 Recent neuroscientific evidence indicates that the brain motor areas responsible for
@@ -51,8 +51,8 @@ ones (a more ecological scenario), improve the classifier's performance?
 \subsection{Related Work}
 
 In the ASR community, the combination of explicit speech production knowledge and audio
-features has been proposed (see, e.g., \cite{king} for a review) as an alternative to the
-classic approach in which speech production variability (e.g., due to speaking rate) and
+features has been already proposed (see, e.g., \cite{king} for a review) as an alternative to the
+classic approach, in which speech production variability (e.g., due to speaking rate) and
 coarticulation (the phenomenon by which the phonetic realization of a phoneme is affected
 by its phonemic context) are directly and implicitly modeled in the acoustic domain.
 Here we restrict our investigation to the task of discriminating two bilabial from two
@@ -82,24 +82,20 @@ audio signal only. The explanation put forward by the Motor Theory of Speech Per
 \emph{phonetic gestures}, the physical acts that produce the phonemes, as they were
 trained since birth to associate articulatory gestures to the sounds they heard.
 
-But even ignoring the MTS --- a very controversial theory indeed, recently reviewed and
-revised \cite{galant,massaro} --- the use of speech production knowledge in speech recognition
+But even ignoring the MTS, a very controversial theory indeed, recently reviewed and
+revised \cite{galant,massaro}, the use of speech production knowledge in speech recognition
 is appealing, in that the coupling of articulatory and audio streams allows for explicit models
-of the effects of speech production phenomena (e.g., coarticulation) on the acoustic domain.
-In general, these effects cannot be precisely modeled (e.g., when exactly does /a/ affect the phonetic
-realization of /b/ in /ba/?) or cannot even be modeled at all (e.g., what happens, in the acoustic domain,
-when /o/ is uttered with an exaggeratedly open jaw?) when the phonetic stream is directly mapped
-onto the acoustic dimension as in the standard approach to ASR.  
+of the effects of speech production phenomena on the acoustic domain.
+In general, these effects cannot be precisely modelled, or cannot even be modeled at all,
+when the phonetic stream is directly mapped onto the acoustic dimension as in the standard
+approach to ASR. When exactly does /a/ affect the phonetic realization of /b/ in /ba/?
+What happens in the acoustic domain when /o/ is uttered with an exaggeratedly open jaw?
 
 Different solutions have been proposed to integrate speech production knowledge into an ASR system
 and different types of speech production information have been used, ranging from articulatory
-measurements (see \cite{zlokarnik,stephenson,wrench}, for example) to symbolic non-measured
-representations of articulatory gestures that "replicate" a (symbolic) phoneme into all its
-possible articulatory configurations
-%\footnote{Articulatory configurations are configurations of
-%the positions of the phonetic articulators.}
-(see \cite{richardson, livescu}, for example).
-   
+measurements \cite{zlokarnik,stephenson,wrench} to symbolic non-measured representations of
+articulatory gestures that "replicate" a symbolic phoneme into all its possible articulatory
+configurations \cite{richardson, livescu}.   
 %One possible reason why ASR is so difficult is then that
 %machines have in general no access to the motor representation of the
 %audio signal they are supposed to understand. We hypothesize that motor 
@@ -107,9 +103,8 @@ possible articulatory configurations
 %coarticulations are performed: for example, when training on subject $A$ and
 %testing on subject $B$, or when training on pseudo-words such as /ba/, /bi/,
 %/be/ and then testing for the presence of /b/ in /bo/, /bu/ or even /br/.
-
-Although some studies have shown increased word recognition accuracy when including speech
-production knowledge in ASR, it is commonly held that the potential of speech production
+Although increased word recognition accuracy is sometimes reported when speech production
+knowledge is included in ASR, it is commonly held that the potential of speech production
 knowledge is far from being exhaustively exploited. Limits of current approaches include, e.g.,
 the use of the phoneme as a basic unit (as opposed to articulatory configuration, for example)
 which appears to be too coarse especially in the context of spontaneous spoken speech,
@@ -121,7 +116,7 @@ As well, the traditional approach in which the speech signal is segmented into e
 pieces (the "beads on a string" approach \cite{ostendorf}) poses a number of problems to an accurate modeling of
 spontaneous speech, in which coarticulation phenomena such as phone deletion or assimilation,
 distorting the acoustic appearance of phonemes, are frequent and not always predictable. These problems
-call for finer-grained basic units \cite{ostendorf}. To partly make-up for such a limitation we propose
+call for finer-grained basic units. To partly make-up for such a limitation we propose
 an alternative approach where the audio signal is segmented using phone-specific articulatory patterns,
 expectedly more distinctive and stable than acoustic features.
 

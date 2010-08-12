@@ -22,8 +22,8 @@ It increases as the training sets are restricted, for example
 when per-subject (i.e., training on some subjects, testing on the others) or
 per-coarticulation (i.e., training on some coarticulating phonemes and testing on
 others) tests are conducted. This clearly indicates that MI-based features are
-somehow ``more invariant'' than audio-based ones across subjects and regardless
-of coarticulation --- it is the numerical confirmation of a basic
+somehow ``more invariant'' than audio-based ones across subjects and
+coarticulation --- a quantitative confirmation of a basic
 intuition, almost common-sensical: to produce, e.g., a bilabial, the act of
 the labial plosion is common to all human beings and is not affected by
 coarticulation. This is one more hint at the fact that the use of motor features
@@ -88,22 +88,22 @@ focuses on the \emph{act} that produced the sound. To capture this act, we use t
 coefficients of a cubic fit of the motor trajectories, so to obtain a qualitative
 representation of it.
 
-Lastly, about the AMM: from an information-theoretical point of view, AMM-reconstructed
-motor features do not carry more information than what already is in the speech signal,
-since the AMM is just a function: one could see this technique as
+About the AMM: from an information-theoretical point of view, AMM-reconstructed
+motor features do not carry more information than what already is in the speech signal.
+The AMM is a function, so one could see this technique as
 ``just a better way of extracting ASR features from speech''.
 The main advantage in using it is that it is highly bio-inspired,
 having been trained to associated human speech data to motor data. The double dissociation
-phenomenon observed in Figure \ref{fig:DD} reflects the rather predictable phenomenon
+observed in Figure \ref{fig:DD} reflects the rather predictable phenomenon
 that consonant-critical articulators exhibit less variance than non-critical ones (e.g.,
 when a /b/ uttered the labial trajectory is highly constrained, as opposed to the tongue-dental
 trajectory). This results in a better prediction of bilabial (dental) trajectories when the
 AMM is presented with a bilabial (dental) consonant.
 
-Notice that in Experiment 2 the
-AMM-reconstructed motor features perform, in general, as well as the audio features, while
-the real motor features are by far better. At first sight one is tempted to think that
-a better reconstruction could achieve better error rates, getting close to those of the real
-motor features; but on the other hand, the AMM uses the speech signal too, so it is not clear
+Lastly, notice that in Experiment 2 the AMM-reconstructed motor features perform, in general,
+as well as the audio features, while the real motor features are by far better. So, at first
+sight, one could be tempted to think that a better reconstruction should achieve better error
+rates, getting close to those of the real motor features;
+but on the other hand, the AMM uses the speech signal too, so it is not clear
 whether a much better reconstruction can be achieved in our case at all. A larger training
 database and more extensive experiments could shed light on this still open point.
