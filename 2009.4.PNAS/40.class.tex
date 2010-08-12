@@ -7,11 +7,11 @@
 In the first experiment the performance of a standard classifier is evaluated
 according to the \overall\ CV schema using four different sets of features as
 input. Figure \ref{fig:class1_perf} shows the results. The balanced error rate
-is shown as a comparative measure of performance. This error rate is defined in
+is shown as a comparative measure of performance. (This error rate is defined in
 our case as the average of the ratios of correctly guessed bilabials and dentals.
-With respect to the more popular error rate, i.e., the overall ratio of correctly
+With respect to the more popular standard error rate, i.e., the overall ratio of correctly
 guessed labels, it has the advantage of favouring models which can correctly guess
-\emph{both} the bilabials and the dentals.
+\emph{both} the bilabials and the dentals.)
 
 ``Audio'' is a set of $390$ cepstral coefficients evaluated as follows: for each
 sequence considered, $10$ time slices of the audio signal between $20$Hz and $2$KHz
@@ -41,7 +41,8 @@ The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
 and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
 by subtracting the mean values and dividing by the standard deviations,
 dimension-wise, in the real motor and reconstructed motor cases, while
-no normalisation is applied to the audio features.
+no normalisation is applied to the audio features. The off-the-shelf SVM
+package \emph{libsvm} \cite{libsvm} has been used.
 
 The error rates obtained are, in turn,
 $5.73\% \pm 0.74\%$ (mean $\pm$ one standard error of the mean),

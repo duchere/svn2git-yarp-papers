@@ -78,25 +78,14 @@ of the United States of America}
   $(a)$ $16$ simple features extracted from the MIs, as originally gathered from
     articulatory sensors, are dramatically more effective than $390$ state-of-the-art
     audio features, in automatically discriminating bilabials from dentals;
-  $(b)$ the same features, reconstructed using the AMM, are in general as effective
-    as the audio features, and sometimes better when used together with them.
-    These claims are shown to hold in ideal training conditions (noise-free,
-    large multi-subject training set) as well as when training on a subset of the
-    speakers, and on a subset of the coarticulating phonemes.
-    
-  Lastly, we show that the AMM-reconstructed motor features alone are dramatically
-  more resilient to noise than the audio features.
+  $(b)$ the same features, extracted from AMM-reconstructed MIs, are in general as
+    effective as, or slightly better than, the audio features, when testing across
+    speakers and coarticulating phonemes; and dramatically better when noise is
   
   These results support some of the claims of the motor theory of speech perception
   and add experimental evidence of the actual utility of MIs in the more general
   framework of automated speech recognition.
   
-% even if we compare against
-%  a state-of-the-art audio feature set which is about $20$ times larger than
- % that extracted from MIs. These results encourage the use of MIs in the more
- % general framework of automated speech recognition. Moreover, our findings 
- % support some of the claims of the motor theory of speech perception.
-
 \end{abstract}
 
 \keywords{motor theory of speech | machine learning | phoneme discrimination | speech recognition}
@@ -108,7 +97,6 @@ of the United States of America}
 \input{30.rec}
 \input{40.class}
 \input{60.disc}
-\input{70.concl}
 
 \begin{acknowledgments}
   This work is supported by the EU-funded projects
@@ -141,7 +129,7 @@ of the United States of America}
   \centerline{\includegraphics[width=\textwidth]{figs/AMM}}
   \caption{Quantitative performance of the AMM. For each cross-validation schema (overall, etc.)
     and output signal (\vlio, etc.) the NRMSE average value and standard error of the mean
-    is reported.}
+    are reported.}
   \label{fig:amm_perf}
 \end{figure*}
 
@@ -157,10 +145,8 @@ of the United States of America}
   \centerline{\includegraphics[width=\textwidth]{figs/doubleDiss}}
   \caption{Double dissociation of correlation between real and AMM-reconstructed MI
     (mean and standard error of the mean). Mean coefficients are significantly
-    higher for \vlio\ when ``listening'' to labials than dentals ($0.8822 \pm 0.0119$
-    versus $0.3381 \pm 0.0281$ with Student's t-test $p<0.01$) and vice-versa
-    for \vttu\ ($0.9280 \pm 0.0096$ versus $0.5548 \pm 0.0236$, $p<0.01$). The \overall\ CV
-    schema is used.}
+    higher for \vlio\ when ``listening'' to labials than dentals and vice-versa.
+    The \overall\ CV schema is used.}
   \label{fig:DD}
 \end{figure*}
 
