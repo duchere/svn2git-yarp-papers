@@ -13,22 +13,28 @@ With respect to the more popular standard error rate, i.e., the overall ratio of
 guessed labels, it has the advantage of favouring models which can correctly guess
 \emph{both} the bilabials and the dentals.)
 
-``Audio'' is a set of $390$ cepstral coefficients evaluated as follows: for each
-sequence considered, $10$ time slices of the audio signal between $20$Hz and $2$KHz
-are considered, equally spaced over the sequence itself,
-each one $25$ milliseconds long. In case the sequence
-is shorter than $250$ milliseconds, the slices are allowed to overlap. For each slice,
-$13$ Mel cepstral coefficients, plus their first- and second-order derivatives are
-evaluated. This makes it for $39$ coefficients for each slice. This is a standard set
-of features according to state-of-the-art literature, when the segment
-length is fixed a priori. In this case the segment length is not fixed so the
-cepstra are evaluated over the whole window.
+``Audio'' is a set of $390$ cepstral coefficients extracted from the audio signal
+as follows. We consider a set of $25$-milliseconds long ``time slices'' of the signal.
+From each slice $13$ cepstral coefficients, plus their first- and second-order derivatives,
+are evaluated using a Mel-scale filterbank comprising $29$ filters in the bandwidth from
+$20$Hz to $2$KHz; this results in $39$ coefficients for each slice. This is a state-of-the-art
+set of features according to recent literature \cite{bourl,pinto:icassp-phnrecog:2008}
+in which the single slices are classified as belonging to a phoneme or another with a certain
+probability, and then a time-sequence probabilistic method (typically, a Hidden Markov Model)
+is used. In our case, a whole variable-length sequence must be classified, so we consider
+$10$ slices uniformly distributed across the sequence itself in order to cover it completely.
+In case the sequence is shorter than $250$ milliseconds, the slices are allowed to overlap,
+whereas in the opposite case there are gaps between them.
 
 ``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
 signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares piecewise
 Hermite cubic interpolation is generated over the sequence. This results in $4$ real
 numbers per signal (constant, I-, II- and III-order coefficient of the cubic
-interpolant), which qualitatively encode the shape of the considered trajectory.
+interpolant). The choice of interpolating the signal trajectories is motivated by
+the need to capture the qualitative (plosive, in this case) behaviour of the sensors
+abstracting away from, e.g., the length of the plosion, and to compactly represent it.
+Preliminary manual inspection of the trajectories has convinced us that a cubic fit
+would adequately capture their shapes.
 
 ``Reconstructed motor'' refers to the same procedure as above, but applied
 to the AMM-reconstructed signal curves.

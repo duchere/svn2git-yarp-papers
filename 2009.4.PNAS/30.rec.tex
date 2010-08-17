@@ -4,8 +4,15 @@
 \subsection{Training the AMM}
 \label{subsec:amm_setup}
 
-The procedure for building the AMM closely follows that outlined in
-\cite{papcun,richmond,richmond2007} for a multi-layer perceptron neural network.
+The procedure for building the AMM closely follows that outlined in previous
+literature \cite{papcun,richmond,richmond2007} where a multi-layer perceptron
+neural network was employed to reconstruct articulators' positions from an
+audio stream. More in detail, the speech spectrogram was there used to predict,
+instant by instant, the position of the articulators of interest. Here we apply
+a similar approach to reconstruct the velocity and accelerations of \lio\ and \ttu,
+in order to avoid as much as possible taking into account physical differences
+among subjects (e.g., the width of the mouth, etc.).
+
 For each of the $1157$ audio sequences, the spectrogram is evaluated
 over $20$-milliseconds long Hamming windows (slices), using a $20$-filter
 Mel-scale filterbank between $20$Hz and $2$KHz. Each slice overlaps by $10$ milliseconds with
@@ -13,7 +20,6 @@ the preceding slice. Each single sample of \vlio, \alio, \vttu\ and \attu\ is
 then associated to $19$ surrounding spectrogram slices, covering
 about $200$ milliseconds of speech and centered around the sample itself. With this
 "sliding spectrogram window" method, the four trajectories are completely reconstructed.
-%Figure \ref{fig:amm} graphically represents the procedure.
 The Mel filters, the spectrogram and (later on) the cepstral coefficients of the audio
 signal are extracted using the off-the-shelf speech recognition Matlab package
 \emph{Voicebox} \cite{Brookes1997}.
@@ -29,9 +35,6 @@ Descent method \cite{MOLLER93} and the activation is a logistic sigmoidal functi
 Training is done via early stopping on the appropriate validation set (see the previous
 Section for the details about CV). This procedure is repeated over $10$ random restarts, and then
 the network with best average performance over the $4$ output dimensions is stored.
-%We have manually verified that all training sessions end by validation stopping
-%(as opposed to bumping into the maximum number of training epochs, which we set
-%for safety at a large value, $200$).
 The performance measure is Matlab's embedded mean-square-error with regularisation
 function, in which after some initial experiments we set the regularisation
 parameter at $0.714$. This value, as well as all other parameters, have been found in
