@@ -35,23 +35,28 @@ still unexplored --- one cannot expect the standard user of an ASR system to wea
 an articulograph while, e.g., dictating. Here the MTS and the theory of mirror neurons
 inspire us to build an AMM, that is, to try and reconstruct the distal speech acts from
 the audio signal alone. All in all, not even humans have access to the distal speaker's
-motor data, and recent works among which D'Ausilio et al.'s \cite{dausilio} indicate
+motor data, and recent studies, among which D'Ausilio et al.'s \cite{dausilio}, indicate
 that they might be reconstructing it while hearing the sound of speech; and that this
 mechanism is activated mainly in hostile conditions (e.g., in the presence of noise).
 
 Our Audio-Motor-Map, this one too built using a standard machine learning
 method (namely, a feed-forward neural network), is able to reconstruct the MIs
 to such a degree of precision that the same $16$ motor features, extracted from these
-reconstructed trajectories, exhibit comparable error rates as those found with the
-audio features when the training sets are restricted (Experiments 1 and 2); and they
-boost a largely and significantly \emph{better} performance then the audio ones, as
+reconstructed trajectories, exhibit comparable or better error rates than  
+those found with the audio features when the training sets are restricted (Experiments 1 and 2);
+ and they boost a largely and significantly \emph{better} performance then the audio ones, as
 noise is added to the audio signal (Experiment 3). This latter result seems to be
 somehow in agreement with what D'Ausilio et al. have found using TMS on humans.
 
-Lastly, when audio and reconstructed motor features are joint using a simple
-probabilistic schema, the error rates are sometimes better than when
-the feature sets are used independently. When one set of features is obviously
-far worse than the other, such a joint model performs in-between (e.g., consider
+Note that in the most critical cases (i.e., when the training data sets are extremely restricted) of Experiments 1 and 2
+the reconstructed motor features outperform the audio features. These results and the results of Experiment 3
+suggest that when the difficulty of the classification task increases (because of a reduction of speech 
+variability in the training data and/or of an increased variability in the testing data) the reconstructed 
+motor features become more and more useful for the task.
+
+Lastly, when audio and reconstructed motor features are joint using a simple probabilistic schema, the error rates
+are sometimes significantly better than when the feature sets are used independently.
+When one set of features is obviously far worse than the other, such a joint model performs in-between (e.g., consider
 Experiment 3 when noise is higher than $50\%$); a more interesting case is that
 found in Experiment 2, CV schemas \spkb\ and \spkc, where no clear advantage is seen
 when using either the audio or the reconstructed motor features alone, while
