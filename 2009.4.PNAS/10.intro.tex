@@ -24,13 +24,13 @@ show that in a noisy discrimination task of /b/ and /p/ versus /d/
 and /t/, trans-cranial magnetic stimulation of the lips and tongue \emph{motor areas}
 improves the \emph{perception} of bilabials, and similarly, stimulation of the tongue
 favors dentals. This suggests that motor information may be paramount for
-understanding speech in humans.
+speech understanding in humans.
 
 Inspired by these findings, in this paper we investigate whether knowledge of speech
 production in humans, integrated into an automatic phoneme classifier, can improve the
 classification of /b/,/p/ versus /d/,/t/, in various conditions of noise and with different
 restrictions on the training set.
-To this end, we focus on the ``automatic version'' of the problem tackled in D'Ausilio et al.'s
+To this end, we focus on the ``artificial version'' of the problem tackled in D'Ausilio et al.'s
 work. For each consonant, a corresponding typical phonetic motor invariant (MI) is identified
 according to the basic physiology of speech; e.g., a fast, voiced opening (plosion) of the lips
 for /b/ and /p/ and of the tongue against the upper teeth for /d/ and /t/.
@@ -39,7 +39,7 @@ database of speech/motor trajectories recorded from $6$ subjects.
 
 Subsequently, a simple regression method (namely, a feed-forward neural network) is employed
 to build an Audio-Motor Map (AMM), which converts audio features of the isolated segment to
-features of the related MI. On an abstract level, an AMM is a mathematical proxy of a mirror
+features of the related MI. On an abstract level, the AMM is a mathematical proxy of a mirror
 structure \cite{umilta-01}, reconstructing the distal speaker's \emph{speech act} while
 listening to the related piece of speech.
 
@@ -150,7 +150,7 @@ high variance during the utterance of unrelated consonants \cite{papcun,rose}.
 For example, the tongue position is expected to exhibit high variance while, e.g., velar plosives
 such as /k/ and /g/ are uttered. This is the main reason why an AMM is in general a one-to-many mapping: different articulatory configurations result in the same acoustic realization. Solutions to properly address the ill-posedness
 of the AMM have been proposed by Richmond et al. \cite{richmond} and Toda et al. \cite{toda}; here we do
-not address the issue directly; rather, we consider two articulators only, hopefully alleviating the problem.
+not address the issue directly; rather, we consider two articulators only, therefore alleviating the problem.
 
 %and subsequently Korin Richmond's work
 %\cite{richmond2002,richmond2007} who have been able to reconstruct point-by-point
@@ -159,7 +159,7 @@ not address the issue directly; rather, we consider two articulators only, hopef
 %work.
 
 Interestingly, the idea of using information about the mechanisms involved in the production of a human action to improve its classification/recognition (in a domain different from the production domain) has not only been applied in the context of speech recognition. For example Metta et al. \cite{metta-06} and Hinton \cite{hinton-2006} 
-have shown that articulatory data can improve classification accuracy in automated hand action classification.
+have shown that articulatory data can improve accuracy in automated hand action classification.
 
 %TODO  
 % Transferring the method to speech perception seems
