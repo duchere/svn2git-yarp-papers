@@ -27,7 +27,8 @@ signal are extracted using the off-the-shelf speech recognition Matlab package
 About $15000$ samples are extracted from the original $1157$
 audio/motor sequences; each input sample consists of $19\cdot 20 = 380$ real
 numbers, while the output space is given by the $4$ trajectory points of
-the motor signals. A feed-forward neural network is set up in order to
+the motor signals (see figure \ref{fig:amm}).
+A feed-forward neural network is set up in order to
 build the AMM, with $380$ input units, one hidden layer with $15$ units and
 $4$ output units; the net is trained via the Scaled Conjugate Gradient
 Descent method \cite{MOLLER93} and the activation is a logistic sigmoidal function.
