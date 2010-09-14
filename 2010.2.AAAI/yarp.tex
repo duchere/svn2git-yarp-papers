@@ -21,13 +21,106 @@ Address}
 \maketitle
 \begin{abstract}
 \begin{quote}
-YARP.  Says it all really.
+
+YARP stands for ``Yet Another Robot Platform.''  It is a robot
+middleware that began life in 2000 as a thin layer over the QNX
+real-time operating system to adapt it for use by humanoid robots.  It
+is now used on all kinds of robots and operating systems around the
+world.  YARP's communication model lies at a sweet spot that combines
+efficiency, flexibility, and ease of use.
+
 \end{quote}
 \end{abstract}
 
-\noindent Yarpidy yarp - yarp yarp?
+\noindent 
 
-\section{YARP}
-Yarpidy yarp - yarp yarp!
+The name is
+a description of a robot developer's lament, rather than...
+
+Previous YARP paper \cite{fitzpatrick08towards}.
+
+YARP stands for Yet Another Robot Platform. What is it? If data is the
+bloodstream of your robot, then YARP is the circulatory system.
+
+More specifically, YARP supports building a robot control system as a
+collection of programs communicating in a peer-to-peer way, with a
+family of connection types (tcp, udp, multicast, local, MPI,
+mjpg-over-http, XML/RPC, tcpros, ...) that can be swapped in and out
+to match your needs. We also support similarly flexible interfacing
+with hardware devices. Our strategic goal is to increase the longevity
+of robot software projects [1].
+
+YARP is not an operating system for your robot. We figure you already
+have an operating system, or perhaps several. Nor does it do package
+management (we like the package managers we have). We're not out for
+world domination. It is easy to interoperate with YARP-using programs
+without yourself necessarily having to use YARP -- see the YARP
+without YARP tutorial. YARP is written in C++, with a core that uses
+no external libraries, not even the standard template libraries, with
+the exception of a small portion of ACE for portability (and this
+portion can easily be embedded). YARP is free and open, under the
+LGPL.
+
+(Certain optional plugin devices, carriers, or libraries are under the GPL)
+
+YARP is plumbing for robot software.
+
+It is a set of libraries, protocols, and tools to keep modules and devices cleanly decoupled. It is reluctant middleware, with no desire or expectation to be in control of your system. YARP is definitely not an operating system.
+
+Robot projects are often evolutionary dead ends, with the software and hardware they produce disappearing without trace afterwards. Common causes include dependencies on uncommon or obsolete devices or libraries, and dispersion of an already small group of users. In humanoid robotics, a small field with an avid appetite for novel devices, we experience a great deal of churn of this nature. YARP is our attempt to make robot software that is more stable and long-lasting, without compromising our ability to constantly change our sensors, actuators, processors, and networks. It helps organize communication between sensors, processors, and actuators so that loose coupling is encouraged, making gradual system evolution much easier. The YARP model of communication is transport-neutral, so that data flow is decoupled from the details of the underlying networks and protocols in use (allowing several to be used simultaneously, key to smooth evolution). YARP uses a methodology for interfacing with devices (sensors, actuators, etc.) that again encourages loose coupling and can make changes in devices less disruptive. At the same time, YARP doesn't expect to be in charge; we want to minimize problem of incompatible "architectures", "frameworks", and "middleware" (also known in this context as "muddleware").
+
+\section{A potted history of YARP}
+
+YARP developers were early and enthusiastic adopters of CMake
+ \cite{fitzpatrick10cmaking}.
+
+\section{Progressive Enhancement}
+
+\section{Data liberation}
+
+* Google has a subproject to make sure that it is easy for users to copy all their data from a service in usable form, and migrate to a non-Google service: the "data liberation front"
+
+* For YARP, we try to make it easy to users to redirect data streams to non-YARP based programs.  This lowers the cost of "boundary problems" - hooking up an unsupported device, computer, network, ...
+
+* The protocol used for a YARP connection is decided at connection-time.  The initiator of the connection is free to choose from a wide set of protocols, and so can optimize for simplicity (using a plain text protocol), speed (udp), scalability (multicast), etc.  
+
+* A YARP protocol need not be specific to YARP.  For example, YARP supports mjpeg-over-http.  This means that a YARP image source can be viewed directly from a browser without bridging, or a YARP image sink can receive data directly from a jpeg-streaming IP camera without bridging.  YARP also supports XML/RPC, so can connect to certain websites (or act as a webserver).
+
+* YARP connections can be initiated by either the "sender" or "receiver", since the logical flow of data can be freely reversed.  This is important for supporting a wide range of protocols, which may be "pull" or "push" in nature.  It also makes connecting to YARP programs without using the YARP libraries even easier.  With other middleware, you get stuck having to make a server for at least one of the directions of data flow.
+
+* A YARP network is designed to be usable without YARP.  Examples of making YARP connections without using the YARP library are available in C and Python.
+
+
+\section{The TELNET test}
+
+
+\section{YARP plus/minus}
+
+YARP core libraries and their full dependencies are light.
+YARP has for example been used on an embedded system
+with 54MB RAM, 28MB Flash.
+
+YARP is portable, serving an interdisciplinary community.
+
+No code generation, no special build system, doesn't try to take over.
+
+Flexible, open model of connections - proving good for evolution and interoperation.
+
+Passes the ``telnet test''.
+
+Negatives:
+
+Native implementation exists only in C++.  
+
+Diverse OS support limits growth of library, since any
+new dependency is very costly.
+
+Lack of IDL / code generation can lead to some tedium
+implementing classic RPC-style code.
+
+
+\bibliography{yarp}
+\bibliographystyle{aaai}
+
 
 \end{document}
