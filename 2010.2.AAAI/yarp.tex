@@ -76,10 +76,32 @@ core YARP libraries are released under the LGPLv2.1.
 
 \section{A potted history of YARP}
 
-YARP began at what was then the MIT AI Lab
+YARP was born in 2000 on an early humanoid robot (called Kismet)
+controlled by a set of Motorola 68332 processors, an Apple Mac, and a
+loose network of PCs running QNX, Linux, and Microsoft Windows
+\cite{metta06yarp}.  Communication on this robot was a cocktail
+mixture of dual-port RAM polling, QNX message passing, CORBA, and raw
+sockets.
+
+YARP worked very well on QNX, and decently on Linux.  For Microsoft
+Windows, Macs, and other platforms an important development in YARP's
+history was to take on a dependency on the ACE library [ref].  This
+happened around 2003, with the immediate goal of simplifying the
+addition of multicast support.  ACE has proven its worth to us many
+times over for cross-platform networking, although we needed
+to carefully keep any reference to ACE out of public header files
+in order to avoid inheriting some of its less desirable properties
+(a somewhat unstable API, and constraints on header file inclusion
+order).
 
 YARP developers were early and enthusiastic adopters of CMake
- \cite{fitzpatrick10cmaking}.
+\cite{fitzpatrick10cmaking}.  In 2006, we happily dumped
+earlier custom build scripts in favor of CMake project descriptions,
+and never looked back.  CMake was this missing piece for having a
+truly comfortable cross-platform experience.
+
+About the same time, we started using SWIG [ref] to support languages
+other than C++.
 
 \section{Known carriers}
 

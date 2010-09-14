@@ -2,8 +2,8 @@ default:
 	pdflatex yarp.tex && xpdf yarp.pdf
 
 bib:
-	latex yarp
+	pdflatex yarp
 	bibtex yarp
-	latex yarp
+	pdflatex yarp
 	bibtex yarp
-	latex yarp
+	pdflatex yarp
