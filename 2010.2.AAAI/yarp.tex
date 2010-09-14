@@ -73,6 +73,23 @@ the exception of a small portion of ACE for portability (and this
 portion can easily be embedded). YARP is free and open.  The
 core YARP libraries are released under the LGPLv2.1.
 
+Others have built on YARP.
+
+\begin{quote}
+``Compared to, e.g., CAVIAR and Psyclone, YARP
+looks like a fairly standard library~- neither does it
+do its own message scheduling nor does it provide
+heavy-handed semantics for message definitions or
+networking. That may be its very strength.'' \cite{stefansson09yarp}
+\end{quote}
+
+\begin{quote}
+``YARP was chosen as the communication library with
+which all communication protocols were implemented as
+one of the goals of the design of the communication stack
+was to make it possible to interact with programs that are
+developed without using MeRMaID.'' \cite{barbosa09mermaid}
+\end{quote}
 
 \section{A potted history of YARP}
 
@@ -93,6 +110,13 @@ to carefully keep any reference to ACE out of public header files
 in order to avoid inheriting some of its less desirable properties
 (a somewhat unstable API, and constraints on header file inclusion
 order).
+
+When YARP grew an image processing library, care was taken to make the
+data structures compatible with the IPL library (a non-free image
+processing library from Intel).  IPL became the seed for OpenCV, which
+also remained compatible with IPL. YARP has therefore somewhat
+accidentally played nicely with OpenCV, which has grown to be a very
+popular library, from the start.
 
 YARP developers were early and enthusiastic adopters of CMake
 \cite{fitzpatrick10cmaking}.  In 2006, we happily dumped
