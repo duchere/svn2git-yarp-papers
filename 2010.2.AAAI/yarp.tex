@@ -1,10 +1,12 @@
 \documentclass[letterpaper]{article}
 \usepackage{aaai}
 
-
 \usepackage{times}
 \usepackage{helvet}
 \usepackage{courier}
+
+\usepackage{graphicx}
+
 \pdfinfo{
 /Title (YARP)
 /Subject (YARP)
@@ -34,45 +36,74 @@ efficiency, flexibility, and ease of use.
 
 \noindent 
 
-The name is
-a description of a robot developer's lament, rather than...
+YARP is plumbing for robot software.  YARP supports building a robot
+control system as a collection of programs communicating in a
+peer-to-peer way, with a family of connection types (tcp, udp,
+multicast, local, MPI, mjpg-over-http, XML/RPC, tcpros, ...) that can
+be swapped in and out to match your needs.  We also support similarly
+flexible interfacing with hardware devices. Our strategic goal is to
+increase the longevity of robot software projects
+\cite{fitzpatrick08towards}.
 
-Previous YARP paper \cite{fitzpatrick08towards}.
+YARP was, in its early days, shaped by the problem of keeping research
+going despite constant flux in our robot platforms (hence the name).
+It remains a ``reluctant'' middleware, with no desire or expectation
+to be in control of your system.  This is from long experience telling
+us that our systems always change.  
+We want to minimize problem
+of incompatible "architectures", "frameworks", and "middleware" (also
+known in this context as "muddleware").
 
-YARP stands for Yet Another Robot Platform. What is it? If data is the
-bloodstream of your robot, then YARP is the circulatory system.
-
-More specifically, YARP supports building a robot control system as a
-collection of programs communicating in a peer-to-peer way, with a
-family of connection types (tcp, udp, multicast, local, MPI,
-mjpg-over-http, XML/RPC, tcpros, ...) that can be swapped in and out
-to match your needs. We also support similarly flexible interfacing
-with hardware devices. Our strategic goal is to increase the longevity
-of robot software projects [1].
+\begin{figure}
+\centerline{\includegraphics[width=5cm]{icub.jpg}}
+\caption{YARP is used on all sorts of robots,
+from complex humanoids such as the iCub (pictured here),
+to embedded systems, to UAVs.
+} 
+\end{figure}
 
 YARP is not an operating system for your robot. We figure you already
 have an operating system, or perhaps several. Nor does it do package
 management (we like the package managers we have). We're not out for
 world domination. It is easy to interoperate with YARP-using programs
-without yourself necessarily having to use YARP -- see the YARP
-without YARP tutorial. YARP is written in C++, with a core that uses
+without yourself necessarily having to use YARP. 
+YARP is written in C++, with a core that uses
 no external libraries, not even the standard template libraries, with
 the exception of a small portion of ACE for portability (and this
-portion can easily be embedded). YARP is free and open, under the
-LGPL.
+portion can easily be embedded). YARP is free and open.  The
+core YARP libraries are released under the LGPLv2.1.
 
-(Certain optional plugin devices, carriers, or libraries are under the GPL)
-
-YARP is plumbing for robot software.
-
-It is a set of libraries, protocols, and tools to keep modules and devices cleanly decoupled. It is reluctant middleware, with no desire or expectation to be in control of your system. YARP is definitely not an operating system.
-
-Robot projects are often evolutionary dead ends, with the software and hardware they produce disappearing without trace afterwards. Common causes include dependencies on uncommon or obsolete devices or libraries, and dispersion of an already small group of users. In humanoid robotics, a small field with an avid appetite for novel devices, we experience a great deal of churn of this nature. YARP is our attempt to make robot software that is more stable and long-lasting, without compromising our ability to constantly change our sensors, actuators, processors, and networks. It helps organize communication between sensors, processors, and actuators so that loose coupling is encouraged, making gradual system evolution much easier. The YARP model of communication is transport-neutral, so that data flow is decoupled from the details of the underlying networks and protocols in use (allowing several to be used simultaneously, key to smooth evolution). YARP uses a methodology for interfacing with devices (sensors, actuators, etc.) that again encourages loose coupling and can make changes in devices less disruptive. At the same time, YARP doesn't expect to be in charge; we want to minimize problem of incompatible "architectures", "frameworks", and "middleware" (also known in this context as "muddleware").
 
 \section{A potted history of YARP}
 
+YARP began at what was then the MIT AI Lab
+
 YARP developers were early and enthusiastic adopters of CMake
  \cite{fitzpatrick10cmaking}.
+
+\section{Known carriers}
+
+\begin{tabular}{|l|p{7cm}|}
+\hline
+\multicolumn{2}{|c|}{YARP carriers} \\
+\hline
+tcp & Regular tcp \\
+fast\_tcp & Variant that drops flow control \\
+udp & UDP \\
+http & Basic web interface \\
+mcast & Multicast - avoid repeating the same data going
+to many clients ``on the wire''  \\
+local & local \\
+mpi & delegate to MPI (Daniel Krieg) \\
+xmlrpc & translate messages into XML/RPC compatible form \\
+tcpros & interoperate with ROS publisher/subscribers \\
+mjpeg & receive/transmit images in mjpeg-over-http format \\
+text & send messages in human readable plain text form \\
+shmem & use shared memory \\
+\hline
+\end{tabular}
+
+Similarly, many devices.
 
 \section{Progressive Enhancement}
 
@@ -92,6 +123,38 @@ YARP developers were early and enthusiastic adopters of CMake
 
 
 \section{The TELNET test}
+
+The TELNET test is this: can a user monitor and insert traffic on a
+YARP network using just a telnet client (``telnet ip.address
+port\_number'')?  In other words, without any use of YARP libraries or
+programs?  This test has evolved out of past frustration with other
+middleware, where simply passing a few numbers to a collaborator's
+program can require jumping through a dozen hoops.  We try to follow
+the ``golden rule,'' by making it really easy for others to send a few
+numbers to a YARP-based program without having to dig through protocol
+specifications, or link against our libraries, or use our build
+machinery~-- all of which can be much more expensive in developer time
+than one might think, given the variety of languages, operating
+systems, development environments, and versions-of-everything in use.
+
+Some keys to acing the TELNET test:
+
+\begin{itemize}
+
+\item TCP connections should be supported.  
+  This is true of most middleware operating on regular
+  networks. Some just support UDP, so this test doesn't
+  make sense for them.
+
+\item The basic communication model shouldn't stray too far from the
+  notion of making ``connections'' to a named destination.
+
+\item The direction in which a connection is initiated shouldn't
+  determine the direction of data flow.
+
+\item Human readable/writable.
+
+\end{itemize}
 
 
 \section{YARP plus/minus}

@@ -1,5 +1,5 @@
 default:
-	latex yarp.tex && xdvi yarp.dvi
+	pdflatex yarp.tex && xpdf yarp.pdf
 
 bib:
 	latex yarp
