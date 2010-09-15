@@ -109,7 +109,51 @@ networking. That may be its very strength.'' \cite{stefansson09yarp}
 \end{quote}
 
 
-\section{Data liberation}
+\section{The {\tt telnet} test}
+
+The TELNET test is this: can a user monitor and insert traffic on a
+YARP network using just a {\tt telnet} client?  The {\tt telnet}
+program can more or less open raw TCP sessions, and is commonly used
+to manually send messages to servers speaking SMTP, HTTP, IRC etc.
+The key point of this test is to see if YARP-based programs are
+inherently easy or hard to communicate with across the network,
+without the use of the YARP libraries or programs.  This is an
+important question for interoperation.
+
+For us, this test has evolved out of past frustration with other
+middleware, where simply passing a few numbers to a collaborator's
+program can require jumping through a dozen hoops.  We therefore
+(following the ``golden rule'') try to make it really easy for others
+to send a few numbers to a YARP-based program without having to dig
+through protocol specifications, or link against our libraries, or use
+our build machinery~-- all of which can be much more expensive in
+developer time than one might think, given the variety of languages,
+operating systems, development environments, and
+versions-of-everything in use.
+
+This is in some ways similar to Google's ``data liberation front.''
+This is a subproject to make sure that it is easy for users to copy
+all their data from a service in usable form, and migrate to a
+non-Google service.  Having such 
+a project is a way to keep themselves honest, and avoid the 
+temptation of using control of data as a way to lock people in to
+using their services.
+
+A YARP network is designed to be usable without YARP.  This doesn't
+happen by accident.  
+One important design property is that YARP
+connections can be initiated by either the ``sender'' or ``receiver,''
+since the logical flow of data can be freely reversed.  This is
+important for supporting a wide range of protocols, which may be {\it
+  pull} or {\it push} in nature, but it is also key to making
+connecting to YARP programs without using the YARP libraries easy.
+With other middleware, you can get stuck having to make a server for
+at least one of the directions of data flow.
+
+Examples of making YARP connections without using the YARP libraries are
+available in C, Python, and Tcl.
+
+\noindent Users value the interoperability that YARP provides:
 
 \begin{quote}
 ``YARP was chosen as the communication library with
@@ -120,83 +164,13 @@ developed without using MeRMaID.'' \cite{barbosa09mermaid}
 \end{quote}
 
 
-Google has a subproject to make sure that it is easy for users to copy
-all their data from a service in usable form, and migrate to a
-non-Google service: the ``data liberation front.''  Having such 
-a project is a way to keep themselves honest, and avoid the 
-temptation of using control of data as a way to lock people in to
-using their services.
+\bibliography{yarp}
+\bibliographystyle{aaai}
 
-For YARP, we try to make it easy to users to redirect data streams to
-non-YARP based programs.  This lowers the cost of ``boundary
-problems'' such as hooking up an unsupported device, computer,
-network, or collaboration between people from different planets
-(e.g. computer science versus developmental psychology versus
-neuroscience).
-
-The protocol used for a YARP connection is decided at connection-time.
-The initiator of the connection is free to choose from a wide set of
-protocols, and so can optimize for simplicity (using a plain text
-protocol), speed (udp), scalability (multicast), etc.
-
-A YARP protocol need not be specific to YARP.  For example, YARP
-supports mjpeg-over-http.  This means that a YARP image source can be
-viewed directly from a browser without bridging, or a YARP image sink
-can receive data directly from a jpeg-streaming IP camera without
-bridging.  YARP also supports XML/RPC, so can connect to certain
-websites (or act as a webserver).
-
-YARP connections can be initiated by either the "sender" or
-"receiver", since the logical flow of data can be freely reversed.
-This is important for supporting a wide range of protocols, which may
-be "pull" or "push" in nature.  It also makes connecting to YARP
-programs without using the YARP libraries even easier.  With other
-middleware, you get stuck having to make a server for at least one of
-the directions of data flow.
-
-A YARP network is designed to be usable without YARP.  Examples of
-making YARP connections without using the YARP library are available
-in C and Python.
+\clearpage
+\newpage
 
 
-\section{The TELNET test}
-
-The TELNET test is this: can a user monitor and insert traffic on a
-YARP network using just a telnet client (``telnet ip.address
-port\_number'')?  In other words, without any use of YARP libraries or
-programs?  This test has evolved out of past frustration with other
-middleware, where simply passing a few numbers to a collaborator's
-program can require jumping through a dozen hoops.  We try to follow
-the ``golden rule,'' by making it really easy for others to send a few
-numbers to a YARP-based program without having to dig through protocol
-specifications, or link against our libraries, or use our build
-machinery~-- all of which can be much more expensive in developer time
-than one might think, given the variety of languages, operating
-systems, development environments, and versions-of-everything in use.
-
-Some keys to acing the TELNET test:
-
-\begin{itemize}
-
-\item TCP connections should be supported.  
-  This is true of most middleware operating on regular
-  networks. Some just support UDP, so this test doesn't
-  make sense for them.
-
-\item The basic communication model shouldn't stray too far from the
-  notion of making ``connections'' to a named destination.
-
-\item The direction in which a connection is initiated shouldn't
-  determine the direction of data flow.
-
-\item Human readable/writable.
-
-\end{itemize}
-
-
-\section{Building on YARP}
-
-Others have built on YARP.
 
 
 \section{Known carriers}
@@ -306,6 +280,31 @@ the exception of a small portion of ACE for portability (and this
 portion can easily be embedded). YARP is free and open.  The
 core YARP libraries are released under the LGPLv2.1.
 
+
+\section{Acing TELNET}
+
+Some keys to acing the TELNET test:
+
+\begin{itemize}
+
+\item TCP connections should be supported.  
+  This is true of most middleware operating on regular
+  networks. Some just support UDP, so this test doesn't
+  make sense for them.
+
+\item The basic communication model shouldn't stray too far from the
+  notion of making ``connections'' to a named destination.
+
+\item The direction in which a connection is initiated shouldn't
+  determine the direction of data flow.
+
+\item Human readable/writable.
+
+\end{itemize}
+
+
+
+
 \section{The origin of YARP}
 
 
@@ -345,8 +344,42 @@ programs written in all these environments to communicate with
 each other, and easily.
 
 
-\bibliography{yarp}
-\bibliographystyle{aaai}
+
+\section{Building on YARP}
+
+Others have built on YARP.
+
+
+For YARP, we try to make it easy to users to redirect data streams to
+non-YARP based programs.  This lowers the cost of ``boundary
+problems'' such as hooking up an unsupported device, computer,
+network, or collaboration between people from different planets
+(e.g. computer science versus developmental psychology versus
+neuroscience).
+
+The protocol used for a YARP connection is decided at connection-time.
+The initiator of the connection is free to choose from a wide set of
+protocols, and so can optimize for simplicity (using a plain text
+protocol), speed (udp), scalability (multicast), etc.
+
+A YARP protocol need not be specific to YARP.  For example, YARP
+supports mjpeg-over-http.  This means that a YARP image source can be
+viewed directly from a browser without bridging, or a YARP image sink
+can receive data directly from a jpeg-streaming IP camera without
+bridging.  YARP also supports XML/RPC, so can connect to certain
+websites (or act as a webserver).
+
+YARP connections can be initiated by either the "sender" or
+"receiver", since the logical flow of data can be freely reversed.
+This is important for supporting a wide range of protocols, which may
+be "pull" or "push" in nature.  It also makes connecting to YARP
+programs without using the YARP libraries even easier.  With other
+middleware, you get stuck having to make a server for at least one of
+the directions of data flow.
+
+A YARP network is designed to be usable without YARP.  Examples of
+making YARP connections without using the YARP library are available
+in C and Python.
 
 
 \end{document}
