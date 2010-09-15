@@ -52,8 +52,10 @@ in our robot platforms (hence the name).  Long experience with
 incompatible architectures, frameworks, and middleware (which we like
 to call collectively ``muddleware'') has taught us to make YARP a {\it
   reluctant} middleware, with no desire or expectation to be in
-control of a user's system.  We look at some of the more unusual
-design choices that this has lead to.  
+control of a user's system.  Some will see YARP's restraint as a
+negative, but it is appealing for others; a typical user comment in a
+recent survey was: ``It's lightweight and easy to use. I like the
+multi-platform support, and its non-monopolistic philosophy.''
 
 \begin{figure}
 \centerline{\includegraphics[width=5cm]{icub.jpg}}
@@ -91,7 +93,8 @@ into the user's build toolchain (imagine how that much fun trying to
 use {\it two} such middleware is).  Second, it can be inefficient,
 leading to copies being made of potentially large data structures.
 
-So in YARP, marshalling/demarshalling is done ``by hand.''  This works
+So in YARP, marshalling/demarshalling for user classes
+is not automated.  This works
 just fine for streams of data (images, vectors, nested lists etc.)
 where users are likely to find built-in classes in YARP with
 marshalling already taken care of.  It is, however, somewhat tedious
