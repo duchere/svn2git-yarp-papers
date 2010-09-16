@@ -38,8 +38,9 @@ efficiency, flexibility, and ease of use.
 
 YARP is used to build robot control systems as a collection of
 programs communicating in a peer-to-peer way, with an open-ended
-family of connection types (tcp, udp, multicast, local, MPI,
-mjpg-over-http, XML/RPC, tcpros, ...) that can be swapped in and out
+family of connection types (TCP, UDP, multicast, local, shared memory, 
+MPI, mjpg-over-http, XML/RPC, TCPROS, plain-text, ...) that
+can be swapped in and out
 as need dictates.
 It also supports similarly flexible interfacing
 with hardware devices.  The strategic goal
@@ -230,6 +231,8 @@ failure.
 
 
 \section{Known carriers}
+
+
 
 \begin{tabular}{|l|p{7cm}|}
 \hline
