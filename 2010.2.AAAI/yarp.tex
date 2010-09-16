@@ -65,6 +65,16 @@ on embedded systems, and everything in between.
 } 
 \end{figure}
 
+Communication in YARP generally follows the Observer design pattern
+\cite{gamma95design}. {\tt Port} objects deliver messages to any
+number of observers (other {\tt Port}s), in any number of processes,
+distributed across any number of machines, using any of several
+underlying communication protocols.  The same message may be sent to
+using different protocols for connections to different recipients.
+This can require some fancy footwork by YARP, such as grouping
+multicast outputs to avoid duplication, or coordinating with a foreign
+middleware.  {\tt Port}s can be connected on an individual basis or as
+topic-based groups.
 
 \section{Staying out of the build toolchain}
 
@@ -74,10 +84,9 @@ loose network of PCs running QNX, Linux, and Microsoft Windows
 \cite{metta06yarp}.  Communication on this robot was a cocktail
 mixture of dual-port RAM polling, QNX message passing, CORBA, and raw
 sockets.  From the beginning, YARP has been built with the implicit
-assumption that it is just one part of the users' environment, rather
-than central to it.  So YARP restrains itself to behave like any other
-library, such as OpenCV, ODE, etc, rather than expect any special
-treatment.
+assumption that it is just one part of the users' environment.  So
+YARP restrains itself to behave like any other library, such as
+OpenCV, ODE, etc, rather than expect any special treatment.
 
 But there's a good reason why most middleware are more than just
 regular libraries.  That reason is marshalling/demarshalling.  To send
@@ -91,7 +100,9 @@ YARP has historically skirted around this approach, for two main
 reasons.  First, it is invasive, since it insinuates the middleware
 into the user's build toolchain (imagine how that much fun trying to
 use {\it two} such middleware is).  Second, it can be inefficient,
-leading to copies being made of potentially large data structures.
+leading to copies being made of potentially large data structures
+(YARP goes to great lengths to make sure that large structures such
+as images get transmitted with zero extra copies made).
 
 So in YARP, marshalling/demarshalling for user classes
 is not automated.  This works
@@ -166,14 +177,50 @@ was to make it possible to interact with programs that are
 developed without using MeRMaID.'' \cite{barbosa09mermaid}
 \end{quote}
 
+\section{Conclusions}
+
+YARP has historically been used on high-end humanoids with lots of
+resources, but our users report it also works fine on embedded
+systems.  YARP is portable, serving an interdisciplinary community.
+It has a flexible and open model of connections that has stood the
+test of time.  It passes the ``telnet test,'' a property of most 
+successful network protocols and formats.  It places no constraints
+on the user's build system (though we are big fans of CMake).
+
+Why would anyone not use YARP?  A full native implementation of YARP
+exists only in C++; we rely on SWIG for wrappers in other languages.
+YARP's commitment to portability slows its growth, since taking on any
+new dependency is complicated.  Lack of an interface definition
+language (IDL) and associated code generation can lead to some tedium
+implementing classic RPC-style code. Since YARP supports a wide range
+of protocols, it needs a central name server to do match-making, and
+this can be unnatural for certain applications (such as modular
+robotics, where there is no clear hub). The LGPL license that YARP is
+under is considered commercial-use friendly, but still could
+complicate certain proprietary uses of the library.
+
+The {\tt roscore} middleware \cite{quigley2009ros} is an
+interesting alternative to YARP.  
+It is part of the integrated ROS ``Robot Operating
+System.''  ROS developers clearly understand in principle the
+importance of having a thin middleware, but in practice seem to have
+produced a rather tightly-coupled architecture.  This is good in that
+it gets a lot closer to a complete solution for robot software than
+anyone else has achieved.  It is bad in that it seems likely to create
+a lot of re-writing churn in user code over the coming years, as
+environments and assumptions change.
+
+The {\tt LCM} middleware \cite{huang2010lcm} is a more compelling
+alternative to YARP.  It commits to UDP multicast for all messages,
+with broadcast messages filtered by clients.  Once that commitment is
+made, a central name server is no longer needed, reducing a point of
+failure.
 
 \bibliography{yarp}
 \bibliographystyle{aaai}
 
 \clearpage
 \newpage
-
-
 
 
 \section{Known carriers}
@@ -203,27 +250,6 @@ Similarly, many devices.
 
 \section{YARP plus/minus}
 
-YARP core libraries and their full dependencies are light.
-YARP has for example been used on an embedded system
-with 54MB RAM, 28MB Flash.
-
-YARP is portable, serving an interdisciplinary community.
-
-No code generation, no special build system, doesn't try to take over.
-
-Flexible, open model of connections - proving good for evolution and interoperation.
-
-Passes the ``telnet test''.
-
-Negatives:
-
-Native implementation exists only in C++.  
-
-Diverse OS support limits growth of library, since any
-new dependency is very costly.
-
-Lack of IDL / code generation can lead to some tedium
-implementing classic RPC-style code.
 
 \section{Robot evolution}
 
