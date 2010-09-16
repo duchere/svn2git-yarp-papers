@@ -68,13 +68,19 @@ on embedded systems, and everything in between.
 Communication in YARP generally follows the Observer design pattern
 \cite{gamma95design}. {\tt Port} objects deliver messages to any
 number of observers (other {\tt Port}s), in any number of processes,
-distributed across any number of machines, using any of several
-underlying communication protocols.  The same message may be sent to
-using different protocols for connections to different recipients.
-This can require some fancy footwork by YARP, such as grouping
-multicast outputs to avoid duplication, or coordinating with a foreign
-middleware.  {\tt Port}s can be connected on an individual basis or as
-topic-based groups.
+distributed across any number of machines, using any of many
+underlying communication protocols.  {\tt Port}s can be connected on
+an individual basis or as topic-based groups.  The same message may be
+sent simultaneously across multiple connections using distinct
+protocols.  This can require some fancy footwork by YARP, such as
+grouping multicast connections, or coordinating with a foreign
+middleware.  YARP has a similarly flexible device interface.  This
+flexibility means that individual YARP-using programs can be upgraded
+over time to deal with changes in hardware or networking without
+touching user source code, and without having to change that program's
+peers at the same time.  Upgrades don't have to be ``big bang''
+events, but can be gradual since new and old interfaces/protocols can
+live side by side.
 
 \section{Staying out of the build toolchain}
 
