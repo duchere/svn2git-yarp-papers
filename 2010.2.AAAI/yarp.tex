@@ -13,7 +13,7 @@
 /Author (IIT)}
 
 \title{YARP, a Thin Middleware for (Humanoid) Robots}
-\author{Paul Fitzpatrick{\rm ,} Giorgio Metta \and Lorenzo Natale \\
+\author{Paul Fitzpatrick{\rm ,}  Lorenzo Natale \and Giorgio Metta \\
 Italian Institute of Technology \\
 Via Morego, 30 \\16163 Genova, Italy}
 \setcounter{secnumdepth}{0}
@@ -24,22 +24,21 @@ Via Morego, 30 \\16163 Genova, Italy}
 \begin{quote}
 
 YARP stands for ``Yet Another Robot Platform.''  It is a robot
-middleware that began life in 2000 as a thin layer over the QNX
-real-time operating system to adapt it for use by humanoid robots.  It
-is now used on all kinds of operating systems and robots around the
-world.  It is free and open software, released under the LGPL.
-YARP's communication model lies at a sweet spot that combines
-efficiency, flexibility, and ease of use.
+middleware that began life as a thin layer over the QNX real-time
+operating system to adapt it for use by humanoid robots.  It is now
+used on all kinds of operating systems and robots around the world.
+It is free and open software, released under the LGPL.  Over the past
+decade, YARP's communication model has proven to be at a sweet spot
+that combines efficiency, flexibility, and ease of use.
 
 \end{quote}
 \end{abstract}
 
 \noindent 
-
 YARP is used to build robot control systems as a collection of
-programs communicating in a peer-to-peer way, with an open-ended
+programs communicating in a peer-to-peer way, using an open-ended
 family of connection types (TCP, UDP, multicast, local, shared memory, 
-MPI, mjpg-over-http, XML/RPC, TCPROS, plain-text, ...) that
+MPI, mjpeg-over-http, XML/RPC, TCPROS, plain-text, etc.) that
 can be swapped in and out
 as need dictates.
 It also supports similarly flexible interfacing
@@ -47,22 +46,22 @@ with hardware devices.  The strategic goal
 of YARP's developers is to increase the longevity
 of robot software projects \cite{fitzpatrick08towards}.
 
-YARP was in its early days (YARP's first version congealed in 2000)
-shaped by the problem of keeping research going despite constant flux
-in our robot platforms (hence the name).  Long experience with
-incompatible architectures, frameworks, and middleware (which we like
-to call collectively ``muddleware'') has taught us to make YARP a {\it
+YARP's first version coalesced in 2000.  It was 
+shaped by the problem of doing productive research despite constant flux
+in our robot platforms (hence the name).  Since then, experience with
+incompatible architectures, frameworks, and middleware~-- which we like
+to call collectively ``muddleware''~-- has taught us to make YARP a {\it
   reluctant} middleware, with no desire or expectation to be in
-control of a user's system.  Some will see YARP's restraint as a
-negative, but it is appealing for others; a typical user comment in a
-recent survey was: ``It's lightweight and easy to use. I like the
+control of a user's system.  Some see YARP's restraint as a
+negative, but for others it is appealing; a typical user comment in a
+recent survey was:  ``It's lightweight and easy to use. I like the
 multi-platform support, and its non-monopolistic philosophy.''
 
 \begin{figure}
 \centerline{\includegraphics[width=5cm]{icub.jpg}}
-\caption{YARP is used on
-complex humanoids such as the iCub (pictured here),
-on embedded systems, and everything in between.
+\caption{YARP works on
+complex humanoids such as the iCub, on embedded systems, and 
+on everything in between.
 } 
 \end{figure}
 
@@ -71,55 +70,49 @@ Communication in YARP generally follows the Observer design pattern
 number of observers (other {\tt Port}s), in any number of processes,
 distributed across any number of machines, using any of many
 underlying communication protocols.  {\tt Port}s can be connected on
-an individual basis or as topic-based groups.  The same message may be
-sent simultaneously across multiple connections using distinct
-protocols.  This can require some fancy footwork by YARP, such as
+an individual basis or as topic-based groups.  A message from a single
+{\tt Port} may be sent simultaneously across multiple connections
+using distinct protocols.  {\tt Port}s can be connected to non-YARP
+network entities, such as IP cameras, web servers, or ROS nodes
+\cite{quigley2009ros}.
+All of this can require some fancy footwork by YARP, such as
 grouping multicast connections, or coordinating with a foreign
-middleware.  YARP has a similarly flexible device interface.  This
-flexibility means that individual YARP-using programs can be upgraded
+middleware.  YARP has a similarly flexible device interface.  
+Individual YARP-using programs can be upgraded
 over time to deal with changes in hardware or networking without
-touching user source code, and without having to change that program's
-peers at the same time.  Upgrades don't have to be ``big bang''
-events, but can be gradual since new and old interfaces/protocols can
-live side by side.
+touching user source code, and without needing to make a ``big bang''
+change of all programs at once.
 
-\section{Staying out of the build toolchain}
+
+\section{Stay out of my build}
 
 YARP was born in 2000 on an early humanoid robot (called Kismet)
 controlled by a set of Motorola 68332 processors, an Apple Mac, and a
 loose network of PCs running QNX, Linux, and Microsoft Windows
-\cite{metta06yarp}.  Communication on this robot was a cocktail
+\cite{metta06yarp}.  Communication on this robot was an ad-hoc
 mixture of dual-port RAM polling, QNX message passing, CORBA, and raw
 sockets.  From the beginning, YARP has been built with the implicit
 assumption that it is just one part of the users' environment.  So
 YARP restrains itself to behave like any other library, such as
-OpenCV, ODE, etc, rather than expect any special treatment.
+OpenCV, ODE, etc., rather than expecting any special treatment.
 
 But there's a good reason why most middleware are more than just
-regular libraries.  That reason is marshalling/demarshalling.  To send
+regular libraries: marshalling/demarshalling.  To send
 user data between programs, that data must be translated to and from
-how it is stored in memory to how it should be transmitted ``on the
+its format in memory to its format ``on the
 wire.''  It is commonplace to write a parser to convert a user's
 structure description into generated code for performing this
 conversion.
-
 YARP has historically skirted around this approach, for two main
 reasons.  First, it is invasive, since it insinuates the middleware
 into the user's build toolchain (imagine how that much fun trying to
 use {\it two} such middleware is).  Second, it can be inefficient,
-leading to copies being made of potentially large data structures
-(YARP goes to great lengths to make sure that large structures such
-as images get transmitted with zero extra copies made).
-
-So in YARP, marshalling/demarshalling for user classes
-is not automated.  This works
-just fine for streams of data (images, vectors, nested lists etc.)
-where users are likely to find built-in classes in YARP with
-marshalling already taken care of.  It is, however, somewhat tedious
-for RPC-style communication representing function call names,
-arguments, and replies.  As computer scientists, it is hard to
-resist ``fixing'' such tedium through automation, but the cost
-of the fix should be borne in mind.  A quote from a user:
+potentially leading to time wasted making copies of large data structures
+(YARP goes to great lengths to make sure that large structures such as
+images get transmitted with zero extra copies made).  As computer
+scientists, it is hard to resist adding automation for this, 
+but the cost of meeting that automation's requirements should be borne 
+in mind.  A quote from a user:
 
 \begin{quote}
 ``Compared to, e.g., CAVIAR and Psyclone, YARP
@@ -132,49 +125,36 @@ networking. That may be its very strength.'' \cite{stefansson09yarp}
 
 \section{The {\tt telnet} test}
 
-The TELNET test is this: can a user monitor and insert traffic on a
-YARP network using just a {\tt telnet} client?  The {\tt telnet}
-program can more or less open raw TCP sessions, and is commonly used
-to manually send messages to servers speaking SMTP, HTTP, IRC etc.
-The key point of this test is to see if YARP-based programs are
-inherently easy or hard to communicate with across the network,
-without the use of the YARP libraries or programs.  This is an
-important question for interoperation.
-
-For us, this test has evolved out of past frustration with other
+We've found that a useful way to evaluate a middleware is
+this: can a user monitor and insert traffic between programs using just a
+{\tt telnet} client?  The {\tt telnet} program can open (more or less)
+raw TCP sessions, and is commonly used to manually send messages to
+servers speaking SMTP, HTTP, IRC etc.  
+We started applying the {\tt telnet} test to YARP out of past frustration with other
 middleware, where simply passing a few numbers to a collaborator's
-program can require jumping through a dozen hoops.  We therefore
-(following the ``golden rule'') try to make it really easy for others
+program required jumping through a dozen hoops.  We therefore
+(following the ``golden rule'') make it easy for others
 to send a few numbers to a YARP-based program without having to dig
 through protocol specifications, or link against our libraries, or use
-our build machinery~-- all of which can be much more expensive in
-developer time than one might think, given the variety of languages,
-operating systems, development environments, and
-versions-of-everything in use.
-
-This is in some ways similar to Google's ``data liberation front.''
-This is a subproject to make sure that it is easy for users to copy
-all their data from a service in usable form, and migrate to a
-non-Google service.  Having such 
-a project is a way to keep themselves honest, and avoid the 
-temptation of using control of data as a way to lock people in to
-using their services.
+our build machinery~-- all of which can be a time-sink.
+This is similar to Google's ``data liberation front,''
+a subproject to ensure that it is easy for users to migrate
+their data from a service, avoiding
+lock-in.
 
 A YARP network is designed to be usable without YARP.  This doesn't
 happen by accident.  
-One important design property is that YARP
-connections can be initiated by either the ``sender'' or ``receiver,''
-since the logical flow of data can be freely reversed.  This is
+For example, we took care that YARP
+connections could be initiated by either the ``sender'' or ``receiver,''
+with the logical flow of data being freely reversable.  This is
 important for supporting a wide range of protocols, which may be {\it
-  pull} or {\it push} in nature, but it is also key to making
-connecting to YARP programs without using the YARP libraries easy.
-With other middleware, you can get stuck having to make a server for
-at least one of the directions of data flow.
-
+  pull} or {\it push} in nature, but it is also means a foreign
+program can both send input to and read from a YARP program without
+getting stuck writing a server for at least
+one of the directions of data flow.
 Examples of making YARP connections without using the YARP libraries are
-available in C, Python, and Tcl.
-
-\noindent Users value the interoperability that YARP provides:
+available in C, Python, and Tcl, and of course for {\tt telnet}.
+Users seem to value the interoperability that YARP provides:
 
 \begin{quote}
 ``YARP was chosen as the communication library with
@@ -186,238 +166,38 @@ developed without using MeRMaID.'' \cite{barbosa09mermaid}
 
 \section{Conclusions}
 
-YARP has historically been used on high-end humanoids with lots of
-resources, but our users report it also works fine on embedded
-systems.  YARP is portable, serving an interdisciplinary community.
-It has a flexible and open model of connections that has stood the
-test of time.  It passes the ``telnet test,'' a property of most 
-successful network protocols and formats.  It places no constraints
-on the user's build system (though we are big fans of CMake).
-
-Why would anyone not use YARP?  A full native implementation of YARP
-exists only in C++; we rely on SWIG for wrappers in other languages.
+Why {\it not} use YARP?  
 YARP's commitment to portability slows its growth, since taking on any
-new dependency is complicated.  Lack of an interface definition
+new dependency is complicated.  
+A full native implementation of YARP
+exists only in C++; we rely on SWIG for wrappers in other languages.
+Lack of an interface definition
 language (IDL) and associated code generation can lead to some tedium
-implementing classic RPC-style code. Since YARP supports a wide range
-of protocols, it needs a central name server to do match-making, and
-this can be unnatural for certain applications (such as modular
-robotics, where there is no clear hub). The LGPL license that YARP is
-under is considered commercial-use friendly, but still could
+implementing classic RPC-style code. YARP currently uses
+a central name server to do match-making, which can be 
+problematic for applications such as modular
+robotics where there is no clear central hub\footnote{{\tt LCM}
+\cite{huang2010lcm} has an interesting
+solution to this: it commits to UDP multicast for all messages,
+with broadcast messages filtered by clients; in this case, 
+a central name server is not needed, reducing a point of
+failure.}.
+The LGPL license that YARP is
+under is commercial-use friendly, but still could
 complicate certain proprietary uses of the library.
 
-The {\tt roscore} middleware \cite{quigley2009ros} is an
-interesting alternative to YARP.  
-It is part of the integrated ROS ``Robot Operating
-System.''  ROS developers clearly understand in principle the
-importance of having a thin middleware, but in practice seem to have
-produced a rather tightly-coupled architecture.  This is good in that
-it gets a lot closer to a complete solution for robot software than
-anyone else has achieved.  It is bad in that it seems likely to create
-a lot of re-writing churn in user code over the coming years, as
-environments and assumptions change.
-
-The {\tt LCM} middleware \cite{huang2010lcm} is a more compelling
-alternative to YARP.  It commits to UDP multicast for all messages,
-with broadcast messages filtered by clients.  Once that commitment is
-made, a central name server is no longer needed, reducing a point of
-failure.
+Why use YARP?  If you're looking for something portable, light-weight,
+and flexible, then YARP is it.  YARP serves a truly diverse,
+interdisciplinary community.  While YARP grew up on
+high-end humanoids with lots of resources, it works fine on embedded
+systems.  It has a flexible and open model of connections that has
+stood the test of time.  It places no constraints on the user's build
+system (though we are big fans of CMake).  And it passes the ``{\tt
+  telnet} test,'' a property of just about
+every successful, durable network protocol or
+format.
 
 \bibliography{yarp}
 \bibliographystyle{aaai}
-
-\clearpage
-\newpage
-
-
-\section{Known carriers}
-
-
-
-\begin{tabular}{|l|p{7cm}|}
-\hline
-\multicolumn{2}{|c|}{YARP carriers} \\
-\hline
-tcp & Regular tcp \\
-fast\_tcp & Variant that drops flow control \\
-udp & UDP \\
-http & Basic web interface \\
-mcast & Multicast - avoid repeating the same data going
-to many clients ``on the wire''  \\
-local & local \\
-mpi & delegate to MPI (Daniel Krieg) \\
-xmlrpc & translate messages into XML/RPC compatible form \\
-tcpros & interoperate with ROS publisher/subscribers \\
-mjpeg & receive/transmit images in mjpeg-over-http format \\
-text & send messages in human readable plain text form \\
-shmem & use shared memory \\
-\hline
-\end{tabular}
-
-Similarly, many devices.
-
-
-\section{YARP plus/minus}
-
-
-\section{Robot evolution}
-
-Robot technology and information technology in general is a
-fast-moving target.  With YARP, we've taken the following steps to
-help our users lead:
-
-\begin{itemize}
-
-\item YARP's implementations of different connection types, called
-carriers, are designed as replaceable plugins.  New network types can
-be accommodated through new carriers.  New versions of a particular
-carrier can be evolved over time, and co-exist with older versions,
-without sudden breaks of backwards compatibility.  Interoperation
-with other middleware or data sources/sinks can be systematically
-added.
-
-\item YARP strongly encourages users to access devices via sets of
-interfaces that allow for similar evolution.
-
-\item We rely on carefully chosen dependencies, namely ACE and CMake,
-to help us keep up with churn in operating system releases, IDEs, and
-other parts of our users' toolchains.
-
-\end{itemize}
-
-\section{Scrap}
-
-
-Ideally, users of robot middleware would cleanly separate out their
-algorithmic work from the messy plumbing associated with particular
-robot setups.  But in practice, it is quite uncommon for users to do
-this, and it causes problems later as setups change or they try to
-collaborate with others.  YARP tries to save users from themselves
-by reducing the problems it causes.  Specifically:
-
-\begin{itemize}
-
-\item No constraint on future OS and IDE.
-
-\item LPGL licensing.  Not complete freedom, but not bad.
-
-\item A collaborator need not be using YARP.  It is practical to
-communicate with a YARP-using program without using YARP.
-
-\item If a collaborator is willing to link extra libraries in their
-programs, they can use YARP without disturbing their existing
-middleware.
-
-\end{itemize}
-
-It is easy to interoperate with YARP-using programs
-without yourself necessarily having to use YARP. 
-YARP is written in C++, with a core that uses
-no external libraries, not even the standard template libraries, with
-the exception of a small portion of ACE for portability (and this
-portion can easily be embedded). YARP is free and open.  The
-core YARP libraries are released under the LGPLv2.1.
-
-
-\section{Acing TELNET}
-
-Some keys to acing the TELNET test:
-
-\begin{itemize}
-
-\item TCP connections should be supported.  
-  This is true of most middleware operating on regular
-  networks. Some just support UDP, so this test doesn't
-  make sense for them.
-
-\item The basic communication model shouldn't stray too far from the
-  notion of making ``connections'' to a named destination.
-
-\item The direction in which a connection is initiated shouldn't
-  determine the direction of data flow.
-
-\item Human readable/writable.
-
-\end{itemize}
-
-
-
-
-\section{The origin of YARP}
-
-
-YARP worked very well on QNX, and decently on Linux.  For Microsoft
-Windows, Macs, and other platforms an important development in YARP's
-history was to take on a dependency on the ACE library [ref].  This
-happened around 2003, with the immediate goal of simplifying the
-addition of multicast support.  ACE has proven its worth to us many
-times over for cross-platform networking, although we needed
-to carefully keep any reference to ACE out of public header files
-in order to avoid inheriting some of its less desirable properties
-(a somewhat unstable API, and constraints on header file inclusion
-order).
-
-When YARP grew an image processing library, care was taken to make the
-data structures compatible with the IPL library (a non-free image
-processing library from Intel).  IPL became the seed for OpenCV, which
-also remained compatible with IPL. YARP has therefore somewhat
-accidentally played nicely with OpenCV, which has grown to be a very
-popular library, from the start.
-
-YARP developers were early and enthusiastic adopters of CMake
-\cite{fitzpatrick10cmaking}.  In 2006, we happily dumped
-earlier custom build scripts in favor of CMake project descriptions,
-and never looked back.  CMake was this missing piece for having a
-truly comfortable cross-platform experience.
-
-About the same time, we started using SWIG [ref] to support languages
-other than C++.
-
-Use of CMake and SWIG has become common in open source libraries.
-The help users exploit software on many operating systems and 
-languages.  By keeping YARP as ``just a library,'' there is no
-obstacle to doing the same with YARP.  But since YARP facilitates
-intercommunication, this has the powerful effect of allowing 
-programs written in all these environments to communicate with
-each other, and easily.
-
-
-
-\section{Building on YARP}
-
-Others have built on YARP.
-
-
-For YARP, we try to make it easy to users to redirect data streams to
-non-YARP based programs.  This lowers the cost of ``boundary
-problems'' such as hooking up an unsupported device, computer,
-network, or collaboration between people from different planets
-(e.g. computer science versus developmental psychology versus
-neuroscience).
-
-The protocol used for a YARP connection is decided at connection-time.
-The initiator of the connection is free to choose from a wide set of
-protocols, and so can optimize for simplicity (using a plain text
-protocol), speed (udp), scalability (multicast), etc.
-
-A YARP protocol need not be specific to YARP.  For example, YARP
-supports mjpeg-over-http.  This means that a YARP image source can be
-viewed directly from a browser without bridging, or a YARP image sink
-can receive data directly from a jpeg-streaming IP camera without
-bridging.  YARP also supports XML/RPC, so can connect to certain
-websites (or act as a webserver).
-
-YARP connections can be initiated by either the "sender" or
-"receiver", since the logical flow of data can be freely reversed.
-This is important for supporting a wide range of protocols, which may
-be "pull" or "push" in nature.  It also makes connecting to YARP
-programs without using the YARP libraries even easier.  With other
-middleware, you get stuck having to make a server for at least one of
-the directions of data flow.
-
-A YARP network is designed to be usable without YARP.  Examples of
-making YARP connections without using the YARP library are available
-in C and Python.
-
 
 \end{document}
