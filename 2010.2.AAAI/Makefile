@@ -1,9 +1,9 @@
 default:
-	pdflatex yarp.tex && xpdf yarp.pdf
+	latex yarp.tex && xdvi yarp.dvi
 
 bib:
-	pdflatex yarp
+	latex yarp
 	bibtex yarp
-	pdflatex yarp
+	latex yarp
 	bibtex yarp
-	pdflatex yarp
+	latex yarp
