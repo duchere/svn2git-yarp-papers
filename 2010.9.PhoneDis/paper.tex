@@ -1,0 +1,193 @@
+% The use of phonetic motor invariants can improve automatic phoneme discrimination
+% Castellini, Metta, Fadiga, Badino
+% submitted to PNAS
+
+\documentclass{pnastwo}
+
+% ---------------------------------- bookkeeping
+
+% remove for submission
+\usepackage[dvips]{graphicx}
+
+%\usepackage{pnastwoF}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\newcommand{\lio}{\textsf{lio}}
+\newcommand{\ttu}{\textsf{ttu}}
+\newcommand{\vlio}{\textsf{vlio}}
+\newcommand{\vttu}{\textsf{vttu}}
+\newcommand{\alio}{\textsf{alio}}
+\newcommand{\attu}{\textsf{attu}}
+
+\newcommand{\overall}{\emph{overall}}
+\newcommand{\spka}{\emph{spk5vs1}}
+\newcommand{\spkb}{\emph{spk3vs3}}
+\newcommand{\spkc}{\emph{spk1vs5}}
+\newcommand{\coa}{\emph{coart4vs1}}
+\newcommand{\cob}{\emph{coart3vs2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Don't type in anything in the following section:
+%%%%%%%%%%%%
+%% For PNAS Only:
+\contributor{Submitted to Proceedings
+of the National Academy of Sciences of the United States of America}
+\url{www.pnas.org/cgi/doi/10.1073/pnas.0709640104}
+\copyrightyear{2008}
+\issuedate{Issue Date}
+\volume{Volume}
+\issuenumber{Issue Number}
+%%%%%%%%%%%%
+
+\begin{document}
+
+% ---------------------------------- frontmatter
+
+\title{The use of phonetic motor invariants\\
+can improve automatic phoneme discrimination}
+
+\author{
+Claudio Castellini\affil{1}{LIRA-Lab, University of Genova, Italy},
+%\affil{6}{Now at the German Aerospace Research Center, Oberpfaffenhofen, Germany},
+Leonardo Badino\affil{2}{Italian Institute of Technology, Genova, Italy},
+Giorgio Metta\affil{1}{}\affil{2}{},
+Giulio Sandini\affil{1}{}\affil{2}{},
+Michele Tavella\affil{1}{},
+Mirko Grimaldi\affil{5}{CRIL, Salento University, Italy} and
+Luciano Fadiga\affil{4}{DSBTA, University of Ferrara, Italy}
+}
+
+\contributor{Submitted to Proceedings of the National Academy of Sciences
+of the United States of America}
+
+\maketitle
+
+\begin{article}
+
+\begin{abstract}
+
+  We hereby investigate the use of phonetic motor invariants (MIs),
+  that is, recurring kinematic patterns of the human phonetic articulators,
+  to improve automatic phoneme discrimination. Using a multi-subject
+  database of synchronized speech and lips/tongue trajectories, we first
+  identify MIs commonly associated with bilabial and dental consonants,
+  and use them to simultaneously segment speech and motor signals.
+  We then build a simple neural network-based regression schema (an Audio-Motor
+  Map, AMM) mapping audio features of these segments to the corresponding
+  MIs.
+  
+  Extensive experimental results show that
+  $(a)$ a small set of features extracted from the MIs, as originally gathered from
+    articulatory sensors, are dramatically more effective than a large, state-of-the-art
+    set of audio features, in automatically discriminating bilabials from dentals;
+  $(b)$ the same features, extracted from AMM-reconstructed MIs, are as effective as
+  or better than the audio features, when testing across speakers and coarticulating phonemes;
+    and dramatically better as noise is added to the speech signal.
+  
+  These results support some of the claims of the motor theory of speech perception
+  and add experimental evidence of the actual usefulness of MIs in the more general
+  framework of automated speech recognition.
+  
+\end{abstract}
+
+\keywords{motor theory of speech | machine learning | phoneme discrimination | speech recognition}
+
+% ---------------------------------- the paper
+
+\input{10.intro}
+\input{20.dataset}
+\input{30.rec}
+\input{40.class}
+\input{60.disc}
+
+\begin{acknowledgments}
+  This work is supported by the EU-funded projects
+  Contact (NEST 5010) and Poeticon (ICT-FP7-215843).
+\end{acknowledgments}
+
+% ---------------------------------- refs
+
+% for the submission: comment out the line below, and then include the .bbl
+\bibliographystyle{plain} \bibliography{paper}
+%\begin{thebibliography}
+%...
+%\end{thebibliography}
+
+\end{article}
+
+% ---------------------------------- figures & tables
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/samples}}
+  \caption{The speech signal and motor trajectories of lips opening
+    velocity (\vlio) and acceleration (\alio) during utterances containing /b/.
+    Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
+    The gray zone denotes the detected start and ending of the plosion. All signals
+    are normalised over the indicated time frame, for visualisation purposes.}
+  \label{fig:isdView}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/audio2motor}}
+  \caption{From speech signal to reconstructed motor information. To reconstruct
+    a single sample of \vlio, \alio, \vttu\ and \attu\ at time $t_i$ the
+    spectrogram of nineteen $20$-millisecond long Hamming windows is evaluated.
+    One window is centered at time $t_i$, $9$ windows precede it
+    and $9$ windows follow it. Each window overlaps by $10$ milliseconds
+    with the preceding window. The spectrogram is computed by using a
+    $20$-filter Mel-scale filterbank.}
+  \label{fig:amm}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/AMM}}
+  \caption{Quantitative performance of the AMM. For each cross-validation schema (overall, etc.)
+    and output signal (\vlio, etc.) the NRMSE average value and standard error of the mean
+    are reported.}
+  \label{fig:amm_perf}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/recMIs}}
+  \caption{Real and AMM-reconstructed \vlio\ and \vttu\ for subject $6$ uttering
+    the /t/ in \emph{accento?} (accent). Notice the apparent gap in the quality
+    of the reconstruction, favouring in this case the labiodental trajectory (\vttu).}
+  \label{fig:example}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/doubleDiss}}
+  \caption{Double dissociation of correlation between real and AMM-reconstructed MI
+    (mean and standard error of the mean). Mean coefficients are significantly
+    higher for \vlio\ when ``listening'' to labials than dentals and vice-versa.
+    The \overall\ CV schema is used.}
+  \label{fig:DD}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/exp1}}
+  \caption{Balanced error rate in classification of bilabials and dentals obtained
+    in the \overall\ CV schema, using audio features, real motor features,
+    motor features reconstructed by the AMM, and by joining the audio and
+    reconstructed-motor models.}
+  \label{fig:class1_perf}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/exp2}}
+  \caption{Balanced error rate in classification of bilabials and dentals for each
+    CV schema, using the four sets of features of Figure \ref{fig:class1_perf}.}
+  \label{fig:class2_perf}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[width=\textwidth]{figs/exp3}}
+  \caption{Balanced error rate in classification of bilabials and dentals for the
+    \overall\ CV schema as noise is added, using the sets of features of Figure
+    \ref{fig:class1_perf}.}
+  \label{fig:class3_perf}
+\end{figure*}
+
+\end{document}

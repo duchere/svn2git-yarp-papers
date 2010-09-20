@@ -1,0 +1,129 @@
+\section{Phoneme discrimination}
+\label{sec:class}
+
+\subsection{Experiment 1}
+\label{subsec:exp1}
+
+In the first experiment the performance of a standard classifier is evaluated
+according to the \overall\ CV schema using four different sets of features as
+input. Figure \ref{fig:class1_perf} shows the results. The balanced error rate
+is shown as a comparative measure of performance. (This error rate is defined in
+our case as the average of the ratios of correctly guessed bilabials and dentals.
+With respect to the more popular standard error rate, i.e., the overall ratio of correctly
+guessed labels, it has the advantage of favouring models which can correctly guess
+\emph{both} the bilabials and the dentals.)
+
+``Audio'' is a set of $390$ cepstral coefficients extracted from the audio signal
+as follows. We consider a set of $25$-milliseconds long ``time slices'' of the signal.
+From each slice $13$ cepstral coefficients, plus their first- and second-order derivatives,
+are evaluated using a Mel-scale filterbank comprising $29$ filters in the bandwidth from
+$20$Hz to $2$KHz; this results in $39$ coefficients for each slice. This is a state-of-the-art
+set of features according to recent literature \cite{bourl,pinto:icassp-phnrecog:2008}
+in which the single slices are classified as belonging to a phoneme or another with a certain
+probability, and then a time-sequence probabilistic method (typically, a Hidden Markov Model)
+is used. In our case, a whole variable-length sequence must be classified, so we consider
+$10$ slices uniformly distributed across the sequence itself in order to cover it completely.
+In case the sequence is shorter than $250$ milliseconds, the slices are allowed to overlap,
+whereas in the opposite case there are gaps between them.
+
+``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
+signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares piecewise
+Hermite cubic interpolation is generated over the sequence. This results in $4$ real
+numbers per signal (constant, I-, II- and III-order coefficient of the cubic
+interpolant). The choice of interpolating the signal trajectories is motivated by
+the need to capture the qualitative (plosive, in this case) behaviour of the sensors
+abstracting away from, e.g., the length of the plosion, and to compactly represent it.
+Preliminary manual inspection of the trajectories has convinced us that a cubic fit
+would adequately capture their shapes.
+
+``Reconstructed motor'' refers to the same procedure as above, but applied
+to the AMM-reconstructed signal curves.
+
+Lastly, ``Joint'' denotes a decision procedure obtained by averaging out the
+label probabilities obtained from the best classifiers for the audio and
+reconstructed motor features, and then using a threshold at $0.5$.
+
+The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
+and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
+by subtracting the mean values and dividing by the standard deviations,
+dimension-wise, in the real motor and reconstructed motor cases, while
+no normalisation is applied to the audio features. The off-the-shelf SVM
+package \emph{libsvm} \cite{libsvm} has been used.
+
+The error rates obtained are, in turn,
+$5.73\% \pm 0.74\%$ (mean $\pm$ one standard error of the mean),
+$0.97\% \pm 0.36\%$,
+$7.75\% \pm 0.48\%$ and
+$4.03\% \pm 0.46\%$. Student's two-tailed t-test shows $p<0.01$ between real motor features
+and all the others, while in all other cases $p$ denotes weak statistical difference (e.g.,
+$p=0.057$ between audio and joint features). Together with the error rate values, this lets
+us claim that there is a marginal advantage in using joint features
+over audio only, but that a large and evident advantage is found using the real motor features
+over all the others.
+
+\subsection{Experiment 2}
+\label{subsec:exp2}
+
+Experiment 2 replicates Experiment 1 using the remaining CV schemas.
+Figure \ref{fig:class2_perf} shows the results. (For comparison,
+the figure also shows in the first column the accuracies obtained for
+Experiment $1$.)
+
+Consider the per-speaker schemas, i.e., \spka, \spkb\ and \spkc. The real motor
+features are, again, strikingly (and significantly, $p<0.01$) better than all others,
+with increasing error rates of
+$1.65\% \pm 0.49\%$,
+$2.62\% \pm 0.26\%$ and
+$7.27\% \pm 1.32\%$ for \spka, \spkb\ and \spkc\ in turn. Increasing (and larger) error
+rates are found when using audio and reconstructed motor features in all schemas, with
+no significant statistical difference. Significantly different performances are obtained
+with the joint features in the \spkb\ and \spkc\ schemas ($p<0.01$ with error rates, in turn,
+of $7.8\% \pm 0.41\%$ and $12.24\% \pm 0.79\%$).
+
+In the per-coarticulation cases, the error rate is generally high (between $32\%$ and $38\%$
+where chance level is $50\%$). It is statistically similar ($p>0.05$) among audio, reconstructed
+motor and joint features in the \coa schema, whereas in the \cob schema there are significant 
+differences ($p<0.05$) between audio and joint features, and audio and reconstructed motor features.
+The real motor features, again, perform dramatically better
+($6.41\% \pm 1.19\%$ and $6.37\% \pm 0.99\%$ for \coa\ and \cob\ respectively).
+
+In general, it is when the classification task becomes more difficult (i.e., decreased speech variability in the 
+ training data and increased speech variability in the testing data) that the reconstructed motor features 
+lead to significant improvements, either when combined with the audio features (as in the \spkb\ and \spkc\ 
+schemas) or alone (as in the \cob\ schema).
+
+\subsection{Experiment 3}
+\label{subsec:exp3}
+
+Lastly, in Experiment 3 the comparison among feature sets is evaluated with the
+overall CV schema (which gives the best results in Experiment 2), as white noise is added
+to the audio signal. The intensity of noise is changed from $10\%$ to $150\%$ of
+the standard deviation of each utterance considered; for each sequence, $10$ noisy
+ones are generated, in order to obtain a larger statistical basis.
+Figure \ref{fig:class3_perf} shows the results.
+
+The real motor features, not affected by noise, are shown as comparison, and stay at
+the above mentioned error rate (see Experiment 1) of $0.97\%$. The error rate of the
+other sets of features, when noise is at $10\%$, is only slightly worse than that of
+Experiment 1 (the same case with no noise): namely,
+$7.49\% \pm 0.25\%$, 
+$5.84\% \pm 0.19\%$ and 
+$4.95\% \pm 0.16\%$ for audio, reconstructed motor and joint features in turn.
+As the level of noise is increased though, the audio features' error rate
+increases superlinearly until it reaches about $45\%$ when the noise is at $70\%$
+level, going then asymptotically to chance level. As opposed to that, the reconstructed
+motor features exhibit a much higher resilience to noise, increasing the error rate
+only linearly and reaching, e.g., $19.23\% \pm 0.41\%$ when the noise is at $70\%$.
+At the maximum level of noise, $150\%$, the reconstructed motor features still keep
+the error rate at $32.3\% \pm 0.61\%$ while the audio features essentially reach chance
+level. Actually, we ourselves checked how some of the phones sound when the noise is
+so high, and found them rather hard to understand!
+
+Lastly, the joint features perform better (or as well as) the reconstructed motor features
+at low levels of noise (until $30\%$), while they then become less useful than the
+reconstructed motor alone. This is obviously due to the weak performance of the audio
+features.
+
+The t-test reveals statistically different mean error rates ($p<0.01$) for all levels of
+noise, except for reconstructed motor and joint when the noise is at $20\%$
+and $30\%$.

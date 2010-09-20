@@ -1,0 +1,79 @@
+\section{The Audio-Motor-Map}
+\label{sec:rec}
+
+\subsection{Training the AMM}
+\label{subsec:amm_setup}
+
+The procedure for building the AMM closely follows that outlined in previous
+literature \cite{papcun,richmond,richmond2007} where a multi-layer perceptron
+neural network was employed to reconstruct articulators' positions from an
+audio stream. More in detail, the speech spectrogram was there used to predict,
+instant by instant, the position of the articulators of interest. Here we apply
+a similar approach to reconstruct the velocity and accelerations of \lio\ and \ttu,
+in order to avoid as much as possible taking into account physical differences
+among subjects (e.g., the width of the mouth, etc.).
+
+For each of the $1157$ audio sequences, the spectrogram is evaluated
+over $20$-milliseconds long Hamming windows (slices), using a $20$-filter
+Mel-scale filterbank between $20$Hz and $2$KHz. Each slice overlaps by $10$ milliseconds with
+the preceding slice. Each single sample of \vlio, \alio, \vttu\ and \attu\ is
+then associated to $19$ surrounding spectrogram slices, covering
+about $200$ milliseconds of speech and centered around the sample itself. With this
+"sliding spectrogram window" method, the four trajectories are completely reconstructed.
+The Mel filters, the spectrogram and (later on) the cepstral coefficients of the audio
+signal are extracted using the off-the-shelf speech recognition Matlab package
+\emph{Voicebox} \cite{Brookes1997}.
+
+About $15000$ samples are extracted from the original $1157$
+audio/motor sequences; each input sample consists of $19\cdot 20 = 380$ real
+numbers, while the output space is given by the $4$ trajectory points of
+the motor signals (see figure \ref{fig:amm}).
+A feed-forward neural network is set up in order to
+build the AMM, with $380$ input units, one hidden layer with $15$ units and
+$4$ output units; the net is trained via the Scaled Conjugate Gradient
+Descent method \cite{MOLLER93} and the activation is a logistic sigmoidal function.
+
+Training is done via early stopping on the appropriate validation set (see the previous
+Section for the details about CV). This procedure is repeated over $10$ random restarts, and then
+the network with best average performance over the $4$ output dimensions is stored.
+The performance measure is Matlab's embedded mean-square-error with regularisation
+function, in which after some initial experiments we set the regularisation
+parameter at $0.714$. This value, as well as all other parameters, have been found in
+an initial experimentation phase, by slightly altering values suggested in literature
+and/or in the Matlab manual.
+
+No sample normalisation is performed, in order to preserve the time structure of the
+spectrogram windows. Targets are normalised in order to lie within the range $[0.1,0.9]$,
+since the logistic activation function has asymptotic values of $0$ and $1$.
+
+\subsection{Evaluating the AMM}
+\label{subsec:amm_results}
+
+Figure \ref{fig:amm_perf} shows a quantitative assessment of the performance
+of the AMM. The measure of performance is the NRMSE (Normalized Root Mean Square Error),
+where the normalisation is over the range of each testing data set. The NRMSE
+ranges from $16.17\% \pm 0.79\%$ (\vlio, \coa) to $8.22\% \pm 0.58\%$ (\vttu, \spkc).
+Regression upon \vlio\ shows the largest error overall. Moreover, the error is on average
+larger for the per-coarticulation CV schemas.
+
+Although these figures do not really indicate whether AMM-reconstructed MIs will be
+effective in phoneme discrimination, they show that the error rate in regression has
+limited magnitude and does not differ dramatically across CV schemas and output signals.
+Qualitative inspection of the results (one example is given in Figure \ref{fig:example})
+shows that the AMM-reconstructed motor signals are on average rather
+similar to the real ones, at least as far as the range of values is concerned.
+
+A definite trend is apparent, favouring the reconstruction of \vlio\ over \vttu\ when
+bilabials are presented to the AMM and vice-versa; the trend is numerically confirmed
+by checking the Pearson correlation coefficient between AMM-reconstructed and real MIs
+according to whether labials (/b/,/p/) or dentals (/d/,/t/) are presented as input
+to the AMM. As one can see in Figure \ref{fig:DD}, when the \overall\ CV schema is used,
+a ``double dissociation'' pattern appears when comparing the correlation coefficients of
+\vlio\ and \vttu\ AMM-reconstructed from labials or dentals
+($0.8869 \pm 0.0113$ versus $0.5523 \pm 0.0240$ with Student's t-test $p<0.01$ for \vlio, and
+ $0.9276 \pm 0.0096$ versus $0.3307 \pm 0.0278$, $p<0.01$, for \vttu).
+In other words, when the AMM
+``hears'' /b/ or /p/, it reconstruct effectively the trajectory of the lips, but less
+reliably that of the tongue tip; and dually, it reconstructs better the latter one when
+presented with /d/ or /t/. This pattern is repeated to an almost uniform extent when the
+other CV schemas are used, and also when \alio\ and \attu\ are checked.

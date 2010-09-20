@@ -1,0 +1,114 @@
+\section{Discussion}
+\label{sec:disc}
+
+\subsection{Do motor features help?}
+
+The experimental results presented in the previous Section clearly prove that,
+at least in the case here examined, and with the techniques here exploited,
+the answer to the question posed in the Introduction, ``can the use of MI-based
+features improve a phoneme classifier's performance?'' is positive.
+
+Overall, $16$ features extracted from motor invariants detected with an articulograph
+(what we have called real motor features) exhibit dramatically better error rates
+than $390$ state-of-the-art audio features in an automated discrimination task between
+two bilabial and two dental consonants. Since the discrimination is performed using an
+absolutely standard classifier (and, according to the literature, a good one), that is,
+a Support Vector Machine with Gaussian kernel whose hyperparameters are found via
+grid-search, this result should have a somehow more general validity than what is shown
+in this paper.
+
+The performance gap is apparent and statistically significant in all our experiments.
+It increases as the training sets are restricted, for example
+when per-subject (i.e., training on some subjects, testing on the others) or
+per-coarticulation (i.e., training on some coarticulating phonemes and testing on
+others) tests are conducted. This clearly indicates that MI-based features are
+somehow ``more invariant'' than audio-based ones across subjects and
+coarticulation --- a quantitative confirmation of a basic
+intuition, almost common-sensical: to produce, e.g., a bilabial, the act of
+the labial plosion is common to all human beings and is not affected by
+coarticulation. This is one more hint at the fact that the use of motor features
+could be a great leap forward in ASR.
+
+Now obviously, knowing that motor information is useful to improve ASR is just half
+of the issue, since the problem of \emph{gathering it} during speech recognition is
+still unexplored --- one cannot expect the standard user of an ASR system to wear
+an articulograph while, e.g., dictating. Here the MTS and the theory of mirror neurons
+inspire us to build an AMM, that is, to try and reconstruct the distal speech acts from
+the audio signal alone. All in all, not even humans have access to the distal speaker's
+motor data, and recent studies, among which D'Ausilio et al.'s \cite{dausilio}, indicate
+that they might be reconstructing it while hearing the sound of speech; and that this
+mechanism is activated mainly in hostile conditions (e.g., in the presence of noise).
+
+Our Audio-Motor-Map, this one too built using a standard machine learning
+method (namely, a feed-forward neural network), is able to reconstruct the MIs
+to such a degree of precision that the same $16$ motor features, extracted from these
+reconstructed trajectories, exhibit comparable or better error rates than  
+those found with the audio features when the training sets are restricted (Experiments 1 and 2);
+ and they boost a largely and significantly \emph{better} performance then the audio ones, as
+noise is added to the audio signal (Experiment 3). This latter result seems to be
+somehow in agreement with what D'Ausilio et al. have found using TMS on humans.
+
+Note that in the most critical cases (i.e., when the training data sets are extremely restricted) of Experiments 1 and 2
+the reconstructed motor features outperform the audio features. These results and the results of Experiment 3
+suggest that when the difficulty of the classification task increases (because of a reduction of speech 
+variability in the training data and/or of an increased variability in the testing data) the reconstructed 
+motor features become more and more useful for the task.
+
+Lastly, when audio and reconstructed motor features are joined using a simple probabilistic schema, the error rates
+are sometimes significantly better than when the feature sets are used independently.
+When one set of features is obviously far worse than the other, such a joint model performs in-between (e.g., consider
+Experiment 3 when noise is higher than $50\%$); a more interesting case is that
+found in Experiment 2, CV schemas \spkb\ and \spkc, where no clear advantage is seen
+when using either the audio or the reconstructed motor features alone, while
+the joint models perform significantly better. This means that the MI-based models are
+correctly classifying with high probability some consonants that the audio-based models
+moderately misclassify; and vice-versa. Sometimes the audio features help, sometimes the
+MI-based features do.
+
+This indicates that motor features, even when the audio signal is the only source of
+information available (a realistic scenario) can improve the discrimination of phonemes.
+
+\subsection{Further remarks}
+
+The experiments presented in this paper are inspired by the intuition that the
+proficiency of humans in speech recognition is grounded in the interaction
+between production and understanding of speech in the human brain. Alvin
+Liberman's motor theory of speech perception, although controversial and
+recently reviewed and revised \cite{liberman1,liberman2,galant,massaro},
+provides a theoretical framework to this intuition, which recent neurological
+evidence \cite{dausilio} supports even further; but we do not feel we are in
+the position of claiming that our results support the MTS. Clearly, more
+experiments are required, with larger data sets, e.g., more words, more subjects
+and more sensors.
+
+In this work, also a novel way of segmenting the speech signal is introduced.
+The traditional equal-length segmentation, carried out using acoustic properties
+only, has strong limitations mainly due to intra-speaker speech variability and
+to coarticulation. Here we propose to segment the audio signal using the articulators'
+trajectories to detect the beginning and end of phonemes. The choice of the articulators
+and the conditions on the trajectories are established according to basic rules of
+the phonetic production; for example, /b/s are identified using the beginning and end of
+a bilabial plosion. With respect to the traditional speech segmentation, this approach
+focuses on the \emph{act} that produced the sound. To capture this act, we use the
+coefficients of a cubic fit of the motor trajectories, so to obtain a qualitative
+representation of it.
+
+About the AMM: from an information-theoretical point of view, AMM-reconstructed
+motor features do not carry more information than what already is in the speech signal.
+The AMM is a function, so one could see this technique as
+``just a better way of extracting ASR features from speech''.
+The main advantage in using it is that it is highly bio-inspired,
+having been trained to associated human speech data to motor data. The double dissociation
+observed in Figure \ref{fig:DD} reflects the rather predictable phenomenon
+that consonant-critical articulators exhibit less variance than non-critical ones (e.g.,
+when a /b/ uttered the labial trajectory is highly constrained, as opposed to the tongue-dental
+trajectory). This results in a better prediction of bilabial (dental) trajectories when the
+AMM is presented with a bilabial (dental) consonant.
+
+Lastly, notice that in Experiment 2 the AMM-reconstructed motor features perform, in general,
+as well as the audio features, while the real motor features are by far better. So, at first
+sight, one could be tempted to think that a better reconstruction should achieve better error
+rates, getting close to those of the real motor features;
+but on the other hand, the AMM uses the speech signal too, so it is not clear
+whether a much better reconstruction can be achieved in our case at all. A larger training
+database and more extensive experiments could shed light on this still open point.
