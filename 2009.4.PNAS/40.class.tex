@@ -1,40 +1,44 @@
 \section{Phoneme discrimination}
 \label{sec:class}
 
-\subsection{Experiment 1}
-\label{subsec:exp1}
+\subsection{Feature sets}
+\label{subsec:featset}
 
-In the first experiment the performance of a standard classifier is evaluated
-according to the \overall\ CV schema using four different sets of features as
-input. Figure \ref{fig:class1_perf} shows the results. The balanced error rate
-is shown as a comparative measure of performance. (This error rate is defined in
-our case as the average of the ratios of correctly guessed bilabials and dentals.
-With respect to the more popular standard error rate, i.e., the overall ratio of correctly
-guessed labels, it has the advantage of favouring models which can correctly guess
-\emph{both} the bilabials and the dentals.)
+In all the experiments we carried out four different feature sets were compared. 
 
-``Audio'' is a set of $390$ cepstral coefficients extracted from the audio signal
-as follows. We consider a set of $25$-milliseconds long ``time slices'' of the signal.
-From each slice $13$ cepstral coefficients, plus their first- and second-order derivatives,
-are evaluated using a Mel-scale filterbank comprising $29$ filters in the bandwidth from
-$20$Hz to $2$KHz; this results in $39$ coefficients for each slice. This is a state-of-the-art
-set of features according to recent literature \cite{bourl,pinto:icassp-phnrecog:2008}
-in which the single slices are classified as belonging to a phoneme or another with a certain
-probability, and then a time-sequence probabilistic method (typically, a Hidden Markov Model)
-is used. In our case, a whole variable-length sequence must be classified, so we consider
-$10$ slices uniformly distributed across the sequence itself in order to cover it completely.
-In case the sequence is shorter than $250$ milliseconds, the slices are allowed to overlap,
-whereas in the opposite case there are gaps between them.
+"Audio" is a set of $10$ vectors of $13$ cepstral coefficients plus their first- 
+and second-order derivatives. Each vector is computed on $25$-milliseconds long 
+``time slices'' of the signal. When the sequence is shorter than $25*10=250$ milliseconds
+ the time slices overlap, whereas in the opposite case there are gaps between them (see SI Text).
+
+%``Audio'' is a set of $390$ cepstral coefficients extracted from the audio signal
+%as follows. We consider a set of $25$-milliseconds long ``time slices'' of the signal.
+%From each slice $13$ cepstral coefficients, plus their first- and second-order derivatives,
+%are evaluated using a Mel-scale filterbank comprising $29$ filters in the bandwidth from
+%$20$Hz to $2$KHz; this results in $39$ coefficients for each slice. This is a state-of-the-art
+%set of features according to recent literature \cite{bourl,pinto:icassp-phnrecog:2008}
+%in which the single slices are classified as belonging to a phoneme or another with a certain
+%probability, and then a time-sequence probabilistic method (typically, a Hidden Markov Model)
+%is used. In our case, a whole variable-length sequence must be classified, so we consider
+%$10$ slices uniformly distributed across the sequence itself in order to cover it completely.
+%In case the sequence is shorter than $250$ milliseconds, the slices are allowed to overlap,
+%whereas in the opposite case there are gaps between them.
 
 ``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
-signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares piecewise
-Hermite cubic interpolation is generated over the sequence. This results in $4$ real
-numbers per signal (constant, I-, II- and III-order coefficient of the cubic
-interpolant). The choice of interpolating the signal trajectories is motivated by
-the need to capture the qualitative (plosive, in this case) behaviour of the sensors
-abstracting away from, e.g., the length of the plosion, and to compactly represent it.
-Preliminary manual inspection of the trajectories has convinced us that a cubic fit
-would adequately capture their shapes.
+signal considered (\vlio, \alio, \vttu\ and \attu), a cubic interpolation is generated over 
+the sequence and the $4$ coefficients of the cubic interpolant (constant, I-, II- and III-order 
+coefficient) are taken. This choice is motivated by the need to capture a qualitative and compact
+description of behaviour of the articulators (see SI Text).
+
+%``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
+%signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares piecewise
+%Hermite cubic interpolation is generated over the sequence. This results in $4$ real
+%numbers per signal (constant, I-, II- and III-order coefficient of the cubic
+%interpolant). The choice of interpolating the signal trajectories is motivated by
+%the need to capture the qualitative (plosive, in this case) behaviour of the sensors
+%abstracting away from, e.g., the length of the plosion, and to compactly represent it.
+%Preliminary manual inspection of the trajectories has convinced us that a cubic fit
+%would adequately capture their shapes.
 
 ``Reconstructed motor'' refers to the same procedure as above, but applied
 to the AMM-reconstructed signal curves.
@@ -43,12 +47,35 @@ Lastly, ``Joint'' denotes a decision procedure obtained by averaging out the
 label probabilities obtained from the best classifiers for the audio and
 reconstructed motor features, and then using a threshold at $0.5$.
 
-The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
-and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
-by subtracting the mean values and dividing by the standard deviations,
-dimension-wise, in the real motor and reconstructed motor cases, while
-no normalisation is applied to the audio features. The off-the-shelf SVM
-package \emph{libsvm} \cite{libsvm} has been used.
+%The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
+%and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
+%by subtracting the mean values and dividing by the standard deviations,
+%dimension-wise, in the real motor and reconstructed motor cases, while
+%no normalisation is applied to the audio features. The off-the-shelf SVM
+%package \emph{libsvm} \cite{libsvm} has been used.
+
+\subsection{Experiment 1}
+\label{subsec:exp1}
+
+The classifiers used in all three experiments are Support Vector Machine-based classifiers 
+\cite{BGV92} (see SI Text).
+
+In the first experiment the performance of the phone classifiers is evaluated
+according to the \overall\ CV schema using four different sets of features as
+input. Figure \ref{fig:class2_perf} (leftmost column) shows the results. The balanced error rate
+is shown as a comparative measure of performance. (This error rate is defined in
+our case as the average of the ratios of correctly guessed bilabials and dentals.
+With respect to the more popular standard error rate, i.e., the overall ratio of correctly
+guessed labels, it has the advantage of favouring models which can correctly guess
+\emph{both} the bilabials and the dentals.)
+
+
+%The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
+%and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
+%by subtracting the mean values and dividing by the standard deviations,
+%dimension-wise, in the real motor and reconstructed motor cases, while
+%no normalisation is applied to the audio features. The off-the-shelf SVM
+%package \emph{libsvm} \cite{libsvm} has been used.
 
 The error rates obtained are, in turn,
 $5.73\% \pm 0.74\%$ (mean $\pm$ one standard error of the mean),
@@ -65,9 +92,10 @@ over all the others.
 \label{subsec:exp2}
 
 Experiment 2 replicates Experiment 1 using the remaining CV schemas.
-Figure \ref{fig:class2_perf} shows the results. (For comparison,
-the figure also shows in the first column the accuracies obtained for
-Experiment $1$.)
+Figure \ref{fig:class2_perf} (from column \spka to column \cob) shows the results.
+ %(For comparison,
+%the figure also shows in the first column the accuracies obtained for
+%Experiment $1$.)
 
 Consider the per-speaker schemas, i.e., \spka, \spkb\ and \spkc. The real motor
 features are, again, strikingly (and significantly, $p<0.01$) better than all others,
@@ -96,7 +124,7 @@ schemas) or alone (as in the \cob\ schema).
 \label{subsec:exp3}
 
 Lastly, in Experiment 3 the comparison among feature sets is evaluated with the
-overall CV schema (which gives the best results in Experiment 2), as white noise is added
+\emph{overall} CV schema (which gives the best results in Experiment 2), as white noise is added
 to the audio signal. The intensity of noise is changed from $10\%$ to $150\%$ of
 the standard deviation of each utterance considered; for each sequence, $10$ noisy
 ones are generated, in order to obtain a larger statistical basis.
