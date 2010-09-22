@@ -120,6 +120,9 @@ sequence is a correct guess or it is a false positive (see SI Text).
 
 As is standard practice in machine learning, the obtained dataset was divided into
 splits to perform cross-validation (CV). 
+Six CV schemas were devised in order to assess the overall accuracy of the phone classifier and its
+sensitivity to the factors causing speech variability (e.g., coarticulation). The $6$ CV schemas
+are the following:
 %CV \cite{stat} is usually used
 %to estimate the generalisation error of a learning machine, at the
 %same time providing a ground for grid-searching the optimal parameters\footnote{These
@@ -144,9 +147,9 @@ splits to perform cross-validation (CV).
 %$\alpha \in \{b,p,d,t\}$ and $\beta \in \{a,e,i,o\}$) would then effectively predict samples
 %coarticulated with other phonemes (in the example above, predict samples of the form
 %/$\alpha\gamma$/ with $\gamma \in \{u,r,s\}$). To this end, $5$ more CV schemas were devised:
-$6$ CV schemas were devised in order to assess the overall accuracy of the phone classifier and its
-sensitivity to the factors causing speech variability (e.g., coarticulation). The $6$ CV schemas
-are the following:
+%Six CV schemas were devised in order to assess the overall accuracy of the phone classifier and its
+%sensitivity to the factors causing speech variability (e.g., coarticulation). The $6$ CV schemas
+%are the following:
 
 \begin{itemize}
 

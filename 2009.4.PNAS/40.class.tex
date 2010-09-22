@@ -4,13 +4,11 @@
 \subsection{Feature sets}
 \label{subsec:featset}
 
-In all the experiments we carried out four different feature sets were compared. 
-
+In the experiments we carried out, four different feature sets were compared. 
 "Audio" is a set of $10$ vectors of $13$ cepstral coefficients plus their first- 
 and second-order derivatives. Each vector is computed on $25$-milliseconds long 
 ``time slices'' of the signal. When the sequence is shorter than $25*10=250$ milliseconds
  the time slices overlap, whereas in the opposite case there are gaps between them (see SI Text).
-
 %``Audio'' is a set of $390$ cepstral coefficients extracted from the audio signal
 %as follows. We consider a set of $25$-milliseconds long ``time slices'' of the signal.
 %From each slice $13$ cepstral coefficients, plus their first- and second-order derivatives,
@@ -23,13 +21,11 @@ and second-order derivatives. Each vector is computed on $25$-milliseconds long
 %$10$ slices uniformly distributed across the sequence itself in order to cover it completely.
 %In case the sequence is shorter than $250$ milliseconds, the slices are allowed to overlap,
 %whereas in the opposite case there are gaps between them.
-
 ``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
 signal considered (\vlio, \alio, \vttu\ and \attu), a cubic interpolation is generated over 
 the sequence and the $4$ coefficients of the cubic interpolant (constant, I-, II- and III-order 
 coefficient) are taken. This choice is motivated by the need to capture a qualitative and compact
 description of behaviour of the articulators (see SI Text).
-
 %``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
 %signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares piecewise
 %Hermite cubic interpolation is generated over the sequence. This results in $4$ real
@@ -39,10 +35,8 @@ description of behaviour of the articulators (see SI Text).
 %abstracting away from, e.g., the length of the plosion, and to compactly represent it.
 %Preliminary manual inspection of the trajectories has convinced us that a cubic fit
 %would adequately capture their shapes.
-
 ``Reconstructed motor'' refers to the same procedure as above, but applied
 to the AMM-reconstructed signal curves.
-
 Lastly, ``Joint'' denotes a decision procedure obtained by averaging out the
 label probabilities obtained from the best classifiers for the audio and
 reconstructed motor features, and then using a threshold at $0.5$.
@@ -59,7 +53,6 @@ reconstructed motor features, and then using a threshold at $0.5$.
 
 The classifiers used in all three experiments are Support Vector Machine-based classifiers 
 \cite{BGV92} (see SI Text).
-
 In the first experiment the performance of the phone classifiers is evaluated
 according to the \overall\ CV schema using four different sets of features as
 input. Figure \ref{fig:class2_perf} (leftmost column) shows the results. The balanced error rate
@@ -68,7 +61,6 @@ our case as the average of the ratios of correctly guessed bilabials and dentals
 With respect to the more popular standard error rate, i.e., the overall ratio of correctly
 guessed labels, it has the advantage of favouring models which can correctly guess
 \emph{both} the bilabials and the dentals.)
-
 
 %The classifier is a Support Vector Machine \cite{BGV92} with Gaussian kernel
 %and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
@@ -96,7 +88,6 @@ Figure \ref{fig:class2_perf} (from column \spka to column \cob) shows the result
  %(For comparison,
 %the figure also shows in the first column the accuracies obtained for
 %Experiment $1$.)
-
 Consider the per-speaker schemas, i.e., \spka, \spkb\ and \spkc. The real motor
 features are, again, strikingly (and significantly, $p<0.01$) better than all others,
 with increasing error rates of
@@ -151,7 +142,6 @@ Lastly, the joint features perform better (or as well as) the reconstructed moto
 at low levels of noise (until $30\%$), while they then become less useful than the
 reconstructed motor alone. This is obviously due to the weak performance of the audio
 features.
-
 The t-test reveals statistically different mean error rates ($p<0.01$) for all levels of
 noise, except for reconstructed motor and joint when the noise is at $20\%$
 and $30\%$.
