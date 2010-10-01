@@ -4,9 +4,9 @@
 \subsection{Do motor features help?}
 
 The experimental results presented in the previous Section clearly prove that,
-at least in the case here examined, and with the techniques here exploited,
+at least in the cases examined, and with the set of employed machine learning techniques,
 the answer to the question posed in the Introduction, ``can the use of MI-based
-features improve a phoneme classifier's performance?'' is positive.
+features improve a phoneme classifier's performance?'' is ''yes''.
 
 Overall, $16$ features extracted from motor invariants detected with an articulograph
 (what we have called real motor features) exhibit dramatically better error rates
@@ -30,7 +30,7 @@ coarticulation. This is one more hint at the fact that the use of motor features
 could be a great leap forward in ASR.
 
 Now obviously, knowing that motor information is useful to improve ASR is just half
-of the issue, since the problem of \emph{gathering it} during speech recognition is
+of the story, since the problem of \emph{gathering it} during speech recognition is
 still unexplored --- one cannot expect the standard user of an ASR system to wear
 an articulograph while, e.g., dictating. Here the MTS and the theory of mirror neurons
 inspire us to build an AMM, that is, to try and reconstruct the distal speech acts from
@@ -44,7 +44,7 @@ method (namely, a feed-forward neural network), is able to reconstruct the MIs
 to such a degree of precision that the same $16$ motor features, extracted from these
 reconstructed trajectories, exhibit comparable or better error rates than  
 those found with the audio features when the training sets are restricted (Experiments 1 and 2);
- and they boost a largely and significantly \emph{better} performance then the audio ones, as
+ and they boost a largely and significantly \emph{better} performance than the audio ones, as
 noise is added to the audio signal (Experiment 3). This latter result seems to be
 somehow in agreement with what D'Ausilio et al. have found using TMS on humans.
 
