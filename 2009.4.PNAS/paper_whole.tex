@@ -397,11 +397,11 @@ A definite trend is apparent, favouring the reconstruction of \vlio\ over \vttu\
 bilabials are presented to the AMM and vice-versa; the trend is numerically confirmed
 by checking the Pearson correlation coefficient between AMM-reconstructed and real MIs
 according to whether labials (/b/,/p/) or dentals (/d/,/t/) are presented as input
-to the AMM. As one can see in Figure \ref{fig:DD}, when the \overall\ CV schema is used,
+to the AMM. When the \overall\ CV schema is used,
 a ``double dissociation'' pattern appears when comparing the correlation coefficients of
 \vlio\ and \vttu\ AMM-reconstructed from labials or dentals
 ($0.8869 \pm 0.0113$ versus $0.5523 \pm 0.0240$ with Student's t-test $p<0.01$ for \vlio, and
- $0.9276 \pm 0.0096$ versus $0.3307 \pm 0.0278$, $p<0.01$, for \vttu).
+ $0.9276 \pm 0.0096$ versus $0.3307 \pm 0.0278$, $p<0.01$, for \vttu, see Figure S3).
 In other words, when the AMM ``hears'' /b/ or /p/, it reconstructs effectively the trajectory of the lips,
 but less reliably that of the tongue tip; and dually, it reconstructs better the latter one when
 presented with /d/ or /t/. This pattern is repeated to an almost uniform extent when the
@@ -620,7 +620,7 @@ The AMM is a function, so one could see this technique as
 ``just a better way of extracting ASR features from speech''.
 The main advantage in using it is that it is highly bio-inspired,
 having been trained to associated human speech data to motor data. The double dissociation
-observed in Figure \ref{fig:DD} reflects the rather predictable phenomenon
+observed (see Figure S3) reflects the rather predictable phenomenon
 that consonant-critical articulators exhibit less variance than non-critical ones (e.g.,
 when a /b/ uttered the labial trajectory is highly constrained, as opposed to the tongue-dental
 trajectory). This results in a better prediction of bilabial (dental) trajectories when the
@@ -648,22 +648,12 @@ database and more extensive experiments could shed light on this still open poin
 % for the submission: comment out the line below, and then include the .bbl
 %\bibliographystyle{plain} \bibliography{paper}
 \begin{thebibliography}{99}
+
 \bibitem{BGV92}
 B.~E. Boser, I.~M. Guyon, and V.~N. Vapnik.
 \newblock A training algorithm for optimal margin classifiers.
 \newblock In D.~Haussler, editor, {\em Proceedings of the 5th Annual ACM
   Workshop on Computational Learning Theory}, pages 144--152. ACM press, 1992.
-
-\bibitem{Brookes1997}
-Mike Brookes.
-\newblock {VOICEBOX}: A speech processing toolbox for {MATLAB}, 1997-2010.
-\newblock Available at
-  http://www.ee.imperial.ac.uk/hp/staff/dmb/voicebox/voicebox.html.
-
-\bibitem{libsvm}
-Chih-Chung Chang and Chih-Jen Lin.
-\newblock {\em {LIBSVM}: a library for support vector machines}, 2001.
-\newblock Available at http://www.csie.ntu.edu.tw/\~{}cjlin/libsvm.
 
 \bibitem{dausilio}
 A.~D'Ausilio, F.~Pulverm\"uller, P.~Salmas, I.~Bufalari, C.~Begliomini, and
@@ -671,22 +661,10 @@ A.~D'Ausilio, F.~Pulverm\"uller, P.~Salmas, I.~Bufalari, C.~Begliomini, and
 \newblock The motor somatotopy of speech perception.
 \newblock {\em Current Biology}, 19(1---5), 2009.
 
-\bibitem{stat}
-P.~A. Devijver and J.~Kittler.
-\newblock {\em Pattern Recognition: A Statistical Approach}.
-\newblock Prentice-Hall, London, 1982.
-
 \bibitem{galant}
 B.~Galantucci, C.~A. Fowler, and M.~T. Turvey.
 \newblock The motor theory of speech perception reviewed.
 \newblock {\em Psychonomic Bulletin and Review}, 13(3):361---377, 2006.
-
-\bibitem{tavella}
-M.~Grimaldi, B.~Gili~Fivela, F.~Sigona, M.~Tavella, P.~Fitzpatrick,
-  L.~Craighero, L.~Fadiga, G.~Sandini, and G.~Metta.
-\newblock New technologies for simultaneous acquisition of speech articulatory
-  data: 3{D} articulograph, ultrasound and electroglottograph.
-\newblock In {\em Proceedings of LangTech 2008, Rome, Italy}, 2008.
 
 \bibitem{hinton-2006}
 G.~E. Hinton and V.~Nair.
@@ -726,11 +704,6 @@ G.~Metta, G.~Sandini, L.~Natale, L.~Craighero, and L.~Fadiga.
 \newblock Understanding mirror neurons: a bio-robotic approach.
 \newblock {\em Interaction Studies}, 7:197--ï¿½232, 2006.
 
-\bibitem{MOLLER93}
-Martin~F. Moller.
-\newblock A scaled conjugate gradient algorithm for fast supervised learning.
-\newblock {\em Neural Networks}, 6:525--533, 1993.
-
 \bibitem{ostendorf}
 M.~Ostendorf.
 \newblock Moving beyond the {ï¿½beads-on-a-stringï¿½} model of speech.
@@ -742,20 +715,6 @@ G.~Papcun, J.~Hochberg, T.~R. Thomas, F.~Laroche, J.~Zacks, and S.~Levy.
 \newblock Inferring articulation and recognizing gestures from acoustics with a
   neural network trained on {X}-ray microbeam data.
 \newblock {\em J Acoust Soc Am.}, 92(2), 1992.
-
-\bibitem{pinto:icassp-phnrecog:2008}
-Joel~Praveen Pinto, Hynek Hermansky, B.~Yegnanarayana, and Mathew
-  Magimai.-Doss.
-\newblock Exploiting contextual information for improved phoneme recognition.
-\newblock In {\em "{IEEE} Int. Conf. on Acoustics, Speech, and Signal
-  Processing ({ICASSP})"}, 2008.
-
-\bibitem{bourl}
-P.~Pujol, A.~Hagen, H.~Bourlard, and C.~Nadeu.
-\newblock Comparison and combination of features in hybrid {HMM/MLP} and
-  {HMM/GMM} speech recognition.
-\newblock {\em IEEE Transactions of Speech and Audio Processing},
-  13(1):14---22, 2003.
 
 \bibitem{richardson}
 M.~Richardson, J.~Bilmes, and C.~Diorio.
@@ -806,12 +765,6 @@ M.A. Umilt\`a, E.~Kohler, V.~Gallese, L.~Fogassi, L.~Fadiga, C.~Keysers, and
 \newblock I know what you are doing: A neurophysiological study.
 \newblock {\em Neuron}, 31:1--ï¿½20, 2001.
 
-\bibitem{nestedCV}
-S.~Varma and R.~Simon.
-\newblock Bias in error estimation when using cross-validation for model
-  selection.
-\newblock {\em BMC Bioinformatics}, 7(1), February 2006.
-
 \bibitem{wrench}
 A.~A. Wrench and K.~Richmond.
 \newblock Continuous speech recognition using articulatory data.
@@ -823,6 +776,7 @@ I.~Zlokarnik.
 \newblock Adding articulatory features to acoustic features for automatic
   speech recognition.
 \newblock {\em Journal of the Acoustical Society of America}, 97(2):3246, 1995.
+
 
 \end{thebibliography}
 
@@ -848,14 +802,7 @@ I.~Zlokarnik.
   \label{fig:amm_perf}
 \end{figure}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/doubleDiss}}
-  \caption{Double dissociation of correlation between real and AMM-reconstructed MI
-    (mean and standard error of the mean). Mean coefficients are significantly
-    higher for \vlio\ when ``listening'' to labials than dentals and vice-versa.
-    The \overall\ CV schema is used.}
-  \label{fig:DD}
-\end{figure}
+
 
 \begin{figure}[t]
   \centerline{\includegraphics[width=\textwidth]{figs/exp2}}
