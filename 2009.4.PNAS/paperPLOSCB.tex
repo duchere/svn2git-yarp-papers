@@ -1,18 +1,44 @@
-% The use of phonetic motor invariants can improve automatic phoneme discrimination
-% Castellini, Metta, Fadiga, Badino
-% submitted to PNAS
+% Template for PLoS
+% Version 1.0 January 2009
+%
+% To compile to pdf, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
 
-\documentclass{pnastwo}
+\documentclass[10pt]{article}
 
-% ---------------------------------- bookkeeping
+% amsmath package, useful for mathematical formulas
+\usepackage{amsmath}
+% amssymb package, useful for mathematical symbols
+\usepackage{amssymb}
 
-% remove for submission
+% graphicx package, useful for including eps and pdf graphics
+% include graphics with the command \includegraphics
 \usepackage[dvips]{graphicx}
 
-%\usepackage{pnastwoF}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{amsmath}
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+\usepackage{color} 
+
+% Use doublespacing - comment out for single spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+
+% Text layout
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
 
 \newcommand{\lio}{\textsf{lio}}
 \newcommand{\ttu}{\textsf{ttu}}
@@ -28,47 +54,74 @@
 \newcommand{\coa}{\emph{coart4vs1}}
 \newcommand{\cob}{\emph{coart3vs2}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Don't type in anything in the following section:
-%%%%%%%%%%%%
-%% For PNAS Only:
-\contributor{Submitted to Proceedings
-of the National Academy of Sciences of the United States of America}
-\url{www.pnas.org/cgi/doi/10.1073/pnas.0709640104}
-\copyrightyear{2008}
-\issuedate{Issue Date}
-\volume{Volume}
-\issuenumber{Issue Number}
-%%%%%%%%%%%%
+% Use the PLoS provided bibtex style
+\bibliographystyle{plos2009}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+
+% Leave date blank
+\date{}
+
+\pagestyle{myheadings}
+%% ** EDIT HERE **
+
+
+%% ** EDIT HERE **
+%% PLEASE INCLUDE ALL MACROS BELOW
+
+%% END MACROS SECTION
 
 \begin{document}
 
-% ---------------------------------- frontmatter
-
-\title{The use of phonetic motor invariants\\
+% Title must be 150 characters or less
+\begin{flushleft}
+{\Large
+\textbf{The use of phonetic motor invariants\\
 can improve automatic phoneme discrimination}
-
-\author{
-Claudio Castellini\affil{1}{LIRA-Lab, University of Genova, Italy},
-%\affil{6}{Now at the German Aerospace Research Center, Oberpfaffenhofen, Germany},
-Leonardo Badino\affil{2}{Italian Institute of Technology, Genova, Italy},
-Giorgio Metta\affil{1}{}\affil{2}{},
-Giulio Sandini\affil{1}{}\affil{2}{},
-Michele Tavella\affil{1}{},
-Mirko Grimaldi\affil{5}{CRIL, Salento University, Italy} and
-Luciano Fadiga\affil{4}{DSBTA, University of Ferrara, Italy}
 }
 
-\contributor{Submitted to Proceedings of the National Academy of Sciences
-of the United States of America}
+% Insert Author names, affiliations and corresponding author email.
+%\\
+%Author1$^{1}$, 
+%Author2$^{2}$, 
+%Author3$^{3,\ast}$
+%\\
+%\bf{1} Author1 Dept/Program/Center, Institution Name, City, State, Country
+%\\
+%\bf{2} Author2 Dept/Program/Center, Institution Name, City, State, Country
+%\\
+%\bf{3} Author3 Dept/Program/Center, Institution Name, City, State, Country
+%\\
+%$\ast$ E-mail: Corresponding author@institute.edu
 
-\maketitle
 
-\begin{article}
+Claudio Castellini$^{1,\ast}$,
+Leonardo Badino$^{2}$,
+Giorgio Metta$^{2}$,
+Giulio Sandini$^{2}$,
+Michele Tavella$^{1}$,
+Mirko Grimaldi$^{3}$,
+Luciano Fadiga$^{2,4}$
+\\ 
+\bf{1} LIRA-Lab, University of Genova, Italy
+\\
+\bf{2} Italian Institute of Technology, Genova, Italy
+\\
+\bf{3} CRIL, Salento University, Italy
+\\
+\bf{4} DSBTA, University of Ferrara, Italy
+\\
+$\ast$ E-mail: claudio.castellini@dlr.de
+\end{flushleft}
 
-\begin{abstract}
+% Please keep the abstract between 250 and 300 words
+\section*{Abstract}
 
-  We hereby investigate the use of phonetic motor invariants (MIs),
+ We investigate the use of phonetic motor invariants (MIs),
   that is, recurring kinematic patterns of the human phonetic articulators,
   to improve automatic phoneme discrimination. Using a multi-subject
   database of synchronized speech and lips/tongue trajectories, we first
@@ -89,17 +142,30 @@ of the United States of America}
   These results support some of the claims of the motor theory of speech perception
   and add experimental evidence of the actual usefulness of MIs in the more general
   framework of automated speech recognition.
-  
-\end{abstract}
 
-\keywords{motor theory of speech | machine learning | phoneme discrimination | speech recognition}
+\section*{Author Summary}
+In this work we investigate the utility of phonetic motor information in automatic 
+phoneme classification. Phonetic motor information is the knwoledge of the behaviour 
+of the vocal tract's articulators when speech is generated. Using a database of synchronized 
+speech and lips/tongue trajectories, we first identify MIs commonly associated with bilabial and 
+dental consonants (e.g., /b/ and /d/ respectively),and use them to simultaneously segment speech 
+and motor signals. We then train a standard neural network to learn a function that maps audio 
+features of these segments to the corresponding MIs.
 
-% ---------------------------------- the paper
+Experimental evidence shows that
+$(a)$ a small set of features extracted from the MIs, as originally gathered from
+    articulatory sensors, are dramatically more effective than a state-of-the-art
+    set of audio features, in automatically discriminating bilabials from dentals;
+  $(b)$ in several evaluation scenarios the same motor features, reconstructed from the audio signal through the neural net-	     based mapping function, are as effective as  or better than the audio features.
 
-\section{Introduction/Motivation}
-\label{sec:intro}
+These results support some of the claims of the motor theory of speech perception according to which 
+humans, while perceiving speech, reconstruct the articulatory acts that produce the phonemes.
 
-\dropcap{A}utomatic speech recognition (ASR) is the ability of a machine
+%  and add experimental evidence of the actual usefulness of MIs in the more general
+ % framework of automated speech recognition.
+\section*{Introduction}
+\subsection*{Motivation}
+Automatic speech recognition (ASR) is the ability of a machine
 to convert human speech, coded as an audio signal, into words.
 Potential applications of ASR range from human-computer interfaces
 to informatics for the disabled to data mining in large speech corpora.
@@ -118,7 +184,7 @@ favors dentals. This suggests that motor information may be paramount for
 speech understanding in humans.
 
 Inspired by these findings, in this paper we investigate whether knowledge of speech
-production in humans, integrated into an automatic phoneme classifier, can improve the
+production in humans, integrated into an automatic phone classifier, can improve the
 classification of /b/,/p/ versus /d/,/t/, in various conditions of noise and with different
 restrictions on the training set.
 To this end, we focus on the ``artificial version'' of the problem tackled in D'Ausilio et al.'s
@@ -139,7 +205,7 @@ Support Vector Machine \cite{BGV92}. The main question is: can the use of MI-bas
 either those recorded in the database (the ``real'' motor features) or the AMM-reconstructed
 ones (a more ecological scenario), improve the classifier's performance?
 
-\subsection{Related Work}
+\subsection*{Related Work}
 
 In the ASR community, the combination of explicit speech production knowledge and audio
 features has already been proposed (see, e.g., \cite{king} for a review) as an alternative to the
@@ -171,7 +237,7 @@ audio signal only. The explanation put forward by the Motor Theory of Speech Per
 \emph{phonetic gestures}, the physical acts that produce the phonemes, as they were
 trained since birth to associate articulatory gestures to the sounds they heard.
 
-But even ignoring the MTS, a very controversial theory indeed, recently reviewed and
+However, even ignoring the MTS, a very controversial theory indeed, recently reviewed and
 revised \cite{galant,massaro}, the use of speech production knowledge in speech recognition
 is appealing, in that the coupling of articulatory and audio streams allows for explicit models
 of the effects of speech production phenomena on the acoustic domain.
@@ -199,13 +265,13 @@ As well, the traditional approach in which the speech signal is represented as a
 (the "beads on a string" approach \cite{ostendorf}) poses a number of problems to an accurate modeling of
 spontaneous speech, in which coarticulation phenomena such as phone deletion or assimilation (where a phone assimilates some articulatory gestures of the preceding/following phone),
 distorting the acoustic appearance of phonemes, are frequent and not always predictable. These problems
-call for finer-grained basic units. To partly make-up for such a limitation we propose
+call for finer-grained basic units. To partly compensate for such a limitation we propose
 an alternative approach where the audio signal is segmented using phone-specific articulatory patterns,
 expectedly more distinctive and stable than acoustic features.
 
 During recognition, articulatory gestures have to be recovered 
 from audio information as audio is the only signal available.
-Reconstruction of articulatory features has been attempted since a long
+Reconstruction of articulatory features has been attempted for a long
 time, but in most cases it is not derived from articulatory \emph{data}
 gathered from human subjects. One pioneering case is that of Papcun
 et al. \cite{papcun} where the AMM is carried out by a Multilayer Perceptron.
@@ -221,83 +287,11 @@ not address the issue directly; rather, we consider two articulators only, there
 Interestingly, the idea of using information about the mechanisms involved in the production of a human action to improve its classification/recognition (in a domain different from the production domain) has not only been applied in the context of speech recognition. For example Metta et al. \cite{metta-06} and Hinton \cite{hinton-2006} 
 have shown that articulatory data can improve accuracy in automated hand action classification.
 
-\section{Data Set}
-\label{sec:dataset}
+% Results and Discussion can be combined.
+\section*{Results}
+We first describe the evaluation setting and then show the performance of the AMM and the accuracy of several phone classifiers in three experimental scenarios. 
 
-\subsection{Subjects and Set-up}
-\label{subsec:setup}
-
-Six female Italian native speakers were recorded while uttering
-Italian words and pseudo-words.
-
-The data recording setup (see SI Text) included a laryngograph which
-gathers speech audio signal and the electroglottographic (EGG) 
-signal; and an electromagnetic articulograph which records the
-3D positions of a set of sensors glued on the tongue, lips and front teeth
-
-The subset used in this work comprises the words in the database
-that contain /b/, /p/, /d/ or /t/. This includes utterings from each of the
-$6$ subjects; consonants are found both at the beginning of the word or
-in the middle; and they are followed by either /a/,/e/,/i/,/o/,/u/,/r/ or /s/.
-From now on, the phoneme appearing immediately after a consonant will be called
-\emph{coarticulating} phoneme.
-
-\subsection{MI-Based Signal Segmentation}
-\label{subsec:segm}
-
-We define the length of a phoneme in terms of the MI underlying its production;
-the audio signal is, therefore, segmented according to it.
-A qualitative examination of the synchronised audio and motor
-signals obtained from utterances of /b/, /p/, /d/ and /t/
-by different speakers indicates that common patterns can
-actually be found in the behaviour of the related articulators.
-For instance, as is apparent from Figure \ref{fig:isdView}, 
-recurring shapes of the lips opening velocity and acceleration appear
-when both /ba/ and /bufalo/ are considered, even when uttered by different
-speakers. 
-
-The following motor invariants are defined and associated to the consonants under
-examination:
-
-\begin{itemize}
-
-  \item Let $s_1(t)$ and $s_2(t)$ be the signals associated
-    with sensors placed on two phonetic actuators (e.g., the upper and
-    lower lips), and $\delta(t) = ||s_1(t)-s_2(t)||$ be their
-    Euclidean distance. Then, a plosion is defined as the interval
-    between two instants $t_{start}$ and $t_{end}$ such that
-    $\dot{\delta}(t_{start}) = 0 $ and $\ddot{\delta}(t_{start}) > 0$,
-    and $\dot{\delta}(t_{end}) > 0 $ and $\ddot{\delta}(t_{end}) = 0$.
-
-  \item For the bilabial consonants /b/ and /p/, the sensors on the upper and lower
-    lip are considered for $s_1(t)$ and $s_2(t)$, whereas for the labio-dental /d/ and /t/
-    those on the tongue tip and upper teeth are. In turn, the associated
-    distances will be denoted as \lio\ (lips opening) and \ttu\
-    (tongue tip - upper teeth distance). As well, the respective velocities
-    and accelerations will be denoted by \vlio, \vttu, \alio, \attu.
-
-\end{itemize}
-
-The first condition physically defines a plosion (all four consonants are plosive), e.g., considering \lio, $t_{start}$
-marks the onset of the act of opening the lips (null velocity, positive acceleration)
-while $t_{end}$ is found at the instant of maximum opening velocity and zero acceleration.
-The choice of cutting the signals at $t_{end}$ rather than, say, when the lips are still
-and \lio\ is maximum is motivated by the need to capture the plosion only, with as little
-as possible of the following phoneme. By manual (audio) inspection of the audio segments so
-obtained, we could actually verify that only a tiny fraction of the coarticulating phoneme
-could be heard at the end of the uttering.
-
-The second condition then selects an appropriate pair of articulators needed for the
-phoneme under consideration. This schema matches the above-mentioned taxonomy. In Figure
-\ref{fig:isdView} the gray zone indicates the detected interval of time using conditions
-$1$ and $2$.
- 
-The segmentation is carried out semi-automatically: for each
-utterance, all sequences matching the above conditions are displayed and the
-associated speech is played, so that the experimenter can choose whether the
-sequence is a correct guess or it is a false positive (see SI Text).
-
-\subsection{Cross-validation}
+\subsection*{Evaluation setting}
 \label{subsec:cv}
 
 As is standard practice in machine learning, the obtained dataset was divided into
@@ -323,7 +317,7 @@ are the following:
   	other $5$, resulting in $6$ splits.
 
   \item \coa\ The training sets contain samples
-  	with $4$ coarticulating vowels, whereas the testing sets contain samples
+  	with $4$ coarticulating vowels (i.e., vowels that follow the plosive), whereas the testing sets contain samples
   	with the remaining two, plus /r/ and /s/. This gives us $5$ splits.
 
   \item \cob\ Likewise, but training on $3$ coarticulating vowels and
@@ -332,51 +326,9 @@ are the following:
 
 \end{itemize}
 
-\section{The Audio-Motor-Map}
-\label{sec:rec}
-
-\subsection{Example Extraction and Training}
-\label{subsec:amm_setup}
-
-The procedure for building the AMM closely follows that outlined in previous
-work \cite{papcun,richmond,richmond2007} where a multi-layer perceptron
-neural network was employed to reconstruct articulators' positions from an
-audio stream. More in detail, the speech spectrogram was there used to predict,
-instant by instant, the position of the articulators of interest. Here we apply
-a similar approach to reconstruct the velocity and accelerations of \lio\ and \ttu\ 
-rather than their positions, in order to avoid as much as possible taking into account
-physical differences among subjects (e.g., the width of the mouth) and among
-positions of the sensors of the electromagnetic articulograph.
-
-For each audio sequence, the spectrogram is evaluated
-over $20$-milliseconds long Hamming windows (slices), using a $20$-filter
-Mel-scale filterbank between $20$Hz and $2$KHz. Each slice overlaps by $10$ milliseconds with
-the preceding slice. Each single sample of \vlio, \alio, \vttu\ and \attu\ is
-then associated to $19$ surrounding spectrogram slices, covering
-about $200$ milliseconds of speech and centered around the sample itself. With this
-"sliding spectrogram window" method, the four trajectories are completely reconstructed.
-
-%For each of the $1157$ audio sequences, the spectrogram is evaluated
-%over $20$-milliseconds long Hamming windows (slices), using a $20$-filter
-%Mel-scale filterbank between $20$Hz and $2$KHz. Each slice overlaps by $10$ milliseconds with
-%the preceding slice. Each single sample of \vlio, \alio, \vttu\ and \attu\ is
-%then associated to $19$ surrounding spectrogram slices, covering
-%about $200$ milliseconds of speech and centered around the sample itself. With this
-%"sliding spectrogram window" method, the four trajectories are completely reconstructed.
-%The Mel filters, the spectrogram and (later on) the cepstral coefficients of the audio
-%signal are extracted using the off-the-shelf speech recognition Matlab package
-%\emph{Voicebox} \cite{Brookes1997}.
-
-About $15000$ samples are extracted from the original audio/motor sequences; 
-each input sample consists of $19\cdot 20 = 380$ real
-numbers, while the output space is given by the $4$ trajectory points of
-the motor signals.
-A feed-forward neural network is set up in order to
-build the AMM, with $380$ input units, one hidden layer with $15$ units and
-$4$ output units (see SI Text).
 
 
-\subsection{Evaluating the AMM}
+\subsection*{AMM evaluation}
 \label{subsec:amm_results}
 
 Figure \ref{fig:amm_perf} shows a quantitative assessment of the performance
@@ -389,60 +341,39 @@ larger for the per-coarticulation CV schemas.
 Although these figures do not really indicate whether AMM-reconstructed MIs will be
 effective in phoneme discrimination, they show that the error rate in regression has
 limited magnitude and does not differ dramatically across CV schemas and output signals.
-Qualitative inspection of the results (one example is given in Figure S1) shows that 
-the AMM-reconstructed motor signals are on average rather similar to the real ones,
- at least as far as the range of values is concerned.
+Qualitative inspection of the results (one example is given in Figure \ref{fig:example})
+shows that the AMM-reconstructed motor signals are on average rather
+similar to the real ones, at least as far as the range of values is concerned.
 
 A definite trend is apparent, favouring the reconstruction of \vlio\ over \vttu\ when
 bilabials are presented to the AMM and vice-versa; the trend is numerically confirmed
 by checking the Pearson correlation coefficient between AMM-reconstructed and real MIs
 according to whether labials (/b/,/p/) or dentals (/d/,/t/) are presented as input
-to the AMM. When the \overall\ CV schema is used,
+to the AMM. As one can see in Figure \ref{fig:DD}, when the \overall\ CV schema is used,
 a ``double dissociation'' pattern appears when comparing the correlation coefficients of
 \vlio\ and \vttu\ AMM-reconstructed from labials or dentals
 ($0.8869 \pm 0.0113$ versus $0.5523 \pm 0.0240$ with Student's t-test $p<0.01$ for \vlio, and
- $0.9276 \pm 0.0096$ versus $0.3307 \pm 0.0278$, $p<0.01$, for \vttu, see Figure S2).
-In other words, when the AMM ``hears'' /b/ or /p/, it reconstructs effectively the trajectory of the lips,
-but less reliably that of the tongue tip; and dually, it reconstructs better the latter one when
+ $0.9276 \pm 0.0096$ versus $0.3307 \pm 0.0278$, $p<0.01$, for \vttu).
+In other words, when the AMM
+``hears'' /b/ or /p/, it effectively reconstructs the trajectory of the lips, but less
+reliably that of the tongue tip; and dually, it reconstructs better the latter one when
 presented with /d/ or /t/. This pattern is repeated to an almost uniform extent when the
 other CV schemas are used, and also when \alio\ and \attu\ are checked.
 
-\section{Phoneme Discrimination}
+\subsection*{Phoneme discrimination}
 \label{sec:class}
-
-\subsection{Feature Sets}
-\label{subsec:featset}
-
-In the experiments we carried out, four different feature sets were compared. 
-"Audio" is a set of $10$ vectors of $13$ cepstral coefficients plus their first- 
-and second-order derivatives. Each vector is computed on $25$-milliseconds long 
-``time slices'' of the signal. When the sequence is shorter than $25*10=250$ milliseconds
- the time slices overlap, whereas in the opposite case there are gaps between them (see SI Text).
-
-``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
-signal considered (\vlio, \alio, \vttu\ and \attu), a cubic interpolation is generated over 
-the sequence and the $4$ coefficients of the cubic interpolant (constant, I-, II- and III-order 
-coefficient) are taken. This choice is motivated by the need to capture a qualitative and compact
-description of behaviour of the articulators (see SI Text).
-
-``Reconstructed motor'' refers to the same procedure as above, but applied
-to the AMM-reconstructed signal curves.
-Lastly, ``Joint'' denotes a decision procedure obtained by averaging out the
-label probabilities obtained from the best classifiers for the audio and
-reconstructed motor features, and then using a threshold at $0.5$.
-
-\subsection{Experiment 1}
+The phone classifiers used in the experiments described below are all Support Vector Machine-based classifiers 
+\cite{BGV92} (see \ref{sec:methods}). Each classifier uses one of the follwoing feature sets: "Audio", "Real Motor", "Reconstructed Motor" and "Joint" (see \ref{sec:methods} for details).
+\subsubsection*{Experiment 1}
 \label{subsec:exp1}
 
-The classifiers used in all three experiments are Support Vector Machine-based classifiers 
-\cite{BGV92} (see SI Text).
 In the first experiment the performance of the phone classifiers is evaluated
 according to the \overall\ CV schema using four different sets of features as
 input. Figure \ref{fig:class2_perf} (leftmost column) shows the results. The balanced error rate
 is shown as a comparative measure of performance. (This error rate is defined in
-our case as the average of the ratios of correctly guessed bilabials and dentals.
+our case as the average of the ratios of correctly predicted bilabials and dentals.
 With respect to the more popular standard error rate, i.e., the overall ratio of correctly
-guessed labels, it has the advantage of favouring models which can correctly guess
+guessed labels, it has the advantage of favouring models that can correctly guess
 \emph{both} the bilabials and the dentals.)
 
 The error rates obtained are, in turn,
@@ -456,7 +387,7 @@ us claim that there is a marginal advantage in using joint features
 over audio only, but that a large and evident advantage is found using the real motor features
 over all the others.
 
-\subsection{Experiment 2}
+\subsubsection*{Experiment 2}
 \label{subsec:exp2}
 
 Experiment 2 replicates Experiment 1 using the remaining CV schemas.
@@ -484,7 +415,7 @@ In general, it is when the classification task becomes more difficult (i.e., dec
 lead to significant improvements, either when combined with the audio features (as in the \spkb\ and \spkc\ 
 schemas) or alone (as in the \cob\ schema).
 
-\subsection{Experiment 3}
+\subsubsection*{Experiment 3}
 \label{subsec:exp3}
 
 Lastly, in Experiment 3 the comparison among feature sets is evaluated with the
@@ -502,14 +433,14 @@ $7.49\% \pm 0.25\%$,
 $5.84\% \pm 0.19\%$ and 
 $4.95\% \pm 0.16\%$ for audio, reconstructed motor and joint features in turn.
 As the level of noise is increased though, the audio features' error rate
-increases superlinearly until it reaches about $45\%$ when the noise is at $70\%$
+increases superlinearly until it reaches about $45\%$ when the noise is at a $70\%$
 level, going then asymptotically to chance level. As opposed to that, the reconstructed
 motor features exhibit a much higher resilience to noise, increasing the error rate
 only linearly and reaching, e.g., $19.23\% \pm 0.41\%$ when the noise is at $70\%$.
 At the maximum level of noise, $150\%$, the reconstructed motor features still keep
 the error rate at $32.3\% \pm 0.61\%$ while the audio features essentially reach chance
 level. Actually, we ourselves checked how some of the phones sound when the noise is
-so high, and found them rather hard to understand!
+so high, and found them very hard to understand.
 
 Lastly, the joint features perform better (or as well as) the reconstructed motor features
 at low levels of noise (until $30\%$), while they then become less useful than the
@@ -519,14 +450,14 @@ The t-test reveals statistically different mean error rates ($p<0.01$) for all l
 noise, except for reconstructed motor and joint when the noise is at $20\%$
 and $30\%$.
 
-\section{Discussion}
+\section*{Discussion}
 \label{sec:disc}
 
-\subsection{Do Motor Features Help?}
+\subsection*{Do Motor Features Help?}
 
-The experimental results presented in the previous Section clearly prove that,
+The experimental results presented in the previous section clearly prove that,
 at least in the cases examined, and with the set of employed machine learning techniques,
-the answer to the question posed in the Introduction, ``can the use of MI-based
+the answer to the question posed in the introduction, ``can the use of MI-based
 features improve a phoneme classifier's performance?'' is ''yes''.
 
 Overall, $16$ features extracted from motor invariants detected with an articulograph
@@ -571,8 +502,8 @@ somehow in agreement with what D'Ausilio et al. have found using TMS on humans.
 
 Note that in the most critical cases (i.e., when the training data sets are extremely restricted) of Experiments 1 and 2
 the reconstructed motor features outperform the audio features. These results and the results of Experiment 3
-suggest that when the difficulty of the classification task increases (because of a reduction of speech 
-variability in the training data and/or of an increased variability in the testing data) the reconstructed 
+suggest that when the difficulty of the classification task increases (because of an increased ratio between speech variability 
+in the testing data and speech variability in the training data) the reconstructed 
 motor features become more and more useful for the task.
 
 Lastly, when audio and reconstructed motor features are joined using a simple probabilistic schema, the error rates
@@ -589,7 +520,7 @@ MI-based features do.
 This indicates that motor features, even when the audio signal is the only source of
 information available (a realistic scenario) can improve the discrimination of phonemes.
 
-\subsection{Further Remarks}
+\subsection*{Further Remarks}
 
 The experiments presented in this paper are inspired by the intuition that the
 proficiency of humans in speech recognition is grounded in the interaction
@@ -620,7 +551,7 @@ The AMM is a function, so one could see this technique as
 ``just a better way of extracting ASR features from speech''.
 The main advantage in using it is that it is highly bio-inspired,
 having been trained to associated human speech data to motor data. The double dissociation
-observed (see Figure S2) reflects the rather predictable phenomenon
+observed (see Figure \ref{fig:DD}) reflects the rather predictable phenomenon
 that consonant-critical articulators exhibit less variance than non-critical ones (e.g.,
 when a /b/ uttered the labial trajectory is highly constrained, as opposed to the tongue-dental
 trajectory). This results in a better prediction of bilabial (dental) trajectories when the
@@ -634,192 +565,332 @@ but on the other hand, the AMM uses the speech signal too, so it is not clear
 whether a much better reconstruction can be achieved in our case at all. A larger training
 database and more extensive experiments could shed light on this still open point.
 
-%\begin{materials}
+% You may title this section "Methods" or "Models". 
+% "Models" is not a valid title for PLoS ONE authors. However, PLoS ONE
+% authors may use "Analysis" 
 
-%\end{materials}
+\section*{Materials and Methods}\label{sec:methods}
 
-\begin{acknowledgments}
-  This work is supported by the EU-funded projects
+\subsection*{Data Set}
+\label{sec:dataset}
+
+\subsubsection*{Subjects and Set-up}
+\label{subsec:setup}
+
+Six female Italian native speakers were recorded while uttering
+Italian words and pseudo-words. Words were mainly stress-initial, e.g.,
+"matto", "nome", "strada" (mad, name, road), and were chosen in order
+to have consonants both at the beginning and in the middle of
+words, followed by different vowels and consonants.
+The data recording setup included a \emph{Laryngograph Microprocessor}
+device (Laryngograph Ltd., London, www.laryngograph.com) which gathers a speech audio
+signal and an electroglottographic (EGG) signal at $16$KHz sampling
+rate; and an AG500 electromagnetic articulograph (Carstens Medizinelektronik
+GmbH, Germany, www.articulograph.de) that records the
+3D positions of a set of sensors glued on the tongue, lips and front teeth
+during speech production at a sampling rate of $200$Hz. A full description of the 
+acquisition set-up and the obtained database can be found in \cite{tavella}.
+
+The subset used in this work comprises the $77$ words in the database
+which contain /b/, /p/, /d/ or /t/. This includes utterings from each of the
+$6$ subjects; consonants are found both at the beginning of the word or
+in the middle; and they are followed by either /a/,/e/,/i/,/o/,/u/,/r/ or /s/.
+
+
+\subsubsection*{MI-Based Signal Segmentation}
+\label{subsec:segm}
+
+We define the length of a phoneme in terms of the MI underlying its production;
+the audio signal is, therefore, segmented according to it.
+A qualitative examination of the synchronised audio and motor
+signals obtained from utterances of /b/, /p/, /d/ and /t/
+by different speakers indicates that common patterns can
+actually be found in the behaviour of the related articulators.
+For instance, as is apparent from Figure \ref{fig:isdView}, 
+recurring shapes of the lips opening velocity and acceleration appear
+when both /ba/ and /bufalo/ are considered, even when uttered by different
+speakers. The same patterns can be observed and are qualitatively clear when other
+words containing /b/ and /p/ are considered, both when the phoneme appears at the
+beginning or inside a word, and regardless of the coarticulating phoneme.
+
+These observations visually confirm the basic taxonomy of stop consonants 
+as found in any linguistics textbook. In particular, all considered consonants are plosives,
+i.e., consonants that involve a complete blockage of the oral cavity followed by a fast
+release of air. /b/ and /p/ are bilabials (blockage produced using the upper and lower lips)
+while /d/ and /t/ are dentals (blockage produced using the tongue tip and the upper teeth).
+The following motor invariants are then defined and associated with the consonants under
+examination:
+
+\begin{itemize}
+
+  \item Let $s_1(t)$ and $s_2(t)$ be the signals associated
+    with sensors placed on two phonetic actuators (e.g., the upper and
+    lower lips), and $\delta(t) = ||s_1(t)-s_2(t)||$ be their
+    Euclidean distance. Then, a plosion is defined as the interval
+    between two instants $t_{start}$ and $t_{end}$ such that
+    $\dot{\delta}(t_{start}) = 0 $ and $\ddot{\delta}(t_{start}) > 0$,
+    and $\dot{\delta}(t_{end}) > 0 $ and $\ddot{\delta}(t_{end}) = 0$.
+
+  \item For /b/ and /p/, the sensors on the upper and lower
+    lip are considered for $s_1(t)$ and $s_2(t)$, whereas for /d/ and /t/
+    those on the tongue tip and upper teeth are. In turn, the associated
+    distances will be denoted as \lio\ (lips opening) and \ttu\
+    (tongue tip - upper teeth distance). As well, the respective velocities
+    and accelerations will be denoted by \vlio, \vttu, \alio, \attu.
+
+\end{itemize}
+
+The first condition physically defines a plosion, e.g., considering \lio, $t_{start}$
+marks the onset of the act of opening the lips (null velocity, positive acceleration)
+while $t_{end}$ is found at the instant of maximum opening velocity and zero acceleration.
+The choice of cutting the signals at $t_{end}$ rather than, say, when the lips are still
+and \lio\ is maximum is motivated by the need to capture the plosion only, with as little
+as possible of the following phoneme. By manual (audio) inspection of the audio segments so
+obtained, we could actually verify that only a tiny fraction of the coarticulating phoneme
+could be heard at the end of the uttering.
+
+The second condition then selects an appropriate pair of articulators needed for the
+phoneme under consideration. This schema matches the above-mentioned taxonomy. In Figure
+\ref{fig:isdView} the gray zone indicates the detected interval of time using conditions
+$1$ and $2$. We expect that the same schema could be used to identify relevant MIs for
+other consonants, e.g., a velar plosion for /k/ and /g/ and so on --- of course, suitable
+sensors must have been in place in that case.
+
+The segmentation is carried out semi-automatically: for each
+utterance, all sequences matching the above conditions are displayed and the
+associated speech is played, so that the experimenter can choose whether the
+sequence is a correct guess or it is a false positive. In this experiment we only
+monitor \lio\ and \ttu, so that false positives appear, e.g., when considering
+/ts/ and /dz/. This is why, at this stage, a completely automatic segmentation
+cannot be enforced. If the sequence is accepted, it is labelled
+with the associated consonant, the speaker, and the
+coarticulating phoneme. For example, from the word /bronzo/ (bronze) a /b/
+sequence is extracted, and the letter "r" is stored as the coarticulating phoneme.
+This way, from the original $77$ words and pseudowords, a total
+of $1157$ audio/motor sequences are extracted, with a length of $122 \pm 41.2$
+milliseconds (mean $\pm$ one standard deviation), minimum length $50$ milliseconds,
+maximum length $335$ milliseconds.
+
+
+\subsection*{Training the Audio-Motor-Map}
+\label{subsec:amm_setup}
+
+The procedure for building the AMM closely follows that outlined in previous
+literature \cite{papcun,richmond,richmond2007} where a multi-layer perceptron
+neural network was employed to reconstruct articulators' positions from an
+audio stream. More in detail, the speech spectrogram was there used to predict,
+instant by instant, the position of the articulators of interest. Here we apply
+a similar approach to reconstruct the velocity and accelerations of \lio\ and \ttu,
+in order to avoid as much as possible taking into account physical differences
+among subjects (e.g., the width of the mouth, etc.).
+
+For each of the $1157$ audio sequences, the spectrogram is evaluated
+over $20$-milliseconds long Hamming windows (slices), using a $20$-filter
+Mel-scale filterbank between $20$Hz and $2$KHz. Each slice overlaps by $10$ milliseconds with
+the preceding slice. Each single sample of \vlio, \alio, \vttu\ and \attu\ is
+then associated to $19$ surrounding spectrogram slices, covering
+about $200$ milliseconds of speech and centered around the sample itself. With this
+"sliding spectrogram window" method, the four trajectories are completely reconstructed.
+The Mel filters, the spectrogram and (later on) the cepstral coefficients of the audio
+signal are extracted using the off-the-shelf speech recognition Matlab package
+\emph{Voicebox} \cite{Brookes1997}.
+
+About $15000$ samples are extracted from the original $1157$
+audio/motor sequences; each input sample consists of $19\cdot 20 = 380$ real
+numbers, while the output space is given by the $4$ trajectory points of
+the motor signals (see figure \ref{fig:amm}).
+A feed-forward neural network is set up in order to
+build the AMM, with $380$ input units, one hidden layer with $15$ units and
+$4$ output units; the net is trained via the Scaled Conjugate Gradient
+Descent method \cite{MOLLER93} and the activation is a logistic sigmoidal function.
+
+Training is done via early stopping on the appropriate validation set (see the previous
+Section for the details about CV). This procedure is repeated over $10$ random restarts, and then
+the network with best average performance over the $4$ output dimensions is stored.
+The performance measure is Matlab's embedded mean-square-error with regularisation
+function, in which after some initial experiments we set the regularisation
+parameter at $0.714$. This value, as well as all other parameters, have been found in
+an initial experimentation phase, by slightly altering values suggested in literature
+and/or in the Matlab manual.
+
+No sample normalisation is performed, in order to preserve the time structure of the
+spectrogram windows. Targets are normalised in order to lie within the range $[0.1,0.9]$,
+since the logistic activation function has asymptotic values of $0$ and $1$.
+
+
+\subsection*{Phone classifiers}
+\label{subsec:featset}
+
+\subsubsection*{Feature sets}
+Four different feature sets (one per each phone classifier) were compared. 
+
+``Audio'' is a set of $390$ cepstral coefficients extracted from the audio signal
+as follows. We consider a set of $25$-milliseconds long ``time slices'' of the signal.
+From each slice $13$ cepstral coefficients, plus their first- and second-order derivatives,
+are evaluated using a Mel-scale filterbank comprising $29$ filters in the bandwidth from
+$20$Hz to $2$KHz; this results in $39$ coefficients for each slice. This is a state-of-the-art
+set of features according to recent literature \cite{bourl,pinto:icassp-phnrecog:2008}
+in which the single slices are classified as belonging to a phoneme or another with a certain
+probability, and then a time-sequence probabilistic method (typically, a Hidden Markov Model)
+is used. In our case, a whole variable-length sequence must be classified, so we consider
+$10$ slices uniformly distributed across the sequence itself in order to cover it completely.
+In case the sequence is shorter than $250$ milliseconds, the slices are allowed to overlap,
+whereas in the opposite case there are gaps between them.
+
+``Real motor'' is a set of $16$ coefficients evaluated as follows: for each
+signal considered (\vlio, \alio, \vttu\ and \attu), a least-squares piecewise
+Hermite cubic interpolation is generated over the sequence. This results in $4$ real
+numbers per signal (constant, I-, II- and III-order coefficient of the cubic
+interpolant). The choice of interpolating the signal trajectories is motivated by
+the need to capture the qualitative (plosive, in this case) behaviour of the sensors
+abstracting away from, e.g., the length of the plosion, and to compactly represent it.
+Preliminary manual inspection of the trajectories has convinced us that a cubic fit
+would adequately capture their shapes.
+
+``Reconstructed motor'' refers to the same procedure as above, but applied
+to the AMM-reconstructed signal curves.
+
+Lastly, ``Joint'' denotes a decision procedure obtained by averaging out the
+label probabilities obtained from the best classifiers for the audio and
+reconstructed motor features, and then using a threshold at $0.5$.
+% Do NOT remove this, even if you are not including acknowledgments
+
+\subsubsection*{Support Vector Machine-based  classifiers}
+The classifiers are all based on a Support Vector Machine \cite{BGV92} with Gaussian kernel
+and hyperparameters $C, \sigma$ found by grid-search. Samples are normalised
+by subtracting the mean values and dividing by the standard deviations,
+dimension-wise, in the real motor and reconstructed motor cases, while
+no normalisation is applied to the audio features. The off-the-shelf SVM
+package \emph{libsvm} \cite{libsvm} has been used.
+
+Support Vector Machines output decisions but not the probabilities of their 
+decisions, i.e., the posterior probabilities. Only approximate estimations of 
+the posterior probabilities can be computed. The \emph{libsvm} implementation provides these
+estimations that are necessary for the "Joint" feature set based classifier.
+
+\section*{Acknowledgments}
+This work is supported by the EU-funded projects
   Contact (NEST 5010) and Poeticon (ICT-FP7-215843).
-\end{acknowledgments}
 
-% ---------------------------------- refs
+\section*{References}
+% The bibtex filename
+\bibliography{paperplos}
+%\end{document}
 
-% for the submission: comment out the line below, and then include the .bbl
-%\bibliographystyle{plain} \bibliography{paper}
-\begin{thebibliography}{99}
-
-\bibitem{BGV92}
-B.~E. Boser, I.~M. Guyon, and V.~N. Vapnik.
-\newblock A training algorithm for optimal margin classifiers.
-\newblock In D.~Haussler, editor, {\em Proceedings of the 5th Annual ACM
-  Workshop on Computational Learning Theory}, pages 144--152. ACM press, 1992.
-
-\bibitem{dausilio}
-A.~D'Ausilio, F.~Pulverm\"uller, P.~Salmas, I.~Bufalari, C.~Begliomini, and
-  L.~Fadiga.
-\newblock The motor somatotopy of speech perception.
-\newblock {\em Current Biology}, 19(1---5), 2009.
-
-\bibitem{galant}
-B.~Galantucci, C.~A. Fowler, and M.~T. Turvey.
-\newblock The motor theory of speech perception reviewed.
-\newblock {\em Psychonomic Bulletin and Review}, 13(3):361---377, 2006.
-
-\bibitem{hinton-2006}
-G.~E. Hinton and V.~Nair.
-\newblock Inferring motor programs from images of handwritten digits.
-\newblock In {\em Proceedings of Advances in Neural Information Processing
-  Systems}, volume~18, 2006.
-
-\bibitem{king}
-S.~King, J.~Frankel, K.~Livescu, E.~McDermott, K.~Richmond, and M.~Wester.
-\newblock Speech production knowledge in automatic speech recognition.
-\newblock {\em Journal of the Acoustical Society of America}, 121(2):723---742,
-  2007.
-
-\bibitem{liberman1}
-A.~M. Liberman, F.~S. Cooper, D.~P. Shankweiler, and M.~{Studdert-Kennedy}.
-\newblock Perception of the speech code.
-\newblock {\em Psychological Review}, 74(6):431---461, 1967.
-
-\bibitem{liberman2}
-A.~M. Liberman and I.~G. Mattingly.
-\newblock The motor theory of speech perception revised.
-\newblock {\em Cognition}, 21:1---36, 1986.
-
-\bibitem{livescu}
-K.~Livescu, J.~Glass, and J.~Bilmes.
-\newblock Hidden feature modeling for speech recognition using dynamic bayesian
-  networks.
-\newblock In {\em Proceedings of Eurospeech}, 2003.
-
-\bibitem{massaro}
-D.~W. Massaro and T.~H. Chen.
-\newblock The motor theory of speech perception revisited.
-\newblock {\em Psychonomic Bulletin and Review}, 15(2):453---457, 2008.
-
-\bibitem{metta-06}
-G.~Metta, G.~Sandini, L.~Natale, L.~Craighero, and L.~Fadiga.
-\newblock Understanding mirror neurons: a bio-robotic approach.
-\newblock {\em Interaction Studies}, 7:197--ï¿½232, 2006.
-
-\bibitem{ostendorf}
-M.~Ostendorf.
-\newblock Moving beyond the {ï¿½beads-on-a-stringï¿½} model of speech.
-\newblock In {\em Proceedings of the IEEE Automatic Speech Recognition and
-  Understanding Workshop}, 1999.
-
-\bibitem{papcun}
-G.~Papcun, J.~Hochberg, T.~R. Thomas, F.~Laroche, J.~Zacks, and S.~Levy.
-\newblock Inferring articulation and recognizing gestures from acoustics with a
-  neural network trained on {X}-ray microbeam data.
-\newblock {\em J Acoust Soc Am.}, 92(2), 1992.
-
-\bibitem{richardson}
-M.~Richardson, J.~Bilmes, and C.~Diorio.
-\newblock Hidden-articulator markov models: Performance improvements and
-  robustness to noise.
-\newblock In {\em Proceedings of the International Conference on Spoken
-  Language Processing}, 2000.
-
-\bibitem{richmond2007}
-K.~Richmond.
-\newblock Trajectory mixture density networks with multiple mixtures for
-  acoustic-articulatory inversion.
-\newblock In M.~Chetouani, A.~Hussain, B.~Gas, M.~Milgram, and J.-L. Zarader,
-  editors, {\em Advances in Nonlinear Speech Processing, International
-  Conference on Non-Linear Speech Processing, NOLISP 2007}, volume 4885 of {\em
-  Lecture Notes in Computer Science}, pages 263--272. Springer-Verlag Berlin
-  Heidelberg, December 2007.
-
-\bibitem{richmond}
-K.~Richmond, S.~King, and P.~Taylor.
-\newblock Modelling the uncertainty in recovering articulation from acoustics.
-\newblock {\em Computer Speech and Language}, 17(2):153---172, 2003.
-
-\bibitem{rose}
-R.~C. Rose, J.~Schroeter, and M.~M. Sondhi.
-\newblock The potential role of speech production models in automatic speech
-  recognition.
-\newblock {\em Journal of the Acoustical Society of America}, 99(2):153---172,
-  1996.
-
-\bibitem{stephenson}
-T.~Stephenson, H.~Bourlard, S.~Bengio, and A.~Morris.
-\newblock Automatic speech recognition using dynamic bayesian networks with
-  both acoustic and articulatory variables.
-\newblock In {\em Proceedings of the International Conference on Spoken
-  Language Processing}, 2000.
-
-\bibitem{toda}
-T.~Toda, A.~Black, and K.~Tokuda.
-\newblock Acoustic-to-articulatory inversion mapping with gaussian mixture
-  model.
-\newblock In {\em Proceedings of the International Conference on Spoken
-  Language Processing}, 2004.
-
-\bibitem{umilta-01}
-M.A. Umilt\`a, E.~Kohler, V.~Gallese, L.~Fogassi, L.~Fadiga, C.~Keysers, and
-  G.~Rizzolatti.
-\newblock I know what you are doing: A neurophysiological study.
-\newblock {\em Neuron}, 31:1--ï¿½20, 2001.
-
-\bibitem{wrench}
-A.~A. Wrench and K.~Richmond.
-\newblock Continuous speech recognition using articulatory data.
-\newblock In {\em Proceedings of the International Conference on Spoken
-  Language Processing}, 2000.
-
-\bibitem{zlokarnik}
-I.~Zlokarnik.
-\newblock Adding articulatory features to acoustic features for automatic
-  speech recognition.
-\newblock {\em Journal of the Acoustical Society of America}, 97(2):3246, 1995.
+\section*{Figure Legends}
+%\begin{figure}[!ht]
+%\begin{center}
+%%\includegraphics[width=4in]{figure_name.2.eps}
+%\end{center}
+%\caption{
+%{\bf Bold the first sentence.}  Rest of figure 2  caption.  Caption 
+%should be left justified, as specified by the options to the caption 
+%package.
+%}
+%\label{Figure_label}
+%\end{figure}
 
 
-\end{thebibliography}
-
-\end{article}
-
-% ---------------------------------- figures & tables
-
-\begin{figure}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/samples}}
-  \caption{The speech signal and motor trajectories of lips opening
-    velocity (\vlio) and acceleration (\alio) during utterances containing /b/.
-    Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
-    The gray zone denotes the detected start and ending of the plosion. All signals
-    are normalised over the indicated time frame, for visualisation purposes.}
-  \label{fig:isdView}
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=4in]{figs/samples}
+\end{center}
+\caption{{\bf The speech signal and motor trajectories of lips opening
+velocity (\vlio) and acceleration (\alio) during utterances containing /b/.}
+Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
+The gray zone denotes the detected start and ending of the plosion. All signals
+are normalised over the indicated time frame, for visualisation purposes.}
+\label{fig:isdView}
 \end{figure}
 
 \begin{figure}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/AMM}}
-  \caption{Quantitative performance of the AMM. For each cross-validation schema (overall, etc.)
-    and output signal (\vlio, etc.) the NRMSE average value and standard error of the mean
-    are reported.}
-  \label{fig:amm_perf}
+\centerline{\includegraphics[width=\textwidth]{figs/recMIs}}
+\caption{Real and AMM-reconstructed \vlio\ and \vttu\ for subject $6$ uttering
+the /t/ in \emph{accento?} (accent). Notice the apparent gap in the quality
+of the reconstruction, favouring in this case the labiodental trajectory (\vttu).}
+\label{fig:example}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=4in]{figs/AMM}
+\end{center} 
+\caption{{\bf Quantitative performance of the AMM.} For each cross-validation schema (overall, etc.)
+and output signal (\vlio, etc.) the NRMSE average value and standard error of the mean
+are reported.} \label{fig:amm_perf}
+\end{figure}
+
+\begin{figure}[t]
+\centerline{\includegraphics[width=4in]{figs/doubleDiss}}
+\caption{Double dissociation of correlation between real and AMM-reconstructed MI
+(mean and standard error of the mean). Mean coefficients are significantly
+higher for \vlio\ when ``listening'' to labials than dentals and vice-versa.
+The \overall\ CV schema is used.}
+\label{fig:DD}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=4in]{figs/exp2}
+\end{center} 
+\caption{{\bf Balanced error rate in classification of bilabials and dentals for each
+CV schema.}}
+\label{fig:class2_perf}
+% CV schema, using the four sets of features of Figure \ref{fig:class1_perf}.}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=4in]{figs/exp3}
+\end{center} 
+\caption{{\bf Balanced error rate in classification of bilabials and dentals for the
+\overall\ CV schema as noise is added.}}
+% \overall\ CV schema as noise is added, using the sets of features of Figure
+% \ref{fig:class2_perf}.}
+\label{fig:class3_perf}
+\end{figure}
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=4in]{figs/samples}
+\end{center}
+\caption{The speech signal and motor trajectories of lips opening
+velocity (\vlio) and acceleration (\alio) during utterances containing /b/.
+Left to right: /ba/, subject $5$; /ba/, subject $2$; and /bufalo/, subject $5$.
+The gray zone denotes the detected start and ending of the plosion. All signals
+are normalised over the indicated time frame, for visualisation purposes.}
+\label{fig:isdView}
+\end{figure}
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=4in]{figs/audio2motor}
+\end{center}
+\caption{From speech signal to reconstructed motor information. To reconstruct
+a single sample of \vlio, \alio, \vttu\ and \attu\ at time $t_i$ the
+spectrogram of nineteen $20$-millisecond long Hamming windows is evaluated.
+One window is centered at time $t_i$, $9$ windows precede it
+and $9$ windows follow it. Each window overlaps by $10$ milliseconds
+with the preceding window. The spectrogram is computed by using a
+$20$-filter Mel-scale filterbank.}
+\label{fig:amm}
 \end{figure}
 
 
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/exp2}}
-  \caption{Balanced error rate in classification of bilabials and dentals for each
-    CV schema.}
-%    CV schema, using the four sets of features of Figure \ref{fig:class1_perf}.}
-  \label{fig:class2_perf}
-\end{figure}
 
-\begin{figure}[t]
-  \centerline{\includegraphics[width=\textwidth]{figs/exp3}}
-  \caption{Balanced error rate in classification of bilabials and dentals for the
-    \overall\ CV schema as noise is added.}
-%    \overall\ CV schema as noise is added, using the sets of features of Figure
-%    \ref{fig:class2_perf}.}
-  \label{fig:class3_perf}
-\end{figure}
 
+%\section*{Tables}
+%\begin{table}[!ht]
+%\caption{
+%\bf{Table title}}
+%\begin{tabular}{|c|c|c|}
+%table information
+%\end{tabular}
+%\begin{flushleft}Table caption
+%\end{flushleft}
+%\label{tab:label}
+% \end{table}
 
 \end{document}
+
