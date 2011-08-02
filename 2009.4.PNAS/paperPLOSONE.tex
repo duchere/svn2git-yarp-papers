@@ -18,7 +18,7 @@
 % graphicx package, useful for including eps and pdf graphics
 % include graphics with the command \includegraphics
 \usepackage[dvips]{graphicx}
-
+\usepackage{epstopdf}
 % cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
 
@@ -199,9 +199,14 @@ Subsequently, a simple regression method (namely, a feed-forward neural network)
 to build an Audio-Motor Map (AMM), which converts audio features of the isolated segment to
 features of the related MI. At an abstract level, the AMM is a mathematical proxy of a mirror
 structure \cite{umilta-01,kroger}, reconstructing the distal speaker's \emph{speech act} while
-listening to the related piece of speech. According to a widely accepted account on the dorsal-ventral partioning of the brain auditory system \cite{hickok-00,hickok-04} the AMM is located in the dorsal stream, which projects dorso-posteriorly toward the parietal lobe and ultimately to frontal regions (note that the localization of the AMM in the cerebral processing system does not necessarly imply a critical role of the AMM in speech perception \cite{hickok-04,hickok-11})
+listening to the related fragment of speech. According to a widely accepted account on the 
+dorsal-ventral partitioning of the brain auditory system \cite{hickok-00,hickok-04} the AMM would be located 
+in the dorsal stream, receiving input from the superior temporal gyrus (STG) projecting to the posterior 
+parietal cortex and then to frontal regions (e.g. Broca's area) (note that the localization of the AMM in 
+the brain does not necessarly imply a critical role of the AMM in speech perception, it might 
+be critical for the speech learning phase only \cite{hickok-04,hickok-11}).
 
-To test the approach, we devise three experiments involving a classifier in the form of a
+To test the approach, we devised three experiments involving a classifier in the form of a
 Support Vector Machine \cite{BGV92}. The main question is: can the use of MI-based features,
 either those recorded in the database (the ``real'' motor features) or the AMM-reconstructed
 ones (a more ecological scenario), improve the classifier's performance?
@@ -784,7 +789,7 @@ database and more extensive experiments could shed light on this still open poin
 
 \begin{figure}[ht]
 \begin{center}
-%\includegraphics[width=4in]{castellini_PLOSCB/samples}
+%\includegraphics[width=4in]{figs/samples.eps}
 \end{center}
 \caption{{\bf Speech signal and motor trajectories.}The speech signal and motor trajectories 
 (smoothed using a moving average filter) of lips opening
@@ -797,7 +802,7 @@ are normalized over the indicated time frame, for visualization purposes.}
 
 \begin{figure}[t]
 \begin{center}
-%\includegraphics[width=4in]{audio2motor}
+%\includegraphics[width=4in]{figs/audio2motor.eps}
 \end{center}
 \caption{{\bf From speech signal to reconstructed motor information.} The AMM is first trained on training speech data and then used, during testing, to reconstruct motor information from the testing speech data. To reconstruct a single sample of \vlio, \alio, \vttu\ and \attu\ at time $t_i$ the
 spectrogram of nineteen $20$-millisecond long Hamming windows is evaluated.
@@ -810,7 +815,7 @@ $20$-filter Mel-scale filterbank.}
 
 \begin{figure}[ht]
 \begin{center}
-%\includegraphics[width=4in]{AMM}
+%\includegraphics[width=4in]{figs/AMM.eps}
 \end{center} 
 \caption{{\bf Quantitative performance of the AMM.} For each cross-validation schema (overall, etc.)
 and output signal (\vlio, etc.) the NRMSE average value and standard error of the mean
@@ -818,7 +823,7 @@ are reported.} \label{fig:amm_perf}
 \end{figure}
 
 \begin{figure}[t]
-%\centerline{\includegraphics[width=4in]{recMIs}}
+%\centerline{\includegraphics[width=4in]{figs/recMIs.eps}}
 \caption{{\bf Real and AMM-reconstructed motor features.} Real and AMM-reconstructed \vlio\ and \vttu\ for subject $6$ uttering
 the /t/ in \emph{accento?} (accent). Notice the apparent gap in the quality
 of the reconstruction, favoring in this case the labiodental trajectory (\vttu).}
@@ -826,7 +831,7 @@ of the reconstruction, favoring in this case the labiodental trajectory (\vttu).
 \end{figure}
 
 \begin{figure}[t]
-%\centerline{\includegraphics[width=4in]{doubleDiss}}
+%\centerline{\includegraphics[width=4in]{figs/doubleDiss.eps}}
 \caption{{\bf Double dissociation.} Double dissociation of correlation between real and AMM-reconstructed MI
 (mean and standard error of the mean). Mean coefficients are significantly
 higher for \vlio\ when ``listening'' to labials than dentals and vice-versa.
@@ -836,7 +841,7 @@ The \overall\ CV schema is used.}
 
 \begin{figure}[ht]
 \begin{center}
-%\includegraphics[width=4in]{exp2}
+%\includegraphics[width=4in]{figs/exp2.eps}
 \end{center} 
 \caption{ {\bf Results of experiment 1 and 2.} Balanced error rate in classification of bilabials and dentals for each
 CV schema.}
@@ -846,7 +851,7 @@ CV schema.}
 
 \begin{figure}[ht]
 \begin{center}
-%\includegraphics[width=4in]{exp3}
+%\includegraphics[width=4in]{figs/newaudio2motor.eps}
 \end{center} 
 \caption{{\bf Results of experiment 3.} Balanced error rate in classification of bilabials and dentals for the
 \overall\ CV schema as noise is added.}
